@@ -2,17 +2,17 @@ import { DdragonAPI } from "../src/DdragonAPI";
 
 describe("Ddragon ", () => {
   let ddragonAPI: DdragonAPI;
-  const targets: Array<Array<string>> = [
-    ["champion.json"],
-    ["item.json"],
-    ["summoner.json"],
-    ["champion/Aatrox.json"],
-  ];
 
   beforeEach(() => {
     ddragonAPI = new DdragonAPI();
   });
 
+  const targets: string[] = [
+    "data/fr_FR/champion.json",
+    "data/fr_FR/item.json",
+    "data/fr_FR/summoner.json",
+    "data/fr_FR/champion/Aatrox.json",
+  ];
   it.each(targets)("%s json not empty", async (target: string) => {
     const data = await ddragonAPI.loadJson(target);
     expect(data).toBeDefined();
@@ -22,5 +22,19 @@ describe("Ddragon ", () => {
   it.each(targets)("good url status", async (target: string) => {
     const response = await ddragonAPI.access(target);
     expect(response.status).toBe(200);
+  });
+
+  const imageTargets: string[] = [
+    "img/spell/SummonerFlash.png",
+    "img/item/1001.png",
+    "img/champion/Aatrox.png",
+    "img/passive/Anivia_P.png",
+    "img/spell/FlashFrost.png",
+  ];
+
+  it.each(imageTargets)("good url status", async (imageTarget: string) => {
+    const response = await ddragonAPI.access(imageTarget);
+    expect(response.status).toBe(200);
+    expect(response.headers.get("content-type")).toMatch(/image\/png/);
   });
 });
