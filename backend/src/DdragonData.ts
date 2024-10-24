@@ -1,27 +1,15 @@
-import * as fs from "fs";
-
-export async function getChampions() {
-  const response = await connectUrl();
-
-  const data = await response.json();
-
-  return data;
-}
-
-export async function connectUrl() {
-  const response = await fetch(
-    "https://ddragon.leagueoflegends.com/cdn/14.21.1/data/en_US/champion.json",
-  );
+export async function connect(url: string) {
+  const response = await fetch(url);
 
   return response;
 }
 
-export function saveJson(data: JSON, path: string) {
-  const dirPath = path.substring(0, path.lastIndexOf("/"));
+export async function getChampions() {
+  const url =
+    "https://ddragon.leagueoflegends.com/cdn/14.21.1/data/fr_FR/champion.json";
+  const response = await connect(url);
 
-  if (!fs.existsSync(dirPath)) {
-    fs.mkdirSync(dirPath, { recursive: true });
-  }
+  const data = await response.json();
 
-  fs.writeFileSync(path, JSON.stringify(data, null, 2));
+  return data;
 }

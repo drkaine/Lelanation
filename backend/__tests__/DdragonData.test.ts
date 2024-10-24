@@ -1,6 +1,4 @@
-import { getChampions, connectUrl, saveJson } from "../src/DdragonData";
-import * as fs from "fs";
-import * as path from "path";
+import { getChampions, connect } from "../src/DdragonData";
 
 describe("Ddragon ", () => {
   it("champions json not empty", async () => {
@@ -9,33 +7,10 @@ describe("Ddragon ", () => {
     expect(Object.keys(data).length).toBeGreaterThan(0);
   });
 
-  it("good champions url status", async () => {
-    const response = await connectUrl();
+  it("good url status", async () => {
+    const url =
+      "https://ddragon.leagueoflegends.com/cdn/14.21.1/data/fr_FR/champion.json";
+    const response = await connect(url);
     expect(response.status).toBe(200);
-  });
-
-  it("create champions files", () => {
-    const jsonData: string = JSON.stringify({ key: "value" });
-    const filePath = path.join(__dirname, "/files", "champions.json");
-
-    saveJson(JSON.parse(jsonData), filePath);
-
-    expect(fs.existsSync(filePath)).toBe(true);
-
-    fs.unlinkSync(filePath);
-  });
-
-  it("create file folder", () => {
-    const jsonData: string = JSON.stringify({ key: "value" });
-    const filePath = path.join(__dirname, "/file", "champions.json");
-    const dirPath = path.join(__dirname, "/file");
-
-    saveJson(JSON.parse(jsonData), filePath);
-
-    expect(fs.existsSync(filePath)).toBe(true);
-
-    fs.unlinkSync(filePath);
-
-    fs.rmdirSync(dirPath);
   });
 });
