@@ -21,7 +21,7 @@ describe("Create ", () => {
 
     saveJson(JSON.parse(jsonData), filePath);
 
-    expect(fs.existsSync(filePath)).toBe(true);
+    expect(fs.existsSync(dirPath)).toBe(true);
 
     fs.unlinkSync(filePath);
 
