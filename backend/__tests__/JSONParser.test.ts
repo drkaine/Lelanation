@@ -1,16 +1,23 @@
-import { obtainChampionsName } from "../src/JSONParser";
+import { obtainKey } from "../src/JSONParser";
 
 describe("Parse ", () => {
-  it("champion file for extract name", async () => {
-    const championsNames = await obtainChampionsName();
+  const paths: string[] = [
+    "files/fr_FR/champion.json",
+    "files/fr_FR/item.json",
+    "files/fr_FR/summoner.json",
+    "files/fr_FR/champion/Aatrox.json",
+  ];
 
-    expect(Array.isArray(championsNames)).toBe(true);
+  it.each(paths)("%s file for extract name", async (path: string) => {
+    const keys = await obtainKey(path);
 
-    championsNames.forEach((name) => {
-      expect(typeof name).toBe("string");
+    expect(Array.isArray(keys)).toBe(true);
+
+    keys.forEach((key) => {
+      expect(typeof key).toBe("string");
     });
 
-    const expectedLength = 140;
-    expect(championsNames.length).toBeGreaterThanOrEqual(expectedLength);
+    const expectedLength = 1;
+    expect(keys.length).toBeGreaterThanOrEqual(expectedLength);
   });
 });
