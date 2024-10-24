@@ -1,3 +1,5 @@
+import * as fs from "fs";
+
 export async function getChampions() {
   const response = await connectUrl();
 
@@ -15,7 +17,11 @@ export async function connectUrl() {
 }
 
 export function saveJson(data: JSON, path: string) {
-    const fs = require('fs');
+  const dirPath = path.substring(0, path.lastIndexOf("/"));
 
-    fs.writeFileSync(path, JSON.stringify(data, null, 2));
+  if (!fs.existsSync(dirPath)) {
+    fs.mkdirSync(dirPath, { recursive: true });
+  }
+
+  fs.writeFileSync(path, JSON.stringify(data, null, 2));
 }

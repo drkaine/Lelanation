@@ -1,6 +1,6 @@
 import { getChampions, connectUrl, saveJson } from "../src/DdragonData";
-import * as fs from 'fs';
-import * as path from 'path';
+import * as fs from "fs";
+import * as path from "path";
 
 describe("Ddragon ", () => {
   it("champions json not empty", async () => {
@@ -14,14 +14,28 @@ describe("Ddragon ", () => {
     expect(response.status).toBe(200);
   });
 
-  it('create champions files', () => {
-    const jsonData: string = JSON.stringify({ key: 'value' }); 
-    const filePath = path.join(__dirname, '/files', 'champions.json');
+  it("create champions files", () => {
+    const jsonData: string = JSON.stringify({ key: "value" });
+    const filePath = path.join(__dirname, "/files", "champions.json");
 
     saveJson(JSON.parse(jsonData), filePath);
 
     expect(fs.existsSync(filePath)).toBe(true);
 
     fs.unlinkSync(filePath);
+  });
+
+  it("create file folder", () => {
+    const jsonData: string = JSON.stringify({ key: "value" });
+    const filePath = path.join(__dirname, "/file", "champions.json");
+    const dirPath = path.join(__dirname, "/file");
+
+    saveJson(JSON.parse(jsonData), filePath);
+
+    expect(fs.existsSync(filePath)).toBe(true);
+
+    fs.unlinkSync(filePath);
+
+    fs.rmdirSync(dirPath);
   });
 });
