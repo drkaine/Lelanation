@@ -13,3 +13,9 @@ export async function connectUrl() {
 
   return response;
 }
+
+export function saveJson(data: JSON, path: string) {
+    const fs = require('fs');
+
+    fs.writeFileSync(path, JSON.stringify(data, null, 2));
+}
