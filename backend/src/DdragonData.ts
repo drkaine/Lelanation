@@ -23,3 +23,13 @@ export async function getItems() {
 
   return data;
 }
+
+export async function getsSummoners() {
+  const url =
+    "https://ddragon.leagueoflegends.com/cdn/14.21.1/data/fr_FR/summoner.json";
+  const response = await connect(url);
+
+  const data = await response.json();
+
+  return data;
+}
