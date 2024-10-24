@@ -13,3 +13,13 @@ export async function getChampions() {
 
   return data;
 }
+
+export async function getItems() {
+  const url =
+    "https://ddragon.leagueoflegends.com/cdn/14.21.1/data/fr_FR/item.json";
+  const response = await connect(url);
+
+  const data = await response.json();
+
+  return data;
+}

@@ -1,8 +1,14 @@
-import { getChampions, connect } from "../src/DdragonData";
+import { getChampions, connect, getItems } from "../src/DdragonData";
 
 describe("Ddragon ", () => {
   it("champions json not empty", async () => {
     const data = await getChampions();
+    expect(data).toBeDefined();
+    expect(Object.keys(data).length).toBeGreaterThan(0);
+  });
+
+  it("items json not empty", async () => {
+    const data = await getItems();
     expect(data).toBeDefined();
     expect(Object.keys(data).length).toBeGreaterThan(0);
   });
