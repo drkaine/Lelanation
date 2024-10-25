@@ -2,10 +2,10 @@ import { obtainKey } from "../src/JSONParser";
 
 describe("Parse ", () => {
   const paths: string[] = [
-    "files/fr_FR/champion.json",
-    "files/fr_FR/item.json",
-    "files/fr_FR/summoner.json",
-    "files/fr_FR/champion/Aatrox.json",
+    "frontend/src/assets/files/champion.json",
+    "frontend/src/assets/files/item.json",
+    "frontend/src/assets/files/summoner.json",
+    "frontend/src/assets/files/champion/Aatrox.json",
   ];
 
   it.each(paths)("%s file for extract name", async (path: string) => {
