@@ -1,56 +1,45 @@
-import { saveJSON, savePNG } from "../src/FileManager";
+import { save } from "../src/FileManager";
 import * as fs from "fs";
 import * as path from "path";
 
-describe("Create JSON", () => {
-  it("files", () => {
-    const jsonData: string = JSON.stringify({ key: "value" });
-    const filePath = path.join(__dirname, "/files", "test.json");
+describe("Create", () => {
+  let dirPath: string;
+  let filePath: string;
 
-    saveJSON(JSON.parse(jsonData), filePath);
-
-    expect(fs.existsSync(filePath)).toBe(true);
-
-    fs.unlinkSync(filePath);
+  beforeEach(() => {
+    dirPath = path.join(__dirname, "/files");
+    filePath = path.join(__dirname, "/files", "test");
   });
 
-  it("folder", () => {
-    const jsonData: string = JSON.stringify({ key: "value" });
-    const filePath = path.join(__dirname, "/test", "test.json");
-    const dirPath = path.join(__dirname, "/test");
+  const datas = [
+    [JSON.parse(JSON.stringify({ key: "value" })), ".json"],
+    [Buffer.from([137, 80, 78, 71, 13, 10, 26, 10]), ".png"],
+  ];
 
-    saveJSON(JSON.parse(jsonData), filePath);
+  it.each(datas)(
+    "%s file",
+    async (data: string | Buffer, extension: string) => {
+      filePath = filePath + extension;
 
-    expect(fs.existsSync(dirPath)).toBe(true);
+      save(JSON.stringify(data), filePath);
 
-    fs.unlinkSync(filePath);
+      expect(fs.existsSync(filePath)).toBe(true);
 
-    fs.rmdirSync(dirPath);
-  });
-});
+      fs.unlinkSync(filePath);
+    },
+  );
 
-describe("Create PNG", () => {
-  it("files", () => {
-    const pngData: Buffer = Buffer.from([137, 80, 78, 71, 13, 10, 26, 10]);
-    const filePath = path.join(__dirname, "/files", "test.png");
+  it.each(datas)(
+    "%s folder",
+    async (data: string | Buffer, extension: string) => {
+      filePath = filePath + extension;
 
-    fs.writeFileSync(filePath, pngData);
+      save(JSON.stringify(data), filePath);
 
-    expect(fs.existsSync(filePath)).toBe(true);
+      expect(fs.existsSync(dirPath)).toBe(true);
 
-    fs.unlinkSync(filePath);
-  });
-
-  it("folder", () => {
-    const pngData: Buffer = Buffer.from([137, 80, 78, 71, 13, 10, 26, 10]);
-    const filePath = path.join(__dirname, "/test", "test.png");
-    const dirPath = path.join(__dirname, "/test");
-
-    savePNG(pngData, filePath);
-
-    expect(fs.existsSync(dirPath)).toBe(true);
-
-    fs.unlinkSync(filePath);
-    fs.rmdirSync(dirPath);
-  });
+      fs.unlinkSync(filePath);
+      fs.rmdirSync(dirPath);
+    },
+  );
 });
