@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
+    "start": "npx ts-node src/app.ts",
     "test": "jest",
     "clean": "npm run lint && npm run format && npm run test",
     "lint": "eslint .",
