@@ -390,35 +390,4 @@ const filterChampionsByName = () => {
   </div>
 </template>
 
-<style scoped>
-.type-champs {
-  display: block;
-  background-color: rgba(0, 0, 0, 0.8);
-  color: white;
-  border-radius: 5px;
-  padding: 10px;
-  z-index: 1000;
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  pointer-events: none;
-}
-
-.type-champs box {
-  display: block;
-  background-color: rgba(0, 0, 0, 0.8);
-  color: white;
-  border-radius: 5px;
-  padding: 10px;
-  z-index: 1000;
-}
-
-.type-champs {
-  position: relative;
-}
-
-.champion-item {
-  position: relative;
-}
-</style>
+<style scoped></style>
