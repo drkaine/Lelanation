@@ -1,60 +1,21 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
-import champions from '@/assets/files/champion.json'
+import { Filter } from './Filter'
 
 const searchQuery = ref<string>('')
-const championData = ref<
-  Array<(typeof champions.data)[keyof typeof champions.data]>
->([])
-const filteredChampions = ref<
-  Array<(typeof champions.data)[keyof typeof champions.data]>
->([])
-const selectedTag = ref<string[]>([])
+const filterInstance = new Filter()
 
 onMounted(() => {
-  championData.value = Object.values(champions.data)
-  filteredChampions.value = Object.values(champions.data)
+  filterInstance.filteredChampions.value = filterInstance.championData
 })
 
 const filterChampions = (tag: string) => {
-  if (tag === '') {
-    filteredChampions.value = championData.value
-    selectedTag.value = []
-    return
-  }
-
-  if (selectedTag.value.includes(tag)) {
-    selectedTag.value = selectedTag.value.filter(t => t !== tag)
-  } else {
-    selectedTag.value.push(tag)
-  }
-
-  if (selectedTag.value.length === 0) {
-    filteredChampions.value = championData.value
-  } else {
-    filteredChampions.value = championData.value.filter(champion =>
-      selectedTag.value.every(selectedTag =>
-        champion.tags.includes(selectedTag),
-      ),
-    )
-  }
+  filterInstance.filterChampions(tag)
 }
 
 const filterChampionsByName = () => {
-  if (searchQuery.value === '') {
-    filteredChampions.value = championData.value.filter(
-      champion =>
-        selectedTag.value.length === 0 ||
-        selectedTag.value.some(tag => champion.tags.includes(tag)),
-    )
-  } else {
-    filteredChampions.value = championData.value.filter(
-      champion =>
-        champion.name.toLowerCase().includes(searchQuery.value.toLowerCase()) &&
-        (selectedTag.value.length === 0 ||
-          selectedTag.value.some(tag => champion.tags.includes(tag))),
-    )
-  }
+  filterInstance.searchQuery = searchQuery.value
+  filterInstance.filterChampionsByName()
 }
 </script>
 
@@ -102,7 +63,9 @@ const filterChampionsByName = () => {
                 <button
                   data-v-27037513=""
                   data-v-6024a556=""
-                  :class="{ selected: selectedTag.includes('Assassin') }"
+                  :class="{
+                    selected: filterInstance.selectedTag.includes('Assassin'),
+                  }"
                   @click="filterChampions('Assassin')"
                 >
                   Assassin
@@ -110,7 +73,9 @@ const filterChampionsByName = () => {
                 <button
                   data-v-27037513=""
                   data-v-6024a556=""
-                  :class="{ selected: selectedTag.includes('Fighter') }"
+                  :class="{
+                    selected: filterInstance.selectedTag.includes('Fighter'),
+                  }"
                   @click="filterChampions('Fighter')"
                 >
                   Combattant
@@ -118,7 +83,9 @@ const filterChampionsByName = () => {
                 <button
                   data-v-27037513=""
                   data-v-6024a556=""
-                  :class="{ selected: selectedTag.includes('Mage') }"
+                  :class="{
+                    selected: filterInstance.selectedTag.includes('Mage'),
+                  }"
                   @click="filterChampions('Mage')"
                 >
                   Mage
@@ -126,7 +93,9 @@ const filterChampionsByName = () => {
                 <button
                   data-v-27037513=""
                   data-v-6024a556=""
-                  :class="{ selected: selectedTag.includes('Marksman') }"
+                  :class="{
+                    selected: filterInstance.selectedTag.includes('Marksman'),
+                  }"
                   @click="filterChampions('Marksman')"
                 >
                   Tireur
@@ -134,7 +103,9 @@ const filterChampionsByName = () => {
                 <button
                   data-v-27037513=""
                   data-v-6024a556=""
-                  :class="{ selected: selectedTag.includes('Support') }"
+                  :class="{
+                    selected: filterInstance.selectedTag.includes('Support'),
+                  }"
                   @click="filterChampions('Support')"
                 >
                   Support
@@ -142,7 +113,9 @@ const filterChampionsByName = () => {
                 <button
                   data-v-27037513=""
                   data-v-6024a556=""
-                  :class="{ selected: selectedTag.includes('Tank') }"
+                  :class="{
+                    selected: filterInstance.selectedTag.includes('Tank'),
+                  }"
                   @click="filterChampions('Tank')"
                 >
                   Tank
@@ -161,7 +134,8 @@ const filterChampionsByName = () => {
                 data-v-45896cfe=""
                 data-v-6024a556=""
                 class="tooltip"
-                v-for="(champion, index) in filteredChampions"
+                v-for="(champion, index) in filterInstance.filteredChampions
+                  .value"
                 :key="index"
               >
                 <button data-v-6024a556="" data-v-de17e6dc-s="" class="champ">
@@ -206,7 +180,17 @@ const filterChampionsByName = () => {
                     </div>
                     <div data-v-de17e6dc="" data-v-de17e6dc-s="" class="tags">
                       <div data-v-de17e6dc="" data-v-de17e6dc-s="" class="tag">
-                        {{ champion.tags }}
+                        {{
+                          champion.tags
+                            .map((tag: string) =>
+                              tag === 'Fighter'
+                                ? 'Combattant'
+                                : tag === 'Marksman'
+                                  ? 'Tireur'
+                                  : tag,
+                            )
+                            .join(', ')
+                        }}
                       </div>
                     </div>
                   </div>
@@ -241,8 +225,8 @@ const filterChampionsByName = () => {
                             class="desc"
                           >
                             Periodically, Aatrox's next basic attack deals bonus
-                            <physicaldamage>physical damage</physicaldamage>
-                            and heals him, based on the target's max health.
+                            physical damage and heals him, based on the target's
+                            max health.
                           </div>
                         </div>
                         <div
