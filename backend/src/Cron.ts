@@ -1,7 +1,7 @@
 import path from "path";
 import { DdragonAPI } from "./DdragonAPI";
 import { save } from "./FileManager";
-import { obtainKey } from "./JSONParser";
+import { obtainKey, parseChampionsData } from "./JSONParser";
 
 const targets: string[] = [
   "data/fr_FR/champion.json",
@@ -38,4 +38,12 @@ export async function specific() {
     );
     save(JSON.stringify(data), filePath);
   });
+}
+
+export async function mergeData() {
+  const championsDirectory = path.join(
+    __dirname,
+    "../../frontend/src/assets/files/champion",
+  );
+  await parseChampionsData(championsDirectory);
 }
