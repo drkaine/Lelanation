@@ -21,9 +21,12 @@ const filterChampionsByName = () => {
 const selectedChampionImage = ref('')
 const selectedChampionName = ref('')
 
-const selectChampion = (champion: { image: { full: string }; id: string }) => {
+const selectChampion = (champion: {
+  image: { full: string }
+  name: string
+}) => {
   selectedChampionImage.value = champion.image.full
-  selectedChampionName.value = champion.id
+  selectedChampionName.value = champion.name
 }
 </script>
 
@@ -154,183 +157,9 @@ const selectChampion = (champion: { image: { full: string }; id: string }) => {
                     'https://ddragon.leagueoflegends.com/cdn/14.21.1/img/champion/' +
                     champion.image.full
                   "
-                  alt="{{champion.id}}"
+                  alt="{{champion.name}}"
                 />
               </button>
-              <div data-v-de17e6dc="" class="type-champs box">
-                <div data-v-de17e6dc="" data-v-de17e6dc-s="" class="header">
-                  <div data-v-de17e6dc="" data-v-de17e6dc-s="" class="info">
-                    <img
-                      data-v-de17e6dc=""
-                      data-v-de17e6dc-s=""
-                      class="img"
-                      :src="
-                        'https://ddragon.leagueoflegends.com/cdn/14.21.1/img/champion/' +
-                        champion.image.full
-                      "
-                    />
-                    <div data-v-de17e6dc="" data-v-de17e6dc-s="" class="text">
-                      <div data-v-de17e6dc="" data-v-de17e6dc-s="" class="name">
-                        {{ champion.id }}
-                      </div>
-                      <div
-                        data-v-de17e6dc=""
-                        data-v-de17e6dc-s=""
-                        class="title"
-                      >
-                        {{ champion.title }}
-                      </div>
-                    </div>
-                  </div>
-                  <div data-v-de17e6dc="" data-v-de17e6dc-s="" class="tags">
-                    <div data-v-de17e6dc="" data-v-de17e6dc-s="" class="tag">
-                      {{
-                        champion.tags
-                          .map((tag: string) =>
-                            tag === 'Fighter'
-                              ? 'Combattant'
-                              : tag === 'Marksman'
-                                ? 'Tireur'
-                                : tag,
-                          )
-                          .join(', ')
-                      }}
-                    </div>
-                  </div>
-                </div>
-                <div data-v-de17e6dc="" class="body">
-                  <hr data-v-de17e6dc="" />
-                  <div
-                    data-v-45896cfe=""
-                    data-v-de17e6dc-s=""
-                    class="champ-block"
-                  >
-                    <div data-v-45896cfe="" data-v-de17e6dc-s="" class="spells">
-                      <div
-                        data-v-45896cfe=""
-                        data-v-de17e6dc-s=""
-                        class="spell"
-                      >
-                        <div
-                          data-v-45896cfe=""
-                          data-v-de17e6dc-s=""
-                          class="img passive"
-                        >
-                          <img data-v-45896cfe="" data-v-de17e6dc-s="" />
-                          <!-- src="/data/img/champions/spells/266-p.png" -->
-                        </div>
-                        <div
-                          data-v-45896cfe=""
-                          data-v-de17e6dc-s=""
-                          class="desc"
-                        >
-                          Periodically, Aatrox's next basic attack deals bonus
-                          physical damage and heals him, based on the target's
-                          max health.
-                        </div>
-                      </div>
-                      <div
-                        data-v-45896cfe=""
-                        data-v-de17e6dc-s=""
-                        class="spell"
-                      >
-                        <div
-                          data-v-45896cfe=""
-                          data-v-de17e6dc-s=""
-                          class="img"
-                        >
-                          <img data-v-45896cfe="" data-v-de17e6dc-s="" />
-                          <!-- src="/data/img/champions/spells/266-0.png" -->
-                        </div>
-                        <div
-                          data-v-45896cfe=""
-                          data-v-de17e6dc-s=""
-                          class="desc"
-                        >
-                          Aatrox slams his greatsword down, dealing physical
-                          damage. He can swing three times, each with a
-                          different area of effect.
-                        </div>
-                      </div>
-                      <div
-                        data-v-45896cfe=""
-                        data-v-de17e6dc-s=""
-                        class="spell"
-                      >
-                        <div
-                          data-v-45896cfe=""
-                          data-v-de17e6dc-s=""
-                          class="img"
-                        >
-                          <img data-v-45896cfe="" data-v-de17e6dc-s="" />
-                          <!-- src="/data/img/champions/spells/266-1.png" -->
-                        </div>
-                        <div
-                          data-v-45896cfe=""
-                          data-v-de17e6dc-s=""
-                          class="desc"
-                        >
-                          Aatrox smashes the ground, dealing damage to the first
-                          enemy hit. Champions and large monsters have to leave
-                          the impact area quickly or they will be dragged to the
-                          center and take the damage again.
-                        </div>
-                      </div>
-                      <div
-                        data-v-45896cfe=""
-                        data-v-de17e6dc-s=""
-                        class="spell"
-                      >
-                        <div
-                          data-v-45896cfe=""
-                          data-v-de17e6dc-s=""
-                          class="img"
-                        >
-                          <img data-v-45896cfe="" data-v-de17e6dc-s="" />
-                          <!-- src="/data/img/champions/spells/266-2.png" -->
-                        </div>
-                        <div
-                          data-v-45896cfe=""
-                          data-v-de17e6dc-s=""
-                          class="desc"
-                        >
-                          Passively, Aatrox heals when damaging enemy champions.
-                          On activation, he dashes in a direction.
-                        </div>
-                      </div>
-                      <div
-                        data-v-45896cfe=""
-                        data-v-de17e6dc-s=""
-                        class="spell"
-                      >
-                        <div
-                          data-v-45896cfe=""
-                          data-v-de17e6dc-s=""
-                          class="img"
-                        >
-                          <img data-v-45896cfe="" data-v-de17e6dc-s="" />
-                          <!-- src="/data/img/champions/spells/266-3.png" -->
-                        </div>
-                        <div
-                          data-v-45896cfe=""
-                          data-v-de17e6dc-s=""
-                          class="desc"
-                        >
-                          Aatrox unleashes his demonic form, fearing nearby
-                          enemy minions and gaining attack damage, increased
-                          healing, and Move Speed. If he gets a takedown, this
-                          effect is extended.
-                        </div>
-                      </div>
-                      <div
-                        data-v-45896cfe=""
-                        data-v-de17e6dc-s=""
-                        class="break"
-                      ></div>
-                    </div>
-                  </div>
-                </div>
-              </div>
             </div>
           </div>
         </div>
@@ -355,7 +184,7 @@ const selectChampion = (champion: { image: { full: string }; id: string }) => {
                   v-if="selectedChampionImage"
                   data-v-6024a556=""
                   data-v-de17e6dc-s=""
-                  alt="{{champion.id}}"
+                  alt="{{champion.name}}"
                   :src="
                     'https://ddragon.leagueoflegends.com/cdn/14.21.1/img/champion/' +
                     selectedChampionImage
