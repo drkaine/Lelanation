@@ -17,6 +17,14 @@ const filterChampionsByName = () => {
   filterInstance.searchQuery = searchQuery.value
   filterInstance.filterChampionsByName()
 }
+
+const selectedChampionImage = ref('')
+const selectedChampionName = ref('')
+
+const selectChampion = (champion: { image: { full: string }; id: string }) => {
+  selectedChampionImage.value = champion.image.full
+  selectedChampionName.value = champion.id
+}
 </script>
 
 <template>
@@ -137,6 +145,7 @@ const filterChampionsByName = () => {
                 v-for="(champion, index) in filterInstance.filteredChampions
                   .value"
                 :key="index"
+                @click="selectChampion(champion)"
               >
                 <button data-v-6024a556="" data-v-de17e6dc-s="" class="champ">
                   <img
@@ -346,13 +355,24 @@ const filterChampionsByName = () => {
                 data-v-7a29d415=""
                 class="tooltip"
               >
-                <div
-                  data-v-92fb197b=""
-                  data-v-de17e6dc-s=""
-                  class="champion hide"
-                ></div>
+                <div data-v-92fb197b="" data-v-de17e6dc-s="" 
+                :class="['champion', { hide: !selectedChampionImage }]"
+                >
+                  <img
+                    v-if="selectedChampionImage"
+                    data-v-6024a556=""
+                    data-v-de17e6dc-s=""
+                    alt="{{champion.id}}"
+                    :src="
+                      'https://ddragon.leagueoflegends.com/cdn/14.21.1/img/champion/' +
+                      selectedChampionImage
+                    "
+                  />
+                </div>
               </div>
-              <div data-v-7a29d415="" class="name hide">&nbsp;</div>
+              <div data-v-7a29d415="" class="name" v-if="selectedChampionName">
+                {{ selectedChampionName }}
+              </div>
               <hr data-v-7a29d415="" class="hide" />
               <hr data-v-7a29d415="" class="hide" />
               <div data-v-7a29d415="" class="itemsGroup">
