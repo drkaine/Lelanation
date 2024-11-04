@@ -227,8 +227,78 @@
   background-color: var(--slate-2);
 }
 
+.champ-block .info[data-v-5bc51be1] {
+  grid-template-columns: min-content 1fr;
+  align-items: center;
+  grid-auto-flow: row;
+  gap: 0em 0.7em;
+  display: grid;
+}
+
 .tooltip[data-v-de17e6dc] {
   display: contents;
+}
+
+[data-v-5bc51be1] {
+  --tooltipMaxWidth: 640px;
+}
+
+.champ-block .info .name[data-v-5bc51be1] {
+  text-transform: capitalize;
+  align-items: center;
+  color: var(--gold-1);
+  font-weight: 500;
+  font-size: 12px;
+  display: flex;
+}
+
+.champ-block .info .line[data-v-5bc51be1] {
+  background-color: var(--gold-1);
+  border-radius: 2px;
+  height: 5px;
+}
+
+.champ-block .info .name[data-v-5bc51be1] {
+  text-transform: capitalize;
+  align-items: center;
+  color: var(--gold-1);
+  font-weight: 500;
+  font-size: 12px;
+  display: flex;
+}
+
+.champ-block .info .line[data-v-5bc51be1] {
+  background-color: var(--gold-1);
+  border-radius: 2px;
+  height: 5px;
+}
+
+.champ-block .info .name[data-v-5bc51be1] {
+  text-transform: capitalize;
+  align-items: center;
+  color: var(--gold-1);
+  font-weight: 500;
+  font-size: 12px;
+  display: flex;
+}
+
+.champ-block .info .line[data-v-5bc51be1] {
+  background-color: var(--gold-1);
+  border-radius: 2px;
+  height: 5px;
+}
+
+.champ-block .info .name.difficulty[data-v-5bc51be1] {
+  color: var(--slate-2);
+}
+
+.champ-block .info .line.difficulty[data-v-5bc51be1] {
+  background-color: var(--slate-2);
+}
+.champ-block .info .line[data-v-5bc51be1] {
+  background-color: var(--gold-1);
+  border-radius: 2px;
+  height: 5px;
 }
 
 @media (hover: hover) {

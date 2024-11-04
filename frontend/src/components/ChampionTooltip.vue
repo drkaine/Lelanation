@@ -12,6 +12,12 @@ const props = defineProps<{
       id: string
       description: string
     }>
+    info: Array<{
+      attack: string
+      magic: string
+      defense: string
+      difficulty: string
+    }>
   }
 }>()
 
@@ -96,6 +102,44 @@ const cleanDescription = (description: string) => {
             </div>
           </div>
           <div data-v-45896cfe="" class="break"></div>
+        </div>
+        <div data-v-5bc51be1="" data-v-cbff5ddf-s="" class="info">
+          <div data-v-5bc51be1="" data-v-cbff5ddf-s="" class="name attack">
+            attack
+          </div>
+          <div
+            data-v-5bc51be1=""
+            data-v-cbff5ddf-s=""
+            class="line attack"
+            :style="{ width: props.champion.info[0].attack + '0%' }"
+          ></div>
+          <div data-v-5bc51be1="" data-v-cbff5ddf-s="" class="name magic">
+            magic
+          </div>
+          <div
+            data-v-5bc51be1=""
+            data-v-cbff5ddf-s=""
+            class="line magic"
+            :style="{ width: props.champion.info[0].magic + '0%' }"
+          ></div>
+          <div data-v-5bc51be1="" data-v-cbff5ddf-s="" class="name defense">
+            defense
+          </div>
+          <div
+            data-v-5bc51be1=""
+            data-v-cbff5ddf-s=""
+            class="line defense"
+            :style="{ width: props.champion.info[0].defense + '0%' }"
+          ></div>
+          <div data-v-5bc51be1="" data-v-cbff5ddf-s="" class="name difficulty">
+            difficulty
+          </div>
+          <div
+            data-v-5bc51be1=""
+            data-v-cbff5ddf-s=""
+            class="line difficulty"
+            :style="{ width: props.champion.info[0].difficulty + '0%' }"
+          ></div>
         </div>
       </div>
     </div>
