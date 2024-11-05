@@ -1,6 +1,6 @@
 import type { Ref } from 'vue'
 import { ref } from 'vue'
-import champions from '@/assets/files/championdata.json'
+import champions from '@/assets/files/championFull.json'
 
 export class Filter {
   public championData: Array<
