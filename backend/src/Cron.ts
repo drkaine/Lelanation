@@ -21,4 +21,6 @@ export async function compilation() {
 
     save(JSON.stringify(data), filePath);
   });
+  const date = new Date();
+  save(JSON.stringify(date), path.join(__dirname, "../../" + folderTarget + date));
 }
