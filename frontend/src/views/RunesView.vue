@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import ChampSelection from '@/components/ChampSelection.vue'
-import SheetBuild from './SheetBuild.vue'
+import RunesSelection from '@/components/RunesSelection.vue'
 
 </script>
 
@@ -34,10 +33,8 @@ import SheetBuild from './SheetBuild.vue'
           data-v-c3d704f8=""
           class="main"
         >
-          <ChampSelection />
+          <RunesSelection />
         </div>
-
-        <SheetBuild />
       </div>
       
     </div>

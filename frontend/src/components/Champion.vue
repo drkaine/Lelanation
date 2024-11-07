@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import ChampSelection from '@/components/ChampSelection.vue'
-import SheetBuild from './SheetBuild.vue'
 
 </script>
 
@@ -36,8 +35,6 @@ import SheetBuild from './SheetBuild.vue'
         >
           <ChampSelection />
         </div>
-
-        <SheetBuild />
       </div>
       
     </div>

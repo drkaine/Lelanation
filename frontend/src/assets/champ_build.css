@@ -163,7 +163,12 @@
   flex-shrink: 0;
   --s: 2.6em;
 }
-
+.runesPage > .wrap .path > .rune[data-v-c83b00c2] {
+  --runeBorder: var(--gold-4);
+  --runeBack: var(--black);
+  --runeSize: 45px;
+  margin: 0.3em;
+}
 .champ-block .spells .spell .img[data-v-45896cfe]:before {
   color: var(--gold-1);
   position: absolute;
@@ -176,6 +181,36 @@
     -1px 1px 0 var(--black),
     -1px -1px 0 var(--black),
     1px -1px 0 var(--black);
+}
+
+.rune > img[data-v-ab218c16] {
+  filter: var(--runeImgFilter);
+  height: var(--s, 100%);
+  width: var(--s, 100%);
+  display: block;
+}
+[data-v-ab218c16] {
+  --tooltipMaxWidth: 540px;
+}
+
+.rune[data-v-ab218c16] {
+  border: 1px solid var(--runeBorder, var(--gold-3));
+  background-color: var(--runeBack);
+  filter: var(--runeFilter);
+  height: var(--runeSize);
+  width: var(--runeSize);
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  overflow: hidden;
+  display: flex;
+}
+
+.runesPage > .wrap .path > .rune[data-v-c83b00c2] {
+  --runeBorder: var(--gold-4);
+  --runeBack: var(--black);
+  --runeSize: 45px;
+  margin: 0.3em;
 }
 
 .champ-block .spells .spell .img img[data-v-45896cfe] {
