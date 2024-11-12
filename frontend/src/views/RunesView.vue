@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import RunesSelection from '@/components/RunesSelection.vue'
-
 </script>
 
 <template>
@@ -28,15 +27,10 @@ import RunesSelection from '@/components/RunesSelection.vue'
           <span data-v-c3d704f8="" class="arrow"></span>
           <a data-v-c3d704f8="" href="/infos/info" class=""> Info </a>
         </div>
-        <div
-        
-          data-v-c3d704f8=""
-          class="main"
-        >
+        <div data-v-c3d704f8="" class="main">
           <RunesSelection />
         </div>
       </div>
-      
     </div>
   </div>
 </template>

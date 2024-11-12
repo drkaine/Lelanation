@@ -27,18 +27,17 @@ const router = createRouter({
       name: 'Runes',
       component: () => import('../views/RunesView.vue'),
     },
-    // {
-    //   path: '/infos/items',
-    //   name: 'Items',
-    //   component: () => import('../views/infosToolView.vue'),
-    // },
+    {
+      path: '/infos/items',
+      name: 'Items',
+      component: () => import('../views/ItemsView.vue'),
+    },
     // {
     //   path: '/infos/info',
     //   name: 'Infos',
     //   component: () => import('../views/infosToolView.vue'),
     // },
   ],
-  
 })
 
 export default router

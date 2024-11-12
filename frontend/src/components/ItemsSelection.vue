@@ -55,7 +55,7 @@
                 data-v-8e0e60d7=""
                 data-v-de17e6dc-s=""
                 class="img"
-                src="/data/img/items/1082.png"
+                src="https://ddragon.leagueoflegends.com/cdn/14.21.1/img/item/1082.png"
               /><!---->
               <div data-v-8e0e60d7="" data-v-de17e6dc-s="" class="gold">
                 350
@@ -81,7 +81,7 @@
                 data-v-8e0e60d7=""
                 data-v-de17e6dc-s=""
                 class="img"
-                src="/data/img/items/1056.png"
+                src="https://ddragon.leagueoflegends.com/cdn/14.21.1/img/item/1056.png"
               /><!---->
               <div data-v-8e0e60d7="" data-v-de17e6dc-s="" class="gold">
                 400
@@ -107,7 +107,7 @@
                 data-v-8e0e60d7=""
                 data-v-de17e6dc-s=""
                 class="img"
-                src="/data/img/items/3070.png"
+                src="https://ddragon.leagueoflegends.com/cdn/14.21.1/img/item/3070.png"
               /><!---->
               <div data-v-8e0e60d7="" data-v-de17e6dc-s="" class="gold">
                 400
@@ -133,7 +133,7 @@
                 data-v-8e0e60d7=""
                 data-v-de17e6dc-s=""
                 class="img"
-                src="/data/img/items/3865.png"
+                src="https://ddragon.leagueoflegends.com/cdn/14.21.1/img/item/3865.png"
               /><!---->
               <div data-v-8e0e60d7="" data-v-de17e6dc-s="" class="gold">
                 400
@@ -159,7 +159,7 @@
                 data-v-8e0e60d7=""
                 data-v-de17e6dc-s=""
                 class="img"
-                src="/data/img/items/1054.png"
+                src="https://ddragon.leagueoflegends.com/cdn/14.21.1/img/item/1054.png"
               /><!---->
               <div data-v-8e0e60d7="" data-v-de17e6dc-s="" class="gold">
                 450
@@ -185,7 +185,7 @@
                 data-v-8e0e60d7=""
                 data-v-de17e6dc-s=""
                 class="img"
-                src="/data/img/items/1055.png"
+                src="https://ddragon.leagueoflegends.com/cdn/14.21.1/img/item/1055.png"
               /><!---->
               <div data-v-8e0e60d7="" data-v-de17e6dc-s="" class="gold">
                 450
@@ -211,7 +211,7 @@
                 data-v-8e0e60d7=""
                 data-v-de17e6dc-s=""
                 class="img"
-                src="/data/img/items/1083.png"
+                src="https://ddragon.leagueoflegends.com/cdn/14.21.1/img/item/1083.png"
               /><!---->
               <div data-v-8e0e60d7="" data-v-de17e6dc-s="" class="gold">
                 450
@@ -237,7 +237,7 @@
                 data-v-8e0e60d7=""
                 data-v-de17e6dc-s=""
                 class="img"
-                src="/data/img/items/1101.png"
+                src="https://ddragon.leagueoflegends.com/cdn/14.21.1/img/item/1101.png"
               /><!---->
               <div data-v-8e0e60d7="" data-v-de17e6dc-s="" class="gold">
                 450
@@ -263,7 +263,7 @@
                 data-v-8e0e60d7=""
                 data-v-de17e6dc-s=""
                 class="img"
-                src="/data/img/items/1102.png"
+                src="https://ddragon.leagueoflegends.com/cdn/14.21.1/img/item/1102.png"
               /><!---->
               <div data-v-8e0e60d7="" data-v-de17e6dc-s="" class="gold">
                 450
@@ -289,7 +289,7 @@
                 data-v-8e0e60d7=""
                 data-v-de17e6dc-s=""
                 class="img"
-                src="/data/img/items/1103.png"
+                src="https://ddragon.leagueoflegends.com/cdn/14.21.1/img/item/1103.png"
               /><!---->
               <div data-v-8e0e60d7="" data-v-de17e6dc-s="" class="gold">
                 450
@@ -317,7 +317,7 @@
                 data-v-8e0e60d7=""
                 data-v-de17e6dc-s=""
                 class="img"
-                src="/data/img/items/1004.png"
+                src="https://ddragon.leagueoflegends.com/cdn/14.21.1/img/item/1004.png"
               /><!---->
               <div data-v-8e0e60d7="" data-v-de17e6dc-s="" class="gold">
                 200
@@ -343,7 +343,7 @@
                 data-v-8e0e60d7=""
                 data-v-de17e6dc-s=""
                 class="img"
-                src="/data/img/items/1042.png"
+                src="https://ddragon.leagueoflegends.com/cdn/14.21.1/img/item/1042.png"
               /><!---->
               <div data-v-8e0e60d7="" data-v-de17e6dc-s="" class="gold">
                 250
@@ -369,7 +369,7 @@
                 data-v-8e0e60d7=""
                 data-v-de17e6dc-s=""
                 class="img"
-                src="/data/img/items/2022.png"
+                src="https://ddragon.leagueoflegends.com/cdn/14.21.1/img/item/2022.png"
               /><!---->
               <div data-v-8e0e60d7="" data-v-de17e6dc-s="" class="gold">
                 250
@@ -395,7 +395,7 @@
                 data-v-8e0e60d7=""
                 data-v-de17e6dc-s=""
                 class="img"
-                src="/data/img/items/1006.png"
+                src="https://ddragon.leagueoflegends.com/cdn/14.21.1/img/item/1006.png"
               /><!---->
               <div data-v-8e0e60d7="" data-v-de17e6dc-s="" class="gold">
                 300
@@ -421,7 +421,7 @@
                 data-v-8e0e60d7=""
                 data-v-de17e6dc-s=""
                 class="img"
-                src="/data/img/items/1027.png"
+                src="https://ddragon.leagueoflegends.com/cdn/14.21.1/img/item/1027.png"
               /><!---->
               <div data-v-8e0e60d7="" data-v-de17e6dc-s="" class="gold">
                 300
@@ -447,7 +447,7 @@
                 data-v-8e0e60d7=""
                 data-v-de17e6dc-s=""
                 class="img"
-                src="/data/img/items/1029.png"
+                src="https://ddragon.leagueoflegends.com/cdn/14.21.1/img/item/1029.png"
               /><!---->
               <div data-v-8e0e60d7="" data-v-de17e6dc-s="" class="gold">
                 300
@@ -473,7 +473,7 @@
                 data-v-8e0e60d7=""
                 data-v-de17e6dc-s=""
                 class="img"
-                src="/data/img/items/1036.png"
+                src="https://ddragon.leagueoflegends.com/cdn/14.21.1/img/item/1036.png"
               /><!---->
               <div data-v-8e0e60d7="" data-v-de17e6dc-s="" class="gold">
                 350
@@ -499,7 +499,7 @@
                 data-v-8e0e60d7=""
                 data-v-de17e6dc-s=""
                 class="img"
-                src="/data/img/items/1028.png"
+                src="https://ddragon.leagueoflegends.com/cdn/14.21.1/img/item/1028.png"
               /><!---->
               <div data-v-8e0e60d7="" data-v-de17e6dc-s="" class="gold">
                 400
@@ -525,7 +525,7 @@
                 data-v-8e0e60d7=""
                 data-v-de17e6dc-s=""
                 class="img"
-                src="/data/img/items/1033.png"
+                src="https://ddragon.leagueoflegends.com/cdn/14.21.1/img/item/1033.png"
               /><!---->
               <div data-v-8e0e60d7="" data-v-de17e6dc-s="" class="gold">
                 400
@@ -551,7 +551,7 @@
                 data-v-8e0e60d7=""
                 data-v-de17e6dc-s=""
                 class="img"
-                src="/data/img/items/1052.png"
+                src="https://ddragon.leagueoflegends.com/cdn/14.21.1/img/item/1052.png"
               /><!---->
               <div data-v-8e0e60d7="" data-v-de17e6dc-s="" class="gold">
                 400
@@ -577,7 +577,7 @@
                 data-v-8e0e60d7=""
                 data-v-de17e6dc-s=""
                 class="img"
-                src="/data/img/items/1018.png"
+                src="https://ddragon.leagueoflegends.com/cdn/14.21.1/img/item/1018.png"
               /><!---->
               <div data-v-8e0e60d7="" data-v-de17e6dc-s="" class="gold">
                 600
@@ -603,7 +603,7 @@
                 data-v-8e0e60d7=""
                 data-v-de17e6dc-s=""
                 class="img"
-                src="/data/img/items/1026.png"
+                src="https://ddragon.leagueoflegends.com/cdn/14.21.1/img/item/1026.png"
               /><!---->
               <div data-v-8e0e60d7="" data-v-de17e6dc-s="" class="gold">
                 850
@@ -629,7 +629,7 @@
                 data-v-8e0e60d7=""
                 data-v-de17e6dc-s=""
                 class="img"
-                src="/data/img/items/1037.png"
+                src="https://ddragon.leagueoflegends.com/cdn/14.21.1/img/item/1037.png"
               /><!---->
               <div data-v-8e0e60d7="" data-v-de17e6dc-s="" class="gold">
                 875
@@ -655,7 +655,7 @@
                 data-v-8e0e60d7=""
                 data-v-de17e6dc-s=""
                 class="img"
-                src="/data/img/items/1058.png"
+                src="https://ddragon.leagueoflegends.com/cdn/14.21.1/img/item/1058.png"
               /><!---->
               <div data-v-8e0e60d7="" data-v-de17e6dc-s="" class="gold">
                 1200
@@ -681,7 +681,7 @@
                 data-v-8e0e60d7=""
                 data-v-de17e6dc-s=""
                 class="img"
-                src="/data/img/items/1038.png"
+                src="https://ddragon.leagueoflegends.com/cdn/14.21.1/img/item/1038.png"
               /><!---->
               <div data-v-8e0e60d7="" data-v-de17e6dc-s="" class="gold">
                 1300
@@ -709,7 +709,7 @@
                 data-v-8e0e60d7=""
                 data-v-de17e6dc-s=""
                 class="img"
-                src="/data/img/items/1001.png"
+                src="https://ddragon.leagueoflegends.com/cdn/14.21.1/img/item/1001.png"
               /><!---->
               <div data-v-8e0e60d7="" data-v-de17e6dc-s="" class="gold">
                 300
@@ -735,7 +735,7 @@
                 data-v-8e0e60d7=""
                 data-v-de17e6dc-s=""
                 class="img"
-                src="/data/img/items/3010.png"
+                src="https://ddragon.leagueoflegends.com/cdn/14.21.1/img/item/3010.png"
               /><!---->
               <div data-v-8e0e60d7="" data-v-de17e6dc-s="" class="gold">
                 900
@@ -761,7 +761,7 @@
                 data-v-8e0e60d7=""
                 data-v-de17e6dc-s=""
                 class="img"
-                src="/data/img/items/3013.png"
+                src="https://ddragon.leagueoflegends.com/cdn/14.21.1/img/item/3013.png"
               /><!---->
               <div data-v-8e0e60d7="" data-v-de17e6dc-s="" class="gold">
                 900
@@ -787,7 +787,7 @@
                 data-v-8e0e60d7=""
                 data-v-de17e6dc-s=""
                 class="img"
-                src="/data/img/items/3158.png"
+                src="https://ddragon.leagueoflegends.com/cdn/14.21.1/img/item/3158.png"
               /><!---->
               <div data-v-8e0e60d7="" data-v-de17e6dc-s="" class="gold">
                 900
@@ -813,7 +813,7 @@
                 data-v-8e0e60d7=""
                 data-v-de17e6dc-s=""
                 class="img"
-                src="/data/img/items/3009.png"
+                src="https://ddragon.leagueoflegends.com/cdn/14.21.1/img/item/3009.png"
               /><!---->
               <div data-v-8e0e60d7="" data-v-de17e6dc-s="" class="gold">
                 1000
@@ -839,7 +839,7 @@
                 data-v-8e0e60d7=""
                 data-v-de17e6dc-s=""
                 class="img"
-                src="/data/img/items/3006.png"
+                src="https://ddragon.leagueoflegends.com/cdn/14.21.1/img/item/3006.png"
               /><!---->
               <div data-v-8e0e60d7="" data-v-de17e6dc-s="" class="gold">
                 1100
@@ -865,7 +865,7 @@
                 data-v-8e0e60d7=""
                 data-v-de17e6dc-s=""
                 class="img"
-                src="/data/img/items/3020.png"
+                src="https://ddragon.leagueoflegends.com/cdn/14.21.1/img/item/3020.png"
               /><!---->
               <div data-v-8e0e60d7="" data-v-de17e6dc-s="" class="gold">
                 1100
@@ -891,7 +891,7 @@
                 data-v-8e0e60d7=""
                 data-v-de17e6dc-s=""
                 class="img"
-                src="/data/img/items/3047.png"
+                src="https://ddragon.leagueoflegends.com/cdn/14.21.1/img/item/3047.png"
               /><!---->
               <div data-v-8e0e60d7="" data-v-de17e6dc-s="" class="gold">
                 1200
@@ -917,7 +917,7 @@
                 data-v-8e0e60d7=""
                 data-v-de17e6dc-s=""
                 class="img"
-                src="/data/img/items/3111.png"
+                src="https://ddragon.leagueoflegends.com/cdn/14.21.1/img/item/3111.png"
               /><!---->
               <div data-v-8e0e60d7="" data-v-de17e6dc-s="" class="gold">
                 1300
@@ -943,7 +943,7 @@
                 data-v-8e0e60d7=""
                 data-v-de17e6dc-s=""
                 class="img"
-                src="/data/img/items/3172.png"
+                src="https://ddragon.leagueoflegends.com/cdn/14.21.1/img/item/3172.png"
               /><!---->
               <div data-v-8e0e60d7="" data-v-de17e6dc-s="" class="gold">
                 3100
@@ -971,7 +971,7 @@
                 data-v-8e0e60d7=""
                 data-v-de17e6dc-s=""
                 class="img"
-                src="/data/img/items/3866.png"
+                src="https://ddragon.leagueoflegends.com/cdn/14.21.1/img/item/3866.png"
               /><!---->
               <div data-v-8e0e60d7="" data-v-de17e6dc-s="" class="gold">
                 400
@@ -997,7 +997,7 @@
                 data-v-8e0e60d7=""
                 data-v-de17e6dc-s=""
                 class="img"
-                src="/data/img/items/3114.png"
+                src="https://ddragon.leagueoflegends.com/cdn/14.21.1/img/item/3114.png"
               /><!---->
               <div data-v-8e0e60d7="" data-v-de17e6dc-s="" class="gold">
                 600
@@ -1023,7 +1023,7 @@
                 data-v-8e0e60d7=""
                 data-v-de17e6dc-s=""
                 class="img"
-                src="/data/img/items/3144.png"
+                src="https://ddragon.leagueoflegends.com/cdn/14.21.1/img/item/3144.png"
               /><!---->
               <div data-v-8e0e60d7="" data-v-de17e6dc-s="" class="gold">
                 600
@@ -1049,7 +1049,7 @@
                 data-v-8e0e60d7=""
                 data-v-de17e6dc-s=""
                 class="img"
-                src="/data/img/items/1043.png"
+                src="https://ddragon.leagueoflegends.com/cdn/14.21.1/img/item/1043.png"
               /><!---->
               <div data-v-8e0e60d7="" data-v-de17e6dc-s="" class="gold">
                 700
@@ -1075,7 +1075,7 @@
                 data-v-8e0e60d7=""
                 data-v-de17e6dc-s=""
                 class="img"
-                src="/data/img/items/6690.png"
+                src="https://ddragon.leagueoflegends.com/cdn/14.21.1/img/item/6690.png"
               /><!---->
               <div data-v-8e0e60d7="" data-v-de17e6dc-s="" class="gold">
                 775
@@ -1101,7 +1101,7 @@
                 data-v-8e0e60d7=""
                 data-v-de17e6dc-s=""
                 class="img"
-                src="/data/img/items/1031.png"
+                src="https://ddragon.leagueoflegends.com/cdn/14.21.1/img/item/1031.png"
               /><!---->
               <div data-v-8e0e60d7="" data-v-de17e6dc-s="" class="gold">
                 800
@@ -1127,7 +1127,7 @@
                 data-v-8e0e60d7=""
                 data-v-de17e6dc-s=""
                 class="img"
-                src="/data/img/items/3066.png"
+                src="https://ddragon.leagueoflegends.com/cdn/14.21.1/img/item/3066.png"
               /><!---->
               <div data-v-8e0e60d7="" data-v-de17e6dc-s="" class="gold">
                 800
@@ -1153,7 +1153,7 @@
                 data-v-8e0e60d7=""
                 data-v-de17e6dc-s=""
                 class="img"
-                src="/data/img/items/3067.png"
+                src="https://ddragon.leagueoflegends.com/cdn/14.21.1/img/item/3067.png"
               /><!---->
               <div data-v-8e0e60d7="" data-v-de17e6dc-s="" class="gold">
                 800
@@ -1179,7 +1179,7 @@
                 data-v-8e0e60d7=""
                 data-v-de17e6dc-s=""
                 class="img"
-                src="/data/img/items/3076.png"
+                src="https://ddragon.leagueoflegends.com/cdn/14.21.1/img/item/3076.png"
               /><!---->
               <div data-v-8e0e60d7="" data-v-de17e6dc-s="" class="gold">
                 800
@@ -1205,7 +1205,7 @@
                 data-v-8e0e60d7=""
                 data-v-de17e6dc-s=""
                 class="img"
-                src="/data/img/items/3123.png"
+                src="https://ddragon.leagueoflegends.com/cdn/14.21.1/img/item/3123.png"
               /><!---->
               <div data-v-8e0e60d7="" data-v-de17e6dc-s="" class="gold">
                 800
@@ -1231,7 +1231,7 @@
                 data-v-8e0e60d7=""
                 data-v-de17e6dc-s=""
                 class="img"
-                src="/data/img/items/3801.png"
+                src="https://ddragon.leagueoflegends.com/cdn/14.21.1/img/item/3801.png"
               /><!---->
               <div data-v-8e0e60d7="" data-v-de17e6dc-s="" class="gold">
                 800
@@ -1257,7 +1257,7 @@
                 data-v-8e0e60d7=""
                 data-v-de17e6dc-s=""
                 class="img"
-                src="/data/img/items/3916.png"
+                src="https://ddragon.leagueoflegends.com/cdn/14.21.1/img/item/3916.png"
               /><!---->
               <div data-v-8e0e60d7="" data-v-de17e6dc-s="" class="gold">
                 800
@@ -1283,7 +1283,7 @@
                 data-v-8e0e60d7=""
                 data-v-de17e6dc-s=""
                 class="img"
-                src="/data/img/items/1057.png"
+                src="https://ddragon.leagueoflegends.com/cdn/14.21.1/img/item/1057.png"
               /><!---->
               <div data-v-8e0e60d7="" data-v-de17e6dc-s="" class="gold">
                 850
@@ -1309,7 +1309,7 @@
                 data-v-8e0e60d7=""
                 data-v-de17e6dc-s=""
                 class="img"
-                src="/data/img/items/3108.png"
+                src="https://ddragon.leagueoflegends.com/cdn/14.21.1/img/item/3108.png"
               /><!---->
               <div data-v-8e0e60d7="" data-v-de17e6dc-s="" class="gold">
                 850
@@ -1335,7 +1335,7 @@
                 data-v-8e0e60d7=""
                 data-v-de17e6dc-s=""
                 class="img"
-                src="/data/img/items/1011.png"
+                src="https://ddragon.leagueoflegends.com/cdn/14.21.1/img/item/1011.png"
               /><!---->
               <div data-v-8e0e60d7="" data-v-de17e6dc-s="" class="gold">
                 900
@@ -1361,7 +1361,7 @@
                 data-v-8e0e60d7=""
                 data-v-de17e6dc-s=""
                 class="img"
-                src="/data/img/items/1053.png"
+                src="https://ddragon.leagueoflegends.com/cdn/14.21.1/img/item/1053.png"
               /><!---->
               <div data-v-8e0e60d7="" data-v-de17e6dc-s="" class="gold">
                 900
@@ -1387,7 +1387,7 @@
                 data-v-8e0e60d7=""
                 data-v-de17e6dc-s=""
                 class="img"
-                src="/data/img/items/2508.png"
+                src="https://ddragon.leagueoflegends.com/cdn/14.21.1/img/item/2508.png"
               /><!---->
               <div data-v-8e0e60d7="" data-v-de17e6dc-s="" class="gold">
                 900
@@ -1413,7 +1413,7 @@
                 data-v-8e0e60d7=""
                 data-v-de17e6dc-s=""
                 class="img"
-                src="/data/img/items/3024.png"
+                src="https://ddragon.leagueoflegends.com/cdn/14.21.1/img/item/3024.png"
               /><!---->
               <div data-v-8e0e60d7="" data-v-de17e6dc-s="" class="gold">
                 900
@@ -1439,7 +1439,7 @@
                 data-v-8e0e60d7=""
                 data-v-de17e6dc-s=""
                 class="img"
-                src="/data/img/items/3057.png"
+                src="https://ddragon.leagueoflegends.com/cdn/14.21.1/img/item/3057.png"
               /><!---->
               <div data-v-8e0e60d7="" data-v-de17e6dc-s="" class="gold">
                 900
@@ -1465,7 +1465,7 @@
                 data-v-8e0e60d7=""
                 data-v-de17e6dc-s=""
                 class="img"
-                src="/data/img/items/3113.png"
+                src="https://ddragon.leagueoflegends.com/cdn/14.21.1/img/item/3113.png"
               /><!---->
               <div data-v-8e0e60d7="" data-v-de17e6dc-s="" class="gold">
                 900
@@ -1491,7 +1491,7 @@
                 data-v-8e0e60d7=""
                 data-v-de17e6dc-s=""
                 class="img"
-                src="/data/img/items/4642.png"
+                src="https://ddragon.leagueoflegends.com/cdn/14.21.1/img/item/4642.png"
               /><!---->
               <div data-v-8e0e60d7="" data-v-de17e6dc-s="" class="gold">
                 900
@@ -1517,7 +1517,7 @@
                 data-v-8e0e60d7=""
                 data-v-de17e6dc-s=""
                 class="img"
-                src="/data/img/items/6660.png"
+                src="https://ddragon.leagueoflegends.com/cdn/14.21.1/img/item/6660.png"
               /><!---->
               <div data-v-8e0e60d7="" data-v-de17e6dc-s="" class="gold">
                 900
@@ -1543,7 +1543,7 @@
                 data-v-8e0e60d7=""
                 data-v-de17e6dc-s=""
                 class="img"
-                src="/data/img/items/3082.png"
+                src="https://ddragon.leagueoflegends.com/cdn/14.21.1/img/item/3082.png"
               /><!---->
               <div data-v-8e0e60d7="" data-v-de17e6dc-s="" class="gold">
                 1000
@@ -1569,7 +1569,7 @@
                 data-v-8e0e60d7=""
                 data-v-de17e6dc-s=""
                 class="img"
-                src="/data/img/items/3134.png"
+                src="https://ddragon.leagueoflegends.com/cdn/14.21.1/img/item/3134.png"
               /><!---->
               <div data-v-8e0e60d7="" data-v-de17e6dc-s="" class="gold">
                 1000
@@ -1595,7 +1595,7 @@
                 data-v-8e0e60d7=""
                 data-v-de17e6dc-s=""
                 class="img"
-                src="/data/img/items/3133.png"
+                src="https://ddragon.leagueoflegends.com/cdn/14.21.1/img/item/3133.png"
               /><!---->
               <div data-v-8e0e60d7="" data-v-de17e6dc-s="" class="gold">
                 1050
@@ -1621,7 +1621,7 @@
                 data-v-8e0e60d7=""
                 data-v-de17e6dc-s=""
                 class="img"
-                src="/data/img/items/2019.png"
+                src="https://ddragon.leagueoflegends.com/cdn/14.21.1/img/item/2019.png"
               /><!---->
               <div data-v-8e0e60d7="" data-v-de17e6dc-s="" class="gold">
                 1100
@@ -1647,7 +1647,7 @@
                 data-v-8e0e60d7=""
                 data-v-de17e6dc-s=""
                 class="img"
-                src="/data/img/items/3044.png"
+                src="https://ddragon.leagueoflegends.com/cdn/14.21.1/img/item/3044.png"
               /><!---->
               <div data-v-8e0e60d7="" data-v-de17e6dc-s="" class="gold">
                 1100
@@ -1673,7 +1673,7 @@
                 data-v-8e0e60d7=""
                 data-v-de17e6dc-s=""
                 class="img"
-                src="/data/img/items/3145.png"
+                src="https://ddragon.leagueoflegends.com/cdn/14.21.1/img/item/3145.png"
               /><!---->
               <div data-v-8e0e60d7="" data-v-de17e6dc-s="" class="gold">
                 1100
@@ -1699,7 +1699,7 @@
                 data-v-8e0e60d7=""
                 data-v-de17e6dc-s=""
                 class="img"
-                src="/data/img/items/4630.png"
+                src="https://ddragon.leagueoflegends.com/cdn/14.21.1/img/item/4630.png"
               /><!---->
               <div data-v-8e0e60d7="" data-v-de17e6dc-s="" class="gold">
                 1100
@@ -1725,7 +1725,7 @@
                 data-v-8e0e60d7=""
                 data-v-de17e6dc-s=""
                 class="img"
-                src="/data/img/items/4638.png"
+                src="https://ddragon.leagueoflegends.com/cdn/14.21.1/img/item/4638.png"
               /><!---->
               <div data-v-8e0e60d7="" data-v-de17e6dc-s="" class="gold">
                 1100
@@ -1751,7 +1751,7 @@
                 data-v-8e0e60d7=""
                 data-v-de17e6dc-s=""
                 class="img"
-                src="/data/img/items/2021.png"
+                src="https://ddragon.leagueoflegends.com/cdn/14.21.1/img/item/2021.png"
               /><!---->
               <div data-v-8e0e60d7="" data-v-de17e6dc-s="" class="gold">
                 1150
@@ -1777,7 +1777,7 @@
                 data-v-8e0e60d7=""
                 data-v-de17e6dc-s=""
                 class="img"
-                src="/data/img/items/3051.png"
+                src="https://ddragon.leagueoflegends.com/cdn/14.21.1/img/item/3051.png"
               /><!---->
               <div data-v-8e0e60d7="" data-v-de17e6dc-s="" class="gold">
                 1200
@@ -1803,7 +1803,7 @@
                 data-v-8e0e60d7=""
                 data-v-de17e6dc-s=""
                 class="img"
-                src="/data/img/items/3077.png"
+                src="https://ddragon.leagueoflegends.com/cdn/14.21.1/img/item/3077.png"
               /><!---->
               <div data-v-8e0e60d7="" data-v-de17e6dc-s="" class="gold">
                 1200
@@ -1829,7 +1829,7 @@
                 data-v-8e0e60d7=""
                 data-v-de17e6dc-s=""
                 class="img"
-                src="/data/img/items/3086.png"
+                src="https://ddragon.leagueoflegends.com/cdn/14.21.1/img/item/3086.png"
               /><!---->
               <div data-v-8e0e60d7="" data-v-de17e6dc-s="" class="gold">
                 1200
@@ -1855,7 +1855,7 @@
                 data-v-8e0e60d7=""
                 data-v-de17e6dc-s=""
                 class="img"
-                src="/data/img/items/3802.png"
+                src="https://ddragon.leagueoflegends.com/cdn/14.21.1/img/item/3802.png"
               /><!---->
               <div data-v-8e0e60d7="" data-v-de17e6dc-s="" class="gold">
                 1200
@@ -1881,7 +1881,7 @@
                 data-v-8e0e60d7=""
                 data-v-de17e6dc-s=""
                 class="img"
-                src="/data/img/items/3211.png"
+                src="https://ddragon.leagueoflegends.com/cdn/14.21.1/img/item/3211.png"
               /><!---->
               <div data-v-8e0e60d7="" data-v-de17e6dc-s="" class="gold">
                 1250
@@ -1907,7 +1907,7 @@
                 data-v-8e0e60d7=""
                 data-v-de17e6dc-s=""
                 class="img"
-                src="/data/img/items/3140.png"
+                src="https://ddragon.leagueoflegends.com/cdn/14.21.1/img/item/3140.png"
               /><!---->
               <div data-v-8e0e60d7="" data-v-de17e6dc-s="" class="gold">
                 1300
@@ -1933,7 +1933,7 @@
                 data-v-8e0e60d7=""
                 data-v-de17e6dc-s=""
                 class="img"
-                src="/data/img/items/3147.png"
+                src="https://ddragon.leagueoflegends.com/cdn/14.21.1/img/item/3147.png"
               /><!---->
               <div data-v-8e0e60d7="" data-v-de17e6dc-s="" class="gold">
                 1300
@@ -1959,7 +1959,7 @@
                 data-v-8e0e60d7=""
                 data-v-de17e6dc-s=""
                 class="img"
-                src="/data/img/items/3155.png"
+                src="https://ddragon.leagueoflegends.com/cdn/14.21.1/img/item/3155.png"
               /><!---->
               <div data-v-8e0e60d7="" data-v-de17e6dc-s="" class="gold">
                 1300
@@ -1985,7 +1985,7 @@
                 data-v-8e0e60d7=""
                 data-v-de17e6dc-s=""
                 class="img"
-                src="/data/img/items/3803.png"
+                src="https://ddragon.leagueoflegends.com/cdn/14.21.1/img/item/3803.png"
               /><!---->
               <div data-v-8e0e60d7="" data-v-de17e6dc-s="" class="gold">
                 1300
@@ -2011,7 +2011,7 @@
                 data-v-8e0e60d7=""
                 data-v-de17e6dc-s=""
                 class="img"
-                src="/data/img/items/6670.png"
+                src="https://ddragon.leagueoflegends.com/cdn/14.21.1/img/item/6670.png"
               /><!---->
               <div data-v-8e0e60d7="" data-v-de17e6dc-s="" class="gold">
                 1300
@@ -2037,7 +2037,7 @@
                 data-v-8e0e60d7=""
                 data-v-de17e6dc-s=""
                 class="img"
-                src="/data/img/items/2020.png"
+                src="https://ddragon.leagueoflegends.com/cdn/14.21.1/img/item/2020.png"
               /><!---->
               <div data-v-8e0e60d7="" data-v-de17e6dc-s="" class="gold">
                 1337
@@ -2063,7 +2063,7 @@
                 data-v-8e0e60d7=""
                 data-v-de17e6dc-s=""
                 class="img"
-                src="/data/img/items/3035.png"
+                src="https://ddragon.leagueoflegends.com/cdn/14.21.1/img/item/3035.png"
               /><!---->
               <div data-v-8e0e60d7="" data-v-de17e6dc-s="" class="gold">
                 1450
@@ -2089,7 +2089,7 @@
                 data-v-8e0e60d7=""
                 data-v-de17e6dc-s=""
                 class="img"
-                src="/data/img/items/2420.png"
+                src="https://ddragon.leagueoflegends.com/cdn/14.21.1/img/item/2420.png"
               /><!---->
               <div data-v-8e0e60d7="" data-v-de17e6dc-s="" class="gold">
                 1600
@@ -2115,7 +2115,7 @@
                 data-v-8e0e60d7=""
                 data-v-de17e6dc-s=""
                 class="img"
-                src="/data/img/items/4632.png"
+                src="https://ddragon.leagueoflegends.com/cdn/14.21.1/img/item/4632.png"
               /><!---->
               <div data-v-8e0e60d7="" data-v-de17e6dc-s="" class="gold">
                 1600
@@ -2143,7 +2143,7 @@
                 data-v-8e0e60d7=""
                 data-v-de17e6dc-s=""
                 class="img"
-                src="/data/img/items/3867.png"
+                src="https://ddragon.leagueoflegends.com/cdn/14.21.1/img/item/3867.png"
               /><!---->
               <div data-v-8e0e60d7="" data-v-de17e6dc-s="" class="gold">
                 400
@@ -2169,7 +2169,7 @@
                 data-v-8e0e60d7=""
                 data-v-de17e6dc-s=""
                 class="img"
-                src="/data/img/items/3869.png"
+                src="https://ddragon.leagueoflegends.com/cdn/14.21.1/img/item/3869.png"
               /><!---->
               <div data-v-8e0e60d7="" data-v-de17e6dc-s="" class="gold">
                 400
@@ -2195,7 +2195,7 @@
                 data-v-8e0e60d7=""
                 data-v-de17e6dc-s=""
                 class="img"
-                src="/data/img/items/3870.png"
+                src="https://ddragon.leagueoflegends.com/cdn/14.21.1/img/item/3870.png"
               /><!---->
               <div data-v-8e0e60d7="" data-v-de17e6dc-s="" class="gold">
                 400
@@ -2221,7 +2221,7 @@
                 data-v-8e0e60d7=""
                 data-v-de17e6dc-s=""
                 class="img"
-                src="/data/img/items/3871.png"
+                src="https://ddragon.leagueoflegends.com/cdn/14.21.1/img/item/3871.png"
               /><!---->
               <div data-v-8e0e60d7="" data-v-de17e6dc-s="" class="gold">
                 400
@@ -2247,7 +2247,7 @@
                 data-v-8e0e60d7=""
                 data-v-de17e6dc-s=""
                 class="img"
-                src="/data/img/items/3876.png"
+                src="https://ddragon.leagueoflegends.com/cdn/14.21.1/img/item/3876.png"
               /><!---->
               <div data-v-8e0e60d7="" data-v-de17e6dc-s="" class="gold">
                 400
@@ -2273,7 +2273,7 @@
                 data-v-8e0e60d7=""
                 data-v-de17e6dc-s=""
                 class="img"
-                src="/data/img/items/3877.png"
+                src="https://ddragon.leagueoflegends.com/cdn/14.21.1/img/item/3877.png"
               /><!---->
               <div data-v-8e0e60d7="" data-v-de17e6dc-s="" class="gold">
                 400
@@ -2299,7 +2299,7 @@
                 data-v-8e0e60d7=""
                 data-v-de17e6dc-s=""
                 class="img"
-                src="/data/img/items/3041.png"
+                src="https://ddragon.leagueoflegends.com/cdn/14.21.1/img/item/3041.png"
               /><!---->
               <div data-v-8e0e60d7="" data-v-de17e6dc-s="" class="gold">
                 1500
@@ -2325,7 +2325,7 @@
                 data-v-8e0e60d7=""
                 data-v-de17e6dc-s=""
                 class="img"
-                src="/data/img/items/2065.png"
+                src="https://ddragon.leagueoflegends.com/cdn/14.21.1/img/item/2065.png"
               /><!---->
               <div data-v-8e0e60d7="" data-v-de17e6dc-s="" class="gold">
                 2200
@@ -2351,7 +2351,7 @@
                 data-v-8e0e60d7=""
                 data-v-de17e6dc-s=""
                 class="img"
-                src="/data/img/items/3050.png"
+                src="https://ddragon.leagueoflegends.com/cdn/14.21.1/img/item/3050.png"
               /><!---->
               <div data-v-8e0e60d7="" data-v-de17e6dc-s="" class="gold">
                 2200
@@ -2377,7 +2377,7 @@
                 data-v-8e0e60d7=""
                 data-v-de17e6dc-s=""
                 class="img"
-                src="/data/img/items/3190.png"
+                src="https://ddragon.leagueoflegends.com/cdn/14.21.1/img/item/3190.png"
               /><!---->
               <div data-v-8e0e60d7="" data-v-de17e6dc-s="" class="gold">
                 2200
@@ -2403,7 +2403,7 @@
                 data-v-8e0e60d7=""
                 data-v-de17e6dc-s=""
                 class="img"
-                src="/data/img/items/3504.png"
+                src="https://ddragon.leagueoflegends.com/cdn/14.21.1/img/item/3504.png"
               /><!---->
               <div data-v-8e0e60d7="" data-v-de17e6dc-s="" class="gold">
                 2200
@@ -2429,7 +2429,7 @@
                 data-v-8e0e60d7=""
                 data-v-de17e6dc-s=""
                 class="img"
-                src="/data/img/items/6617.png"
+                src="https://ddragon.leagueoflegends.com/cdn/14.21.1/img/item/6617.png"
               /><!---->
               <div data-v-8e0e60d7="" data-v-de17e6dc-s="" class="gold">
                 2200
@@ -2455,7 +2455,7 @@
                 data-v-8e0e60d7=""
                 data-v-de17e6dc-s=""
                 class="img"
-                src="/data/img/items/6620.png"
+                src="https://ddragon.leagueoflegends.com/cdn/14.21.1/img/item/6620.png"
               /><!---->
               <div data-v-8e0e60d7="" data-v-de17e6dc-s="" class="gold">
                 2200
@@ -2481,7 +2481,7 @@
                 data-v-8e0e60d7=""
                 data-v-de17e6dc-s=""
                 class="img"
-                src="/data/img/items/4005.png"
+                src="https://ddragon.leagueoflegends.com/cdn/14.21.1/img/item/4005.png"
               /><!---->
               <div data-v-8e0e60d7="" data-v-de17e6dc-s="" class="gold">
                 2250
@@ -2507,7 +2507,7 @@
                 data-v-8e0e60d7=""
                 data-v-de17e6dc-s=""
                 class="img"
-                src="/data/img/items/6616.png"
+                src="https://ddragon.leagueoflegends.com/cdn/14.21.1/img/item/6616.png"
               /><!---->
               <div data-v-8e0e60d7="" data-v-de17e6dc-s="" class="gold">
                 2250
@@ -2533,7 +2533,7 @@
                 data-v-8e0e60d7=""
                 data-v-de17e6dc-s=""
                 class="img"
-                src="/data/img/items/3107.png"
+                src="https://ddragon.leagueoflegends.com/cdn/14.21.1/img/item/3107.png"
               /><!---->
               <div data-v-8e0e60d7="" data-v-de17e6dc-s="" class="gold">
                 2300
@@ -2559,7 +2559,7 @@
                 data-v-8e0e60d7=""
                 data-v-de17e6dc-s=""
                 class="img"
-                src="/data/img/items/3109.png"
+                src="https://ddragon.leagueoflegends.com/cdn/14.21.1/img/item/3109.png"
               /><!---->
               <div data-v-8e0e60d7="" data-v-de17e6dc-s="" class="gold">
                 2300
@@ -2585,7 +2585,7 @@
                 data-v-8e0e60d7=""
                 data-v-de17e6dc-s=""
                 class="img"
-                src="/data/img/items/3222.png"
+                src="https://ddragon.leagueoflegends.com/cdn/14.21.1/img/item/3222.png"
               /><!---->
               <div data-v-8e0e60d7="" data-v-de17e6dc-s="" class="gold">
                 2300
@@ -2611,7 +2611,7 @@
                 data-v-8e0e60d7=""
                 data-v-de17e6dc-s=""
                 class="img"
-                src="/data/img/items/4643.png"
+                src="https://ddragon.leagueoflegends.com/cdn/14.21.1/img/item/4643.png"
               /><!---->
               <div data-v-8e0e60d7="" data-v-de17e6dc-s="" class="gold">
                 2300
@@ -2637,7 +2637,7 @@
                 data-v-8e0e60d7=""
                 data-v-de17e6dc-s=""
                 class="img"
-                src="/data/img/items/3002.png"
+                src="https://ddragon.leagueoflegends.com/cdn/14.21.1/img/item/3002.png"
               /><!---->
               <div data-v-8e0e60d7="" data-v-de17e6dc-s="" class="gold">
                 2400
@@ -2663,7 +2663,7 @@
                 data-v-8e0e60d7=""
                 data-v-de17e6dc-s=""
                 class="img"
-                src="/data/img/items/3119.png"
+                src="https://ddragon.leagueoflegends.com/cdn/14.21.1/img/item/3119.png"
               /><!---->
               <div data-v-8e0e60d7="" data-v-de17e6dc-s="" class="gold">
                 2400
@@ -2689,7 +2689,7 @@
                 data-v-8e0e60d7=""
                 data-v-de17e6dc-s=""
                 class="img"
-                src="/data/img/items/3121.png"
+                src="https://ddragon.leagueoflegends.com/cdn/14.21.1/img/item/3121.png"
               /><!---->
               <div data-v-8e0e60d7="" data-v-de17e6dc-s="" class="gold">
                 2400
@@ -2715,7 +2715,7 @@
                 data-v-8e0e60d7=""
                 data-v-de17e6dc-s=""
                 class="img"
-                src="/data/img/items/3075.png"
+                src="https://ddragon.leagueoflegends.com/cdn/14.21.1/img/item/3075.png"
               /><!---->
               <div data-v-8e0e60d7="" data-v-de17e6dc-s="" class="gold">
                 2450
@@ -2741,7 +2741,7 @@
                 data-v-8e0e60d7=""
                 data-v-de17e6dc-s=""
                 class="img"
-                src="/data/img/items/3110.png"
+                src="https://ddragon.leagueoflegends.com/cdn/14.21.1/img/item/3110.png"
               /><!---->
               <div data-v-8e0e60d7="" data-v-de17e6dc-s="" class="gold">
                 2500
@@ -2767,7 +2767,7 @@
                 data-v-8e0e60d7=""
                 data-v-de17e6dc-s=""
                 class="img"
-                src="/data/img/items/6621.png"
+                src="https://ddragon.leagueoflegends.com/cdn/14.21.1/img/item/6621.png"
               /><!---->
               <div data-v-8e0e60d7="" data-v-de17e6dc-s="" class="gold">
                 2500
@@ -2793,7 +2793,7 @@
                 data-v-8e0e60d7=""
                 data-v-de17e6dc-s=""
                 class="img"
-                src="/data/img/items/6695.png"
+                src="https://ddragon.leagueoflegends.com/cdn/14.21.1/img/item/6695.png"
               /><!---->
               <div data-v-8e0e60d7="" data-v-de17e6dc-s="" class="gold">
                 2500
@@ -2819,7 +2819,7 @@
                 data-v-8e0e60d7=""
                 data-v-de17e6dc-s=""
                 class="img"
-                src="/data/img/items/3116.png"
+                src="https://ddragon.leagueoflegends.com/cdn/14.21.1/img/item/3116.png"
               /><!---->
               <div data-v-8e0e60d7="" data-v-de17e6dc-s="" class="gold">
                 2600
@@ -2845,7 +2845,7 @@
                 data-v-8e0e60d7=""
                 data-v-de17e6dc-s=""
                 class="img"
-                src="/data/img/items/3152.png"
+                src="https://ddragon.leagueoflegends.com/cdn/14.21.1/img/item/3152.png"
               /><!---->
               <div data-v-8e0e60d7="" data-v-de17e6dc-s="" class="gold">
                 2600
@@ -2871,7 +2871,7 @@
                 data-v-8e0e60d7=""
                 data-v-de17e6dc-s=""
                 class="img"
-                src="/data/img/items/3179.png"
+                src="https://ddragon.leagueoflegends.com/cdn/14.21.1/img/item/3179.png"
               /><!---->
               <div data-v-8e0e60d7="" data-v-de17e6dc-s="" class="gold">
                 2600
@@ -2897,7 +2897,7 @@
                 data-v-8e0e60d7=""
                 data-v-de17e6dc-s=""
                 class="img"
-                src="/data/img/items/6657.png"
+                src="https://ddragon.leagueoflegends.com/cdn/14.21.1/img/item/6657.png"
               /><!---->
               <div data-v-8e0e60d7="" data-v-de17e6dc-s="" class="gold">
                 2600
@@ -2923,7 +2923,7 @@
                 data-v-8e0e60d7=""
                 data-v-de17e6dc-s=""
                 class="img"
-                src="/data/img/items/3046.png"
+                src="https://ddragon.leagueoflegends.com/cdn/14.21.1/img/item/3046.png"
               /><!---->
               <div data-v-8e0e60d7="" data-v-de17e6dc-s="" class="gold">
                 2650
@@ -2949,7 +2949,7 @@
                 data-v-8e0e60d7=""
                 data-v-de17e6dc-s=""
                 class="img"
-                src="/data/img/items/3085.png"
+                src="https://ddragon.leagueoflegends.com/cdn/14.21.1/img/item/3085.png"
               /><!---->
               <div data-v-8e0e60d7="" data-v-de17e6dc-s="" class="gold">
                 2650
@@ -2975,7 +2975,7 @@
                 data-v-8e0e60d7=""
                 data-v-de17e6dc-s=""
                 class="img"
-                src="/data/img/items/3094.png"
+                src="https://ddragon.leagueoflegends.com/cdn/14.21.1/img/item/3094.png"
               /><!---->
               <div data-v-8e0e60d7="" data-v-de17e6dc-s="" class="gold">
                 2650
@@ -3001,7 +3001,7 @@
                 data-v-8e0e60d7=""
                 data-v-de17e6dc-s=""
                 class="img"
-                src="/data/img/items/6675.png"
+                src="https://ddragon.leagueoflegends.com/cdn/14.21.1/img/item/6675.png"
               /><!---->
               <div data-v-8e0e60d7="" data-v-de17e6dc-s="" class="gold">
                 2650
@@ -3027,7 +3027,7 @@
                 data-v-8e0e60d7=""
                 data-v-de17e6dc-s=""
                 class="img"
-                src="/data/img/items/8020.png"
+                src="https://ddragon.leagueoflegends.com/cdn/14.21.1/img/item/8020.png"
               /><!---->
               <div data-v-8e0e60d7="" data-v-de17e6dc-s="" class="gold">
                 2650
@@ -3053,7 +3053,7 @@
                 data-v-8e0e60d7=""
                 data-v-de17e6dc-s=""
                 class="img"
-                src="/data/img/items/3065.png"
+                src="https://ddragon.leagueoflegends.com/cdn/14.21.1/img/item/3065.png"
               /><!---->
               <div data-v-8e0e60d7="" data-v-de17e6dc-s="" class="gold">
                 2700
@@ -3079,7 +3079,7 @@
                 data-v-8e0e60d7=""
                 data-v-de17e6dc-s=""
                 class="img"
-                src="/data/img/items/3068.png"
+                src="https://ddragon.leagueoflegends.com/cdn/14.21.1/img/item/3068.png"
               /><!---->
               <div data-v-8e0e60d7="" data-v-de17e6dc-s="" class="gold">
                 2700
@@ -3105,7 +3105,7 @@
                 data-v-8e0e60d7=""
                 data-v-de17e6dc-s=""
                 class="img"
-                src="/data/img/items/3118.png"
+                src="https://ddragon.leagueoflegends.com/cdn/14.21.1/img/item/3118.png"
               /><!---->
               <div data-v-8e0e60d7="" data-v-de17e6dc-s="" class="gold">
                 2700
@@ -3131,7 +3131,7 @@
                 data-v-8e0e60d7=""
                 data-v-de17e6dc-s=""
                 class="img"
-                src="/data/img/items/3143.png"
+                src="https://ddragon.leagueoflegends.com/cdn/14.21.1/img/item/3143.png"
               /><!---->
               <div data-v-8e0e60d7="" data-v-de17e6dc-s="" class="gold">
                 2700
@@ -3157,7 +3157,7 @@
                 data-v-8e0e60d7=""
                 data-v-de17e6dc-s=""
                 class="img"
-                src="/data/img/items/4628.png"
+                src="https://ddragon.leagueoflegends.com/cdn/14.21.1/img/item/4628.png"
               /><!---->
               <div data-v-8e0e60d7="" data-v-de17e6dc-s="" class="gold">
                 2700
@@ -3183,7 +3183,7 @@
                 data-v-8e0e60d7=""
                 data-v-de17e6dc-s=""
                 class="img"
-                src="/data/img/items/6701.png"
+                src="https://ddragon.leagueoflegends.com/cdn/14.21.1/img/item/6701.png"
               /><!---->
               <div data-v-8e0e60d7="" data-v-de17e6dc-s="" class="gold">
                 2700
@@ -3209,7 +3209,7 @@
                 data-v-8e0e60d7=""
                 data-v-de17e6dc-s=""
                 class="img"
-                src="/data/img/items/2502.png"
+                src="https://ddragon.leagueoflegends.com/cdn/14.21.1/img/item/2502.png"
               /><!---->
               <div data-v-8e0e60d7="" data-v-de17e6dc-s="" class="gold">
                 2800
@@ -3235,7 +3235,7 @@
                 data-v-8e0e60d7=""
                 data-v-de17e6dc-s=""
                 class="img"
-                src="/data/img/items/2503.png"
+                src="https://ddragon.leagueoflegends.com/cdn/14.21.1/img/item/2503.png"
               /><!---->
               <div data-v-8e0e60d7="" data-v-de17e6dc-s="" class="gold">
                 2800
@@ -3261,7 +3261,7 @@
                 data-v-8e0e60d7=""
                 data-v-de17e6dc-s=""
                 class="img"
-                src="/data/img/items/3091.png"
+                src="https://ddragon.leagueoflegends.com/cdn/14.21.1/img/item/3091.png"
               /><!---->
               <div data-v-8e0e60d7="" data-v-de17e6dc-s="" class="gold">
                 2800
@@ -3287,7 +3287,7 @@
                 data-v-8e0e60d7=""
                 data-v-de17e6dc-s=""
                 class="img"
-                src="/data/img/items/3142.png"
+                src="https://ddragon.leagueoflegends.com/cdn/14.21.1/img/item/3142.png"
               /><!---->
               <div data-v-8e0e60d7="" data-v-de17e6dc-s="" class="gold">
                 2800
@@ -3313,7 +3313,7 @@
                 data-v-8e0e60d7=""
                 data-v-de17e6dc-s=""
                 class="img"
-                src="/data/img/items/4401.png"
+                src="https://ddragon.leagueoflegends.com/cdn/14.21.1/img/item/4401.png"
               /><!---->
               <div data-v-8e0e60d7="" data-v-de17e6dc-s="" class="gold">
                 2800
@@ -3339,7 +3339,7 @@
                 data-v-8e0e60d7=""
                 data-v-de17e6dc-s=""
                 class="img"
-                src="/data/img/items/6664.png"
+                src="https://ddragon.leagueoflegends.com/cdn/14.21.1/img/item/6664.png"
               /><!---->
               <div data-v-8e0e60d7="" data-v-de17e6dc-s="" class="gold">
                 2800
@@ -3365,7 +3365,7 @@
                 data-v-8e0e60d7=""
                 data-v-de17e6dc-s=""
                 class="img"
-                src="/data/img/items/3137.png"
+                src="https://ddragon.leagueoflegends.com/cdn/14.21.1/img/item/3137.png"
               /><!---->
               <div data-v-8e0e60d7="" data-v-de17e6dc-s="" class="gold">
                 2850
@@ -3391,7 +3391,7 @@
                 data-v-8e0e60d7=""
                 data-v-de17e6dc-s=""
                 class="img"
-                src="/data/img/items/6655.png"
+                src="https://ddragon.leagueoflegends.com/cdn/14.21.1/img/item/6655.png"
               /><!---->
               <div data-v-8e0e60d7="" data-v-de17e6dc-s="" class="gold">
                 2850
@@ -3417,7 +3417,7 @@
                 data-v-8e0e60d7=""
                 data-v-de17e6dc-s=""
                 class="img"
-                src="/data/img/items/2504.png"
+                src="https://ddragon.leagueoflegends.com/cdn/14.21.1/img/item/2504.png"
               /><!---->
               <div data-v-8e0e60d7="" data-v-de17e6dc-s="" class="gold">
                 2900
@@ -3443,7 +3443,7 @@
                 data-v-8e0e60d7=""
                 data-v-de17e6dc-s=""
                 class="img"
-                src="/data/img/items/3003.png"
+                src="https://ddragon.leagueoflegends.com/cdn/14.21.1/img/item/3003.png"
               /><!---->
               <div data-v-8e0e60d7="" data-v-de17e6dc-s="" class="gold">
                 2900
@@ -3469,7 +3469,7 @@
                 data-v-8e0e60d7=""
                 data-v-de17e6dc-s=""
                 class="img"
-                src="/data/img/items/3004.png"
+                src="https://ddragon.leagueoflegends.com/cdn/14.21.1/img/item/3004.png"
               /><!---->
               <div data-v-8e0e60d7="" data-v-de17e6dc-s="" class="gold">
                 2900
@@ -3495,7 +3495,7 @@
                 data-v-8e0e60d7=""
                 data-v-de17e6dc-s=""
                 class="img"
-                src="/data/img/items/3040.png"
+                src="https://ddragon.leagueoflegends.com/cdn/14.21.1/img/item/3040.png"
               /><!---->
               <div data-v-8e0e60d7="" data-v-de17e6dc-s="" class="gold">
                 2900
@@ -3521,7 +3521,7 @@
                 data-v-8e0e60d7=""
                 data-v-de17e6dc-s=""
                 class="img"
-                src="/data/img/items/3042.png"
+                src="https://ddragon.leagueoflegends.com/cdn/14.21.1/img/item/3042.png"
               /><!---->
               <div data-v-8e0e60d7="" data-v-de17e6dc-s="" class="gold">
                 2900
@@ -3547,7 +3547,7 @@
                 data-v-8e0e60d7=""
                 data-v-de17e6dc-s=""
                 class="img"
-                src="/data/img/items/3087.png"
+                src="https://ddragon.leagueoflegends.com/cdn/14.21.1/img/item/3087.png"
               /><!---->
               <div data-v-8e0e60d7="" data-v-de17e6dc-s="" class="gold">
                 2900
@@ -3573,7 +3573,7 @@
                 data-v-8e0e60d7=""
                 data-v-de17e6dc-s=""
                 class="img"
-                src="/data/img/items/3508.png"
+                src="https://ddragon.leagueoflegends.com/cdn/14.21.1/img/item/3508.png"
               /><!---->
               <div data-v-8e0e60d7="" data-v-de17e6dc-s="" class="gold">
                 2900
@@ -3599,7 +3599,7 @@
                 data-v-8e0e60d7=""
                 data-v-de17e6dc-s=""
                 class="img"
-                src="/data/img/items/3742.png"
+                src="https://ddragon.leagueoflegends.com/cdn/14.21.1/img/item/3742.png"
               /><!---->
               <div data-v-8e0e60d7="" data-v-de17e6dc-s="" class="gold">
                 2900
@@ -3625,7 +3625,7 @@
                 data-v-8e0e60d7=""
                 data-v-de17e6dc-s=""
                 class="img"
-                src="/data/img/items/4646.png"
+                src="https://ddragon.leagueoflegends.com/cdn/14.21.1/img/item/4646.png"
               /><!---->
               <div data-v-8e0e60d7="" data-v-de17e6dc-s="" class="gold">
                 2900
@@ -3651,7 +3651,7 @@
                 data-v-8e0e60d7=""
                 data-v-de17e6dc-s=""
                 class="img"
-                src="/data/img/items/6662.png"
+                src="https://ddragon.leagueoflegends.com/cdn/14.21.1/img/item/6662.png"
               /><!---->
               <div data-v-8e0e60d7="" data-v-de17e6dc-s="" class="gold">
                 2900
@@ -3677,7 +3677,7 @@
                 data-v-8e0e60d7=""
                 data-v-de17e6dc-s=""
                 class="img"
-                src="/data/img/items/6692.png"
+                src="https://ddragon.leagueoflegends.com/cdn/14.21.1/img/item/6692.png"
               /><!---->
               <div data-v-8e0e60d7="" data-v-de17e6dc-s="" class="gold">
                 2900
@@ -3703,7 +3703,7 @@
                 data-v-8e0e60d7=""
                 data-v-de17e6dc-s=""
                 class="img"
-                src="/data/img/items/3032.png"
+                src="https://ddragon.leagueoflegends.com/cdn/14.21.1/img/item/3032.png"
               /><!---->
               <div data-v-8e0e60d7="" data-v-de17e6dc-s="" class="gold">
                 2950
@@ -3729,7 +3729,7 @@
                 data-v-8e0e60d7=""
                 data-v-de17e6dc-s=""
                 class="img"
-                src="/data/img/items/3165.png"
+                src="https://ddragon.leagueoflegends.com/cdn/14.21.1/img/item/3165.png"
               /><!---->
               <div data-v-8e0e60d7="" data-v-de17e6dc-s="" class="gold">
                 2950
@@ -3755,7 +3755,7 @@
                 data-v-8e0e60d7=""
                 data-v-de17e6dc-s=""
                 class="img"
-                src="/data/img/items/6676.png"
+                src="https://ddragon.leagueoflegends.com/cdn/14.21.1/img/item/6676.png"
               /><!---->
               <div data-v-8e0e60d7="" data-v-de17e6dc-s="" class="gold">
                 2950
@@ -3781,7 +3781,7 @@
                 data-v-8e0e60d7=""
                 data-v-de17e6dc-s=""
                 class="img"
-                src="/data/img/items/3036.png"
+                src="https://ddragon.leagueoflegends.com/cdn/14.21.1/img/item/3036.png"
               /><!---->
               <div data-v-8e0e60d7="" data-v-de17e6dc-s="" class="gold">
                 3000
@@ -3807,7 +3807,7 @@
                 data-v-8e0e60d7=""
                 data-v-de17e6dc-s=""
                 class="img"
-                src="/data/img/items/3071.png"
+                src="https://ddragon.leagueoflegends.com/cdn/14.21.1/img/item/3071.png"
               /><!---->
               <div data-v-8e0e60d7="" data-v-de17e6dc-s="" class="gold">
                 3000
@@ -3833,7 +3833,7 @@
                 data-v-8e0e60d7=""
                 data-v-de17e6dc-s=""
                 class="img"
-                src="/data/img/items/3073.png"
+                src="https://ddragon.leagueoflegends.com/cdn/14.21.1/img/item/3073.png"
               /><!---->
               <div data-v-8e0e60d7="" data-v-de17e6dc-s="" class="gold">
                 3000
@@ -3859,7 +3859,7 @@
                 data-v-8e0e60d7=""
                 data-v-de17e6dc-s=""
                 class="img"
-                src="/data/img/items/3084.png"
+                src="https://ddragon.leagueoflegends.com/cdn/14.21.1/img/item/3084.png"
               /><!---->
               <div data-v-8e0e60d7="" data-v-de17e6dc-s="" class="gold">
                 3000
@@ -3885,7 +3885,7 @@
                 data-v-8e0e60d7=""
                 data-v-de17e6dc-s=""
                 class="img"
-                src="/data/img/items/3102.png"
+                src="https://ddragon.leagueoflegends.com/cdn/14.21.1/img/item/3102.png"
               /><!---->
               <div data-v-8e0e60d7="" data-v-de17e6dc-s="" class="gold">
                 3000
@@ -3911,7 +3911,7 @@
                 data-v-8e0e60d7=""
                 data-v-de17e6dc-s=""
                 class="img"
-                src="/data/img/items/3115.png"
+                src="https://ddragon.leagueoflegends.com/cdn/14.21.1/img/item/3115.png"
               /><!---->
               <div data-v-8e0e60d7="" data-v-de17e6dc-s="" class="gold">
                 3000
@@ -3937,7 +3937,7 @@
                 data-v-8e0e60d7=""
                 data-v-de17e6dc-s=""
                 class="img"
-                src="/data/img/items/3124.png"
+                src="https://ddragon.leagueoflegends.com/cdn/14.21.1/img/item/3124.png"
               /><!---->
               <div data-v-8e0e60d7="" data-v-de17e6dc-s="" class="gold">
                 3000
@@ -3963,7 +3963,7 @@
                 data-v-8e0e60d7=""
                 data-v-de17e6dc-s=""
                 class="img"
-                src="/data/img/items/3135.png"
+                src="https://ddragon.leagueoflegends.com/cdn/14.21.1/img/item/3135.png"
               /><!---->
               <div data-v-8e0e60d7="" data-v-de17e6dc-s="" class="gold">
                 3000
@@ -3989,7 +3989,7 @@
                 data-v-8e0e60d7=""
                 data-v-de17e6dc-s=""
                 class="img"
-                src="/data/img/items/3181.png"
+                src="https://ddragon.leagueoflegends.com/cdn/14.21.1/img/item/3181.png"
               /><!---->
               <div data-v-8e0e60d7="" data-v-de17e6dc-s="" class="gold">
                 3000
@@ -4015,7 +4015,7 @@
                 data-v-8e0e60d7=""
                 data-v-de17e6dc-s=""
                 class="img"
-                src="/data/img/items/3302.png"
+                src="https://ddragon.leagueoflegends.com/cdn/14.21.1/img/item/3302.png"
               /><!---->
               <div data-v-8e0e60d7="" data-v-de17e6dc-s="" class="gold">
                 3000
@@ -4041,7 +4041,7 @@
                 data-v-8e0e60d7=""
                 data-v-de17e6dc-s=""
                 class="img"
-                src="/data/img/items/3814.png"
+                src="https://ddragon.leagueoflegends.com/cdn/14.21.1/img/item/3814.png"
               /><!---->
               <div data-v-8e0e60d7="" data-v-de17e6dc-s="" class="gold">
                 3000
@@ -4067,7 +4067,7 @@
                 data-v-8e0e60d7=""
                 data-v-de17e6dc-s=""
                 class="img"
-                src="/data/img/items/4629.png"
+                src="https://ddragon.leagueoflegends.com/cdn/14.21.1/img/item/4629.png"
               /><!---->
               <div data-v-8e0e60d7="" data-v-de17e6dc-s="" class="gold">
                 3000
@@ -4093,7 +4093,7 @@
                 data-v-8e0e60d7=""
                 data-v-de17e6dc-s=""
                 class="img"
-                src="/data/img/items/6653.png"
+                src="https://ddragon.leagueoflegends.com/cdn/14.21.1/img/item/6653.png"
               /><!---->
               <div data-v-8e0e60d7="" data-v-de17e6dc-s="" class="gold">
                 3000
@@ -4119,7 +4119,7 @@
                 data-v-8e0e60d7=""
                 data-v-de17e6dc-s=""
                 class="img"
-                src="/data/img/items/6673.png"
+                src="https://ddragon.leagueoflegends.com/cdn/14.21.1/img/item/6673.png"
               /><!---->
               <div data-v-8e0e60d7="" data-v-de17e6dc-s="" class="gold">
                 3000
@@ -4145,7 +4145,7 @@
                 data-v-8e0e60d7=""
                 data-v-de17e6dc-s=""
                 class="img"
-                src="/data/img/items/6694.png"
+                src="https://ddragon.leagueoflegends.com/cdn/14.21.1/img/item/6694.png"
               /><!---->
               <div data-v-8e0e60d7="" data-v-de17e6dc-s="" class="gold">
                 3000
@@ -4171,7 +4171,7 @@
                 data-v-8e0e60d7=""
                 data-v-de17e6dc-s=""
                 class="img"
-                src="/data/img/items/6696.png"
+                src="https://ddragon.leagueoflegends.com/cdn/14.21.1/img/item/6696.png"
               /><!---->
               <div data-v-8e0e60d7="" data-v-de17e6dc-s="" class="gold">
                 3000
@@ -4197,7 +4197,7 @@
                 data-v-8e0e60d7=""
                 data-v-de17e6dc-s=""
                 class="img"
-                src="/data/img/items/6697.png"
+                src="https://ddragon.leagueoflegends.com/cdn/14.21.1/img/item/6697.png"
               /><!---->
               <div data-v-8e0e60d7="" data-v-de17e6dc-s="" class="gold">
                 3000
@@ -4223,7 +4223,7 @@
                 data-v-8e0e60d7=""
                 data-v-de17e6dc-s=""
                 class="img"
-                src="/data/img/items/6699.png"
+                src="https://ddragon.leagueoflegends.com/cdn/14.21.1/img/item/6699.png"
               /><!---->
               <div data-v-8e0e60d7="" data-v-de17e6dc-s="" class="gold">
                 3000
@@ -4249,7 +4249,7 @@
                 data-v-8e0e60d7=""
                 data-v-de17e6dc-s=""
                 class="img"
-                src="/data/img/items/3156.png"
+                src="https://ddragon.leagueoflegends.com/cdn/14.21.1/img/item/3156.png"
               /><!---->
               <div data-v-8e0e60d7="" data-v-de17e6dc-s="" class="gold">
                 3100
@@ -4275,7 +4275,7 @@
                 data-v-8e0e60d7=""
                 data-v-de17e6dc-s=""
                 class="img"
-                src="/data/img/items/3161.png"
+                src="https://ddragon.leagueoflegends.com/cdn/14.21.1/img/item/3161.png"
               /><!---->
               <div data-v-8e0e60d7="" data-v-de17e6dc-s="" class="gold">
                 3100
@@ -4301,7 +4301,7 @@
                 data-v-8e0e60d7=""
                 data-v-de17e6dc-s=""
                 class="img"
-                src="/data/img/items/4633.png"
+                src="https://ddragon.leagueoflegends.com/cdn/14.21.1/img/item/4633.png"
               /><!---->
               <div data-v-8e0e60d7="" data-v-de17e6dc-s="" class="gold">
                 3100
@@ -4327,7 +4327,7 @@
                 data-v-8e0e60d7=""
                 data-v-de17e6dc-s=""
                 class="img"
-                src="/data/img/items/6609.png"
+                src="https://ddragon.leagueoflegends.com/cdn/14.21.1/img/item/6609.png"
               /><!---->
               <div data-v-8e0e60d7="" data-v-de17e6dc-s="" class="gold">
                 3100
@@ -4353,7 +4353,7 @@
                 data-v-8e0e60d7=""
                 data-v-de17e6dc-s=""
                 class="img"
-                src="/data/img/items/6610.png"
+                src="https://ddragon.leagueoflegends.com/cdn/14.21.1/img/item/6610.png"
               /><!---->
               <div data-v-8e0e60d7="" data-v-de17e6dc-s="" class="gold">
                 3100
@@ -4379,7 +4379,7 @@
                 data-v-8e0e60d7=""
                 data-v-de17e6dc-s=""
                 class="img"
-                src="/data/img/items/6672.png"
+                src="https://ddragon.leagueoflegends.com/cdn/14.21.1/img/item/6672.png"
               /><!---->
               <div data-v-8e0e60d7="" data-v-de17e6dc-s="" class="gold">
                 3100
@@ -4405,7 +4405,7 @@
                 data-v-8e0e60d7=""
                 data-v-de17e6dc-s=""
                 class="img"
-                src="/data/img/items/3026.png"
+                src="https://ddragon.leagueoflegends.com/cdn/14.21.1/img/item/3026.png"
               /><!---->
               <div data-v-8e0e60d7="" data-v-de17e6dc-s="" class="gold">
                 3200
@@ -4431,7 +4431,7 @@
                 data-v-8e0e60d7=""
                 data-v-de17e6dc-s=""
                 class="img"
-                src="/data/img/items/3033.png"
+                src="https://ddragon.leagueoflegends.com/cdn/14.21.1/img/item/3033.png"
               /><!---->
               <div data-v-8e0e60d7="" data-v-de17e6dc-s="" class="gold">
                 3200
@@ -4457,7 +4457,7 @@
                 data-v-8e0e60d7=""
                 data-v-de17e6dc-s=""
                 class="img"
-                src="/data/img/items/3053.png"
+                src="https://ddragon.leagueoflegends.com/cdn/14.21.1/img/item/3053.png"
               /><!---->
               <div data-v-8e0e60d7="" data-v-de17e6dc-s="" class="gold">
                 3200
@@ -4483,7 +4483,7 @@
                 data-v-8e0e60d7=""
                 data-v-de17e6dc-s=""
                 class="img"
-                src="/data/img/items/3100.png"
+                src="https://ddragon.leagueoflegends.com/cdn/14.21.1/img/item/3100.png"
               /><!---->
               <div data-v-8e0e60d7="" data-v-de17e6dc-s="" class="gold">
                 3200
@@ -4509,7 +4509,7 @@
                 data-v-8e0e60d7=""
                 data-v-de17e6dc-s=""
                 class="img"
-                src="/data/img/items/3139.png"
+                src="https://ddragon.leagueoflegends.com/cdn/14.21.1/img/item/3139.png"
               /><!---->
               <div data-v-8e0e60d7="" data-v-de17e6dc-s="" class="gold">
                 3200
@@ -4535,7 +4535,7 @@
                 data-v-8e0e60d7=""
                 data-v-de17e6dc-s=""
                 class="img"
-                src="/data/img/items/3153.png"
+                src="https://ddragon.leagueoflegends.com/cdn/14.21.1/img/item/3153.png"
               /><!---->
               <div data-v-8e0e60d7="" data-v-de17e6dc-s="" class="gold">
                 3200
@@ -4561,7 +4561,7 @@
                 data-v-8e0e60d7=""
                 data-v-de17e6dc-s=""
                 class="img"
-                src="/data/img/items/4645.png"
+                src="https://ddragon.leagueoflegends.com/cdn/14.21.1/img/item/4645.png"
               /><!---->
               <div data-v-8e0e60d7="" data-v-de17e6dc-s="" class="gold">
                 3200
@@ -4587,7 +4587,7 @@
                 data-v-8e0e60d7=""
                 data-v-de17e6dc-s=""
                 class="img"
-                src="/data/img/items/6665.png"
+                src="https://ddragon.leagueoflegends.com/cdn/14.21.1/img/item/6665.png"
               /><!---->
               <div data-v-8e0e60d7="" data-v-de17e6dc-s="" class="gold">
                 3200
@@ -4613,7 +4613,7 @@
                 data-v-8e0e60d7=""
                 data-v-de17e6dc-s=""
                 class="img"
-                src="/data/img/items/6698.png"
+                src="https://ddragon.leagueoflegends.com/cdn/14.21.1/img/item/6698.png"
               /><!---->
               <div data-v-8e0e60d7="" data-v-de17e6dc-s="" class="gold">
                 3200
@@ -4639,7 +4639,7 @@
                 data-v-8e0e60d7=""
                 data-v-de17e6dc-s=""
                 class="img"
-                src="/data/img/items/3157.png"
+                src="https://ddragon.leagueoflegends.com/cdn/14.21.1/img/item/3157.png"
               /><!---->
               <div data-v-8e0e60d7="" data-v-de17e6dc-s="" class="gold">
                 3250
@@ -4665,7 +4665,7 @@
                 data-v-8e0e60d7=""
                 data-v-de17e6dc-s=""
                 class="img"
-                src="/data/img/items/2501.png"
+                src="https://ddragon.leagueoflegends.com/cdn/14.21.1/img/item/2501.png"
               /><!---->
               <div data-v-8e0e60d7="" data-v-de17e6dc-s="" class="gold">
                 3300
@@ -4691,7 +4691,7 @@
                 data-v-8e0e60d7=""
                 data-v-de17e6dc-s=""
                 class="img"
-                src="/data/img/items/3074.png"
+                src="https://ddragon.leagueoflegends.com/cdn/14.21.1/img/item/3074.png"
               /><!---->
               <div data-v-8e0e60d7="" data-v-de17e6dc-s="" class="gold">
                 3300
@@ -4717,7 +4717,7 @@
                 data-v-8e0e60d7=""
                 data-v-de17e6dc-s=""
                 class="img"
-                src="/data/img/items/3083.png"
+                src="https://ddragon.leagueoflegends.com/cdn/14.21.1/img/item/3083.png"
               /><!---->
               <div data-v-8e0e60d7="" data-v-de17e6dc-s="" class="gold">
                 3300
@@ -4743,7 +4743,7 @@
                 data-v-8e0e60d7=""
                 data-v-de17e6dc-s=""
                 class="img"
-                src="/data/img/items/3748.png"
+                src="https://ddragon.leagueoflegends.com/cdn/14.21.1/img/item/3748.png"
               /><!---->
               <div data-v-8e0e60d7="" data-v-de17e6dc-s="" class="gold">
                 3300
@@ -4769,7 +4769,7 @@
                 data-v-8e0e60d7=""
                 data-v-de17e6dc-s=""
                 class="img"
-                src="/data/img/items/6333.png"
+                src="https://ddragon.leagueoflegends.com/cdn/14.21.1/img/item/6333.png"
               /><!---->
               <div data-v-8e0e60d7="" data-v-de17e6dc-s="" class="gold">
                 3300
@@ -4795,7 +4795,7 @@
                 data-v-8e0e60d7=""
                 data-v-de17e6dc-s=""
                 class="img"
-                src="/data/img/items/6631.png"
+                src="https://ddragon.leagueoflegends.com/cdn/14.21.1/img/item/6631.png"
               /><!---->
               <div data-v-8e0e60d7="" data-v-de17e6dc-s="" class="gold">
                 3300
@@ -4821,7 +4821,7 @@
                 data-v-8e0e60d7=""
                 data-v-de17e6dc-s=""
                 class="img"
-                src="/data/img/items/3078.png"
+                src="https://ddragon.leagueoflegends.com/cdn/14.21.1/img/item/3078.png"
               /><!---->
               <div data-v-8e0e60d7="" data-v-de17e6dc-s="" class="gold">
                 3333
@@ -4847,7 +4847,7 @@
                 data-v-8e0e60d7=""
                 data-v-de17e6dc-s=""
                 class="img"
-                src="/data/img/items/3072.png"
+                src="https://ddragon.leagueoflegends.com/cdn/14.21.1/img/item/3072.png"
               /><!---->
               <div data-v-8e0e60d7="" data-v-de17e6dc-s="" class="gold">
                 3400
@@ -4873,7 +4873,7 @@
                 data-v-8e0e60d7=""
                 data-v-de17e6dc-s=""
                 class="img"
-                src="/data/img/items/3031.png"
+                src="https://ddragon.leagueoflegends.com/cdn/14.21.1/img/item/3031.png"
               /><!---->
               <div data-v-8e0e60d7="" data-v-de17e6dc-s="" class="gold">
                 3600
@@ -4899,7 +4899,7 @@
                 data-v-8e0e60d7=""
                 data-v-de17e6dc-s=""
                 class="img"
-                src="/data/img/items/3089.png"
+                src="https://ddragon.leagueoflegends.com/cdn/14.21.1/img/item/3089.png"
               /><!---->
               <div data-v-8e0e60d7="" data-v-de17e6dc-s="" class="gold">
                 3600

@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import ChampSelection from '@/components/ChampSelection.vue'
 import SheetBuild from './SheetBuild.vue'
-
 </script>
 
 <template>
@@ -29,17 +28,12 @@ import SheetBuild from './SheetBuild.vue'
           <span data-v-c3d704f8="" class="arrow"></span>
           <a data-v-c3d704f8="" href="/infos/info" class=""> Info </a>
         </div>
-        <div
-        
-          data-v-c3d704f8=""
-          class="main"
-        >
+        <div data-v-c3d704f8="" class="main">
           <ChampSelection />
         </div>
 
         <SheetBuild />
       </div>
-      
     </div>
   </div>
 </template>
