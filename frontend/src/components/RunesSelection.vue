@@ -411,7 +411,7 @@ onMounted(() => {
                 <img
                   data-v-41863a3e=""
                   data-v-de17e6dc-s=""
-                  :src="`/src/assets/icons/${shard.image}`"
+                  :src="`/assets/icons/${shard.image}`"
                 />
               </button>
             </div>
