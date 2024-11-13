@@ -1660,7 +1660,7 @@
 }
 
 .summoners .list[data-v-329ba674] {
-  grid-template-columns: repeat(4, min-content);
+  grid-template-columns: repeat(3, min-content);
   place-items: center;
   display: grid;
   width: 100%;

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, computed } from 'vue'
 import runes from '@/assets/files/runesReforged.json'
 import summoner from '@/assets/files/summoner.json'
 import shards from '@/assets/files/shards.json'
@@ -33,6 +33,11 @@ const summonerData = ref<
   Array<(typeof summoner.data)[keyof typeof summoner.data]>
 >([])
 const shardsData = ref<Shard[]>([])
+const filteredSummonerData = computed(() => {
+  return summonerData.value.filter(summoner =>
+    summoner.modes.includes('CLASSIC'),
+  )
+})
 
 onMounted(() => {
   runesData.value = Object.values(runes)
@@ -365,12 +370,8 @@ onMounted(() => {
         style="--72818571: 66px"
       >
         <div data-v-329ba674="" class="list">
-          <section v-for="(summoner, index) in summonerData" :key="index">
-            <div
-              data-v-329ba674=""
-              class="summoner"
-              v-if="summoner.modes.includes('CLASSIC')"
-            >
+          <div v-for="(summoner, index) in filteredSummonerData" :key="index">
+            <div data-v-329ba674="" class="summoner">
               <div data-v-de17e6dc="" data-v-329ba674="" class="tooltip">
                 <button
                   data-v-329ba674=""
@@ -385,8 +386,7 @@ onMounted(() => {
                 </button>
               </div>
             </div>
-            <div data-v-329ba674="" class="space"></div>
-          </section>
+          </div>
         </div>
       </div>
       <div
