@@ -18,22 +18,22 @@ const router = createRouter({
       component: () => import('../views/BuildToolView.vue'),
     },
     {
-      path: '/infos/champions',
+      path: '/champions',
       name: 'Champion',
       component: () => import('../views/ChampionView.vue'),
     },
     {
-      path: '/infos/runes',
+      path: '/runes',
       name: 'Runes',
       component: () => import('../views/RunesView.vue'),
     },
     {
-      path: '/infos/items',
+      path: '/items',
       name: 'Items',
       component: () => import('../views/ItemsView.vue'),
     },
     // {
-    //   path: '/infos/info',
+    //   path: '/info',
     //   name: 'Infos',
     //   component: () => import('../views/infosToolView.vue'),
     // },

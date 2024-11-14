@@ -9,15 +9,15 @@
       Champions
     </a>
     <span data-v-c3d704f8="" class="arrow"></span>
-    <a data-v-c3d704f8="" href="/infos/runes" class="">
+    <a data-v-c3d704f8="" href="/runes" class="">
       <span data-v-c3d704f8="" class="long">
         Runes &amp; sort d'invocateur</span
       >
       <span data-v-c3d704f8="" class="short"> Runes </span></a
     >
     <span data-v-c3d704f8="" class="arrow"></span>
-    <a data-v-c3d704f8="" href="/infos/items" class=""> Items </a>
+    <a data-v-c3d704f8="" href="/items" class=""> Items </a>
     <span data-v-c3d704f8="" class="arrow"></span>
-    <a data-v-c3d704f8="" href="/infos/info" class=""> Info </a>
+    <a data-v-c3d704f8="" href="/info" class=""> Info </a>
   </div>
 </template>

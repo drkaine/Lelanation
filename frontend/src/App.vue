@@ -26,7 +26,10 @@ import { RouterLink, RouterView } from 'vue-router'
           </svg>
         </button>
         <div class="right" data-v-7cc930f8="">
-          <RouterLink to="/build"> Building</RouterLink>
+          <!-- <RouterLink to="/build"> Building</RouterLink> -->
+          <RouterLink to="/champions">Champions</RouterLink>
+          <RouterLink to="/runes">Runes</RouterLink>
+          <RouterLink to="/items">Items</RouterLink>
           <span data-v-7cc930f8="">•</span>
           <a
             href="https://www.leagueoflegends.com/fr-fr/news/tags/patch-notes/"
