@@ -3,6 +3,7 @@ import { ref, onMounted, computed } from 'vue'
 import runes from '@/assets/files/runesReforged.json'
 import summoner from '@/assets/files/summoner.json'
 import shards from '@/assets/files/shards.json'
+import RuneTooltip from '@/components/RuneTooltip.vue'
 
 interface Rune {
   id: number
@@ -120,6 +121,15 @@ onMounted(() => {
                   :src="`https://ddragon.leagueoflegends.com/cdn/img/${rune.icon}`"
                 />
               </button>
+              <RuneTooltip
+                :rune="{
+                  key: rune.key,
+                  icon: rune.icon,
+                  name: rune.name,
+                  shortDesc: rune.shortDesc,
+                  longDesc: rune.longDesc,
+                }"
+              />
             </div>
           </div>
         </div>
@@ -151,6 +161,15 @@ onMounted(() => {
                   :src="`https://ddragon.leagueoflegends.com/cdn/img/${rune.icon}`"
                 />
               </button>
+              <RuneTooltip
+                :rune="{
+                  key: rune.key,
+                  icon: rune.icon,
+                  name: rune.name,
+                  shortDesc: rune.shortDesc,
+                  longDesc: rune.longDesc,
+                }"
+              />
             </div>
           </div>
         </div>
@@ -182,6 +201,15 @@ onMounted(() => {
                   :src="`https://ddragon.leagueoflegends.com/cdn/img/${rune.icon}`"
                 />
               </button>
+              <RuneTooltip
+                :rune="{
+                  key: rune.key,
+                  icon: rune.icon,
+                  name: rune.name,
+                  shortDesc: rune.shortDesc,
+                  longDesc: rune.longDesc,
+                }"
+              />
             </div>
           </div>
         </div>
@@ -213,6 +241,15 @@ onMounted(() => {
                   :src="`https://ddragon.leagueoflegends.com/cdn/img/${rune.icon}`"
                 />
               </button>
+              <RuneTooltip
+                :rune="{
+                  key: rune.key,
+                  icon: rune.icon,
+                  name: rune.name,
+                  shortDesc: rune.shortDesc,
+                  longDesc: rune.longDesc,
+                }"
+              />
             </div>
           </div>
         </div>
@@ -297,6 +334,15 @@ onMounted(() => {
                   :src="`https://ddragon.leagueoflegends.com/cdn/img/${rune.icon}`"
                 />
               </button>
+              <RuneTooltip
+                :rune="{
+                  key: rune.key,
+                  icon: rune.icon,
+                  name: rune.name,
+                  shortDesc: rune.shortDesc,
+                  longDesc: rune.longDesc,
+                }"
+              />
             </div>
           </div>
         </div>
@@ -328,6 +374,15 @@ onMounted(() => {
                   :src="`https://ddragon.leagueoflegends.com/cdn/img/${rune.icon}`"
                 />
               </button>
+              <RuneTooltip
+                :rune="{
+                  key: rune.key,
+                  icon: rune.icon,
+                  name: rune.name,
+                  shortDesc: rune.shortDesc,
+                  longDesc: rune.longDesc,
+                }"
+              />
             </div>
           </div>
         </div>
@@ -359,6 +414,15 @@ onMounted(() => {
                   :src="`https://ddragon.leagueoflegends.com/cdn/img/${rune.icon}`"
                 />
               </button>
+              <RuneTooltip
+                :rune="{
+                  key: rune.key,
+                  icon: rune.icon,
+                  name: rune.name,
+                  shortDesc: rune.shortDesc,
+                  longDesc: rune.longDesc,
+                }"
+              />
             </div>
           </div>
         </div>
