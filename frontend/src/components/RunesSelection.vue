@@ -4,6 +4,7 @@ import runes from '@/assets/files/runesReforged.json'
 import summoner from '@/assets/files/summoner.json'
 import shards from '@/assets/files/shards.json'
 import RuneTooltip from '@/components/RuneTooltip.vue'
+import SummonerTooltip from '@/components/SummonerTooltip.vue'
 
 interface Rune {
   id: number
@@ -448,6 +449,14 @@ onMounted(() => {
                     :src="`https://ddragon.leagueoflegends.com/cdn/14.22.1/img/spell/${summoner.image.full}`"
                   />
                 </button>
+                <SummonerTooltip
+                  :summoner="{
+                    image: { full: summoner.image.full },
+                    name: summoner.name,
+                    description: summoner.description,
+                    tooltip: summoner.tooltip,
+                  }"
+                />
               </div>
             </div>
           </div>
