@@ -5,6 +5,7 @@ import summoner from '@/assets/files/summoner.json'
 import shards from '@/assets/files/shards.json'
 import RuneTooltip from '@/components/RuneTooltip.vue'
 import SummonerTooltip from '@/components/SummonerTooltip.vue'
+import ShardTooltip from '@/components/ShardTooltip.vue'
 
 interface Rune {
   id: number
@@ -487,6 +488,12 @@ onMounted(() => {
                   :src="`/assets/icons/${shard.image}`"
                 />
               </button>
+              <ShardTooltip
+                  :shard="{
+                    image:  shard.image ,
+                    description: shard.description,
+                  }"
+                />
             </div>
           </div>
 
