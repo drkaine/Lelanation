@@ -3,7 +3,7 @@
     <a
       data-v-c3d704f8=""
       aria-current="page"
-      href="/infos/champions"
+      href="/champions"
       class="router-link-active router-link-exact-active"
     >
       Champions
