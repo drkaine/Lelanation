@@ -3,8 +3,9 @@ import { DdragonAPI } from "../src/DdragonAPI";
 describe("Ddragon ", () => {
   let ddragonAPI: DdragonAPI;
 
-  beforeEach(() => {
+  beforeEach(async () => {
     ddragonAPI = new DdragonAPI();
+    await ddragonAPI.lastVersion();
   });
 
   const targets: string[] = [

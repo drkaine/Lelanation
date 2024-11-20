@@ -14,6 +14,7 @@ const folderTarget = "frontend/src/assets/files/";
 const ddragonAPI = new DdragonAPI();
 
 export async function compilation() {
+  await ddragonAPI.lastVersion();
   targets.forEach(async (target: string) => {
     const data = await ddragonAPI.loadJson(target);
     const filename = target.split("/").pop();
@@ -22,5 +23,8 @@ export async function compilation() {
     save(JSON.stringify(data), filePath);
   });
   const date = new Date();
-  save(JSON.stringify(date), path.join(__dirname, "../../" + folderTarget + date));
+  save(
+    JSON.stringify(date),
+    path.join(__dirname, "../../" + folderTarget + date),
+  );
 }
