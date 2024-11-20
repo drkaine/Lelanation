@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { RouterLink, RouterView } from 'vue-router'
+import version from '@/assets/files/lastVersion.json'
 </script>
 
 <template>
@@ -37,7 +38,7 @@ import { RouterLink, RouterView } from 'vue-router'
             target="_blank"
             class="version"
             data-v-7cc930f8=""
-            >14.21.1</a
+            >{{ version }}</a
           >
           <span data-v-7cc930f8="">•</span>
           <a

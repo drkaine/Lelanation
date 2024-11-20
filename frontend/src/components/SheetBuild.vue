@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { useChampionStore } from '@/stores/championStore'
 const championStore = useChampionStore()
+import version from '@/assets/files/lastVersion.json'
 </script>
 
 <template>
@@ -29,7 +30,9 @@ const championStore = useChampionStore()
               data-v-de17e6dc-s=""
               alt="{{champion.name}}"
               :src="
-                'https://ddragon.leagueoflegends.com/cdn/14.21.1/img/champion/' +
+                'https://ddragon.leagueoflegends.com/cdn/' +
+                version +
+                '/img/champion/' +
                 championStore.selectedChampionImage
               "
             />

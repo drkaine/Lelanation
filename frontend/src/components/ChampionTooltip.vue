@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import version from '@/assets/files/lastVersion.json'
 const props = defineProps<{
   champion: {
     image: { full: string }
@@ -32,7 +33,9 @@ const cleanDescription = (description: string) => {
           data-v-de17e6dc=""
           class="img"
           :src="
-            'https://ddragon.leagueoflegends.com/cdn/14.21.1/img/champion/' +
+            'https://ddragon.leagueoflegends.com/cdn/' +
+            version +
+            '/img/champion/' +
             props.champion.image.full
           "
         />
@@ -70,7 +73,9 @@ const cleanDescription = (description: string) => {
               <img
                 data-v-45896cfe=""
                 :src="
-                  'https://ddragon.leagueoflegends.com/cdn/14.21.1/img/passive/' +
+                  'https://ddragon.leagueoflegends.com/cdn/' +
+                  version +
+                  '/img/passive/' +
                   props.champion.passive.image.full
                 "
               />
@@ -89,7 +94,9 @@ const cleanDescription = (description: string) => {
               <img
                 data-v-45896cfe=""
                 :src="
-                  'https://ddragon.leagueoflegends.com/cdn/14.21.1/img/spell/' +
+                  'https://ddragon.leagueoflegends.com/cdn/' +
+                  version +
+                  '/img/spell/' +
                   spell.id +
                   '.png'
                 "

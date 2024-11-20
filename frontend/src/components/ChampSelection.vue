@@ -3,6 +3,7 @@ import { ref, onMounted } from 'vue'
 import { Filter } from './Filter'
 import { useChampionStore } from '@/stores/championStore'
 import ChampionTooltip from '@/components/ChampionTooltip.vue'
+import version from '@/assets/files/lastVersion.json'
 
 const searchQuery = ref<string>('')
 const filterInstance = new Filter()
@@ -130,7 +131,9 @@ const selectChampion = (champion: {
             data-v-6024a556=""
             data-v-de17e6dc-s=""
             :src="
-              'https://ddragon.leagueoflegends.com/cdn/14.21.1/img/champion/' +
+              'https://ddragon.leagueoflegends.com/cdn/' +
+              version +
+              '/img/champion/' +
               champion.image.full
             "
             alt="{{champion.name}}"
