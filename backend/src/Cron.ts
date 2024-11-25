@@ -7,7 +7,7 @@ const targets: string[] = [
   "data/fr_FR/item.json",
   "data/fr_FR/summoner.json",
   "data/fr_FR/runesReforged.json",
-  "data/fr_FR/map.json"
+  "data/fr_FR/map.json",
 ];
 
 const folderTarget = "frontend/src/assets/files/";
