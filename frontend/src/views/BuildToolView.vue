@@ -3,7 +3,5 @@ import BuildTool from '@/components/BuildTool.vue'
 </script>
 
 <template>
-  <main>
-    <BuildTool />
-  </main>
+  <BuildTool />
 </template>

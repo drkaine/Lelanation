@@ -13,7 +13,7 @@ const props = defineProps<{
       sell: number
     }
     tags: string[]
-    // stats: {}
+    stats: Record<string, number>
     plaintext: string
   }
 }>()
@@ -70,5 +70,33 @@ const props = defineProps<{
     <div data-v-cbff5ddf="" class="body">
       {{ props.item.description }}
     </div>
+    <div data-v-cbff5ddf="" class="stats">
+      <h3>Statistiques</h3>
+      <ul>
+        <li v-for="(value, key) in props.item.stats" :key="key">
+          <strong>{{ key }}:</strong> {{ value }}
+        </li>
+      </ul>
+    </div>
   </div>
 </template>
+
+<style scoped>
+.stats {
+  margin-top: 1em;
+}
+
+.stats h3 {
+  margin-bottom: 0.5em;
+  font-size: 1.2em;
+}
+
+.stats ul {
+  list-style: none;
+  padding: 0;
+}
+
+.stats li {
+  margin-bottom: 0.3em;
+}
+</style>

@@ -78,10 +78,16 @@ const itemsBoots = computed<Item[]>(() =>
   filteredItems.value.filter((item: Item) => item.tags?.includes('Boots')),
 )
 
-const itemsBasic = computed<Item[]>(() =>
+const itemsStarter = computed<Item[]>(() =>
   filteredItems.value.filter(
-    (item: Item) => item.depth === undefined && !item.tags?.includes('Boots'),
+    (item: Item) =>
+      (item.depth === undefined && item.tags?.includes('Lane')) ||
+      item.tags?.includes('Jungle'),
   ),
+)
+
+const itemsBasic = computed<Item[]>(() =>
+  filteredItems.value.filter((item: Item) => item.depth === undefined),
 )
 
 const itemsEpic = computed<Item[]>(() =>
@@ -255,6 +261,53 @@ const itemsLegendary = computed<Item[]>(() =>
           </button>
         </div>
 
+        <div data-v-aa396e7d="" class="group type-grid">Starter items</div>
+        <div
+          data-v-0ba05451=""
+          data-v-8e0e60d7=""
+          data-v-aa396e7d=""
+          class="tooltip-wrap"
+          v-for="(item, index) in itemsStarter"
+          :key="index"
+        >
+          <div data-v-de17e6dc="" data-v-0ba05451="" class="tooltip">
+            <button
+              data-v-8e0e60d7=""
+              data-v-de17e6dc-s=""
+              class="type-grid thumb"
+              to="false"
+              replace="false"
+            >
+              <img
+                data-v-8e0e60d7=""
+                data-v-de17e6dc-s=""
+                class="img"
+                :src="`https://ddragon.leagueoflegends.com/cdn/${version}/img/item/${item.image.full}`"
+              />
+              <div data-v-8e0e60d7="" data-v-de17e6dc-s="" class="gold">
+                {{ item.gold.total }}
+              </div>
+            </button>
+            <ItemTooltip
+              :item="{
+                image: { full: item.image.full },
+                name: item.name,
+                description: item.description,
+                colloq: item.colloq,
+                gold: {
+                  base: item.gold.base,
+                  total: item.gold.total,
+                  sell: item.gold.sell,
+                },
+                tags: item.tags,
+                stats: item.stats,
+                plaintext: item.plaintext,
+              }"
+            />
+          </div>
+        </div>
+        <div data-v-aa396e7d="" class="divider"></div>
+
         <div data-v-aa396e7d="" class="group type-grid">Basic items</div>
         <div
           data-v-0ba05451=""
@@ -294,7 +347,7 @@ const itemsLegendary = computed<Item[]>(() =>
                   sell: item.gold.sell,
                 },
                 tags: item.tags,
-                // stats: item.strats,
+                stats: item.stats,
                 plaintext: item.plaintext,
               }"
             />
@@ -340,7 +393,7 @@ const itemsLegendary = computed<Item[]>(() =>
                   sell: item.gold.sell,
                 },
                 tags: item.tags,
-                // stats: item.strats,
+                stats: item.stats,
                 plaintext: item.plaintext,
               }"
             />
@@ -386,7 +439,7 @@ const itemsLegendary = computed<Item[]>(() =>
                   sell: item.gold.sell,
                 },
                 tags: item.tags,
-                // stats: item.strats,
+                stats: item.stats,
                 plaintext: item.plaintext,
               }"
             />
@@ -433,7 +486,7 @@ const itemsLegendary = computed<Item[]>(() =>
                   sell: item.gold.sell,
                 },
                 tags: item.tags,
-                // stats: item.strats,
+                stats: item.stats,
                 plaintext: item.plaintext,
               }"
             />

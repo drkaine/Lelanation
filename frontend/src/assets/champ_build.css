@@ -18,6 +18,52 @@
   background: var(--black);
   background: var(--sheetWrapBack, var(--3ded4622));
 }
+.sheet > .wrap[data-v-7a29d415] {
+  border: 1px solid var(--971f605c);
+  opacity: var(--sheetOpacity, 1);
+  transition: var(--transition);
+  padding: 1.8em 1.5em 1.5em;
+  width: var(--sheetWidth);
+  flex-direction: column;
+  text-decoration: none;
+  align-items: center;
+  position: relative;
+  min-height: 27em;
+  display: flex;
+  margin: 0 auto;
+  border-radius: var(--radius);
+  background: var(--black);
+  background: var(--sheetWrapBack, var(--1180920d));
+}
+
+@media (max-width: 768px) {
+  .sheet > .wrap[data-v-7a29d415] {
+    width: 90%;
+    padding: 1em;
+  }
+
+  .tooltip-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .gold {
+    font-size: 0.75em;
+  }
+
+  .name {
+    font-size: 14px;
+  }
+
+  .stats h3 {
+    font-size: 1em;
+  }
+
+  .stats li {
+    font-size: 0.85em;
+  }
+}
+
 @media (hover: hover) {
   .tooltip [data-v-cbff5ddf-s]:hover + .box {
     display: flex;

@@ -52,7 +52,7 @@ const selectChampion = (champion: {
           data-v-27037513=""
           data-v-6024a556=""
           :class="{
-            selected: filterInstance.selectedTag.includes('Assassin'),
+            active: filterInstance.selectedTag.includes('Assassin'),
           }"
           @click="filterChampions('Assassin')"
         >
@@ -62,7 +62,7 @@ const selectChampion = (champion: {
           data-v-27037513=""
           data-v-6024a556=""
           :class="{
-            selected: filterInstance.selectedTag.includes('Fighter'),
+            active: filterInstance.selectedTag.includes('Fighter'),
           }"
           @click="filterChampions('Fighter')"
         >
@@ -72,7 +72,7 @@ const selectChampion = (champion: {
           data-v-27037513=""
           data-v-6024a556=""
           :class="{
-            selected: filterInstance.selectedTag.includes('Mage'),
+            active: filterInstance.selectedTag.includes('Mage'),
           }"
           @click="filterChampions('Mage')"
         >
@@ -82,7 +82,7 @@ const selectChampion = (champion: {
           data-v-27037513=""
           data-v-6024a556=""
           :class="{
-            selected: filterInstance.selectedTag.includes('Marksman'),
+            active: filterInstance.selectedTag.includes('Marksman'),
           }"
           @click="filterChampions('Marksman')"
         >
@@ -92,7 +92,7 @@ const selectChampion = (champion: {
           data-v-27037513=""
           data-v-6024a556=""
           :class="{
-            selected: filterInstance.selectedTag.includes('Support'),
+            active: filterInstance.selectedTag.includes('Support'),
           }"
           @click="filterChampions('Support')"
         >
@@ -102,7 +102,7 @@ const selectChampion = (champion: {
           data-v-27037513=""
           data-v-6024a556=""
           :class="{
-            selected: filterInstance.selectedTag.includes('Tank'),
+            active: filterInstance.selectedTag.includes('Tank'),
           }"
           @click="filterChampions('Tank')"
         >
