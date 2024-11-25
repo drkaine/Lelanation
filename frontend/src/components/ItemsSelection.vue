@@ -126,7 +126,9 @@ const itemsLegendary = computed<Item[]>(() =>
           <button
             data-v-27037513=""
             data-v-c8040147=""
-            class=""
+            :class="{
+              active: selectedTags.includes('Damage'),
+            }"
             @click="toggleTag('Damage')"
           >
             Attack Damage
@@ -134,7 +136,9 @@ const itemsLegendary = computed<Item[]>(() =>
           <button
             data-v-27037513=""
             data-v-c8040147=""
-            class=""
+            :class="{
+              active: selectedTags.includes('CriticalStrike'),
+            }"
             @click="toggleTag('CriticalStrike')"
           >
             Critical Strike
@@ -142,7 +146,9 @@ const itemsLegendary = computed<Item[]>(() =>
           <button
             data-v-27037513=""
             data-v-c8040147=""
-            class=""
+            :class="{
+              active: selectedTags.includes('AttackSpeed'),
+            }"
             @click="toggleTag('AttackSpeed')"
           >
             Attack Speed
@@ -150,7 +156,9 @@ const itemsLegendary = computed<Item[]>(() =>
           <button
             data-v-27037513=""
             data-v-c8040147=""
-            class=""
+            :class="{
+              active: selectedTags.includes('OnHit'),
+            }"
             @click="toggleTag('OnHit')"
           >
             On-Hit
@@ -158,7 +166,9 @@ const itemsLegendary = computed<Item[]>(() =>
           <button
             data-v-27037513=""
             data-v-c8040147=""
-            class=""
+            :class="{
+              active: selectedTags.includes('ArmorPenetration'),
+            }"
             @click="toggleTag('ArmorPenetration')"
           >
             Armor Pen
@@ -166,7 +176,9 @@ const itemsLegendary = computed<Item[]>(() =>
           <button
             data-v-27037513=""
             data-v-c8040147=""
-            class=""
+            :class="{
+              active: selectedTags.includes('SpellDamage'),
+            }"
             @click="toggleTag('SpellDamage')"
           >
             Ability Power
@@ -174,7 +186,9 @@ const itemsLegendary = computed<Item[]>(() =>
           <button
             data-v-27037513=""
             data-v-c8040147=""
-            class=""
+            :class="{
+              active: selectedTags.includes('Mana'),
+            }"
             @click="toggleTag('Mana')"
           >
             Mana
@@ -182,7 +196,9 @@ const itemsLegendary = computed<Item[]>(() =>
           <button
             data-v-27037513=""
             data-v-c8040147=""
-            class=""
+            :class="{
+              active: selectedTags.includes('ManaRegen'),
+            }"
             @click="toggleTag('ManaRegen')"
           >
             Mana Regen
@@ -190,7 +206,9 @@ const itemsLegendary = computed<Item[]>(() =>
           <button
             data-v-27037513=""
             data-v-c8040147=""
-            class=""
+            :class="{
+              active: selectedTags.includes('MagicPenetration'),
+            }"
             @click="toggleTag('MagicPenetration')"
           >
             Magic Pen
@@ -198,7 +216,9 @@ const itemsLegendary = computed<Item[]>(() =>
           <button
             data-v-27037513=""
             data-v-c8040147=""
-            class=""
+            :class="{
+              active: selectedTags.includes('Health'),
+            }"
             @click="toggleTag('Health')"
           >
             Health
@@ -206,7 +226,9 @@ const itemsLegendary = computed<Item[]>(() =>
           <button
             data-v-27037513=""
             data-v-c8040147=""
-            class=""
+            :class="{
+              active: selectedTags.includes('HealthRegen'),
+            }"
             @click="toggleTag('HealthRegen')"
           >
             Health Regen
@@ -214,7 +236,9 @@ const itemsLegendary = computed<Item[]>(() =>
           <button
             data-v-27037513=""
             data-v-c8040147=""
-            class=""
+            :class="{
+              active: selectedTags.includes('Armor'),
+            }"
             @click="toggleTag('Armor')"
           >
             Armor
@@ -222,7 +246,9 @@ const itemsLegendary = computed<Item[]>(() =>
           <button
             data-v-27037513=""
             data-v-c8040147=""
-            class=""
+            :class="{
+              active: selectedTags.includes('SpellBlock'),
+            }"
             @click="toggleTag('SpellBlock')"
           >
             Magic Resist
@@ -230,7 +256,9 @@ const itemsLegendary = computed<Item[]>(() =>
           <button
             data-v-27037513=""
             data-v-c8040147=""
-            class=""
+            :class="{
+              active: selectedTags.includes('AbilityHaste'),
+            }"
             @click="toggleTag('AbilityHaste')"
           >
             Ability Haste
@@ -238,15 +266,19 @@ const itemsLegendary = computed<Item[]>(() =>
           <button
             data-v-27037513=""
             data-v-c8040147=""
-            class=""
-            @click="toggleTag('Movement')"
+            :class="{
+              active: selectedTags.includes('NonbootsMovement'),
+            }"
+            @click="toggleTag('NonbootsMovement')"
           >
             Movement
           </button>
           <button
             data-v-27037513=""
             data-v-c8040147=""
-            class=""
+            :class="{
+              active: selectedTags.includes('LifeSteal'),
+            }"
             @click="toggleTag('LifeSteal')"
           >
             Life Steal
@@ -254,7 +286,9 @@ const itemsLegendary = computed<Item[]>(() =>
           <button
             data-v-27037513=""
             data-v-c8040147=""
-            class=""
+            :class="{
+              active: selectedTags.includes('SpellVamp'),
+            }"
             @click="toggleTag('SpellVamp')"
           >
             Omnivamp
