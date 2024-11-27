@@ -1,5 +1,6 @@
 @import './base.css';
-
+@import './media.css';
+@import './container.css';
 @import './champ_build.css';
 
 #app {

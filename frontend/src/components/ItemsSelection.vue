@@ -295,7 +295,13 @@ const itemsLegendary = computed<Item[]>(() =>
           </button>
         </div>
 
-        <div data-v-aa396e7d="" class="group type-grid">Starter items</div>
+        <div
+          data-v-aa396e7d=""
+          class="group type-grid"
+          v-if="itemsStarter.length > 0"
+        >
+          Starter items
+        </div>
         <div
           data-v-0ba05451=""
           data-v-8e0e60d7=""
@@ -342,7 +348,13 @@ const itemsLegendary = computed<Item[]>(() =>
         </div>
         <div data-v-aa396e7d="" class="divider"></div>
 
-        <div data-v-aa396e7d="" class="group type-grid">Basic items</div>
+        <div
+          data-v-aa396e7d=""
+          class="group type-grid"
+          v-if="itemsBasic.length > 0"
+        >
+          Basic items
+        </div>
         <div
           data-v-0ba05451=""
           data-v-8e0e60d7=""
@@ -388,7 +400,13 @@ const itemsLegendary = computed<Item[]>(() =>
           </div>
         </div>
         <div data-v-aa396e7d="" class="divider"></div>
-        <div data-v-aa396e7d="" class="group type-grid">Boots items</div>
+        <div
+          data-v-aa396e7d=""
+          class="group type-grid"
+          v-if="itemsBoots.length > 0"
+        >
+          Boots items
+        </div>
         <div
           data-v-0ba05451=""
           data-v-8e0e60d7=""
@@ -434,7 +452,13 @@ const itemsLegendary = computed<Item[]>(() =>
           </div>
         </div>
         <div data-v-aa396e7d="" class="divider"></div>
-        <div data-v-aa396e7d="" class="group type-grid">Epic items</div>
+        <div
+          data-v-aa396e7d=""
+          class="group type-grid"
+          v-if="itemsEpic.length > 0"
+        >
+          Epic items
+        </div>
         <div
           data-v-0ba05451=""
           data-v-8e0e60d7=""
@@ -481,7 +505,13 @@ const itemsLegendary = computed<Item[]>(() =>
         </div>
 
         <div data-v-aa396e7d="" class="divider"></div>
-        <div data-v-aa396e7d="" class="group type-grid">Legendary items</div>
+        <div
+          data-v-aa396e7d=""
+          class="group type-grid"
+          v-if="itemsLegendary.length > 0"
+        >
+          Legendary items
+        </div>
         <div
           data-v-0ba05451=""
           data-v-8e0e60d7=""
