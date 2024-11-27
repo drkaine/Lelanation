@@ -1,23 +1,23 @@
 <template>
-  <div data-v-c3d704f8="" class="menu">
+  <div data-v-b6709614="" class="menu">
     <a
-      data-v-c3d704f8=""
+      data-v-b6709614=""
+      href="/build/champions"
+      class="router-link-active router-link-exact-active done"
       aria-current="page"
-      href="/champions"
-      class="router-link-active router-link-exact-active"
     >
-      Champions
-    </a>
-    <span data-v-c3d704f8="" class="arrow"></span>
-    <a data-v-c3d704f8="" href="/runes" class="">
-      <span data-v-c3d704f8="" class="long">
+      Champions</a
+    >
+    <span data-v-b6709614="" class="arrow"></span>
+    <a data-v-b6709614="" href="/build/runes" :class="{}">
+      <span data-v-b6709614="" class="long">
         Runes &amp; sort d'invocateur</span
       >
-      <span data-v-c3d704f8="" class="short"> Runes </span></a
-    >
-    <span data-v-c3d704f8="" class="arrow"></span>
-    <a data-v-c3d704f8="" href="/items" class=""> Items </a>
-    <span data-v-c3d704f8="" class="arrow"></span>
-    <a data-v-c3d704f8="" href="/info" class=""> Info </a>
+      <span data-v-b6709614="" class="short"> Runes </span>
+    </a>
+    <span data-v-b6709614="" class="arrow"></span>
+    <a data-v-b6709614="" href="/build/items" :class="{}"> Items</a>
+    <span data-v-b6709614="" class="arrow"></span>
+    <a data-v-b6709614="" href="/build/info" class="done"> Info</a>
   </div>
 </template>

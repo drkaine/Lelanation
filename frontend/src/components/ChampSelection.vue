@@ -33,10 +33,10 @@ const selectChampion = (champion: {
 </script>
 
 <template>
-  <div data-v-6024a556="" data-v-c3d704f8="" class="champions">
-    <div data-v-6024a556="" class="list">
-      <div data-v-6024a556="" class="search">
-        <form @submit.prevent data-v-6024a556="">
+  <div data-v-80441127="" data-v-b6709614="" class="champions">
+    <div data-v-80441127="" class="list">
+      <div data-v-80441127="" class="search">
+        <form data-v-80441127="" @submit.prevent>
           <label class="small">
             <input
               placeholder="Search"
@@ -47,10 +47,10 @@ const selectChampion = (champion: {
           </label>
         </form>
       </div>
-      <div data-v-6024a556="" class="filter">
+      <div data-v-80441127="" class="filter">
         <button
           data-v-27037513=""
-          data-v-6024a556=""
+          data-v-80441127=""
           :class="{
             active: filterInstance.selectedTag.includes('Assassin'),
           }"
@@ -60,7 +60,7 @@ const selectChampion = (champion: {
         </button>
         <button
           data-v-27037513=""
-          data-v-6024a556=""
+          data-v-80441127=""
           :class="{
             active: filterInstance.selectedTag.includes('Fighter'),
           }"
@@ -70,7 +70,7 @@ const selectChampion = (champion: {
         </button>
         <button
           data-v-27037513=""
-          data-v-6024a556=""
+          data-v-80441127=""
           :class="{
             active: filterInstance.selectedTag.includes('Mage'),
           }"
@@ -80,7 +80,7 @@ const selectChampion = (champion: {
         </button>
         <button
           data-v-27037513=""
-          data-v-6024a556=""
+          data-v-80441127=""
           :class="{
             active: filterInstance.selectedTag.includes('Marksman'),
           }"
@@ -90,7 +90,7 @@ const selectChampion = (champion: {
         </button>
         <button
           data-v-27037513=""
-          data-v-6024a556=""
+          data-v-80441127=""
           :class="{
             active: filterInstance.selectedTag.includes('Support'),
           }"
@@ -100,7 +100,7 @@ const selectChampion = (champion: {
         </button>
         <button
           data-v-27037513=""
-          data-v-6024a556=""
+          data-v-80441127=""
           :class="{
             active: filterInstance.selectedTag.includes('Tank'),
           }"
@@ -110,7 +110,10 @@ const selectChampion = (champion: {
         </button>
         <button
           data-v-27037513=""
-          data-v-6024a556=""
+          data-v-80441127=""
+          :class="{
+            active: filterInstance.selectedTag.includes('Assassin'),
+          }"
           @click="filterChampions('')"
         >
           Tous
@@ -118,18 +121,25 @@ const selectChampion = (champion: {
       </div>
 
       <div
-        data-v-de17e6dc=""
-        data-v-45896cfe=""
-        data-v-6024a556=""
+        data-v-cbff5ddf=""
+        data-v-5bc51be1=""
+        data-v-80441127=""
         class="tooltip"
-        v-for="(champion, index) in filterInstance.filteredChampions.value"
+        v-for="(champion, index) in filterInstance.championData"
         :key="index"
         @click="selectChampion(champion)"
       >
-        <button data-v-6024a556="" data-v-de17e6dc-s="" class="champ">
+        <button
+          data-v-80441127=""
+          data-v-cbff5ddf-s=""
+          :class="{
+            champ: true,
+            hide: !filterInstance.filteredChampions.value.includes(champion),
+          }"
+        >
           <img
-            data-v-6024a556=""
-            data-v-de17e6dc-s=""
+            data-v-80441127=""
+            data-v-cbff5ddf-s=""
             :src="
               'https://ddragon.leagueoflegends.com/cdn/' +
               version +
@@ -139,27 +149,31 @@ const selectChampion = (champion: {
             alt="{{champion.name}}"
           />
         </button>
-        <ChampionTooltip
-          :champion="{
-            image: { full: champion.image.full },
-            name: champion.name,
-            title: champion.title,
-            tags: champion.tags,
-            passive: {
-              image: { full: champion.passive.image.full },
-              description: champion.passive.description,
-            },
-            spells: champion.spells,
-            info: [
-              {
+        <div
+          data-v-cbff5ddf=""
+          class="box"
+          style="position: absolute; left: 384px; top: 169.6px"
+        >
+          <ChampionTooltip
+            :champion="{
+              image: { full: champion.image.full },
+              name: champion.name,
+              title: champion.title,
+              tags: champion.tags,
+              passive: {
+                image: { full: champion.passive.image.full },
+                description: champion.passive.description,
+              },
+              spells: champion.spells,
+              info: {
                 attack: champion.info.attack.toString(),
                 magic: champion.info.magic.toString(),
                 defense: champion.info.defense.toString(),
                 difficulty: champion.info.difficulty.toString(),
               },
-            ],
-          }"
-        />
+            }"
+          />
+        </div>
       </div>
     </div>
   </div>
