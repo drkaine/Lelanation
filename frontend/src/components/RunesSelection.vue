@@ -108,108 +108,112 @@ onMounted(() => {
 </script>
 
 <template>
-  <div data-v-6a49ead9="" data-v-c3d704f8="" class="runesPage">
-    <div data-v-6a49ead9="" class="wrap">
-      <div data-v-6a49ead9="" class="path">
-        <div
-          data-v-6a49ead9=""
-          class="wrap"
+  <div data-v-c83b00c2="" data-v-b6709614="" class="runesPage">
+    <div data-v-c83b00c2="" class="wrap">
+      <div data-v-c83b00c2="" class="path">
+        <button
+          data-v-c83b00c2=""
           v-for="(rune, index) in runesData"
           :key="index"
           @click="selectedRune(index, 'principal')"
+          :class="{
+            rune: true,
+            [rune.key]: true,
+            'selected row':
+              index === runesSelection.principal ||
+              runesSelection.principal === -1,
+            row: !(
+              index === runesSelection.principal ||
+              runesSelection.principal === -1
+            ),
+          }"
         >
-          <div data-v-de17e6dc="" data-v-6a49ead9="" class="tooltip">
-            <button
-              data-v-6a49ead9=""
-              data-v-de17e6dc-s=""
-              :class="{
-                rune: true,
-                [rune.key]: true,
-                'selected chosen row':
-                  index === runesSelection.principal ||
-                  runesSelection.principal === -1,
-                row: !(
-                  index === runesSelection.principal ||
-                  runesSelection.principal === -1
-                ),
-              }"
-            >
+          <div
+            data-v-cbff5ddf=""
+            data-v-ab218c16=""
+            data-v-c83b00c2=""
+            class="tooltip"
+          >
+            <div data-v-ab218c16="" data-v-cbff5ddf-s="" class="rune path">
               <img
-                data-v-6a49ead9=""
-                data-v-de17e6dc-s=""
+                data-v-ab218c16=""
+                data-v-cbff5ddf-s=""
                 :src="`https://ddragon.leagueoflegends.com/cdn/img/${rune.icon}`"
               />
-            </button>
+            </div>
           </div>
-        </div>
+        </button>
       </div>
-      <div data-v-6a49ead9="" class="path">
-        <div
-          data-v-6a49ead9=""
-          class="wrap"
+      <div data-v-c83b00c2="" class="path">
+        <button
+          data-v-c83b00c2=""
           v-for="(rune, index) in runesData"
           :key="index"
           @click="selectedRune(index, 'second')"
+          :class="{
+            rune: true,
+            [rune.key]: true,
+            'selected ':
+              (index === runesSelection.second ||
+                runesSelection.second === -1) &&
+              runesSelection.principal !== -1,
+            row: true,
+          }"
+          :disabled="runesSelection.principal === -1"
         >
-          <div data-v-de17e6dc="" data-v-6a49ead9="" class="tooltip">
-            <button
-              data-v-6a49ead9=""
-              data-v-de17e6dc-s=""
-              :class="{
-                rune: true,
-                [rune.key]: true,
-                'selected chosen row':
-                  index === runesSelection.second ||
-                  runesSelection.second === -1,
-                row: !(
-                  index === runesSelection.second ||
-                  runesSelection.second === -1
-                ),
-              }"
-            >
+          <div
+            data-v-cbff5ddf=""
+            data-v-ab218c16=""
+            data-v-c83b00c2=""
+            class="tooltip"
+          >
+            <div data-v-ab218c16="" data-v-cbff5ddf-s="" class="rune path">
               <img
-                data-v-6a49ead9=""
-                data-v-de17e6dc-s=""
+                data-v-ab218c16=""
+                data-v-cbff5ddf-s=""
                 :src="`https://ddragon.leagueoflegends.com/cdn/img/${rune.icon}`"
               />
-            </button>
+            </div>
           </div>
-        </div>
+        </button>
       </div>
       <div
-        data-v-cf683915=""
-        data-v-6a49ead9=""
+        data-v-7b108f5e=""
+        data-v-c83b00c2=""
         class="runes"
-        style="--47881b34: 66px"
+        style="--2be422df: 66px"
       >
         <div
+          data-v-7b108f5e=""
+          class="slot-0-pos-0 rune"
           v-for="(rune, index) in runesData[runesSelection.principal]?.slots[0]
             ?.runes"
           :key="index"
-          @click="selectedRune(index, 'principal', 0)"
+          :style="`grid-area: 1 / ${index + 1};`"
         >
-          <div
-            data-v-cf683915=""
-            class="slot-0-pos-0 rune"
-            style="grid-area: 1 / 1"
+          <button
+            data-v-7b108f5e=""
+            :class="{
+              row: true,
+              selected:
+                index === runesSelection.groups[0].principal ||
+                runesSelection.groups[0].principal === -1,
+            }"
+            @click="selectedRune(index, 'principal', 0)"
           >
-            <div data-v-de17e6dc="" data-v-cf683915="" class="tooltip">
-              <button
-                data-v-cf683915=""
-                data-v-de17e6dc-s=""
-                :class="{
-                  'rune-item row ': true,
-                  selected:
-                    index === runesSelection.groups[0].principal ||
-                    runesSelection.groups[0].principal === -1,
-                }"
-              >
+            <div
+              data-v-cbff5ddf=""
+              data-v-ab218c16=""
+              data-v-7b108f5e=""
+              class="tooltip"
+            >
+              <div data-v-ab218c16="" data-v-cbff5ddf-s="" class="rune">
                 <img
-                  data-v-cf683915=""
-                  data-v-de17e6dc-s=""
+                  data-v-ab218c16=""
+                  data-v-cbff5ddf-s=""
                   :src="`https://ddragon.leagueoflegends.com/cdn/img/${rune.icon}`"
                 />
-              </button>
+              </div>
               <RuneTooltip
                 :rune="{
                   key: rune.key,
@@ -220,43 +224,39 @@ onMounted(() => {
                 }"
               />
             </div>
-          </div>
+          </button>
         </div>
         <div
-          data-v-cf683915=""
-          class="slot-0-pos-3 rune"
-          style="grid-area: 1 / 4"
-        >
-          <div data-v-de17e6dc="" data-v-cf683915="" class="tooltip"></div>
-        </div>
-        <div
+          data-v-7b108f5e=""
+          class="slot-0-pos-1 rune"
           v-for="(rune, index) in runesData[runesSelection.principal]?.slots[1]
             ?.runes"
           :key="index"
-          @click="selectedRune(index, 'principal', 1)"
+          :style="`grid-area: 2 / ${index + 1};`"
         >
-          <div
-            data-v-cf683915=""
-            class="slot-0-pos-1 rune"
-            style="grid-area: 2 / 1"
+          <button
+            data-v-7b108f5e=""
+            :class="{
+              row: true,
+              selected:
+                index === runesSelection.groups[1].principal ||
+                runesSelection.groups[1].principal === -1,
+            }"
+            @click="selectedRune(index, 'principal', 1)"
           >
-            <div data-v-de17e6dc="" data-v-cf683915="" class="tooltip">
-              <button
-                data-v-cf683915=""
-                data-v-de17e6dc-s=""
-                :class="{
-                  'rune-item row ': true,
-                  selected:
-                    index === runesSelection.groups[1].principal ||
-                    runesSelection.groups[1].principal === -1,
-                }"
-              >
+            <div
+              data-v-cbff5ddf=""
+              data-v-ab218c16=""
+              data-v-7b108f5e=""
+              class="tooltip"
+            >
+              <div data-v-ab218c16="" data-v-cbff5ddf-s="" class="rune">
                 <img
-                  data-v-cf683915=""
-                  data-v-de17e6dc-s=""
+                  data-v-ab218c16=""
+                  data-v-cbff5ddf-s=""
                   :src="`https://ddragon.leagueoflegends.com/cdn/img/${rune.icon}`"
                 />
-              </button>
+              </div>
               <RuneTooltip
                 :rune="{
                   key: rune.key,
@@ -267,43 +267,39 @@ onMounted(() => {
                 }"
               />
             </div>
-          </div>
+          </button>
         </div>
         <div
-          data-v-cf683915=""
-          class="slot-0-pos-3 rune"
-          style="grid-area: 2 / 4"
-        >
-          <div data-v-de17e6dc="" data-v-cf683915="" class="tooltip"></div>
-        </div>
-        <div
+          data-v-7b108f5e=""
+          class="slot-0-pos-2 rune"
           v-for="(rune, index) in runesData[runesSelection.principal]?.slots[2]
             ?.runes"
           :key="index"
-          @click="selectedRune(index, 'principal', 2)"
+          :style="`grid-area: 3 / ${index + 1};`"
         >
-          <div
-            data-v-cf683915=""
-            class="slot-0-pos-2 rune"
-            style="grid-area: 3 / 1"
+          <button
+            data-v-7b108f5e=""
+            :class="{
+              row: true,
+              selected:
+                index === runesSelection.groups[2].principal ||
+                runesSelection.groups[2].principal === -1,
+            }"
+            @click="selectedRune(index, 'principal', 2)"
           >
-            <div data-v-de17e6dc="" data-v-cf683915="" class="tooltip">
-              <button
-                data-v-cf683915=""
-                data-v-de17e6dc-s=""
-                :class="{
-                  'rune-item row ': true,
-                  selected:
-                    index === runesSelection.groups[2].principal ||
-                    runesSelection.groups[2].principal === -1,
-                }"
-              >
+            <div
+              data-v-cbff5ddf=""
+              data-v-ab218c16=""
+              data-v-7b108f5e=""
+              class="tooltip"
+            >
+              <div data-v-ab218c16="" data-v-cbff5ddf-s="" class="rune">
                 <img
-                  data-v-cf683915=""
-                  data-v-de17e6dc-s=""
+                  data-v-ab218c16=""
+                  data-v-cbff5ddf-s=""
                   :src="`https://ddragon.leagueoflegends.com/cdn/img/${rune.icon}`"
                 />
-              </button>
+              </div>
               <RuneTooltip
                 :rune="{
                   key: rune.key,
@@ -314,43 +310,39 @@ onMounted(() => {
                 }"
               />
             </div>
-          </div>
+          </button>
         </div>
         <div
-          data-v-cf683915=""
+          data-v-7b108f5e=""
           class="slot-0-pos-3 rune"
-          style="grid-area: 3 / 4"
-        >
-          <div data-v-de17e6dc="" data-v-cf683915="" class="tooltip"></div>
-        </div>
-        <div
           v-for="(rune, index) in runesData[runesSelection.principal]?.slots[3]
             ?.runes"
           :key="index"
-          @click="selectedRune(index, 'principal', 3)"
+          :style="`grid-area: 4 / ${index + 1};`"
         >
-          <div
-            data-v-cf683915=""
-            class="slot-0-pos-3 rune"
-            style="grid-area: 4 / 1"
+          <button
+            data-v-7b108f5e=""
+            :class="{
+              row: true,
+              selected:
+                index === runesSelection.groups[3].principal ||
+                runesSelection.groups[3].principal === -1,
+            }"
+            @click="selectedRune(index, 'principal', 3)"
           >
-            <div data-v-de17e6dc="" data-v-cf683915="" class="tooltip">
-              <button
-                data-v-cf683915=""
-                data-v-de17e6dc-s=""
-                :class="{
-                  'rune-item row ': true,
-                  selected:
-                    index === runesSelection.groups[3].principal ||
-                    runesSelection.groups[3].principal === -1,
-                }"
-              >
+            <div
+              data-v-cbff5ddf=""
+              data-v-ab218c16=""
+              data-v-7b108f5e=""
+              class="tooltip"
+            >
+              <div data-v-ab218c16="" data-v-cbff5ddf-s="" class="rune">
                 <img
-                  data-v-cf683915=""
-                  data-v-de17e6dc-s=""
+                  data-v-ab218c16=""
+                  data-v-cbff5ddf-s=""
                   :src="`https://ddragon.leagueoflegends.com/cdn/img/${rune.icon}`"
                 />
-              </button>
+              </div>
               <RuneTooltip
                 :rune="{
                   key: rune.key,
@@ -361,96 +353,89 @@ onMounted(() => {
                 }"
               />
             </div>
-          </div>
+          </button>
         </div>
       </div>
       <div
-        data-v-cf683915=""
-        data-v-6a49ead9=""
+        data-v-7b108f5e=""
+        data-v-c83b00c2=""
         class="runes"
-        style="--47881b34: 66px"
+        style="--2be422df: 66px"
       >
-        <div>
-          <div
-            data-v-cf683915=""
-            class="slot-0-pos-0 rune"
-            style="grid-area: 1 / 1"
-          >
-            <div data-v-de17e6dc="" data-v-cf683915="" class="tooltip">
-              <button
-                data-v-cf683915=""
-                data-v-de17e6dc-s=""
-                class="rune-item row selected"
-              ></button>
-            </div>
-          </div>
-        </div>
-        <div>
-          <div
-            data-v-cf683915=""
-            class="slot-0-pos-0 rune"
-            style="grid-area: 1 / 1"
-          >
-            <div data-v-de17e6dc="" data-v-cf683915="" class="tooltip">
-              <button
-                data-v-cf683915=""
-                data-v-de17e6dc-s=""
-                class="rune-item row selected"
-              ></button>
-            </div>
-          </div>
-        </div>
-        <div>
-          <div
-            data-v-cf683915=""
-            class="slot-0-pos-0 rune"
-            style="grid-area: 1 / 1"
-          >
-            <div data-v-de17e6dc="" data-v-cf683915="" class="tooltip">
-              <button
-                data-v-cf683915=""
-                data-v-de17e6dc-s=""
-                class="rune-item row selected"
-              ></button>
-            </div>
-          </div>
-        </div>
-
         <div
-          data-v-cf683915=""
-          class="slot-0-pos-3 rune"
-          style="grid-area: 1 / 4"
+          data-v-7b108f5e=""
+          class="slot-1-pos-0 rune"
+          v-for="(rune, index) in runesData[runesSelection.second]?.slots[0]
+            ?.runes"
+          :key="index"
+          :style="`grid-area: 1 / ${index + 1};`"
         >
-          <div data-v-de17e6dc="" data-v-cf683915="" class="tooltip"></div>
+          <button
+            data-v-7b108f5e=""
+            :class="{
+              row: true,
+              selected:
+                index === runesSelection.groups[0].second ||
+                runesSelection.groups[0].second === -1,
+            }"
+            @click="selectedRune(index, 'second', 0)"
+          >
+            <div
+              data-v-cbff5ddf=""
+              data-v-ab218c16=""
+              data-v-7b108f5e=""
+              class="tooltip"
+            >
+              <div data-v-ab218c16="" data-v-cbff5ddf-s="" class="rune">
+                <img
+                  data-v-ab218c16=""
+                  data-v-cbff5ddf-s=""
+                  :src="`https://ddragon.leagueoflegends.com/cdn/img/${rune.icon}`"
+                />
+              </div>
+              <RuneTooltip
+                :rune="{
+                  key: rune.key,
+                  icon: rune.icon,
+                  name: rune.name,
+                  shortDesc: rune.shortDesc,
+                  longDesc: rune.longDesc,
+                }"
+              />
+            </div>
+          </button>
         </div>
         <div
+          data-v-7b108f5e=""
+          class="slot-1-pos-1 rune"
           v-for="(rune, index) in runesData[runesSelection.second]?.slots[1]
             ?.runes"
           :key="index"
-          @click="selectedRune(index, 'second', 0)"
+          :style="`grid-area: 2 / ${index + 1};`"
         >
-          <div
-            data-v-cf683915=""
-            class="slot-0-pos-1 rune"
-            style="grid-area: 2 / 1"
+          <button
+            data-v-7b108f5e=""
+            :class="{
+              row: true,
+              selected:
+                index === runesSelection.groups[1].second ||
+                runesSelection.groups[1].second === -1,
+            }"
+            @click="selectedRune(index, 'second', 1)"
           >
-            <div data-v-de17e6dc="" data-v-cf683915="" class="tooltip">
-              <button
-                data-v-cf683915=""
-                data-v-de17e6dc-s=""
-                :class="{
-                  'rune-item row ': true,
-                  selected:
-                    index === runesSelection.groups[0].second ||
-                    runesSelection.groups[0].second === -1,
-                }"
-              >
+            <div
+              data-v-cbff5ddf=""
+              data-v-ab218c16=""
+              data-v-7b108f5e=""
+              class="tooltip"
+            >
+              <div data-v-ab218c16="" data-v-cbff5ddf-s="" class="rune">
                 <img
-                  data-v-cf683915=""
-                  data-v-de17e6dc-s=""
+                  data-v-ab218c16=""
+                  data-v-cbff5ddf-s=""
                   :src="`https://ddragon.leagueoflegends.com/cdn/img/${rune.icon}`"
                 />
-              </button>
+              </div>
               <RuneTooltip
                 :rune="{
                   key: rune.key,
@@ -461,43 +446,39 @@ onMounted(() => {
                 }"
               />
             </div>
-          </div>
+          </button>
         </div>
         <div
-          data-v-cf683915=""
-          class="slot-0-pos-3 rune"
-          style="grid-area: 2 / 4"
-        >
-          <div data-v-de17e6dc="" data-v-cf683915="" class="tooltip"></div>
-        </div>
-        <div
+          data-v-7b108f5e=""
+          class="slot-1-pos-2 rune"
           v-for="(rune, index) in runesData[runesSelection.second]?.slots[2]
             ?.runes"
           :key="index"
-          @click="selectedRune(index, 'second', 1)"
+          :style="`grid-area: 3 / ${index + 1};`"
         >
-          <div
-            data-v-cf683915=""
-            class="slot-0-pos-2 rune"
-            style="grid-area: 3 / 1"
+          <button
+            data-v-7b108f5e=""
+            :class="{
+              row: true,
+              selected:
+                index === runesSelection.groups[2].second ||
+                runesSelection.groups[2].second === -1,
+            }"
+            @click="selectedRune(index, 'second', 2)"
           >
-            <div data-v-de17e6dc="" data-v-cf683915="" class="tooltip">
-              <button
-                data-v-cf683915=""
-                data-v-de17e6dc-s=""
-                :class="{
-                  'rune-item row ': true,
-                  selected:
-                    index === runesSelection.groups[1].second ||
-                    runesSelection.groups[1].second === -1,
-                }"
-              >
+            <div
+              data-v-cbff5ddf=""
+              data-v-ab218c16=""
+              data-v-7b108f5e=""
+              class="tooltip"
+            >
+              <div data-v-ab218c16="" data-v-cbff5ddf-s="" class="rune">
                 <img
-                  data-v-cf683915=""
-                  data-v-de17e6dc-s=""
+                  data-v-ab218c16=""
+                  data-v-cbff5ddf-s=""
                   :src="`https://ddragon.leagueoflegends.com/cdn/img/${rune.icon}`"
                 />
-              </button>
+              </div>
               <RuneTooltip
                 :rune="{
                   key: rune.key,
@@ -508,43 +489,39 @@ onMounted(() => {
                 }"
               />
             </div>
-          </div>
+          </button>
         </div>
         <div
-          data-v-cf683915=""
-          class="slot-0-pos-3 rune"
-          style="grid-area: 3 / 4"
-        >
-          <div data-v-de17e6dc="" data-v-cf683915="" class="tooltip"></div>
-        </div>
-        <div
+          data-v-7b108f5e=""
+          class="slot-1-pos-3 rune"
           v-for="(rune, index) in runesData[runesSelection.second]?.slots[3]
             ?.runes"
           :key="index"
-          @click="selectedRune(index, 'second', 2)"
+          :style="`grid-area: 4 / ${index + 1};`"
         >
-          <div
-            data-v-cf683915=""
-            class="slot-0-pos-3 rune"
-            style="grid-area: 4 / 1"
+          <button
+            data-v-7b108f5e=""
+            :class="{
+              row: true,
+              selected:
+                index === runesSelection.groups[3].second ||
+                runesSelection.groups[3].second === -1,
+            }"
+            @click="selectedRune(index, 'second', 3)"
           >
-            <div data-v-de17e6dc="" data-v-cf683915="" class="tooltip">
-              <button
-                data-v-cf683915=""
-                data-v-de17e6dc-s=""
-                :class="{
-                  'rune-item row ': true,
-                  selected:
-                    index === runesSelection.groups[2].second ||
-                    runesSelection.groups[2].second === -1,
-                }"
-              >
+            <div
+              data-v-cbff5ddf=""
+              data-v-ab218c16=""
+              data-v-7b108f5e=""
+              class="tooltip"
+            >
+              <div data-v-ab218c16="" data-v-cbff5ddf-s="" class="rune">
                 <img
-                  data-v-cf683915=""
-                  data-v-de17e6dc-s=""
+                  data-v-ab218c16=""
+                  data-v-cbff5ddf-s=""
                   :src="`https://ddragon.leagueoflegends.com/cdn/img/${rune.icon}`"
                 />
-              </button>
+              </div>
               <RuneTooltip
                 :rune="{
                   key: rune.key,
@@ -555,41 +532,47 @@ onMounted(() => {
                 }"
               />
             </div>
-          </div>
+          </button>
         </div>
       </div>
       <div
-        data-v-329ba674=""
-        data-v-6a49ead9=""
+        data-v-70a93f67=""
+        data-v-c83b00c2=""
         class="summoners"
-        style="--72818571: 66px"
+        style="--132d151c: 66px"
+        v-if="runesSelection.second !== -1"
       >
-        <div data-v-329ba674="" class="list">
+        <div data-v-70a93f67="" class="list">
           <div
+            data-v-70a93f67=""
+            class="sum"
             v-for="(summoner, index) in filteredSummonerData"
             :key="index"
             @click="selectedSummoner(index)"
           >
-            <div data-v-329ba674="" class="summoner">
-              <div data-v-de17e6dc="" data-v-329ba674="" class="tooltip">
-                <button
-                  data-v-329ba674=""
-                  data-v-de17e6dc-s=""
-                  :class="{
-                    'item row ': true,
-                    selected:
-                      index === summonerSelection.principal ||
-                      summonerSelection.second === index ||
-                      (summonerSelection.principal === -1 &&
-                        summonerSelection.second === -1),
-                  }"
-                >
+            <button
+              data-v-70a93f67=""
+              :class="{
+                selected:
+                  index === summonerSelection.principal ||
+                  summonerSelection.second === index ||
+                  (summonerSelection.principal === -1 &&
+                    summonerSelection.second === -1),
+              }"
+            >
+              <div
+                data-v-cbff5ddf=""
+                data-v-bab95e98=""
+                data-v-70a93f67=""
+                class="tooltip"
+              >
+                <div data-v-bab95e98="" data-v-cbff5ddf-s="" class="summoner">
                   <img
-                    data-v-329ba674=""
-                    data-v-de17e6dc-s=""
+                    data-v-bab95e98=""
+                    data-v-cbff5ddf-s=""
                     :src="`https://ddragon.leagueoflegends.com/cdn/14.22.1/img/spell/${summoner.image.full}`"
                   />
-                </button>
+                </div>
                 <SummonerTooltip
                   :summoner="{
                     image: { full: summoner.image.full },
@@ -599,48 +582,53 @@ onMounted(() => {
                   }"
                 />
               </div>
-            </div>
+            </button>
           </div>
         </div>
       </div>
       <div
-        data-v-41863a3e=""
-        data-v-6a49ead9=""
+        data-v-5f2eb625=""
+        data-v-c83b00c2=""
         class="shards"
-        style="--ad52185c: 66px"
+        style="--2e8b5dd2: 66px"
+        v-if="runesSelection.second !== -1"
       >
-        <div v-for="(shards, index) in shardsData" :key="index">
-          <div
-            data-v-41863a3e=""
-            class="shard"
-            v-for="(shard, index) in shards"
-            :key="index"
-            @click="selectedShard(index.toString(), shard.type)"
+        <div
+          data-v-5f2eb625=""
+          class="shard"
+          v-for="(shard, index) in shardsData[0]"
+          :key="index"
+          @click="selectedShard(index.toString(), shard.type)"
+        >
+          <button
+            data-v-5f2eb625=""
+            :class="{
+              'row ': true,
+              selected:
+                (shard.type === 'principal' &&
+                  (index === shardsSelection.principal ||
+                    shardsSelection.principal === '')) ||
+                (shard.type === 'second' &&
+                  (index === shardsSelection.second ||
+                    shardsSelection.second === '')) ||
+                (shard.type === 'third' &&
+                  (index === shardsSelection.third ||
+                    shardsSelection.third === '')),
+            }"
           >
-            <div data-v-de17e6dc="" data-v-41863a3e="" class="tooltip">
-              <button
-                data-v-41863a3e=""
-                data-v-de17e6dc-s=""
-                :class="{
-                  'item row ': true,
-                  selected:
-                    (shard.type === 'principal' &&
-                      (index === shardsSelection.principal ||
-                        shardsSelection.principal === '')) ||
-                    (shard.type === 'second' &&
-                      (index === shardsSelection.second ||
-                        shardsSelection.second === '')) ||
-                    (shard.type === 'third' &&
-                      (index === shardsSelection.third ||
-                        shardsSelection.third === '')),
-                }"
-              >
+            <div
+              data-v-cbff5ddf=""
+              data-v-ad54ad37=""
+              data-v-5f2eb625=""
+              class="tooltip"
+            >
+              <div data-v-ad54ad37="" data-v-cbff5ddf-s="" class="shard">
                 <img
-                  data-v-41863a3e=""
-                  data-v-de17e6dc-s=""
+                  data-v-ad54ad37=""
+                  data-v-cbff5ddf-s=""
                   :src="`/assets/icons/${shard.image}`"
                 />
-              </button>
+              </div>
               <ShardTooltip
                 :shard="{
                   image: shard.image,
@@ -648,14 +636,99 @@ onMounted(() => {
                 }"
               />
             </div>
-          </div>
-
-          <div data-v-41863a3e="" class="space"></div>
+          </button>
+        </div>
+        <div
+          data-v-5f2eb625=""
+          class="shard"
+          v-for="(shard, index) in shardsData[1]"
+          :key="index"
+          @click="selectedShard(index.toString(), shard.type)"
+        >
+          <button
+            data-v-5f2eb625=""
+            :class="{
+              'row ': true,
+              selected:
+                (shard.type === 'principal' &&
+                  (index === shardsSelection.principal ||
+                    shardsSelection.principal === '')) ||
+                (shard.type === 'second' &&
+                  (index === shardsSelection.second ||
+                    shardsSelection.second === '')) ||
+                (shard.type === 'third' &&
+                  (index === shardsSelection.third ||
+                    shardsSelection.third === '')),
+            }"
+          >
+            <div
+              data-v-cbff5ddf=""
+              data-v-ad54ad37=""
+              data-v-5f2eb625=""
+              class="tooltip"
+            >
+              <div data-v-ad54ad37="" data-v-cbff5ddf-s="" class="shard">
+                <img
+                  data-v-ad54ad37=""
+                  data-v-cbff5ddf-s=""
+                  :src="`/assets/icons/${shard.image}`"
+                />
+              </div>
+              <ShardTooltip
+                :shard="{
+                  image: shard.image,
+                  description: shard.description,
+                }"
+              />
+            </div>
+          </button>
+        </div>
+        <div
+          data-v-5f2eb625=""
+          class="shard"
+          v-for="(shard, index) in shardsData[2]"
+          :key="index"
+          @click="selectedShard(index.toString(), shard.type)"
+        >
+          <button
+            data-v-5f2eb625=""
+            :class="{
+              'row ': true,
+              selected:
+                (shard.type === 'principal' &&
+                  (index === shardsSelection.principal ||
+                    shardsSelection.principal === '')) ||
+                (shard.type === 'second' &&
+                  (index === shardsSelection.second ||
+                    shardsSelection.second === '')) ||
+                (shard.type === 'third' &&
+                  (index === shardsSelection.third ||
+                    shardsSelection.third === '')),
+            }"
+          >
+            <div
+              data-v-cbff5ddf=""
+              data-v-ad54ad37=""
+              data-v-5f2eb625=""
+              class="tooltip"
+            >
+              <div data-v-ad54ad37="" data-v-cbff5ddf-s="" class="shard">
+                <img
+                  data-v-ad54ad37=""
+                  data-v-cbff5ddf-s=""
+                  :src="`/assets/icons/${shard.image}`"
+                />
+              </div>
+              <ShardTooltip
+                :shard="{
+                  image: shard.image,
+                  description: shard.description,
+                }"
+              />
+            </div>
+          </button>
         </div>
       </div>
     </div>
-  </div>
-  <div data-v-c3d704f8="" class="next off">
-    <button data-v-c3d704f8="">Next</button>
   </div>
 </template>

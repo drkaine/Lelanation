@@ -10,7 +10,7 @@ import MenuBuild from '@/components/MenuBuild.vue'
       <div data-v-b6709614="" class="main">
         <ChampSelection />
       </div>
-      <SheetBuild />
+      <!-- <SheetBuild /> -->
     </div>
   </div>
 </template>

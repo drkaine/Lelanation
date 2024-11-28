@@ -11,19 +11,12 @@ const props = defineProps<{
   <div
     data-v-cbff5ddf=""
     class="box"
-    style="position: absolute; left: -32px; top: 53px"
+    style="position: absolute; left: -30px; top: -31px"
   >
-    <div data-v-ab218c16="" data-v-cbff5ddf-s="" class="header">
-      <div data-v-ab218c16="" data-v-cbff5ddf-s="" class="img">
-        <img
-          data-v-ab218c16=""
-          data-v-cbff5ddf-s=""
-          :src="`/assets/icons/${props.shard.image}`"
-        />
-      </div>
-      <div data-v-ab218c16="" data-v-cbff5ddf-s="" class="name">
+    <div data-v-cbff5ddf="" class="body">
+      <span data-v-ad54ad37="" data-v-cbff5ddf-s="">
         {{ props.shard.description }}
-      </div>
+      </span>
     </div>
   </div>
 </template>

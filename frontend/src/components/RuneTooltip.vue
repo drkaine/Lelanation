@@ -8,17 +8,13 @@ const props = defineProps<{
     longDesc: string
   }
 }>()
-
-const cleanDescription = (description: string) => {
-  return description.replace(/<[^>]*>/g, '')
-}
 </script>
 
 <template>
   <div
     data-v-cbff5ddf=""
     class="box"
-    style="position: absolute; left: -32px; top: 53px"
+    style="position: absolute; left: -32px; top: -202px"
   >
     <div data-v-ab218c16="" data-v-cbff5ddf-s="" class="header">
       <div data-v-ab218c16="" data-v-cbff5ddf-s="" class="img">
@@ -42,9 +38,9 @@ const cleanDescription = (description: string) => {
         data-v-cbff5ddf-s=""
         class="fstyle nopre"
       >
-        <div>{{ cleanDescription(props.rune.shortDesc) }}</div>
+        {{ props.rune.shortDesc }}
         <div class="space"></div>
-        <div>{{ cleanDescription(props.rune.longDesc) }}</div>
+        <div>{{ props.rune.longDesc }}</div>
         <div class="space"></div>
       </div>
     </div>
