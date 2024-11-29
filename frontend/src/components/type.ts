@@ -56,6 +56,17 @@ export interface Rune {
   }[]
 }
 
+export interface GroupSelection {
+  principal: number
+  second: number
+}
+
+export interface RunesSelection {
+  principal: number
+  second: number
+  groups: GroupSelection[]
+}
+
 export interface SubRune {
   id: number
   key: string

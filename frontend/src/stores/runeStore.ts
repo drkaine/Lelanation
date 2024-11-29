@@ -1,33 +1,37 @@
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
-import { type Rune, type Shard } from '../components/type'
+import { type RunesSelection } from '../components/type'
 
-export const useRuneStore = defineStore('rune', () => {
-  const runes = ref<Rune[]>([])
-  const shards = ref<Shard>({})
-  const selectedRuneImage = ref('')
-  const selectedRuneName = ref('')
+export const useRuneStore = defineStore('Rune', () => {
+  const runesSelection = ref<RunesSelection>({
+    principal: -1,
+    second: -1,
+    groups: [
+      { principal: -1, second: -1 },
+      { principal: -1, second: -1 },
+      { principal: -1, second: -1 },
+      { principal: -1, second: -1 },
+      { principal: -1, second: -1 },
+    ],
+  })
 
-  const setRunes = (newRunes: Rune[]) => {
-    runes.value = newRunes
+  const setRuneSelection = (type: 'principal' | 'second', index: number) => {
+    runesSelection.value[type] = index
   }
 
-  const setShards = (newShards: Shard) => {
-    shards.value = newShards
-  }
-
-  const selectRune = (rune: Rune) => {
-    selectedRuneImage.value = rune.icon
-    selectedRuneName.value = rune.name
+  const setGroupRuneSelection = (
+    groupIndex: number,
+    type: 'principal' | 'second',
+    index: number,
+  ) => {
+    if (runesSelection.value.groups[groupIndex]) {
+      runesSelection.value.groups[groupIndex][type] = index
+    }
   }
 
   return {
-    runes,
-    shards,
-    selectedRuneImage,
-    selectedRuneName,
-    setRunes,
-    setShards,
-    selectRune,
+    runesSelection,
+    setRuneSelection,
+    setGroupRuneSelection,
   }
 })
