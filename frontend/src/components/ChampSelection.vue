@@ -154,25 +154,7 @@ const selectChampion = (champion: {
           class="box"
           style="position: absolute; left: 384px; top: 169.6px"
         >
-          <ChampionTooltip
-            :champion="{
-              image: { full: champion.image.full },
-              name: champion.name,
-              title: champion.title,
-              tags: champion.tags,
-              passive: {
-                image: { full: champion.passive.image.full },
-                description: champion.passive.description,
-              },
-              spells: champion.spells,
-              info: {
-                attack: champion.info.attack.toString(),
-                magic: champion.info.magic.toString(),
-                defense: champion.info.defense.toString(),
-                difficulty: champion.info.difficulty.toString(),
-              },
-            }"
-          />
+          <ChampionTooltip :champion="champion" />
         </div>
       </div>
     </div>

@@ -1,7 +1,10 @@
 <script setup lang="ts">
 import { useChampionStore } from '@/stores/championStore'
-const championStore = useChampionStore()
+// import { useRuneStore } from '@/stores/runeStore'
 import version from '@/assets/files/lastVersion.json'
+
+const championStore = useChampionStore()
+// const runeStore = useRuneStore()
 </script>
 
 <template>
@@ -404,7 +407,7 @@ import version from '@/assets/files/lastVersion.json'
         );
       "
     >
-      <div data-v-15310f80="" class="type"></div>
+      <div data-v-15310f80="" class="type">darkaine</div>
       <div data-v-15310f80="" class="version">{{ version }}</div>
       <div data-v-15310f80="" class="wrap">
         <div data-v-15310f80="" class="shadow"></div>
@@ -442,6 +445,154 @@ import version from '@/assets/files/lastVersion.json'
           {{ championStore.selectedChampionName }}
         </div>
         <hr data-v-15310f80="" class="hide" />
+        <div data-v-15310f80="" class="runes">
+          <div
+            data-v-cbff5ddf=""
+            data-v-ab218c16=""
+            data-v-15310f80=""
+            class="tooltip"
+          >
+            <div data-v-ab218c16="" data-v-cbff5ddf-s="" class="rune">
+              <img
+                data-v-ab218c16=""
+                data-v-cbff5ddf-s=""
+                src="https://peak.sybo.dev/data/img/runes/8214.png"
+              />
+            </div>
+          </div>
+          <div data-v-15310f80="" class="main">
+            <div
+              data-v-cbff5ddf=""
+              data-v-ab218c16=""
+              data-v-15310f80=""
+              class="tooltip"
+            >
+              <div data-v-ab218c16="" data-v-cbff5ddf-s="" class="rune">
+                <img
+                  data-v-ab218c16=""
+                  data-v-cbff5ddf-s=""
+                  src="https://peak.sybo.dev/data/img/runes/8226.png"
+                />
+              </div>
+            </div>
+            <div
+              data-v-cbff5ddf=""
+              data-v-ab218c16=""
+              data-v-15310f80=""
+              class="tooltip"
+            >
+              <div data-v-ab218c16="" data-v-cbff5ddf-s="" class="rune">
+                <img
+                  data-v-ab218c16=""
+                  data-v-cbff5ddf-s=""
+                  src="https://peak.sybo.dev/data/img/runes/8210.png"
+                />
+              </div>
+            </div>
+            <div
+              data-v-cbff5ddf=""
+              data-v-ab218c16=""
+              data-v-15310f80=""
+              class="tooltip"
+            >
+              <div data-v-ab218c16="" data-v-cbff5ddf-s="" class="rune">
+                <img
+                  data-v-ab218c16=""
+                  data-v-cbff5ddf-s=""
+                  src="https://peak.sybo.dev/data/img/runes/8236.png"
+                />
+              </div>
+            </div>
+            <div
+              data-v-cbff5ddf=""
+              data-v-ab218c16=""
+              data-v-15310f80=""
+              class="tooltip"
+            >
+              <div data-v-ab218c16="" data-v-cbff5ddf-s="" class="rune path">
+                <img
+                  data-v-ab218c16=""
+                  data-v-cbff5ddf-s=""
+                  src="https://peak.sybo.dev/data/img/runes/8100.png"
+                />
+              </div>
+            </div>
+            <div
+              data-v-cbff5ddf=""
+              data-v-ab218c16=""
+              data-v-15310f80=""
+              class="tooltip"
+            >
+              <div data-v-ab218c16="" data-v-cbff5ddf-s="" class="rune">
+                <img
+                  data-v-ab218c16=""
+                  data-v-cbff5ddf-s=""
+                  src="https://peak.sybo.dev/data/img/runes/8138.png"
+                />
+              </div>
+            </div>
+            <div
+              data-v-cbff5ddf=""
+              data-v-ab218c16=""
+              data-v-15310f80=""
+              class="tooltip"
+            >
+              <div data-v-ab218c16="" data-v-cbff5ddf-s="" class="rune">
+                <img
+                  data-v-ab218c16=""
+                  data-v-cbff5ddf-s=""
+                  src="https://peak.sybo.dev/data/img/runes/8106.png"
+                />
+              </div>
+            </div>
+          </div>
+          <div data-v-15310f80="" class="shards">
+            <div data-v-15310f80="" class="wrap">
+              <div
+                data-v-cbff5ddf=""
+                data-v-ad54ad37=""
+                data-v-15310f80=""
+                class="tooltip"
+              >
+                <div data-v-ad54ad37="" data-v-cbff5ddf-s="" class="shard">
+                  <img
+                    data-v-ad54ad37=""
+                    data-v-cbff5ddf-s=""
+                    src="https://peak.sybo.dev/data/img/runes/shards/5007.png"
+                  />
+                </div>
+              </div>
+              <div
+                data-v-cbff5ddf=""
+                data-v-ad54ad37=""
+                data-v-15310f80=""
+                class="tooltip"
+              >
+                <div data-v-ad54ad37="" data-v-cbff5ddf-s="" class="shard">
+                  <img
+                    data-v-ad54ad37=""
+                    data-v-cbff5ddf-s=""
+                    src="https://peak.sybo.dev/data/img/runes/shards/5008.png"
+                  />
+                </div>
+              </div>
+              <div
+                data-v-cbff5ddf=""
+                data-v-ad54ad37=""
+                data-v-15310f80=""
+                class="tooltip"
+              >
+                <div data-v-ad54ad37="" data-v-cbff5ddf-s="" class="shard">
+                  <img
+                    data-v-ad54ad37=""
+                    data-v-cbff5ddf-s=""
+                    src="https://peak.sybo.dev/data/img/runes/shards/5011.png"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
         <hr data-v-15310f80="" class="hide" />
         <div data-v-15310f80="" class="itemsGroup">
           <div data-v-15310f80="" class="items"></div>

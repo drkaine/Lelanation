@@ -1,21 +1,9 @@
 <script setup lang="ts">
 import version from '@/assets/files/lastVersion.json'
+import { type Item } from './type'
 
 const props = defineProps<{
-  item: {
-    image: { full: string }
-    name: string
-    description: string
-    colloq: string
-    gold: {
-      base: number
-      total: number
-      sell: number
-    }
-    tags: string[]
-    stats: Record<string, number>
-    plaintext: string
-  }
+  item: Item
 }>()
 </script>
 

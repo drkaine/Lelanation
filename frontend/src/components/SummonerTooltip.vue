@@ -1,11 +1,8 @@
 <script setup lang="ts">
+import { type Summoner } from './type'
+
 const props = defineProps<{
-  summoner: {
-    image: { full: string }
-    name: string
-    description: string
-    tooltip: string
-  }
+  summoner: Summoner
 }>()
 </script>
 

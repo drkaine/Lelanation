@@ -1,23 +1,9 @@
 <script setup lang="ts">
 import version from '@/assets/files/lastVersion.json'
+import { type Champion } from './type'
+
 const props = defineProps<{
-  champion: {
-    image: { full: string }
-    name: string
-    title: string
-    tags: string[]
-    passive: { image: { full: string }; description: string }
-    spells: Array<{
-      id: string
-      description: string
-    }>
-    info: {
-      attack: string
-      magic: string
-      defense: string
-      difficulty: string
-    }
-  }
+  champion: Champion
 }>()
 </script>
 

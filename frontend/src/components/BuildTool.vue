@@ -1,20 +1,18 @@
 <script setup lang="ts">
-import ChampSelection from '@/components/ChampSelection.vue'
 import SheetBuild from '@/components/SheetBuild.vue'
-import Menu from '@/components/MenuBuild.vue'
+import MenuBuild from '@/components/MenuBuild.vue'
+import RunesSelection from '@/components/RunesSelection.vue'
 </script>
 
 <template>
-  <div class="app" data-v-f2a5836d="">
-    <div class="main" data-v-f2a5836d="">
-      <div class="build" data-v-f2a5836d="" data-v-c3d704f8="">
-        <Menu />
-        <div data-v-c3d704f8="" class="main">
-          <ChampSelection />
-        </div>
-
-        <SheetBuild />
+  <div data-v-f21e856a="" class="main champions">
+    <div data-v-b6709614="" data-v-f21e856a="" class="build">
+      <MenuBuild />
+      <div data-v-b6709614="" class="main">
+        <RunesSelection />
       </div>
+      <SheetBuild />
+      <div data-v-b6709614="" class="extra" id="extra"></div>
     </div>
   </div>
 </template>

@@ -1,12 +1,8 @@
 <script setup lang="ts">
+import { type SubRune } from './type'
+
 const props = defineProps<{
-  rune: {
-    key: string
-    icon: string
-    name: string
-    shortDesc: string
-    longDesc: string
-  }
+  rune: SubRune
 }>()
 </script>
 

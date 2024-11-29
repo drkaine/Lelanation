@@ -1,15 +1,12 @@
 import type { Ref } from 'vue'
 import { ref } from 'vue'
 import champions from '@/assets/files/championFull.json'
+import { type Champion } from './type'
 
 export class Filter {
-  public championData: Array<
-    (typeof champions.data)[keyof typeof champions.data]
-  >
+  public championData: Champion[]
   public selectedTag: string[]
-  public filteredChampions: Ref<
-    Array<(typeof champions.data)[keyof typeof champions.data]>
-  >
+  public filteredChampions: Ref<Champion[]>
   public searchQuery: string
 
   constructor() {
@@ -19,7 +16,7 @@ export class Filter {
     this.searchQuery = ''
   }
 
-  public filterChampions(tag: string) {
+  public filterChampions(tag: string): void {
     if (tag === '') {
       this.filteredChampions.value = this.championData
       this.selectedTag = []
@@ -32,18 +29,14 @@ export class Filter {
       this.selectedTag.push(tag)
     }
 
-    if (this.selectedTag.length === 0) {
-      this.filteredChampions.value = this.championData
-    } else {
-      this.filteredChampions.value = this.championData.filter(champion =>
-        this.selectedTag.every(selectedTag =>
-          champion.tags.includes(selectedTag),
-        ),
-      )
-    }
+    this.filteredChampions.value = this.championData.filter(
+      champion =>
+        this.selectedTag.length === 0 ||
+        this.selectedTag.some(t => champion.tags.includes(t)),
+    )
   }
 
-  public filterChampionsByName() {
+  public filterChampionsByName(): void {
     if (this.searchQuery === '') {
       this.filteredChampions.value = this.championData.filter(
         champion =>

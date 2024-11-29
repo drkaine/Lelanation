@@ -7,35 +7,10 @@ import RuneTooltip from '@/components/RuneTooltip.vue'
 import SummonerTooltip from '@/components/SummonerTooltip.vue'
 import ShardTooltip from '@/components/ShardTooltip.vue'
 
-interface Rune {
-  id: number
-  key: string
-  icon: string
-  name: string
-  slots: {
-    runes: {
-      id: number
-      key: string
-      icon: string
-      name: string
-      shortDesc: string
-      longDesc: string
-    }[]
-  }[]
-}
-
-interface Shard {
-  [key: string]: {
-    type: 'principal' | 'second' | 'third'
-    description: string
-    image: string
-  }
-}
+import { type Rune, type Shard, type Summoner } from './type'
 
 const runesData = ref<Rune[]>([])
-const summonerData = ref<
-  Array<(typeof summoner.data)[keyof typeof summoner.data]>
->([])
+const summonerData = ref<Summoner[]>([])
 const shardsData = ref<Shard[]>([])
 const filteredSummonerData = computed(() => {
   return summonerData.value.filter(summoner =>
@@ -214,15 +189,7 @@ onMounted(() => {
                   :src="`https://ddragon.leagueoflegends.com/cdn/img/${rune.icon}`"
                 />
               </div>
-              <RuneTooltip
-                :rune="{
-                  key: rune.key,
-                  icon: rune.icon,
-                  name: rune.name,
-                  shortDesc: rune.shortDesc,
-                  longDesc: rune.longDesc,
-                }"
-              />
+              <RuneTooltip :rune="rune" />
             </div>
           </button>
         </div>
@@ -257,15 +224,7 @@ onMounted(() => {
                   :src="`https://ddragon.leagueoflegends.com/cdn/img/${rune.icon}`"
                 />
               </div>
-              <RuneTooltip
-                :rune="{
-                  key: rune.key,
-                  icon: rune.icon,
-                  name: rune.name,
-                  shortDesc: rune.shortDesc,
-                  longDesc: rune.longDesc,
-                }"
-              />
+              <RuneTooltip :rune="rune" />
             </div>
           </button>
         </div>
@@ -300,15 +259,7 @@ onMounted(() => {
                   :src="`https://ddragon.leagueoflegends.com/cdn/img/${rune.icon}`"
                 />
               </div>
-              <RuneTooltip
-                :rune="{
-                  key: rune.key,
-                  icon: rune.icon,
-                  name: rune.name,
-                  shortDesc: rune.shortDesc,
-                  longDesc: rune.longDesc,
-                }"
-              />
+              <RuneTooltip :rune="rune" />
             </div>
           </button>
         </div>
@@ -343,15 +294,7 @@ onMounted(() => {
                   :src="`https://ddragon.leagueoflegends.com/cdn/img/${rune.icon}`"
                 />
               </div>
-              <RuneTooltip
-                :rune="{
-                  key: rune.key,
-                  icon: rune.icon,
-                  name: rune.name,
-                  shortDesc: rune.shortDesc,
-                  longDesc: rune.longDesc,
-                }"
-              />
+              <RuneTooltip :rune="rune" />
             </div>
           </button>
         </div>
@@ -393,15 +336,7 @@ onMounted(() => {
                   :src="`https://ddragon.leagueoflegends.com/cdn/img/${rune.icon}`"
                 />
               </div>
-              <RuneTooltip
-                :rune="{
-                  key: rune.key,
-                  icon: rune.icon,
-                  name: rune.name,
-                  shortDesc: rune.shortDesc,
-                  longDesc: rune.longDesc,
-                }"
-              />
+              <RuneTooltip :rune="rune" />
             </div>
           </button>
         </div>
@@ -436,15 +371,7 @@ onMounted(() => {
                   :src="`https://ddragon.leagueoflegends.com/cdn/img/${rune.icon}`"
                 />
               </div>
-              <RuneTooltip
-                :rune="{
-                  key: rune.key,
-                  icon: rune.icon,
-                  name: rune.name,
-                  shortDesc: rune.shortDesc,
-                  longDesc: rune.longDesc,
-                }"
-              />
+              <RuneTooltip :rune="rune" />
             </div>
           </button>
         </div>
@@ -479,15 +406,7 @@ onMounted(() => {
                   :src="`https://ddragon.leagueoflegends.com/cdn/img/${rune.icon}`"
                 />
               </div>
-              <RuneTooltip
-                :rune="{
-                  key: rune.key,
-                  icon: rune.icon,
-                  name: rune.name,
-                  shortDesc: rune.shortDesc,
-                  longDesc: rune.longDesc,
-                }"
-              />
+              <RuneTooltip :rune="rune" />
             </div>
           </button>
         </div>
@@ -522,15 +441,7 @@ onMounted(() => {
                   :src="`https://ddragon.leagueoflegends.com/cdn/img/${rune.icon}`"
                 />
               </div>
-              <RuneTooltip
-                :rune="{
-                  key: rune.key,
-                  icon: rune.icon,
-                  name: rune.name,
-                  shortDesc: rune.shortDesc,
-                  longDesc: rune.longDesc,
-                }"
-              />
+              <RuneTooltip :rune="rune" />
             </div>
           </button>
         </div>
@@ -573,14 +484,7 @@ onMounted(() => {
                     :src="`https://ddragon.leagueoflegends.com/cdn/14.22.1/img/spell/${summoner.image.full}`"
                   />
                 </div>
-                <SummonerTooltip
-                  :summoner="{
-                    image: { full: summoner.image.full },
-                    name: summoner.name,
-                    description: summoner.description,
-                    tooltip: summoner.tooltip,
-                  }"
-                />
+                <SummonerTooltip :summoner="summoner" />
               </div>
             </button>
           </div>
@@ -629,12 +533,7 @@ onMounted(() => {
                   :src="`/assets/icons/${shard.image}`"
                 />
               </div>
-              <ShardTooltip
-                :shard="{
-                  image: shard.image,
-                  description: shard.description,
-                }"
-              />
+              <ShardTooltip :shard="shard" />
             </div>
           </button>
         </div>
@@ -674,12 +573,7 @@ onMounted(() => {
                   :src="`/assets/icons/${shard.image}`"
                 />
               </div>
-              <ShardTooltip
-                :shard="{
-                  image: shard.image,
-                  description: shard.description,
-                }"
-              />
+              <ShardTooltip :shard="shard" />
             </div>
           </button>
         </div>
@@ -719,12 +613,7 @@ onMounted(() => {
                   :src="`/assets/icons/${shard.image}`"
                 />
               </div>
-              <ShardTooltip
-                :shard="{
-                  image: shard.image,
-                  description: shard.description,
-                }"
-              />
+              <ShardTooltip :shard="shard" />
             </div>
           </button>
         </div>

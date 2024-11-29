@@ -1,9 +1,8 @@
 <script setup lang="ts">
+import { type ShardItem } from './type'
+
 const props = defineProps<{
-  shard: {
-    image: string
-    description: string
-  }
+  shard: ShardItem
 }>()
 </script>
 

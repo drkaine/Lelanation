@@ -3,44 +3,7 @@ import { ref, computed } from 'vue'
 import items from '@/assets/files/item.json'
 import version from '@/assets/files/lastVersion.json'
 import ItemTooltip from '@/components/ItemTooltip.vue'
-
-interface Item {
-  name: string
-  description: string
-  colloq: string
-  plaintext: string
-  into?: string[]
-  from?: string[]
-  consumed?: boolean
-  depth?: number
-  specialRecipe?: number
-  image: Image
-  gold: Gold
-  tags: string[]
-  maps: { [mapId: string]: boolean }
-  stats: Stats
-}
-
-interface Image {
-  full: string
-  sprite: string
-  group: string
-  x: number
-  y: number
-  w: number
-  h: number
-}
-
-interface Gold {
-  base: number
-  purchasable: boolean
-  total: number
-  sell: number
-}
-
-interface Stats {
-  [key: string]: number
-}
+import { type Item } from './type'
 
 const selectedTags = ref<string[]>([])
 
@@ -328,22 +291,7 @@ const itemsLegendary = computed<Item[]>(() =>
                 {{ item.gold.total }}
               </div>
             </button>
-            <ItemTooltip
-              :item="{
-                image: { full: item.image.full },
-                name: item.name,
-                description: item.description,
-                colloq: item.colloq,
-                gold: {
-                  base: item.gold.base,
-                  total: item.gold.total,
-                  sell: item.gold.sell,
-                },
-                tags: item.tags,
-                stats: item.stats,
-                plaintext: item.plaintext,
-              }"
-            />
+            <ItemTooltip :item="item" />
           </div>
         </div>
         <div data-v-aa396e7d="" class="divider"></div>
@@ -381,22 +329,7 @@ const itemsLegendary = computed<Item[]>(() =>
                 {{ item.gold.total }}
               </div>
             </button>
-            <ItemTooltip
-              :item="{
-                image: { full: item.image.full },
-                name: item.name,
-                description: item.description,
-                colloq: item.colloq,
-                gold: {
-                  base: item.gold.base,
-                  total: item.gold.total,
-                  sell: item.gold.sell,
-                },
-                tags: item.tags,
-                stats: item.stats,
-                plaintext: item.plaintext,
-              }"
-            />
+            <ItemTooltip :item="item" />
           </div>
         </div>
         <div data-v-aa396e7d="" class="divider"></div>
@@ -433,22 +366,7 @@ const itemsLegendary = computed<Item[]>(() =>
                 {{ item.gold.total }}
               </div>
             </button>
-            <ItemTooltip
-              :item="{
-                image: { full: item.image.full },
-                name: item.name,
-                description: item.description,
-                colloq: item.colloq,
-                gold: {
-                  base: item.gold.base,
-                  total: item.gold.total,
-                  sell: item.gold.sell,
-                },
-                tags: item.tags,
-                stats: item.stats,
-                plaintext: item.plaintext,
-              }"
-            />
+            <ItemTooltip :item="item" />
           </div>
         </div>
         <div data-v-aa396e7d="" class="divider"></div>
@@ -485,22 +403,7 @@ const itemsLegendary = computed<Item[]>(() =>
                 {{ item.gold.total }}
               </div>
             </button>
-            <ItemTooltip
-              :item="{
-                image: { full: item.image.full },
-                name: item.name,
-                description: item.description,
-                colloq: item.colloq,
-                gold: {
-                  base: item.gold.base,
-                  total: item.gold.total,
-                  sell: item.gold.sell,
-                },
-                tags: item.tags,
-                stats: item.stats,
-                plaintext: item.plaintext,
-              }"
-            />
+            <ItemTooltip :item="item" />
           </div>
         </div>
 
@@ -538,22 +441,7 @@ const itemsLegendary = computed<Item[]>(() =>
                 {{ item.gold.total }}
               </div>
             </button>
-            <ItemTooltip
-              :item="{
-                image: { full: item.image.full },
-                name: item.name,
-                description: item.description,
-                colloq: item.colloq,
-                gold: {
-                  base: item.gold.base,
-                  total: item.gold.total,
-                  sell: item.gold.sell,
-                },
-                tags: item.tags,
-                stats: item.stats,
-                plaintext: item.plaintext,
-              }"
-            />
+            <ItemTooltip :item="item" />
           </div>
         </div>
 
