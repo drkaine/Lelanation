@@ -418,7 +418,7 @@ const championStore = useChampionStore()
             data-v-1f02dc05=""
             data-v-15310f80=""
             class="tooltip"
-            v-if="championStore.selectedChampionName"
+            v-if="championStore.selectedChampion"
           >
             <div data-v-1f02dc05="" data-v-cbff5ddf-s="" class="champion">
               <img
@@ -428,7 +428,7 @@ const championStore = useChampionStore()
                   'https://ddragon.leagueoflegends.com/cdn/' +
                   version +
                   '/img/champion/' +
-                  championStore.selectedChampionImage
+                  championStore.selectedChampion?.image.full
                 "
               />
             </div>
@@ -442,7 +442,7 @@ const championStore = useChampionStore()
           </div>
         </div>
         <div data-v-15310f80="" class="name">
-          {{ championStore.selectedChampionName }}
+          {{ championStore.selectedChampion?.name }}
         </div>
         <hr data-v-15310f80="" class="hide" />
         <div data-v-15310f80="" class="runes">

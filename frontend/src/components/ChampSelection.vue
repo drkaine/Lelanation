@@ -4,6 +4,7 @@ import { Filter } from './Filter'
 import { useChampionStore } from '@/stores/championStore'
 import ChampionTooltip from '@/components/ChampionTooltip.vue'
 import version from '@/assets/files/lastVersion.json'
+import { type Champion } from './type'
 
 const searchQuery = ref<string>('')
 const filterInstance = new Filter()
@@ -23,12 +24,8 @@ const filterChampionsByName = () => {
 
 const championStore = useChampionStore()
 
-const selectChampion = (champion: {
-  image: { full: string }
-  name: string
-}) => {
-  championStore.selectedChampionImage = champion.image.full
-  championStore.selectedChampionName = champion.name
+const selectChampion = (champion: Champion) => {
+  championStore.setSelectedChampion(champion)
 }
 </script>
 
