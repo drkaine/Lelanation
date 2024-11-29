@@ -7,6 +7,8 @@ import RuneTooltip from '@/components/RuneTooltip.vue'
 import SummonerTooltip from '@/components/SummonerTooltip.vue'
 import ShardTooltip from '@/components/ShardTooltip.vue'
 import { useRuneStore } from '@/stores/runeStore'
+import { useSummonerStore } from '@/stores/summonerStore'
+import { useShardStore } from '@/stores/shardStore'
 
 import { type Rune, type SubRune, type Shard, type Summoner } from './type'
 
@@ -15,6 +17,8 @@ const summonerData = ref<Summoner[]>([])
 const shardsData = ref<Shard[]>([])
 
 const runeStore = useRuneStore()
+const shardStore = useShardStore()
+const summonerStore = useSummonerStore()
 
 const filteredSummonerData = computed(() => {
   return summonerData.value.filter(summoner =>
@@ -36,37 +40,29 @@ const selectedRune = (
   }
 }
 
-const summonerSelection = ref({
-  principal: -1,
-  second: -1,
-})
-
 const selectedSummoner = (index: number) => {
-  if (summonerSelection.value.principal === index) {
-    summonerSelection.value.principal = -1
-  } else if (summonerSelection.value.second === index) {
-    summonerSelection.value.second = -1
-  } else if (summonerSelection.value.principal === -1) {
-    summonerSelection.value.principal = index
-  } else if (summonerSelection.value.second === -1) {
-    summonerSelection.value.second = index
+  if (summonerStore.summonerSelection.principal === index) {
+    summonerStore.setSummonerSelection('principal', -1)
+  } else if (summonerStore.summonerSelection.second === index) {
+    summonerStore.setSummonerSelection('second', -1)
+  } else if (summonerStore.summonerSelection.principal === -1) {
+    summonerStore.setSummonerSelection('principal', index)
+  } else if (summonerStore.summonerSelection.second === -1) {
+    summonerStore.setSummonerSelection('second', index)
   } else {
-    summonerSelection.value.second = summonerSelection.value.principal
-    summonerSelection.value.principal = index
+    summonerStore.setSummonerSelection(
+      'second',
+      summonerStore.summonerSelection.principal,
+    )
+    summonerStore.setSummonerSelection('principal', index)
   }
 }
-
-const shardsSelection = ref({
-  principal: '',
-  second: '',
-  third: '',
-})
 
 const selectedShard = (
   index: string,
   type: 'principal' | 'second' | 'third',
 ) => {
-  shardsSelection.value[type] = index
+  shardStore.setShardSelection(type, index)
 }
 
 onMounted(() => {
@@ -460,10 +456,10 @@ onMounted(() => {
               data-v-70a93f67=""
               :class="{
                 selected:
-                  index === summonerSelection.principal ||
-                  summonerSelection.second === index ||
-                  (summonerSelection.principal === -1 &&
-                    summonerSelection.second === -1),
+                  index === summonerStore.summonerSelection.principal ||
+                  summonerStore.summonerSelection.second === index ||
+                  (summonerStore.summonerSelection.principal === -1 &&
+                    summonerStore.summonerSelection.second === -1),
               }"
             >
               <div
@@ -505,14 +501,14 @@ onMounted(() => {
               'row ': true,
               selected:
                 (shard.type === 'principal' &&
-                  (index === shardsSelection.principal ||
-                    shardsSelection.principal === '')) ||
+                  (index === shardStore.shardsSelection.principal ||
+                    shardStore.shardsSelection.principal === '')) ||
                 (shard.type === 'second' &&
-                  (index === shardsSelection.second ||
-                    shardsSelection.second === '')) ||
+                  (index === shardStore.shardsSelection.second ||
+                    shardStore.shardsSelection.second === '')) ||
                 (shard.type === 'third' &&
-                  (index === shardsSelection.third ||
-                    shardsSelection.third === '')),
+                  (index === shardStore.shardsSelection.third ||
+                    shardStore.shardsSelection.third === '')),
             }"
           >
             <div
@@ -545,14 +541,14 @@ onMounted(() => {
               'row ': true,
               selected:
                 (shard.type === 'principal' &&
-                  (index === shardsSelection.principal ||
-                    shardsSelection.principal === '')) ||
+                  (index === shardStore.shardsSelection.principal ||
+                    shardStore.shardsSelection.principal === '')) ||
                 (shard.type === 'second' &&
-                  (index === shardsSelection.second ||
-                    shardsSelection.second === '')) ||
+                  (index === shardStore.shardsSelection.second ||
+                    shardStore.shardsSelection.second === '')) ||
                 (shard.type === 'third' &&
-                  (index === shardsSelection.third ||
-                    shardsSelection.third === '')),
+                  (index === shardStore.shardsSelection.third ||
+                    shardStore.shardsSelection.third === '')),
             }"
           >
             <div
@@ -585,14 +581,14 @@ onMounted(() => {
               'row ': true,
               selected:
                 (shard.type === 'principal' &&
-                  (index === shardsSelection.principal ||
-                    shardsSelection.principal === '')) ||
+                  (index === shardStore.shardsSelection.principal ||
+                    shardStore.shardsSelection.principal === '')) ||
                 (shard.type === 'second' &&
-                  (index === shardsSelection.second ||
-                    shardsSelection.second === '')) ||
+                  (index === shardStore.shardsSelection.second ||
+                    shardStore.shardsSelection.second === '')) ||
                 (shard.type === 'third' &&
-                  (index === shardsSelection.third ||
-                    shardsSelection.third === '')),
+                  (index === shardStore.shardsSelection.third ||
+                    shardStore.shardsSelection.third === '')),
             }"
           >
             <div

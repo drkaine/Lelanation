@@ -229,3 +229,14 @@ export interface Items {
   hideCount: boolean
   requiredChampion?: string
 }
+
+export interface SummonerSelection {
+  principal: number
+  second: number
+}
+
+export interface ShardSelection {
+  principal: string
+  second: string
+  third: string
+}
