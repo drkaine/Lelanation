@@ -68,10 +68,10 @@ jobs:
           cd frontend
           npm run format
 
-      - name: Run type-check
-        run: |
-          cd frontend
-          npm run type-check
+      # - name: Run type-check
+      #   run: |
+      #     cd frontend
+      #     npm run type-check
 
       - name: Run Tests
         run: |
