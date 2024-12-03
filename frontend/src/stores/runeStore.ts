@@ -1,31 +1,80 @@
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
-import { type RunesSelection } from '../components/type'
+import {
+  type RunesSelection,
+  type Rune,
+  type SubRune,
+} from '../components/type'
 
 export const useRuneStore = defineStore('Rune', () => {
   const runesSelection = ref<RunesSelection>({
-    principal: -1,
-    second: -1,
+    principal: null,
+    second: null,
     groups: [
-      { principal: -1, second: -1 },
-      { principal: -1, second: -1 },
-      { principal: -1, second: -1 },
-      { principal: -1, second: -1 },
-      { principal: -1, second: -1 },
+      { principal: null, second: null, first: false, two: false },
+      { principal: null, second: null, first: false, two: false },
+      { principal: null, second: null, first: false, two: false },
+      { principal: null, second: null, first: false, two: false },
+      { principal: null, second: null, first: false, two: false },
     ],
   })
 
-  const setRuneSelection = (type: 'principal' | 'second', index: number) => {
-    runesSelection.value[type] = index
+  const setRuneSelection = (
+    type: 'principal' | 'second',
+    rune: Rune | null,
+  ) => {
+    runesSelection.value[type] = rune
   }
 
   const setGroupRuneSelection = (
     groupIndex: number,
     type: 'principal' | 'second',
-    index: number,
+    subRune: SubRune | null,
   ) => {
-    if (runesSelection.value.groups[groupIndex]) {
-      runesSelection.value.groups[groupIndex][type] = index
+    if (type === 'principal') {
+      runesSelection.value.groups[groupIndex][type] = subRune
+    } else {
+      const groupWithFirstTrue = runesSelection.value.groups.find(
+        group => group.first === true,
+      )
+      const groupWithSecondTrue = runesSelection.value.groups.find(
+        group => group.two === true,
+      )
+
+      console.log(runesSelection.value.groups)
+
+      if (
+        runesSelection.value.groups[groupIndex].first ||
+        runesSelection.value.groups[groupIndex].two
+      ) {
+        runesSelection.value.groups[groupIndex][type] = subRune
+      } else if (groupWithFirstTrue && !groupWithSecondTrue) {
+        runesSelection.value.groups[groupIndex][type] = subRune
+        runesSelection.value.groups[groupIndex].two = true
+      } else if (groupWithFirstTrue && groupWithSecondTrue) {
+        groupWithFirstTrue.first = false
+        groupWithFirstTrue.second = null
+        groupWithSecondTrue.two = false
+        groupWithSecondTrue.first = true
+        runesSelection.value.groups[groupIndex][type] = subRune
+        runesSelection.value.groups[groupIndex].two = true
+      } else {
+        runesSelection.value.groups[groupIndex][type] = subRune
+        runesSelection.value.groups[groupIndex].first = true
+      }
+    }
+  }
+
+  const resetRunesSelection = () => {
+    runesSelection.value = {
+      principal: null,
+      second: null,
+      groups: runesSelection.value.groups.map(() => ({
+        principal: null,
+        second: null,
+        first: false,
+        two: false,
+      })),
     }
   }
 
@@ -33,5 +82,6 @@ export const useRuneStore = defineStore('Rune', () => {
     runesSelection,
     setRuneSelection,
     setGroupRuneSelection,
+    resetRunesSelection,
   }
 })

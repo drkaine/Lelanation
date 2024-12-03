@@ -1,22 +1,30 @@
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
-import { type SummonerSelection } from '../components/type'
+import { type SummonerSelection, type Summoner } from '../components/type'
 
 export const useSummonerStore = defineStore('Summoner', () => {
   const summonerSelection = ref<SummonerSelection>({
-    principal: -1,
-    second: -1,
+    principal: null,
+    second: null,
   })
 
   const setSummonerSelection = (
     type: 'principal' | 'second',
-    index: number,
+    summoner: Summoner | null,
   ) => {
-    summonerSelection.value[type] = index
+    summonerSelection.value[type] = summoner
+  }
+
+  const resetSummonersSelection = () => {
+    summonerSelection.value = {
+      principal: null,
+      second: null,
+    }
   }
 
   return {
     summonerSelection,
     setSummonerSelection,
+    resetSummonersSelection,
   }
 })

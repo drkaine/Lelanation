@@ -1,14 +1,3 @@
-export interface ChampionFull {
-  type: string
-  format: string
-  version: string
-  data: ChampionData
-}
-
-export interface ChampionData {
-  [championName: string]: Champion
-}
-
 export interface Champion {
   id: string
   key: string
@@ -56,17 +45,6 @@ export interface Rune {
   }[]
 }
 
-export interface GroupSelection {
-  principal: number
-  second: number
-}
-
-export interface RunesSelection {
-  principal: number
-  second: number
-  groups: GroupSelection[]
-}
-
 export interface SubRune {
   id: number
   key: string
@@ -77,13 +55,17 @@ export interface SubRune {
 }
 
 export interface Shard {
-  [key: string]: ShardItem
-}
-
-export interface ShardItem {
-  type: 'principal' | 'second' | 'third'
+  type: string
   description: string
   image: string
+}
+
+export interface ShardColumn {
+  [index: number]: Shard[]
+}
+
+export interface ShardsData {
+  data: ShardColumn[]
 }
 
 export interface Summoner {
@@ -231,12 +213,25 @@ export interface Items {
 }
 
 export interface SummonerSelection {
-  principal: number
-  second: number
+  principal: Summoner | null
+  second: Summoner | null
 }
 
 export interface ShardSelection {
-  principal: string
-  second: string
-  third: string
+  principal: Shard | null
+  second: Shard | null
+  third: Shard | null
+}
+
+export interface GroupSelection {
+  principal: SubRune | null
+  second: SubRune | null
+  first: boolean
+  two: boolean
+}
+
+export interface RunesSelection {
+  principal: Rune | null
+  second: Rune | null
+  groups: GroupSelection[]
 }

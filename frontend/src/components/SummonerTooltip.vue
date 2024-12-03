@@ -2,7 +2,7 @@
 import { type Summoner } from './type'
 
 const props = defineProps<{
-  summoner: Summoner
+  summoner: Summoner | null
 }>()
 </script>
 
@@ -19,12 +19,12 @@ const props = defineProps<{
           data-v-cbff5ddf-s=""
           :src="
             'https://ddragon.leagueoflegends.com/cdn/14.22.1/img/spell/' +
-            props.summoner.image.full
+            props.summoner?.image.full
           "
         />
       </div>
       <div data-v-bab95e98="" data-v-cbff5ddf-s="" class="name">
-        {{ props.summoner.name }}
+        {{ props.summoner?.name }}
       </div>
     </div>
     <div data-v-cbff5ddf="" class="body">
@@ -35,10 +35,10 @@ const props = defineProps<{
         data-v-cbff5ddf-s=""
         class="fstyle nopre"
       >
-        {{ props.summoner.description }}
+        {{ props.summoner?.description }}
       </div>
       <div class="space"></div>
-      <div>{{ props.summoner.tooltip }}</div>
+      <div>{{ props.summoner?.tooltip }}</div>
     </div>
   </div>
 </template>

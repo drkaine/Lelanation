@@ -2,7 +2,7 @@
 import { type SubRune } from './type'
 
 const props = defineProps<{
-  rune: SubRune
+  rune: SubRune | null
 }>()
 </script>
 
@@ -18,12 +18,12 @@ const props = defineProps<{
           data-v-ab218c16=""
           data-v-cbff5ddf-s=""
           :src="
-            'https://ddragon.leagueoflegends.com/cdn/img/' + props.rune.icon
+            'https://ddragon.leagueoflegends.com/cdn/img/' + props.rune?.icon
           "
         />
       </div>
       <div data-v-ab218c16="" data-v-cbff5ddf-s="" class="name">
-        {{ props.rune.name }}
+        {{ props.rune?.name }}
       </div>
     </div>
     <div data-v-cbff5ddf="" class="body">
@@ -34,9 +34,9 @@ const props = defineProps<{
         data-v-cbff5ddf-s=""
         class="fstyle nopre"
       >
-        {{ props.rune.shortDesc }}
+        {{ props.rune?.shortDesc }}
         <div class="space"></div>
-        <div>{{ props.rune.longDesc }}</div>
+        <div>{{ props.rune?.longDesc }}</div>
         <div class="space"></div>
       </div>
     </div>

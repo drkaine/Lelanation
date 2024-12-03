@@ -1,26 +1,26 @@
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
-import { type ShardSelection } from '../components/type'
+import { type ShardSelection, type Shard } from '../components/type'
 
 export const useShardStore = defineStore('Shard', () => {
   const shardsSelection = ref<ShardSelection>({
-    principal: '',
-    second: '',
-    third: '',
+    principal: null,
+    second: null,
+    third: null,
   })
 
   const setShardSelection = (
     type: 'principal' | 'second' | 'third',
-    index: string,
+    shard: Shard | null,
   ) => {
-    shardsSelection.value[type] = index
+    shardsSelection.value[type] = shard
   }
 
   const resetShardsSelection = () => {
     shardsSelection.value = {
-      principal: '',
-      second: '',
-      third: '',
+      principal: null,
+      second: null,
+      third: null,
     }
   }
 

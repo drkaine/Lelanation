@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { type ShardItem } from './type'
+import { type Shard } from './type'
 
 const props = defineProps<{
-  shard: ShardItem
+  shard: Shard
 }>()
 </script>
 

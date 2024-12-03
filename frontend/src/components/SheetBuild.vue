@@ -1,10 +1,18 @@
 <script setup lang="ts">
 import { useChampionStore } from '@/stores/championStore'
-// import { useRuneStore } from '@/stores/runeStore'
+import { useRuneStore } from '@/stores/runeStore'
+import { useSummonerStore } from '@/stores/summonerStore'
+import { useShardStore } from '@/stores/shardStore'
 import version from '@/assets/files/lastVersion.json'
+import ChampionTooltip from '@/components/ChampionTooltip.vue'
+import SummonerTooltip from '@/components/SummonerTooltip.vue'
+import RuneTooltip from '@/components/RuneTooltip.vue'
+import ShardTooltip from '@/components/ShardTooltip.vue'
 
 const championStore = useChampionStore()
-// const runeStore = useRuneStore()
+const runeStore = useRuneStore()
+const summonerStore = useSummonerStore()
+const shardStore = useShardStore()
 </script>
 
 <template>
@@ -437,15 +445,24 @@ const championStore = useChampionStore()
               class="box"
               style="position: absolute; left: 79px; top: 91px"
             >
-              <!-- tooltip -->
+              <ChampionTooltip :champion="championStore.selectedChampion" />
             </div>
           </div>
         </div>
         <div data-v-15310f80="" class="name">
           {{ championStore.selectedChampion?.name }}
         </div>
-        <hr data-v-15310f80="" class="hide" />
-        <div data-v-15310f80="" class="runes">
+        <hr
+          data-v-15310f80=""
+          :class="{
+            hide: !runeStore.runesSelection.principal,
+          }"
+        />
+        <div
+          data-v-15310f80=""
+          class="runes"
+          v-if="runeStore.runesSelection.principal"
+        >
           <div
             data-v-cbff5ddf=""
             data-v-ab218c16=""
@@ -454,9 +471,13 @@ const championStore = useChampionStore()
           >
             <div data-v-ab218c16="" data-v-cbff5ddf-s="" class="rune">
               <img
+                v-if="runeStore.runesSelection.groups[1].principal"
                 data-v-ab218c16=""
                 data-v-cbff5ddf-s=""
-                src="https://peak.sybo.dev/data/img/runes/8214.png"
+                :src="`https://ddragon.leagueoflegends.com/cdn/img/${runeStore.runesSelection.groups[1].principal?.icon}`"
+              />
+              <RuneTooltip
+                :rune="runeStore.runesSelection.groups[1].principal"
               />
             </div>
           </div>
@@ -469,9 +490,13 @@ const championStore = useChampionStore()
             >
               <div data-v-ab218c16="" data-v-cbff5ddf-s="" class="rune">
                 <img
+                  v-if="runeStore.runesSelection.groups[2].principal"
                   data-v-ab218c16=""
                   data-v-cbff5ddf-s=""
-                  src="https://peak.sybo.dev/data/img/runes/8226.png"
+                  :src="`https://ddragon.leagueoflegends.com/cdn/img/${runeStore.runesSelection.groups[2].principal?.icon}`"
+                />
+                <RuneTooltip
+                  :rune="runeStore.runesSelection.groups[2].principal"
                 />
               </div>
             </div>
@@ -485,7 +510,11 @@ const championStore = useChampionStore()
                 <img
                   data-v-ab218c16=""
                   data-v-cbff5ddf-s=""
-                  src="https://peak.sybo.dev/data/img/runes/8210.png"
+                  v-if="runeStore.runesSelection.groups[3].principal"
+                  :src="`https://ddragon.leagueoflegends.com/cdn/img/${runeStore.runesSelection.groups[3].principal?.icon}`"
+                />
+                <RuneTooltip
+                  :rune="runeStore.runesSelection.groups[3].principal"
                 />
               </div>
             </div>
@@ -497,9 +526,13 @@ const championStore = useChampionStore()
             >
               <div data-v-ab218c16="" data-v-cbff5ddf-s="" class="rune">
                 <img
+                  v-if="runeStore.runesSelection.groups[4].principal"
                   data-v-ab218c16=""
                   data-v-cbff5ddf-s=""
-                  src="https://peak.sybo.dev/data/img/runes/8236.png"
+                  :src="`https://ddragon.leagueoflegends.com/cdn/img/${runeStore.runesSelection.groups[4].principal?.icon}`"
+                />
+                <RuneTooltip
+                  :rune="runeStore.runesSelection.groups[4].principal"
                 />
               </div>
             </div>
@@ -509,11 +542,16 @@ const championStore = useChampionStore()
               data-v-15310f80=""
               class="tooltip"
             >
-              <div data-v-ab218c16="" data-v-cbff5ddf-s="" class="rune path">
+              <div
+                data-v-ab218c16=""
+                data-v-cbff5ddf-s=""
+                class="rune path"
+                v-if="runeStore.runesSelection.second"
+              >
                 <img
                   data-v-ab218c16=""
                   data-v-cbff5ddf-s=""
-                  src="https://peak.sybo.dev/data/img/runes/8100.png"
+                  :src="`https://ddragon.leagueoflegends.com/cdn/img/${runeStore.runesSelection.second?.icon}`"
                 />
               </div>
             </div>
@@ -522,27 +560,21 @@ const championStore = useChampionStore()
               data-v-ab218c16=""
               data-v-15310f80=""
               class="tooltip"
+              v-for="(group, index) in runeStore.runesSelection.groups"
+              :key="index"
             >
-              <div data-v-ab218c16="" data-v-cbff5ddf-s="" class="rune">
+              <div
+                data-v-ab218c16=""
+                data-v-cbff5ddf-s=""
+                class="rune"
+                v-if="group.second"
+              >
                 <img
                   data-v-ab218c16=""
                   data-v-cbff5ddf-s=""
-                  src="https://peak.sybo.dev/data/img/runes/8138.png"
+                  :src="`https://ddragon.leagueoflegends.com/cdn/img/${group.second.icon}`"
                 />
-              </div>
-            </div>
-            <div
-              data-v-cbff5ddf=""
-              data-v-ab218c16=""
-              data-v-15310f80=""
-              class="tooltip"
-            >
-              <div data-v-ab218c16="" data-v-cbff5ddf-s="" class="rune">
-                <img
-                  data-v-ab218c16=""
-                  data-v-cbff5ddf-s=""
-                  src="https://peak.sybo.dev/data/img/runes/8106.png"
-                />
+                <RuneTooltip :rune="group.second" />
               </div>
             </div>
           </div>
@@ -553,13 +585,15 @@ const championStore = useChampionStore()
                 data-v-ad54ad37=""
                 data-v-15310f80=""
                 class="tooltip"
+                v-if="shardStore.shardsSelection.principal"
               >
                 <div data-v-ad54ad37="" data-v-cbff5ddf-s="" class="shard">
                   <img
                     data-v-ad54ad37=""
                     data-v-cbff5ddf-s=""
-                    src="https://peak.sybo.dev/data/img/runes/shards/5007.png"
+                    :src="`/assets/icons/${shardStore.shardsSelection.principal?.image}`"
                   />
+                  <ShardTooltip :shard="shardStore.shardsSelection.principal" />
                 </div>
               </div>
               <div
@@ -567,13 +601,15 @@ const championStore = useChampionStore()
                 data-v-ad54ad37=""
                 data-v-15310f80=""
                 class="tooltip"
+                v-if="shardStore.shardsSelection.second"
               >
                 <div data-v-ad54ad37="" data-v-cbff5ddf-s="" class="shard">
                   <img
                     data-v-ad54ad37=""
                     data-v-cbff5ddf-s=""
-                    src="https://peak.sybo.dev/data/img/runes/shards/5008.png"
+                    :src="`/assets/icons/${shardStore.shardsSelection.second?.image}`"
                   />
+                  <ShardTooltip :shard="shardStore.shardsSelection.second" />
                 </div>
               </div>
               <div
@@ -581,22 +617,71 @@ const championStore = useChampionStore()
                 data-v-ad54ad37=""
                 data-v-15310f80=""
                 class="tooltip"
+                v-if="shardStore.shardsSelection.third"
               >
                 <div data-v-ad54ad37="" data-v-cbff5ddf-s="" class="shard">
                   <img
                     data-v-ad54ad37=""
                     data-v-cbff5ddf-s=""
-                    src="https://peak.sybo.dev/data/img/runes/shards/5011.png"
+                    :src="`/assets/icons/${shardStore.shardsSelection.third?.image}`"
                   />
+                  <ShardTooltip :shard="shardStore.shardsSelection.third" />
                 </div>
               </div>
             </div>
           </div>
         </div>
-        <hr data-v-15310f80="" class="hide" />
+        <hr
+          data-v-15310f80=""
+          :class="{
+            hide: !runeStore.runesSelection.principal,
+          }"
+        />
         <div data-v-15310f80="" class="itemsGroup">
           <div data-v-15310f80="" class="items"></div>
-          <div data-v-15310f80="" class="sums hide"></div>
+          <div
+            data-v-15310f80=""
+            :class="{
+              sums: true,
+              hide: !summonerStore.summonerSelection.principal,
+            }"
+          >
+            <div
+              data-v-cbff5ddf=""
+              data-v-bab95e98=""
+              data-v-15310f80=""
+              class="tooltip"
+            >
+              <div data-v-bab95e98="" data-v-cbff5ddf-s="" class="summoner">
+                <img
+                  data-v-bab95e98=""
+                  data-v-cbff5ddf-s=""
+                  :src="`https://ddragon.leagueoflegends.com/cdn/14.22.1/img/spell/${summonerStore.summonerSelection.principal?.image.full}`"
+                />
+                <SummonerTooltip
+                  :summoner="summonerStore.summonerSelection.principal"
+                />
+              </div>
+            </div>
+            <div
+              data-v-cbff5ddf=""
+              data-v-bab95e98=""
+              data-v-15310f80=""
+              class="tooltip"
+            >
+              <div data-v-bab95e98="" data-v-cbff5ddf-s="" class="summoner">
+                <img
+                  data-v-bab95e98=""
+                  data-v-cbff5ddf-s=""
+                  v-if="summonerStore.summonerSelection.second"
+                  :src="`https://ddragon.leagueoflegends.com/cdn/14.22.1/img/spell/${summonerStore.summonerSelection.second?.image.full}`"
+                />
+                <SummonerTooltip
+                  :summoner="summonerStore.summonerSelection.second"
+                />
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>

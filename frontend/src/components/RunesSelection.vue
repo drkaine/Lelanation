@@ -7,14 +7,20 @@ import RuneTooltip from '@/components/RuneTooltip.vue'
 import SummonerTooltip from '@/components/SummonerTooltip.vue'
 import ShardTooltip from '@/components/ShardTooltip.vue'
 import { useRuneStore } from '@/stores/runeStore'
-import { useSummonerStore } from '@/stores/summonerStore'
 import { useShardStore } from '@/stores/shardStore'
+import { useSummonerStore } from '@/stores/summonerStore'
 
-import { type Rune, type SubRune, type Shard, type Summoner } from './type'
+import {
+  type Rune,
+  type SubRune,
+  type Shard,
+  type Summoner,
+  type ShardColumn,
+} from './type'
 
-const runesData = ref<Rune[]>([])
+const runesData = ref<Rune[]>(runes)
 const summonerData = ref<Summoner[]>([])
-const shardsData = ref<Shard[]>([])
+const shardsData = ref<ShardColumn>()
 
 const runeStore = useRuneStore()
 const shardStore = useShardStore()
@@ -27,70 +33,68 @@ const filteredSummonerData = computed(() => {
 })
 
 const selectedRune = (
-  index: number,
   type: 'principal' | 'second',
   groupIndex?: number,
   subRune?: SubRune,
   rune?: Rune,
 ) => {
-  if (groupIndex !== undefined && subRune) {
-    runeStore.setGroupRuneSelection(groupIndex, type, index)
+  if (groupIndex && subRune) {
+    runeStore.setGroupRuneSelection(groupIndex, type, subRune)
   } else if (rune) {
-    runeStore.setRuneSelection(type, index)
+    runeStore.setRuneSelection(type, rune)
   }
 }
 
-const selectedSummoner = (index: number) => {
-  if (summonerStore.summonerSelection.principal === index) {
-    summonerStore.setSummonerSelection('principal', -1)
-  } else if (summonerStore.summonerSelection.second === index) {
-    summonerStore.setSummonerSelection('second', -1)
-  } else if (summonerStore.summonerSelection.principal === -1) {
-    summonerStore.setSummonerSelection('principal', index)
-  } else if (summonerStore.summonerSelection.second === -1) {
-    summonerStore.setSummonerSelection('second', index)
+const selectedSummoner = (summoner: Summoner | null) => {
+  if (summonerStore.summonerSelection.principal === summoner) {
+    summonerStore.setSummonerSelection('principal', summoner)
+  } else if (summonerStore.summonerSelection.second === summoner) {
+    summonerStore.setSummonerSelection('second', summoner)
+  } else if (summonerStore.summonerSelection.principal === summoner) {
+    summonerStore.setSummonerSelection('principal', summoner)
+  } else if (summonerStore.summonerSelection.second === summoner) {
+    summonerStore.setSummonerSelection('second', summoner)
   } else {
     summonerStore.setSummonerSelection(
       'second',
       summonerStore.summonerSelection.principal,
     )
-    summonerStore.setSummonerSelection('principal', index)
+    summonerStore.setSummonerSelection('principal', summoner)
   }
 }
 
 const selectedShard = (
-  index: string,
+  shard: Shard | null,
   type: 'principal' | 'second' | 'third',
 ) => {
-  shardStore.setShardSelection(type, index)
+  shardStore.setShardSelection(type, shard)
 }
 
 onMounted(() => {
   runesData.value = Object.values(runes)
   summonerData.value = Object.values(summoner.data)
-  shardsData.value = Object.values(shards.data) as Shard[]
+  shardsData.value = shards.data
 })
 </script>
 
 <template>
   <div data-v-c83b00c2="" data-v-b6709614="" class="runesPage">
-    {{ console.log(runeStore.runesSelection) }}
     <div data-v-c83b00c2="" class="wrap">
       <div data-v-c83b00c2="" class="path">
         <button
           data-v-c83b00c2=""
           v-for="(rune, index) in runesData"
           :key="index"
-          @click="selectedRune(index, 'principal', undefined, undefined, rune)"
+          @click="selectedRune('principal', undefined, undefined, rune)"
           :class="{
             rune: true,
             [rune.key]: true,
             'selected row':
-              index === runeStore.runesSelection.principal ||
-              runeStore.runesSelection.principal === -1,
+              rune.id === runeStore.runesSelection.principal?.id ||
+              runeStore.runesSelection.principal === null,
             row: !(
-              index === runeStore.runesSelection.principal ||
-              runeStore.runesSelection.principal === -1
+              rune.id === runeStore.runesSelection.principal?.id ||
+              runeStore.runesSelection.principal === null
             ),
           }"
         >
@@ -115,17 +119,21 @@ onMounted(() => {
           data-v-c83b00c2=""
           v-for="(rune, index) in runesData"
           :key="index"
-          @click="selectedRune(index, 'second', undefined, undefined, rune)"
+          @click="selectedRune('second', undefined, undefined, rune)"
           :class="{
             rune: true,
             [rune.key]: true,
             'selected ':
-              (index === runeStore.runesSelection.second ||
-                runeStore.runesSelection.second === -1) &&
-              runeStore.runesSelection.principal !== -1,
+              (rune.id === runeStore.runesSelection.second?.id ||
+                !runeStore.runesSelection.second) &&
+              runeStore.runesSelection.principal &&
+              runeStore.runesSelection.principal !== rune,
             row: true,
           }"
-          :disabled="runeStore.runesSelection.principal === -1"
+          :disabled="
+            runeStore.runesSelection.principal === null ||
+            runeStore.runesSelection.principal === rune
+          "
         >
           <div
             data-v-cbff5ddf=""
@@ -152,8 +160,8 @@ onMounted(() => {
         <div
           data-v-7b108f5e=""
           class="slot-0-pos-0 rune"
-          v-for="(rune, index) in runesData[runeStore.runesSelection.principal]
-            ?.slots[0]?.runes"
+          v-for="(rune, index) in runeStore.runesSelection.principal?.slots[0]
+            ?.runes"
           :key="index"
           :style="`grid-area: 1 / ${index + 1};`"
         >
@@ -162,10 +170,10 @@ onMounted(() => {
             :class="{
               row: true,
               selected:
-                index === runeStore.runesSelection.groups[0].principal ||
-                runeStore.runesSelection.groups[0].principal === -1,
+                rune.id === runeStore.runesSelection.groups[1].principal?.id ||
+                !runeStore.runesSelection.groups[1].principal,
             }"
-            @click="selectedRune(index, 'principal', 0, rune)"
+            @click="selectedRune('principal', 1, rune)"
           >
             <div
               data-v-cbff5ddf=""
@@ -187,8 +195,8 @@ onMounted(() => {
         <div
           data-v-7b108f5e=""
           class="slot-0-pos-1 rune"
-          v-for="(rune, index) in runesData[runeStore.runesSelection.principal]
-            ?.slots[1]?.runes"
+          v-for="(rune, index) in runeStore.runesSelection.principal?.slots[1]
+            ?.runes"
           :key="index"
           :style="`grid-area: 2 / ${index + 1};`"
         >
@@ -197,10 +205,10 @@ onMounted(() => {
             :class="{
               row: true,
               selected:
-                index === runeStore.runesSelection.groups[1].principal ||
-                runeStore.runesSelection.groups[1].principal === -1,
+                rune.id === runeStore.runesSelection.groups[2].principal?.id ||
+                !runeStore.runesSelection.groups[2].principal,
             }"
-            @click="selectedRune(index, 'principal', 1, rune)"
+            @click="selectedRune('principal', 2, rune)"
           >
             <div
               data-v-cbff5ddf=""
@@ -222,8 +230,8 @@ onMounted(() => {
         <div
           data-v-7b108f5e=""
           class="slot-0-pos-2 rune"
-          v-for="(rune, index) in runesData[runeStore.runesSelection.principal]
-            ?.slots[2]?.runes"
+          v-for="(rune, index) in runeStore.runesSelection.principal?.slots[2]
+            ?.runes"
           :key="index"
           :style="`grid-area: 3 / ${index + 1};`"
         >
@@ -232,10 +240,10 @@ onMounted(() => {
             :class="{
               row: true,
               selected:
-                index === runeStore.runesSelection.groups[2].principal ||
-                runeStore.runesSelection.groups[2].principal === -1,
+                rune.id === runeStore.runesSelection.groups[3].principal?.id ||
+                !runeStore.runesSelection.groups[3].principal,
             }"
-            @click="selectedRune(index, 'principal', 2, rune)"
+            @click="selectedRune('principal', 3, rune)"
           >
             <div
               data-v-cbff5ddf=""
@@ -257,8 +265,8 @@ onMounted(() => {
         <div
           data-v-7b108f5e=""
           class="slot-0-pos-3 rune"
-          v-for="(rune, index) in runesData[runeStore.runesSelection.principal]
-            ?.slots[3]?.runes"
+          v-for="(rune, index) in runeStore.runesSelection.principal?.slots[3]
+            ?.runes"
           :key="index"
           :style="`grid-area: 4 / ${index + 1};`"
         >
@@ -267,10 +275,10 @@ onMounted(() => {
             :class="{
               row: true,
               selected:
-                index === runeStore.runesSelection.groups[3].principal ||
-                runeStore.runesSelection.groups[3].principal === -1,
+                rune.id === runeStore.runesSelection.groups[4].principal?.id ||
+                !runeStore.runesSelection.groups[4].principal,
             }"
-            @click="selectedRune(index, 'principal', 3, rune)"
+            @click="selectedRune('principal', 4, rune)"
           >
             <div
               data-v-cbff5ddf=""
@@ -299,8 +307,8 @@ onMounted(() => {
         <div
           data-v-7b108f5e=""
           class="slot-1-pos-0 rune"
-          v-for="(rune, index) in runesData[runeStore.runesSelection.second]
-            ?.slots[0]?.runes"
+          v-for="(rune, index) in runeStore.runesSelection.second?.slots[0]
+            ?.runes"
           :key="index"
           :style="`grid-area: 1 / ${index + 1};`"
         >
@@ -309,10 +317,10 @@ onMounted(() => {
             :class="{
               row: true,
               selected:
-                index === runeStore.runesSelection.groups[0].second ||
-                runeStore.runesSelection.groups[0].second === -1,
+                rune.id === runeStore.runesSelection.groups[1].second?.id ||
+                !runeStore.runesSelection.groups[1].second,
             }"
-            @click="selectedRune(index, 'second', 0, rune)"
+            @click="selectedRune('second', 1, rune)"
           >
             <div
               data-v-cbff5ddf=""
@@ -334,8 +342,8 @@ onMounted(() => {
         <div
           data-v-7b108f5e=""
           class="slot-1-pos-1 rune"
-          v-for="(rune, index) in runesData[runeStore.runesSelection.second]
-            ?.slots[1]?.runes"
+          v-for="(rune, index) in runeStore.runesSelection.second?.slots[1]
+            ?.runes"
           :key="index"
           :style="`grid-area: 2 / ${index + 1};`"
         >
@@ -344,10 +352,10 @@ onMounted(() => {
             :class="{
               row: true,
               selected:
-                index === runeStore.runesSelection.groups[1].second ||
-                runeStore.runesSelection.groups[1].second === -1,
+                rune.id === runeStore.runesSelection.groups[2].second?.id ||
+                !runeStore.runesSelection.groups[2].second,
             }"
-            @click="selectedRune(index, 'second', 1, rune)"
+            @click="selectedRune('second', 2, rune)"
           >
             <div
               data-v-cbff5ddf=""
@@ -369,8 +377,8 @@ onMounted(() => {
         <div
           data-v-7b108f5e=""
           class="slot-1-pos-2 rune"
-          v-for="(rune, index) in runesData[runeStore.runesSelection.second]
-            ?.slots[2]?.runes"
+          v-for="(rune, index) in runeStore.runesSelection.second?.slots[2]
+            ?.runes"
           :key="index"
           :style="`grid-area: 3 / ${index + 1};`"
         >
@@ -379,10 +387,10 @@ onMounted(() => {
             :class="{
               row: true,
               selected:
-                index === runeStore.runesSelection.groups[2].second ||
-                runeStore.runesSelection.groups[2].second === -1,
+                rune.id === runeStore.runesSelection.groups[3].second?.id ||
+                !runeStore.runesSelection.groups[3].second,
             }"
-            @click="selectedRune(index, 'second', 2, rune)"
+            @click="selectedRune('second', 3, rune)"
           >
             <div
               data-v-cbff5ddf=""
@@ -404,8 +412,8 @@ onMounted(() => {
         <div
           data-v-7b108f5e=""
           class="slot-1-pos-3 rune"
-          v-for="(rune, index) in runesData[runeStore.runesSelection.second]
-            ?.slots[3]?.runes"
+          v-for="(rune, index) in runeStore.runesSelection.second?.slots[3]
+            ?.runes"
           :key="index"
           :style="`grid-area: 4 / ${index + 1};`"
         >
@@ -414,10 +422,10 @@ onMounted(() => {
             :class="{
               row: true,
               selected:
-                index === runeStore.runesSelection.groups[3].second ||
-                runeStore.runesSelection.groups[3].second === -1,
+                rune.id === runeStore.runesSelection.groups[4].second?.id ||
+                !runeStore.runesSelection.groups[4].second,
             }"
-            @click="selectedRune(index, 'second', 3, rune)"
+            @click="selectedRune('second', 4, rune)"
           >
             <div
               data-v-cbff5ddf=""
@@ -442,7 +450,7 @@ onMounted(() => {
         data-v-c83b00c2=""
         class="summoners"
         style="--132d151c: 66px"
-        v-if="runeStore.runesSelection.second !== -1"
+        v-if="runeStore.runesSelection.second"
       >
         <div data-v-70a93f67="" class="list">
           <div
@@ -450,16 +458,17 @@ onMounted(() => {
             class="sum"
             v-for="(summoner, index) in filteredSummonerData"
             :key="index"
-            @click="selectedSummoner(index)"
+            @click="selectedSummoner(summoner)"
           >
             <button
               data-v-70a93f67=""
               :class="{
                 selected:
-                  index === summonerStore.summonerSelection.principal ||
-                  summonerStore.summonerSelection.second === index ||
-                  (summonerStore.summonerSelection.principal === -1 &&
-                    summonerStore.summonerSelection.second === -1),
+                  summoner.id ===
+                    summonerStore.summonerSelection.principal?.id ||
+                  summonerStore.summonerSelection.second?.id === summoner.id ||
+                  (!summonerStore.summonerSelection.principal &&
+                    !summonerStore.summonerSelection.second),
               }"
             >
               <div
@@ -486,14 +495,16 @@ onMounted(() => {
         data-v-c83b00c2=""
         class="shards"
         style="--2e8b5dd2: 66px"
-        v-if="runeStore.runesSelection.second !== -1"
+        v-if="runeStore.runesSelection.second"
       >
         <div
           data-v-5f2eb625=""
           class="shard"
-          v-for="(shard, index) in shardsData[0]"
+          v-for="(shard, index) in shardsData ? shardsData[0] : []"
           :key="index"
-          @click="selectedShard(index.toString(), shard.type)"
+          @click="
+            selectedShard(shard, shard.type as 'principal' | 'second' | 'third')
+          "
         >
           <button
             data-v-5f2eb625=""
@@ -501,14 +512,14 @@ onMounted(() => {
               'row ': true,
               selected:
                 (shard.type === 'principal' &&
-                  (index === shardStore.shardsSelection.principal ||
-                    shardStore.shardsSelection.principal === '')) ||
+                  (shard === shardStore.shardsSelection.principal ||
+                    !shardStore.shardsSelection.principal)) ||
                 (shard.type === 'second' &&
-                  (index === shardStore.shardsSelection.second ||
-                    shardStore.shardsSelection.second === '')) ||
+                  (shard === shardStore.shardsSelection.second ||
+                    !shardStore.shardsSelection.second)) ||
                 (shard.type === 'third' &&
-                  (index === shardStore.shardsSelection.third ||
-                    shardStore.shardsSelection.third === '')),
+                  (shard === shardStore.shardsSelection.third ||
+                    !shardStore.shardsSelection.third)),
             }"
           >
             <div
@@ -531,9 +542,11 @@ onMounted(() => {
         <div
           data-v-5f2eb625=""
           class="shard"
-          v-for="(shard, index) in shardsData[1]"
+          v-for="(shard, index) in shardsData ? shardsData[1] : []"
           :key="index"
-          @click="selectedShard(index.toString(), shard.type)"
+          @click="
+            selectedShard(shard, shard.type as 'principal' | 'second' | 'third')
+          "
         >
           <button
             data-v-5f2eb625=""
@@ -541,14 +554,14 @@ onMounted(() => {
               'row ': true,
               selected:
                 (shard.type === 'principal' &&
-                  (index === shardStore.shardsSelection.principal ||
-                    shardStore.shardsSelection.principal === '')) ||
+                  (shard === shardStore.shardsSelection.principal ||
+                    !shardStore.shardsSelection.principal)) ||
                 (shard.type === 'second' &&
-                  (index === shardStore.shardsSelection.second ||
-                    shardStore.shardsSelection.second === '')) ||
+                  (shard === shardStore.shardsSelection.second ||
+                    !shardStore.shardsSelection.second)) ||
                 (shard.type === 'third' &&
-                  (index === shardStore.shardsSelection.third ||
-                    shardStore.shardsSelection.third === '')),
+                  (shard === shardStore.shardsSelection.third ||
+                    !shardStore.shardsSelection.third)),
             }"
           >
             <div
@@ -571,9 +584,11 @@ onMounted(() => {
         <div
           data-v-5f2eb625=""
           class="shard"
-          v-for="(shard, index) in shardsData[2]"
+          v-for="(shard, index) in shardsData ? shardsData[2] : []"
           :key="index"
-          @click="selectedShard(index.toString(), shard.type)"
+          @click="
+            selectedShard(shard, shard.type as 'principal' | 'second' | 'third')
+          "
         >
           <button
             data-v-5f2eb625=""
@@ -581,14 +596,14 @@ onMounted(() => {
               'row ': true,
               selected:
                 (shard.type === 'principal' &&
-                  (index === shardStore.shardsSelection.principal ||
-                    shardStore.shardsSelection.principal === '')) ||
+                  (shard === shardStore.shardsSelection.principal ||
+                    !shardStore.shardsSelection.principal)) ||
                 (shard.type === 'second' &&
-                  (index === shardStore.shardsSelection.second ||
-                    shardStore.shardsSelection.second === '')) ||
+                  (shard === shardStore.shardsSelection.second ||
+                    !shardStore.shardsSelection.second)) ||
                 (shard.type === 'third' &&
-                  (index === shardStore.shardsSelection.third ||
-                    shardStore.shardsSelection.third === '')),
+                  (shard === shardStore.shardsSelection.third ||
+                    !shardStore.shardsSelection.third)),
             }"
           >
             <div
