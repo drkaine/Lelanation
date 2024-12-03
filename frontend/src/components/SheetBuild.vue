@@ -419,16 +419,28 @@ const shardStore = useShardStore()
       <div data-v-15310f80="" class="version">{{ version }}</div>
       <div data-v-15310f80="" class="wrap">
         <div data-v-15310f80="" class="shadow"></div>
-        <div data-v-15310f80="" class="champion">
+        <div
+          data-v-15310f80=""
+          :class="{
+            champion: true,
+            hide: !championStore.selectedChampion,
+          }"
+        >
           <div
             data-v-cbff5ddf=""
             data-v-5bc51be1=""
             data-v-1f02dc05=""
             data-v-15310f80=""
             class="tooltip"
-            v-if="championStore.selectedChampion"
           >
-            <div data-v-1f02dc05="" data-v-cbff5ddf-s="" class="champion">
+            <div
+              data-v-1f02dc05=""
+              data-v-cbff5ddf-s=""
+              :class="{
+                champion: true,
+                hide: !championStore.selectedChampion,
+              }"
+            >
               <img
                 data-v-1f02dc05=""
                 data-v-cbff5ddf-s=""
@@ -449,7 +461,13 @@ const shardStore = useShardStore()
             </div>
           </div>
         </div>
-        <div data-v-15310f80="" class="name">
+        <div
+          data-v-15310f80=""
+          :class="{
+            name: true,
+            hide: !championStore.selectedChampion,
+          }"
+        >
           {{ championStore.selectedChampion?.name }}
         </div>
         <hr

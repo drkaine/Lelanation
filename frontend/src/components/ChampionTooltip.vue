@@ -3,7 +3,7 @@ import version from '@/assets/files/lastVersion.json'
 import { type Champion } from './type'
 
 const props = defineProps<{
-  champion: Champion
+  champion: Champion | null
 }>()
 </script>
 
@@ -18,22 +18,22 @@ const props = defineProps<{
           'https://ddragon.leagueoflegends.com/cdn/' +
           version +
           '/img/champion/' +
-          champion.image.full
+          champion?.image.full
         "
       />
       <div data-v-5bc51be1="" data-v-cbff5ddf-s="" class="text">
         <div data-v-5bc51be1="" data-v-cbff5ddf-s="" class="name">
-          {{ champion.name }}
+          {{ champion?.name }}
         </div>
         <div data-v-5bc51be1="" data-v-cbff5ddf-s="" class="title">
-          {{ champion.title }}
+          {{ champion?.title }}
         </div>
       </div>
     </div>
     <div data-v-5bc51be1="" data-v-cbff5ddf-s="" class="tags">
       <div data-v-de17e6dc="" class="tag">
         {{
-          champion.tags
+          champion?.tags
             .map((tag: string) =>
               tag === 'Fighter'
                 ? 'Combattant'
@@ -59,19 +59,19 @@ const props = defineProps<{
                 'https://ddragon.leagueoflegends.com/cdn/' +
                 version +
                 '/img/passive/' +
-                champion.passive.image.full
+                champion?.passive.image.full
               "
             />
           </div>
           <div data-v-5bc51be1="" data-v-cbff5ddf-s="" class="desc">
-            {{ champion.passive.description }}
+            {{ champion?.passive.description }}
           </div>
         </div>
         <div
           data-v-5bc51be1=""
           data-v-cbff5ddf-s=""
           class="spell"
-          v-for="(spell, index) in champion.spells"
+          v-for="(spell, index) in champion?.spells"
           :key="index"
         >
           <div data-v-5bc51be1="" data-v-cbff5ddf-s="" class="img">
@@ -101,7 +101,7 @@ const props = defineProps<{
           data-v-5bc51be1=""
           data-v-cbff5ddf-s=""
           class="line attack"
-          :style="{ width: props.champion.info.attack + '0%' }"
+          :style="{ width: props.champion?.info.attack + '0%' }"
         ></div>
         <div data-v-5bc51be1="" data-v-cbff5ddf-s="" class="name magic">
           magic
@@ -110,7 +110,7 @@ const props = defineProps<{
           data-v-5bc51be1=""
           data-v-cbff5ddf-s=""
           class="line magic"
-          :style="{ width: props.champion.info.magic + '0%' }"
+          :style="{ width: props.champion?.info.magic + '0%' }"
         ></div>
         <div data-v-5bc51be1="" data-v-cbff5ddf-s="" class="name defense">
           defense
@@ -119,7 +119,7 @@ const props = defineProps<{
           data-v-5bc51be1=""
           data-v-cbff5ddf-s=""
           class="line defense"
-          :style="{ width: props.champion.info.defense + '0%' }"
+          :style="{ width: props.champion?.info.defense + '0%' }"
         ></div>
         <div data-v-5bc51be1="" data-v-cbff5ddf-s="" class="name difficulty">
           difficult
@@ -128,7 +128,7 @@ const props = defineProps<{
           data-v-5bc51be1=""
           data-v-cbff5ddf-s=""
           class="line difficulty"
-          :style="{ width: props.champion.info.difficulty + '0%' }"
+          :style="{ width: props.champion?.info.difficulty + '0%' }"
         ></div>
       </div>
     </div>
