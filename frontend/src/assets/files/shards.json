@@ -1,0 +1,53 @@
+{
+    "data": 
+        [
+            [
+                {
+                "type": "principal",
+                "description": "+9 Force adaptative",
+                "image": "adaptative.png"
+            },
+            {
+                "type": "principal",
+                "description": "+10% vitesse d'attaque",
+                "image": "speed.png"
+            },
+           {
+                "type": "principal",
+                "description": "+10%  accélération de compétence",
+                "image": "cdr.png"
+            }
+        ],
+
+           [ {
+                "type": "second",
+                "description": "+9 Force adaptative",
+                "image": "adaptative.png"
+            },
+            {
+                "type": "second",
+                "description": "+2% vitesse de déplacement",
+                "image": "move.png"
+            },
+           {
+            "type": "second",
+                "description": "+10-180 PV (selon niveau)",
+                "image": "growth.png"
+            }],
+
+          [  {
+                "type": "third",
+                "description": "+65 PV",
+                "image": "hp.png"
+            },
+           {
+                "type": "third",
+                "description": "+10% Ténacitée et réduction de ralentissement",
+                "image": "tenacity.png"
+            },
+            {
+                "type": "third",
+                "description": "+10-180 PV (selon niveau)",
+                "image": "growth.png"
+            }]]
+}
