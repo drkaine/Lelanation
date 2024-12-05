@@ -9,12 +9,31 @@ import ChampionTooltip from '@/components/ChampionTooltip.vue'
 import SummonerTooltip from '@/components/SummonerTooltip.vue'
 import RuneTooltip from '@/components/RuneTooltip.vue'
 import ShardTooltip from '@/components/ShardTooltip.vue'
+import ItemTooltip from '@/components/ItemTooltip.vue'
+import { type Item } from './type'
+import items from '@/assets/files/item.json'
 
 const championStore = useChampionStore()
 const runeStore = useRuneStore()
 const summonerStore = useSummonerStore()
 const shardStore = useShardStore()
 const itemStore = useItemStore()
+
+const getItemsFrom = (item: Item) => {
+  return (
+    item.from
+      ?.map((id: string) => items.data[id as keyof typeof items.data])
+      .filter(Boolean) || []
+  )
+}
+
+const getItemsInto = (item: Item) => {
+  return (
+    item.into
+      ?.map((id: string) => items.data[id as keyof typeof items.data])
+      .filter(Boolean) || []
+  )
+}
 </script>
 
 <template>
@@ -687,6 +706,11 @@ const itemStore = useItemStore()
                       data-v-cbff5ddf-s=""
                       class="img"
                       :src="`https://ddragon.leagueoflegends.com/cdn/${version}/img/item/${item.image.full}`"
+                    />
+                    <ItemTooltip
+                      :item="item"
+                      :from="getItemsFrom(item)"
+                      :into="getItemsInto(item)"
                     />
                   </div>
                 </div>

@@ -30,7 +30,6 @@ const filteredItems = computed<Item[]>(() => {
       (item: Item) =>
         item.maps['11'] === true &&
         item.gold?.purchasable === true &&
-        item.consumed === undefined &&
         item.gold.total > 0,
     )
   }
@@ -61,7 +60,9 @@ const getItemsInto = (item: Item) => {
 
 const itemsBoots = computed<Item[]>(() =>
   filteredItems.value
-    .filter((item: Item) => item.tags?.includes('Boots'))
+    .filter(
+      (item: Item) => item.tags?.includes('Boots') || item.name === 'Zéphyr',
+    )
     .sort((a: Item, b: Item) => (a.gold.total || 0) - (b.gold.total || 0)),
 )
 
@@ -70,21 +71,30 @@ const itemsStarter = computed<Item[]>(() =>
     .filter(
       (item: Item) =>
         (item.depth === undefined && item.tags?.includes('Lane')) ||
-        item.tags?.includes('Jungle'),
+        (item.tags?.includes('Jungle') && item.maps['21'] === true),
     )
     .sort((a: Item, b: Item) => (a.gold.total || 0) - (b.gold.total || 0)),
 )
 
 const itemsBasic = computed<Item[]>(() =>
   filteredItems.value
-    .filter((item: Item) => item.depth === undefined)
+    .filter(
+      (item: Item) =>
+        item.depth === undefined &&
+        !item.tags?.includes('Lane') &&
+        !item.tags?.includes('Jungle'),
+    )
     .sort((a: Item, b: Item) => (a.gold.total || 0) - (b.gold.total || 0)),
 )
 
 const itemsEpic = computed<Item[]>(() =>
   filteredItems.value
     .filter(
-      (item: Item) => item.into !== undefined && !item.tags?.includes('Boots'),
+      (item: Item) =>
+        item.into !== undefined &&
+        !item.tags?.includes('Boots') &&
+        !item.tags?.includes('Consumable') &&
+        item.from !== undefined,
     )
     .sort((a: Item, b: Item) => (a.gold.total || 0) - (b.gold.total || 0)),
 )
@@ -96,14 +106,14 @@ const itemsLegendary = computed<Item[]>(() =>
         item.into === undefined &&
         item.depth !== undefined &&
         item.depth > 1 &&
-        !item.tags?.includes('Boots'),
+        !item.tags?.includes('Boots') &&
+        item.name !== 'Zéphyr',
     )
     .sort((a: Item, b: Item) => (a.gold.total || 0) - (b.gold.total || 0)),
 )
 </script>
 
 <template>
-  {{ console.log(itemStore.ItemsSelection) }}
   <div data-v-6a781413="" data-v-b6709614="" class="items-page">
     <div data-v-72110c46="" data-v-6a781413="" class="grid small">
       <div data-v-72110c46="" class="search">
@@ -292,7 +302,18 @@ const itemsLegendary = computed<Item[]>(() =>
         >
           Omnivamp
         </button>
+        <button
+          data-v-27037513=""
+          data-v-6a781413=""
+          :class="{
+            active: selectedTags.includes('Consumable'),
+          }"
+          @click="toggleTag('Consumable')"
+        >
+          Consommable
+        </button>
       </div>
+      <div data-v-72110c46="" class="divider"></div>
       <div
         data-v-72110c46=""
         class="group small"
