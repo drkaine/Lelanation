@@ -60,31 +60,45 @@ const getItemsInto = (item: Item) => {
 }
 
 const itemsBoots = computed<Item[]>(() =>
-  filteredItems.value.filter((item: Item) => item.tags?.includes('Boots')),
+  filteredItems.value
+    .filter((item: Item) => item.tags?.includes('Boots'))
+    .sort((a: Item, b: Item) => (a.gold.total || 0) - (b.gold.total || 0)),
 )
 
 const itemsStarter = computed<Item[]>(() =>
-  filteredItems.value.filter(
-    (item: Item) =>
-      (item.depth === undefined && item.tags?.includes('Lane')) ||
-      item.tags?.includes('Jungle'),
-  ),
+  filteredItems.value
+    .filter(
+      (item: Item) =>
+        (item.depth === undefined && item.tags?.includes('Lane')) ||
+        item.tags?.includes('Jungle'),
+    )
+    .sort((a: Item, b: Item) => (a.gold.total || 0) - (b.gold.total || 0)),
 )
 
 const itemsBasic = computed<Item[]>(() =>
-  filteredItems.value.filter((item: Item) => item.depth === undefined),
+  filteredItems.value
+    .filter((item: Item) => item.depth === undefined)
+    .sort((a: Item, b: Item) => (a.gold.total || 0) - (b.gold.total || 0)),
 )
 
 const itemsEpic = computed<Item[]>(() =>
-  filteredItems.value.filter(
-    (item: Item) => item.depth === 2 && !item.tags?.includes('Boots'),
-  ),
+  filteredItems.value
+    .filter(
+      (item: Item) => item.into !== undefined && !item.tags?.includes('Boots'),
+    )
+    .sort((a: Item, b: Item) => (a.gold.total || 0) - (b.gold.total || 0)),
 )
 
 const itemsLegendary = computed<Item[]>(() =>
-  filteredItems.value.filter(
-    (item: Item) => item.depth === 3 && !item.tags?.includes('Boots'),
-  ),
+  filteredItems.value
+    .filter(
+      (item: Item) =>
+        item.into === undefined &&
+        item.depth !== undefined &&
+        item.depth > 1 &&
+        !item.tags?.includes('Boots'),
+    )
+    .sort((a: Item, b: Item) => (a.gold.total || 0) - (b.gold.total || 0)),
 )
 </script>
 
