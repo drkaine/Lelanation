@@ -38,7 +38,6 @@ const getItemsInto = (item: Item) => {
 
 <template>
   <div data-v-b6709614="" class="sheet champions">
-    {{ console.log(itemStore.ItemsSelection.core) }}
     <div
       data-v-15310f80=""
       data-v-b6709614=""
