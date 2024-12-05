@@ -235,3 +235,10 @@ export interface RunesSelection {
   second: Rune | null
   groups: GroupSelection[]
 }
+
+export interface ItemSelection {
+  starter: Item[] | null
+  core: Item[] | null
+  situationnel: Item[] | null
+  boots: Item[] | null
+}

@@ -3,6 +3,7 @@ import { useChampionStore } from '@/stores/championStore'
 import { useRuneStore } from '@/stores/runeStore'
 import { useSummonerStore } from '@/stores/summonerStore'
 import { useShardStore } from '@/stores/shardStore'
+import { useItemStore } from '@/stores/itemStore'
 import version from '@/assets/files/lastVersion.json'
 import ChampionTooltip from '@/components/ChampionTooltip.vue'
 import SummonerTooltip from '@/components/SummonerTooltip.vue'
@@ -13,10 +14,12 @@ const championStore = useChampionStore()
 const runeStore = useRuneStore()
 const summonerStore = useSummonerStore()
 const shardStore = useShardStore()
+const itemStore = useItemStore()
 </script>
 
 <template>
   <div data-v-b6709614="" class="sheet champions">
+    {{ console.log(itemStore.ItemsSelection.core) }}
     <div
       data-v-15310f80=""
       data-v-b6709614=""
@@ -478,8 +481,10 @@ const shardStore = useShardStore()
         />
         <div
           data-v-15310f80=""
-          class="runes"
-          v-if="runeStore.runesSelection.principal"
+          :class="{
+            runes: true,
+            hide: !runeStore.runesSelection.principal,
+          }"
         >
           <div
             data-v-cbff5ddf=""
@@ -656,7 +661,38 @@ const shardStore = useShardStore()
           }"
         />
         <div data-v-15310f80="" class="itemsGroup">
-          <div data-v-15310f80="" class="items"></div>
+          <div data-v-15310f80="" class="items">
+            <div
+              data-v-15310f80=""
+              class="sheetItem"
+              v-for="(item, index) in itemStore.ItemsSelection.core"
+              :key="index"
+            >
+              <div
+                data-v-354b7b55=""
+                data-v-7ab6e59a=""
+                data-v-15310f80=""
+                class="tip"
+              >
+                <div data-v-cbff5ddf="" data-v-354b7b55="" class="tooltip">
+                  <div
+                    data-v-7ab6e59a=""
+                    data-v-cbff5ddf-s=""
+                    to="false"
+                    class="item"
+                    replace="false"
+                  >
+                    <img
+                      data-v-7ab6e59a=""
+                      data-v-cbff5ddf-s=""
+                      class="img"
+                      :src="`https://ddragon.leagueoflegends.com/cdn/${version}/img/item/${item.image.full}`"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
           <div
             data-v-15310f80=""
             :class="{
@@ -669,34 +705,16 @@ const shardStore = useShardStore()
               data-v-bab95e98=""
               data-v-15310f80=""
               class="tooltip"
+              v-for="(summoner, index) in summonerStore.summonerSelection"
+              :key="index"
             >
               <div data-v-bab95e98="" data-v-cbff5ddf-s="" class="summoner">
                 <img
                   data-v-bab95e98=""
                   data-v-cbff5ddf-s=""
-                  :src="`https://ddragon.leagueoflegends.com/cdn/14.22.1/img/spell/${summonerStore.summonerSelection.principal?.image.full}`"
+                  :src="`https://ddragon.leagueoflegends.com/cdn/14.22.1/img/spell/${summoner?.image.full}`"
                 />
-                <SummonerTooltip
-                  :summoner="summonerStore.summonerSelection.principal"
-                />
-              </div>
-            </div>
-            <div
-              data-v-cbff5ddf=""
-              data-v-bab95e98=""
-              data-v-15310f80=""
-              class="tooltip"
-            >
-              <div data-v-bab95e98="" data-v-cbff5ddf-s="" class="summoner">
-                <img
-                  data-v-bab95e98=""
-                  data-v-cbff5ddf-s=""
-                  v-if="summonerStore.summonerSelection.second"
-                  :src="`https://ddragon.leagueoflegends.com/cdn/14.22.1/img/spell/${summonerStore.summonerSelection.second?.image.full}`"
-                />
-                <SummonerTooltip
-                  :summoner="summonerStore.summonerSelection.second"
-                />
+                <SummonerTooltip :summoner="summoner" />
               </div>
             </div>
           </div>

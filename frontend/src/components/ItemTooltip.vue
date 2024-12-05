@@ -4,6 +4,8 @@ import { type Item } from './type'
 
 const props = defineProps<{
   item: Item
+  from: Item[]
+  into: Item[]
 }>()
 </script>
 
@@ -54,37 +56,52 @@ const props = defineProps<{
           </div>
         </div>
       </div>
+      <div data-v-354b7b55="" data-v-cbff5ddf-s="" class="from">
+        <div
+          data-v-354b7b55=""
+          data-v-7ab6e59a=""
+          data-v-cbff5ddf-s=""
+          class="tip"
+          v-for="(item, index) in props.from || []"
+          :key="index"
+        >
+          <div data-v-7ab6e59a="" to="false" class="item" replace="false">
+            <img
+              data-v-7ab6e59a=""
+              class="img"
+              :src="`https://ddragon.leagueoflegends.com/cdn/${version}/img/item/${item.image.full}`"
+            />
+            <div data-v-7ab6e59a="" class="text">{{ item.gold.total }}</div>
+          </div>
+        </div>
+      </div>
     </div>
     <div data-v-cbff5ddf="" class="body">
       {{ props.item.description }}
     </div>
-    <div data-v-cbff5ddf="" class="stats">
-      <h3>Statistiques</h3>
-      <ul>
-        <li v-for="(value, key) in props.item.stats" :key="key">
-          <strong>{{ key }}:</strong> {{ value }}
-        </li>
-      </ul>
+    <div data-v-cbff5ddf="" class="footer">
+      <hr data-v-cbff5ddf="" />
+      <div data-v-354b7b55="" data-v-cbff5ddf-s="" class="into">
+        <div
+          data-v-354b7b55=""
+          data-v-7ab6e59a=""
+          data-v-cbff5ddf-s=""
+          class="tip"
+          v-for="(item, index) in props.into || []"
+          :key="index"
+        >
+          <div data-v-7ab6e59a="" to="false" class="item" replace="false">
+            <img
+              data-v-7ab6e59a=""
+              class="img"
+              :src="`https://ddragon.leagueoflegends.com/cdn/${version}/img/item/${item.image.full}`"
+            />
+            <div data-v-7ab6e59a="" class="text">
+              {{ item.gold.total }}
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
-
-<style scoped>
-.stats {
-  margin-top: 1em;
-}
-
-.stats h3 {
-  margin-bottom: 0.5em;
-  font-size: 1.2em;
-}
-
-.stats ul {
-  list-style: none;
-  padding: 0;
-}
-
-.stats li {
-  margin-bottom: 0.3em;
-}
-</style>
