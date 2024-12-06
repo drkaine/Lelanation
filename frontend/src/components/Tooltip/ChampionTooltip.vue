@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import version from '@/assets/files/lastVersion.json'
-import { type Champion } from './type'
+import { type Champion } from '../type'
 
 const props = defineProps<{
   champion: Champion | null

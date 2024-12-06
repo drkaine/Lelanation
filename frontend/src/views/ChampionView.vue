@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import ChampSelection from '@/components/ChampSelection.vue'
+import ChampSelection from '@/components/Selection/ChampSelection.vue'
 import MenuBuild from '@/components/MenuBuild.vue'
 </script>
 

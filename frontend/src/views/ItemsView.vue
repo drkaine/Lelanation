@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import ItemsSelection from '@/components/ItemsSelection.vue'
+import ItemsSelection from '@/components/Selection/ItemsSelection.vue'
 import MenuBuild from '@/components/MenuBuild.vue'
 import SheetBuild from '@/components/SheetBuild.vue'
 </script>

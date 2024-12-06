@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { type Summoner } from './type'
+import { type Summoner } from '../type'
 
 const props = defineProps<{
   summoner: Summoner | null

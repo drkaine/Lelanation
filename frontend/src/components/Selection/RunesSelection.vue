@@ -3,9 +3,9 @@ import { ref, onMounted, computed } from 'vue'
 import runes from '@/assets/files/runesReforged.json'
 import summoner from '@/assets/files/summoner.json'
 import shards from '@/assets/files/shards.json'
-import RuneTooltip from '@/components/RuneTooltip.vue'
-import SummonerTooltip from '@/components/SummonerTooltip.vue'
-import ShardTooltip from '@/components/ShardTooltip.vue'
+import RuneTooltip from '@/components/Tooltip/RuneTooltip.vue'
+import SummonerTooltip from '@/components/Tooltip/SummonerTooltip.vue'
+import ShardTooltip from '@/components/Tooltip/ShardTooltip.vue'
 import { useRuneStore } from '@/stores/runeStore'
 import { useShardStore } from '@/stores/shardStore'
 import { useSummonerStore } from '@/stores/summonerStore'
@@ -16,7 +16,7 @@ import {
   type Shard,
   type Summoner,
   type ShardColumn,
-} from './type'
+} from '../type'
 
 const runesData = ref<Rune[]>(runes)
 const summonerData = ref<Summoner[]>([])

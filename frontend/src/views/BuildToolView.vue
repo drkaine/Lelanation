@@ -2,9 +2,9 @@
 import SheetBuild from '@/components/SheetBuild.vue'
 import Extra from '@/components/ExtraInfo.vue'
 import MenuBuild from '@/components/MenuBuild.vue'
-import ItemsSelection from '@/components/ItemsSelection.vue'
-import ChampSelection from '@/components/ChampSelection.vue'
-import RunesSelection from '@/components/RunesSelection.vue'
+import ItemsSelection from '@/components/Selection/ItemsSelection.vue'
+import ChampSelection from '@/components/Selection/ChampSelection.vue'
+import RunesSelection from '@/components/Selection/RunesSelection.vue'
 import { useStepStore } from '@/stores/stepStore'
 import { useItemStore } from '@/stores/itemStore'
 

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { type SubRune } from './type'
+import { type SubRune } from '../type'
 
 const props = defineProps<{
   rune: SubRune | null
