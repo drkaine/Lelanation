@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import version from '@/assets/files/lastVersion.json'
 import { useItemStore } from '@/stores/itemStore'
-import ItemTooltip from '@/components/ItemTooltip.vue'
 
 const itemStore = useItemStore()
 const getTrad = (name: string) => {

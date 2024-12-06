@@ -583,16 +583,12 @@ const getItemsInto = (item: Item) => {
               data-v-15310f80=""
               class="tooltip"
             >
-              <div
-                data-v-ab218c16=""
-                data-v-cbff5ddf-s=""
-                class="rune path"
-                v-if="runeStore.runesSelection.second"
-              >
+              <div data-v-ab218c16="" data-v-cbff5ddf-s="" class="rune path">
                 <img
                   data-v-ab218c16=""
                   data-v-cbff5ddf-s=""
                   :src="`https://ddragon.leagueoflegends.com/cdn/img/${runeStore.runesSelection.second?.icon}`"
+                  v-if="runeStore.runesSelection.second?.icon"
                 />
               </div>
             </div>
@@ -736,6 +732,7 @@ const getItemsInto = (item: Item) => {
                   data-v-bab95e98=""
                   data-v-cbff5ddf-s=""
                   :src="`https://ddragon.leagueoflegends.com/cdn/14.22.1/img/spell/${summoner?.image.full}`"
+                  v-if="summoner?.image.full"
                 />
                 <SummonerTooltip :summoner="summoner" />
               </div>

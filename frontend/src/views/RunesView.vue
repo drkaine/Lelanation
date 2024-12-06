@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import RunesSelection from '@/components/RunesSelection.vue'
 import MenuBuild from '@/components/MenuBuild.vue'
+import SheetBuild from '@/components/SheetBuild.vue'
 </script>
 
 <template>
@@ -9,8 +10,11 @@ import MenuBuild from '@/components/MenuBuild.vue'
       <MenuBuild />
       <div data-v-b6709614="" class="main">
         <RunesSelection />
+        <div data-v-b6709614="" class="next">
+          <button data-v-b6709614="">Next</button>
+        </div>
       </div>
-      <!-- <SheetBuild /> -->
+      <SheetBuild />
     </div>
   </div>
 </template>

@@ -1,19 +1,20 @@
 <script setup lang="ts">
 import ItemsSelection from '@/components/ItemsSelection.vue'
-import Menu from '@/components/MenuBuild.vue'
+import MenuBuild from '@/components/MenuBuild.vue'
+import SheetBuild from '@/components/SheetBuild.vue'
 </script>
 
 <template>
-  <div class="app" data-v-f2a5836d="">
-    <div class="main" data-v-f2a5836d="">
-      <div class="build" data-v-f2a5836d="" data-v-c3d704f8="">
-        <Menu />
-        <div data-v-c3d704f8="" class="main">
-          <ItemsSelection />
+  <div data-v-f21e856a="" class="main champions">
+    <div data-v-b6709614="" data-v-f21e856a="" class="build">
+      <MenuBuild />
+      <div data-v-b6709614="" class="main">
+        <ItemsSelection />
+        <div data-v-b6709614="" class="next">
+          <button data-v-b6709614="">Next</button>
         </div>
       </div>
+      <SheetBuild />
     </div>
   </div>
 </template>
-
-<style scoped></style>
