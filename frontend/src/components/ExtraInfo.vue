@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import version from '@/assets/files/lastVersion.json'
 import { useItemStore } from '@/stores/itemStore'
+import ItemTooltip from '@/components/ItemTooltip.vue'
 
 const itemStore = useItemStore()
 const getTrad = (name: string) => {
@@ -57,14 +58,18 @@ const statsTrad: StatsTrad = {
   <div data-v-b6709614="" class="extra" id="extra">
     <div data-v-63d61340="" data-v-6a781413="" class="picks">
       <div data-v-63d61340="" class="list">
-        <div data-v-1875b585="" data-v-63d61340="" class="pick-item">
+        <div
+          data-v-1875b585=""
+          data-v-63d61340=""
+          class="pick-item"
+          v-for="(item, index) in itemStore.ItemsSelection.core"
+          :key="index"
+        >
           <div
             data-v-354b7b55=""
             data-v-7ab6e59a=""
             data-v-1875b585=""
             class="tip"
-            v-for="(item, index) in itemStore.ItemsSelection.core"
-            :key="index"
           >
             <button data-v-7ab6e59a="" to="false" class="item" replace="false">
               <img
