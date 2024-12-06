@@ -10,7 +10,7 @@ export const useItemStore = defineStore('Item', () => {
     boots: null,
   })
 
-  const ItemsStats = ref<Record<string, number>>({})
+  const ItemsStats = ref<Stats>({})
 
   const ItemsGold = ref<{ total: number }>({
     total: 0,

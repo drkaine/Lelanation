@@ -12,7 +12,7 @@ export interface Champion {
   tags: string[]
   partype: string
   info: Info
-  stats: Stats
+  stats: ChampionStats
   spells: Spell[]
   passive: Passive
   recommended: RecommendedItem[]
@@ -107,26 +107,29 @@ export interface Info {
   difficulty: number
 }
 
+export interface ChampionStats {
+  hp: number
+  hpperlevel: number
+  mp: number
+  mpperlevel: number
+  armor: number
+  armorperlevel: number
+  spellblock: number
+  spellblockperlevel: number
+  attackrange: number
+  hpregen: number
+  hpregenperlevel: number
+  mpregen: number
+  mpregenperlevel: number
+  crit: number
+  critperlevel: number
+  attackdamage: number
+  attackdamageperlevel: number
+  attackspeedperlevel: number
+  attackspeed: number
+}
+
 export interface Stats {
-  hp?: number
-  hpperlevel?: number
-  mp?: number
-  mpperlevel?: number
-  armor?: number
-  armorperlevel?: number
-  spellblock?: number
-  spellblockperlevel?: number
-  attackrange?: number
-  hpregen?: number
-  hpregenperlevel?: number
-  mpregen?: number
-  mpregenperlevel?: number
-  crit?: number
-  critperlevel?: number
-  attackdamage?: number
-  attackdamageperlevel?: number
-  attackspeedperlevel?: number
-  attackspeed?: number
   [key: string]: number | undefined
 }
 
