@@ -5,7 +5,9 @@ import { useChampionStore } from '@/stores/championStore'
 import ChampionTooltip from '@/components/ChampionTooltip.vue'
 import version from '@/assets/files/lastVersion.json'
 import { type Champion } from './type'
+import { useStepStore } from '@/stores/stepStore'
 
+const stepStore = useStepStore()
 const searchQuery = ref<string>('')
 const filterInstance = new Filter()
 
@@ -26,6 +28,7 @@ const championStore = useChampionStore()
 
 const selectChampion = (champion: Champion) => {
   championStore.setSelectedChampion(champion)
+  stepStore.setStepSelection('rune')
 }
 </script>
 
