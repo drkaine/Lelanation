@@ -34,3 +34,4 @@ playwright-report/
 
 /src/assets/files/*
 !src/assets/files/shards.json
+!src/assets/files/statsTrad.json
