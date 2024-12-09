@@ -3,7 +3,7 @@ import { useStepStore } from '@/stores/stepStore'
 
 const stepStore = useStepStore()
 
-const next = (type: 'champion' | 'rune' | 'item') => {
+const next = (type: 'champion' | 'rune' | 'item' | 'info') => {
   stepStore.setStepSelection(type)
 }
 </script>
@@ -38,6 +38,12 @@ const next = (type: 'champion' | 'rune' | 'item') => {
       Items</a
     >
     <span data-v-b6709614="" class="arrow"></span>
-    <a data-v-b6709614="" class="done"> Info</a>
+    <a
+      data-v-b6709614=""
+      class="router-link-active router-link-exact-active done"
+      @click="next('info')"
+    >
+      Info</a
+    >
   </div>
 </template>

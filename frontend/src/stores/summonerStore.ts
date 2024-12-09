@@ -1,6 +1,9 @@
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
-import { type SummonerSelection, type Summoner } from '../components/script/type'
+import {
+  type SummonerSelection,
+  type Summoner,
+} from '../components/script/type'
 
 export const useSummonerStore = defineStore('Summoner', () => {
   const summonerSelection = ref<SummonerSelection>({

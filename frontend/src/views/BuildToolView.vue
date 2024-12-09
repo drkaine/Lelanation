@@ -7,12 +7,17 @@ import ChampSelection from '@/components/Selection/ChampSelection.vue'
 import RunesSelection from '@/components/Selection/RunesSelection.vue'
 import { useStepStore } from '@/stores/stepStore'
 import { useItemStore } from '@/stores/itemStore'
+import InfosBuild from '@/components/InfosBuild.vue'
 
 const itemStore = useItemStore()
 const stepStore = useStepStore()
 
 const next = () => {
-  stepStore.setStepSelection('item')
+  if (stepStore.step === 'item') {
+    stepStore.setStepSelection('info')
+  } else {
+    stepStore.setStepSelection('item')
+  }
 }
 </script>
 
@@ -30,7 +35,14 @@ const next = () => {
         <div v-else-if="stepStore.step === 'item'">
           <ItemsSelection />
         </div>
-        <div data-v-b6709614="" class="next">
+        <div v-else-if="stepStore.step === 'info'">
+          <InfosBuild />
+        </div>
+        <div
+          data-v-b6709614=""
+          class="next"
+          v-if="stepStore.step === 'rune' || stepStore.step === 'item'"
+        >
           <button data-v-b6709614="" @click="next()">Next</button>
         </div>
       </div>

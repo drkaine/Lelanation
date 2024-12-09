@@ -112,6 +112,7 @@ export interface ChampionStats {
   hpperlevel: number
   mp: number
   mpperlevel: number
+  movespeed: number
   armor: number
   armorperlevel: number
   spellblock: number
