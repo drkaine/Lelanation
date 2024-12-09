@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import SheetBuild from '@/components/SheetBuild.vue'
-import Extra from '@/components/ExtraInfo.vue'
-import MenuBuild from '@/components/MenuBuild.vue'
+import SheetBuild from '@/components/composants/SheetBuild.vue'
+import Extra from '@/components/composants/ExtraInfo.vue'
+import MenuBuild from '@/components/composants/MenuBuild.vue'
 import ItemsSelection from '@/components/Selection/ItemsSelection.vue'
 import ChampSelection from '@/components/Selection/ChampSelection.vue'
 import RunesSelection from '@/components/Selection/RunesSelection.vue'

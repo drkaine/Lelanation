@@ -4,7 +4,7 @@ import {
   type RunesSelection,
   type Rune,
   type SubRune,
-} from '../components/type'
+} from '../components/script/type'
 
 export const useRuneStore = defineStore('Rune', () => {
   const runesSelection = ref<RunesSelection>({

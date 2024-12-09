@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
-import { type Champion } from '../components/type'
+import { type Champion } from '../components/script/type'
 
 export const useChampionStore = defineStore('champion', () => {
   const selectedChampion = ref<Champion | null>(null)

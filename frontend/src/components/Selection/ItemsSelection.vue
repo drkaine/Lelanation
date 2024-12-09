@@ -3,7 +3,7 @@ import { ref, computed } from 'vue'
 import items from '@/assets/files/item.json'
 import version from '@/assets/files/lastVersion.json'
 import ItemTooltip from '@/components/Tooltip/ItemTooltip.vue'
-import { type Item } from '../type'
+import { type Item } from '../script/type'
 import { useItemStore } from '@/stores/itemStore'
 
 const selectedTags = ref<string[]>([])

@@ -16,7 +16,7 @@ import {
   type Shard,
   type Summoner,
   type ShardColumn,
-} from '../type'
+} from '../script/type'
 
 const runesData = ref<Rune[]>(runes)
 const summonerData = ref<Summoner[]>([])

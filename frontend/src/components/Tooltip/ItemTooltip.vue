@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import version from '@/assets/files/lastVersion.json'
-import { type Item } from '../type'
+import { type Item } from '../script/type'
 
 const props = defineProps<{
   item: Item

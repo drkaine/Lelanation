@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import ItemsSelection from '@/components/Selection/ItemsSelection.vue'
-import MenuBuild from '@/components/MenuBuild.vue'
-import SheetBuild from '@/components/SheetBuild.vue'
+import MenuBuild from '@/components/composants/MenuBuild.vue'
+import SheetBuild from '@/components/composants/SheetBuild.vue'
 </script>
 
 <template>

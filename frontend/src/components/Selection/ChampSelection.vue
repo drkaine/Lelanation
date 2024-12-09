@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
-import { Filter } from '../Filter'
+import { Filter } from '../script/Filter'
 import { useChampionStore } from '@/stores/championStore'
 import ChampionTooltip from '@/components/Tooltip/ChampionTooltip.vue'
 import version from '@/assets/files/lastVersion.json'
-import { type Champion } from '../type'
+import { type Champion } from '../script/type'
 import { useStepStore } from '@/stores/stepStore'
 
 const stepStore = useStepStore()

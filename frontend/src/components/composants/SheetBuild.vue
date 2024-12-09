@@ -10,7 +10,7 @@ import SummonerTooltip from '@/components/Tooltip/SummonerTooltip.vue'
 import RuneTooltip from '@/components/Tooltip/RuneTooltip.vue'
 import ShardTooltip from '@/components/Tooltip/ShardTooltip.vue'
 import ItemTooltip from '@/components/Tooltip/ItemTooltip.vue'
-import { type Item } from './type'
+import { type Item } from '../script/type'
 import items from '@/assets/files/item.json'
 
 const championStore = useChampionStore()

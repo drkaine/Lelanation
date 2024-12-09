@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
-import { type Item, type ItemSelection, type Stats } from '../components/type'
+import { type Item, type ItemSelection, type Stats } from '../components/script/type'
 
 export const useItemStore = defineStore('Item', () => {
   const ItemsSelection = ref<ItemSelection>({

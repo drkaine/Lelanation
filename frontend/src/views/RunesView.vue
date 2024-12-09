@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import RunesSelection from '@/components/Selection/RunesSelection.vue'
-import MenuBuild from '@/components/MenuBuild.vue'
-import SheetBuild from '@/components/SheetBuild.vue'
+import MenuBuild from '@/components/composants/MenuBuild.vue'
+import SheetBuild from '@/components/composants/SheetBuild.vue'
 </script>
 
 <template>
