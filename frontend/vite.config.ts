@@ -14,7 +14,7 @@ export default defineConfig({
   ],
   resolve: {
     alias: {
-      '@': fileURLToPath(new URL('./src', import.meta.url))
+      '@': fileURLToPath(new URL('./src', import.meta.url)),
     }
   },
   build: {
@@ -29,4 +29,7 @@ export default defineConfig({
     },
     assetsInlineLimit: 0,
   },
+  optimizeDeps: {
+    include: ['uuid']
+  }
 })
