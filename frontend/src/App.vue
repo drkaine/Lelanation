@@ -278,9 +278,9 @@ import version from '@/assets/files/lastVersion.json'
           <!-- <RouterLink to="/champions">Champions</RouterLink>
           <RouterLink to="/runes">Runes</RouterLink>
           <RouterLink to="/items">Items</RouterLink> -->
-          <a data-v-7cc930f8="" href="/pro" class=""> Pro Builds</a>
+          <!-- <a data-v-7cc930f8="" href="/pro" class=""> Pro Builds</a>
           <span data-v-7cc930f8="">•</span>
-          <a data-v-7cc930f8="" href="/randomizer" class="">Random</a>
+          <a data-v-7cc930f8="" href="/randomizer" class="">Random</a> -->
           <span data-v-7cc930f8="">•</span>
           <a data-v-7cc930f8="" href="/items" class="active"> Items</a>
           <span data-v-7cc930f8="">•</span>

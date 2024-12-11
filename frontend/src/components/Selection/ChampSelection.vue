@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
+import { ref } from 'vue'
 import { Filter } from '../script/Filter'
 import { useChampionStore } from '@/stores/championStore'
 import ChampionTooltip from '@/components/Tooltip/ChampionTooltip.vue'
@@ -11,10 +11,39 @@ const stepStore = useStepStore()
 const searchQuery = ref<string>('')
 const filterInstance = new Filter()
 
-onMounted(() => {
-  filterInstance.filteredChampions.value = filterInstance.championData
-})
+const tooltipLeft = ref('0px')
+const tooltipTop = ref('0px')
 
+const updateMousePosition = (event: MouseEvent) => {
+  const tooltipWidth = 200
+  const tooltipHeight = 100
+
+  const button = event.currentTarget as HTMLElement
+  const rect = button.getBoundingClientRect()
+
+  const x = rect.left + window.scrollX
+  const y = rect.top + window.scrollY
+
+  tooltipLeft.value = x + rect.width + 'px' 
+  tooltipTop.value = y + rect.height / 2 - tooltipHeight / 2 + 'px'
+
+  if (parseInt(tooltipLeft.value) + tooltipWidth > window.innerWidth) {
+    tooltipLeft.value = x - tooltipWidth - 10 + 'px'
+  }
+
+  if (parseInt(tooltipTop.value) + tooltipHeight > window.innerHeight) {
+    tooltipTop.value = y - tooltipHeight - 10 + 'px' 
+  }
+
+  if (parseInt(tooltipTop.value) < 0) {
+    tooltipTop.value = '10px'
+  }
+}
+
+const resetMousePosition = () => {
+  tooltipLeft.value = '0px'
+  tooltipTop.value = '0px'
+}
 const filterChampions = (tag: string) => {
   filterInstance.filterChampions(tag)
 }
@@ -136,6 +165,8 @@ const selectChampion = (champion: Champion) => {
             champ: true,
             hide: !filterInstance.filteredChampions.value.includes(champion),
           }"
+          @mouseenter="updateMousePosition"
+          @mouseleave="resetMousePosition"
         >
           <img
             data-v-80441127=""
@@ -152,7 +183,7 @@ const selectChampion = (champion: Champion) => {
         <div
           data-v-cbff5ddf=""
           class="box"
-          style="position: absolute; left: 384px; top: 169.6px"
+          :style="{ position: 'absolute', left: tooltipLeft, top: tooltipTop }"
         >
           <ChampionTooltip :champion="champion" />
         </div>

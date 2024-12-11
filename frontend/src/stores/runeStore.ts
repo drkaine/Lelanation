@@ -41,8 +41,6 @@ export const useRuneStore = defineStore('Rune', () => {
         group => group.two === true,
       )
 
-      console.log(runesSelection.value.groups)
-
       if (
         runesSelection.value.groups[groupIndex].first ||
         runesSelection.value.groups[groupIndex].two
