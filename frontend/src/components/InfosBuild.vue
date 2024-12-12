@@ -6,9 +6,9 @@ import { useShardStore } from '@/stores/shardStore'
 import { useItemStore } from '@/stores/itemStore'
 import { ref } from 'vue'
 import { v4 as uuidv4 } from 'uuid'
+import version from '@/assets/files/lastVersion.json'
 
-const urlApiSave = import.meta.env.URL_API_SAVE
-
+const urlApiSave = import.meta.env.VITE_URL_API_SAVE
 const championStore = useChampionStore()
 const runeStore = useRuneStore()
 const summonerStore = useSummonerStore()
@@ -22,6 +22,7 @@ const submitForm = async () => {
   const data = {
     name: name.value,
     description: description.value,
+    version: version,
     sheet: {
       champion: championStore.$state,
       rune: runeStore.$state,
@@ -31,6 +32,7 @@ const submitForm = async () => {
     },
   }
   const fileName = `${uuidv4()}.json`
+
   try {
     const response = await fetch(`${urlApiSave}/api/save/${fileName}`, {
       method: 'POST',
