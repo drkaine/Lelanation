@@ -12,12 +12,25 @@ import ShardTooltip from '@/components/Tooltip/ShardTooltip.vue'
 import ItemTooltip from '@/components/Tooltip/ItemTooltip.vue'
 import { type Item } from '../script/type'
 import items from '@/assets/files/item.json'
+import { TooltipCoordonne } from '../script/TooltipCoordonne'
 
 const championStore = useChampionStore()
 const runeStore = useRuneStore()
 const summonerStore = useSummonerStore()
 const shardStore = useShardStore()
 const itemStore = useItemStore()
+const tooltip = new TooltipCoordonne()
+
+const tooltipLeft = tooltip.tooltipLeft
+const tooltipTop = tooltip.tooltipTop
+
+const updateMousePosition = (event: MouseEvent) => {
+  tooltip.updateMousePosition(event)
+}
+
+const resetMousePosition = () => {
+  tooltip.resetMousePosition()
+}
 
 const getItemsFrom = (item: Item) => {
   return (
@@ -461,6 +474,8 @@ const getItemsInto = (item: Item) => {
                 champion: true,
                 hide: !championStore.selectedChampion,
               }"
+              @mouseenter="updateMousePosition"
+              @mouseleave="resetMousePosition"
             >
               <img
                 data-v-1f02dc05=""
@@ -476,7 +491,11 @@ const getItemsInto = (item: Item) => {
             <div
               data-v-cbff5ddf=""
               class="box"
-              style="position: absolute; left: 79px; top: 91px"
+              :style="{
+                position: 'absolute',
+                left: tooltipLeft,
+                top: tooltipTop,
+              }"
             >
               <ChampionTooltip :champion="championStore.selectedChampion" />
             </div>
@@ -510,16 +529,32 @@ const getItemsInto = (item: Item) => {
             data-v-15310f80=""
             class="tooltip"
           >
-            <div data-v-ab218c16="" data-v-cbff5ddf-s="" class="rune">
+            <div
+              data-v-ab218c16=""
+              data-v-cbff5ddf-s=""
+              class="rune"
+              @mouseenter="updateMousePosition"
+              @mouseleave="resetMousePosition"
+            >
               <img
                 v-if="runeStore.runesSelection.groups[1].principal"
                 data-v-ab218c16=""
                 data-v-cbff5ddf-s=""
                 :src="`https://ddragon.leagueoflegends.com/cdn/img/${runeStore.runesSelection.groups[1].principal?.icon}`"
               />
-              <RuneTooltip
-                :rune="runeStore.runesSelection.groups[1].principal"
-              />
+              <div
+                data-v-cbff5ddf=""
+                class="box"
+                :style="{
+                  position: 'absolute',
+                  left: tooltipLeft,
+                  top: tooltipTop,
+                }"
+              >
+                <RuneTooltip
+                  :rune="runeStore.runesSelection.groups[1].principal"
+                />
+              </div>
             </div>
           </div>
           <div data-v-15310f80="" class="main">
@@ -529,16 +564,32 @@ const getItemsInto = (item: Item) => {
               data-v-15310f80=""
               class="tooltip"
             >
-              <div data-v-ab218c16="" data-v-cbff5ddf-s="" class="rune">
+              <div
+                data-v-ab218c16=""
+                data-v-cbff5ddf-s=""
+                class="rune"
+                @mouseenter="updateMousePosition"
+                @mouseleave="resetMousePosition"
+              >
                 <img
                   v-if="runeStore.runesSelection.groups[2].principal"
                   data-v-ab218c16=""
                   data-v-cbff5ddf-s=""
                   :src="`https://ddragon.leagueoflegends.com/cdn/img/${runeStore.runesSelection.groups[2].principal?.icon}`"
                 />
-                <RuneTooltip
-                  :rune="runeStore.runesSelection.groups[2].principal"
-                />
+                <div
+                  data-v-cbff5ddf=""
+                  class="box"
+                  :style="{
+                    position: 'absolute',
+                    left: tooltipLeft,
+                    top: tooltipTop,
+                  }"
+                >
+                  <RuneTooltip
+                    :rune="runeStore.runesSelection.groups[2].principal"
+                  />
+                </div>
               </div>
             </div>
             <div
@@ -547,16 +598,32 @@ const getItemsInto = (item: Item) => {
               data-v-15310f80=""
               class="tooltip"
             >
-              <div data-v-ab218c16="" data-v-cbff5ddf-s="" class="rune">
+              <div
+                data-v-ab218c16=""
+                data-v-cbff5ddf-s=""
+                class="rune"
+                @mouseenter="updateMousePosition"
+                @mouseleave="resetMousePosition"
+              >
                 <img
                   data-v-ab218c16=""
                   data-v-cbff5ddf-s=""
                   v-if="runeStore.runesSelection.groups[3].principal"
                   :src="`https://ddragon.leagueoflegends.com/cdn/img/${runeStore.runesSelection.groups[3].principal?.icon}`"
                 />
-                <RuneTooltip
-                  :rune="runeStore.runesSelection.groups[3].principal"
-                />
+                <div
+                  data-v-cbff5ddf=""
+                  class="box"
+                  :style="{
+                    position: 'absolute',
+                    left: tooltipLeft,
+                    top: tooltipTop,
+                  }"
+                >
+                  <RuneTooltip
+                    :rune="runeStore.runesSelection.groups[3].principal"
+                  />
+                </div>
               </div>
             </div>
             <div
@@ -565,16 +632,32 @@ const getItemsInto = (item: Item) => {
               data-v-15310f80=""
               class="tooltip"
             >
-              <div data-v-ab218c16="" data-v-cbff5ddf-s="" class="rune">
+              <div
+                data-v-ab218c16=""
+                data-v-cbff5ddf-s=""
+                class="rune"
+                @mouseenter="updateMousePosition"
+                @mouseleave="resetMousePosition"
+              >
                 <img
                   v-if="runeStore.runesSelection.groups[4].principal"
                   data-v-ab218c16=""
                   data-v-cbff5ddf-s=""
                   :src="`https://ddragon.leagueoflegends.com/cdn/img/${runeStore.runesSelection.groups[4].principal?.icon}`"
                 />
-                <RuneTooltip
-                  :rune="runeStore.runesSelection.groups[4].principal"
-                />
+                <div
+                  data-v-cbff5ddf=""
+                  class="box"
+                  :style="{
+                    position: 'absolute',
+                    left: tooltipLeft,
+                    top: tooltipTop,
+                  }"
+                >
+                  <RuneTooltip
+                    :rune="runeStore.runesSelection.groups[4].principal"
+                  />
+                </div>
               </div>
             </div>
             <div
@@ -605,13 +688,25 @@ const getItemsInto = (item: Item) => {
                 data-v-cbff5ddf-s=""
                 class="rune"
                 v-if="group.second"
+                @mouseenter="updateMousePosition"
+                @mouseleave="resetMousePosition"
               >
                 <img
                   data-v-ab218c16=""
                   data-v-cbff5ddf-s=""
                   :src="`https://ddragon.leagueoflegends.com/cdn/img/${group.second.icon}`"
                 />
-                <RuneTooltip :rune="group.second" />
+                <div
+                  data-v-cbff5ddf=""
+                  class="box"
+                  :style="{
+                    position: 'absolute',
+                    left: tooltipLeft,
+                    top: tooltipTop,
+                  }"
+                >
+                  <RuneTooltip :rune="group.second" />
+                </div>
               </div>
             </div>
           </div>
@@ -624,13 +719,31 @@ const getItemsInto = (item: Item) => {
                 class="tooltip"
                 v-if="shardStore.shardsSelection.principal"
               >
-                <div data-v-ad54ad37="" data-v-cbff5ddf-s="" class="shard">
+                <div
+                  data-v-ad54ad37=""
+                  data-v-cbff5ddf-s=""
+                  class="shard"
+                  @mouseenter="updateMousePosition"
+                  @mouseleave="resetMousePosition"
+                >
                   <img
                     data-v-ad54ad37=""
                     data-v-cbff5ddf-s=""
                     :src="`/assets/icons/${shardStore.shardsSelection.principal?.image}`"
                   />
-                  <ShardTooltip :shard="shardStore.shardsSelection.principal" />
+                  <div
+                    data-v-cbff5ddf=""
+                    class="box"
+                    :style="{
+                      position: 'absolute',
+                      left: tooltipLeft,
+                      top: tooltipTop,
+                    }"
+                  >
+                    <ShardTooltip
+                      :shard="shardStore.shardsSelection.principal"
+                    />
+                  </div>
                 </div>
               </div>
               <div
@@ -640,13 +753,29 @@ const getItemsInto = (item: Item) => {
                 class="tooltip"
                 v-if="shardStore.shardsSelection.second"
               >
-                <div data-v-ad54ad37="" data-v-cbff5ddf-s="" class="shard">
+                <div
+                  data-v-ad54ad37=""
+                  data-v-cbff5ddf-s=""
+                  class="shard"
+                  @mouseenter="updateMousePosition"
+                  @mouseleave="resetMousePosition"
+                >
                   <img
                     data-v-ad54ad37=""
                     data-v-cbff5ddf-s=""
                     :src="`/assets/icons/${shardStore.shardsSelection.second?.image}`"
                   />
-                  <ShardTooltip :shard="shardStore.shardsSelection.second" />
+                  <div
+                    data-v-cbff5ddf=""
+                    class="box"
+                    :style="{
+                      position: 'absolute',
+                      left: tooltipLeft,
+                      top: tooltipTop,
+                    }"
+                  >
+                    <ShardTooltip :shard="shardStore.shardsSelection.second" />
+                  </div>
                 </div>
               </div>
               <div
@@ -656,13 +785,29 @@ const getItemsInto = (item: Item) => {
                 class="tooltip"
                 v-if="shardStore.shardsSelection.third"
               >
-                <div data-v-ad54ad37="" data-v-cbff5ddf-s="" class="shard">
+                <div
+                  data-v-ad54ad37=""
+                  data-v-cbff5ddf-s=""
+                  class="shard"
+                  @mouseenter="updateMousePosition"
+                  @mouseleave="resetMousePosition"
+                >
                   <img
                     data-v-ad54ad37=""
                     data-v-cbff5ddf-s=""
                     :src="`/assets/icons/${shardStore.shardsSelection.third?.image}`"
                   />
-                  <ShardTooltip :shard="shardStore.shardsSelection.third" />
+                  <div
+                    data-v-cbff5ddf=""
+                    class="box"
+                    :style="{
+                      position: 'absolute',
+                      left: tooltipLeft,
+                      top: tooltipTop,
+                    }"
+                  >
+                    <ShardTooltip :shard="shardStore.shardsSelection.third" />
+                  </div>
                 </div>
               </div>
             </div>
@@ -695,6 +840,8 @@ const getItemsInto = (item: Item) => {
                     to="false"
                     class="item"
                     replace="false"
+                    @mouseenter="updateMousePosition"
+                    @mouseleave="resetMousePosition"
                   >
                     <img
                       data-v-7ab6e59a=""
@@ -702,11 +849,21 @@ const getItemsInto = (item: Item) => {
                       class="img"
                       :src="`https://ddragon.leagueoflegends.com/cdn/${version}/img/item/${item.image.full}`"
                     />
-                    <ItemTooltip
-                      :item="item"
-                      :from="getItemsFrom(item)"
-                      :into="getItemsInto(item)"
-                    />
+                    <div
+                      data-v-cbff5ddf=""
+                      class="box"
+                      :style="{
+                        position: 'absolute',
+                        left: tooltipLeft,
+                        top: tooltipTop,
+                      }"
+                    >
+                      <ItemTooltip
+                        :item="item"
+                        :from="getItemsFrom(item)"
+                        :into="getItemsInto(item)"
+                      />
+                    </div>
                   </div>
                 </div>
               </div>
@@ -727,14 +884,30 @@ const getItemsInto = (item: Item) => {
               v-for="(summoner, index) in summonerStore.summonerSelection"
               :key="index"
             >
-              <div data-v-bab95e98="" data-v-cbff5ddf-s="" class="summoner">
+              <div
+                data-v-bab95e98=""
+                data-v-cbff5ddf-s=""
+                class="summoner"
+                @mouseenter="updateMousePosition"
+                @mouseleave="resetMousePosition"
+              >
                 <img
                   data-v-bab95e98=""
                   data-v-cbff5ddf-s=""
                   :src="`https://ddragon.leagueoflegends.com/cdn/14.22.1/img/spell/${summoner?.image.full}`"
                   v-if="summoner?.image.full"
                 />
-                <SummonerTooltip :summoner="summoner" />
+                <div
+                  data-v-cbff5ddf=""
+                  class="box"
+                  :style="{
+                    position: 'absolute',
+                    left: tooltipLeft,
+                    top: tooltipTop,
+                  }"
+                >
+                  <SummonerTooltip :summoner="summoner" />
+                </div>
               </div>
             </div>
           </div>

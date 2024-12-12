@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { Filter } from '../script/Filter'
+import { TooltipCoordonne } from '../script/TooltipCoordonne'
 import { useChampionStore } from '@/stores/championStore'
 import ChampionTooltip from '@/components/Tooltip/ChampionTooltip.vue'
 import version from '@/assets/files/lastVersion.json'
@@ -10,42 +11,17 @@ import { useStepStore } from '@/stores/stepStore'
 const stepStore = useStepStore()
 const searchQuery = ref<string>('')
 const filterInstance = new Filter()
+const tooltip = new TooltipCoordonne()
 
-const tooltipLeft = ref('0px')
-const tooltipTop = ref('0px')
+const tooltipLeft = tooltip.tooltipLeft
+const tooltipTop = tooltip.tooltipTop
 
 const updateMousePosition = (event: MouseEvent) => {
-  const tooltipWidth = 200
-  const tooltipHeight = 100
-
-  const button = event.currentTarget as HTMLElement
-  const rect = button.getBoundingClientRect()
-
-  const x = rect.left + window.scrollX
-  const y = rect.top + window.scrollY
-
-  tooltipLeft.value = x + rect.width + 'px' 
-  tooltipTop.value = y + rect.height / 2 - tooltipHeight / 2 + 'px'
-
-  if (parseInt(tooltipLeft.value) + tooltipWidth > window.innerWidth) {
-    tooltipLeft.value = x - tooltipWidth - 10 + 'px'
-  }
-
-  if (parseInt(tooltipTop.value) + tooltipHeight > window.innerHeight) {
-    tooltipTop.value = y - tooltipHeight - 10 + 'px' 
-  }
-
-  if (parseInt(tooltipTop.value) < 0) {
-    tooltipTop.value = '10px'
-  }
+  tooltip.updateMousePosition(event)
 }
 
 const resetMousePosition = () => {
-  tooltipLeft.value = '0px'
-  tooltipTop.value = '0px'
-}
-const filterChampions = (tag: string) => {
-  filterInstance.filterChampions(tag)
+  tooltip.resetMousePosition()
 }
 
 const filterChampionsByName = () => {
@@ -54,6 +30,10 @@ const filterChampionsByName = () => {
 }
 
 const championStore = useChampionStore()
+
+const filterChampions = (tag: string) => {
+  filterInstance.filterChampions(tag)
+}
 
 const selectChampion = (champion: Champion) => {
   championStore.setSelectedChampion(champion)

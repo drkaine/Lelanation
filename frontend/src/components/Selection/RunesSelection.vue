@@ -9,6 +9,7 @@ import ShardTooltip from '@/components/Tooltip/ShardTooltip.vue'
 import { useRuneStore } from '@/stores/runeStore'
 import { useShardStore } from '@/stores/shardStore'
 import { useSummonerStore } from '@/stores/summonerStore'
+import { TooltipCoordonne } from '../script/TooltipCoordonne'
 
 import {
   type Rune,
@@ -25,6 +26,19 @@ const shardsData = ref<ShardColumn>()
 const runeStore = useRuneStore()
 const shardStore = useShardStore()
 const summonerStore = useSummonerStore()
+
+const tooltip = new TooltipCoordonne()
+
+const tooltipLeft = tooltip.tooltipLeft
+const tooltipTop = tooltip.tooltipTop
+
+const updateMousePosition = (event: MouseEvent) => {
+  tooltip.updateMousePosition(event)
+}
+
+const resetMousePosition = () => {
+  tooltip.resetMousePosition()
+}
 
 const filteredSummonerData = computed(() => {
   return summonerData.value.filter(summoner =>
@@ -174,6 +188,8 @@ onMounted(() => {
                 !runeStore.runesSelection.groups[1].principal,
             }"
             @click="selectedRune('principal', 1, rune)"
+            @mouseenter="updateMousePosition"
+            @mouseleave="resetMousePosition"
           >
             <div
               data-v-cbff5ddf=""
@@ -188,7 +204,17 @@ onMounted(() => {
                   :src="`https://ddragon.leagueoflegends.com/cdn/img/${rune.icon}`"
                 />
               </div>
-              <RuneTooltip :rune="rune" />
+              <div
+                data-v-cbff5ddf=""
+                class="box"
+                :style="{
+                  position: 'absolute',
+                  left: tooltipLeft,
+                  top: tooltipTop,
+                }"
+              >
+                <RuneTooltip :rune="rune" />
+              </div>
             </div>
           </button>
         </div>
@@ -209,6 +235,8 @@ onMounted(() => {
                 !runeStore.runesSelection.groups[2].principal,
             }"
             @click="selectedRune('principal', 2, rune)"
+            @mouseenter="updateMousePosition"
+            @mouseleave="resetMousePosition"
           >
             <div
               data-v-cbff5ddf=""
@@ -223,7 +251,17 @@ onMounted(() => {
                   :src="`https://ddragon.leagueoflegends.com/cdn/img/${rune.icon}`"
                 />
               </div>
-              <RuneTooltip :rune="rune" />
+              <div
+                data-v-cbff5ddf=""
+                class="box"
+                :style="{
+                  position: 'absolute',
+                  left: tooltipLeft,
+                  top: tooltipTop,
+                }"
+              >
+                <RuneTooltip :rune="rune" />
+              </div>
             </div>
           </button>
         </div>
@@ -244,6 +282,8 @@ onMounted(() => {
                 !runeStore.runesSelection.groups[3].principal,
             }"
             @click="selectedRune('principal', 3, rune)"
+            @mouseenter="updateMousePosition"
+            @mouseleave="resetMousePosition"
           >
             <div
               data-v-cbff5ddf=""
@@ -258,7 +298,17 @@ onMounted(() => {
                   :src="`https://ddragon.leagueoflegends.com/cdn/img/${rune.icon}`"
                 />
               </div>
-              <RuneTooltip :rune="rune" />
+              <div
+                data-v-cbff5ddf=""
+                class="box"
+                :style="{
+                  position: 'absolute',
+                  left: tooltipLeft,
+                  top: tooltipTop,
+                }"
+              >
+                <RuneTooltip :rune="rune" />
+              </div>
             </div>
           </button>
         </div>
@@ -279,6 +329,8 @@ onMounted(() => {
                 !runeStore.runesSelection.groups[4].principal,
             }"
             @click="selectedRune('principal', 4, rune)"
+            @mouseenter="updateMousePosition"
+            @mouseleave="resetMousePosition"
           >
             <div
               data-v-cbff5ddf=""
@@ -293,7 +345,17 @@ onMounted(() => {
                   :src="`https://ddragon.leagueoflegends.com/cdn/img/${rune.icon}`"
                 />
               </div>
-              <RuneTooltip :rune="rune" />
+              <div
+                data-v-cbff5ddf=""
+                class="box"
+                :style="{
+                  position: 'absolute',
+                  left: tooltipLeft,
+                  top: tooltipTop,
+                }"
+              >
+                <RuneTooltip :rune="rune" />
+              </div>
             </div>
           </button>
         </div>
@@ -321,6 +383,8 @@ onMounted(() => {
                 !runeStore.runesSelection.groups[1].second,
             }"
             @click="selectedRune('second', 1, rune)"
+            @mouseenter="updateMousePosition"
+            @mouseleave="resetMousePosition"
           >
             <div
               data-v-cbff5ddf=""
@@ -335,7 +399,17 @@ onMounted(() => {
                   :src="`https://ddragon.leagueoflegends.com/cdn/img/${rune.icon}`"
                 />
               </div>
-              <RuneTooltip :rune="rune" />
+              <div
+                data-v-cbff5ddf=""
+                class="box"
+                :style="{
+                  position: 'absolute',
+                  left: tooltipLeft,
+                  top: tooltipTop,
+                }"
+              >
+                <RuneTooltip :rune="rune" />
+              </div>
             </div>
           </button>
         </div>
@@ -356,6 +430,8 @@ onMounted(() => {
                 !runeStore.runesSelection.groups[2].second,
             }"
             @click="selectedRune('second', 2, rune)"
+            @mouseenter="updateMousePosition"
+            @mouseleave="resetMousePosition"
           >
             <div
               data-v-cbff5ddf=""
@@ -370,7 +446,17 @@ onMounted(() => {
                   :src="`https://ddragon.leagueoflegends.com/cdn/img/${rune.icon}`"
                 />
               </div>
-              <RuneTooltip :rune="rune" />
+              <div
+                data-v-cbff5ddf=""
+                class="box"
+                :style="{
+                  position: 'absolute',
+                  left: tooltipLeft,
+                  top: tooltipTop,
+                }"
+              >
+                <RuneTooltip :rune="rune" />
+              </div>
             </div>
           </button>
         </div>
@@ -391,6 +477,8 @@ onMounted(() => {
                 !runeStore.runesSelection.groups[3].second,
             }"
             @click="selectedRune('second', 3, rune)"
+            @mouseenter="updateMousePosition"
+            @mouseleave="resetMousePosition"
           >
             <div
               data-v-cbff5ddf=""
@@ -405,7 +493,17 @@ onMounted(() => {
                   :src="`https://ddragon.leagueoflegends.com/cdn/img/${rune.icon}`"
                 />
               </div>
-              <RuneTooltip :rune="rune" />
+              <div
+                data-v-cbff5ddf=""
+                class="box"
+                :style="{
+                  position: 'absolute',
+                  left: tooltipLeft,
+                  top: tooltipTop,
+                }"
+              >
+                <RuneTooltip :rune="rune" />
+              </div>
             </div>
           </button>
         </div>
@@ -426,6 +524,8 @@ onMounted(() => {
                 !runeStore.runesSelection.groups[4].second,
             }"
             @click="selectedRune('second', 4, rune)"
+            @mouseenter="updateMousePosition"
+            @mouseleave="resetMousePosition"
           >
             <div
               data-v-cbff5ddf=""
@@ -440,7 +540,17 @@ onMounted(() => {
                   :src="`https://ddragon.leagueoflegends.com/cdn/img/${rune.icon}`"
                 />
               </div>
-              <RuneTooltip :rune="rune" />
+              <div
+                data-v-cbff5ddf=""
+                class="box"
+                :style="{
+                  position: 'absolute',
+                  left: tooltipLeft,
+                  top: tooltipTop,
+                }"
+              >
+                <RuneTooltip :rune="rune" />
+              </div>
             </div>
           </button>
         </div>
@@ -470,6 +580,8 @@ onMounted(() => {
                   (!summonerStore.summonerSelection.principal &&
                     !summonerStore.summonerSelection.second),
               }"
+              @mouseenter="updateMousePosition"
+              @mouseleave="resetMousePosition"
             >
               <div
                 data-v-cbff5ddf=""
@@ -484,7 +596,17 @@ onMounted(() => {
                     :src="`https://ddragon.leagueoflegends.com/cdn/14.22.1/img/spell/${summoner.image.full}`"
                   />
                 </div>
-                <SummonerTooltip :summoner="summoner" />
+                <div
+                  data-v-cbff5ddf=""
+                  class="box"
+                  :style="{
+                    position: 'absolute',
+                    left: tooltipLeft,
+                    top: tooltipTop,
+                  }"
+                >
+                  <SummonerTooltip :summoner="summoner" />
+                </div>
               </div>
             </button>
           </div>
@@ -521,6 +643,8 @@ onMounted(() => {
                   (shard === shardStore.shardsSelection.third ||
                     !shardStore.shardsSelection.third)),
             }"
+            @mouseenter="updateMousePosition"
+            @mouseleave="resetMousePosition"
           >
             <div
               data-v-cbff5ddf=""
@@ -535,7 +659,17 @@ onMounted(() => {
                   :src="`/assets/icons/${shard.image}`"
                 />
               </div>
-              <ShardTooltip :shard="shard" />
+              <div
+                data-v-cbff5ddf=""
+                class="box"
+                :style="{
+                  position: 'absolute',
+                  left: tooltipLeft,
+                  top: tooltipTop,
+                }"
+              >
+                <ShardTooltip :shard="shard" />
+              </div>
             </div>
           </button>
         </div>
@@ -563,6 +697,8 @@ onMounted(() => {
                   (shard === shardStore.shardsSelection.third ||
                     !shardStore.shardsSelection.third)),
             }"
+            @mouseenter="updateMousePosition"
+            @mouseleave="resetMousePosition"
           >
             <div
               data-v-cbff5ddf=""
@@ -577,7 +713,17 @@ onMounted(() => {
                   :src="`/assets/icons/${shard.image}`"
                 />
               </div>
-              <ShardTooltip :shard="shard" />
+              <div
+                data-v-cbff5ddf=""
+                class="box"
+                :style="{
+                  position: 'absolute',
+                  left: tooltipLeft,
+                  top: tooltipTop,
+                }"
+              >
+                <ShardTooltip :shard="shard" />
+              </div>
             </div>
           </button>
         </div>
@@ -619,7 +765,17 @@ onMounted(() => {
                   :src="`/assets/icons/${shard.image}`"
                 />
               </div>
-              <ShardTooltip :shard="shard" />
+              <div
+                data-v-cbff5ddf=""
+                class="box"
+                :style="{
+                  position: 'absolute',
+                  left: tooltipLeft,
+                  top: tooltipTop,
+                }"
+              >
+                <ShardTooltip :shard="shard" />
+              </div>
             </div>
           </button>
         </div>

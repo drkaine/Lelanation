@@ -32,16 +32,13 @@ const submitForm = async () => {
   }
   const fileName = `${uuidv4()}.json`
   try {
-    const response = await fetch(
-      `${urlApiSave}/api/save/${fileName}`,
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data),
+    const response = await fetch(`${urlApiSave}/api/save/${fileName}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
       },
-    )
+      body: JSON.stringify(data),
+    })
 
     if (!response.ok) {
       throw new Error('Erreur lors de la sauvegarde')

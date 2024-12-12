@@ -1,10 +1,24 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue'
+import { TooltipCoordonne } from '../script/TooltipCoordonne'
 import items from '@/assets/files/item.json'
 import version from '@/assets/files/lastVersion.json'
 import ItemTooltip from '@/components/Tooltip/ItemTooltip.vue'
 import { type Item } from '../script/type'
 import { useItemStore } from '@/stores/itemStore'
+
+const tooltip = new TooltipCoordonne()
+
+const tooltipLeft = tooltip.tooltipLeft
+const tooltipTop = tooltip.tooltipTop
+
+const updateMousePosition = (event: MouseEvent) => {
+  tooltip.updateMousePosition(event)
+}
+
+const resetMousePosition = () => {
+  tooltip.resetMousePosition()
+}
 
 const selectedTags = ref<string[]>([])
 const itemStore = useItemStore()
@@ -342,6 +356,8 @@ const itemsLegendary = computed<Item[]>(() =>
             }"
             replace="false"
             @click="selectItem(item)"
+            @mouseenter="updateMousePosition"
+            @mouseleave="resetMousePosition"
           >
             <img
               data-v-7ab6e59a=""
@@ -354,11 +370,21 @@ const itemsLegendary = computed<Item[]>(() =>
               {{ item.gold.total }}
             </div>
           </button>
-          <ItemTooltip
-            :item="item"
-            :from="getItemsFrom(item)"
-            :into="getItemsInto(item)"
-          />
+          <div
+            data-v-cbff5ddf=""
+            class="box"
+            :style="{
+              position: 'absolute',
+              left: tooltipLeft,
+              top: tooltipTop,
+            }"
+          >
+            <ItemTooltip
+              :item="item"
+              :from="getItemsFrom(item)"
+              :into="getItemsInto(item)"
+            />
+          </div>
         </div>
       </div>
       <div data-v-72110c46="" class="divider"></div>
@@ -386,6 +412,8 @@ const itemsLegendary = computed<Item[]>(() =>
             }"
             replace="false"
             @click="selectItem(item)"
+            @mouseenter="updateMousePosition"
+            @mouseleave="resetMousePosition"
           >
             <img
               data-v-7ab6e59a=""
@@ -398,11 +426,21 @@ const itemsLegendary = computed<Item[]>(() =>
               {{ item.gold.total }}
             </div>
           </button>
-          <ItemTooltip
-            :item="item"
-            :from="getItemsFrom(item)"
-            :into="getItemsInto(item)"
-          />
+          <div
+            data-v-cbff5ddf=""
+            class="box"
+            :style="{
+              position: 'absolute',
+              left: tooltipLeft,
+              top: tooltipTop,
+            }"
+          >
+            <ItemTooltip
+              :item="item"
+              :from="getItemsFrom(item)"
+              :into="getItemsInto(item)"
+            />
+          </div>
         </div>
       </div>
 
@@ -431,6 +469,8 @@ const itemsLegendary = computed<Item[]>(() =>
             }"
             replace=" false"
             @click="selectItem(item)"
+            @mouseenter="updateMousePosition"
+            @mouseleave="resetMousePosition"
           >
             <img
               data-v-7ab6e59a=""
@@ -443,11 +483,21 @@ const itemsLegendary = computed<Item[]>(() =>
               {{ item.gold.total }}
             </div>
           </button>
-          <ItemTooltip
-            :item="item"
-            :from="getItemsFrom(item)"
-            :into="getItemsInto(item)"
-          />
+          <div
+            data-v-cbff5ddf=""
+            class="box"
+            :style="{
+              position: 'absolute',
+              left: tooltipLeft,
+              top: tooltipTop,
+            }"
+          >
+            <ItemTooltip
+              :item="item"
+              :from="getItemsFrom(item)"
+              :into="getItemsInto(item)"
+            />
+          </div>
         </div>
       </div>
       <div data-v-72110c46="" class="divider"></div>
@@ -475,6 +525,8 @@ const itemsLegendary = computed<Item[]>(() =>
               item: true,
             }"
             replace=" false"
+            @mouseenter="updateMousePosition"
+            @mouseleave="resetMousePosition"
           >
             <img
               data-v-7ab6e59a=""
@@ -487,11 +539,21 @@ const itemsLegendary = computed<Item[]>(() =>
               {{ item.gold.total }}
             </div>
           </button>
-          <ItemTooltip
-            :item="item"
-            :from="getItemsFrom(item)"
-            :into="getItemsInto(item)"
-          />
+          <div
+            data-v-cbff5ddf=""
+            class="box"
+            :style="{
+              position: 'absolute',
+              left: tooltipLeft,
+              top: tooltipTop,
+            }"
+          >
+            <ItemTooltip
+              :item="item"
+              :from="getItemsFrom(item)"
+              :into="getItemsInto(item)"
+            />
+          </div>
         </div>
       </div>
       <div data-v-72110c46="" class="divider"></div>
@@ -523,6 +585,8 @@ const itemsLegendary = computed<Item[]>(() =>
               item: true,
             }"
             @click="selectItem(item)"
+            @mouseenter="updateMousePosition"
+            @mouseleave="resetMousePosition"
           >
             <img
               data-v-7ab6e59a=""
@@ -535,11 +599,21 @@ const itemsLegendary = computed<Item[]>(() =>
               {{ item.gold.total }}
             </div>
           </button>
-          <ItemTooltip
-            :item="item"
-            :from="getItemsFrom(item)"
-            :into="getItemsInto(item)"
-          />
+          <div
+            data-v-cbff5ddf=""
+            class="box"
+            :style="{
+              position: 'absolute',
+              left: tooltipLeft,
+              top: tooltipTop,
+            }"
+          >
+            <ItemTooltip
+              :item="item"
+              :from="getItemsFrom(item)"
+              :into="getItemsInto(item)"
+            />
+          </div>
         </div>
       </div>
       <div data-v-72110c46="" class="divider"></div>
