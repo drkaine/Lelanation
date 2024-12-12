@@ -25,6 +25,8 @@ export const useItemStore = defineStore('Item', () => {
     if (!ItemsSelection.value['core']) {
       ItemsSelection.value['core'] = [Item]
     } else if (ItemsSelection.value['core'].length > 11) {
+      RemoveItemStat(ItemsSelection.value['core'][11].stats)
+      removeItemGold(ItemsSelection.value['core'][11].gold.total)
       ItemsSelection.value['core'][11] = Item
     } else {
       ItemsSelection.value['core'].push(Item)
@@ -52,6 +54,32 @@ export const useItemStore = defineStore('Item', () => {
     }
   }
 
+  const removeItem = (index: number) => {
+    if (ItemsSelection.value['core']) {
+      RemoveItemStat(ItemsSelection.value['core'][index].stats)
+      removeItemGold(ItemsSelection.value['core'][index].gold.total)
+      ItemsSelection.value['core'] = ItemsSelection.value['core'].filter(
+        (_, indexTarget) => indexTarget !== index,
+      )
+    }
+  }
+
+  const removeItemGold = (gold: number) => {
+    if (ItemsGold.value.total) {
+      ItemsGold.value.total -= gold
+    }
+  }
+
+  const RemoveItemStat = (stats: Stats) => {
+    for (const [key, value] of Object.entries(stats)) {
+      if (value !== undefined) {
+        if (ItemsStats.value[key]) {
+          ItemsStats.value[key] -= value
+        }
+      }
+    }
+  }
+
   const resetItemsSelection = () => {
     ItemsSelection.value = {
       starter: null,
@@ -66,6 +94,7 @@ export const useItemStore = defineStore('Item', () => {
     ItemsStats,
     ItemsGold,
     setItemSelection,
+    removeItem,
     resetItemsSelection,
   }
 })

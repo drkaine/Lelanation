@@ -7,6 +7,10 @@ const getTrad = (name: string) => {
   return statsTrad[name]
 }
 
+const removeItem = (index: number) => {
+  itemStore.removeItem(index)
+}
+
 export interface StatsTrad {
   [key: string]: string
 }
@@ -70,7 +74,13 @@ const statsTrad: StatsTrad = {
             data-v-1875b585=""
             class="tip"
           >
-            <button data-v-7ab6e59a="" to="false" class="item" replace="false">
+            <button
+              data-v-7ab6e59a=""
+              to="false"
+              class="item"
+              replace="false"
+              @click="removeItem(index)"
+            >
               <img
                 data-v-7ab6e59a=""
                 class="img"
@@ -103,14 +113,15 @@ const statsTrad: StatsTrad = {
                   color-mix(in srgb, var(--red), var(--green) 50%) 0%
                 );
               "
+              v-if="stat && stat > 0"
             >
-              {{ stat }}
+              {{ stat.toString().includes('.') ? stat.toFixed(2) : stat }}
               <span data-v-636d16e0="">&nbsp; </span>
             </div>
             <div
               data-v-636d16e0=""
               class="name"
-              v-if="typeof index === 'string'"
+              v-if="typeof index === 'string' && stat && stat > 0"
             >
               {{ getTrad(index) }}
             </div>
