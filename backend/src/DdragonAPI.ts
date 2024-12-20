@@ -11,6 +11,8 @@ export class DdragonAPI {
     return response;
   }
 
+  // https://ddragon.leagueoflegends.com/cdn/14.24.1/img/champion/Kennen.png
+
   public async lastVersion() {
     const response = await fetch(
       "https://ddragon.leagueoflegends.com/api/versions.json",
@@ -30,5 +32,11 @@ export class DdragonAPI {
     const data = await response.json();
 
     return data;
+  }
+
+  public async loadImage(target: string): Promise<Buffer> {
+    const response = await this.access(target);
+    const arrayBuffer = await response.arrayBuffer();
+    return Buffer.from(arrayBuffer);
   }
 }

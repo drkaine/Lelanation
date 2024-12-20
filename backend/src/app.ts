@@ -12,9 +12,9 @@ const app = express();
 
 const corsOptions = {
   origin: [
-    "http://www.dev.lelandriva.darkaine.fr", 
-    "https://www.lelandriva.darkaine.fr", 
-    "http://localhost:5173"
+    "http://www.dev.lelandriva.darkaine.fr",
+    "https://www.lelandriva.darkaine.fr",
+    "http://localhost:5173",
   ],
   methods: ["GET", "POST"],
   allowedHeaders: ["Content-Type"],
