@@ -246,3 +246,16 @@ export interface ItemSelection {
   situationnel: Item[] | null
   boots: Item[] | null
 }
+
+export interface BuildData {
+  name: string
+  description: string
+  version: string
+  sheet: {
+    champion: Champion
+    runes: RunesSelection
+    summoners: SummonerSelection
+    shards: ShardSelection
+    items: ItemSelection
+  }
+}

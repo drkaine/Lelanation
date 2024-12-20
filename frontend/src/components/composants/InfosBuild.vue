@@ -7,6 +7,9 @@ import { useItemStore } from '@/stores/itemStore'
 import { ref } from 'vue'
 import { v4 as uuidv4 } from 'uuid'
 import version from '@/assets/files/lastVersion.json'
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
 
 const urlApiSave = import.meta.env.VITE_URL_API_SAVE
 const championStore = useChampionStore()
@@ -24,11 +27,11 @@ const submitForm = async () => {
     description: description.value,
     version: version,
     sheet: {
-      champion: championStore.$state,
-      rune: runeStore.$state,
-      shard: summonerStore.$state,
-      item: shardStore.$state,
-      summoner: itemStore.$state,
+      champion: championStore.$state.selectedChampion,
+      runes: runeStore.$state.runesSelection,
+      summoners: summonerStore.$state.summonerSelection,
+      shards: shardStore.$state.shardsSelection,
+      items: itemStore.$state.ItemsSelection,
     },
   }
   const fileName = `${uuidv4()}.json`
@@ -45,6 +48,12 @@ const submitForm = async () => {
     if (!response.ok) {
       throw new Error('Erreur lors de la sauvegarde')
     }
+    router.push({
+      name: 'build',
+      params: {
+        fileName: fileName,
+      },
+    })
   } catch (error) {
     console.error('Erreur:', error)
   }

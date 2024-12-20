@@ -10,6 +10,7 @@ import { useRuneStore } from '@/stores/runeStore'
 import { useShardStore } from '@/stores/shardStore'
 import { useSummonerStore } from '@/stores/summonerStore'
 import { TooltipCoordonne } from '../script/TooltipCoordonne'
+import version from '@/assets/files/lastVersion.json'
 
 import {
   type Rune,
@@ -593,7 +594,7 @@ onMounted(() => {
                   <img
                     data-v-bab95e98=""
                     data-v-cbff5ddf-s=""
-                    :src="`https://ddragon.leagueoflegends.com/cdn/14.22.1/img/spell/${summoner.image.full}`"
+                    :src="`https://ddragon.leagueoflegends.com/cdn/${version}/img/spell/${summoner.image.full}`"
                   />
                 </div>
                 <div

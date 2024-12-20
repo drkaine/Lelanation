@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { type Summoner } from '../script/type'
+import version from '@/assets/files/lastVersion.json'
 
 const props = defineProps<{
   summoner: Summoner | null
@@ -13,7 +14,9 @@ const props = defineProps<{
         data-v-bab95e98=""
         data-v-cbff5ddf-s=""
         :src="
-          'https://ddragon.leagueoflegends.com/cdn/14.22.1/img/spell/' +
+          'https://ddragon.leagueoflegends.com/cdn/' +
+          version +
+          '/img/spell/' +
           props.summoner?.image.full
         "
       />

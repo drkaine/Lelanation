@@ -32,11 +32,12 @@ const router = createRouter({
       name: 'Items',
       component: () => import('../views/ItemsView.vue'),
     },
-    // {
-    //   path: '/info',
-    //   name: 'Infos',
-    //   component: () => import('../views/infosToolView.vue'),
-    // },
+    {
+      path: '/build/:fileName',
+      name: 'build',
+      component: () => import('../views/BuildRecapView.vue'),
+      props: true,
+    },
   ],
 })
 

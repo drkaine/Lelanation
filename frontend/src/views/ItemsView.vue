@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import ItemsSelection from '@/components/Selection/ItemsSelection.vue'
 import MenuBuild from '@/components/composants/MenuBuild.vue'
-import SheetBuild from '@/components/composants/SheetBuild.vue'
 </script>
 
 <template>
@@ -14,7 +13,6 @@ import SheetBuild from '@/components/composants/SheetBuild.vue'
           <button data-v-b6709614="">Next</button>
         </div>
       </div>
-      <SheetBuild />
     </div>
   </div>
 </template>

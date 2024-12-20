@@ -1,24 +1,31 @@
 <script setup lang="ts">
-import { useChampionStore } from '@/stores/championStore'
-import { useRuneStore } from '@/stores/runeStore'
-import { useSummonerStore } from '@/stores/summonerStore'
-import { useShardStore } from '@/stores/shardStore'
-import { useItemStore } from '@/stores/itemStore'
-import version from '@/assets/files/lastVersion.json'
 import ChampionTooltip from '@/components/Tooltip/ChampionTooltip.vue'
 import SummonerTooltip from '@/components/Tooltip/SummonerTooltip.vue'
 import RuneTooltip from '@/components/Tooltip/RuneTooltip.vue'
 import ShardTooltip from '@/components/Tooltip/ShardTooltip.vue'
 import ItemTooltip from '@/components/Tooltip/ItemTooltip.vue'
-import { type Item } from '../script/type'
-import items from '@/assets/files/item.json'
+import {
+  type SummonerSelection,
+  type ShardSelection,
+  type Champion,
+  type RunesSelection,
+  type ItemSelection,
+  type Item,
+} from '../script/type'
+import itemsFiles from '@/assets/files/item.json'
 import { TooltipCoordonne } from '../script/TooltipCoordonne'
 
-const championStore = useChampionStore()
-const runeStore = useRuneStore()
-const summonerStore = useSummonerStore()
-const shardStore = useShardStore()
-const itemStore = useItemStore()
+const props = defineProps<{
+  version: string | null
+  name: string | null
+  description: string | null
+  champion: Champion | null
+  runes: RunesSelection | null
+  summonners: SummonerSelection | null
+  shards: ShardSelection | null
+  items: ItemSelection | null
+}>()
+
 const tooltip = new TooltipCoordonne()
 
 const tooltipLeft = tooltip.tooltipLeft
@@ -35,7 +42,7 @@ const resetMousePosition = () => {
 const getItemsFrom = (item: Item) => {
   return (
     item.from
-      ?.map((id: string) => items.data[id as keyof typeof items.data])
+      ?.map((id: string) => itemsFiles.data[id as keyof typeof itemsFiles.data])
       .filter(Boolean) || []
   )
 }
@@ -43,13 +50,14 @@ const getItemsFrom = (item: Item) => {
 const getItemsInto = (item: Item) => {
   return (
     item.into
-      ?.map((id: string) => items.data[id as keyof typeof items.data])
+      ?.map((id: string) => itemsFiles.data[id as keyof typeof itemsFiles.data])
       .filter(Boolean) || []
   )
 }
 </script>
 
 <template>
+  {{ console.log('ici') }}{{ console.log(props) }}
   <div data-v-b6709614="" class="sheet champions">
     <div
       data-v-15310f80=""
@@ -450,14 +458,14 @@ const getItemsInto = (item: Item) => {
       "
     >
       <div data-v-15310f80="" class="type">darkaine</div>
-      <div data-v-15310f80="" class="version">{{ version }}</div>
+      <div data-v-15310f80="" class="version">{{ props.version }}</div>
       <div data-v-15310f80="" class="wrap">
         <div data-v-15310f80="" class="shadow"></div>
         <div
           data-v-15310f80=""
           :class="{
             champion: true,
-            hide: !championStore.selectedChampion,
+            hide: !champion,
           }"
         >
           <div
@@ -472,7 +480,7 @@ const getItemsInto = (item: Item) => {
               data-v-cbff5ddf-s=""
               :class="{
                 champion: true,
-                hide: !championStore.selectedChampion,
+                hide: !champion,
               }"
               @mouseenter="updateMousePosition"
               @mouseleave="resetMousePosition"
@@ -484,7 +492,7 @@ const getItemsInto = (item: Item) => {
                   'https://ddragon.leagueoflegends.com/cdn/' +
                   version +
                   '/img/champion/' +
-                  championStore.selectedChampion?.image.full
+                  champion?.image.full
                 "
               />
             </div>
@@ -497,7 +505,7 @@ const getItemsInto = (item: Item) => {
                 top: tooltipTop,
               }"
             >
-              <ChampionTooltip :champion="championStore.selectedChampion" />
+              <ChampionTooltip :champion="champion" />
             </div>
           </div>
         </div>
@@ -505,22 +513,22 @@ const getItemsInto = (item: Item) => {
           data-v-15310f80=""
           :class="{
             name: true,
-            hide: !championStore.selectedChampion,
+            hide: !champion,
           }"
         >
-          {{ championStore.selectedChampion?.name }}
+          {{ champion?.name }}
         </div>
         <hr
           data-v-15310f80=""
           :class="{
-            hide: !runeStore.runesSelection.principal,
+            hide: !runes?.principal,
           }"
         />
         <div
           data-v-15310f80=""
           :class="{
             runes: true,
-            hide: !runeStore.runesSelection.principal,
+            hide: !runes?.principal,
           }"
         >
           <div
@@ -537,10 +545,10 @@ const getItemsInto = (item: Item) => {
               @mouseleave="resetMousePosition"
             >
               <img
-                v-if="runeStore.runesSelection.groups[1].principal"
+                v-if="runes?.groups[1].principal"
                 data-v-ab218c16=""
                 data-v-cbff5ddf-s=""
-                :src="`https://ddragon.leagueoflegends.com/cdn/img/${runeStore.runesSelection.groups[1].principal?.icon}`"
+                :src="`https://ddragon.leagueoflegends.com/cdn/img/${runes?.groups[1].principal?.icon}`"
               />
               <div
                 data-v-cbff5ddf=""
@@ -551,9 +559,7 @@ const getItemsInto = (item: Item) => {
                   top: tooltipTop,
                 }"
               >
-                <RuneTooltip
-                  :rune="runeStore.runesSelection.groups[1].principal"
-                />
+                <RuneTooltip v-if="runes" :rune="runes.groups[1].principal" />
               </div>
             </div>
           </div>
@@ -572,10 +578,10 @@ const getItemsInto = (item: Item) => {
                 @mouseleave="resetMousePosition"
               >
                 <img
-                  v-if="runeStore.runesSelection.groups[2].principal"
+                  v-if="runes?.groups[2].principal"
                   data-v-ab218c16=""
                   data-v-cbff5ddf-s=""
-                  :src="`https://ddragon.leagueoflegends.com/cdn/img/${runeStore.runesSelection.groups[2].principal?.icon}`"
+                  :src="`https://ddragon.leagueoflegends.com/cdn/img/${runes?.groups[2].principal?.icon}`"
                 />
                 <div
                   data-v-cbff5ddf=""
@@ -586,9 +592,7 @@ const getItemsInto = (item: Item) => {
                     top: tooltipTop,
                   }"
                 >
-                  <RuneTooltip
-                    :rune="runeStore.runesSelection.groups[2].principal"
-                  />
+                  <RuneTooltip v-if="runes" :rune="runes.groups[2].principal" />
                 </div>
               </div>
             </div>
@@ -608,8 +612,8 @@ const getItemsInto = (item: Item) => {
                 <img
                   data-v-ab218c16=""
                   data-v-cbff5ddf-s=""
-                  v-if="runeStore.runesSelection.groups[3].principal"
-                  :src="`https://ddragon.leagueoflegends.com/cdn/img/${runeStore.runesSelection.groups[3].principal?.icon}`"
+                  v-if="runes?.groups[3].principal"
+                  :src="`https://ddragon.leagueoflegends.com/cdn/img/${runes?.groups[3].principal?.icon}`"
                 />
                 <div
                   data-v-cbff5ddf=""
@@ -620,9 +624,7 @@ const getItemsInto = (item: Item) => {
                     top: tooltipTop,
                   }"
                 >
-                  <RuneTooltip
-                    :rune="runeStore.runesSelection.groups[3].principal"
-                  />
+                  <RuneTooltip v-if="runes" :rune="runes.groups[3].principal" />
                 </div>
               </div>
             </div>
@@ -640,10 +642,10 @@ const getItemsInto = (item: Item) => {
                 @mouseleave="resetMousePosition"
               >
                 <img
-                  v-if="runeStore.runesSelection.groups[4].principal"
+                  v-if="runes?.groups[4].principal"
                   data-v-ab218c16=""
                   data-v-cbff5ddf-s=""
-                  :src="`https://ddragon.leagueoflegends.com/cdn/img/${runeStore.runesSelection.groups[4].principal?.icon}`"
+                  :src="`https://ddragon.leagueoflegends.com/cdn/img/${runes?.groups[4].principal?.icon}`"
                 />
                 <div
                   data-v-cbff5ddf=""
@@ -654,9 +656,7 @@ const getItemsInto = (item: Item) => {
                     top: tooltipTop,
                   }"
                 >
-                  <RuneTooltip
-                    :rune="runeStore.runesSelection.groups[4].principal"
-                  />
+                  <RuneTooltip v-if="runes" :rune="runes.groups[4].principal" />
                 </div>
               </div>
             </div>
@@ -670,8 +670,8 @@ const getItemsInto = (item: Item) => {
                 <img
                   data-v-ab218c16=""
                   data-v-cbff5ddf-s=""
-                  :src="`https://ddragon.leagueoflegends.com/cdn/img/${runeStore.runesSelection.second?.icon}`"
-                  v-if="runeStore.runesSelection.second?.icon"
+                  :src="`https://ddragon.leagueoflegends.com/cdn/img/${runes?.second?.icon}`"
+                  v-if="runes?.second?.icon"
                 />
               </div>
             </div>
@@ -680,7 +680,7 @@ const getItemsInto = (item: Item) => {
               data-v-ab218c16=""
               data-v-15310f80=""
               class="tooltip"
-              v-for="(group, index) in runeStore.runesSelection.groups"
+              v-for="(group, index) in runes?.groups"
               :key="index"
             >
               <div
@@ -717,7 +717,7 @@ const getItemsInto = (item: Item) => {
                 data-v-ad54ad37=""
                 data-v-15310f80=""
                 class="tooltip"
-                v-if="shardStore.shardsSelection.principal"
+                v-if="shards?.principal"
               >
                 <div
                   data-v-ad54ad37=""
@@ -729,7 +729,7 @@ const getItemsInto = (item: Item) => {
                   <img
                     data-v-ad54ad37=""
                     data-v-cbff5ddf-s=""
-                    :src="`/assets/icons/${shardStore.shardsSelection.principal?.image}`"
+                    :src="`/assets/icons/${shards?.principal?.image}`"
                   />
                   <div
                     data-v-cbff5ddf=""
@@ -740,9 +740,7 @@ const getItemsInto = (item: Item) => {
                       top: tooltipTop,
                     }"
                   >
-                    <ShardTooltip
-                      :shard="shardStore.shardsSelection.principal"
-                    />
+                    <ShardTooltip :shard="shards?.principal" />
                   </div>
                 </div>
               </div>
@@ -751,7 +749,7 @@ const getItemsInto = (item: Item) => {
                 data-v-ad54ad37=""
                 data-v-15310f80=""
                 class="tooltip"
-                v-if="shardStore.shardsSelection.second"
+                v-if="shards?.second"
               >
                 <div
                   data-v-ad54ad37=""
@@ -763,7 +761,7 @@ const getItemsInto = (item: Item) => {
                   <img
                     data-v-ad54ad37=""
                     data-v-cbff5ddf-s=""
-                    :src="`/assets/icons/${shardStore.shardsSelection.second?.image}`"
+                    :src="`/assets/icons/${shards?.second?.image}`"
                   />
                   <div
                     data-v-cbff5ddf=""
@@ -774,7 +772,7 @@ const getItemsInto = (item: Item) => {
                       top: tooltipTop,
                     }"
                   >
-                    <ShardTooltip :shard="shardStore.shardsSelection.second" />
+                    <ShardTooltip :shard="shards?.second" />
                   </div>
                 </div>
               </div>
@@ -783,7 +781,7 @@ const getItemsInto = (item: Item) => {
                 data-v-ad54ad37=""
                 data-v-15310f80=""
                 class="tooltip"
-                v-if="shardStore.shardsSelection.third"
+                v-if="shards?.third"
               >
                 <div
                   data-v-ad54ad37=""
@@ -795,7 +793,7 @@ const getItemsInto = (item: Item) => {
                   <img
                     data-v-ad54ad37=""
                     data-v-cbff5ddf-s=""
-                    :src="`/assets/icons/${shardStore.shardsSelection.third?.image}`"
+                    :src="`/assets/icons/${shards?.third?.image}`"
                   />
                   <div
                     data-v-cbff5ddf=""
@@ -806,7 +804,7 @@ const getItemsInto = (item: Item) => {
                       top: tooltipTop,
                     }"
                   >
-                    <ShardTooltip :shard="shardStore.shardsSelection.third" />
+                    <ShardTooltip :shard="shards?.third" />
                   </div>
                 </div>
               </div>
@@ -816,7 +814,7 @@ const getItemsInto = (item: Item) => {
         <hr
           data-v-15310f80=""
           :class="{
-            hide: !runeStore.runesSelection.principal,
+            hide: !runes?.principal,
           }"
         />
         <div data-v-15310f80="" class="itemsGroup">
@@ -824,7 +822,7 @@ const getItemsInto = (item: Item) => {
             <div
               data-v-15310f80=""
               class="sheetItem"
-              v-for="(item, index) in itemStore.ItemsSelection.core"
+              v-for="(item, index) in props.items?.core"
               :key="index"
             >
               <div
@@ -873,7 +871,7 @@ const getItemsInto = (item: Item) => {
             data-v-15310f80=""
             :class="{
               sums: true,
-              hide: !summonerStore.summonerSelection.principal,
+              hide: !summonners?.principal,
             }"
           >
             <div
@@ -881,7 +879,7 @@ const getItemsInto = (item: Item) => {
               data-v-bab95e98=""
               data-v-15310f80=""
               class="tooltip"
-              v-for="(summoner, index) in summonerStore.summonerSelection"
+              v-for="(summoner, index) in summonners"
               :key="index"
             >
               <div
@@ -894,7 +892,7 @@ const getItemsInto = (item: Item) => {
                 <img
                   data-v-bab95e98=""
                   data-v-cbff5ddf-s=""
-                  :src="`https://ddragon.leagueoflegends.com/cdn/14.22.1/img/spell/${summoner?.image.full}`"
+                  :src="`https://ddragon.leagueoflegends.com/cdn/${version}/img/spell/${summoner?.image.full}`"
                   v-if="summoner?.image.full"
                 />
                 <div
