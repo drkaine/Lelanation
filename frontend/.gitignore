@@ -34,6 +34,7 @@ playwright-report/
 
 /src/assets/files/*
 /src/assets/build/*
+/src/assets/images/*
 !src/assets/files/shards.json
 
 .env
