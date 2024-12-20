@@ -20,7 +20,7 @@ describe("Ddragon ", () => {
   });
 
   it.each(targets)("good url status", async (target: string) => {
-    const response = await ddragonAPI.access(target);
+    const response = await ddragonAPI.access(target, true);
     expect(response.status).toBe(200);
   });
 
@@ -33,7 +33,7 @@ describe("Ddragon ", () => {
   ];
 
   it.each(imageTargets)("good url status", async (imageTarget: string) => {
-    const response = await ddragonAPI.access(imageTarget);
+    const response = await ddragonAPI.access(imageTarget, true);
     expect(response.status).toBe(200);
     expect(response.headers.get("content-type")).toMatch(/image\/png/);
   });

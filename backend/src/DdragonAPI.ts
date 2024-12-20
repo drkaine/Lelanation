@@ -5,13 +5,13 @@ export class DdragonAPI {
   private url: string = "https://ddragon.leagueoflegends.com/cdn/";
   private version: string = "";
 
-  public async access(target: string) {
-    const response = await fetch(this.url + this.version + "/" + target);
+  public async access(target: string, version: boolean) {
+    const response = await fetch(
+      this.url + (version ? this.version + "/" : "") + target,
+    );
 
     return response;
   }
-
-  // https://ddragon.leagueoflegends.com/cdn/14.24.1/img/champion/Kennen.png
 
   public async lastVersion() {
     const response = await fetch(
@@ -26,16 +26,19 @@ export class DdragonAPI {
     );
   }
 
-  public async loadJson(target: string) {
-    const response = await this.access(target);
+  public async loadJson(target: string, version: boolean = true) {
+    const response = await this.access(target, version);
 
     const data = await response.json();
 
     return data;
   }
 
-  public async loadImage(target: string): Promise<Buffer> {
-    const response = await this.access(target);
+  public async loadImage(
+    target: string,
+    version: boolean = true,
+  ): Promise<Buffer> {
+    const response = await this.access(target, version);
     const arrayBuffer = await response.arrayBuffer();
     return Buffer.from(arrayBuffer);
   }
