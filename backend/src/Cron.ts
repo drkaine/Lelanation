@@ -10,7 +10,8 @@ const targets: string[] = [
   "data/fr_FR/map.json",
 ];
 
-const folderTarget = "frontend/public/assets/icons/files/";
+const folderTarget = "frontend/public/assets/icons/";
+const folderTargetJSON = "frontend/src/assets/files/";
 
 const ddragonAPI = new DdragonAPI();
 
@@ -62,13 +63,16 @@ export async function compilation() {
     const data = await ddragonAPI.loadJson(target);
 
     const filename = target.split("/").pop();
-    const filePath = path.join(__dirname, "../../" + folderTarget + filename);
+    const filePath = path.join(
+      __dirname,
+      "../../" + folderTargetJSON + filename,
+    );
 
     save(JSON.stringify(data), filePath);
   }
 
   const championFull = await open(
-    path.join(__dirname, "../../" + folderTarget + "championFull.json"),
+    path.join(__dirname, "../../" + folderTargetJSON + "championFull.json"),
   );
 
   const championFullFile = JSON.parse(championFull).data;
@@ -80,7 +84,7 @@ export async function compilation() {
       image,
       path.join(
         __dirname,
-        "../../frontend/public/assets/icons/champions/" + Data.image.full,
+        "../../" + folderTarget + "/champions/" + Data.image.full,
       ),
     );
     const passive = await ddragonAPI.loadImage(
@@ -90,7 +94,9 @@ export async function compilation() {
       passive,
       path.join(
         __dirname,
-        "../../frontend/public/assets/icons/champions/spells/" +
+        "../../" +
+          folderTarget +
+          "/champions/passive/" +
           Data.passive.image.full,
       ),
     );
@@ -100,15 +106,14 @@ export async function compilation() {
         spell,
         path.join(
           __dirname,
-          "../../frontend/public/assets/icons/champions/spells/" +
-            Data.image.full,
+          "../../" + folderTarget + "/champions/spells/" + Data.image.full,
         ),
       );
     }
   }
 
   const item = await open(
-    path.join(__dirname, "../../" + folderTarget + "item.json"),
+    path.join(__dirname, "../../" + folderTargetJSON + "item.json"),
   );
 
   const itemFile = JSON.parse(item).data;
@@ -120,13 +125,13 @@ export async function compilation() {
       image,
       path.join(
         __dirname,
-        "../../frontend/public/assets/icons/items/" + Data.image.full,
+        "../../" + folderTarget + "/items/" + Data.image.full,
       ),
     );
   }
 
   const summoner = await open(
-    path.join(__dirname, "../../" + folderTarget + "summoner.json"),
+    path.join(__dirname, "../../" + folderTargetJSON + "summoner.json"),
   );
 
   const summonerFile = JSON.parse(summoner).data;
@@ -138,13 +143,13 @@ export async function compilation() {
       image,
       path.join(
         __dirname,
-        "../../frontend/public/assets/icons/summoners/" + Data.image.full,
+        "../../" + folderTarget + "/summoners/" + Data.image.full,
       ),
     );
   }
 
   const runesReforged = await open(
-    path.join(__dirname, "../../" + folderTarget + "runesReforged.json"),
+    path.join(__dirname, "../../" + folderTargetJSON + "runesReforged.json"),
   );
 
   const runesReforgedFile = JSON.parse(runesReforged) as RunePath[];
@@ -155,7 +160,7 @@ export async function compilation() {
       pathImage,
       path.join(
         __dirname,
-        "../../frontend/public/assets/icons/runes/" + runePath.id + ".png",
+        "../../" + folderTarget + "/runes/" + runePath.id + ".png",
       ),
     );
 
@@ -166,7 +171,7 @@ export async function compilation() {
           runeImage,
           path.join(
             __dirname,
-            "../../frontend/public/assets/icons/runes/" + rune.id + ".png",
+            "../../" + folderTarget + "/runes/" + rune.id + ".png",
           ),
         );
       }
@@ -176,6 +181,6 @@ export async function compilation() {
   const date = new Date();
   save(
     JSON.stringify(date),
-    path.join(__dirname, "../../" + folderTarget + date),
+    path.join(__dirname, "../../" + folderTargetJSON + date),
   );
 }

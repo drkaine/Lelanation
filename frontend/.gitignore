@@ -35,6 +35,13 @@ playwright-report/
 /src/assets/files/*
 /src/assets/build/*
 /src/assets/images/*
+
+/public/assets/icons/champions/
+/public/assets/icons/summoners/
+/public/assets/icons/runes/
+/public/assets/icons/items/
+
 !src/assets/files/shards.json
+
 
 .env
