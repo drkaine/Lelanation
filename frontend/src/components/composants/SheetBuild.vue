@@ -488,12 +488,7 @@ const getItemsInto = (item: Item) => {
               <img
                 data-v-1f02dc05=""
                 data-v-cbff5ddf-s=""
-                :src="
-                  'https://ddragon.leagueoflegends.com/cdn/' +
-                  version +
-                  '/img/champion/' +
-                  champion?.image.full
-                "
+                :src="'/assets/icons/champions/' + champion?.image.full"
               />
             </div>
             <div
@@ -548,7 +543,7 @@ const getItemsInto = (item: Item) => {
                 v-if="runes?.groups[1].principal"
                 data-v-ab218c16=""
                 data-v-cbff5ddf-s=""
-                :src="`https://ddragon.leagueoflegends.com/cdn/img/${runes?.groups[1].principal?.icon}`"
+                :src="`/assets/icons/runes/${runes?.groups[1].principal?.id}.png`"
               />
               <div
                 data-v-cbff5ddf=""
@@ -581,7 +576,7 @@ const getItemsInto = (item: Item) => {
                   v-if="runes?.groups[2].principal"
                   data-v-ab218c16=""
                   data-v-cbff5ddf-s=""
-                  :src="`https://ddragon.leagueoflegends.com/cdn/img/${runes?.groups[2].principal?.icon}`"
+                  :src="`/assets/icons/runes/${runes?.groups[2].principal?.id}.png`"
                 />
                 <div
                   data-v-cbff5ddf=""
@@ -613,7 +608,7 @@ const getItemsInto = (item: Item) => {
                   data-v-ab218c16=""
                   data-v-cbff5ddf-s=""
                   v-if="runes?.groups[3].principal"
-                  :src="`https://ddragon.leagueoflegends.com/cdn/img/${runes?.groups[3].principal?.icon}`"
+                  :src="`/assets/icons/runes/${runes?.groups[3].principal?.id}.png`"
                 />
                 <div
                   data-v-cbff5ddf=""
@@ -645,7 +640,7 @@ const getItemsInto = (item: Item) => {
                   v-if="runes?.groups[4].principal"
                   data-v-ab218c16=""
                   data-v-cbff5ddf-s=""
-                  :src="`https://ddragon.leagueoflegends.com/cdn/img/${runes?.groups[4].principal?.icon}`"
+                  :src="`/assets/icons/runes/${runes?.groups[4].principal?.id}.png`"
                 />
                 <div
                   data-v-cbff5ddf=""
@@ -670,8 +665,8 @@ const getItemsInto = (item: Item) => {
                 <img
                   data-v-ab218c16=""
                   data-v-cbff5ddf-s=""
-                  :src="`https://ddragon.leagueoflegends.com/cdn/img/${runes?.second?.icon}`"
-                  v-if="runes?.second?.icon"
+                  :src="`/assets/icons/runes/${runes?.second?.id}.png`"
+                  v-if="runes?.second?.id"
                 />
               </div>
             </div>
@@ -694,7 +689,7 @@ const getItemsInto = (item: Item) => {
                 <img
                   data-v-ab218c16=""
                   data-v-cbff5ddf-s=""
-                  :src="`https://ddragon.leagueoflegends.com/cdn/img/${group.second.icon}`"
+                  :src="`/assets/icons/runes/${group.second.id}.png`"
                 />
                 <div
                   data-v-cbff5ddf=""
@@ -729,7 +724,7 @@ const getItemsInto = (item: Item) => {
                   <img
                     data-v-ad54ad37=""
                     data-v-cbff5ddf-s=""
-                    :src="`/assets/icons/${shards?.principal?.image}`"
+                    :src="`/assets/icons/shards/${shards?.principal?.image}`"
                   />
                   <div
                     data-v-cbff5ddf=""
@@ -761,7 +756,7 @@ const getItemsInto = (item: Item) => {
                   <img
                     data-v-ad54ad37=""
                     data-v-cbff5ddf-s=""
-                    :src="`/assets/icons/${shards?.second?.image}`"
+                    :src="`/assets/icons/shards/${shards?.second?.image}`"
                   />
                   <div
                     data-v-cbff5ddf=""
@@ -793,7 +788,7 @@ const getItemsInto = (item: Item) => {
                   <img
                     data-v-ad54ad37=""
                     data-v-cbff5ddf-s=""
-                    :src="`/assets/icons/${shards?.third?.image}`"
+                    :src="`/assets/icons/shards/${shards?.third?.image}`"
                   />
                   <div
                     data-v-cbff5ddf=""
@@ -845,7 +840,7 @@ const getItemsInto = (item: Item) => {
                       data-v-7ab6e59a=""
                       data-v-cbff5ddf-s=""
                       class="img"
-                      :src="`https://ddragon.leagueoflegends.com/cdn/${version}/img/item/${item.image.full}`"
+                      :src="`/assets/icons/items/${item.image.full}`"
                     />
                     <div
                       data-v-cbff5ddf=""
@@ -892,7 +887,7 @@ const getItemsInto = (item: Item) => {
                 <img
                   data-v-bab95e98=""
                   data-v-cbff5ddf-s=""
-                  :src="`https://ddragon.leagueoflegends.com/cdn/${version}/img/spell/${summoner?.image.full}`"
+                  :src="`/assets/icons/summoners/${summoner?.image.full}`"
                   v-if="summoner?.image.full"
                 />
                 <div

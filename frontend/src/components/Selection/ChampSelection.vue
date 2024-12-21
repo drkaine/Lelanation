@@ -4,7 +4,6 @@ import { Filter } from '../script/Filter'
 import { TooltipCoordonne } from '../script/TooltipCoordonne'
 import { useChampionStore } from '@/stores/championStore'
 import ChampionTooltip from '@/components/Tooltip/ChampionTooltip.vue'
-import version from '@/assets/files/lastVersion.json'
 import { type Champion } from '../script/type'
 import { useStepStore } from '@/stores/stepStore'
 
@@ -151,12 +150,7 @@ const selectChampion = (champion: Champion) => {
           <img
             data-v-80441127=""
             data-v-cbff5ddf-s=""
-            :src="
-              'https://ddragon.leagueoflegends.com/cdn/' +
-              version +
-              '/img/champion/' +
-              champion.image.full
-            "
+            :src="'/assets/icons/champions/' + champion.image.full"
             alt="{{champion.name}}"
           />
         </button>

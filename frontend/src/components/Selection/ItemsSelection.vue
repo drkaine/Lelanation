@@ -2,7 +2,6 @@
 import { ref, computed } from 'vue'
 import { TooltipCoordonne } from '../script/TooltipCoordonne'
 import items from '@/assets/files/item.json'
-import version from '@/assets/files/lastVersion.json'
 import ItemTooltip from '@/components/Tooltip/ItemTooltip.vue'
 import { type Item } from '../script/type'
 import { useItemStore } from '@/stores/itemStore'
@@ -363,7 +362,7 @@ const itemsLegendary = computed<Item[]>(() =>
               data-v-7ab6e59a=""
               data-v-cbff5ddf-s=""
               class="img"
-              :src="`https://ddragon.leagueoflegends.com/cdn/${version}/img/item/${item.image.full}`"
+              :src="`/assets/icons/items/${item.image.full}`"
             />
 
             <div data-v-7ab6e59a="" data-v-cbff5ddf-s="" class="text">
@@ -419,7 +418,7 @@ const itemsLegendary = computed<Item[]>(() =>
               data-v-7ab6e59a=""
               data-v-cbff5ddf-s=""
               class="img"
-              :src="`https://ddragon.leagueoflegends.com/cdn/${version}/img/item/${item.image.full}`"
+              :src="`/assets/icons/items/${item.image.full}`"
             />
 
             <div data-v-7ab6e59a="" data-v-cbff5ddf-s="" class="text">
@@ -476,7 +475,7 @@ const itemsLegendary = computed<Item[]>(() =>
               data-v-7ab6e59a=""
               data-v-cbff5ddf-s=""
               class="img"
-              :src="`https://ddragon.leagueoflegends.com/cdn/${version}/img/item/${item.image.full}`"
+              :src="`/assets/icons/items/${item.image.full}`"
             />
 
             <div data-v-7ab6e59a="" data-v-cbff5ddf-s="" class="text">
@@ -532,7 +531,7 @@ const itemsLegendary = computed<Item[]>(() =>
               data-v-7ab6e59a=""
               data-v-cbff5ddf-s=""
               class="img"
-              :src="`https://ddragon.leagueoflegends.com/cdn/${version}/img/item/${item.image.full}`"
+              :src="`/assets/icons/items/${item.image.full}`"
             />
 
             <div data-v-7ab6e59a="" data-v-cbff5ddf-s="" class="text">
@@ -592,7 +591,7 @@ const itemsLegendary = computed<Item[]>(() =>
               data-v-7ab6e59a=""
               data-v-cbff5ddf-s=""
               class="img"
-              :src="`https://ddragon.leagueoflegends.com/cdn/${version}/img/item/${item.image.full}`"
+              :src="`/assets/icons/items/${item.image.full}`"
             />
 
             <div data-v-7ab6e59a="" data-v-cbff5ddf-s="" class="text">

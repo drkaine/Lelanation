@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import version from '@/assets/files/lastVersion.json'
 import { useItemStore } from '@/stores/itemStore'
 
 const itemStore = useItemStore()
@@ -84,7 +83,7 @@ const statsTrad: StatsTrad = {
               <img
                 data-v-7ab6e59a=""
                 class="img"
-                :src="`https://ddragon.leagueoflegends.com/cdn/${version}/img/item/${item.image.full}`"
+                :src="`/assets/icons/items/${item.image.full}`"
               />
             </button>
           </div>

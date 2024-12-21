@@ -12,7 +12,7 @@ const props = defineProps<{
       <img
         data-v-ab218c16=""
         data-v-cbff5ddf-s=""
-        :src="'https://ddragon.leagueoflegends.com/cdn/img/' + props.rune?.icon"
+        :src="'/assets/icons/runes/' + props.rune?.id + '.png'"
       />
     </div>
     <div data-v-ab218c16="" data-v-cbff5ddf-s="" class="name">

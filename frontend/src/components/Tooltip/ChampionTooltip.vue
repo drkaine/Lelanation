@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import version from '@/assets/files/lastVersion.json'
 import { type Champion } from '../script/type'
 
 const props = defineProps<{
@@ -14,12 +13,7 @@ const props = defineProps<{
         data-v-5bc51be1=""
         data-v-cbff5ddf-s=""
         class="img"
-        :src="
-          'https://ddragon.leagueoflegends.com/cdn/' +
-          version +
-          '/img/champion/' +
-          champion?.image.full
-        "
+        :src="'/assets/icons/champions/' + champion?.image.full"
       />
       <div data-v-5bc51be1="" data-v-cbff5ddf-s="" class="text">
         <div data-v-5bc51be1="" data-v-cbff5ddf-s="" class="name">
@@ -56,9 +50,7 @@ const props = defineProps<{
               data-v-5bc51be1=""
               data-v-cbff5ddf-s=""
               :src="
-                'https://ddragon.leagueoflegends.com/cdn/' +
-                version +
-                '/img/passive/' +
+                '/assets/icons/champions/passive/' +
                 champion?.passive.image.full
               "
             />
@@ -78,13 +70,7 @@ const props = defineProps<{
             <img
               data-v-5bc51be1=""
               data-v-cbff5ddf-s=""
-              :src="
-                'https://ddragon.leagueoflegends.com/cdn/' +
-                version +
-                '/img/spell/' +
-                spell.id +
-                '.png'
-              "
+              :src="'/assets/icons/champions/spells/' + spell.id + '.png'"
             />
           </div>
           <div data-v-5bc51be1="" data-v-cbff5ddf-s="" class="desc">

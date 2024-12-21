@@ -38,6 +38,12 @@ const router = createRouter({
       component: () => import('../views/BuildRecapView.vue'),
       props: true,
     },
+    {
+      path: '/build/edit',
+      name: 'buildEdit',
+      component: () => import('../views/BuildToolView.vue'),
+      props: route => ({ editMode: true, fileName: route.query.file }),
+    },
   ],
 })
 
