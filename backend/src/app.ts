@@ -5,6 +5,7 @@ import { compilation } from "./Cron";
 import cors from "cors";
 import path from "path";
 import dotenv from "dotenv";
+import { unlink } from "fs/promises";
 
 dotenv.config();
 
@@ -35,6 +36,23 @@ app.post("/api/save/:filename", (req, res) => {
     path.join(__dirname, "../../frontend/src/assets/build/" + filename),
   );
   res.sendStatus(200);
+});
+
+app.delete("/api/build/:fileName", async (req, res) => {
+  try {
+    const filePath = path.join(
+      __dirname,
+      "../../frontend/src/assets/build/",
+      req.params.fileName,
+    );
+    await unlink(filePath);
+    res.status(200).send("Build supprimé");
+  } catch (error: unknown) {
+    const errorMessage =
+      error instanceof Error ? error.message : "Erreur inconnue";
+    console.error("Erreur lors de la suppression:", errorMessage);
+    res.status(500).send(`Erreur lors de la suppression: ${errorMessage}`);
+  }
 });
 
 cron.schedule("0 0,12 * * *", () => {

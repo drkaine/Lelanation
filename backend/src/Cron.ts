@@ -10,7 +10,7 @@ const targets: string[] = [
   "data/fr_FR/map.json",
 ];
 
-const folderTarget = "frontend/src/assets/files/";
+const folderTarget = "frontend/public/assets/icons/files/";
 
 const ddragonAPI = new DdragonAPI();
 
@@ -80,7 +80,7 @@ export async function compilation() {
       image,
       path.join(
         __dirname,
-        "../../frontend/src/assets/images/champions/" + Data.image.full,
+        "../../frontend/public/assets/icons/champions/" + Data.image.full,
       ),
     );
     const passive = await ddragonAPI.loadImage(
@@ -90,7 +90,7 @@ export async function compilation() {
       passive,
       path.join(
         __dirname,
-        "../../frontend/src/assets/images/champions/passiv/" +
+        "../../frontend/public/assets/icons/champions/spells/" +
           Data.passive.image.full,
       ),
     );
@@ -100,7 +100,7 @@ export async function compilation() {
         spell,
         path.join(
           __dirname,
-          "../../frontend/src/assets/images/champions/spells/" +
+          "../../frontend/public/assets/icons/champions/spells/" +
             Data.image.full,
         ),
       );
@@ -120,7 +120,7 @@ export async function compilation() {
       image,
       path.join(
         __dirname,
-        "../../frontend/src/assets/images/items/" + Data.image.full,
+        "../../frontend/public/assets/icons/items/" + Data.image.full,
       ),
     );
   }
@@ -138,7 +138,7 @@ export async function compilation() {
       image,
       path.join(
         __dirname,
-        "../../frontend/src/assets/images/summoners/" + Data.image.full,
+        "../../frontend/public/assets/icons/summoners/" + Data.image.full,
       ),
     );
   }
@@ -155,7 +155,7 @@ export async function compilation() {
       pathImage,
       path.join(
         __dirname,
-        "../../frontend/src/assets/images/runes/" + runePath.key + ".png",
+        "../../frontend/public/assets/icons/runes/" + runePath.id + ".png",
       ),
     );
 
@@ -166,7 +166,7 @@ export async function compilation() {
           runeImage,
           path.join(
             __dirname,
-            "../../frontend/src/assets/images/runes/" + rune.id + ".png",
+            "../../frontend/public/assets/icons/runes/" + rune.id + ".png",
           ),
         );
       }
