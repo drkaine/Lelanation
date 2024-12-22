@@ -20,9 +20,7 @@ interface Champion {
     full: string;
   };
   spells: Array<{
-    image: {
-      id: string;
-    };
+    id: string;
   }>;
   passive: {
     image: {
@@ -101,12 +99,14 @@ export async function compilation() {
       ),
     );
     for (const value of Object.values(Data.spells)) {
-      const spell = await ddragonAPI.loadImage("img/spell/" + value.image.id);
+      const spell = await ddragonAPI.loadImage(
+        "img/spell/" + value.id + ".png",
+      );
       await save(
         spell,
         path.join(
           __dirname,
-          "../../" + folderTarget + "/champions/spells/" + Data.image.full,
+          "../../" + folderTarget + "/champions/spells/" + value.id + ".png",
         ),
       );
     }
