@@ -13,6 +13,7 @@ const props = defineProps<{
         data-v-ab218c16=""
         data-v-cbff5ddf-s=""
         :src="'/assets/icons/runes/' + props.rune?.id + '.png'"
+        :alt="props.rune?.name"
       />
     </div>
     <div data-v-ab218c16="" data-v-cbff5ddf-s="" class="name">

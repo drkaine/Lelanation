@@ -84,6 +84,7 @@ const statsTrad: StatsTrad = {
                 data-v-7ab6e59a=""
                 class="img"
                 :src="`/assets/icons/items/${item.image.full}`"
+                :alt="item.name"
               />
             </button>
           </div>

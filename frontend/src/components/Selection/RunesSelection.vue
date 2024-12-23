@@ -123,6 +123,7 @@ onMounted(() => {
                 data-v-ab218c16=""
                 data-v-cbff5ddf-s=""
                 :src="`/assets/icons/runes/${rune.id}.png`"
+                :alt="rune.name"
               />
             </div>
           </div>
@@ -160,6 +161,7 @@ onMounted(() => {
                 data-v-ab218c16=""
                 data-v-cbff5ddf-s=""
                 :src="`/assets/icons/runes/${rune.id}.png`"
+                :alt="rune.name"
               />
             </div>
           </div>
@@ -202,6 +204,7 @@ onMounted(() => {
                   data-v-ab218c16=""
                   data-v-cbff5ddf-s=""
                   :src="`/assets/icons/runes/${rune.id}.png`"
+                  :alt="rune.name"
                 />
               </div>
               <div
@@ -249,6 +252,7 @@ onMounted(() => {
                   data-v-ab218c16=""
                   data-v-cbff5ddf-s=""
                   :src="`/assets/icons/runes/${rune.id}.png`"
+                  :alt="rune.name"
                 />
               </div>
               <div
@@ -296,6 +300,7 @@ onMounted(() => {
                   data-v-ab218c16=""
                   data-v-cbff5ddf-s=""
                   :src="`/assets/icons/runes/${rune.id}.png`"
+                  :alt="rune.name"
                 />
               </div>
               <div
@@ -343,6 +348,7 @@ onMounted(() => {
                   data-v-ab218c16=""
                   data-v-cbff5ddf-s=""
                   :src="`/assets/icons/runes/${rune.id}.png`"
+                  :alt="rune.name"
                 />
               </div>
               <div
@@ -397,6 +403,7 @@ onMounted(() => {
                   data-v-ab218c16=""
                   data-v-cbff5ddf-s=""
                   :src="`/assets/icons/runes/${rune.id}.png`"
+                  :alt="rune.name"
                 />
               </div>
               <div
@@ -444,6 +451,7 @@ onMounted(() => {
                   data-v-ab218c16=""
                   data-v-cbff5ddf-s=""
                   :src="`/assets/icons/runes/${rune.id}.png`"
+                  :alt="rune.name"
                 />
               </div>
               <div
@@ -491,6 +499,7 @@ onMounted(() => {
                   data-v-ab218c16=""
                   data-v-cbff5ddf-s=""
                   :src="`/assets/icons/runes/${rune.id}.png`"
+                  :alt="rune.name"
                 />
               </div>
               <div
@@ -538,6 +547,7 @@ onMounted(() => {
                   data-v-ab218c16=""
                   data-v-cbff5ddf-s=""
                   :src="`/assets/icons/runes/${rune.id}.png`"
+                  :alt="rune.name"
                 />
               </div>
               <div
@@ -594,6 +604,7 @@ onMounted(() => {
                     data-v-bab95e98=""
                     data-v-cbff5ddf-s=""
                     :src="`/assets/icons/summoners/${summoner.image.full}`"
+                    :alt="summoner.name"
                   />
                 </div>
                 <div

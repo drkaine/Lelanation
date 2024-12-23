@@ -972,6 +972,7 @@ function editBuild() {
               <img
                 data-v-1f02dc05=""
                 src="https://peak.sybo.dev/data/img/champions/887.png"
+                alt="gwen.name"
               />
             </div>
             Gwen PRO/OTP builds and stats

@@ -14,6 +14,7 @@ const props = defineProps<{
         data-v-cbff5ddf-s=""
         class="img"
         :src="'/assets/icons/champions/' + champion?.image.full"
+        :alt="champion?.name"
       />
       <div data-v-5bc51be1="" data-v-cbff5ddf-s="" class="text">
         <div data-v-5bc51be1="" data-v-cbff5ddf-s="" class="name">
@@ -53,6 +54,7 @@ const props = defineProps<{
                 '/assets/icons/champions/passive/' +
                 champion?.passive.image.full
               "
+              :alt="champion?.passive.name"
             />
           </div>
           <div data-v-5bc51be1="" data-v-cbff5ddf-s="" class="desc">
@@ -71,6 +73,7 @@ const props = defineProps<{
               data-v-5bc51be1=""
               data-v-cbff5ddf-s=""
               :src="'/assets/icons/champions/spells/' + spell.id + '.png'"
+              :alt="spell.name"
             />
           </div>
           <div data-v-5bc51be1="" data-v-cbff5ddf-s="" class="desc">

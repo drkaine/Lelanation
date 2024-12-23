@@ -135,7 +135,6 @@ const selectChampion = (champion: Champion) => {
         class="tooltip"
         v-for="(champion, index) in filterInstance.championData"
         :key="index"
-        @click="selectChampion(champion)"
       >
         <button
           data-v-80441127=""
@@ -146,12 +145,13 @@ const selectChampion = (champion: Champion) => {
           }"
           @mouseenter="updateMousePosition"
           @mouseleave="resetMousePosition"
+          @click="selectChampion(champion)"
         >
           <img
             data-v-80441127=""
             data-v-cbff5ddf-s=""
             :src="'/assets/icons/champions/' + champion.image.full"
-            alt="{{champion.name}}"
+            :alt="champion.name"
           />
         </button>
         <div

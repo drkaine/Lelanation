@@ -13,6 +13,7 @@ const props = defineProps<{
         data-v-bab95e98=""
         data-v-cbff5ddf-s=""
         :src="'/assets/icons/summoners/' + props.summoner?.image.full"
+        :alt="props.summoner?.name"
       />
     </div>
     <div data-v-bab95e98="" data-v-cbff5ddf-s="" class="name">

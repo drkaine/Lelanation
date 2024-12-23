@@ -363,6 +363,7 @@ const itemsLegendary = computed<Item[]>(() =>
               data-v-cbff5ddf-s=""
               class="img"
               :src="`/assets/icons/items/${item.image.full}`"
+              :alt="item.name"
             />
 
             <div data-v-7ab6e59a="" data-v-cbff5ddf-s="" class="text">
@@ -419,6 +420,7 @@ const itemsLegendary = computed<Item[]>(() =>
               data-v-cbff5ddf-s=""
               class="img"
               :src="`/assets/icons/items/${item.image.full}`"
+              :alt="item.name"
             />
 
             <div data-v-7ab6e59a="" data-v-cbff5ddf-s="" class="text">
@@ -476,6 +478,7 @@ const itemsLegendary = computed<Item[]>(() =>
               data-v-cbff5ddf-s=""
               class="img"
               :src="`/assets/icons/items/${item.image.full}`"
+              :alt="item.name"
             />
 
             <div data-v-7ab6e59a="" data-v-cbff5ddf-s="" class="text">
@@ -532,6 +535,7 @@ const itemsLegendary = computed<Item[]>(() =>
               data-v-cbff5ddf-s=""
               class="img"
               :src="`/assets/icons/items/${item.image.full}`"
+              :alt="item.name"
             />
 
             <div data-v-7ab6e59a="" data-v-cbff5ddf-s="" class="text">
@@ -592,6 +596,7 @@ const itemsLegendary = computed<Item[]>(() =>
               data-v-cbff5ddf-s=""
               class="img"
               :src="`/assets/icons/items/${item.image.full}`"
+              :alt="item.name"
             />
 
             <div data-v-7ab6e59a="" data-v-cbff5ddf-s="" class="text">

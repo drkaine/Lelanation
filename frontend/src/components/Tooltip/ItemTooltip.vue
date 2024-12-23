@@ -15,6 +15,7 @@ const props = defineProps<{
         data-v-354b7b55=""
         data-v-cbff5ddf-s=""
         :src="`/assets/icons/items/${props.item.image.full}`"
+        :alt="props.item.name"
       />
       <div data-v-354b7b55="" data-v-cbff5ddf-s="" class="name">
         {{ props.item.name }}
@@ -64,6 +65,7 @@ const props = defineProps<{
             data-v-7ab6e59a=""
             class="img"
             :src="`/assets/icons/items/${item.image.full}`"
+            :alt="item.name"
           />
           <div data-v-7ab6e59a="" class="text">{{ item.gold.total }}</div>
         </div>
@@ -89,6 +91,7 @@ const props = defineProps<{
             data-v-7ab6e59a=""
             class="img"
             :src="`/assets/icons/items/${item.image.full}`"
+            :alt="item.name"
           />
           <div data-v-7ab6e59a="" class="text">
             {{ item.gold.total }}

@@ -489,6 +489,7 @@ const getItemsInto = (item: Item) => {
                 data-v-1f02dc05=""
                 data-v-cbff5ddf-s=""
                 :src="'/assets/icons/champions/' + champion?.image.full"
+                :alt="champion?.name"
               />
             </div>
             <div
@@ -544,6 +545,7 @@ const getItemsInto = (item: Item) => {
                 data-v-ab218c16=""
                 data-v-cbff5ddf-s=""
                 :src="`/assets/icons/runes/${runes?.groups[1].principal?.id}.png`"
+                :alt="runes?.groups[1].principal?.name"
               />
               <div
                 data-v-cbff5ddf=""
@@ -577,6 +579,7 @@ const getItemsInto = (item: Item) => {
                   data-v-ab218c16=""
                   data-v-cbff5ddf-s=""
                   :src="`/assets/icons/runes/${runes?.groups[2].principal?.id}.png`"
+                  :alt="runes?.groups[2].principal?.name"
                 />
                 <div
                   data-v-cbff5ddf=""
@@ -609,6 +612,7 @@ const getItemsInto = (item: Item) => {
                   data-v-cbff5ddf-s=""
                   v-if="runes?.groups[3].principal"
                   :src="`/assets/icons/runes/${runes?.groups[3].principal?.id}.png`"
+                  :alt="runes?.groups[3].principal?.name"
                 />
                 <div
                   data-v-cbff5ddf=""
@@ -641,6 +645,7 @@ const getItemsInto = (item: Item) => {
                   data-v-ab218c16=""
                   data-v-cbff5ddf-s=""
                   :src="`/assets/icons/runes/${runes?.groups[4].principal?.id}.png`"
+                  :alt="runes?.groups[4].principal?.name"
                 />
                 <div
                   data-v-cbff5ddf=""
@@ -667,6 +672,7 @@ const getItemsInto = (item: Item) => {
                   data-v-cbff5ddf-s=""
                   :src="`/assets/icons/runes/${runes?.second?.id}.png`"
                   v-if="runes?.second?.id"
+                  :alt="runes?.second?.name"
                 />
               </div>
             </div>
@@ -690,6 +696,7 @@ const getItemsInto = (item: Item) => {
                   data-v-ab218c16=""
                   data-v-cbff5ddf-s=""
                   :src="`/assets/icons/runes/${group.second.id}.png`"
+                  :alt="group.second?.name"
                 />
                 <div
                   data-v-cbff5ddf=""
