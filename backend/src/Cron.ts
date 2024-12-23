@@ -106,7 +106,7 @@ export async function compilation() {
         spell,
         path.join(
           __dirname,
-          "../../" + folderTarget + "/champions/spells/" + value.id + ".png",
+          "../../" + folderTarget + "/champions/sorts/" + value.id + ".png",
         ),
       );
     }

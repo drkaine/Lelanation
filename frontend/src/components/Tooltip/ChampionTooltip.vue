@@ -72,7 +72,7 @@ const props = defineProps<{
             <img
               data-v-5bc51be1=""
               data-v-cbff5ddf-s=""
-              :src="'/assets/icons/champions/spells/' + spell.id + '.png'"
+              :src="'/assets/icons/champions/sorts/' + spell.id + '.png'"
               :alt="spell.name"
             />
           </div>
