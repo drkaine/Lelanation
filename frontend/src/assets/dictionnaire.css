@@ -1,0 +1,148 @@
+.dictionary-container {
+  min-height: 100vh;
+  padding: 2rem;
+  color: white;
+  width: 100%;
+  margin: 0;
+}
+
+.title {
+  text-align: center;
+  font-size: 2.5rem;
+  margin-bottom: 3rem;
+  color: var(--l-gold3);
+}
+
+.dictionary-content {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.dictionary-entry {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  padding: 1rem;
+  border: 1px solid var(--l-gold4);
+  border-radius: 8px;
+  background-color: var(--l-grey3);
+  transition: transform 0.2s ease;
+}
+
+.dictionary-entry:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px var(--l-gold4);
+}
+
+.word {
+  color: var(--l-gold3);
+  font-size: 1.1rem;
+  font-weight: bold;
+  text-transform: capitalize;
+  white-space: nowrap;
+}
+
+.separator {
+  color: var(--l-gold3);
+  margin: 0 0.5rem;
+}
+
+.definition {
+  color: #e1e1e1;
+  line-height: 1.4;
+  font-size: 1rem;
+  margin: 0;
+}
+
+.definition :deep(a) {
+  color: var(--l-gold3);
+  text-decoration: none;
+  font-weight: bold;
+  transition: color 0.2s ease;
+}
+
+.definition :deep(a:hover) {
+  color: #e1e1e1;
+}
+
+.search-container {
+  max-width: 600px;
+  margin: 0 auto 2rem;
+}
+
+.search-input {
+  width: 100%;
+  padding: 0.8rem;
+  border: 2px solid var(--l-gold3);
+  border-radius: 8px;
+  background-color: var(--l-grey3);
+  color: white;
+  font-size: 1rem;
+}
+
+.search-input::placeholder {
+  color: var(--l-grey);
+}
+
+.alphabet-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  justify-content: center;
+  margin-bottom: 2rem;
+}
+
+.letter-btn {
+  padding: 0.5rem 0.8rem;
+  border: 1px solid var(--l-gold3);
+  background-color: transparent;
+  color: var(--l-gold3);
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.letter-btn:hover {
+  background-color: var(--l-grey3);
+}
+
+.letter-btn.active {
+  background-color: var(--l-gold3);
+  color: var(--l-black);
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 2rem;
+  padding: 1rem;
+}
+
+.page-btn {
+  padding: 0.5rem 1rem;
+  border: 1px solid var(--l-gold3);
+  background-color: transparent;
+  color: var(--l-gold3);
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.page-btn:hover:not(:disabled) {
+  background-color: var(--l-black);
+}
+
+.page-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.page-info {
+  color: var(--l-gold3);
+  font-size: 1rem;
+}
