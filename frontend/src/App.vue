@@ -33,13 +33,27 @@ import version from '@/assets/files/lastVersion.json'
           <!-- <a data-v-7cc930f8="" href="/pro" class=""> Pro Builds</a>
           <span data-v-7cc930f8="">•</span>
           <a data-v-7cc930f8="" href="/randomizer" class="">Random</a> -->
-          <span data-v-7cc930f8="">•</span>
+          <!-- <span data-v-7cc930f8="">•</span>
           <a data-v-7cc930f8="" href="/items" class="active"> Items</a>
+          <span data-v-7cc930f8="">•</span> -->
+          <RouterLink to="/dictionnaire"> Leladictionnaiva</RouterLink>
           <span data-v-7cc930f8="">•</span>
+          <!-- <RouterLink to="/build"> Lelariva reviews</RouterLink>
+          <span data-v-7cc930f8="">•</span>
+          <RouterLink to="/build"> Le lobbyrivas</RouterLink>
+          <span data-v-7cc930f8="">•</span>
+          <RouterLink to="/build"> Lelariguidevas</RouterLink>
+          <span data-v-7cc930f8="">•</span>-->
+          <!-- <RouterLink to="/tier-list"> Lela tierlistas</RouterLink>
+          <span data-v-7cc930f8="">•</span> -->
+          <!--<RouterLink to="/build"> Le metarivas</RouterLink>
+          <span data-v-7cc930f8="">•</span> -->
           <RouterLink to="/build"> Building</RouterLink>
           <span data-v-7cc930f8="">•</span>
-          <a data-v-7cc930f8="" href="/builds" class=""> My Builds</a>
+          <RouterLink to="/build"> Lelaribuilds</RouterLink>
           <span data-v-7cc930f8="">•</span>
+          <!-- <a data-v-7cc930f8="" href="/builds" class=""> My Builds</a>
+          <span data-v-7cc930f8="">•</span> -->
           <a
             data-v-7cc930f8=""
             href="https://www.leagueoflegends.com/fr-fr/news/tags/patch-notes"

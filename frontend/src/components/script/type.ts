@@ -259,3 +259,7 @@ export interface BuildData {
     items: ItemSelection
   }
 }
+
+export interface DictionaryEntry {
+  [key: string]: string
+}
