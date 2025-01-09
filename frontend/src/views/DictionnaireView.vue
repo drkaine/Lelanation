@@ -62,9 +62,8 @@ onMounted(() => {
 
 <template>
   <div class="dictionary-container">
-    <h1 class="title">Dictionnaire Lelandriva</h1>
+    <h1 class="title">Dictionnaire Lelandrivien</h1>
 
-    <!-- Barre de recherche -->
     <div class="search-container">
       <input
         v-model="searchQuery"
