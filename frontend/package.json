@@ -4,7 +4,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "clean": "eslint . --fix && prettier --write src/ && vue-tsc --build --force && vitest && run-p type-check \"build-only {@}\" --",
+    "clean": "eslint . --fix && prettier --write src/ && vue-tsc --build --force &&  npm run test:unit &&  npm run test:e2e && run-p type-check \"build-only {@}\" --",
     "dev": "vite",
     "build": "run-p type-check \"build-only {@}\" --",
     "preview": "vite preview",
@@ -16,6 +16,7 @@
     "format": "prettier --write src/"
   },
   "dependencies": {
+    "@iconify/vue": "^4.3.0",
     "pinia": "^2.2.4",
     "uuid": "^11.0.3",
     "vue": "^3.5.12",
