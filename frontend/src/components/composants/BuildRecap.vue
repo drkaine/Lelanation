@@ -2,7 +2,7 @@
 import { useRoute, useRouter } from 'vue-router'
 import { ref } from 'vue'
 import SheetBuild from '@/components/composants/SheetBuild.vue'
-import { type BuildData } from '@/components/script/type'
+import type { BuildData } from '@/types/build'
 
 const route = useRoute()
 const router = useRouter()

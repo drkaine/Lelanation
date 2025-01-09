@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { type Item } from '../script/type'
+import type { Item } from '@/types/item'
 
 const props = defineProps<{
   item: Item

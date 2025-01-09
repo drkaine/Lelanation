@@ -11,13 +11,9 @@ import { useShardStore } from '@/stores/shardStore'
 import { useSummonerStore } from '@/stores/summonerStore'
 import { TooltipCoordonne } from '../script/TooltipCoordonne'
 
-import {
-  type Rune,
-  type SubRune,
-  type Shard,
-  type Summoner,
-  type ShardColumn,
-} from '../script/type'
+import type { Rune, SubRune } from '@/types/rune'
+import type { Shard, ShardColumn } from '@/types/shard'
+import type { Summoner } from '@/types/summoner'
 
 const runesData = ref<Rune[]>(runes)
 const summonerData = ref<Summoner[]>([])

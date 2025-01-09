@@ -4,7 +4,7 @@ import { Filter } from '../script/Filter'
 import { TooltipCoordonne } from '../script/TooltipCoordonne'
 import { useChampionStore } from '@/stores/championStore'
 import ChampionTooltip from '@/components/Tooltip/ChampionTooltip.vue'
-import { type Champion } from '../script/type'
+import type { Champion } from '@/types/champion'
 import { useStepStore } from '@/stores/stepStore'
 
 const stepStore = useStepStore()

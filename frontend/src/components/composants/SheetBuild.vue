@@ -4,14 +4,11 @@ import SummonerTooltip from '@/components/Tooltip/SummonerTooltip.vue'
 import RuneTooltip from '@/components/Tooltip/RuneTooltip.vue'
 import ShardTooltip from '@/components/Tooltip/ShardTooltip.vue'
 import ItemTooltip from '@/components/Tooltip/ItemTooltip.vue'
-import {
-  type SummonerSelection,
-  type ShardSelection,
-  type Champion,
-  type RunesSelection,
-  type ItemSelection,
-  type Item,
-} from '../script/type'
+import type { SummonerSelection } from '@/types/summoner'
+import type { RunesSelection } from '@/types/rune'
+import type { ShardSelection } from '@/types/shard'
+import type { Item, ItemSelection } from '@/types/item'
+import type { Champion } from '@/types/champion'
 import itemsFiles from '@/assets/files/item.json'
 import { TooltipCoordonne } from '../script/TooltipCoordonne'
 

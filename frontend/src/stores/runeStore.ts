@@ -1,10 +1,6 @@
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
-import {
-  type RunesSelection,
-  type Rune,
-  type SubRune,
-} from '../components/script/type'
+import type { RunesSelection, Rune, SubRune } from '@/types/rune'
 
 export const useRuneStore = defineStore('Rune', () => {
   const runesSelection = ref<RunesSelection>({

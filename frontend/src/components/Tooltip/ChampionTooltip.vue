@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { type Champion } from '../script/type'
+import type { Champion } from '@/types/champion'
 
 const props = defineProps<{
   champion: Champion | null

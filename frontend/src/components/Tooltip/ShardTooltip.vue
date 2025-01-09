@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { type Shard } from '../script/type'
+import type { Shard } from '@/types/shard'
 
 const props = defineProps<{
   shard: Shard

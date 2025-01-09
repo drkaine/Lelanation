@@ -3,7 +3,7 @@ import { ref, computed } from 'vue'
 import { TooltipCoordonne } from '../script/TooltipCoordonne'
 import items from '@/assets/files/item.json'
 import ItemTooltip from '@/components/Tooltip/ItemTooltip.vue'
-import { type Item } from '../script/type'
+import type { Item } from '@/types/item'
 import { useItemStore } from '@/stores/itemStore'
 
 const tooltip = new TooltipCoordonne()

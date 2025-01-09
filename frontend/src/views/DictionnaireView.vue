@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, computed, onMounted } from 'vue'
 import dictionnaire from '@/assets/files/dictionnaire.json'
-import { type DictionaryEntry } from '@/components/script/type'
+import type { DictionaryEntry } from '@/types/dictionary'
 
 const dictionary = ref<DictionaryEntry>({})
 const searchQuery = ref('')
@@ -17,7 +17,7 @@ const filteredDictionary = computed(() => {
   if (searchQuery.value) {
     filtered = Object.fromEntries(
       Object.entries(filtered).filter(
-        ([key, value]) =>
+        ([key, value]: [string, string]) =>
           key.toLowerCase().includes(searchQuery.value.toLowerCase()) ||
           value.toLowerCase().includes(searchQuery.value.toLowerCase()),
       ),

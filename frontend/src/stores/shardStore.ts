@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
-import { type ShardSelection, type Shard } from '../components/script/type'
+import type { ShardSelection, Shard } from '@/types/shard'
 
 export const useShardStore = defineStore('Shard', () => {
   const shardsSelection = ref<ShardSelection>({
