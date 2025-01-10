@@ -1,58 +1,22 @@
 <script setup lang="ts">
-import { ref, computed, onMounted } from 'vue'
+import { onMounted } from 'vue'
 import dictionnaire from '@/assets/files/dictionnaire.json'
-import type { DictionaryEntry } from '@/types/dictionary'
+import { useDictionary } from '@/composables/useDictionary'
+import AlphabetNav from '@/components/AlphabetNavigation.vue'
+import Pagination from '@/components/DictionaryPagination.vue'
 
-const dictionary = ref<DictionaryEntry>({})
-const searchQuery = ref('')
-const currentLetter = ref('')
-const currentPage = ref(1)
-const itemsPerPage = ref(20)
-
-const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('')
-
-const filteredDictionary = computed(() => {
-  let filtered = { ...dictionary.value }
-
-  if (searchQuery.value) {
-    filtered = Object.fromEntries(
-      Object.entries(filtered).filter(
-        ([key, value]: [string, string]) =>
-          key.toLowerCase().includes(searchQuery.value.toLowerCase()) ||
-          value.toLowerCase().includes(searchQuery.value.toLowerCase()),
-      ),
-    )
-  }
-
-  if (currentLetter.value) {
-    filtered = Object.fromEntries(
-      Object.entries(filtered).filter(([key]) =>
-        key.toLowerCase().startsWith(currentLetter.value.toLowerCase()),
-      ),
-    )
-  }
-
-  return filtered
-})
-
-const totalPages = computed(() =>
-  Math.ceil(Object.keys(filteredDictionary.value).length / itemsPerPage.value),
-)
-
-const paginatedDictionary = computed(() => {
-  const entries = Object.entries(filteredDictionary.value)
-  const start = (currentPage.value - 1) * itemsPerPage.value
-  const end = start + itemsPerPage.value
-  return Object.fromEntries(entries.slice(start, end))
-})
+const {
+  dictionary,
+  searchQuery,
+  currentLetter,
+  currentPage,
+  paginatedDictionary,
+  totalPages,
+} = useDictionary(20)
 
 const selectLetter = (letter: string) => {
   currentLetter.value = currentLetter.value === letter ? '' : letter
   currentPage.value = 1
-}
-
-const changePage = (page: number) => {
-  currentPage.value = page
 }
 
 onMounted(() => {
@@ -73,16 +37,7 @@ onMounted(() => {
       />
     </div>
 
-    <div class="alphabet-nav">
-      <button
-        v-for="letter in alphabet"
-        :key="letter"
-        :class="['letter-btn', { active: currentLetter === letter }]"
-        @click="selectLetter(letter)"
-      >
-        {{ letter }}
-      </button>
-    </div>
+    <AlphabetNav :current-letter="currentLetter" @select="selectLetter" />
 
     <div class="dictionary-content">
       <div
@@ -96,22 +51,10 @@ onMounted(() => {
       </div>
     </div>
 
-    <div v-if="totalPages > 1" class="pagination">
-      <button
-        :disabled="currentPage === 1"
-        @click="changePage(currentPage - 1)"
-        class="page-btn"
-      >
-        Précédent
-      </button>
-      <span class="page-info">{{ currentPage }} / {{ totalPages }}</span>
-      <button
-        :disabled="currentPage === totalPages"
-        @click="changePage(currentPage + 1)"
-        class="page-btn"
-      >
-        Suivant
-      </button>
-    </div>
+    <Pagination
+      :current-page="currentPage"
+      :total-pages="totalPages"
+      @change="page => (currentPage = page)"
+    />
   </div>
 </template>
