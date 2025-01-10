@@ -4,7 +4,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "clean": "eslint . --fix && prettier --write src/ && vue-tsc --build --force &&  npm run test:unit &&  npm run test:e2e && run-p type-check \"build-only {@}\" --",
+    "clean": "eslint . --fix && prettier --write src/ && vue-tsc --build --force &&  npm run test:unit && run-p type-check \"build-only {@}\" --",
     "dev": "vite",
     "build": "run-p type-check \"build-only {@}\" --",
     "preview": "vite preview",

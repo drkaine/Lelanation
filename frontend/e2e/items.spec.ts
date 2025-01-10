@@ -23,7 +23,7 @@ test.describe('Items Page', () => {
   })
 
   test('search functionality works', async ({ page }) => {
-    await page.waitForSelector('.tooltip button')
+    await expect(page.locator('.tooltip button').first()).toBeVisible()
     
     const searchInput = page.locator('input[type="search"]')
     await searchInput.fill('Doran')
