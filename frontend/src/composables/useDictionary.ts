@@ -47,6 +47,7 @@ export function useDictionary(itemsPerPage: number) {
     currentLetter,
     currentPage,
     totalPages,
+    filteredDictionary,
     paginatedDictionary,
     itemsPerPage,
   }

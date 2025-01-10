@@ -5,29 +5,32 @@ export class TooltipCoordonne {
   public tooltipTop = ref('0px')
 
   public updateMousePosition = (event: MouseEvent) => {
-    const tooltipWidth = 200
-    const tooltipHeight = 100
-
     const button = event.currentTarget as HTMLElement
+    const tooltip = button.nextElementSibling as HTMLElement
     const rect = button.getBoundingClientRect()
+    const tooltipRect = tooltip.getBoundingClientRect()
 
-    const x = rect.left + window.scrollX
-    const y = rect.top + window.scrollY
+    const viewportWidth = window.innerWidth
+    const viewportHeight = window.innerHeight
+    const scrollY = window.scrollY
 
-    this.tooltipLeft.value = x + rect.width + 'px'
-    this.tooltipTop.value = y + rect.height / 2 - tooltipHeight / 2 + 'px'
-
-    if (parseInt(this.tooltipLeft.value) + tooltipWidth > window.innerWidth) {
-      this.tooltipLeft.value = x - tooltipWidth - 10 + 'px'
+    let xPosition = rect.right
+    if (xPosition + tooltipRect.width > viewportWidth) {
+      xPosition = rect.left - tooltipRect.width
     }
 
-    if (parseInt(this.tooltipTop.value) + tooltipHeight > window.innerHeight) {
-      this.tooltipTop.value = y - tooltipHeight - 10 + 'px'
+    let yPosition = rect.top + scrollY
+
+    if (yPosition - scrollY + tooltipRect.height > viewportHeight) {
+      yPosition = scrollY + viewportHeight - tooltipRect.height
     }
 
-    if (parseInt(this.tooltipTop.value) < 0) {
-      this.tooltipTop.value = '10px'
+    if (yPosition < scrollY) {
+      yPosition = scrollY
     }
+
+    this.tooltipLeft.value = `${xPosition}px`
+    this.tooltipTop.value = `${yPosition}px`
   }
 
   public resetMousePosition = () => {
