@@ -7,7 +7,7 @@ const dictionary = ref<DictionaryEntry>({})
 const searchQuery = ref('')
 const currentLetter = ref('')
 const currentPage = ref(1)
-const itemsPerPage = ref(10)
+const itemsPerPage = ref(20)
 
 const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('')
 
@@ -62,7 +62,7 @@ onMounted(() => {
 
 <template>
   <div class="dictionary-container">
-    <h1 class="title">Dictionnaire Lelandrivien</h1>
+    <h1 class="title">Dictionnaire laranguiva</h1>
 
     <div class="search-container">
       <input

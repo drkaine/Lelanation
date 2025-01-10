@@ -2,7 +2,7 @@
 set -e
 
 echo "Le script commence"
-cd ~/production/lelandriva/ &&
+cd ~/production/Lelanation/ &&
 
 # Pull la dernière version de l'application.
 echo "pull origin main"

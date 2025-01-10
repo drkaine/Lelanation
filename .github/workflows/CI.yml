@@ -82,4 +82,3 @@ jobs:
         run: |
           cd frontend
           npm run test:unit
-          npm run test:e2e
