@@ -1,58 +1,14 @@
 <script setup lang="ts">
 import { useItemStore } from '@/stores/itemStore'
+import statsTrad from '../../../public/assets/files/statsTrad.json'
 
 const itemStore = useItemStore()
 const getTrad = (name: string) => {
-  return statsTrad[name]
+  return statsTrad[name as keyof typeof statsTrad]
 }
 
 const removeItem = (index: number) => {
   itemStore.removeItem(index)
-}
-
-export interface StatsTrad {
-  [key: string]: string
-}
-
-const statsTrad: StatsTrad = {
-  FlatMagicDamageMod: 'dommage magique',
-  FlatCritChanceMod: 'Chance de critique',
-  FlatHPRegenMod: 'PV régénération',
-  PercentLifeStealMod: '% de vol de vie',
-  FlatSpellBlockMod: 'résistance magique',
-  FlatMovementSpeedMod: 'vitesse de déplacement',
-  FlatArmorMod: 'Armure',
-  FlatPhysicalDamageMod: 'dommage physique',
-  FlatHPPoolMod: 'PV Pool',
-  PercentMovementSpeedMod: '% vitesse de mouvement',
-  PercentAttackSpeedMod: "% vitesse d'attaque",
-  PercentArmorMod: '% Armure  mod',
-  PercentHealthRegenMod: '% PV régénérat,ion mod',
-  PercentSpellVamp: '% Spell Vamp',
-  PercentLifeSteal: '% vol de vie',
-  FlatEnergyRegenMod: 'Energy régénération',
-  FlatManaRegenMod: 'Mana régénération',
-  FlatMPPoolMod: 'mana Pool',
-  FlatAD: 'AD',
-  FlatAP: 'AP',
-  FlatCooldownReduction: 'Cooldown Reduction',
-  PercentCooldownReduction: '% Cooldown Reduction',
-  FlatLethality: 'Lethalité',
-  FlatOmnivamp: 'Omnivamp',
-  PercentOmnivamp: ' % Omnivamp',
-  FlatShield: 'bouclier',
-  PercentShield: '% bouclier',
-  FlatTenacity: 'ténacité',
-  PercentTenacity: ' % ténacité',
-  FlatSpellVamp: 'Spell Vamp',
-  FlatHealthRegen: 'PV régénération',
-  PercentHealthRegen: ' % PV régénération',
-  FlatArmorPenetration: 'Armure Penetration',
-  PercentArmorPenetration: ' % Armure Penetration',
-  FlatMagicPenetration: 'Magic Penetration',
-  PercentMagicPenetration: ' % Magic Penetration',
-  FlatDamageReduction: 'dommage Reduction',
-  PercentDamageReduction: '% dommage Reduction',
 }
 </script>
 
@@ -100,7 +56,7 @@ const statsTrad: StatsTrad = {
           <div
             data-v-636d16e0=""
             class="list-item"
-            v-for="(stat, index) in itemStore.ItemsStats"
+            v-for="(stat, index) in itemStore.ItemsSelection.stats"
             :key="index"
           >
             <div
@@ -138,7 +94,7 @@ const statsTrad: StatsTrad = {
                 );
               "
             >
-              {{ itemStore.ItemsGold.total }}
+              {{ itemStore.ItemsSelection.gold.total }}
               <span data-v-636d16e0="">&nbsp; </span>
             </div>
             <div data-v-636d16e0="" class="name">gold</div>

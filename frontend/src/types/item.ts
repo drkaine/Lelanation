@@ -1,4 +1,5 @@
-import type { Image, Gold, Stats } from './common'
+import type { Image, Gold } from './common'
+import type { Stats } from './stat'
 
 export interface Item {
   name: string
@@ -47,4 +48,6 @@ export interface ItemSelection {
   core: Item[] | null
   situationnel: Item[] | null
   boots: Item[] | null
+  stats: Stats
+  gold: Gold
 }

@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
 import type { Item, ItemSelection } from '@/types/item'
-import type { Stats } from '@/types/common'
+import type { Stats } from '@/types/stat'
 
 export const useItemStore = defineStore('Item', () => {
   const ItemsSelection = ref<ItemSelection>({
@@ -9,12 +9,53 @@ export const useItemStore = defineStore('Item', () => {
     core: null,
     situationnel: null,
     boots: null,
-  })
-
-  const ItemsStats = ref<Stats>({})
-
-  const ItemsGold = ref<{ total: number }>({
-    total: 0,
+    stats: {
+      FlatMagicDamageMod: 0,
+      FlatCritChanceMod: 0,
+      FlatHPRegenMod: 0,
+      PercentLifeStealMod: 0,
+      FlatSpellBlockMod: 0,
+      FlatMovementSpeedMod: 0,
+      FlatArmorMod: 0,
+      FlatPhysicalDamageMod: 0,
+      FlatHPPoolMod: 0,
+      PercentMovementSpeedMod: 0,
+      PercentAttackSpeedMod: 0,
+      PercentArmorMod: 0,
+      PercentHealthRegenMod: 0,
+      PercentSpellVamp: 0,
+      PercentLifeSteal: 0,
+      FlatEnergyRegenMod: 0,
+      FlatManaRegenMod: 0,
+      FlatMPPoolMod: 0,
+      FlatAD: 0,
+      FlatAP: 0,
+      FlatCooldownReduction: 0,
+      PercentCooldownReduction: 0,
+      FlatLethality: 0,
+      FlatOmnivamp: 0,
+      PercentOmnivamp: 0,
+      FlatShield: 0,
+      PercentShield: 0,
+      FlatTenacity: 0,
+      PercentTenacity: 0,
+      FlatSpellVamp: 0,
+      FlatHealthRegen: 0,
+      PercentHealthRegen: 0,
+      FlatArmorPenetration: 0,
+      PercentArmorPenetration: 0,
+      FlatMagicPenetration: 0,
+      PercentMagicPenetration: 0,
+      FlatDamageReduction: 0,
+      PercentDamageReduction: 0,
+      FlatAttackRangeMod: 0,
+    },
+    gold: {
+      base: 0,
+      purchasable: false,
+      total: 0,
+      sell: 0,
+    },
   })
 
   // type: 'starter' | 'core' | 'situationnel' | 'boots',
@@ -34,21 +75,15 @@ export const useItemStore = defineStore('Item', () => {
 
   const setItemStats = (stats: Stats) => {
     for (const [key, value] of Object.entries(stats)) {
+      const statKey = key as keyof typeof ItemsSelection.value.stats
       if (value !== undefined) {
-        if (!ItemsStats.value[key]) {
-          ItemsStats.value[key] = 0
-        }
-        ItemsStats.value[key] += value
+        ItemsSelection.value.stats[statKey] += value
       }
     }
   }
 
   const setItemGold = (gold: number) => {
-    if (!ItemsGold.value.total) {
-      ItemsGold.value.total = gold
-    } else {
-      ItemsGold.value.total += gold
-    }
+    ItemsSelection.value.gold.total += gold
   }
 
   const removeItem = (index: number) => {
@@ -62,17 +97,17 @@ export const useItemStore = defineStore('Item', () => {
   }
 
   const removeItemGold = (gold: number) => {
-    if (ItemsGold.value.total) {
-      ItemsGold.value.total -= gold
-    }
+    ItemsSelection.value.gold.total -= gold
   }
 
   const RemoveItemStat = (stats: Stats) => {
     for (const [key, value] of Object.entries(stats)) {
+      const statKey = key as keyof typeof ItemsSelection.value.stats
       if (value !== undefined) {
-        if (ItemsStats.value[key]) {
-          ItemsStats.value[key] -= value
+        if (!ItemsSelection.value.stats[statKey]) {
+          ItemsSelection.value.stats[statKey] = 0
         }
+        ItemsSelection.value.stats[statKey] -= value
       }
     }
   }
@@ -83,13 +118,58 @@ export const useItemStore = defineStore('Item', () => {
       core: null,
       situationnel: null,
       boots: null,
+      stats: {
+        FlatMagicDamageMod: 0,
+        FlatCritChanceMod: 0,
+        FlatHPRegenMod: 0,
+        PercentLifeStealMod: 0,
+        FlatSpellBlockMod: 0,
+        FlatMovementSpeedMod: 0,
+        FlatArmorMod: 0,
+        FlatPhysicalDamageMod: 0,
+        FlatHPPoolMod: 0,
+        PercentMovementSpeedMod: 0,
+        PercentAttackSpeedMod: 0,
+        PercentArmorMod: 0,
+        PercentHealthRegenMod: 0,
+        PercentSpellVamp: 0,
+        PercentLifeSteal: 0,
+        FlatEnergyRegenMod: 0,
+        FlatManaRegenMod: 0,
+        FlatMPPoolMod: 0,
+        FlatAD: 0,
+        FlatAP: 0,
+        FlatCooldownReduction: 0,
+        PercentCooldownReduction: 0,
+        FlatLethality: 0,
+        FlatOmnivamp: 0,
+        PercentOmnivamp: 0,
+        FlatShield: 0,
+        PercentShield: 0,
+        FlatTenacity: 0,
+        PercentTenacity: 0,
+        FlatSpellVamp: 0,
+        FlatHealthRegen: 0,
+        PercentHealthRegen: 0,
+        FlatArmorPenetration: 0,
+        PercentArmorPenetration: 0,
+        FlatMagicPenetration: 0,
+        PercentMagicPenetration: 0,
+        FlatDamageReduction: 0,
+        PercentDamageReduction: 0,
+        FlatAttackRangeMod: 0,
+      },
+      gold: {
+        base: 0,
+        purchasable: false,
+        total: 0,
+        sell: 0,
+      },
     }
   }
 
   return {
     ItemsSelection,
-    ItemsStats,
-    ItemsGold,
     setItemSelection,
     removeItem,
     resetItemsSelection,

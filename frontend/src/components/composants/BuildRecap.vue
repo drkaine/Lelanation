@@ -1,17 +1,145 @@
 <script setup lang="ts">
 import { useRoute, useRouter } from 'vue-router'
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import SheetBuild from '@/components/composants/SheetBuild.vue'
 import type { BuildData } from '@/types/build'
+import {
+  calculateEffectiveArmor,
+  calculateEffectiveMR,
+} from '@/components/script/StatsCalculator'
+import {
+  calculateBaseStats,
+  calculateItemStats,
+} from '@/components/script/BuildCalculator'
 
 const route = useRoute()
 const router = useRouter()
 const fileName = route.params.fileName as string
 const buildData = ref<BuildData | null>(null)
+const lvl = ref(1)
 
 const response = await fetch(`/src/assets/build/${fileName}`)
 const data = await response.json()
 buildData.value = data
+
+const effectiveHealth = computed(() => ({
+  physicalBase: calculateEffectiveArmor({
+    baseArmor: championStats.value.armor,
+    bonusArmor: 0,
+    health: championStats.value.hp,
+  }).effectiveHealth,
+  magicalBase: calculateEffectiveMR({
+    baseMR: championStats.value.spellblock,
+    bonusMR: 0,
+    health: championStats.value.hp,
+  }).effectiveHealth,
+  physicalItems: calculateEffectiveArmor({
+    baseArmor: itemsStats.value.armor,
+    bonusArmor: 0,
+    health: itemsStats.value.hp,
+  }).effectiveHealth,
+  magicalItems: calculateEffectiveMR({
+    baseMR: itemsStats.value.spellblock,
+    bonusMR: 0,
+    health: itemsStats.value.hp,
+  }).effectiveHealth,
+}))
+
+const totalStats = computed(() => ({
+  // physicalEffectiveHealth: (
+  //   effectiveHealth.value.physicalBase + effectiveHealth.value.physicalItems
+  // ).toFixed(0),
+  // magicalEffectiveHealth: (
+  //   effectiveHealth.value.magicalBase + effectiveHealth.value.magicalItems
+  // ).toFixed(0),
+  armor: (championStats.value.armor + itemsStats.value.armor).toFixed(0),
+  attackdamage: (
+    championStats.value.attackdamage + itemsStats.value.attackdamage
+  ).toFixed(0),
+  attackrange: (
+    championStats.value.attackrange + itemsStats.value.attackrange
+  ).toFixed(0),
+  attackspeed: (
+    championStats.value.attackspeed + itemsStats.value.attackspeed
+  ).toFixed(0),
+  crit: (championStats.value.crit + itemsStats.value.crit).toFixed(0),
+  hp: (championStats.value.hp + itemsStats.value.hp).toFixed(0),
+  hpregen: (championStats.value.hpregen + itemsStats.value.hpregen).toFixed(0),
+  movespeed: (
+    championStats.value.movespeed + itemsStats.value.movespeed
+  ).toFixed(0),
+  mp: (championStats.value.mp + itemsStats.value.mp).toFixed(0),
+  mpregen: (championStats.value.mpregen + itemsStats.value.mpregen).toFixed(0),
+  spellblock: (
+    championStats.value.spellblock + itemsStats.value.spellblock
+  ).toFixed(0),
+  CDR: itemsStats.value.CDR.toFixed(0),
+  AP: itemsStats.value.AP.toFixed(0),
+  lethality: itemsStats.value.lethality.toFixed(0),
+  magicPenetration: itemsStats.value.magicPenetration.toFixed(0),
+  tenacity: itemsStats.value.tenacity.toFixed(0),
+  omnivamp: itemsStats.value.omnivamp.toFixed(0),
+  shield: itemsStats.value.shield.toFixed(0),
+  spellvamp: itemsStats.value.spellvamp.toFixed(0),
+  armorpen: itemsStats.value.armorpen.toFixed(0),
+  magicpen: itemsStats.value.magicpen.toFixed(0),
+}))
+
+const itemsStats = computed(() => {
+  if (buildData.value?.sheet.items.stats) {
+    return calculateItemStats(buildData.value.sheet.items.stats)
+  }
+  return {
+    armor: 0,
+    attackdamage: 0,
+    attackrange: 0,
+    attackspeed: 0,
+    crit: 0,
+    hp: 0,
+    hpregen: 0,
+    movespeed: 0,
+    mp: 0,
+    mpregen: 0,
+    spellblock: 0,
+    CDR: 0,
+    AP: 0,
+    lethality: 0,
+    magicPenetration: 0,
+    tenacity: 0,
+    omnivamp: 0,
+    shield: 0,
+    spellvamp: 0,
+    armorpen: 0,
+    magicpen: 0,
+  }
+})
+const championStats = computed(() => {
+  if (buildData.value?.sheet.champion.stats) {
+    return calculateBaseStats(buildData.value.sheet.champion.stats, lvl.value)
+  }
+  return {
+    hp: 0,
+    hpperlevel: 0,
+    mp: 0,
+    mpperlevel: 0,
+    movespeed: 0,
+    armor: 0,
+    armorperlevel: 0,
+    spellblock: 0,
+    spellblockperlevel: 0,
+    attackrange: 0,
+    hpregen: 0,
+    hpregenperlevel: 0,
+    mpregen: 0,
+    mpregenperlevel: 0,
+    crit: 0,
+    critperlevel: 0,
+    attackdamage: 0,
+    attackdamageperlevel: 0,
+    attackspeedperlevel: 0,
+    attackspeed: 0,
+  }
+})
 
 async function deleteBuild() {
   try {
@@ -33,9 +161,14 @@ function editBuild() {
     query: { file: fileName },
   })
 }
+
+const updateLevel = (newLevel: number) => {
+  lvl.value = newLevel
+}
 </script>
 
 <template>
+  {{ console.log(itemsStats) }}
   <main data-v-0c81bdb5="" class="main builds">
     <div data-v-6a3673aa="" data-v-0c81bdb5="" class="build">
       <h1 data-v-6a3673aa="" class="pagetitle">Build</h1>
@@ -78,8 +211,9 @@ function editBuild() {
                 <path d="M19 16v6"></path>
                 <path d="M22 19l-3 3l-3 -3"></path>
               </svg>
-              Download image</button
-            ><button
+              Télécharger l'image
+            </button>
+            <button
               data-v-6a3673aa=""
               class="btn small sea"
               title="Copy to clipboard"
@@ -104,7 +238,34 @@ function editBuild() {
                 <path d="M20 21l2 -2l-2 -2"></path>
                 <path d="M17 17l-2 2l2 2"></path>
               </svg>
-              Copy image
+              Copier l'image
+            </button>
+            <button
+              data-v-6a3673aa=""
+              class="btn small sea"
+              title="Copy to clipboard"
+            >
+              <svg
+                data-v-6a3673aa=""
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                stroke-width="2"
+                stroke="currentColor"
+                fill="none"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M15 8h.01"></path>
+                <path
+                  d="M11.5 21h-5.5a3 3 0 0 1 -3 -3v-12a3 3 0 0 1 3 -3h12a3 3 0 0 1 3 3v7"
+                ></path>
+                <path d="M3 16l5 -5c.928 -.893 2.072 -.893 3 0l3 3"></path>
+                <path d="M14 14l1 -1c.928 -.893 2.072 -.893 3 0"></path>
+                <path d="M20 21l2 -2l-2 -2"></path>
+                <path d="M17 17l-2 2l2 2"></path>
+              </svg>
+              Télécharger le JSON
             </button>
           </div>
           <div data-v-6a3673aa="" class="rest">
@@ -114,19 +275,16 @@ function editBuild() {
               class="btn small slate"
               @click="deleteBuild"
             >
-              Delete
+              Supprimer
             </button>
             <button
               data-v-6a3673aa=""
               class="btn small slate"
               @click="editBuild"
             >
-              Edit
+              Modifier
             </button>
           </div>
-        </div>
-        <div data-v-6a3673aa="" class="hue" title="Color">
-          <input data-v-6a3673aa="" type="range" step="any" max="360" min="1" />
         </div>
         <div data-v-6a3673aa="" class="stats">
           <div data-v-636d16e0="" data-v-6a3673aa="" class="stats">
@@ -148,7 +306,8 @@ function editBuild() {
                     );
                   "
                 >
-                  862<span data-v-636d16e0="">&nbsp;</span>
+                  {{ effectiveHealth.physicalBase
+                  }}<span data-v-636d16e0="">&nbsp;</span>
                 </div>
                 <div
                   data-v-636d16e0=""
@@ -161,7 +320,8 @@ function editBuild() {
                     );
                   "
                 >
-                  2480<span data-v-636d16e0="">&nbsp;</span>
+                  {{ effectiveHealth.physicalItems
+                  }}<span data-v-636d16e0="">&nbsp;</span>
                 </div>
                 <div
                   data-v-636d16e0=""
@@ -174,7 +334,7 @@ function editBuild() {
                     );
                   "
                 >
-                  4318<span data-v-636d16e0="">&nbsp;</span>
+                  <!-- {{ totalStats.physicalEffectiveHealth}}<span data-v-636d16e0="">&nbsp;</span> -->
                 </div>
                 <div data-v-636d16e0="" class="name">
                   Physical effective health
@@ -192,7 +352,8 @@ function editBuild() {
                     );
                   "
                 >
-                  818<span data-v-636d16e0="">&nbsp;</span>
+                  {{ effectiveHealth.magicalBase
+                  }}<span data-v-636d16e0="">&nbsp;</span>
                 </div>
                 <div
                   data-v-636d16e0=""
@@ -205,7 +366,8 @@ function editBuild() {
                     );
                   "
                 >
-                  3720<span data-v-636d16e0="">&nbsp;</span>
+                  {{ effectiveHealth.magicalItems
+                  }}<span data-v-636d16e0="">&nbsp;</span>
                 </div>
                 <div
                   data-v-636d16e0=""
@@ -218,7 +380,7 @@ function editBuild() {
                     );
                   "
                 >
-                  5902<span data-v-636d16e0="">&nbsp;</span>
+                  <!-- {{ totalStats.magicalEffectiveHealth }}<span data-v-636d16e0="">&nbsp;</span> -->
                 </div>
                 <div data-v-636d16e0="" class="name">
                   Magical effective health
@@ -236,7 +398,7 @@ function editBuild() {
                     );
                   "
                 >
-                  620<span data-v-636d16e0="">&nbsp;</span>
+                  {{ championStats.hp }}<span data-v-636d16e0="">&nbsp;</span>
                 </div>
                 <div
                   data-v-636d16e0=""
@@ -249,7 +411,7 @@ function editBuild() {
                     );
                   "
                 >
-                  1550<span data-v-636d16e0="">&nbsp;</span>
+                  {{ itemsStats.hp }}<span data-v-636d16e0="">&nbsp;</span>
                 </div>
                 <div
                   data-v-636d16e0=""
@@ -262,9 +424,9 @@ function editBuild() {
                     );
                   "
                 >
-                  2170<span data-v-636d16e0="">&nbsp;</span>
+                  {{ totalStats.hp }}<span data-v-636d16e0="">&nbsp;</span>
                 </div>
-                <div data-v-636d16e0="" class="name">health</div>
+                <div data-v-636d16e0="" class="name">HP</div>
               </div>
               <div data-v-636d16e0="" class="list-item">
                 <div
@@ -278,7 +440,8 @@ function editBuild() {
                     );
                   "
                 >
-                  9<span data-v-636d16e0="">&nbsp;</span>
+                  {{ championStats.hpregen
+                  }}<span data-v-636d16e0="">&nbsp;</span>
                 </div>
                 <div
                   data-v-636d16e0=""
@@ -291,7 +454,7 @@ function editBuild() {
                     );
                   "
                 >
-                  0<span data-v-636d16e0="">&nbsp;</span>
+                  {{ itemsStats.hpregen }}<span data-v-636d16e0="">&nbsp;</span>
                 </div>
                 <div
                   data-v-636d16e0=""
@@ -304,9 +467,9 @@ function editBuild() {
                     );
                   "
                 >
-                  9<span data-v-636d16e0="">&nbsp;</span>
+                  {{ totalStats.hpregen }}<span data-v-636d16e0="">&nbsp;</span>
                 </div>
-                <div data-v-636d16e0="" class="name">health regen</div>
+                <div data-v-636d16e0="" class="name">HP regen</div>
               </div>
               <div data-v-636d16e0="" class="list-item">
                 <div
@@ -320,7 +483,7 @@ function editBuild() {
                     );
                   "
                 >
-                  330<span data-v-636d16e0="">&nbsp;</span>
+                  {{ championStats.mp }}<span data-v-636d16e0="">&nbsp;</span>
                 </div>
                 <div
                   data-v-636d16e0=""
@@ -333,7 +496,7 @@ function editBuild() {
                     );
                   "
                 >
-                  2300<span data-v-636d16e0="">&nbsp;</span>
+                  {{ itemsStats.mp }}<span data-v-636d16e0="">&nbsp;</span>
                 </div>
                 <div
                   data-v-636d16e0=""
@@ -346,9 +509,9 @@ function editBuild() {
                     );
                   "
                 >
-                  2630<span data-v-636d16e0="">&nbsp;</span>
+                  {{ totalStats.mp }}<span data-v-636d16e0="">&nbsp;</span>
                 </div>
-                <div data-v-636d16e0="" class="name">mana</div>
+                <div data-v-636d16e0="" class="name">Mana</div>
               </div>
               <div data-v-636d16e0="" class="list-item">
                 <div
@@ -362,7 +525,8 @@ function editBuild() {
                     );
                   "
                 >
-                  8<span data-v-636d16e0="">&nbsp;</span>
+                  {{ championStats.mpregen
+                  }}<span data-v-636d16e0="">&nbsp;</span>
                 </div>
                 <div
                   data-v-636d16e0=""
@@ -375,7 +539,7 @@ function editBuild() {
                     );
                   "
                 >
-                  0<span data-v-636d16e0="">&nbsp;</span>
+                  {{ itemsStats.mpregen }}<span data-v-636d16e0="">&nbsp;</span>
                 </div>
                 <div
                   data-v-636d16e0=""
@@ -388,9 +552,9 @@ function editBuild() {
                     );
                   "
                 >
-                  8<span data-v-636d16e0="">&nbsp;</span>
+                  {{ totalStats.mpregen }}<span data-v-636d16e0="">&nbsp;</span>
                 </div>
-                <div data-v-636d16e0="" class="name">mana regen</div>
+                <div data-v-636d16e0="" class="name">Mana regen</div>
               </div>
               <div data-v-636d16e0="" class="list-item">
                 <div
@@ -404,7 +568,8 @@ function editBuild() {
                     );
                   "
                 >
-                  39<span data-v-636d16e0="">&nbsp;</span>
+                  {{ championStats.armor
+                  }}<span data-v-636d16e0="">&nbsp;</span>
                 </div>
                 <div
                   data-v-636d16e0=""
@@ -417,7 +582,7 @@ function editBuild() {
                     );
                   "
                 >
-                  60<span data-v-636d16e0="">&nbsp;</span>
+                  {{ itemsStats.armor }}<span data-v-636d16e0="">&nbsp;</span>
                 </div>
                 <div
                   data-v-636d16e0=""
@@ -430,9 +595,9 @@ function editBuild() {
                     );
                   "
                 >
-                  99<span data-v-636d16e0="">&nbsp;</span>
+                  {{ totalStats.armor }}<span data-v-636d16e0="">&nbsp;</span>
                 </div>
-                <div data-v-636d16e0="" class="name">armor</div>
+                <div data-v-636d16e0="" class="name">Armure</div>
               </div>
               <div data-v-636d16e0="" class="list-item">
                 <div
@@ -446,7 +611,8 @@ function editBuild() {
                     );
                   "
                 >
-                  32<span data-v-636d16e0="">&nbsp;</span>
+                  {{ championStats.spellblock
+                  }}<span data-v-636d16e0="">&nbsp;</span>
                 </div>
                 <div
                   data-v-636d16e0=""
@@ -459,7 +625,8 @@ function editBuild() {
                     );
                   "
                 >
-                  140<span data-v-636d16e0="">&nbsp;</span>
+                  {{ itemsStats.spellblock
+                  }}<span data-v-636d16e0="">&nbsp;</span>
                 </div>
                 <div
                   data-v-636d16e0=""
@@ -472,9 +639,10 @@ function editBuild() {
                     );
                   "
                 >
-                  172<span data-v-636d16e0="">&nbsp;</span>
+                  {{ totalStats.spellblock
+                  }}<span data-v-636d16e0="">&nbsp;</span>
                 </div>
-                <div data-v-636d16e0="" class="name">magic resist</div>
+                <div data-v-636d16e0="" class="name">Resistance magique</div>
               </div>
               <div data-v-636d16e0="" class="list-item">
                 <div
@@ -488,7 +656,8 @@ function editBuild() {
                     );
                   "
                 >
-                  63<span data-v-636d16e0="">&nbsp;</span>
+                  {{ championStats.attackdamage
+                  }}<span data-v-636d16e0="">&nbsp;</span>
                 </div>
                 <div
                   data-v-636d16e0=""
@@ -501,7 +670,8 @@ function editBuild() {
                     );
                   "
                 >
-                  135<span data-v-636d16e0="">&nbsp;</span>
+                  {{ itemsStats.attackdamage
+                  }}<span data-v-636d16e0="">&nbsp;</span>
                 </div>
                 <div
                   data-v-636d16e0=""
@@ -514,9 +684,10 @@ function editBuild() {
                     );
                   "
                 >
-                  198<span data-v-636d16e0="">&nbsp;</span>
+                  {{ totalStats.attackdamage
+                  }}<span data-v-636d16e0="">&nbsp;</span>
                 </div>
-                <div data-v-636d16e0="" class="name">attack damage</div>
+                <div data-v-636d16e0="" class="name">AD</div>
               </div>
               <div data-v-636d16e0="" class="list-item">
                 <div
@@ -530,7 +701,8 @@ function editBuild() {
                     );
                   "
                 >
-                  340<span data-v-636d16e0="">&nbsp;</span>
+                  {{ championStats.movespeed
+                  }}<span data-v-636d16e0="">&nbsp;</span>
                 </div>
                 <div
                   data-v-636d16e0=""
@@ -543,7 +715,8 @@ function editBuild() {
                     );
                   "
                 >
-                  27<span data-v-636d16e0="">&nbsp;</span>
+                  {{ itemsStats.movespeed
+                  }}<span data-v-636d16e0="">&nbsp;</span>
                 </div>
                 <div
                   data-v-636d16e0=""
@@ -556,9 +729,12 @@ function editBuild() {
                     );
                   "
                 >
-                  367<span data-v-636d16e0="">&nbsp;</span>
+                  {{ totalStats.movespeed
+                  }}<span data-v-636d16e0="">&nbsp;</span>
                 </div>
-                <div data-v-636d16e0="" class="name">move speed</div>
+                <div data-v-636d16e0="" class="name">
+                  Vitesse de déplacement
+                </div>
               </div>
               <div data-v-636d16e0="" class="list-item">
                 <div
@@ -572,7 +748,8 @@ function editBuild() {
                     );
                   "
                 >
-                  150<span data-v-636d16e0="">&nbsp;</span>
+                  {{ championStats.attackrange
+                  }}<span data-v-636d16e0="">&nbsp;</span>
                 </div>
                 <div
                   data-v-636d16e0=""
@@ -585,7 +762,8 @@ function editBuild() {
                     );
                   "
                 >
-                  0<span data-v-636d16e0="">&nbsp;</span>
+                  {{ itemsStats.attackrange
+                  }}<span data-v-636d16e0="">&nbsp;</span>
                 </div>
                 <div
                   data-v-636d16e0=""
@@ -598,9 +776,10 @@ function editBuild() {
                     );
                   "
                 >
-                  150<span data-v-636d16e0="">&nbsp;</span>
+                  {{ totalStats.attackrange
+                  }}<span data-v-636d16e0="">&nbsp;</span>
                 </div>
-                <div data-v-636d16e0="" class="name">attack range</div>
+                <div data-v-636d16e0="" class="name">Portée d'attaque</div>
               </div>
               <div data-v-636d16e0="" class="list-item">
                 <div
@@ -614,7 +793,8 @@ function editBuild() {
                     );
                   "
                 >
-                  0<span data-v-636d16e0="">%</span>
+                  {{ championStats.attackspeed
+                  }}<span data-v-636d16e0="">%</span>
                 </div>
                 <div
                   data-v-636d16e0=""
@@ -627,7 +807,7 @@ function editBuild() {
                     );
                   "
                 >
-                  50<span data-v-636d16e0="">%</span>
+                  {{ itemsStats.attackspeed }}<span data-v-636d16e0="">%</span>
                 </div>
                 <div
                   data-v-636d16e0=""
@@ -640,9 +820,9 @@ function editBuild() {
                     );
                   "
                 >
-                  50<span data-v-636d16e0="">%</span>
+                  {{ totalStats.attackspeed }}<span data-v-636d16e0="">%</span>
                 </div>
-                <div data-v-636d16e0="" class="name">attack speed (%)</div>
+                <div data-v-636d16e0="" class="name">Vitesse d'attaque (%)</div>
               </div>
               <div data-v-636d16e0="" class="list-item">
                 <div
@@ -669,7 +849,7 @@ function editBuild() {
                     );
                   "
                 >
-                  125<span data-v-636d16e0="">&nbsp;</span>
+                  {{ itemsStats.CDR }}<span data-v-636d16e0="">&nbsp;</span>
                 </div>
                 <div
                   data-v-636d16e0=""
@@ -682,9 +862,12 @@ function editBuild() {
                     );
                   "
                 >
-                  125<span data-v-636d16e0="">&nbsp;</span>
+                  {{ totalStats.CDR }}
+                  <span data-v-636d16e0="">&nbsp;</span>
                 </div>
-                <div data-v-636d16e0="" class="name">ability haste</div>
+                <div data-v-636d16e0="" class="name">
+                  Accélération des compétences
+                </div>
               </div>
               <div data-v-636d16e0="" class="list-item">
                 <div
@@ -711,7 +894,7 @@ function editBuild() {
                     );
                   "
                 >
-                  485<span data-v-636d16e0="">&nbsp;</span>
+                  {{ itemsStats.AP }}<span data-v-636d16e0="">&nbsp;</span>
                 </div>
                 <div
                   data-v-636d16e0=""
@@ -724,9 +907,10 @@ function editBuild() {
                     );
                   "
                 >
-                  485<span data-v-636d16e0="">&nbsp;</span>
+                  {{ totalStats.AP }}
+                  <span data-v-636d16e0="">&nbsp;</span>
                 </div>
-                <div data-v-636d16e0="" class="name">ability power</div>
+                <div data-v-636d16e0="" class="name">AP</div>
               </div>
               <div data-v-636d16e0="" class="list-item">
                 <div
@@ -753,7 +937,8 @@ function editBuild() {
                     );
                   "
                 >
-                  18<span data-v-636d16e0="">&nbsp;</span>
+                  {{ itemsStats.lethality
+                  }}<span data-v-636d16e0="">&nbsp;</span>
                 </div>
                 <div
                   data-v-636d16e0=""
@@ -766,9 +951,10 @@ function editBuild() {
                     );
                   "
                 >
-                  18<span data-v-636d16e0="">&nbsp;</span>
+                  {{ totalStats.lethality }}
+                  <span data-v-636d16e0="">&nbsp;</span>
                 </div>
-                <div data-v-636d16e0="" class="name">lethality</div>
+                <div data-v-636d16e0="" class="name">Lethalité</div>
               </div>
               <div data-v-636d16e0="" class="list-item">
                 <div
@@ -795,7 +981,8 @@ function editBuild() {
                     );
                   "
                 >
-                  30<span data-v-636d16e0="">%</span>
+                  {{ itemsStats.magicPenetration
+                  }}<span data-v-636d16e0="">%</span>
                 </div>
                 <div
                   data-v-636d16e0=""
@@ -808,9 +995,12 @@ function editBuild() {
                     );
                   "
                 >
-                  30<span data-v-636d16e0="">%</span>
+                  {{ totalStats.magicPenetration }}
+                  <span data-v-636d16e0="">%</span>
                 </div>
-                <div data-v-636d16e0="" class="name">magic penetration (%)</div>
+                <div data-v-636d16e0="" class="name">
+                  Pénétration magique (%)
+                </div>
               </div>
               <div data-v-636d16e0="" class="list-item">
                 <div
@@ -837,7 +1027,7 @@ function editBuild() {
                     );
                   "
                 >
-                  20<span data-v-636d16e0="">%</span>
+                  {{ itemsStats.shield }}<span data-v-636d16e0="">%</span>
                 </div>
                 <div
                   data-v-636d16e0=""
@@ -850,9 +1040,141 @@ function editBuild() {
                     );
                   "
                 >
-                  20<span data-v-636d16e0="">%</span>
+                  {{ totalStats.shield }}
+                  <span data-v-636d16e0="">%</span>
                 </div>
-                <div data-v-636d16e0="" class="name">tenacity (%)</div>
+                <div data-v-636d16e0="" class="name">
+                  Augmentation bouclier (%)
+                </div>
+              </div>
+              <div data-v-636d16e0="" class="list-item">
+                <div
+                  data-v-636d16e0=""
+                  class="tenacity:% value column"
+                  style="
+                    background: color-mix(
+                      in srgb,
+                      var(--slate-2),
+                      color-mix(in srgb, var(--red), var(--green) 50%) 0%
+                    );
+                  "
+                >
+                  0<span data-v-636d16e0="">%</span>
+                </div>
+                <div
+                  data-v-636d16e0=""
+                  class="tenacity:% value column"
+                  style="
+                    background: color-mix(
+                      in srgb,
+                      var(--slate-2),
+                      color-mix(in srgb, var(--red), var(--green) 50%) 0%
+                    );
+                  "
+                >
+                  {{ itemsStats.omnivamp }}<span data-v-636d16e0="">%</span>
+                </div>
+                <div
+                  data-v-636d16e0=""
+                  class="tenacity:% value column"
+                  style="
+                    background: color-mix(
+                      in srgb,
+                      var(--slate-2),
+                      color-mix(in srgb, var(--red), var(--green) 50%) 0%
+                    );
+                  "
+                >
+                  {{ totalStats.omnivamp }}
+                  <span data-v-636d16e0="">%</span>
+                </div>
+                <div data-v-636d16e0="" class="name">Omnivamp (%)</div>
+              </div>
+              <div data-v-636d16e0="" class="list-item">
+                <div
+                  data-v-636d16e0=""
+                  class="tenacity:% value column"
+                  style="
+                    background: color-mix(
+                      in srgb,
+                      var(--slate-2),
+                      color-mix(in srgb, var(--red), var(--green) 50%) 0%
+                    );
+                  "
+                >
+                  0<span data-v-636d16e0="">%</span>
+                </div>
+                <div
+                  data-v-636d16e0=""
+                  class="tenacity:% value column"
+                  style="
+                    background: color-mix(
+                      in srgb,
+                      var(--slate-2),
+                      color-mix(in srgb, var(--red), var(--green) 50%) 0%
+                    );
+                  "
+                >
+                  {{ itemsStats.crit }}<span data-v-636d16e0="">%</span>
+                </div>
+                <div
+                  data-v-636d16e0=""
+                  class="tenacity:% value column"
+                  style="
+                    background: color-mix(
+                      in srgb,
+                      var(--slate-2),
+                      color-mix(in srgb, var(--red), var(--green) 50%) 0%
+                    );
+                  "
+                >
+                  {{ totalStats.crit }}
+                  <span data-v-636d16e0="">%</span>
+                </div>
+                <div data-v-636d16e0="" class="name">Critique (%)</div>
+              </div>
+              <div data-v-636d16e0="" class="list-item">
+                <div
+                  data-v-636d16e0=""
+                  class="tenacity:% value column"
+                  style="
+                    background: color-mix(
+                      in srgb,
+                      var(--slate-2),
+                      color-mix(in srgb, var(--red), var(--green) 50%) 0%
+                    );
+                  "
+                >
+                  0<span data-v-636d16e0="">%</span>
+                </div>
+                <div
+                  data-v-636d16e0=""
+                  class="tenacity:% value column"
+                  style="
+                    background: color-mix(
+                      in srgb,
+                      var(--slate-2),
+                      color-mix(in srgb, var(--red), var(--green) 50%) 0%
+                    );
+                  "
+                >
+                  {{ itemsStats.tenacity }}<span data-v-636d16e0="">%</span>
+                </div>
+                <div
+                  data-v-636d16e0=""
+                  class="tenacity:% value column"
+                  style="
+                    background: color-mix(
+                      in srgb,
+                      var(--slate-2),
+                      color-mix(in srgb, var(--red), var(--green) 50%) 0%
+                    );
+                  "
+                >
+                  {{ totalStats.tenacity }}
+                  <span data-v-636d16e0="">%</span>
+                </div>
+                <div data-v-636d16e0="" class="name">ténacité (%)</div>
               </div>
               <div data-v-636d16e0="" class="list-item">
                 <div
@@ -879,7 +1201,8 @@ function editBuild() {
                     );
                   "
                 >
-                  34700<span data-v-636d16e0="">&nbsp;</span>
+                  {{ buildData?.sheet.items.gold.total
+                  }}<span data-v-636d16e0="">&nbsp;</span>
                 </div>
                 <div
                   data-v-636d16e0=""
@@ -892,12 +1215,13 @@ function editBuild() {
                     );
                   "
                 >
-                  34700<span data-v-636d16e0="">&nbsp;</span>
+                  {{ buildData?.sheet.items.gold.total
+                  }}<span data-v-636d16e0="">&nbsp;</span>
                 </div>
-                <div data-v-636d16e0="" class="name">gold</div>
+                <div data-v-636d16e0="" class="name">Gold</div>
               </div>
             </div>
-            <div data-v-636d16e0="" class="slot">
+            <!-- <div data-v-636d16e0="" class="slot">
               <div data-v-5f37b7fd="" data-v-6a3673aa="" class="note">
                 <div data-v-cbff5ddf="" data-v-5f37b7fd="" class="tooltip">
                   <svg
@@ -938,7 +1262,7 @@ function editBuild() {
                   </div>
                 </div>
               </div>
-            </div>
+            </div> -->
           </div>
           <div data-v-6a3673aa="" class="levels">
             <div
@@ -947,36 +1271,17 @@ function editBuild() {
               class="levels horizontal"
               title="level"
             >
-              <button data-v-575fc9df="" class="active level">1</button
-              ><button data-v-575fc9df="" class="level">2</button
-              ><button data-v-575fc9df="" class="level">3</button
-              ><button data-v-575fc9df="" class="level">4</button
-              ><button data-v-575fc9df="" class="level">5</button
-              ><button data-v-575fc9df="" class="level">6</button
-              ><button data-v-575fc9df="" class="level">7</button
-              ><button data-v-575fc9df="" class="level">8</button
-              ><button data-v-575fc9df="" class="level">9</button
-              ><button data-v-575fc9df="" class="level">10</button
-              ><button data-v-575fc9df="" class="level">11</button
-              ><button data-v-575fc9df="" class="level">12</button
-              ><button data-v-575fc9df="" class="level">13</button
-              ><button data-v-575fc9df="" class="level">14</button
-              ><button data-v-575fc9df="" class="level">15</button
-              ><button data-v-575fc9df="" class="level">16</button
-              ><button data-v-575fc9df="" class="level">17</button
-              ><button data-v-575fc9df="" class="level">18</button>
+              <button
+                v-for="level in 18"
+                data-v-575fc9df=""
+                :key="level"
+                :class="['level', { active: lvl === level }]"
+                @click="updateLevel(level)"
+              >
+                {{ level }}
+              </button>
             </div>
           </div>
-          <a data-v-6a3673aa="" href="/pro/champion/gwen" class="pro">
-            <div data-v-1f02dc05="" class="champion">
-              <img
-                data-v-1f02dc05=""
-                src="https://peak.sybo.dev/data/img/champions/887.png"
-                alt="gwen.name"
-              />
-            </div>
-            Gwen PRO/OTP builds and stats
-          </a>
         </div>
       </div>
     </div>

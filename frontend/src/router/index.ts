@@ -44,7 +44,7 @@ const routes: RouteRecordRaw[] = [
   },
   {
     path: '/build/:fileName',
-    name: 'build-view',
+    name: 'build',
     component: () => import('../views/BuildRecapView.vue'),
     props: true,
   },

@@ -16,3 +16,23 @@ export interface BuildData {
     items: ItemSelection
   }
 }
+
+export interface BuildStats {
+  hp: number
+  armor: number
+  spellblock: number
+  attackdamage: number
+  attackrange: number
+  attackspeed: number
+  crit: number
+  hpregen: number
+  movespeed: number
+  mp: number
+  mpregen: number
+  CDR?: number
+  AP?: number
+  lethality?: number
+  magicPenetration?: number
+  tenacity?: number
+  lvl: number
+}

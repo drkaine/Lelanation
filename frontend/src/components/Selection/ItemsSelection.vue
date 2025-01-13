@@ -55,20 +55,18 @@ const filteredItems = computed<Item[]>(() => {
   )
 })
 
-const getItemsFrom = (item: Item) => {
-  return (
-    item.from
-      ?.map((id: string) => items.data[id as keyof typeof items.data])
-      .filter(Boolean) || []
-  )
+const getItemsFrom = (item: Item): Item[] => {
+  if (!item.from) return []
+  return item.from
+    .map(id => items.data[id as keyof typeof items.data])
+    .filter(Boolean)
 }
 
-const getItemsInto = (item: Item) => {
-  return (
-    item.into
-      ?.map((id: string) => items.data[id as keyof typeof items.data])
-      .filter(Boolean) || []
-  )
+const getItemsInto = (item: Item): Item[] => {
+  if (!item.into) return []
+  return item.into
+    .map(id => items.data[id as keyof typeof items.data])
+    .filter(Boolean)
 }
 
 const itemsBoots = computed<Item[]>(() =>

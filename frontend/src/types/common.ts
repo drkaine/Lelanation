@@ -14,7 +14,3 @@ export interface Gold {
   total: number
   sell: number
 }
-
-export interface Stats {
-  [key: string]: number | undefined
-}
