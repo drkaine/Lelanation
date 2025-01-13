@@ -13,8 +13,8 @@ const app = express();
 
 const corsOptions = {
   origin: [
-    "http://www.dev.Lelanation.darkaine.fr",
-    "https://www.Lelanation.darkaine.fr",
+    "http://www.dev.lelanation.darkaine.fr",
+    "https://www.lelanation.darkaine.fr",
     "http://localhost:5173",
   ],
   methods: ["GET", "POST"],
