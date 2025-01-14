@@ -15,10 +15,9 @@ const fileName = route.params.fileName as string
 const buildData = ref<BuildData | null>(null)
 const lvl = ref(1)
 
-const response = await fetch(`/src/assets/build/${fileName}`)
+const response = await fetch(`/assets/files/build/${fileName}`)
 const data = await response.json()
 buildData.value = data
-
 const itemsStats = computed(() => {
   if (buildData.value?.sheet.items.stats) {
     return calculateItemStats(buildData.value.sheet.items.stats)

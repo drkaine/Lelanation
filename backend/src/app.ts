@@ -33,7 +33,7 @@ app.post("/api/save/:filename", (req, res) => {
 
   save(
     JSON.stringify(data),
-    path.join(__dirname, "../../frontend/src/assets/build/" + filename),
+    path.join(__dirname, "../../frontend/public/assets/files/build/" + filename),
   );
   res.sendStatus(200);
 });
@@ -42,7 +42,7 @@ app.delete("/api/build/:fileName", async (req, res) => {
   try {
     const filePath = path.join(
       __dirname,
-      "../../frontend/src/assets/build/",
+      "../../frontend/public/assets/files/build/",
       req.params.fileName,
     );
     await unlink(filePath);
