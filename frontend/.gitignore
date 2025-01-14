@@ -40,6 +40,7 @@ playwright-report/
 /public/assets/icons/summoners/
 /public/assets/icons/runes/
 /public/assets/icons/items/
+/public/assets/images/lelariva.png
 
 !src/assets/files/shards.json
 
