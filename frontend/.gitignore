@@ -41,6 +41,7 @@ playwright-report/
 /public/assets/icons/runes/
 /public/assets/icons/items/
 /public/assets/images/lelariva.png
+/public/assets/files/build/*
 
 !src/assets/files/shards.json
 

@@ -61,7 +61,7 @@ const submitForm = async () => {
 </script>
 
 <template>
- <div data-v-af89f54e="" data-v-b6709614="" class="info">
+  <div data-v-af89f54e="" data-v-b6709614="" class="info">
     <form data-v-af89f54e="" @submit.prevent="submitForm">
       <label data-v-af89f54e="">
         Name *
