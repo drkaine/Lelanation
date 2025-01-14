@@ -1,5 +1,5 @@
 import type { Image, Gold } from './common'
-import type { Stats } from './stat'
+import type { ItemStats } from './stat'
 
 export interface Item {
   name: string
@@ -15,7 +15,7 @@ export interface Item {
   gold: Gold
   tags: string[]
   maps: { [mapId: string]: boolean }
-  stats: Stats
+  stats: ItemStats
 }
 
 export interface RecommendedItem {
@@ -48,6 +48,6 @@ export interface ItemSelection {
   core: Item[] | null
   situationnel: Item[] | null
   boots: Item[] | null
-  stats: Stats
+  stats: ItemStats
   gold: Gold
 }

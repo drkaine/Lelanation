@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
 import type { Item, ItemSelection } from '@/types/item'
-import type { Stats } from '@/types/stat'
+import type { ItemStats } from '@/types/stat'
 
 export const useItemStore = defineStore('Item', () => {
   const ItemsSelection = ref<ItemSelection>({
@@ -73,7 +73,7 @@ export const useItemStore = defineStore('Item', () => {
     setItemGold(Item.gold.total)
   }
 
-  const setItemStats = (stats: Stats) => {
+  const setItemStats = (stats: ItemStats) => {
     for (const [key, value] of Object.entries(stats)) {
       const statKey = key as keyof typeof ItemsSelection.value.stats
       if (value !== undefined) {
@@ -100,7 +100,7 @@ export const useItemStore = defineStore('Item', () => {
     ItemsSelection.value.gold.total -= gold
   }
 
-  const RemoveItemStat = (stats: Stats) => {
+  const RemoveItemStat = (stats: ItemStats) => {
     for (const [key, value] of Object.entries(stats)) {
       const statKey = key as keyof typeof ItemsSelection.value.stats
       if (value !== undefined) {

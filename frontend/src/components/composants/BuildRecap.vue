@@ -4,12 +4,9 @@ import { ref, computed } from 'vue'
 import SheetBuild from '@/components/composants/SheetBuild.vue'
 import type { BuildData } from '@/types/build'
 import {
-  calculateEffectiveArmor,
-  calculateEffectiveMR,
-} from '@/components/script/StatsCalculator'
-import {
   calculateBaseStats,
   calculateItemStats,
+  calculateTotalStats,
 } from '@/components/script/BuildCalculator'
 
 const route = useRoute()
@@ -21,69 +18,6 @@ const lvl = ref(1)
 const response = await fetch(`/src/assets/build/${fileName}`)
 const data = await response.json()
 buildData.value = data
-
-const effectiveHealth = computed(() => ({
-  physicalBase: calculateEffectiveArmor({
-    baseArmor: championStats.value.armor,
-    bonusArmor: 0,
-    health: championStats.value.hp,
-  }).effectiveHealth,
-  magicalBase: calculateEffectiveMR({
-    baseMR: championStats.value.spellblock,
-    bonusMR: 0,
-    health: championStats.value.hp,
-  }).effectiveHealth,
-  physicalItems: calculateEffectiveArmor({
-    baseArmor: itemsStats.value.armor,
-    bonusArmor: 0,
-    health: itemsStats.value.hp,
-  }).effectiveHealth,
-  magicalItems: calculateEffectiveMR({
-    baseMR: itemsStats.value.spellblock,
-    bonusMR: 0,
-    health: itemsStats.value.hp,
-  }).effectiveHealth,
-}))
-
-const totalStats = computed(() => ({
-  // physicalEffectiveHealth: (
-  //   effectiveHealth.value.physicalBase + effectiveHealth.value.physicalItems
-  // ).toFixed(0),
-  // magicalEffectiveHealth: (
-  //   effectiveHealth.value.magicalBase + effectiveHealth.value.magicalItems
-  // ).toFixed(0),
-  armor: (championStats.value.armor + itemsStats.value.armor).toFixed(0),
-  attackdamage: (
-    championStats.value.attackdamage + itemsStats.value.attackdamage
-  ).toFixed(0),
-  attackrange: (
-    championStats.value.attackrange + itemsStats.value.attackrange
-  ).toFixed(0),
-  attackspeed: (
-    championStats.value.attackspeed + itemsStats.value.attackspeed
-  ).toFixed(0),
-  crit: (championStats.value.crit + itemsStats.value.crit).toFixed(0),
-  hp: (championStats.value.hp + itemsStats.value.hp).toFixed(0),
-  hpregen: (championStats.value.hpregen + itemsStats.value.hpregen).toFixed(0),
-  movespeed: (
-    championStats.value.movespeed + itemsStats.value.movespeed
-  ).toFixed(0),
-  mp: (championStats.value.mp + itemsStats.value.mp).toFixed(0),
-  mpregen: (championStats.value.mpregen + itemsStats.value.mpregen).toFixed(0),
-  spellblock: (
-    championStats.value.spellblock + itemsStats.value.spellblock
-  ).toFixed(0),
-  CDR: itemsStats.value.CDR.toFixed(0),
-  AP: itemsStats.value.AP.toFixed(0),
-  lethality: itemsStats.value.lethality.toFixed(0),
-  magicPenetration: itemsStats.value.magicPenetration.toFixed(0),
-  tenacity: itemsStats.value.tenacity.toFixed(0),
-  omnivamp: itemsStats.value.omnivamp.toFixed(0),
-  shield: itemsStats.value.shield.toFixed(0),
-  spellvamp: itemsStats.value.spellvamp.toFixed(0),
-  armorpen: itemsStats.value.armorpen.toFixed(0),
-  magicpen: itemsStats.value.magicpen.toFixed(0),
-}))
 
 const itemsStats = computed(() => {
   if (buildData.value?.sheet.items.stats) {
@@ -138,8 +72,22 @@ const championStats = computed(() => {
     attackdamageperlevel: 0,
     attackspeedperlevel: 0,
     attackspeed: 0,
+    CDR: 0,
+    AP: 0,
+    lethality: 0,
+    magicPenetration: 0,
+    tenacity: 0,
+    omnivamp: 0,
+    shield: 0,
+    spellvamp: 0,
+    armorpen: 0,
+    magicpen: 0,
   }
 })
+
+const totalStats = computed(() =>
+  calculateTotalStats(championStats.value, itemsStats.value),
+)
 
 async function deleteBuild() {
   try {
@@ -168,7 +116,6 @@ const updateLevel = (newLevel: number) => {
 </script>
 
 <template>
-  {{ console.log(itemsStats) }}
   <main data-v-0c81bdb5="" class="main builds">
     <div data-v-6a3673aa="" data-v-0c81bdb5="" class="build">
       <h1 data-v-6a3673aa="" class="pagetitle">Build</h1>
@@ -293,98 +240,6 @@ const updateLevel = (newLevel: number) => {
                 <div data-v-636d16e0="" class="label column">base</div>
                 <div data-v-636d16e0="" class="label column">items</div>
                 <div data-v-636d16e0="" class="label column">total</div>
-              </div>
-              <div data-v-636d16e0="" class="list-item">
-                <div
-                  data-v-636d16e0=""
-                  class="Physical-effective-health value column"
-                  style="
-                    background: color-mix(
-                      in srgb,
-                      var(--slate-2),
-                      color-mix(in srgb, var(--red), var(--green) 50%) 0%
-                    );
-                  "
-                >
-                  {{ effectiveHealth.physicalBase
-                  }}<span data-v-636d16e0="">&nbsp;</span>
-                </div>
-                <div
-                  data-v-636d16e0=""
-                  class="Physical-effective-health value column"
-                  style="
-                    background: color-mix(
-                      in srgb,
-                      var(--slate-2),
-                      color-mix(in srgb, var(--red), var(--green) 50%) 0%
-                    );
-                  "
-                >
-                  {{ effectiveHealth.physicalItems
-                  }}<span data-v-636d16e0="">&nbsp;</span>
-                </div>
-                <div
-                  data-v-636d16e0=""
-                  class="Physical-effective-health value column"
-                  style="
-                    background: color-mix(
-                      in srgb,
-                      var(--slate-2),
-                      color-mix(in srgb, var(--red), var(--green) 50%) 0%
-                    );
-                  "
-                >
-                  <!-- {{ totalStats.physicalEffectiveHealth}}<span data-v-636d16e0="">&nbsp;</span> -->
-                </div>
-                <div data-v-636d16e0="" class="name">
-                  Physical effective health
-                </div>
-              </div>
-              <div data-v-636d16e0="" class="list-item">
-                <div
-                  data-v-636d16e0=""
-                  class="Magical-effective-health value column"
-                  style="
-                    background: color-mix(
-                      in srgb,
-                      var(--slate-2),
-                      color-mix(in srgb, var(--red), var(--green) 50%) 0%
-                    );
-                  "
-                >
-                  {{ effectiveHealth.magicalBase
-                  }}<span data-v-636d16e0="">&nbsp;</span>
-                </div>
-                <div
-                  data-v-636d16e0=""
-                  class="Magical-effective-health value column"
-                  style="
-                    background: color-mix(
-                      in srgb,
-                      var(--slate-2),
-                      color-mix(in srgb, var(--red), var(--green) 50%) 0%
-                    );
-                  "
-                >
-                  {{ effectiveHealth.magicalItems
-                  }}<span data-v-636d16e0="">&nbsp;</span>
-                </div>
-                <div
-                  data-v-636d16e0=""
-                  class="Magical-effective-health value column"
-                  style="
-                    background: color-mix(
-                      in srgb,
-                      var(--slate-2),
-                      color-mix(in srgb, var(--red), var(--green) 50%) 0%
-                    );
-                  "
-                >
-                  <!-- {{ totalStats.magicalEffectiveHealth }}<span data-v-636d16e0="">&nbsp;</span> -->
-                </div>
-                <div data-v-636d16e0="" class="name">
-                  Magical effective health
-                </div>
               </div>
               <div data-v-636d16e0="" class="list-item">
                 <div
@@ -865,9 +720,7 @@ const updateLevel = (newLevel: number) => {
                   {{ totalStats.CDR }}
                   <span data-v-636d16e0="">&nbsp;</span>
                 </div>
-                <div data-v-636d16e0="" class="name">
-                  Accélération des compétences
-                </div>
+                <div data-v-636d16e0="" class="name">CDR</div>
               </div>
               <div data-v-636d16e0="" class="list-item">
                 <div
@@ -1221,6 +1074,134 @@ const updateLevel = (newLevel: number) => {
                 <div data-v-636d16e0="" class="name">Gold</div>
               </div>
             </div>
+
+            <div data-v-636d16e0="" class="list">
+              <div data-v-636d16e0="" class="labels">
+                <div data-v-636d16e0="" class="label column">Réduction</div>
+                <div data-v-636d16e0="" class="label column">Effectif</div>
+              </div>
+              <div data-v-636d16e0="" class="list-item">
+                <div
+                  data-v-636d16e0=""
+                  class="health value column"
+                  style="
+                    background: color-mix(
+                      in srgb,
+                      var(--slate-2),
+                      color-mix(in srgb, var(--red), var(--green) 50%) 0%
+                    );
+                  "
+                ></div>
+                <div
+                  data-v-636d16e0=""
+                  class="health value column"
+                  style="
+                    background: color-mix(
+                      in srgb,
+                      var(--slate-2),
+                      color-mix(in srgb, var(--red), var(--green) 50%) 0%
+                    );
+                  "
+                >
+                  {{ totalStats.EffectiveAttackSpeed
+                  }}<span data-v-636d16e0="">&nbsp;</span>
+                </div>
+                <div data-v-636d16e0="" class="name">Vitesse d'attaque (%)</div>
+              </div>
+              <div data-v-636d16e0="" class="list-item">
+                <div
+                  data-v-636d16e0=""
+                  class="health-regen value column"
+                  style="
+                    background: color-mix(
+                      in srgb,
+                      var(--slate-2),
+                      color-mix(in srgb, var(--red), var(--green) 50%) 0%
+                    );
+                  "
+                >
+                  {{ totalStats.EffectiveArmor.damageReduction
+                  }}<span data-v-636d16e0="">&nbsp;</span>
+                </div>
+                <div
+                  data-v-636d16e0=""
+                  class="health-regen value column"
+                  style="
+                    background: color-mix(
+                      in srgb,
+                      var(--slate-2),
+                      color-mix(in srgb, var(--red), var(--green) 50%) 0%
+                    );
+                  "
+                >
+                  {{ totalStats.EffectiveArmor.effectiveHealth
+                  }}<span data-v-636d16e0="">&nbsp;</span>
+                </div>
+                <div data-v-636d16e0="" class="name">Armure</div>
+              </div>
+              <div data-v-636d16e0="" class="list-item">
+                <div
+                  data-v-636d16e0=""
+                  class="mana value column"
+                  style="
+                    background: color-mix(
+                      in srgb,
+                      var(--slate-2),
+                      color-mix(in srgb, var(--red), var(--green) 50%) 0%
+                    );
+                  "
+                >
+                  {{ totalStats.EffectiveEffectiveMR.damageReduction
+                  }}<span data-v-636d16e0="">&nbsp;</span>
+                </div>
+                <div
+                  data-v-636d16e0=""
+                  class="mana value column"
+                  style="
+                    background: color-mix(
+                      in srgb,
+                      var(--slate-2),
+                      color-mix(in srgb, var(--red), var(--green) 50%) 0%
+                    );
+                  "
+                >
+                  {{ totalStats.EffectiveEffectiveMR.effectiveHealth
+                  }}<span data-v-636d16e0="">&nbsp;</span>
+                </div>
+                <div data-v-636d16e0="" class="name">Résistance magique</div>
+              </div>
+              <div data-v-636d16e0="" class="list-item">
+                <div
+                  data-v-636d16e0=""
+                  class="mana-regen value column"
+                  style="
+                    background: color-mix(
+                      in srgb,
+                      var(--slate-2),
+                      color-mix(in srgb, var(--red), var(--green) 50%) 0%
+                    );
+                  "
+                ></div>
+                <div
+                  data-v-636d16e0=""
+                  class="mana-regen value column"
+                  style="
+                    background: color-mix(
+                      in srgb,
+                      var(--slate-2),
+                      color-mix(in srgb, var(--red), var(--green) 50%) 0%
+                    );
+                  "
+                >
+                  {{ totalStats.EffectiveMovementSpeed
+                  }}<span data-v-636d16e0="">&nbsp;</span>
+                </div>
+                <div data-v-636d16e0="" class="name">
+                  Vitesse de déplacement
+                </div>
+              </div>
+            </div>
+
             <!-- <div data-v-636d16e0="" class="slot">
               <div data-v-5f37b7fd="" data-v-6a3673aa="" class="note">
                 <div data-v-cbff5ddf="" data-v-5f37b7fd="" class="tooltip">

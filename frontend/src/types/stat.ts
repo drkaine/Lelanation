@@ -54,7 +54,7 @@ export interface MovementSpeedCalcStats {
   slowRatio: number
 }
 
-export interface Stats {
+export interface ItemStats {
   FlatMagicDamageMod?: number | null
   FlatCritChanceMod?: number | null
   FlatHPRegenMod?: number | null
@@ -94,4 +94,51 @@ export interface Stats {
   FlatDamageReduction?: number | null
   PercentDamageReduction?: number | null
   FlatAttackRangeMod?: number | null
+}
+
+export interface ChampionStats {
+  hp: number
+  hpperlevel: number
+  mp: number
+  mpperlevel: number
+  movespeed: number
+  armor: number
+  armorperlevel: number
+  spellblock: number
+  spellblockperlevel: number
+  attackrange: number
+  hpregen: number
+  hpregenperlevel: number
+  mpregen: number
+  mpregenperlevel: number
+  crit: number
+  critperlevel: number
+  attackdamage: number
+  attackdamageperlevel: number
+  attackspeedperlevel: number
+  attackspeed: number
+}
+
+export interface Stats {
+  hp: number
+  mp: number
+  movespeed: number
+  armor: number
+  spellblock: number
+  attackrange: number
+  hpregen: number
+  mpregen: number
+  crit: number
+  attackdamage: number
+  attackspeed: number
+  CDR: number
+  AP: number
+  lethality: number
+  magicPenetration: number
+  tenacity: number
+  omnivamp: number
+  shield: number
+  spellvamp: number
+  armorpen: number
+  magicpen: number
 }
