@@ -3,6 +3,7 @@ import type { RunesSelection } from './rune'
 import type { SummonerSelection } from './summoner'
 import type { ShardSelection } from './shard'
 import type { ItemSelection } from './item'
+import type { ItemStats, ChampionStats, Stats, TotalStats } from './stat'
 
 export interface BuildData {
   name: string
@@ -15,24 +16,13 @@ export interface BuildData {
     shards: ShardSelection
     items: ItemSelection
   }
+  buildStats: Build
 }
 
-export interface BuildStats {
-  hp: number
-  armor: number
-  spellblock: number
-  attackdamage: number
-  attackrange: number
-  attackspeed: number
-  crit: number
-  hpregen: number
-  movespeed: number
-  mp: number
-  mpregen: number
-  CDR?: number
-  AP?: number
-  lethality?: number
-  magicPenetration?: number
-  tenacity?: number
-  lvl: number
+export interface Build {
+  itemStats: ItemStats
+  championStats: ChampionStats
+  baseStats: Stats[]
+  buildItemStats: Stats
+  totalStats: TotalStats[]
 }

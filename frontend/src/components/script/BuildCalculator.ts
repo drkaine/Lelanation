@@ -1,4 +1,3 @@
-import type { BuildStats } from '../../types/build'
 import type { Stats, ChampionStats, ItemStats } from '../../types/stat'
 import {
   calculateEffectiveArmor,
@@ -55,6 +54,7 @@ export function calculateBaseStats(championStats: ChampionStats, lvl: number) {
     spellvamp: 0,
     armorpen: 0,
     magicpen: 0,
+    lvl: lvl,
   }
 }
 
@@ -116,13 +116,11 @@ export function calculateItemStats(ItemStats: ItemStats) {
       (ItemStats.FlatMagicPenetration ?? 0) *
         (1 + (ItemStats.PercentMagicPenetration ?? 0) / 100),
     ),
+    lvl: 0,
   }
 }
 
-export function calculateEffectiveStats(
-  baseStats: BuildStats,
-  itemStats: BuildStats,
-) {
+export function calculateEffectiveStats(baseStats: Stats, itemStats: Stats) {
   return {
     effectiveArmor: calculateEffectiveArmor({
       baseArmor: baseStats.armor,
@@ -146,7 +144,11 @@ export function calculateEffectiveStats(
   }
 }
 
-export function calculateTotalStats(championStats: Stats, itemStats: Stats) {
+export function calculateTotalStats(
+  championStats: Stats,
+  itemStats: Stats,
+  lvl: number,
+) {
   return {
     armor: (championStats.armor + itemStats.armor).toFixed(0),
     attackdamage: (championStats.attackdamage + itemStats.attackdamage).toFixed(
@@ -172,35 +174,36 @@ export function calculateTotalStats(championStats: Stats, itemStats: Stats) {
     armorpen: itemStats.armorpen.toFixed(0),
     magicpen: itemStats.magicpen.toFixed(0),
 
-    EffectiveTenacity: calculateTenacity([{ tenacity: itemStats.tenacity }]),
-    EffectiveArmor: calculateEffectiveArmor({
+    effectiveTenacity: calculateTenacity([{ tenacity: itemStats.tenacity }]),
+    effectiveArmor: calculateEffectiveArmor({
       baseArmor: championStats.armor,
       bonusArmor: itemStats.armor,
       health: championStats.hp + itemStats.hp,
     }),
-    EffectiveEffectiveMR: calculateEffectiveMR({
+    effectiveMR: calculateEffectiveMR({
       baseMR: championStats.spellblock,
       bonusMR: itemStats.spellblock,
       health: championStats.hp + itemStats.hp,
     }),
-    EffectiveSlowResist: calculateSlowResist({
+    effectiveSlowResist: calculateSlowResist({
       baseMS: championStats.movespeed ?? 0,
       bonusMS: itemStats.movespeed ?? 0,
       msMultiplier: 0,
       finalMS: championStats.movespeed + itemStats.movespeed,
       slow: 0,
     }),
-    EffectiveAttackSpeed: calculateAttackSpeed({
+    effectiveAS: calculateAttackSpeed({
       baseAS: championStats.attackspeed,
       asRatio: 1,
       bonusAS: itemStats.attackspeed,
     }),
-    EffectiveMovementSpeed: calculateMovementSpeed({
+    effectiveMovementSpeed: calculateMovementSpeed({
       baseMS: championStats.movespeed,
       flatBonusMS: itemStats.movespeed,
       additivePercentMS: [],
       multiplicativePercentMS: [],
       slowRatio: 0,
     }),
+    lvl: lvl,
   }
 }

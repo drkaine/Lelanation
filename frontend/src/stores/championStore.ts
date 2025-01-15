@@ -9,5 +9,9 @@ export const useChampionStore = defineStore('champion', () => {
     selectedChampion.value = champion
   }
 
-  return { selectedChampion, setSelectedChampion }
+  const resetChampionSelection = () => {
+    selectedChampion.value = null
+  }
+
+  return { selectedChampion, setSelectedChampion, resetChampionSelection }
 })

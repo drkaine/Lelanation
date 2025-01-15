@@ -4,6 +4,7 @@ import { useRuneStore } from '@/stores/runeStore'
 import { useSummonerStore } from '@/stores/summonerStore'
 import { useShardStore } from '@/stores/shardStore'
 import { useItemStore } from '@/stores/itemStore'
+import { useBuildStore } from '@/stores/buildStore'
 import { ref } from 'vue'
 import { v4 as uuidv4 } from 'uuid'
 import version from '@/assets/files/lastVersion.json'
@@ -17,9 +18,40 @@ const runeStore = useRuneStore()
 const summonerStore = useSummonerStore()
 const shardStore = useShardStore()
 const itemStore = useItemStore()
+const buildStore = useBuildStore()
 
 const name = ref('')
 const description = ref('')
+
+const championStats =
+  championStore.$state.selectedChampion !== null
+    ? championStore.$state.selectedChampion.stats
+    : {
+        hp: 0,
+        hpperlevel: 0,
+        mp: 0,
+        mpperlevel: 0,
+        movespeed: 0,
+        armor: 0,
+        armorperlevel: 0,
+        spellblock: 0,
+        spellblockperlevel: 0,
+        attackrange: 0,
+        hpregen: 0,
+        hpregenperlevel: 0,
+        mpregen: 0,
+        mpregenperlevel: 0,
+        crit: 0,
+        critperlevel: 0,
+        attackdamage: 0,
+        attackdamageperlevel: 0,
+        attackspeedperlevel: 0,
+        attackspeed: 0,
+      }
+
+const itemStats = itemStore.$state.ItemsSelection.stats
+
+const build = buildStore.statsCalculator(championStats, itemStats)
 
 const submitForm = async () => {
   const data = {
@@ -33,6 +65,7 @@ const submitForm = async () => {
       shards: shardStore.$state.shardsSelection,
       items: itemStore.$state.ItemsSelection,
     },
+    buildStats: build,
   }
   const fileName = `${uuidv4()}.json`
 
@@ -48,6 +81,14 @@ const submitForm = async () => {
     if (!response.ok) {
       throw new Error('Erreur lors de la sauvegarde')
     }
+    buildStore.saveBuild(fileName)
+
+    championStore.resetChampionSelection()
+    runeStore.resetRunesSelection()
+    summonerStore.resetSummonersSelection()
+    shardStore.resetShardsSelection()
+    itemStore.resetItemsSelection()
+
     router.push({
       name: 'build',
       params: {

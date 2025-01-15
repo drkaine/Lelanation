@@ -1,13 +1,8 @@
 <script setup lang="ts">
 import { useRoute, useRouter } from 'vue-router'
-import { ref, computed } from 'vue'
+import { ref } from 'vue'
 import SheetBuild from '@/components/composants/SheetBuild.vue'
 import type { BuildData } from '@/types/build'
-import {
-  calculateBaseStats,
-  calculateItemStats,
-  calculateTotalStats,
-} from '@/components/script/BuildCalculator'
 
 const route = useRoute()
 const router = useRouter()
@@ -17,77 +12,8 @@ const lvl = ref(1)
 
 const response = await fetch(`/assets/files/build/${fileName}`)
 const data = await response.json()
+
 buildData.value = data
-
-const itemsStats = computed(() => {
-  if (buildData.value?.sheet.items.stats) {
-    return calculateItemStats(buildData.value.sheet.items.stats)
-  }
-  return {
-    armor: 0,
-    attackdamage: 0,
-    attackrange: 0,
-    attackspeed: 0,
-    crit: 0,
-    hp: 0,
-    hpregen: 0,
-    movespeed: 0,
-    mp: 0,
-    mpregen: 0,
-    spellblock: 0,
-    CDR: 0,
-    AP: 0,
-    lethality: 0,
-    magicPenetration: 0,
-    tenacity: 0,
-    omnivamp: 0,
-    shield: 0,
-    spellvamp: 0,
-    armorpen: 0,
-    magicpen: 0,
-  }
-})
-const championStats = computed(() => {
-  if (buildData.value?.sheet.champion.stats) {
-    return calculateBaseStats(buildData.value.sheet.champion.stats, lvl.value)
-  }
-  return {
-    hp: 0,
-    hpperlevel: 0,
-    mp: 0,
-    mpperlevel: 0,
-    movespeed: 0,
-    armor: 0,
-    armorperlevel: 0,
-    spellblock: 0,
-    spellblockperlevel: 0,
-    attackrange: 0,
-    hpregen: 0,
-    hpregenperlevel: 0,
-    mpregen: 0,
-    mpregenperlevel: 0,
-    crit: 0,
-    critperlevel: 0,
-    attackdamage: 0,
-    attackdamageperlevel: 0,
-    attackspeedperlevel: 0,
-    attackspeed: 0,
-    CDR: 0,
-    AP: 0,
-    lethality: 0,
-    magicPenetration: 0,
-    tenacity: 0,
-    omnivamp: 0,
-    shield: 0,
-    spellvamp: 0,
-    armorpen: 0,
-    magicpen: 0,
-  }
-})
-
-const totalStats = computed(() =>
-  calculateTotalStats(championStats.value, itemsStats.value),
-)
 
 async function deleteBuild() {
   try {
@@ -253,7 +179,8 @@ const updateLevel = (newLevel: number) => {
                     );
                   "
                 >
-                  {{ championStats.hp }}<span data-v-636d16e0="">&nbsp;</span>
+                  {{ buildData?.buildStats.baseStats[lvl - 1].hp
+                  }}<span data-v-636d16e0="">&nbsp;</span>
                 </div>
                 <div
                   data-v-636d16e0=""
@@ -266,7 +193,8 @@ const updateLevel = (newLevel: number) => {
                     );
                   "
                 >
-                  {{ itemsStats.hp }}<span data-v-636d16e0="">&nbsp;</span>
+                  {{ buildData?.buildStats.buildItemStats.hp
+                  }}<span data-v-636d16e0="">&nbsp;</span>
                 </div>
                 <div
                   data-v-636d16e0=""
@@ -279,7 +207,8 @@ const updateLevel = (newLevel: number) => {
                     );
                   "
                 >
-                  {{ totalStats.hp }}<span data-v-636d16e0="">&nbsp;</span>
+                  {{ buildData?.buildStats.totalStats[lvl - 1].hp
+                  }}<span data-v-636d16e0="">&nbsp;</span>
                 </div>
                 <div data-v-636d16e0="" class="name">HP</div>
               </div>
@@ -295,7 +224,7 @@ const updateLevel = (newLevel: number) => {
                     );
                   "
                 >
-                  {{ championStats.hpregen
+                  {{ buildData?.buildStats.baseStats[lvl - 1].hpregen
                   }}<span data-v-636d16e0="">&nbsp;</span>
                 </div>
                 <div
@@ -309,7 +238,8 @@ const updateLevel = (newLevel: number) => {
                     );
                   "
                 >
-                  {{ itemsStats.hpregen }}<span data-v-636d16e0="">&nbsp;</span>
+                  {{ buildData?.buildStats.buildItemStats.hpregen
+                  }}<span data-v-636d16e0="">&nbsp;</span>
                 </div>
                 <div
                   data-v-636d16e0=""
@@ -322,7 +252,8 @@ const updateLevel = (newLevel: number) => {
                     );
                   "
                 >
-                  {{ totalStats.hpregen }}<span data-v-636d16e0="">&nbsp;</span>
+                  {{ buildData?.buildStats.totalStats[lvl - 1].hpregen
+                  }}<span data-v-636d16e0="">&nbsp;</span>
                 </div>
                 <div data-v-636d16e0="" class="name">HP regen</div>
               </div>
@@ -338,7 +269,8 @@ const updateLevel = (newLevel: number) => {
                     );
                   "
                 >
-                  {{ championStats.mp }}<span data-v-636d16e0="">&nbsp;</span>
+                  {{ buildData?.buildStats.baseStats[lvl - 1].mp
+                  }}<span data-v-636d16e0="">&nbsp;</span>
                 </div>
                 <div
                   data-v-636d16e0=""
@@ -351,7 +283,8 @@ const updateLevel = (newLevel: number) => {
                     );
                   "
                 >
-                  {{ itemsStats.mp }}<span data-v-636d16e0="">&nbsp;</span>
+                  {{ buildData?.buildStats.buildItemStats.mp
+                  }}<span data-v-636d16e0="">&nbsp;</span>
                 </div>
                 <div
                   data-v-636d16e0=""
@@ -364,7 +297,8 @@ const updateLevel = (newLevel: number) => {
                     );
                   "
                 >
-                  {{ totalStats.mp }}<span data-v-636d16e0="">&nbsp;</span>
+                  {{ buildData?.buildStats.totalStats[lvl - 1].mp
+                  }}<span data-v-636d16e0="">&nbsp;</span>
                 </div>
                 <div data-v-636d16e0="" class="name">Mana</div>
               </div>
@@ -380,7 +314,7 @@ const updateLevel = (newLevel: number) => {
                     );
                   "
                 >
-                  {{ championStats.mpregen
+                  {{ buildData?.buildStats.baseStats[lvl - 1].mpregen
                   }}<span data-v-636d16e0="">&nbsp;</span>
                 </div>
                 <div
@@ -394,7 +328,8 @@ const updateLevel = (newLevel: number) => {
                     );
                   "
                 >
-                  {{ itemsStats.mpregen }}<span data-v-636d16e0="">&nbsp;</span>
+                  {{ buildData?.buildStats.buildItemStats.mpregen
+                  }}<span data-v-636d16e0="">&nbsp;</span>
                 </div>
                 <div
                   data-v-636d16e0=""
@@ -407,7 +342,8 @@ const updateLevel = (newLevel: number) => {
                     );
                   "
                 >
-                  {{ totalStats.mpregen }}<span data-v-636d16e0="">&nbsp;</span>
+                  {{ buildData?.buildStats.totalStats[lvl - 1].mpregen
+                  }}<span data-v-636d16e0="">&nbsp;</span>
                 </div>
                 <div data-v-636d16e0="" class="name">Mana regen</div>
               </div>
@@ -423,7 +359,7 @@ const updateLevel = (newLevel: number) => {
                     );
                   "
                 >
-                  {{ championStats.armor
+                  {{ buildData?.buildStats.baseStats[lvl - 1].armor
                   }}<span data-v-636d16e0="">&nbsp;</span>
                 </div>
                 <div
@@ -437,7 +373,8 @@ const updateLevel = (newLevel: number) => {
                     );
                   "
                 >
-                  {{ itemsStats.armor }}<span data-v-636d16e0="">&nbsp;</span>
+                  {{ buildData?.buildStats.buildItemStats.armor
+                  }}<span data-v-636d16e0="">&nbsp;</span>
                 </div>
                 <div
                   data-v-636d16e0=""
@@ -450,7 +387,8 @@ const updateLevel = (newLevel: number) => {
                     );
                   "
                 >
-                  {{ totalStats.armor }}<span data-v-636d16e0="">&nbsp;</span>
+                  {{ buildData?.buildStats.totalStats[lvl - 1].armor
+                  }}<span data-v-636d16e0="">&nbsp;</span>
                 </div>
                 <div data-v-636d16e0="" class="name">Armure</div>
               </div>
@@ -466,7 +404,7 @@ const updateLevel = (newLevel: number) => {
                     );
                   "
                 >
-                  {{ championStats.spellblock
+                  {{ buildData?.buildStats.baseStats[lvl - 1].spellblock
                   }}<span data-v-636d16e0="">&nbsp;</span>
                 </div>
                 <div
@@ -480,7 +418,7 @@ const updateLevel = (newLevel: number) => {
                     );
                   "
                 >
-                  {{ itemsStats.spellblock
+                  {{ buildData?.buildStats.buildItemStats.spellblock
                   }}<span data-v-636d16e0="">&nbsp;</span>
                 </div>
                 <div
@@ -494,7 +432,7 @@ const updateLevel = (newLevel: number) => {
                     );
                   "
                 >
-                  {{ totalStats.spellblock
+                  {{ buildData?.buildStats.totalStats[lvl - 1].spellblock
                   }}<span data-v-636d16e0="">&nbsp;</span>
                 </div>
                 <div data-v-636d16e0="" class="name">Resistance magique</div>
@@ -511,7 +449,7 @@ const updateLevel = (newLevel: number) => {
                     );
                   "
                 >
-                  {{ championStats.attackdamage
+                  {{ buildData?.buildStats.baseStats[lvl - 1].attackdamage
                   }}<span data-v-636d16e0="">&nbsp;</span>
                 </div>
                 <div
@@ -525,7 +463,7 @@ const updateLevel = (newLevel: number) => {
                     );
                   "
                 >
-                  {{ itemsStats.attackdamage
+                  {{ buildData?.buildStats.buildItemStats.attackdamage
                   }}<span data-v-636d16e0="">&nbsp;</span>
                 </div>
                 <div
@@ -539,7 +477,7 @@ const updateLevel = (newLevel: number) => {
                     );
                   "
                 >
-                  {{ totalStats.attackdamage
+                  {{ buildData?.buildStats.totalStats[lvl - 1].attackdamage
                   }}<span data-v-636d16e0="">&nbsp;</span>
                 </div>
                 <div data-v-636d16e0="" class="name">AD</div>
@@ -556,7 +494,7 @@ const updateLevel = (newLevel: number) => {
                     );
                   "
                 >
-                  {{ championStats.movespeed
+                  {{ buildData?.buildStats.baseStats[lvl - 1].movespeed
                   }}<span data-v-636d16e0="">&nbsp;</span>
                 </div>
                 <div
@@ -570,7 +508,7 @@ const updateLevel = (newLevel: number) => {
                     );
                   "
                 >
-                  {{ itemsStats.movespeed
+                  {{ buildData?.buildStats.buildItemStats.movespeed
                   }}<span data-v-636d16e0="">&nbsp;</span>
                 </div>
                 <div
@@ -584,7 +522,7 @@ const updateLevel = (newLevel: number) => {
                     );
                   "
                 >
-                  {{ totalStats.movespeed
+                  {{ buildData?.buildStats.totalStats[lvl - 1].movespeed
                   }}<span data-v-636d16e0="">&nbsp;</span>
                 </div>
                 <div data-v-636d16e0="" class="name">
@@ -603,7 +541,7 @@ const updateLevel = (newLevel: number) => {
                     );
                   "
                 >
-                  {{ championStats.attackrange
+                  {{ buildData?.buildStats.baseStats[lvl - 1].attackrange
                   }}<span data-v-636d16e0="">&nbsp;</span>
                 </div>
                 <div
@@ -617,7 +555,7 @@ const updateLevel = (newLevel: number) => {
                     );
                   "
                 >
-                  {{ itemsStats.attackrange
+                  {{ buildData?.buildStats.buildItemStats.attackrange
                   }}<span data-v-636d16e0="">&nbsp;</span>
                 </div>
                 <div
@@ -631,7 +569,7 @@ const updateLevel = (newLevel: number) => {
                     );
                   "
                 >
-                  {{ totalStats.attackrange
+                  {{ buildData?.buildStats.totalStats[lvl - 1].attackrange
                   }}<span data-v-636d16e0="">&nbsp;</span>
                 </div>
                 <div data-v-636d16e0="" class="name">Portée d'attaque</div>
@@ -648,7 +586,7 @@ const updateLevel = (newLevel: number) => {
                     );
                   "
                 >
-                  {{ championStats.attackspeed
+                  {{ buildData?.buildStats.baseStats[lvl - 1].attackspeed
                   }}<span data-v-636d16e0="">%</span>
                 </div>
                 <div
@@ -662,7 +600,8 @@ const updateLevel = (newLevel: number) => {
                     );
                   "
                 >
-                  {{ itemsStats.attackspeed }}<span data-v-636d16e0="">%</span>
+                  {{ buildData?.buildStats.buildItemStats.attackspeed
+                  }}<span data-v-636d16e0="">%</span>
                 </div>
                 <div
                   data-v-636d16e0=""
@@ -675,7 +614,8 @@ const updateLevel = (newLevel: number) => {
                     );
                   "
                 >
-                  {{ totalStats.attackspeed }}<span data-v-636d16e0="">%</span>
+                  {{ buildData?.buildStats.totalStats[lvl - 1].attackspeed
+                  }}<span data-v-636d16e0="">%</span>
                 </div>
                 <div data-v-636d16e0="" class="name">Vitesse d'attaque (%)</div>
               </div>
@@ -704,7 +644,8 @@ const updateLevel = (newLevel: number) => {
                     );
                   "
                 >
-                  {{ itemsStats.CDR }}<span data-v-636d16e0="">&nbsp;</span>
+                  {{ buildData?.buildStats.buildItemStats.CDR
+                  }}<span data-v-636d16e0="">&nbsp;</span>
                 </div>
                 <div
                   data-v-636d16e0=""
@@ -717,7 +658,7 @@ const updateLevel = (newLevel: number) => {
                     );
                   "
                 >
-                  {{ totalStats.CDR }}
+                  {{ buildData?.buildStats.totalStats[lvl - 1].CDR }}
                   <span data-v-636d16e0="">&nbsp;</span>
                 </div>
                 <div data-v-636d16e0="" class="name">CDR</div>
@@ -747,7 +688,8 @@ const updateLevel = (newLevel: number) => {
                     );
                   "
                 >
-                  {{ itemsStats.AP }}<span data-v-636d16e0="">&nbsp;</span>
+                  {{ buildData?.buildStats.buildItemStats.AP
+                  }}<span data-v-636d16e0="">&nbsp;</span>
                 </div>
                 <div
                   data-v-636d16e0=""
@@ -760,7 +702,7 @@ const updateLevel = (newLevel: number) => {
                     );
                   "
                 >
-                  {{ totalStats.AP }}
+                  {{ buildData?.buildStats.totalStats[lvl - 1].AP }}
                   <span data-v-636d16e0="">&nbsp;</span>
                 </div>
                 <div data-v-636d16e0="" class="name">AP</div>
@@ -790,7 +732,7 @@ const updateLevel = (newLevel: number) => {
                     );
                   "
                 >
-                  {{ itemsStats.lethality
+                  {{ buildData?.buildStats.buildItemStats.lethality
                   }}<span data-v-636d16e0="">&nbsp;</span>
                 </div>
                 <div
@@ -804,7 +746,7 @@ const updateLevel = (newLevel: number) => {
                     );
                   "
                 >
-                  {{ totalStats.lethality }}
+                  {{ buildData?.buildStats.totalStats[lvl - 1].lethality }}
                   <span data-v-636d16e0="">&nbsp;</span>
                 </div>
                 <div data-v-636d16e0="" class="name">Lethalité</div>
@@ -834,7 +776,7 @@ const updateLevel = (newLevel: number) => {
                     );
                   "
                 >
-                  {{ itemsStats.magicPenetration
+                  {{ buildData?.buildStats.buildItemStats.magicPenetration
                   }}<span data-v-636d16e0="">%</span>
                 </div>
                 <div
@@ -848,7 +790,9 @@ const updateLevel = (newLevel: number) => {
                     );
                   "
                 >
-                  {{ totalStats.magicPenetration }}
+                  {{
+                    buildData?.buildStats.totalStats[lvl - 1].magicPenetration
+                  }}
                   <span data-v-636d16e0="">%</span>
                 </div>
                 <div data-v-636d16e0="" class="name">
@@ -880,7 +824,8 @@ const updateLevel = (newLevel: number) => {
                     );
                   "
                 >
-                  {{ itemsStats.shield }}<span data-v-636d16e0="">%</span>
+                  {{ buildData?.buildStats.buildItemStats.shield
+                  }}<span data-v-636d16e0="">%</span>
                 </div>
                 <div
                   data-v-636d16e0=""
@@ -893,7 +838,7 @@ const updateLevel = (newLevel: number) => {
                     );
                   "
                 >
-                  {{ totalStats.shield }}
+                  {{ buildData?.buildStats.totalStats[lvl - 1].shield }}
                   <span data-v-636d16e0="">%</span>
                 </div>
                 <div data-v-636d16e0="" class="name">
@@ -925,7 +870,8 @@ const updateLevel = (newLevel: number) => {
                     );
                   "
                 >
-                  {{ itemsStats.omnivamp }}<span data-v-636d16e0="">%</span>
+                  {{ buildData?.buildStats.buildItemStats.omnivamp
+                  }}<span data-v-636d16e0="">%</span>
                 </div>
                 <div
                   data-v-636d16e0=""
@@ -938,7 +884,7 @@ const updateLevel = (newLevel: number) => {
                     );
                   "
                 >
-                  {{ totalStats.omnivamp }}
+                  {{ buildData?.buildStats.totalStats[lvl - 1].omnivamp }}
                   <span data-v-636d16e0="">%</span>
                 </div>
                 <div data-v-636d16e0="" class="name">Omnivamp (%)</div>
@@ -968,7 +914,8 @@ const updateLevel = (newLevel: number) => {
                     );
                   "
                 >
-                  {{ itemsStats.crit }}<span data-v-636d16e0="">%</span>
+                  {{ buildData?.buildStats.buildItemStats.crit
+                  }}<span data-v-636d16e0="">%</span>
                 </div>
                 <div
                   data-v-636d16e0=""
@@ -981,7 +928,7 @@ const updateLevel = (newLevel: number) => {
                     );
                   "
                 >
-                  {{ totalStats.crit }}
+                  {{ buildData?.buildStats.totalStats[lvl - 1].crit }}
                   <span data-v-636d16e0="">%</span>
                 </div>
                 <div data-v-636d16e0="" class="name">Critique (%)</div>
@@ -1011,7 +958,8 @@ const updateLevel = (newLevel: number) => {
                     );
                   "
                 >
-                  {{ itemsStats.tenacity }}<span data-v-636d16e0="">%</span>
+                  {{ buildData?.buildStats.buildItemStats.tenacity
+                  }}<span data-v-636d16e0="">%</span>
                 </div>
                 <div
                   data-v-636d16e0=""
@@ -1024,7 +972,7 @@ const updateLevel = (newLevel: number) => {
                     );
                   "
                 >
-                  {{ totalStats.tenacity }}
+                  {{ buildData?.buildStats.totalStats[lvl - 1].tenacity }}
                   <span data-v-636d16e0="">%</span>
                 </div>
                 <div data-v-636d16e0="" class="name">ténacité (%)</div>
@@ -1103,7 +1051,7 @@ const updateLevel = (newLevel: number) => {
                     );
                   "
                 >
-                  {{ totalStats.EffectiveAttackSpeed
+                  {{ buildData?.buildStats.totalStats[lvl - 1].effectiveAS
                   }}<span data-v-636d16e0="">&nbsp;</span>
                 </div>
                 <div data-v-636d16e0="" class="name">Vitesse d'attaque (%)</div>
@@ -1120,7 +1068,9 @@ const updateLevel = (newLevel: number) => {
                     );
                   "
                 >
-                  {{ totalStats.EffectiveArmor.damageReduction
+                  {{
+                    buildData?.buildStats.totalStats[lvl - 1].effectiveArmor
+                      .damageReduction
                   }}<span data-v-636d16e0="">&nbsp;</span>
                 </div>
                 <div
@@ -1134,7 +1084,9 @@ const updateLevel = (newLevel: number) => {
                     );
                   "
                 >
-                  {{ totalStats.EffectiveArmor.effectiveHealth
+                  {{
+                    buildData?.buildStats.totalStats[lvl - 1].effectiveArmor
+                      .effectiveHealth
                   }}<span data-v-636d16e0="">&nbsp;</span>
                 </div>
                 <div data-v-636d16e0="" class="name">Armure</div>
@@ -1151,7 +1103,9 @@ const updateLevel = (newLevel: number) => {
                     );
                   "
                 >
-                  {{ totalStats.EffectiveEffectiveMR.damageReduction
+                  {{
+                    buildData?.buildStats.totalStats[lvl - 1].effectiveMR
+                      .damageReduction
                   }}<span data-v-636d16e0="">&nbsp;</span>
                 </div>
                 <div
@@ -1165,7 +1119,9 @@ const updateLevel = (newLevel: number) => {
                     );
                   "
                 >
-                  {{ totalStats.EffectiveEffectiveMR.effectiveHealth
+                  {{
+                    buildData?.buildStats.totalStats[lvl - 1].effectiveMR
+                      .effectiveHealth
                   }}<span data-v-636d16e0="">&nbsp;</span>
                 </div>
                 <div data-v-636d16e0="" class="name">Résistance magique</div>
@@ -1193,7 +1149,9 @@ const updateLevel = (newLevel: number) => {
                     );
                   "
                 >
-                  {{ totalStats.EffectiveMovementSpeed
+                  {{
+                    buildData?.buildStats.totalStats[lvl - 1]
+                      .effectiveMovementSpeed
                   }}<span data-v-636d16e0="">&nbsp;</span>
                 </div>
                 <div data-v-636d16e0="" class="name">

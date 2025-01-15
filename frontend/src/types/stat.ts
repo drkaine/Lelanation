@@ -117,6 +117,7 @@ export interface ChampionStats {
   attackdamageperlevel: number
   attackspeedperlevel: number
   attackspeed: number
+  lvl?: number
 }
 
 export interface Stats {
@@ -141,4 +142,45 @@ export interface Stats {
   spellvamp: number
   armorpen: number
   magicpen: number
+  lvl: number
+}
+
+export interface TotalStats {
+  hp: string
+  mp: string
+  movespeed: string
+  armor: string
+  spellblock: string
+  attackrange: string
+  hpregen: string
+  mpregen: string
+  crit: string
+  attackdamage: string
+  attackspeed: string
+  CDR: string
+  AP: string
+  lethality: string
+  magicPenetration: string
+  tenacity: string
+  omnivamp: string
+  shield: string
+  spellvamp: string
+  armorpen: string
+  magicpen: string
+  effectiveArmor: {
+    totalArmor: number
+    damageReduction: string
+    effectiveHealth: number
+    effectiveHealthMultiplier: string
+  }
+  effectiveMR: {
+    damageReduction: string
+    effectiveHealth: number
+    totalMR: number
+    effectiveHealthMultiplier: string
+  }
+  effectiveAS: number
+  effectiveTenacity: number
+  effectiveMovementSpeed: number
+  lvl: number
 }
