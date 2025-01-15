@@ -49,7 +49,6 @@ const userBuilds = buildStore.userBuilds
           <span data-v-7cc930f8="">•</span> -->
           <RouterLink
             title="dictionnaire"
-            target="_blank"
             class="version"
             data-v-7cc930f8=""
             to="/dictionnaire"
@@ -79,7 +78,6 @@ const userBuilds = buildStore.userBuilds
           <span data-v-7cc930f8="">•</span> -->
           <RouterLink
             title="Building"
-            target="_blank"
             class="version"
             data-v-7cc930f8=""
             to="/build"
@@ -87,13 +85,18 @@ const userBuilds = buildStore.userBuilds
             Building</RouterLink
           >
           <span data-v-7cc930f8="">•</span>
-          <RouterLink v-if="userBuilds.length > 0" to="/builds">
+          <RouterLink
+            title="Mes builds"
+            class="version"
+            data-v-7cc930f8=""
+            v-if="userBuilds.length > 0"
+            to="/builds"
+          >
             Mes builds</RouterLink
           >
           <span data-v-7cc930f8="">•</span>
           <RouterLink
             title="Lebuildarriva"
-            target="_blank"
             class="version"
             data-v-7cc930f8=""
             to="/build"

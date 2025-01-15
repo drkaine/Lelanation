@@ -6,6 +6,7 @@ import cors from "cors";
 import path from "path";
 import dotenv from "dotenv";
 import { unlink } from "fs/promises";
+import fs from "fs/promises";
 
 dotenv.config();
 
@@ -33,7 +34,10 @@ app.post("/api/save/:filename", (req, res) => {
 
   save(
     JSON.stringify(data),
-    path.join(__dirname, "../../frontend/public/assets/files/build/" + filename),
+    path.join(
+      __dirname,
+      "../../frontend/public/assets/files/build/" + filename,
+    ),
   );
   res.sendStatus(200);
 });
@@ -52,6 +56,39 @@ app.delete("/api/build/:fileName", async (req, res) => {
       error instanceof Error ? error.message : "Erreur inconnue";
     console.error("Erreur lors de la suppression:", errorMessage);
     res.status(500).send(`Erreur lors de la suppression: ${errorMessage}`);
+  }
+});
+
+app.get("/api/build/:fileName", async (req, res) => {
+  try {
+    const filePath = path.join(
+      __dirname,
+      "../../frontend/public/assets/files/build/",
+      req.params.fileName,
+    );
+    const data = await fs.readFile(filePath, "utf8");
+    res.json(JSON.parse(data));
+  } catch (error) {
+    res.status(404).send("Build non trouvé" + error);
+  }
+});
+
+app.get("/api/builds", async (req, res) => {
+  try {
+    const buildsDir = path.join(
+      __dirname,
+      "../../frontend/public/assets/files/build/",
+    );
+    const files = await fs.readdir(buildsDir);
+    const builds = await Promise.all(
+      files.map(async (file) => {
+        const content = await fs.readFile(path.join(buildsDir, file), "utf8");
+        return JSON.parse(content);
+      }),
+    );
+    res.json(builds);
+  } catch (error) {
+    res.status(500).send("Erreur lors de la récupération des builds" + error);
   }
 });
 

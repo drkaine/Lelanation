@@ -61,7 +61,7 @@ const handleDragOver = (e: DragEvent) => {
           <a
             data-v-04fb255b=""
             aria-current="page"
-            :href="`/builds/#/${build.id}`"
+            :href="`/build/${build.id}`"
             class="router-link-active router-link-exact-active wrap"
           >
             <SheetBuild
