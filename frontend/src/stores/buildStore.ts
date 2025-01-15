@@ -6,10 +6,10 @@ import {
   calculateTotalStats,
 } from '@/components/script/BuildCalculator'
 import type { ChampionStats, ItemStats, Stats, TotalStats } from '@/types/stat'
-import type { Build } from '@/types/build'
+import type { Build, BuildData } from '@/types/build'
 
 export const useBuildStore = defineStore('build', () => {
-  const userBuilds = ref<string[]>([])
+  const userBuilds = ref<BuildData[]>([])
 
   const statsCalculator = (
     championStats: ChampionStats,
@@ -43,15 +43,20 @@ export const useBuildStore = defineStore('build', () => {
     }
   }
 
-  const saveBuild = (fileName: string) => {
-    if (!userBuilds.value.includes(fileName)) {
-      userBuilds.value.push(fileName)
+  const saveBuild = (build: BuildData) => {
+    if (!userBuilds.value.includes(build)) {
+      userBuilds.value.push(build)
       localStorage.setItem('userBuilds', JSON.stringify(userBuilds.value))
     }
   }
 
   const removeBuild = (fileName: string) => {
-    userBuilds.value = userBuilds.value.filter(build => build !== fileName)
+    userBuilds.value = userBuilds.value.filter(build => build.name !== fileName)
+    localStorage.setItem('userBuilds', JSON.stringify(userBuilds.value))
+  }
+
+  const updateBuildsOrder = (newOrder: BuildData[]) => {
+    userBuilds.value = newOrder
     localStorage.setItem('userBuilds', JSON.stringify(userBuilds.value))
   }
 
@@ -61,5 +66,6 @@ export const useBuildStore = defineStore('build', () => {
     saveBuild,
     removeBuild,
     statsCalculator,
+    updateBuildsOrder,
   }
 })

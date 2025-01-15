@@ -6,6 +6,7 @@ import type { ItemSelection } from './item'
 import type { ItemStats, ChampionStats, Stats, TotalStats } from './stat'
 
 export interface BuildData {
+  id?: string
   name: string
   description: string
   version: string

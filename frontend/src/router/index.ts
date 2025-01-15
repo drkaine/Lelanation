@@ -1,5 +1,4 @@
 import { createRouter, createWebHistory, type RouteRecordRaw } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
 
 interface BuildProps {
   editMode: boolean
@@ -10,12 +9,17 @@ const routes: RouteRecordRaw[] = [
   {
     path: '/',
     name: 'home',
-    component: HomeView,
+    component: () => import('../views/HomeView.vue'),
   },
   {
     path: '/build',
     name: 'build-tool',
     component: () => import('../views/BuildToolView.vue'),
+  },
+  {
+    path: '/builds',
+    name: 'Mes build',
+    component: () => import('../views/MesBuildsView.vue'),
   },
   // {
   //   path: '/tier-list',

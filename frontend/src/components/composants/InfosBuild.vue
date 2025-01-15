@@ -9,7 +9,7 @@ import { ref } from 'vue'
 import { v4 as uuidv4 } from 'uuid'
 import version from '@/assets/files/lastVersion.json'
 import { useRouter } from 'vue-router'
-
+import type { BuildData } from '@/types/build'
 const router = useRouter()
 
 const urlApiSave = import.meta.env.VITE_URL_API_SAVE
@@ -54,7 +54,9 @@ const itemStats = itemStore.$state.ItemsSelection.stats
 const build = buildStore.statsCalculator(championStats, itemStats)
 
 const submitForm = async () => {
+  const fileName = `${uuidv4()}.json`
   const data = {
+    id: fileName,
     name: name.value,
     description: description.value,
     version: version,
@@ -67,7 +69,6 @@ const submitForm = async () => {
     },
     buildStats: build,
   }
-  const fileName = `${uuidv4()}.json`
 
   try {
     const response = await fetch(`${urlApiSave}/api/save/${fileName}`, {
@@ -81,7 +82,7 @@ const submitForm = async () => {
     if (!response.ok) {
       throw new Error('Erreur lors de la sauvegarde')
     }
-    buildStore.saveBuild(fileName)
+    buildStore.saveBuild(data as BuildData)
 
     championStore.resetChampionSelection()
     runeStore.resetRunesSelection()

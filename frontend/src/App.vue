@@ -1,6 +1,11 @@
 <script setup lang="ts">
 import { RouterLink, RouterView } from 'vue-router'
 import version from '@/assets/files/lastVersion.json'
+import { useBuildStore } from '@/stores/buildStore'
+
+const buildStore = useBuildStore()
+buildStore.loadUserBuilds()
+const userBuilds = buildStore.userBuilds
 </script>
 
 <template>
@@ -27,30 +32,74 @@ import version from '@/assets/files/lastVersion.json'
           </svg>
         </button>
         <div data-v-7cc930f8="" class="right">
-          <!-- <RouterLink to="/champions">Champions</RouterLink>
-          <RouterLink to="/runes">Runes</RouterLink>
-          <RouterLink to="/items">Items</RouterLink> -->
+          <!-- <RouterLink  title="Patch Notes"
+            target="_blank"
+            class="version" data-v-7cc930f8="" to="/champions">Champions</RouterLink>
+          <RouterLink  title="Patch Notes"
+            target="_blank"
+            class="version" data-v-7cc930f8="" to="/runes">Runes</RouterLink>
+          <RouterLink  title="Patch Notes"
+            target="_blank"
+            class="version" data-v-7cc930f8="" to="/items">Items</RouterLink> -->
           <!-- <a data-v-7cc930f8="" href="/pro" class=""> Pro Builds</a>
           <span data-v-7cc930f8="">•</span>
           <a data-v-7cc930f8="" href="/randomizer" class="">Random</a> -->
           <!-- <span data-v-7cc930f8="">•</span>
           <a data-v-7cc930f8="" href="/items" class="active"> Items</a>
           <span data-v-7cc930f8="">•</span> -->
-          <RouterLink to="/dictionnaire"> Leladictionnaiva</RouterLink>
+          <RouterLink
+            title="dictionnaire"
+            target="_blank"
+            class="version"
+            data-v-7cc930f8=""
+            to="/dictionnaire"
+          >
+            Leladictionnaiva</RouterLink
+          >
           <span data-v-7cc930f8="">•</span>
-          <!-- <RouterLink to="/build"> Lelariva reviews</RouterLink>
+          <!-- <RouterLink  title="Patch Notes"
+            target="_blank"
+            class="version" data-v-7cc930f8="" to="/build"> Lelariva reviews</RouterLink>
           <span data-v-7cc930f8="">•</span>
-          <RouterLink to="/build"> Le lobbyrivas</RouterLink>
+          <RouterLink  title="Patch Notes"
+            target="_blank"
+            class="version" data-v-7cc930f8="" to="/build"> Le lobbyrivas</RouterLink>
           <span data-v-7cc930f8="">•</span>
-          <RouterLink to="/build"> Lelariguidevas</RouterLink>
+          <RouterLink  title="Patch Notes"
+            target="_blank"
+            class="version" data-v-7cc930f8="" to="/build"> Lelariguidevas</RouterLink>
           <span data-v-7cc930f8="">•</span>-->
-          <!-- <RouterLink to="/tier-list"> Lela tierlistas</RouterLink>
+          <!-- <RouterLink  title="Patch Notes"
+            target="_blank"
+            class="version" data-v-7cc930f8="" to="/tier-list"> Lela tierlistas</RouterLink>
           <span data-v-7cc930f8="">•</span> -->
-          <!--<RouterLink to="/build"> Le metarivas</RouterLink>
+          <!--<RouterLink  title="Patch Notes"
+            target="_blank"
+            class="version" data-v-7cc930f8="" to="/build"> Le metarivas</RouterLink>
           <span data-v-7cc930f8="">•</span> -->
-          <RouterLink to="/build"> Building</RouterLink>
+          <RouterLink
+            title="Building"
+            target="_blank"
+            class="version"
+            data-v-7cc930f8=""
+            to="/build"
+          >
+            Building</RouterLink
+          >
           <span data-v-7cc930f8="">•</span>
-          <RouterLink to="/build"> Lelaribuilds</RouterLink>
+          <RouterLink v-if="userBuilds.length > 0" to="/builds">
+            Mes builds</RouterLink
+          >
+          <span data-v-7cc930f8="">•</span>
+          <RouterLink
+            title="Lebuildarriva"
+            target="_blank"
+            class="version"
+            data-v-7cc930f8=""
+            to="/build"
+          >
+            Lebuildarriva</RouterLink
+          >
           <span data-v-7cc930f8="">•</span>
           <!-- <a data-v-7cc930f8="" href="/builds" class=""> My Builds</a>
           <span data-v-7cc930f8="">•</span> -->
@@ -67,7 +116,7 @@ import version from '@/assets/files/lastVersion.json'
             data-v-7cc930f8=""
             href="https://github.com/drkaine"
             target="_blank"
-            title="sybo.dev"
+            title="drkaine"
           >
             @darkaine</a
           >
