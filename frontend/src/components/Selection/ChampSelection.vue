@@ -35,6 +35,7 @@ const championStore = useChampionStore()
 const isLoading = ref(true)
 
 onMounted(async () => {
+  await championStore.loadChampions()
   isLoading.value = false
 })
 

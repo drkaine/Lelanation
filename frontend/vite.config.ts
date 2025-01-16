@@ -21,6 +21,13 @@ export default defineConfig({
     rollupOptions: {
       input: {
         main: fileURLToPath(new URL('./index.html', import.meta.url)),
+      },
+      output: {
+        manualChunks: (id) => {
+          if (id.includes('champion.json')) {
+            return 'champion-data'
+          }
+        }
       }
     },
     assetsInlineLimit: 0,

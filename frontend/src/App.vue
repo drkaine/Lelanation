@@ -94,7 +94,7 @@ const userBuilds = buildStore.userBuilds
           >
             Mes builds</RouterLink
           >
-          <span data-v-7cc930f8="">•</span>
+          <span data-v-7cc930f8="" v-if="userBuilds.length > 0">•</span>
           <RouterLink
             title="Lebuildarriva"
             class="version"

@@ -4,6 +4,7 @@ import type { Champion } from '@/types/champion'
 
 export const useChampionStore = defineStore('champion', () => {
   const selectedChampion = ref<Champion | null>(null)
+  const champions = ref<Champion[]>([])
 
   const setSelectedChampion = (champion: Champion) => {
     selectedChampion.value = champion
@@ -13,5 +14,18 @@ export const useChampionStore = defineStore('champion', () => {
     selectedChampion.value = null
   }
 
-  return { selectedChampion, setSelectedChampion, resetChampionSelection }
+  const loadChampions = async () => {
+    const { data } = await import(
+      /* webpackChunkName: "champion-data" */ '@/assets/files/championFull.json'
+    )
+    champions.value = Object.values(data)
+  }
+
+  return {
+    champions,
+    selectedChampion,
+    setSelectedChampion,
+    resetChampionSelection,
+    loadChampions,
+  }
 })
