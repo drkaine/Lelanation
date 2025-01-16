@@ -1,0 +1,203 @@
+.tooltip [data-v-cbff5ddf-s]:hover + .box.off {
+  display: none;
+}
+
+.tooltip .box .body > hr[data-v-cbff5ddf] {
+  margin-bottom: 0.5em;
+}
+
+.tooltip .box .footer > hr[data-v-cbff5ddf] {
+  margin-bottom: 0.8em;
+}
+.tip .tooltip-header > .item-header[data-v-354b7b55] {
+  grid-template-columns: min-content 1fr;
+  margin-bottom: 0.4em;
+  align-items: center;
+  grid-gap: 0 8px;
+  display: grid;
+  width: 100%;
+}
+
+.tip .tooltip-header > .item-header img[data-v-354b7b55] {
+  border: 1px solid var(--gold-3);
+  --size: 48px;
+  height: var(--size);
+  width: var(--size);
+  grid-area: 1/1/3;
+  display: block;
+}
+
+.tip .tooltip-header > .item-header .name[data-v-354b7b55] {
+  font-weight: 600;
+  font-size: 16px;
+  grid-area: 1/2;
+}
+
+.tip .tooltip-header > .item-header > .gold[data-v-354b7b55] {
+  align-items: center;
+  font-weight: 500;
+  font-size: 0.8em;
+  display: flex;
+}
+
+.tip .tooltip-header > .item-header > .gold .total[data-v-354b7b55] {
+  color: var(--gold-1);
+  align-items: center;
+  grid-area: 2/2;
+  display: flex;
+}
+
+.tip .tooltip-header > .item-header > .gold .total svg[data-v-354b7b55] {
+  margin-right: 3px;
+  width: 1.2em;
+}
+
+.tip .tooltip-header > .item-header > .gold .total svg path[data-v-354b7b55] {
+  stroke: var(--gold-1);
+}
+
+.tip .tooltip-header > .item-header > .gold .sell[data-v-354b7b55] {
+  color: var(--sand-4);
+  margin-left: 0.5em;
+  margin-top: 0.05em;
+  font-size: 0.85em;
+  font-weight: 600;
+}
+.tooltip[data-v-cbff5ddf] {
+  display: contents;
+}
+
+.tooltip [data-v-cbff5ddf-s]:hover + .box.off {
+  display: none;
+}
+
+.tooltip .box[data-v-cbff5ddf] {
+  max-width: min(620px, var(--tooltipMaxWidth, calc(100vw - 70px)));
+  min-width: var(--tooltipMinWidth, 270px);
+  color: var(--tooltip, var(--sand-1));
+  padding: var(--tooltipPad, 1.2em);
+  border: 1px solid var(--gold-1);
+  background-color: var(--black);
+  border-image-slice: 1;
+  border-image-source: linear-gradient(
+    to bottom right,
+    var(--tooltipBorder1, var(--gold-1)),
+    var(--tooltipBorder2, var(--gold-2))
+  );
+  font-size: 1rem;
+  position: absolute;
+  display: none;
+  flex-direction: column;
+  pointer-events: none;
+  width: max-content;
+  user-select: none;
+  text-align: left;
+  z-index: 2;
+  box-shadow: var(--black) 0 0 8px 4px;
+}
+
+.tooltip .box[data-v-cbff5ddf]:first-nth-type {
+  display: flex;
+}
+
+.tooltip .box .body[data-v-cbff5ddf] {
+  font-weight: 400;
+  line-height: 1.5;
+  font-size: var(--tooltipTextSize, 14px);
+}
+
+.type-info .tooltip .box .body[data-v-cbff5ddf] {
+  font-size: 13px;
+}
+
+.tooltip .box .body > hr[data-v-cbff5ddf] {
+  margin-bottom: 0.5em;
+}
+
+.tooltip .box .footer > hr[data-v-cbff5ddf] {
+  margin-bottom: 0.8em;
+}
+
+.tooltip .box hr[data-v-cbff5ddf] {
+  background-color: var(--sand-4);
+  width: 100%;
+  height: 1px;
+  border: 0;
+}
+
+.tip .tooltip-header[data-v-354b7b55] {
+  grid-template-columns: 1fr max-content;
+  grid-gap: 0 8px;
+  font-size: 1rem;
+  display: flex;
+}
+
+.tip .tooltip-header > .item-header[data-v-354b7b55] {
+  grid-template-columns: min-content 1fr;
+  margin-bottom: 0.4em;
+  align-items: center;
+  grid-gap: 0 8px;
+  display: grid;
+  width: 100%;
+}
+
+.tip .tooltip-header > .item-header img[data-v-354b7b55] {
+  border: 1px solid var(--gold-3);
+  --size: 48px;
+  height: var(--size);
+  width: var(--size);
+  grid-area: 1/1/3;
+  display: block;
+}
+
+.tip .tooltip-header > .item-header .name[data-v-354b7b55] {
+  font-weight: 600;
+  font-size: 16px;
+  grid-area: 1/2;
+}
+
+.tip .tooltip-header > .item-header > .gold[data-v-354b7b55] {
+  align-items: center;
+  font-weight: 500;
+  font-size: 0.8em;
+  display: flex;
+}
+
+.tip .tooltip-header > .item-header > .gold .total[data-v-354b7b55] {
+  color: var(--gold-1);
+  align-items: center;
+  grid-area: 2/2;
+  display: flex;
+}
+
+.tip .tooltip-header > .item-header > .gold .total svg[data-v-354b7b55] {
+  margin-right: 3px;
+  width: 1.2em;
+}
+
+.tip .tooltip-header > .item-header > .gold .total svg path[data-v-354b7b55] {
+  stroke: var(--gold-1);
+}
+
+.tip .tooltip-header > .item-header > .gold .sell[data-v-354b7b55] {
+  color: var(--sand-4);
+  margin-left: 0.5em;
+  margin-top: 0.05em;
+  font-size: 0.85em;
+  font-weight: 600;
+}
+
+.tip .tooltip-header .from[data-v-354b7b55] {
+  margin-left: 3em;
+  grid-area: 1/3/4;
+  display: flex;
+  gap: 0.5em;
+}
+
+.tip .tooltip-header[data-v-354b7b55],
+.tip .into[data-v-354b7b55] {
+  --itemBorder: var(--gold-3);
+  --itemText: var(--gold-1);
+  --itemTextSize: 0.28em;
+  --itemSize: 2.7em;
+}

@@ -1,0 +1,46 @@
+.pick-item[data-v-1875b585] {
+  align-items: center;
+  width: min-content;
+  display: flex;
+  --itemBorderH: var(--slate-2);
+  --itemBorder: var(--slate-4);
+  --itemSize: 2.95em;
+}
+
+.pick-item[data-v-1875b585] .item {
+  cursor: grab;
+}
+
+.pick-item.sortable-chosen[data-v-1875b585] .item {
+  cursor: grabbing;
+}
+
+.picks[data-v-63d61340] {
+  margin: 1em 0 1.5em;
+  gap: var(--gap);
+  display: flex;
+  --gap: 0.7em;
+  width: 100%;
+}
+
+.picks .list[data-v-63d61340] {
+  border: 1px dashed var(--slate-4);
+  padding: var(--gap);
+  position: relative;
+  flex-wrap: wrap;
+  gap: var(--gap);
+  display: grid;
+  display: flex;
+  width: 100%;
+}
+
+.picks .list[data-v-63d61340]:before {
+  content: 'Drag to move / Click to delete';
+  color: var(--slate-3);
+  position: absolute;
+  font-style: italic;
+  font-size: 0.75em;
+  font-weight: 500;
+  top: -1.5em;
+  left: 0;
+}

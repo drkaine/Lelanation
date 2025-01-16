@@ -1,0 +1,78 @@
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+form sup {
+  display: inline-block;
+}
+
+form label {
+  flex-direction: column;
+  color: var(--slate-2);
+  display: inline-flex;
+  font-size: 0.875em;
+  font-weight: 500;
+  max-width: 100%;
+  margin: 1em 0;
+  gap: 0.3em;
+}
+
+form label:first-child {
+  margin-top: 0;
+}
+
+form label.small {
+  width: 15em;
+}
+
+form label.small input,
+form label.small textarea {
+  padding: 0.5em 0.85em;
+}
+
+form label input,
+form label textarea {
+  border: 1px solid var(--inputBorder, var(--slate-4));
+  background-color: var(--black);
+  font-family: var(--font);
+  padding: 0.7em 0.85em;
+  color: var(--slate-1);
+  border-radius: 4px;
+  font-size: 1em;
+  display: block;
+  outline: none;
+  resize: none;
+  width: 100%;
+}
+
+form label input:focus,
+form label textarea:focus {
+  outline: 1px solid var(--slate-4);
+}
+
+form label input::placeholder,
+form label textarea::placeholder {
+  color: var(--slate-3);
+  opacity: 1;
+}
+
+form label textarea {
+  resize: vertical;
+}
+
+form label.small input,
+form label.small textarea {
+  padding: 0.5em 0.85em;
+}
+
+form label input:focus,
+form label textarea:focus {
+  outline: 1px solid var(--slate-4);
+}
+
+form label input::placeholder,
+form label textarea::placeholder {
+  color: var(--slate-3);
+  opacity: 1;
+}

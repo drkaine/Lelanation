@@ -1,0 +1,168 @@
+.champions .list > .filter[data-v-80441127] {
+  grid-area: auto/1/auto/-1;
+  display: inline-flex;
+  margin-bottom: 1em;
+  flex-wrap: wrap;
+  gap: 0.5em;
+}
+.champ-block .spells[data-v-5bc51be1] {
+  flex-direction: column;
+  margin-top: 1em;
+  display: flex;
+  gap: 0.8em;
+}
+
+.champ-block .spells .spell[data-v-5bc51be1] {
+  flex-shrink: 0;
+  display: flex;
+  gap: 0.75em;
+}
+
+.champ-block .spells .spell:nth-child(2) .img[data-v-5bc51be1]:before {
+  content: 'Q';
+}
+
+.champ-block .spells .spell:nth-child(3) .img[data-v-5bc51be1]:before {
+  content: 'W';
+}
+
+.champ-block .spells .spell:nth-child(4) .img[data-v-5bc51be1]:before {
+  content: 'E';
+}
+
+.champ-block .spells .spell:nth-child(5) .img[data-v-5bc51be1]:before {
+  content: 'R';
+}
+
+.champ-block .spells .spell .img[data-v-5bc51be1] {
+  border: 1px solid var(--gold-3);
+  position: relative;
+  margin-top: 0.1em;
+  height: var(--s);
+  width: var(--s);
+  flex-shrink: 0;
+  --s: 2.6em;
+}
+
+.champ-block .spells .spell .img[data-v-5bc51be1]:before {
+  color: var(--gold-1);
+  position: absolute;
+  font-size: 0.85em;
+  font-weight: 400;
+  bottom: -0.15em;
+  left: 0.1em;
+  text-shadow:
+    1px 1px 0 var(--black),
+    -1px 1px 0 var(--black),
+    -1px -1px 0 var(--black),
+    1px -1px 0 var(--black);
+}
+
+.champ-block .spells .spell .img img[data-v-5bc51be1] {
+  display: flex;
+  height: 100%;
+  width: 100%;
+}
+
+.champ-block .spells .spell .desc[data-v-5bc51be1] {
+  font-size: 13px;
+}
+
+.champ-block .break[data-v-5bc51be1] {
+  background-color: var(--sand-4);
+  display: block;
+  margin: 1em 0;
+  width: 100%;
+  height: 1px;
+}
+
+.champ-block .info[data-v-5bc51be1] {
+  grid-template-columns: min-content 1fr;
+  align-items: center;
+  grid-auto-flow: row;
+  gap: 0em 0.7em;
+  display: grid;
+}
+
+.champ-block .info .name[data-v-5bc51be1] {
+  text-transform: capitalize;
+  align-items: center;
+  color: var(--gold-1);
+  font-weight: 500;
+  font-size: 12px;
+  display: flex;
+}
+
+.champ-block .info .name.difficulty[data-v-5bc51be1] {
+  color: var(--slate-2);
+}
+
+.champ-block .info .line[data-v-5bc51be1] {
+  background-color: var(--gold-1);
+  border-radius: 2px;
+  height: 5px;
+}
+
+.champ-block .info .line.difficulty[data-v-5bc51be1] {
+  background-color: var(--slate-2);
+}
+
+.champion[data-v-1f02dc05] {
+  background: linear-gradient(-45deg, var(--slate-6), var(--slate-5) 140%);
+  border: 1px solid var(--champBorder);
+  height: var(--champSize);
+  width: var(--champSize);
+  position: relative;
+  border-radius: 50%;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.champion img[data-v-1f02dc05] {
+  position: absolute;
+  width: 116%;
+  --s: 50%;
+  top: var(--s);
+  left: var(--s);
+  transform: translate(calc(var(--s) * -1), calc(var(--s) * -1));
+  filter: var(--champImgFilter);
+}
+
+.champions .list[data-v-80441127] {
+  grid-template-columns: repeat(auto-fit, var(--size));
+  place-content: center;
+  display: grid;
+}
+
+.champions .list .search[data-v-80441127] {
+  grid-area: auto/1/auto/-1;
+}
+
+.champions .list > .filter[data-v-80441127] {
+  grid-area: auto/1/auto/-1;
+  display: inline-flex;
+  margin-bottom: 1em;
+  flex-wrap: wrap;
+  gap: 0.5em;
+}
+
+.champions .list .champ[data-v-80441127] {
+  border: 1px solid transparent;
+  position: relative;
+  height: var(--size);
+  width: var(--size);
+}
+
+.champions .list .champ.hide img[data-v-80441127] {
+  filter: grayscale(1) brightness(0.4);
+}
+
+.champions .list .champ img[data-v-80441127] {
+  display: block;
+  height: 100%;
+  width: 100%;
+}
+
+.champions[data-v-80441127] {
+  --size: 54px;
+}

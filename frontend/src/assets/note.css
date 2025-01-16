@@ -1,0 +1,16 @@
+.note[data-v-5f37b7fd] {
+  display: inline-flex;
+  text-transform: none;
+  color: var(--slate-3);
+  --tooltipBorder1: var(--slate-1);
+  --tooltipBorder2: var(--slate-2);
+  --tooltip: var(--slate-1);
+  --tooltipPad: 0.95em 1em;
+  --tooltipMaxWidth: 380px;
+}
+
+.note[data-v-5f37b7fd] svg {
+  height: var(--s);
+  width: var(--s);
+  --s: 1em;
+}

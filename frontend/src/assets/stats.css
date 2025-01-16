@@ -1,0 +1,509 @@
+.stats
+  .list
+  .list-item
+  .value.critical-strike-chance\:\%[data-v-636d16e0]:first-child,
+.stats .list .list-item .value.attack-speed\:\%[data-v-636d16e0]:first-child {
+  color: transparent;
+}
+
+.stats .list .list-item .value + .name[data-v-636d16e0] {
+  border-bottom: 1px solid var(--slate-4);
+  align-content: center;
+  white-space: nowrap;
+  padding: 0 0.75em;
+  width: 100%;
+}
+
+.stats .list .list-item .value + .name[data-v-636d16e0]:first-letter {
+  text-transform: capitalize;
+}
+
+.stats .list .list-item .value.gold[data-v-636d16e0],
+.stats .list .list-item .value.gold + .name[data-v-636d16e0] {
+  font-weight: 700;
+}
+
+.stats .list .list-item .value[data-v-636d16e0],
+.stats .list .list-item .value + .name[data-v-636d16e0] {
+  padding-top: 0.1em;
+}
+
+.stats[data-v-62867835] {
+  border: 1px solid var(--slate-5);
+  background-color: var(--black);
+  border-radius: 4px;
+  position: relative;
+  grid-area: 1/2;
+  width: 100%;
+}
+
+.stats.open[data-v-62867835] {
+  border-color: var(--slate-4);
+}
+
+.stats.open .line[data-v-62867835] {
+  border-bottom: 1px solid var(--slate-5);
+  border-radius: 4px 4px 0 0;
+}
+
+.stats .line[data-v-62867835] {
+  justify-content: flex-end;
+  align-items: center;
+  position: relative;
+  border-radius: 4px;
+  line-height: 1rem;
+  user-select: none;
+  padding: 1em;
+  cursor: pointer;
+  display: flex;
+  width: 100%;
+  gap: 1.5em;
+}
+
+.stats .line[data-v-62867835]:has(a:hover) {
+  background-color: var(--black);
+}
+
+.stats .line .info[data-v-62867835] {
+  align-items: center;
+  margin-right: auto;
+  display: flex;
+  gap: 1em;
+}
+
+.stats .line .info .champion[data-v-62867835] {
+  position: relative;
+  --champBorder: var(--slate-4);
+  --champSize: 2.8em;
+}
+
+.stats .line .info .champion.on[data-v-62867835] {
+  --champBorder: var(--slate-3);
+}
+
+.stats .line .info .champion > a[data-v-62867835]:hover {
+  --champBorder: var(--slate-2);
+}
+
+.stats .line .info .champion .role[data-v-62867835] {
+  filter: grayscale(1);
+  height: var(--size);
+  width: var(--size);
+  position: absolute;
+  bottom: -0.35em;
+  right: -0.35em;
+  --size: 1.2em;
+}
+
+.stats .line .info .champion .role img[data-v-62867835] {
+  display: block;
+  width: 100%;
+  height: 100%;
+  filter: drop-shadow(1px 0 0 var(--black)) drop-shadow(0 1px 0 var(--black))
+    drop-shadow(-1px 0 0 var(--black)) drop-shadow(0 -1px 0 var(--black));
+}
+
+.stats .line .info .title[data-v-62867835] {
+  flex-direction: column;
+  text-align: left;
+  display: flex;
+  gap: 0.2em;
+}
+
+.stats .line .info .title .name[data-v-62867835] {
+  color: var(--slate-1);
+  table-layout: fixed;
+  font-weight: 600;
+  font-size: 1em;
+  display: table;
+  width: 100%;
+}
+
+.stats .line .info .title .name span[data-v-62867835] {
+  text-overflow: ellipsis;
+  display: table-cell;
+  white-space: nowrap;
+  overflow: hidden;
+  display: block;
+  width: 100%;
+}
+
+.stats .line .info .title .name span .rank[data-v-62867835] {
+  margin-bottom: -0.15em;
+  display: inline-block;
+  margin-left: 0.25em;
+  height: var(--size);
+  width: var(--size);
+  --size: 1em;
+}
+
+.stats .line .info .title .name span .rank img[data-v-62867835] {
+  display: block;
+  height: 100%;
+  width: 100%;
+}
+
+.stats .line .info .title > .count[data-v-62867835] {
+  color: var(--slate-3);
+  table-layout: fixed;
+  font-size: 0.75em;
+  font-weight: 500;
+  display: table;
+  width: 100%;
+}
+
+.stats .line .info .title > .count span[data-v-62867835] {
+  text-overflow: ellipsis;
+  display: inline-flex;
+  white-space: nowrap;
+  align-items: center;
+  overflow: hidden;
+  width: 100%;
+  gap: 0.5em;
+}
+
+.stats .line .info .title > .count span .tip[data-v-62867835] {
+  display: contents;
+  --tooltipBorder1: var(--slate-3);
+  --tooltipBorder2: var(--slate-3);
+  --tooltip: var(--slate-1);
+  --tooltipPad: 0.6em 0.8em;
+  --tooltipTextSize: 13px;
+  --tooltipMinWidth: 0;
+}
+
+.stats .line .info .title > .count span .tip[data-v-62867835] svg {
+  --s: 1.1em;
+  width: var(--s);
+  height: var(--s);
+}
+
+.stats .line .runes[data-v-62867835] {
+  display: flex;
+  gap: 1.25em;
+  --runeSize: 1.8em;
+}
+
+.stats .line .runes .main[data-v-62867835] {
+  --runeBorder: var(--gold-4);
+}
+
+.stats .line .runes .main[data-v-62867835],
+.stats .line .runes .sec[data-v-62867835] {
+  display: flex;
+  gap: 0.5em;
+}
+
+.stats .line .runes .main .rune[data-v-62867835],
+.stats .line .runes .sec .rune[data-v-62867835] {
+  flex-direction: column;
+  display: flex;
+  gap: 0.25em;
+}
+
+.stats .line .runes .main .rune .pct[data-v-62867835],
+.stats .line .runes .sec .rune .pct[data-v-62867835] {
+  color: var(--slate-1);
+  text-align: center;
+  font-size: 0.7em;
+  font-weight: 500;
+  width: 4ch;
+}
+
+.stats .line .items[data-v-62867835] {
+  display: flex;
+  gap: 0.5em;
+  --itemBorder: var(--gold-3);
+  --itemText: var(--slate-1);
+  --itemTextSize: 0.28em;
+  --itemSize: 2.5em;
+}
+
+.stats .line .items .hide[data-v-62867835] {
+  visibility: hidden;
+}
+
+.stats[data-v-636d16e0] {
+  color: var(--slate-2);
+  position: relative;
+  text-align: left;
+  display: flex;
+  width: 100%;
+}
+
+.stats .list[data-v-636d16e0] {
+  font-family: var(--mono);
+  position: relative;
+  font-size: 0.8em;
+  width: 100%;
+}
+
+.stats .list .labels[data-v-636d16e0] {
+  display: flex;
+}
+
+.stats .list .labels .label[data-v-636d16e0] {
+  text-align: center;
+  font-weight: 600;
+}
+
+.stats .list .labels .label[data-v-636d16e0]:first-letter {
+  text-transform: capitalize;
+}
+
+.stats .list .column[data-v-636d16e0] {
+  min-width: 8ch;
+}
+
+.stats .list .list-item[data-v-636d16e0] {
+  position: relative;
+  display: flex;
+  gap: 1px;
+}
+
+.stats .list .list-item .value[data-v-636d16e0] {
+  border-bottom: 1px solid var(--slate-6);
+  color: var(--slate-6);
+  padding: 0 0.5em;
+  text-align: right;
+  font-weight: 600;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.stats
+  .list
+  .list-item
+  .value.critical-strike-chance\:\%[data-v-636d16e0]:first-child,
+.stats .list .list-item .value.attack-speed\:\%[data-v-636d16e0]:first-child {
+  color: transparent;
+}
+
+.stats .list .list-item .value + .name[data-v-636d16e0] {
+  border-bottom: 1px solid var(--slate-4);
+  align-content: center;
+  white-space: nowrap;
+  padding: 0 0.75em;
+  width: 100%;
+}
+
+.stats .list .list-item .value + .name[data-v-636d16e0]:first-letter {
+  text-transform: capitalize;
+}
+
+.stats .list .list-item .value.gold[data-v-636d16e0],
+.stats .list .list-item .value.gold + .name[data-v-636d16e0] {
+  font-weight: 700;
+}
+
+.stats .list .list-item .value[data-v-636d16e0],
+.stats .list .list-item .value + .name[data-v-636d16e0] {
+  padding-top: 0.1em;
+}
+
+.stats .slot[data-v-636d16e0] {
+  position: absolute;
+  display: flex;
+  top: 0.1em;
+  right: 0;
+}
+
+.stats[data-v-6189e891] {
+  border: 1px solid var(--slate-5);
+  background-color: var(--black);
+  border-radius: 4px;
+  position: relative;
+  grid-area: 1/2;
+  width: 100%;
+}
+
+.stats.open[data-v-6189e891] {
+  border-color: var(--slate-4);
+}
+
+.stats.open .line[data-v-6189e891] {
+  border-bottom: 1px solid var(--slate-5);
+  border-radius: 4px 4px 0 0;
+}
+
+.stats .line[data-v-6189e891] {
+  justify-content: flex-end;
+  align-items: center;
+  position: relative;
+  border-radius: 4px;
+  line-height: 1rem;
+  user-select: none;
+  padding: 1em;
+  cursor: pointer;
+  display: flex;
+  width: 100%;
+  gap: 1.5em;
+}
+
+.stats .line[data-v-6189e891]:has(a:hover) {
+  background-color: var(--black);
+}
+
+.stats .line .info[data-v-6189e891] {
+  align-items: center;
+  margin-right: auto;
+  display: flex;
+  gap: 1em;
+}
+
+.stats .line .info .champion[data-v-6189e891] {
+  position: relative;
+  --champBorder: var(--slate-4);
+  --champSize: 2.8em;
+}
+
+.stats .line .info .champion.on[data-v-6189e891] {
+  --champBorder: var(--slate-3);
+}
+
+.stats .line .info .champion > a[data-v-6189e891]:hover {
+  --champBorder: var(--slate-2);
+}
+
+.stats .line .info .champion .role[data-v-6189e891] {
+  filter: grayscale(1);
+  height: var(--size);
+  width: var(--size);
+  position: absolute;
+  bottom: -0.35em;
+  right: -0.35em;
+  --size: 1.2em;
+}
+
+.stats .line .info .champion .role img[data-v-6189e891] {
+  display: block;
+  width: 100%;
+  height: 100%;
+  filter: drop-shadow(1px 0 0 var(--black)) drop-shadow(0 1px 0 var(--black))
+    drop-shadow(-1px 0 0 var(--black)) drop-shadow(0 -1px 0 var(--black));
+}
+
+.stats .line .info .title[data-v-6189e891] {
+  flex-direction: column;
+  text-align: left;
+  display: flex;
+  gap: 0.2em;
+}
+
+.stats .line .info .title .name[data-v-6189e891] {
+  color: var(--slate-1);
+  table-layout: fixed;
+  font-weight: 600;
+  font-size: 1em;
+  display: table;
+  width: 100%;
+}
+
+.stats .line .info .title .name span[data-v-6189e891] {
+  text-overflow: ellipsis;
+  display: table-cell;
+  white-space: nowrap;
+  overflow: hidden;
+  display: block;
+  width: 100%;
+}
+
+.stats .line .info .title .name span .rank[data-v-6189e891] {
+  margin-bottom: -0.15em;
+  display: inline-block;
+  margin-left: 0.25em;
+  height: var(--size);
+  width: var(--size);
+  --size: 1em;
+}
+
+.stats .line .info .title .name span .rank img[data-v-6189e891] {
+  display: block;
+  height: 100%;
+  width: 100%;
+}
+
+.stats .line .info .title > .count[data-v-6189e891] {
+  color: var(--slate-3);
+  table-layout: fixed;
+  font-size: 0.75em;
+  font-weight: 500;
+  display: table;
+  width: 100%;
+}
+
+.stats .line .info .title > .count span[data-v-6189e891] {
+  text-overflow: ellipsis;
+  display: inline-flex;
+  white-space: nowrap;
+  align-items: center;
+  overflow: hidden;
+  width: 100%;
+  gap: 0.5em;
+}
+
+.stats .line .info .title > .count span .tip[data-v-6189e891] {
+  display: contents;
+  --tooltipBorder1: var(--slate-3);
+  --tooltipBorder2: var(--slate-3);
+  --tooltip: var(--slate-1);
+  --tooltipPad: 0.6em 0.8em;
+  --tooltipTextSize: 13px;
+  --tooltipMinWidth: 0;
+}
+
+.stats .line .info .title > .count span .tip[data-v-6189e891] svg {
+  --s: 1.1em;
+  width: var(--s);
+  height: var(--s);
+}
+
+.stats .line .runes[data-v-6189e891] {
+  display: flex;
+  gap: 1.25em;
+  --runeSize: 1.8em;
+}
+
+.stats .line .runes .main[data-v-6189e891] {
+  --runeBorder: var(--gold-4);
+}
+
+.stats .line .runes .main[data-v-6189e891],
+.stats .line .runes .sec[data-v-6189e891] {
+  display: flex;
+  gap: 0.5em;
+}
+
+.stats .line .runes .main .rune[data-v-6189e891],
+.stats .line .runes .sec .rune[data-v-6189e891] {
+  flex-direction: column;
+  display: flex;
+  gap: 0.25em;
+}
+
+.stats .line .runes .main .rune .pct[data-v-6189e891],
+.stats .line .runes .sec .rune .pct[data-v-6189e891] {
+  color: var(--slate-1);
+  text-align: center;
+  font-size: 0.7em;
+  font-weight: 500;
+  width: 4ch;
+}
+
+.stats .line .items[data-v-6189e891] {
+  display: flex;
+  gap: 0.5em;
+  --itemBorder: var(--gold-3);
+  --itemText: var(--slate-1);
+  --itemTextSize: 0.28em;
+  --itemSize: 2.5em;
+}
+
+.stats .line .items .hide[data-v-6189e891] {
+  visibility: hidden;
+}
+
+.extra-stats[data-v-6a781413] {
+  max-width: 24em;
+  width: 100%;
+}

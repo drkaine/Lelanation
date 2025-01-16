@@ -1,0 +1,297 @@
+.player[data-v-83a8bb49] {
+  flex-direction: column;
+  display: flex;
+}
+
+.player:last-child .add[data-v-83a8bb49] {
+  border-radius: 0 0 4px;
+  overflow: hidden;
+}
+
+.player > .line[data-v-83a8bb49] {
+  align-items: center;
+  font-size: 0.85em;
+  display: flex;
+  width: 100%;
+}
+
+.player > .line > .sheet[data-v-83a8bb49] {
+  --sheetChampBorder: var(--slate-3);
+  border-top: var(--border);
+  --sheetBorderSize: 0;
+  --sheetBack: none;
+  min-width: 0;
+  width: 100%;
+}
+
+.player > .line > .sheet[data-v-83a8bb49]:not(button) {
+  cursor: default;
+}
+
+.player > .line > .sheet .lvl[data-v-83a8bb49] {
+  background-color: var(--slate-6);
+  border: 1px solid var(--slate-5);
+  justify-content: center;
+  color: var(--slate-2);
+  pointer-events: none;
+  align-items: center;
+  position: absolute;
+  border-radius: 50%;
+  font-size: 0.8em;
+  z-index: 1;
+  display: flex;
+  bottom: 0.5em;
+  left: 0.5em;
+  --s: 2em;
+  width: var(--s);
+  height: var(--s);
+}
+
+.player > .line > .sheet .name[data-v-83a8bb49] {
+  color: var(--slate-1);
+  white-space: nowrap;
+  overflow: hidden;
+  font-weight: 500;
+  font-size: 1em;
+  width: 100%;
+}
+
+.player > .line > .sheet .name span[data-v-83a8bb49]:last-child {
+  color: var(--slate-4);
+  margin-left: 0.5em;
+}
+
+.player > .line > .sheet .kda[data-v-83a8bb49] {
+  font-family: var(--mono);
+  color: var(--slate-2);
+  white-space: nowrap;
+  font-size: 0.9em;
+}
+
+.player > .line > .sheet .kda .kp[data-v-83a8bb49] {
+  display: inline-block;
+  color: var(--slate-4);
+  width: 5ch;
+}
+
+.player > .line > .sheet .cs[data-v-83a8bb49] {
+  font-family: var(--mono);
+  color: var(--slate-2);
+  text-align: center;
+  line-height: 1.3em;
+  font-size: 0.9em;
+  flex-shrink: 0;
+  width: 6ch;
+}
+
+.player > .line .add[data-v-83a8bb49] {
+  border-left: 1px solid var(--slate-5);
+  background-color: var(--slate-6);
+  text-transform: uppercase;
+  border-top: var(--border);
+  align-self: stretch;
+  align-items: center;
+  color: var(--slate-3);
+  padding: 0 0.6em;
+  font-size: 2em;
+  display: flex;
+  flex-shrink: 0;
+}
+
+.player > .timeline[data-v-83a8bb49] {
+  border-top: var(--border);
+  background-color: #000;
+  flex-wrap: wrap;
+  padding: 1.5em;
+  display: flex;
+  gap: 1em 0;
+}
+
+.player > .timeline .frame[data-v-83a8bb49] {
+  display: flex;
+  padding-bottom: 0.6em;
+}
+
+.player > .timeline .frame[data-v-83a8bb49]:after {
+  padding-top: 1em;
+  content: '';
+  --s: 0.7em;
+  width: var(--s);
+  height: var(--s);
+  margin: 0 0.4em;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-image: var(--arrow);
+}
+
+.player > .timeline .frame[data-v-83a8bb49]:last-child:after {
+  display: none;
+}
+
+.player > .timeline .frame .items[data-v-83a8bb49] {
+  justify-content: center;
+  position: relative;
+  display: flex;
+  gap: 0.25em;
+  --itemBorder: var(--slate-4);
+  --itemSize: 2em;
+}
+
+.player > .timeline .frame .items .time[data-v-83a8bb49] {
+  top: calc(100% + 0.1em);
+  white-space: nowrap;
+  color: var(--slate-4);
+  position: absolute;
+  font-size: 0.75em;
+  font-weight: 500;
+}
+
+.player[data-v-c46e3cdc] {
+  flex-direction: column;
+  display: flex;
+}
+
+.player:last-child .add[data-v-c46e3cdc] {
+  border-radius: 0 0 4px;
+  overflow: hidden;
+}
+
+.player > .line[data-v-c46e3cdc] {
+  align-items: center;
+  font-size: 0.85em;
+  display: flex;
+  width: 100%;
+}
+
+.player > .line > .sheet[data-v-c46e3cdc] {
+  --sheetChampBorder: var(--slate-3);
+  border-top: var(--border);
+  --sheetBorderSize: 0;
+  --sheetBack: none;
+  min-width: 0;
+  width: 100%;
+}
+
+.player > .line > .sheet[data-v-c46e3cdc]:not(button) {
+  cursor: default;
+}
+
+.player > .line > .sheet .lvl[data-v-c46e3cdc] {
+  background-color: var(--slate-6);
+  border: 1px solid var(--slate-5);
+  justify-content: center;
+  color: var(--slate-2);
+  pointer-events: none;
+  align-items: center;
+  position: absolute;
+  border-radius: 50%;
+  font-size: 0.8em;
+  z-index: 1;
+  display: flex;
+  bottom: 0.5em;
+  left: 0.5em;
+  --s: 2em;
+  width: var(--s);
+  height: var(--s);
+}
+
+.player > .line > .sheet .name[data-v-c46e3cdc] {
+  color: var(--slate-1);
+  white-space: nowrap;
+  overflow: hidden;
+  font-weight: 500;
+  font-size: 1em;
+  width: 100%;
+}
+
+.player > .line > .sheet .name span[data-v-c46e3cdc]:last-child {
+  color: var(--slate-4);
+  margin-left: 0.5em;
+}
+
+.player > .line > .sheet .kda[data-v-c46e3cdc] {
+  font-family: var(--mono);
+  color: var(--slate-2);
+  white-space: nowrap;
+  font-size: 0.9em;
+}
+
+.player > .line > .sheet .kda .kp[data-v-c46e3cdc] {
+  display: inline-block;
+  color: var(--slate-4);
+  width: 5ch;
+}
+
+.player > .line > .sheet .cs[data-v-c46e3cdc] {
+  font-family: var(--mono);
+  color: var(--slate-2);
+  text-align: center;
+  line-height: 1.3em;
+  font-size: 0.9em;
+  flex-shrink: 0;
+  width: 6ch;
+}
+
+.player > .line .add[data-v-c46e3cdc] {
+  border-left: 1px solid var(--slate-5);
+  background-color: var(--slate-6);
+  text-transform: uppercase;
+  border-top: var(--border);
+  align-self: stretch;
+  align-items: center;
+  color: var(--slate-3);
+  padding: 0 0.6em;
+  font-size: 2em;
+  display: flex;
+  flex-shrink: 0;
+}
+
+.player > .timeline[data-v-c46e3cdc] {
+  border-top: var(--border);
+  background-color: #000;
+  flex-wrap: wrap;
+  padding: 1.5em;
+  display: flex;
+  gap: 1em 0;
+}
+
+.player > .timeline .frame[data-v-c46e3cdc] {
+  display: flex;
+  padding-bottom: 0.6em;
+}
+
+.player > .timeline .frame[data-v-c46e3cdc]:after {
+  padding-top: 1em;
+  content: '';
+  --s: 0.7em;
+  width: var(--s);
+  height: var(--s);
+  margin: 0 0.4em;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-image: var(--arrow);
+}
+
+.player > .timeline .frame[data-v-c46e3cdc]:last-child:after {
+  display: none;
+}
+
+.player > .timeline .frame .items[data-v-c46e3cdc] {
+  justify-content: center;
+  position: relative;
+  display: flex;
+  gap: 0.25em;
+  --itemBorder: var(--slate-4);
+  --itemSize: 2em;
+}
+
+.player > .timeline .frame .items .time[data-v-c46e3cdc] {
+  top: calc(100% + 0.1em);
+  white-space: nowrap;
+  color: var(--slate-4);
+  position: absolute;
+  font-size: 0.75em;
+  font-weight: 500;
+}

@@ -1,0 +1,63 @@
+.shards > .shard[data-v-5f2eb625] {
+  place-content: center;
+  width: var(--2e8b5dd2);
+  position: relative;
+  display: grid;
+  height: 42px;
+}
+
+.shards > .shard > button[data-v-5f2eb625] {
+  --shardBorder: var(--gold-2);
+  --shardSize: 24px;
+}
+
+.shards > .shard > button.row[data-v-5f2eb625] {
+  --shardFilter: grayscale(1) brightness(0.6);
+}
+
+.shards > .shard > button.row.selected[data-v-5f2eb625] {
+  --shardFilter: grayscale(0);
+}
+
+.shard[data-v-ad54ad37] {
+  height: var(--shardSize, var(--size));
+  width: var(--shardSize, var(--size));
+  filter: var(--shardFilter);
+  --size: 1.2em;
+}
+
+.shard > img[data-v-ad54ad37] {
+  border: 1px solid var(--shardBorder, var(--gold-2));
+  border-radius: 50%;
+  display: block;
+  height: 100%;
+  width: 100%;
+}
+
+.shards[data-v-5f2eb625] {
+  grid-template-columns: repeat(3, min-content);
+  place-items: center;
+  grid-area: 3/2;
+  display: grid;
+}
+
+.shards > .shard[data-v-5f2eb625] {
+  place-content: center;
+  width: var(--2e8b5dd2);
+  position: relative;
+  display: grid;
+  height: 42px;
+}
+
+.shards > .shard > button[data-v-5f2eb625] {
+  --shardBorder: var(--gold-2);
+  --shardSize: 24px;
+}
+
+.shards > .shard > button.row[data-v-5f2eb625] {
+  --shardFilter: grayscale(1) brightness(0.6);
+}
+
+.shards > .shard > button.row.selected[data-v-5f2eb625] {
+  --shardFilter: grayscale(0);
+}

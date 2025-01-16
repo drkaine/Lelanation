@@ -1,0 +1,65 @@
+.summoners .list > .sum[data-v-70a93f67] {
+  place-content: center;
+  width: var(--132d151c);
+  position: relative;
+  display: grid;
+  height: 42px;
+}
+
+.summoners .list > .sum > button[data-v-70a93f67] {
+  --sumImgFilter: grayscale(1) brightness(0.6);
+  --sumBorder: var(--gold-4);
+  --sumSize: 30px;
+}
+
+.summoners .list > .sum > button.selected[data-v-70a93f67] {
+  --sumBorder: var(--gold-3);
+  --sumImgFilter: none;
+}
+
+.summoner[data-v-bab95e98] {
+  border: 1px solid var(--sumBorder, var(--gold-3));
+  --s: var(--sumSize, 1.35em);
+  overflow: hidden;
+  height: var(--s);
+  width: var(--s);
+}
+
+.summoner > img[data-v-bab95e98] {
+  filter: var(--sumImgFilter);
+  display: block;
+  height: 100%;
+  width: 100%;
+}
+
+.summoners[data-v-70a93f67] {
+  align-items: center;
+  grid-area: 3/1;
+  display: flex;
+}
+
+.summoners .list[data-v-70a93f67] {
+  grid-template-columns: repeat(3, min-content);
+  place-items: center;
+  display: grid;
+  width: 100%;
+}
+
+.summoners .list > .sum[data-v-70a93f67] {
+  place-content: center;
+  width: var(--132d151c);
+  position: relative;
+  display: grid;
+  height: 42px;
+}
+
+.summoners .list > .sum > button[data-v-70a93f67] {
+  --sumImgFilter: grayscale(1) brightness(0.6);
+  --sumBorder: var(--gold-4);
+  --sumSize: 30px;
+}
+
+.summoners .list > .sum > button.selected[data-v-70a93f67] {
+  --sumBorder: var(--gold-3);
+  --sumImgFilter: none;
+}

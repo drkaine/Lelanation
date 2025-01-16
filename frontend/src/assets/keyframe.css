@@ -1,0 +1,71 @@
+@keyframes spin1-03f7d81a {
+  to {
+    transform: translateY(-1.5em);
+  }
+}
+
+@keyframes spin2-03f7d81a {
+  to {
+    transform: translateY(-3em);
+  }
+}
+
+@keyframes spin3-03f7d81a {
+  to {
+    transform: translateY(-4.5em);
+  }
+}
+
+@keyframes spin4-03f7d81a {
+  to {
+    transform: translateY(-6em);
+  }
+}
+
+@keyframes spin5-03f7d81a {
+  to {
+    transform: translateY(-7.5em);
+  }
+}
+
+@keyframes spin6-03f7d81a {
+  to {
+    transform: translateY(-9em);
+  }
+}
+
+@keyframes spin7-03f7d81a {
+  to {
+    transform: translateY(-10.5em);
+  }
+}
+
+@keyframes spin8-03f7d81a {
+  to {
+    transform: translateY(-12em);
+  }
+}
+
+@keyframes spin9-03f7d81a {
+  to {
+    transform: translateY(-13.5em);
+  }
+}
+
+@keyframes spin10-03f7d81a {
+  to {
+    transform: translateY(-15em);
+  }
+}
+
+@keyframes spin11-03f7d81a {
+  to {
+    transform: translateY(-16.5em);
+  }
+}
+
+@keyframes spin12-03f7d81a {
+  to {
+    transform: translateY(-18em);
+  }
+}

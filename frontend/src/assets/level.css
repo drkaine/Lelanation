@@ -1,0 +1,29 @@
+.levels[data-v-575fc9df] {
+  flex-direction: column;
+  display: flex;
+}
+
+.levels.horizontal[data-v-575fc9df] {
+  flex-direction: row;
+}
+
+.levels.horizontal .level[data-v-575fc9df] {
+  padding: 0.5em 0 0.3em;
+  font-size: 12px;
+  width: 2em;
+}
+
+.levels .level[data-v-575fc9df] {
+  font-family: var(--mono);
+  color: var(--slate-2);
+  padding: 0.2em 0 0;
+  font-weight: 500;
+  font-size: 13px;
+  width: 5em;
+}
+
+.levels .level.active[data-v-575fc9df] {
+  background-color: var(--slate-2);
+  color: var(--black);
+  font-weight: 600;
+}
