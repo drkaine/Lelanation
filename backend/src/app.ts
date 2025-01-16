@@ -88,6 +88,27 @@ app.get("/api/build/:fileName", async (req, res) => {
   }
 });
 
+app.get("/api/builds/lelariva", async (req, res) => {
+  try {
+    const buildsDir = path.join(
+      __dirname,
+      "../../frontend/public/assets/files/build/",
+    );
+    const files = await fs.readdir(buildsDir);
+    const builds = await Promise.all(
+      files
+        .filter(file => file.toLowerCase().startsWith('lelariva'))
+        .map(async (file) => {
+          const content = await fs.readFile(path.join(buildsDir, file), "utf8");
+          return JSON.parse(content);
+        }),
+    );
+    res.json(builds);
+  } catch (error) {
+    res.status(404).send("Build non trouvé" + error);
+  }
+});
+
 app.get("/api/builds", async (req, res) => {
   try {
     const buildsDir = path.join(

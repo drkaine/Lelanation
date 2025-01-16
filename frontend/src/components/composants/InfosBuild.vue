@@ -6,6 +6,7 @@ import { useShardStore } from '@/stores/shardStore'
 import { useItemStore } from '@/stores/itemStore'
 import { useBuildStore } from '@/stores/buildStore'
 import { useRoleStore } from '@/stores/roleStore'
+import { useConnexionStore } from '@/stores/connexionStore'
 import { ref } from 'vue'
 import { v4 as uuidv4 } from 'uuid'
 import version from '@/assets/files/data/lastVersion.json'
@@ -22,6 +23,7 @@ const shardStore = useShardStore()
 const itemStore = useItemStore()
 const buildStore = useBuildStore()
 const roleStore = useRoleStore()
+const connexionStore = useConnexionStore()
 
 const name = ref('')
 const description = ref('')
@@ -57,7 +59,9 @@ const itemStats = itemStore.$state.ItemsSelection.stats
 const build = buildStore.statsCalculator(championStats, itemStats)
 
 const submitForm = async () => {
-  const fileName = `${uuidv4()}.json`
+  const fileName = connexionStore.isLoggedIn
+    ? `lelariva.${uuidv4()}.json`
+    : `${uuidv4()}.json`
   const data = {
     id: fileName,
     roles: Array.from(roleStore.selectedRoles),
@@ -86,7 +90,9 @@ const submitForm = async () => {
     if (!response.ok) {
       throw new Error('Erreur lors de la sauvegarde')
     }
-    buildStore.saveBuild(data as BuildData)
+    if (!connexionStore.isLoggedIn) {
+      buildStore.saveBuild(data as BuildData)
+    }
 
     championStore.resetChampionSelection()
     runeStore.resetRunesSelection()

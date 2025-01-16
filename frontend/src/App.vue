@@ -99,7 +99,7 @@ const userBuilds = buildStore.userBuilds
             title="Lebuildarriva"
             class="version"
             data-v-7cc930f8=""
-            to="/build"
+            to="/Lebuildarriva"
           >
             Lebuildarriva</RouterLink
           >

@@ -21,6 +21,16 @@ const routes: RouteRecordRaw[] = [
     name: 'Mes build',
     component: () => import('../views/MesBuildsView.vue'),
   },
+  {
+    path: '/build/lelariva',
+    name: 'lelariva',
+    component: () => import('../views/LelarivaBuildView.vue'),
+  },
+  {
+    path: '/Lebuildarriva',
+    name: 'Lebuildarriva',
+    component: () => import('../views/MesBuildsView.vue'),
+  },
   // {
   //   path: '/tier-list',
   //   name: 'tier-list',

@@ -1,10 +1,39 @@
 <script setup lang="ts">
-import { useBuildStore } from '@/stores/buildStore'
+import { ref, computed, onMounted } from 'vue'
+import { useRoute } from 'vue-router'
 import SheetBuild from '@/components/composants/SheetBuild.vue'
+import { useBuildStore } from '@/stores/buildStore'
 
 const buildStore = useBuildStore()
-buildStore.loadUserBuilds()
-const userBuilds = buildStore.userBuilds
+const route = useRoute()
+const builds = ref([])
+const urlApiSave = import.meta.env.VITE_URL_API_SAVE
+
+const isLelarivaBuildPage = computed(() =>
+  route.path.endsWith('/Lebuildarriva'),
+)
+
+onMounted(async () => {
+  try {
+    const url = isLelarivaBuildPage.value
+      ? `${urlApiSave}/api/builds/lelariva`
+      : '/assets/build/builds.json'
+
+    const response = await fetch(url)
+    const data = await response.json()
+    builds.value = data
+  } catch (error) {
+    console.error('Erreur lors du chargement des builds:', error)
+    builds.value = []
+  }
+})
+
+const filteredBuilds = computed(() => {
+  if (isLelarivaBuildPage.value) {
+    return builds.value
+  }
+  return buildStore.userBuilds
+})
 
 const handleDragStart = (e: DragEvent, index: number) => {
   if (e.dataTransfer) {
@@ -17,7 +46,7 @@ const handleDrop = (e: DragEvent, dropIndex: number) => {
   e.preventDefault()
   const dragIndex = parseInt(e.dataTransfer?.getData('text/plain') || '-1')
   if (dragIndex !== -1 && dragIndex !== dropIndex) {
-    const builds = [...userBuilds]
+    const builds = [...filteredBuilds.value]
     const [movedBuild] = builds.splice(dragIndex, 1)
     builds.splice(dropIndex, 0, movedBuild)
     buildStore.updateBuildsOrder(builds)
@@ -32,7 +61,9 @@ const handleDragOver = (e: DragEvent) => {
 <template>
   <div data-v-f21e856a="" class="main builds">
     <div data-v-6c16e881="" data-v-f21e856a="" class="builds" id="">
-      <h1 data-v-6c16e881="" class="pagetitle">Mes builds</h1>
+      <h1 data-v-6c16e881="" class="pagetitle">
+        {{ isLelarivaBuildPage ? 'Builds Lelariva' : 'Mes builds' }}
+      </h1>
       <div data-v-6c16e881="" class="settings">
         <div data-v-6c16e881="" class="new">
           <a data-v-6c16e881="" href="/build" class="btn small slate">
@@ -51,7 +82,7 @@ const handleDragOver = (e: DragEvent) => {
           data-v-04fb255b=""
           data-v-6c16e881=""
           class="build drag"
-          v-for="(build, index) in userBuilds"
+          v-for="(build, index) in filteredBuilds"
           :key="build.id"
           draggable="true"
           @dragstart="handleDragStart($event, index)"
