@@ -74,6 +74,7 @@ const handleDragOver = (e: DragEvent) => {
               :summonners="build.sheet.summoners"
               :shards="build.sheet.shards"
               :items="build.sheet.items"
+              :roles="build.roles"
             />
           </a>
         </div>

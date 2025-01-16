@@ -11,6 +11,9 @@ import type { Item, ItemSelection } from '@/types/item'
 import type { Champion } from '@/types/champion'
 import itemsFiles from '@/assets/files/item.json'
 import { TooltipCoordonne } from '../script/TooltipCoordonne'
+import { useBuildStore } from '@/stores/buildStore'
+
+const buildStore = useBuildStore()
 
 const props = defineProps<{
   version: string | null
@@ -21,7 +24,20 @@ const props = defineProps<{
   summonners: SummonerSelection | null
   shards: ShardSelection | null
   items: ItemSelection | null
+  roles?: string[]
 }>()
+
+const selectedRoles = buildStore.selectedRoles
+const roles = ['top', 'jungle', 'mid', 'bot', 'support']
+
+const toggleRole = (role: string) => {
+  if (selectedRoles.has(role)) {
+    selectedRoles.delete(role)
+  } else {
+    selectedRoles.add(role)
+  }
+  buildStore.updateSelectedRoles(new Set(selectedRoles))
+}
 
 const tooltip = new TooltipCoordonne()
 
@@ -56,6 +72,17 @@ const getItemsInto = (item: Item) => {
 <template>
   <div data-v-b6709614="" class="sheet champions">
     <div data-v-15310f80="" data-v-b6709614="" class="sheet sheet-background">
+      <div class="roles-container">
+        <div
+          v-for="role in roles"
+          :key="role"
+          class="role-icon"
+          :class="{ 'role-inactive': !selectedRoles.has(role) && !props.roles?.includes(role) }"
+          @click="toggleRole(role)"
+        >
+          <img :src="`/assets/icons/roles/${role}.png`" :alt="role" />
+        </div>
+      </div>
       <div data-v-15310f80="" class="type">darkaine</div>
       <div data-v-15310f80="" class="version">{{ props.version }}</div>
       <div data-v-15310f80="" class="wrap">
@@ -515,3 +542,33 @@ const getItemsInto = (item: Item) => {
     </div>
   </div>
 </template>
+
+<style scoped>
+.roles-container {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  z-index: 1;
+}
+
+.role-icon {
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+}
+
+.role-inactive {
+  opacity: 0.3;
+  filter: grayscale(100%);
+}
+
+.role-icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+</style>

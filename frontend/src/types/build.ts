@@ -7,6 +7,7 @@ import type { ItemStats, ChampionStats, Stats, TotalStats } from './stat'
 
 export interface BuildData {
   id?: string
+  roles?: string[]
   name: string
   description: string
   version: string

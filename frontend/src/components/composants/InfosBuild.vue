@@ -57,6 +57,7 @@ const submitForm = async () => {
   const fileName = `${uuidv4()}.json`
   const data = {
     id: fileName,
+    roles: Array.from(buildStore.selectedRoles),
     name: name.value,
     description: description.value,
     version: version,
@@ -89,7 +90,8 @@ const submitForm = async () => {
     summonerStore.resetSummonersSelection()
     shardStore.resetShardsSelection()
     itemStore.resetItemsSelection()
-
+    buildStore.resetRoles()
+    
     router.push({
       name: 'build',
       params: {

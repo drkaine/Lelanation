@@ -10,6 +10,7 @@ import type { Build, BuildData } from '@/types/build'
 
 export const useBuildStore = defineStore('build', () => {
   const userBuilds = ref<BuildData[]>([])
+  const selectedRoles = ref<Set<string>>(new Set())
 
   const statsCalculator = (
     championStats: ChampionStats,
@@ -60,12 +61,30 @@ export const useBuildStore = defineStore('build', () => {
     localStorage.setItem('userBuilds', JSON.stringify(userBuilds.value))
   }
 
+  const updateSelectedRoles = (roles: Set<string>) => {
+    selectedRoles.value = roles
+  }
+
+  const resetBuild = () => {
+    userBuilds.value = []
+    selectedRoles.value = new Set()
+    localStorage.removeItem('userBuilds')
+  }
+
+  const resetRoles = () => {
+    selectedRoles.value = new Set()
+  }
+
   return {
     userBuilds,
+    selectedRoles,
+    updateSelectedRoles,
+    resetRoles,
     loadUserBuilds,
     saveBuild,
     removeBuild,
     statsCalculator,
     updateBuildsOrder,
+    resetBuild,
   }
 })
