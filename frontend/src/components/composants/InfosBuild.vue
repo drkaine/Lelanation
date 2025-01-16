@@ -8,9 +8,10 @@ import { useBuildStore } from '@/stores/buildStore'
 import { useRoleStore } from '@/stores/roleStore'
 import { ref } from 'vue'
 import { v4 as uuidv4 } from 'uuid'
-import version from '@/assets/files/lastVersion.json'
+import version from '@/assets/files/data/lastVersion.json'
 import { useRouter } from 'vue-router'
 import type { BuildData } from '@/types/build'
+
 const router = useRouter()
 
 const urlApiSave = import.meta.env.VITE_URL_API_SAVE

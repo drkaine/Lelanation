@@ -16,7 +16,7 @@ export const useChampionStore = defineStore('champion', () => {
 
   const loadChampions = async () => {
     const { data } = await import(
-      /* webpackChunkName: "champion-data" */ '@/assets/files/championFull.json'
+      /* webpackChunkName: "champion-data" */ '@/assets/files/data/championFull.json'
     )
     champions.value = Object.values(data)
   }

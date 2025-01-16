@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue'
 import { TooltipCoordonne } from '../script/TooltipCoordonne'
-import items from '@/assets/files/item.json'
+import items from '@/assets/files/data/item.json'
 import ItemTooltip from '@/components/Tooltip/ItemTooltip.vue'
 import type { Item } from '@/types/item'
 import { useItemStore } from '@/stores/itemStore'

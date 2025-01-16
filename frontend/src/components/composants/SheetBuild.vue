@@ -9,7 +9,7 @@ import type { RunesSelection } from '@/types/rune'
 import type { ShardSelection } from '@/types/shard'
 import type { Item, ItemSelection } from '@/types/item'
 import type { Champion } from '@/types/champion'
-import itemsFiles from '@/assets/files/item.json'
+import itemsFiles from '@/assets/files/data/item.json'
 import { TooltipCoordonne } from '../script/TooltipCoordonne'
 import { useRoleStore } from '@/stores/roleStore'
 

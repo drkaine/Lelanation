@@ -1,6 +1,6 @@
 import express from "express";
 import cron from "node-cron";
-import { save } from "./FileManager";
+import { save, appendToJson } from "./FileManager";
 import { compilation } from "./Cron";
 import cors from "cors";
 import path from "path";
@@ -40,6 +40,21 @@ app.post("/api/save/:filename", (req, res) => {
     ),
   );
   res.sendStatus(200);
+});
+
+app.post("/api/dictionnaire", async (req, res) => {
+  try {
+    const filePath = path.join(
+      __dirname,
+      "../../frontend/src/assets/files/dictionnaire-proposition.json",
+    );
+
+    await appendToJson(req.body, filePath);
+    res.sendStatus(200);
+  } catch (error) {
+    console.error("Erreur lors de la sauvegarde:", error);
+    res.status(500).send("Erreur lors de la sauvegarde");
+  }
 });
 
 app.delete("/api/build/:fileName", async (req, res) => {

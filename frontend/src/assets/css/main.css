@@ -33,6 +33,7 @@
 @import './support.css';
 @import './tooltip.css';
 @import './tree.css';
+@import './proposition-dictionnaire.css';
 
 [data-v-5bc51be1] {
   --tooltipMaxWidth: 640px;

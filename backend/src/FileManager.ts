@@ -22,3 +22,25 @@ export async function open(file: string) {
     throw err;
   }
 }
+
+export async function appendToJson<T>(newData: T, path: string) {
+  try {
+    let existingData: T[] = [];
+
+    if (fs.existsSync(path)) {
+      const fileContent = await readFileAsync(path, "utf8");
+      existingData = JSON.parse(fileContent);
+    }
+
+    existingData.push({
+      ...newData,
+      date: new Date().toISOString(),
+    });
+
+    save(JSON.stringify(existingData, null, 2), path);
+    return true;
+  } catch (error) {
+    console.error("Erreur lors de l'ajout au JSON:", error);
+    throw error;
+  }
+}

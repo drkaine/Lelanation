@@ -4,7 +4,7 @@ import { createPinia, setActivePinia } from 'pinia'
 import RunesSelection from '../Selection/RunesSelection.vue'
 import { createApp, nextTick } from 'vue'
 import { useRuneStore } from '@/stores/runeStore'
-import runes from '@/assets/files/runesReforged.json'
+import runes from '@/assets/files/data/runesReforged.json'
 
 describe('RunesSelection', () => {
   beforeEach(() => {

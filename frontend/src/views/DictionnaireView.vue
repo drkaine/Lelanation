@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { onMounted } from 'vue'
-import dictionnaire from '@/assets/files/dictionnaire.json'
+import dictionnaire from '@/assets/files/dictionnaire/dictionnaire.json'
 import { useDictionary } from '@/composables/useDictionary'
 import AlphabetNav from '@/components/AlphabetNavigation.vue'
 import Pagination from '@/components/DictionaryPagination.vue'
@@ -35,6 +35,13 @@ onMounted(() => {
         placeholder="Rechercher un mot..."
         class="search-input"
       />
+      <a
+        class="letter-btn"
+        aria-label="Ajouter"
+        href="/dictionnaire/proposition"
+      >
+        +
+      </a>
     </div>
 
     <AlphabetNav :current-letter="currentLetter" @select="selectLetter" />
@@ -58,3 +65,34 @@ onMounted(() => {
     />
   </div>
 </template>
+
+<style scoped>
+.search-container {
+  display: flex;
+  gap: 0.5em;
+  align-items: center;
+  margin-bottom: 1em;
+}
+
+.search-input {
+  flex: 1;
+}
+
+.letter-btn {
+  border: 1px solid var(--slate-4);
+  background-color: var(--black);
+  color: var(--slate-3);
+  padding: 0.2em 0.4em;
+  white-space: nowrap;
+  border-radius: 4px;
+  font-weight: 450;
+  font-size: 0.8em;
+  min-width: 1.8em;
+  text-align: center;
+}
+
+.letter-btn:hover {
+  border-color: var(--slate-3);
+  color: var(--slate-2);
+}
+</style>

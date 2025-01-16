@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { ref, onMounted, computed } from 'vue'
-import runes from '@/assets/files/runesReforged.json'
-import summoner from '@/assets/files/summoner.json'
-import shards from '@/assets/files/shards.json'
+import runes from '@/assets/files/data/runesReforged.json'
+import summoner from '@/assets/files/data/summoner.json'
+import shards from '@/assets/files/data/shards.json'
 import RuneTooltip from '@/components/Tooltip/RuneTooltip.vue'
 import SummonerTooltip from '@/components/Tooltip/SummonerTooltip.vue'
 import ShardTooltip from '@/components/Tooltip/ShardTooltip.vue'

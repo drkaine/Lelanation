@@ -27,25 +27,30 @@ const routes: RouteRecordRaw[] = [
   //   component: () => import('../views/TierListView.vue'),
   // },
   {
+    path: '/dictionnaire/proposition',
+    name: 'Proposition de définition',
+    component: () => import('../views/DictionnairePropositionView.vue'),
+  },
+  {
     path: '/dictionnaire',
     name: 'dictionnaire',
     component: () => import('../views/DictionnaireView.vue'),
   },
-  {
-    path: '/champions',
-    name: 'champions',
-    component: () => import('../views/ChampionView.vue'),
-  },
-  {
-    path: '/runes',
-    name: 'runes',
-    component: () => import('../views/RunesView.vue'),
-  },
-  {
-    path: '/items',
-    name: 'items',
-    component: () => import('../views/ItemsView.vue'),
-  },
+  // {
+  //   path: '/champions',
+  //   name: 'champions',
+  //   component: () => import('../views/ChampionView.vue'),
+  // },
+  // {
+  //   path: '/runes',
+  //   name: 'runes',
+  //   component: () => import('../views/RunesView.vue'),
+  // },
+  // {
+  //   path: '/items',
+  //   name: 'items',
+  //   component: () => import('../views/ItemsView.vue'),
+  // },
   {
     path: '/build/:fileName',
     name: 'build',
