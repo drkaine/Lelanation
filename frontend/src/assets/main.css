@@ -1,6 +1,7 @@
 @charset "UTF-8";
 @import './base.css';
 @import './dictionnaire.css';
+@import './builds.css';
 
 @media (hover: hover) {
   .tooltip [data-v-cbff5ddf-s]:hover + .box {
@@ -169,7 +170,7 @@
   font-weight: 600;
   opacity: 0.32;
   z-index: 1;
-  right: 0;
+  left: 0;
 }
 
 .sheet > .wrap[data-v-15310f80] {
@@ -3260,7 +3261,7 @@ form label textarea::placeholder {
   font-weight: 600;
   opacity: 0.32;
   z-index: 1;
-  right: 0;
+  left: 0;
 }
 
 .sheet .type[data-v-15310f80] {

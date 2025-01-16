@@ -74,7 +74,7 @@ const handleDragOver = (e: DragEvent) => {
               :summonners="build.sheet.summoners"
               :shards="build.sheet.shards"
               :items="build.sheet.items"
-              :roles="build.roles"
+              :roles="build.roles ?? null"
             />
           </a>
         </div>
@@ -82,25 +82,3 @@ const handleDragOver = (e: DragEvent) => {
     </div>
   </div>
 </template>
-
-<style scoped>
-.builds-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 1rem;
-  padding: 1rem;
-}
-
-.build-item {
-  cursor: grab;
-  transition: transform 0.2s;
-}
-
-.build-item:active {
-  cursor: grabbing;
-}
-
-.build-item:hover {
-  transform: translateY(-2px);
-}
-</style>

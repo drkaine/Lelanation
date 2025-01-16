@@ -5,6 +5,7 @@ import { useSummonerStore } from '@/stores/summonerStore'
 import { useShardStore } from '@/stores/shardStore'
 import { useItemStore } from '@/stores/itemStore'
 import { useBuildStore } from '@/stores/buildStore'
+import { useRoleStore } from '@/stores/roleStore'
 import { ref } from 'vue'
 import { v4 as uuidv4 } from 'uuid'
 import version from '@/assets/files/lastVersion.json'
@@ -19,6 +20,7 @@ const summonerStore = useSummonerStore()
 const shardStore = useShardStore()
 const itemStore = useItemStore()
 const buildStore = useBuildStore()
+const roleStore = useRoleStore()
 
 const name = ref('')
 const description = ref('')
@@ -57,7 +59,7 @@ const submitForm = async () => {
   const fileName = `${uuidv4()}.json`
   const data = {
     id: fileName,
-    roles: Array.from(buildStore.selectedRoles),
+    roles: Array.from(roleStore.selectedRoles),
     name: name.value,
     description: description.value,
     version: version,
@@ -90,8 +92,8 @@ const submitForm = async () => {
     summonerStore.resetSummonersSelection()
     shardStore.resetShardsSelection()
     itemStore.resetItemsSelection()
-    buildStore.resetRoles()
-    
+    roleStore.resetRoles()
+
     router.push({
       name: 'build',
       params: {

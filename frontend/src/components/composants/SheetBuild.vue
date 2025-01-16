@@ -11,9 +11,9 @@ import type { Item, ItemSelection } from '@/types/item'
 import type { Champion } from '@/types/champion'
 import itemsFiles from '@/assets/files/item.json'
 import { TooltipCoordonne } from '../script/TooltipCoordonne'
-import { useBuildStore } from '@/stores/buildStore'
+import { useRoleStore } from '@/stores/roleStore'
 
-const buildStore = useBuildStore()
+const roleStore = useRoleStore()
 
 const props = defineProps<{
   version: string | null
@@ -27,16 +27,18 @@ const props = defineProps<{
   roles?: string[]
 }>()
 
-const selectedRoles = buildStore.selectedRoles
-const roles = ['top', 'jungle', 'mid', 'bot', 'support']
+const selectedRoles = roleStore.selectedRoles
+const rolesListe = ['top', 'jungle', 'mid', 'bot', 'support']
 
 const toggleRole = (role: string) => {
+  if (props.roles) return
+
   if (selectedRoles.has(role)) {
     selectedRoles.delete(role)
   } else {
     selectedRoles.add(role)
   }
-  buildStore.updateSelectedRoles(new Set(selectedRoles))
+  roleStore.updateSelectedRoles(new Set(selectedRoles))
 }
 
 const tooltip = new TooltipCoordonne()
@@ -74,10 +76,13 @@ const getItemsInto = (item: Item) => {
     <div data-v-15310f80="" data-v-b6709614="" class="sheet sheet-background">
       <div class="roles-container">
         <div
-          v-for="role in roles"
+          v-for="role in rolesListe"
           :key="role"
           class="role-icon"
-          :class="{ 'role-inactive': !selectedRoles.has(role) && !props.roles?.includes(role) }"
+          :class="{
+            'role-inactive':
+              !selectedRoles.has(role) && !props.roles?.includes(role),
+          }"
           @click="toggleRole(role)"
         >
           <img :src="`/assets/icons/roles/${role}.png`" :alt="role" />

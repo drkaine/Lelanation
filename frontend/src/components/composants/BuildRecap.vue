@@ -58,6 +58,7 @@ const updateLevel = (newLevel: number) => {
               :summonners="buildData.sheet.summoners"
               :shards="buildData.sheet.shards"
               :items="buildData.sheet.items"
+              :roles="buildData.roles ?? null"
             />
           </div>
         </div>

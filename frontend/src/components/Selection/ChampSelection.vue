@@ -1,9 +1,12 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, onMounted, defineAsyncComponent } from 'vue'
 import { Filter } from '../script/Filter'
 import { TooltipCoordonne } from '../script/TooltipCoordonne'
 import { useChampionStore } from '@/stores/championStore'
-import ChampionTooltip from '@/components/Tooltip/ChampionTooltip.vue'
+
+const ChampionTooltip = defineAsyncComponent(
+  () => import('@/components/Tooltip/ChampionTooltip.vue'),
+)
 import type { Champion } from '@/types/champion'
 import { useStepStore } from '@/stores/stepStore'
 
@@ -29,6 +32,11 @@ const filterChampionsByName = () => {
 }
 
 const championStore = useChampionStore()
+const isLoading = ref(true)
+
+onMounted(async () => {
+  isLoading.value = false
+})
 
 const filterChampions = (tag: string) => {
   filterInstance.filterChampions(tag)
@@ -148,6 +156,7 @@ const selectChampion = (champion: Champion) => {
           @click="selectChampion(champion)"
         >
           <img
+            loading="lazy"
             data-v-80441127=""
             data-v-cbff5ddf-s=""
             :src="'/assets/icons/champions/' + champion.image.full"
