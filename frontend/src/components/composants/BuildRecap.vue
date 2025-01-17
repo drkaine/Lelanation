@@ -5,7 +5,9 @@ import SheetBuild from '@/components/composants/SheetBuild.vue'
 import type { BuildData } from '@/types/build'
 import { useBuildStore } from '@/stores/buildStore'
 import domtoimage from 'dom-to-image-more'
+import { useConnexionStore } from '@/stores/connexionStore'
 
+const connexionStore = useConnexionStore()
 const route = useRoute()
 const router = useRouter()
 const buildStore = useBuildStore()
@@ -224,6 +226,9 @@ async function copyImageToClipboard() {
             <button
               data-v-6a3673aa=""
               class="btn small slate"
+              v-if="
+                !fileName.startsWith('lelariva_') || connexionStore.isLoggedIn
+              "
               @click="deleteBuild"
             >
               Supprimer
@@ -231,6 +236,9 @@ async function copyImageToClipboard() {
             <button
               data-v-6a3673aa=""
               class="btn small slate"
+              v-if="
+                !fileName.startsWith('lelariva_') || connexionStore.isLoggedIn
+              "
               @click="editBuild"
             >
               Modifier
