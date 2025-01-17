@@ -3,9 +3,11 @@ import { useRoute, useRouter } from 'vue-router'
 import { ref } from 'vue'
 import SheetBuild from '@/components/composants/SheetBuild.vue'
 import type { BuildData } from '@/types/build'
+import { useBuildStore } from '@/stores/buildStore'
 
 const route = useRoute()
 const router = useRouter()
+const buildStore = useBuildStore()
 const fileName = route.params.fileName as string
 const buildData = ref<BuildData | null>(null)
 const lvl = ref(1)
@@ -17,12 +19,12 @@ buildData.value = data
 
 async function deleteBuild() {
   try {
-    const response = await fetch(`/api/delete/${fileName}`, {
+    const response = await fetch(`/api/build/${fileName}`, {
       method: 'DELETE',
     })
 
     if (!response.ok) throw new Error('Erreur lors de la suppression')
-
+    buildStore.removeBuild(fileName)
     router.push('/build')
   } catch (error) {
     console.error('Erreur lors de la suppression:', error)

@@ -43,21 +43,6 @@ app.post("/api/save/:filename", (req, res) => {
   res.sendStatus(200);
 });
 
-app.post("/api/dictionnaire", async (req, res) => {
-  try {
-    const filePath = path.join(
-      __dirname,
-      "../../frontend/src/assets/files/dictionnaire-proposition.json",
-    );
-
-    await appendToJson(req.body, filePath);
-    res.sendStatus(200);
-  } catch (error) {
-    console.error("Erreur lors de la sauvegarde:", error);
-    res.status(500).send("Erreur lors de la sauvegarde");
-  }
-});
-
 app.delete("/api/build/:fileName", async (req, res) => {
   try {
     const filePath = path.join(
@@ -86,6 +71,35 @@ app.get("/api/build/:fileName", async (req, res) => {
     res.json(JSON.parse(data));
   } catch (error) {
     res.status(404).send("Build non trouvé" + error);
+  }
+});
+
+app.put("/api/build/:filename", (req, res) => {
+  const filename = req.params.filename;
+  const data = req.body;
+
+  save(
+    JSON.stringify(data),
+    path.join(
+      __dirname,
+      "../../frontend/public/assets/files/build/" + filename,
+    ),
+  );
+  res.sendStatus(200);
+});
+
+app.post("/api/dictionnaire", async (req, res) => {
+  try {
+    const filePath = path.join(
+      __dirname,
+      "../../frontend/src/assets/files/dictionnaire-proposition.json",
+    );
+
+    await appendToJson(req.body, filePath);
+    res.sendStatus(200);
+  } catch (error) {
+    console.error("Erreur lors de la sauvegarde:", error);
+    res.status(500).send("Erreur lors de la sauvegarde");
   }
 });
 
