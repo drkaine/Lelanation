@@ -60,7 +60,7 @@ const build = buildStore.statsCalculator(championStats, itemStats)
 
 const submitForm = async () => {
   const fileName = connexionStore.isLoggedIn
-    ? `lelariva.${uuidv4()}.json`
+    ? `lelariva_${uuidv4()}.json`
     : `${uuidv4()}.json`
   const data = {
     id: fileName,

@@ -33,13 +33,24 @@ app.post("/api/save/:filename", (req, res) => {
   const filename = req.params.filename;
   const data = req.body;
 
-  save(
-    JSON.stringify(data),
-    path.join(
-      __dirname,
-      "../../frontend/public/assets/files/build/" + filename,
-    ),
-  );
+  if (data.id.includes("lelariva")) {
+    const filename = req.params.filename.replace("lelariva_", "");
+    save(
+      JSON.stringify(data),
+      path.join(
+        __dirname,
+        "../../frontend/public/assets/files/build/Lelariva/" + filename,
+      ),
+    );
+  } else {
+    save(
+      JSON.stringify(data),
+      path.join(
+        __dirname,
+        "../../frontend/public/assets/files/build/" + filename,
+      ),
+    );
+  }
   res.sendStatus(200);
 });
 
@@ -62,11 +73,21 @@ app.delete("/api/build/:fileName", async (req, res) => {
 
 app.get("/api/build/:fileName", async (req, res) => {
   try {
-    const filePath = path.join(
-      __dirname,
-      "../../frontend/public/assets/files/build/",
-      req.params.fileName,
-    );
+    let filePath = "";
+    if (req.params.fileName.includes("lelariva")) {
+      const name = req.params.fileName.replace("lelariva_", "");
+      filePath = path.join(
+        __dirname,
+        "../../frontend/public/assets/files/build/Lelariva",
+        name,
+      );
+    } else {
+      filePath = path.join(
+        __dirname,
+        "../../frontend/public/assets/files/build/",
+        req.params.fileName,
+      );
+    }
     const data = await fs.readFile(filePath, "utf8");
     res.json(JSON.parse(data));
   } catch (error) {
@@ -107,16 +128,14 @@ app.get("/api/builds/lelariva", async (req, res) => {
   try {
     const buildsDir = path.join(
       __dirname,
-      "../../frontend/public/assets/files/build/",
+      "../../frontend/public/assets/files/build/Lelariva",
     );
     const files = await fs.readdir(buildsDir);
     const builds = await Promise.all(
-      files
-        .filter((file) => file.toLowerCase().startsWith("lelariva"))
-        .map(async (file) => {
-          const content = await fs.readFile(path.join(buildsDir, file), "utf8");
-          return JSON.parse(content);
-        }),
+      files.map(async (file) => {
+        const content = await fs.readFile(path.join(buildsDir, file), "utf8");
+        return JSON.parse(content);
+      }),
     );
     res.json(builds);
   } catch (error) {

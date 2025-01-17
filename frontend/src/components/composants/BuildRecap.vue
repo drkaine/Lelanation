@@ -98,11 +98,9 @@ async function copyImageToClipboard() {
       bgcolor: '#ffffff',
     })
 
-    // Convertir le dataURL en Blob
     const response = await fetch(dataUrl)
     const blob = await response.blob()
 
-    // Copier dans le presse-papier
     await navigator.clipboard.write([
       new ClipboardItem({
         'image/png': blob,
