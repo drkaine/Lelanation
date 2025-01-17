@@ -7,6 +7,7 @@ import path from "path";
 import dotenv from "dotenv";
 import { unlink } from "fs/promises";
 import fs from "fs/promises";
+import { exec } from "child_process";
 
 dotenv.config();
 
@@ -131,6 +132,21 @@ app.get("/api/builds", async (req, res) => {
 cron.schedule("0 0,12 * * *", () => {
   console.log("Tâche cron exécutée à 00h00 et 12h00");
   compilation();
+});
+
+cron.schedule("0 0 * * *", () => {
+  console.log("Tâche cron exécutée à 00h00");
+
+  exec("bash ~/.github/.scripts/deploy.sh", (error, stdout, stderr) => {
+    if (error) {
+      console.error(`Erreur d'exécution: ${error}`);
+      return;
+    }
+    console.log(`Sortie du déploiement: ${stdout}`);
+    if (stderr) {
+      console.error(`Erreurs du déploiement: ${stderr}`);
+    }
+  });
 });
 
 app.listen(PORT, () => {
