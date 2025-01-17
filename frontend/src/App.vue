@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { ref, onMounted } from 'vue'
 import { RouterLink, RouterView } from 'vue-router'
 import version from '@/assets/files/data/lastVersion.json'
 import { useBuildStore } from '@/stores/buildStore'
@@ -8,6 +9,21 @@ const buildStore = useBuildStore()
 buildStore.loadUserBuilds()
 const userBuilds = buildStore.userBuilds
 const connexionStore = useConnexionStore()
+const builds = ref([])
+
+const urlApiSave = import.meta.env.VITE_URL_API_SAVE
+
+onMounted(async () => {
+  try {
+    const url = `${urlApiSave}/api/builds/lelariva`
+    const response = await fetch(url)
+    const data = await response.json()
+    builds.value = data
+  } catch (error) {
+    console.error('Erreur lors du chargement des builds:', error)
+    builds.value = []
+  }
+})
 </script>
 
 <template>
@@ -37,21 +53,6 @@ const connexionStore = useConnexionStore()
           <p>Mode Lelariva</p>
         </div>
         <div data-v-7cc930f8="" class="right">
-          <!-- <RouterLink  title="Patch Notes"
-            target="_blank"
-            class="version" data-v-7cc930f8="" to="/champions">Champions</RouterLink>
-          <RouterLink  title="Patch Notes"
-            target="_blank"
-            class="version" data-v-7cc930f8="" to="/runes">Runes</RouterLink>
-          <RouterLink  title="Patch Notes"
-            target="_blank"
-            class="version" data-v-7cc930f8="" to="/items">Items</RouterLink> -->
-          <!-- <a data-v-7cc930f8="" href="/pro" class=""> Pro Builds</a>
-          <span data-v-7cc930f8="">•</span>
-          <a data-v-7cc930f8="" href="/randomizer" class="">Random</a> -->
-          <!-- <span data-v-7cc930f8="">•</span>
-          <a data-v-7cc930f8="" href="/items" class="active"> Items</a>
-          <span data-v-7cc930f8="">•</span> -->
           <RouterLink
             title="dictionnaire"
             class="version"
@@ -61,26 +62,6 @@ const connexionStore = useConnexionStore()
             Leladictionnaiva</RouterLink
           >
           <span data-v-7cc930f8="">•</span>
-          <!-- <RouterLink  title="Patch Notes"
-            target="_blank"
-            class="version" data-v-7cc930f8="" to="/build"> Lelariva reviews</RouterLink>
-          <span data-v-7cc930f8="">•</span>
-          <RouterLink  title="Patch Notes"
-            target="_blank"
-            class="version" data-v-7cc930f8="" to="/build"> Le lobbyrivas</RouterLink>
-          <span data-v-7cc930f8="">•</span>
-          <RouterLink  title="Patch Notes"
-            target="_blank"
-            class="version" data-v-7cc930f8="" to="/build"> Lelariguidevas</RouterLink>
-          <span data-v-7cc930f8="">•</span>-->
-          <!-- <RouterLink  title="Patch Notes"
-            target="_blank"
-            class="version" data-v-7cc930f8="" to="/tier-list"> Lela tierlistas</RouterLink>
-          <span data-v-7cc930f8="">•</span> -->
-          <!--<RouterLink  title="Patch Notes"
-            target="_blank"
-            class="version" data-v-7cc930f8="" to="/build"> Le metarivas</RouterLink>
-          <span data-v-7cc930f8="">•</span> -->
           <RouterLink
             title="Building"
             class="version"
@@ -101,6 +82,7 @@ const connexionStore = useConnexionStore()
           >
           <span data-v-7cc930f8="" v-if="userBuilds.length > 0">•</span>
           <RouterLink
+            v-if="builds.length > 0"
             title="Lebuildarriva"
             class="version"
             data-v-7cc930f8=""
@@ -108,9 +90,7 @@ const connexionStore = useConnexionStore()
           >
             Lebuildarriva</RouterLink
           >
-          <span data-v-7cc930f8="">•</span>
-          <!-- <a data-v-7cc930f8="" href="/builds" class=""> My Builds</a>
-          <span data-v-7cc930f8="">•</span> -->
+          <span data-v-7cc930f8="" v-if="builds.length > 0">•</span>
           <a
             data-v-7cc930f8=""
             href="https://www.leagueoflegends.com/fr-fr/news/tags/patch-notes"
