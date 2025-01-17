@@ -97,7 +97,7 @@ app.get("/api/builds/lelariva", async (req, res) => {
     const files = await fs.readdir(buildsDir);
     const builds = await Promise.all(
       files
-        .filter(file => file.toLowerCase().startsWith('lelariva'))
+        .filter((file) => file.toLowerCase().startsWith("lelariva"))
         .map(async (file) => {
           const content = await fs.readFile(path.join(buildsDir, file), "utf8");
           return JSON.parse(content);

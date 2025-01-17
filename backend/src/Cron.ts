@@ -1,7 +1,7 @@
 import path from "path";
 import { DdragonAPI } from "./DdragonAPI";
 import { save, open } from "./FileManager";
-
+import { Champion, Item, Summoner, RunePath } from "./types";
 const targets: string[] = [
   "data/fr_FR/championFull.json",
   "data/fr_FR/item.json",
@@ -11,48 +11,9 @@ const targets: string[] = [
 ];
 
 const folderTarget = "frontend/public/assets/icons/";
-const folderTargetJSON = "frontend/src/assets/files/";
+const folderTargetJSON = "frontend/src/assets/files/data";
 
 const ddragonAPI = new DdragonAPI();
-
-interface Champion {
-  image: {
-    full: string;
-  };
-  spells: Array<{
-    id: string;
-  }>;
-  passive: {
-    image: {
-      full: string;
-    };
-  };
-}
-
-interface Item {
-  image: {
-    full: string;
-  };
-}
-
-interface Summoner {
-  image: {
-    full: string;
-  };
-}
-
-interface RuneSlot {
-  icon: string;
-  id: number;
-}
-
-interface RunePath {
-  id: number;
-  key: string;
-  icon: string;
-  name: string;
-  slots: Array<{ runes: RuneSlot[] }>;
-}
 
 export async function compilation() {
   await ddragonAPI.lastVersion();
