@@ -17,6 +17,16 @@ const routes: RouteRecordRaw[] = [
     component: () => import('../views/BuildToolView.vue'),
   },
   {
+    path: '/build/edit',
+    name: 'build-edit',
+    component: () => import('../views/BuildToolView.vue'),
+    props: route =>
+      ({
+        editMode: true,
+        fileName: route.query.file as string | undefined,
+      }) satisfies BuildProps,
+  },
+  {
     path: '/builds',
     name: 'Mes build',
     component: () => import('../views/MesBuildsView.vue'),

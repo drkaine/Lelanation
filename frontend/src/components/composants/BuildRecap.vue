@@ -4,6 +4,7 @@ import { ref } from 'vue'
 import SheetBuild from '@/components/composants/SheetBuild.vue'
 import type { BuildData } from '@/types/build'
 import { useBuildStore } from '@/stores/buildStore'
+import domtoimage from 'dom-to-image-more'
 
 const route = useRoute()
 const router = useRouter()
@@ -59,6 +60,30 @@ function downloadJson() {
   document.body.removeChild(link)
   window.URL.revokeObjectURL(url)
 }
+
+async function downloadImage() {
+  try {
+    const sheetElement = document.querySelector('.sheet') as HTMLElement
+    if (!sheetElement) {
+      throw new Error('Élément sheet non trouvé')
+    }
+
+    const dataUrl = await domtoimage.toPng(sheetElement, {
+      quality: 1.0,
+      scale: 2,
+      bgcolor: '#ffffff',
+    })
+
+    const link = document.createElement('a')
+    link.href = dataUrl
+    link.download = `${buildData.value?.name ?? 'build'}_sheet.png`
+    document.body.appendChild(link)
+    link.click()
+    document.body.removeChild(link)
+  } catch (error) {
+    console.error("Erreur lors de la génération de l'image:", error)
+  }
+}
 </script>
 
 <template>
@@ -84,7 +109,11 @@ function downloadJson() {
         </div>
         <div data-v-6a3673aa="" class="actions">
           <div data-v-6a3673aa="" class="image">
-            <button data-v-6a3673aa="" class="btn small sea">
+            <button
+              data-v-6a3673aa=""
+              class="btn small sea"
+              @click="downloadImage"
+            >
               <svg
                 data-v-6a3673aa=""
                 width="24"
