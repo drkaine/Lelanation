@@ -2,10 +2,12 @@
 import { RouterLink, RouterView } from 'vue-router'
 import version from '@/assets/files/data/lastVersion.json'
 import { useBuildStore } from '@/stores/buildStore'
+import { useConnexionStore } from '@/stores/connexionStore'
 
 const buildStore = useBuildStore()
 buildStore.loadUserBuilds()
 const userBuilds = buildStore.userBuilds
+const connexionStore = useConnexionStore()
 </script>
 
 <template>
@@ -31,6 +33,9 @@ const userBuilds = buildStore.userBuilds
             <path d="M4 18l16 0"></path>
           </svg>
         </button>
+        <div v-if="connexionStore.isLoggedIn">
+          <p>Mode Lelariva</p>
+        </div>
         <div data-v-7cc930f8="" class="right">
           <!-- <RouterLink  title="Patch Notes"
             target="_blank"
