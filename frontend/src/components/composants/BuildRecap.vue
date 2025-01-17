@@ -84,6 +84,34 @@ async function downloadImage() {
     console.error("Erreur lors de la génération de l'image:", error)
   }
 }
+
+async function copyImageToClipboard() {
+  try {
+    const sheetElement = document.querySelector('.sheet') as HTMLElement
+    if (!sheetElement) {
+      throw new Error('Élément sheet non trouvé')
+    }
+
+    const dataUrl = await domtoimage.toPng(sheetElement, {
+      quality: 1.0,
+      scale: 2,
+      bgcolor: '#ffffff',
+    })
+
+    // Convertir le dataURL en Blob
+    const response = await fetch(dataUrl)
+    const blob = await response.blob()
+
+    // Copier dans le presse-papier
+    await navigator.clipboard.write([
+      new ClipboardItem({
+        'image/png': blob,
+      }),
+    ])
+  } catch (error) {
+    console.error("Erreur lors de la copie de l'image:", error)
+  }
+}
 </script>
 
 <template>
@@ -140,6 +168,7 @@ async function downloadImage() {
               data-v-6a3673aa=""
               class="btn small sea"
               title="Copy to clipboard"
+              @click="copyImageToClipboard"
             >
               <svg
                 data-v-6a3673aa=""
