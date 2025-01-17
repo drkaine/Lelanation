@@ -41,6 +41,24 @@ function editBuild() {
 const updateLevel = (newLevel: number) => {
   lvl.value = newLevel
 }
+function downloadJson() {
+  if (!buildData.value) return
+
+  const jsonString = JSON.stringify(buildData.value, null, 2)
+  const blob = new Blob([jsonString], { type: 'application/json' })
+
+  const url = window.URL.createObjectURL(blob)
+
+  const link = document.createElement('a')
+  link.href = url
+  link.download = `${buildData.value.name}_build.json`
+
+  document.body.appendChild(link)
+  link.click()
+
+  document.body.removeChild(link)
+  window.URL.revokeObjectURL(url)
+}
 </script>
 
 <template>
@@ -120,6 +138,7 @@ const updateLevel = (newLevel: number) => {
               data-v-6a3673aa=""
               class="btn small sea"
               title="Copy to clipboard"
+              @click="downloadJson"
             >
               <svg
                 data-v-6a3673aa=""
