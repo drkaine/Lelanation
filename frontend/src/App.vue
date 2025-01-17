@@ -13,6 +13,12 @@ const builds = ref([])
 
 const urlApiSave = import.meta.env.VITE_URL_API_SAVE
 
+const isMenuOpen = ref(false)
+
+const toggleMenu = () => {
+  isMenuOpen.value = !isMenuOpen.value
+}
+
 onMounted(async () => {
   try {
     const url = `${urlApiSave}/api/builds/lelariva`
@@ -32,7 +38,7 @@ onMounted(async () => {
       <div data-v-7cc930f8="" data-v-f21e856a="" class="header">
         <a data-v-7cc930f8="" href="/" class="name">Acceuil</a>
         <div data-v-7cc930f8="" class="overlay"></div>
-        <button data-v-7cc930f8="" class="menu">
+        <button data-v-7cc930f8="" class="menu" @click="toggleMenu">
           <svg
             data-v-7cc930f8=""
             width="24"
@@ -51,6 +57,36 @@ onMounted(async () => {
         </button>
         <div v-if="connexionStore.isLoggedIn">
           <p>Mode Lelariva</p>
+        </div>
+        <div class="mobile-menu" :class="{ 'is-open': isMenuOpen }">
+          <RouterLink to="/dictionnaire" @click="toggleMenu"
+            >Leladictionnaiva</RouterLink
+          >
+          <RouterLink to="/build" @click="toggleMenu">Building</RouterLink>
+          <RouterLink
+            v-if="userBuilds.length > 0"
+            to="/builds"
+            @click="toggleMenu"
+            >Mes builds</RouterLink
+          >
+          <RouterLink
+            v-if="builds.length > 0"
+            to="/Lebuildarriva"
+            @click="toggleMenu"
+            >Lebuildarriva</RouterLink
+          >
+          <a
+            href="https://www.leagueoflegends.com/fr-fr/news/tags/patch-notes"
+            target="_blank"
+            @click="toggleMenu"
+            >{{ version }}</a
+          >
+          <a
+            href="https://github.com/drkaine"
+            target="_blank"
+            @click="toggleMenu"
+            >@darkaine</a
+          >
         </div>
         <div data-v-7cc930f8="" class="right">
           <RouterLink
@@ -114,3 +150,46 @@ onMounted(async () => {
     </div>
   </div>
 </template>
+
+<style scoped>
+.mobile-menu {
+  display: none;
+  position: fixed;
+  top: 60px;
+  left: 0;
+  right: 0;
+  background: #1a1a1a;
+  padding: 1rem;
+  flex-direction: column;
+  gap: 1rem;
+  z-index: 1000;
+}
+
+.mobile-menu.is-open {
+  display: flex !important;
+}
+
+.mobile-menu a {
+  color: white;
+  text-decoration: none;
+  padding: 0.5rem;
+  display: block;
+}
+
+.menu {
+  display: none;
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+
+@media (max-width: 768px) {
+  .menu {
+    display: block;
+  }
+
+  .right {
+    display: none;
+  }
+}
+</style>
