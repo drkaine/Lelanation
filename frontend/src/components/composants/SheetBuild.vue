@@ -73,6 +73,16 @@ const getItemsInto = (item: Item) => {
 
 <template>
   <div data-v-b6709614="" class="sheet champions">
+    <div
+      data-v-15310f80=""
+      :class="{
+        name: true,
+        hide: !name,
+      }"
+      style="color: var(--gold-1)"
+    >
+      {{ name }}
+    </div>
     <div data-v-15310f80="" data-v-b6709614="" class="sheet sheet-background">
       <div class="roles-container">
         <div
@@ -543,6 +553,13 @@ const getItemsInto = (item: Item) => {
             </div>
           </div>
         </div>
+        <hr
+          data-v-15310f80=""
+          :class="{
+            hide: !description,
+          }"
+        />
+        <div data-v-15310f80="" class="text">{{ description }}</div>
       </div>
     </div>
   </div>
@@ -575,5 +592,20 @@ const getItemsInto = (item: Item) => {
   width: 100%;
   height: 100%;
   object-fit: contain;
+}
+
+.sheet-title {
+  text-align: center;
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
+  color: var(--slate-12);
+  font-weight: 600;
+}
+
+.sheet.champions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
 }
 </style>
