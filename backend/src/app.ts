@@ -113,7 +113,7 @@ app.post("/api/dictionnaire", async (req, res) => {
   try {
     const filePath = path.join(
       __dirname,
-      "../../frontend/src/assets/files/dictionnaire-proposition.json",
+      "../../frontend/src/assets/files/dictionnaire/dictionnaire-proposition.json",
     );
 
     await appendToJson(req.body, filePath);
