@@ -25,9 +25,11 @@ const buildStore = useBuildStore()
 const roleStore = useRoleStore()
 const connexionStore = useConnexionStore()
 
-const name = ref('')
-const description = ref('')
-const isVisible = ref(false)
+const name = ref(buildStore.buildToEdit ? buildStore.buildToEdit.name : '')
+const description = ref(
+  buildStore.buildToEdit ? buildStore.buildToEdit.description : '',
+)
+const isVisible = ref(buildStore.visibleBuild)
 
 const championStats =
   championStore.$state.selectedChampion !== null
@@ -60,10 +62,13 @@ const itemStats = itemStore.$state.ItemsSelection.stats
 const build = buildStore.statsCalculator(championStats, itemStats)
 
 const submitForm = async () => {
-  let fileName = connexionStore.isLoggedIn
-    ? `lelariva_${uuidv4()}.json`
-    : `${uuidv4()}.json`
-  fileName = isVisible.value ? fileName : 'wait_' + fileName
+  let fileName = `${uuidv4()}.json`
+  if (buildStore.buildToEdit?.id) {
+    fileName = buildStore.buildToEdit.id
+  } else {
+    fileName = connexionStore.isLoggedIn ? `lelariva_` + fileName : fileName
+    fileName = isVisible.value ? fileName : 'wait_' + fileName
+  }
 
   const data = {
     id: fileName,
@@ -83,19 +88,35 @@ const submitForm = async () => {
   }
 
   try {
-    const response = await fetch(`${urlApiSave}/api/save/${fileName}`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(data),
-    })
+    let response
+    if (buildStore.buildToEdit) {
+      response = await fetch(`${urlApiSave}/api/update/${fileName}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      })
+    } else {
+      response = await fetch(`${urlApiSave}/api/save/${fileName}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      })
+    }
 
     if (!response.ok) {
       throw new Error('Erreur lors de la sauvegarde')
     }
-    if (!connexionStore.isLoggedIn) {
-      buildStore.saveBuild(data as BuildData)
+
+    if (buildStore.buildToEdit) {
+      buildStore.updateBuild(data as BuildData)
+    } else {
+      if (!connexionStore.isLoggedIn) {
+        buildStore.saveBuild(data as BuildData)
+      }
     }
 
     championStore.resetChampionSelection()
@@ -104,6 +125,7 @@ const submitForm = async () => {
     shardStore.resetShardsSelection()
     itemStore.resetItemsSelection()
     roleStore.resetRoles()
+    buildStore.setBuildToEdit(null)
 
     router.push({
       name: 'build',

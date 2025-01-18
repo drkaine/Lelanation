@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import {
   calculateBaseStats,
   calculateItemStats,
@@ -10,6 +10,10 @@ import type { Build, BuildData } from '@/types/build'
 
 export const useBuildStore = defineStore('build', () => {
   const userBuilds = ref<BuildData[]>([])
+  const buildToEdit = ref<BuildData | null>(null)
+  const visibleBuild = computed(() =>
+    buildToEdit.value?.id ? !buildToEdit.value.id.startsWith('wait_') : false,
+  )
 
   const statsCalculator = (
     championStats: ChampionStats,
@@ -62,16 +66,35 @@ export const useBuildStore = defineStore('build', () => {
 
   const resetBuild = () => {
     userBuilds.value = []
+    buildToEdit.value = null
     localStorage.removeItem('userBuilds')
+  }
+
+  const setBuildToEdit = (build: BuildData | null) => {
+    buildToEdit.value = build
+  }
+
+  const updateBuild = (updatedBuild: BuildData) => {
+    const index = userBuilds.value.findIndex(
+      build => build.id === updatedBuild.id,
+    )
+    if (index !== -1) {
+      userBuilds.value[index] = updatedBuild
+      localStorage.setItem('userBuilds', JSON.stringify(userBuilds.value))
+    }
   }
 
   return {
     userBuilds,
+    visibleBuild,
+    buildToEdit,
     loadUserBuilds,
     saveBuild,
     removeBuild,
     statsCalculator,
     updateBuildsOrder,
     resetBuild,
+    setBuildToEdit,
+    updateBuild,
   }
 })

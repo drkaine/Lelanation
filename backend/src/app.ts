@@ -8,6 +8,7 @@ import dotenv from "dotenv";
 import { unlink } from "fs/promises";
 import fs from "fs/promises";
 import { exec } from "child_process";
+import { existsSync } from "fs";
 
 dotenv.config();
 
@@ -19,7 +20,7 @@ const corsOptions = {
     "https://www.lelanation.darkaine.fr",
     "http://localhost:5173",
   ],
-  methods: ["GET", "POST"],
+  methods: ["GET", "POST", "PUT", "DELETE"],
   allowedHeaders: ["Content-Type"],
 };
 
@@ -52,6 +53,38 @@ app.post("/api/save/:filename", (req, res) => {
     );
   }
   res.sendStatus(200);
+});
+
+app.put("/api/update/:filename", async (req, res) => {
+  try {
+    const data = req.body;
+    let filePath = "";
+    let filename = "";
+
+    if (data.id.includes("lelariva")) {
+      filename = req.params.filename.replace("lelariva_", "");
+      filePath = path.join(
+        __dirname,
+        "../../frontend/public/assets/files/build/Lelariva/" + filename,
+      );
+    } else {
+      filename = req.params.filename;
+      filePath = path.join(
+        __dirname,
+        "../../frontend/public/assets/files/build/" + filename,
+      );
+    }
+
+    if (existsSync(filePath)) {
+      await fs.unlink(filePath);
+    }
+
+    await save(JSON.stringify(data), filePath);
+    res.sendStatus(200);
+  } catch (error) {
+    console.error("Erreur lors de la mise à jour:", error);
+    res.status(500).send("Erreur lors de la mise à jour du fichier");
+  }
 });
 
 app.delete("/api/build/:fileName", async (req, res) => {

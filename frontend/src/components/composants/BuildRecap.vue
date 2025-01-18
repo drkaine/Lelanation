@@ -6,6 +6,12 @@ import type { BuildData } from '@/types/build'
 import { useBuildStore } from '@/stores/buildStore'
 import domtoimage from 'dom-to-image-more'
 import { useConnexionStore } from '@/stores/connexionStore'
+import { useChampionStore } from '@/stores/championStore'
+import { useRuneStore } from '@/stores/runeStore'
+import { useSummonerStore } from '@/stores/summonerStore'
+import { useShardStore } from '@/stores/shardStore'
+import { useItemStore } from '@/stores/itemStore'
+import { useRoleStore } from '@/stores/roleStore'
 
 const connexionStore = useConnexionStore()
 const route = useRoute()
@@ -14,6 +20,12 @@ const buildStore = useBuildStore()
 const fileName = route.params.fileName as string
 const buildData = ref<BuildData | null>(null)
 const lvl = ref(1)
+const championStore = useChampionStore()
+const runeStore = useRuneStore()
+const summonerStore = useSummonerStore()
+const shardStore = useShardStore()
+const itemStore = useItemStore()
+const roleStore = useRoleStore()
 
 const response = await fetch(`/api/build/${fileName}`)
 const data = await response.json()
@@ -34,16 +46,10 @@ async function deleteBuild() {
   }
 }
 
-function editBuild() {
-  router.push({
-    path: '/build/edit',
-    query: { file: fileName },
-  })
-}
-
 const updateLevel = (newLevel: number) => {
   lvl.value = newLevel
 }
+
 function downloadJson() {
   if (!buildData.value) return
 
@@ -111,6 +117,21 @@ async function copyImageToClipboard() {
   } catch (error) {
     console.error("Erreur lors de la copie de l'image:", error)
   }
+}
+
+const editBuild = () => {
+  if (!buildData.value) return
+
+  championStore.setSelectedChampion(buildData.value.sheet.champion)
+  runeStore.runesSelection = buildData.value.sheet.runes
+  summonerStore.summonerSelection = buildData.value.sheet.summoners
+  shardStore.shardsSelection = buildData.value.sheet.shards
+  itemStore.ItemsSelection = buildData.value.sheet.items
+  roleStore.updateSelectedRoles(new Set(buildData.value.roles))
+
+  buildStore.setBuildToEdit(buildData.value)
+
+  router.push('/build')
 }
 </script>
 
