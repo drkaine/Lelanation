@@ -76,3 +76,91 @@ form label textarea::placeholder {
   color: var(--slate-3);
   opacity: 1;
 }
+
+/* Ajout des styles pour les boutons */
+.btn {
+  border: 1px solid var(--btnBorder, var(--slate-4));
+  background-color: var(--btnBackground, var(--black));
+  color: var(--btnColor, var(--slate-1));
+  padding: 0.7em 1.2em;
+  border-radius: 4px;
+  font-size: 1em;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5em;
+}
+
+.btn.small {
+  padding: 0.6em 1em;
+  font-size: 0.9em;
+}
+
+.btn.slate {
+  --btnBorder: var(--slate-4);
+  --btnColor: var(--slate-1);
+}
+
+/* Media queries pour le responsive */
+@media screen and (max-width: 768px) {
+  .btn {
+    padding: 0.6em 1em;
+    font-size: 0.95em;
+    width: 100%;
+    max-width: 300px;
+  }
+
+  .btn.small {
+    padding: 0.5em 0.8em;
+    font-size: 0.85em;
+  }
+
+  /* Ajustement pour les groupes de boutons */
+  .actions .rest {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5em;
+    width: 100%;
+    align-items: center;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .btn {
+    padding: 0.5em 0.8em;
+    font-size: 0.9em;
+    min-width: 120px;
+  }
+
+  .btn.small {
+    padding: 0.4em 0.7em;
+    font-size: 0.8em;
+    min-width: 100px;
+  }
+}
+
+/* Style pour le conteneur de la checkbox */
+.visibility-toggle {
+  display: flex !important; /* Override le display flex-direction: column par défaut */
+  align-items: center !important;
+  gap: 0.5em;
+  margin: 1em 0;
+  color: var(--slate-2);
+  font-size: 0.875em;
+  font-weight: 500;
+}
+
+/* Style pour la checkbox */
+.visibility-toggle input[type='checkbox'] {
+  width: auto !important; /* Override la width: 100% par défaut */
+  margin: 0;
+  padding: 0;
+}
+
+@media screen and (max-width: 768px) {
+  .visibility-toggle {
+    font-size: 0.85em;
+  }
+}

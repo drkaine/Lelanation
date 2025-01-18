@@ -3,11 +3,14 @@ import { ref, computed, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 import SheetBuild from '@/components/composants/SheetBuild.vue'
 import { useBuildStore } from '@/stores/buildStore'
+import { useConnexionStore } from '@/stores/connexionStore'
+import type { BuildData } from '@/types/build'
 
 const buildStore = useBuildStore()
 const route = useRoute()
-const builds = ref([])
+const builds = ref<BuildData[]>([])
 const urlApiSave = import.meta.env.VITE_URL_API_SAVE
+const connexionStore = useConnexionStore()
 
 const isLelarivaBuildPage = computed(() =>
   route.path.endsWith('/Lebuildarriva'),
@@ -30,7 +33,10 @@ onMounted(async () => {
 
 const filteredBuilds = computed(() => {
   if (isLelarivaBuildPage.value) {
-    return builds.value
+    if (connexionStore.isLoggedIn) {
+      return builds.value
+    }
+    return builds.value.filter(build => !build.id?.startsWith('wait_'))
   }
   return buildStore.userBuilds
 })
@@ -62,7 +68,7 @@ const handleDragOver = (e: DragEvent) => {
   <div data-v-f21e856a="" class="main builds">
     <div data-v-6c16e881="" data-v-f21e856a="" class="builds" id="">
       <h1 data-v-6c16e881="" class="pagetitle">
-        {{ isLelarivaBuildPage ? 'Builds Lelariva' : 'Mes builds' }}
+        {{ isLelarivaBuildPage ? 'Builds de Lelariva' : 'Mes builds' }}
       </h1>
       <div data-v-6c16e881="" class="settings">
         <div data-v-6c16e881="" class="new">

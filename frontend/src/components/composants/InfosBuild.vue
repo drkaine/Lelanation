@@ -27,6 +27,7 @@ const connexionStore = useConnexionStore()
 
 const name = ref('')
 const description = ref('')
+const isVisible = ref(false)
 
 const championStats =
   championStore.$state.selectedChampion !== null
@@ -59,15 +60,18 @@ const itemStats = itemStore.$state.ItemsSelection.stats
 const build = buildStore.statsCalculator(championStats, itemStats)
 
 const submitForm = async () => {
-  const fileName = connexionStore.isLoggedIn
+  let fileName = connexionStore.isLoggedIn
     ? `lelariva_${uuidv4()}.json`
     : `${uuidv4()}.json`
+  fileName = isVisible.value ? fileName : 'wait_' + fileName
+
   const data = {
     id: fileName,
     roles: Array.from(roleStore.selectedRoles),
     name: name.value,
     description: description.value,
     version: version,
+    visible: connexionStore.isLoggedIn ? isVisible.value : false,
     sheet: {
       champion: championStore.$state.selectedChampion,
       runes: runeStore.$state.runesSelection,
@@ -135,6 +139,11 @@ const submitForm = async () => {
           v-model="description"
         >
         </textarea>
+      </label>
+      <label v-if="connexionStore.isLoggedIn" class="visibility-toggle">
+        <input type="checkbox" v-model="isVisible" />
+        <span class="checkmark"></span>
+        Visible
       </label>
       <div data-v-b6709614="" class="next">
         <button type="submit" data-v-b6709614="">Finish</button>

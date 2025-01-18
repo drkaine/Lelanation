@@ -34,7 +34,7 @@ const routes: RouteRecordRaw[] = [
   {
     path: '/build/lelariva',
     name: 'lelariva',
-    component: () => import('../views/LelarivaBuildView.vue'),
+    component: () => import('../views/ConnexionBuildView.vue'),
   },
   {
     path: '/Lebuildarriva',
