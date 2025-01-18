@@ -880,3 +880,107 @@
   display: flex;
   width: 22em;
 }
+
+@media screen and (max-width: 768px) {
+  .build > .wrap {
+    grid-template-columns: 1fr;
+    gap: 1em;
+  }
+
+  .build > .wrap > .sheet {
+    grid-area: auto;
+    --sheetSize: 14;
+    width: 100%;
+  }
+
+  .build > .wrap .actions {
+    grid-area: auto;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.8em;
+  }
+
+  .build > .wrap .actions .image {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5em;
+  }
+
+  .build > .wrap .actions .image button {
+    font-size: 0.9em;
+  }
+
+  .build > .wrap > .stats {
+    grid-area: auto;
+    width: 100%;
+  }
+
+  .build > .wrap .hue {
+    grid-area: auto;
+  }
+
+  .build > .wrap .hue input {
+    width: 80%;
+    max-width: 16em;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .build > .wrap > .sheet {
+    --sheetSize: 12;
+  }
+
+  .build > .wrap .actions .image button {
+    font-size: 0.8em;
+    padding: 0.4em 0.8em;
+  }
+
+  .build > .wrap .actions .rest {
+    flex-direction: column;
+    gap: 0.5em;
+    width: 100%;
+  }
+
+  .build > .wrap .actions .rest button {
+    width: 100%;
+  }
+}
+
+.btn.small {
+  padding: 0.8em 1.6em;
+  font-size: 0.9em;
+  transition: all 0.2s ease;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5em;
+}
+
+@media screen and (max-width: 768px) {
+  .btn.small {
+    padding: 0.6em 1.2em;
+    font-size: 0.85em;
+    width: 100%;
+  }
+
+  .actions .rest {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5em;
+    width: 100%;
+  }
+
+  /* Centre les icônes avec le texte */
+  .btn.small svg {
+    margin: 0;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .btn.small {
+    padding: 0.5em 1em;
+    font-size: 0.8em;
+    min-width: 100px;
+  }
+}

@@ -12,6 +12,7 @@ import type { Champion } from '@/types/champion'
 import itemsFiles from '@/assets/files/data/item.json'
 import { TooltipCoordonne } from '../script/TooltipCoordonne'
 import { useRoleStore } from '@/stores/roleStore'
+import { ref, onMounted } from 'vue'
 
 const roleStore = useRoleStore()
 
@@ -69,6 +70,14 @@ const getItemsInto = (item: Item) => {
       .filter(Boolean) || []
   )
 }
+
+const isMobile = ref(window.innerWidth <= 768)
+
+onMounted(() => {
+  window.addEventListener('resize', () => {
+    isMobile.value = window.innerWidth <= 768
+  })
+})
 </script>
 
 <template>
@@ -92,10 +101,18 @@ const getItemsInto = (item: Item) => {
           :class="{
             'role-inactive':
               !selectedRoles.has(role) && !props.roles?.includes(role),
+            'role-mobile': isMobile,
           }"
           @click="toggleRole(role)"
         >
-          <img :src="`/assets/icons/roles/${role}.png`" :alt="role" />
+          <img
+            :src="`/assets/icons/roles/${role}.png`"
+            :alt="role"
+            :style="{
+              width: isMobile ? '18px' : '24px',
+              height: isMobile ? '18px' : '24px',
+            }"
+          />
         </div>
       </div>
       <div data-v-15310f80="" class="type">darkaine</div>

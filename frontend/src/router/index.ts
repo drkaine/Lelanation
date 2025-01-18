@@ -41,11 +41,11 @@ const routes: RouteRecordRaw[] = [
     name: 'Lebuildarriva',
     component: () => import('../views/MesBuildsView.vue'),
   },
-  // {
-  //   path: '/tier-list',
-  //   name: 'tier-list',
-  //   component: () => import('../views/TierListView.vue'),
-  // },
+  {
+    path: '/tier-list',
+    name: 'tier-list',
+    component: () => import('../views/TierListView.vue'),
+  },
   {
     path: '/dictionnaire/proposition',
     name: 'Proposition de définition',
