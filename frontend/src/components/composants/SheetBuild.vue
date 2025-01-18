@@ -94,25 +94,49 @@ onMounted(() => {
     </div>
     <div data-v-15310f80="" data-v-b6709614="" class="sheet sheet-background">
       <div class="roles-container">
-        <div
-          v-for="role in rolesListe"
-          :key="role"
-          class="role-icon"
-          :class="{
-            'role-inactive':
-              !selectedRoles.has(role) && !props.roles?.includes(role),
-            'role-mobile': isMobile,
-          }"
-          @click="toggleRole(role)"
-        >
-          <img
-            :src="`/assets/icons/roles/${role}.png`"
-            :alt="role"
-            :style="{
-              width: isMobile ? '18px' : '24px',
-              height: isMobile ? '18px' : '24px',
+        <div class="roles-column">
+          <div
+            v-for="role in rolesListe.slice(0, 3)"
+            :key="role"
+            class="role-icon"
+            :class="{
+              'role-inactive':
+                !selectedRoles.has(role) && !props.roles?.includes(role),
+              'role-mobile': isMobile,
             }"
-          />
+            @click="toggleRole(role)"
+          >
+            <img
+              :src="`/assets/icons/roles/${role}.png`"
+              :alt="role"
+              :style="{
+                width: isMobile ? '10px' : '18px',
+                height: isMobile ? '10px' : '18px',
+              }"
+            />
+          </div>
+        </div>
+        <div class="roles-row">
+          <div
+            v-for="role in rolesListe.slice(3)"
+            :key="role"
+            class="role-icon"
+            :class="{
+              'role-inactive':
+                !selectedRoles.has(role) && !props.roles?.includes(role),
+              'role-mobile': isMobile,
+            }"
+            @click="toggleRole(role)"
+          >
+            <img
+              :src="`/assets/icons/roles/${role}.png`"
+              :alt="role"
+              :style="{
+                width: isMobile ? '10px' : '18px',
+                height: isMobile ? '10px' : '18px',
+              }"
+            />
+          </div>
         </div>
       </div>
       <div data-v-15310f80="" class="type">darkaine</div>
@@ -581,48 +605,3 @@ onMounted(() => {
     </div>
   </div>
 </template>
-
-<style scoped>
-.roles-container {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-  z-index: 1;
-}
-
-.role-icon {
-  width: 24px;
-  height: 24px;
-  cursor: pointer;
-  transition: opacity 0.2s ease;
-}
-
-.role-inactive {
-  opacity: 0.3;
-  filter: grayscale(100%);
-}
-
-.role-icon img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-}
-
-.sheet-title {
-  text-align: center;
-  margin-bottom: 1rem;
-  font-size: 1.5rem;
-  color: var(--slate-12);
-  font-weight: 600;
-}
-
-.sheet.champions {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1rem;
-}
-</style>

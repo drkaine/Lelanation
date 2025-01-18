@@ -14,11 +14,3 @@ import SocialLinks from '@/components/home/SocialLinks.vue'
     <SocialLinks />
   </main>
 </template>
-
-<style scoped>
-.home-container {
-  min-height: 100vh;
-  padding: 2rem;
-  color: var(--l-gold1);
-}
-</style>
