@@ -6,44 +6,23 @@ const stepStore = useStepStore()
 const next = (type: 'champion' | 'rune' | 'item' | 'info') => {
   stepStore.setStepSelection(type)
 }
+
+const isActive = (type: 'champion' | 'rune' | 'item' | 'info') => {
+  return stepStore.step === type ? 'link-exact' : 'link'
+}
 </script>
 
 <template>
-  <div data-v-b6709614="" class="menu">
-    <a
-      data-v-b6709614=""
-      class="router-link-active router-link-exact-active done"
-      aria-current="page"
-      @click="next('champion')"
-    >
-      Champions</a
-    >
-    <span data-v-b6709614="" class="arrow"></span>
-    <a
-      data-v-b6709614=""
-      class="router-link-active router-link-exact-active done"
-      @click="next('rune')"
-    >
-      <span data-v-b6709614="" class="long">
-        Runes &amp; sort d'invocateur</span
-      >
-      <span data-v-b6709614="" class="short"> Runes </span>
+  <div class="menu-build">
+    <a :class="isActive('champion')" @click="next('champion')"> Champions </a>
+    <span class="arrow"></span>
+    <a :class="isActive('rune')" @click="next('rune')">
+      <span class="long">Runes &amp; sort d'invocateur</span>
+      <span class="short">Runes</span>
     </a>
-    <span data-v-b6709614="" class="arrow"></span>
-    <a
-      data-v-b6709614=""
-      class="router-link-active router-link-exact-active done"
-      @click="next('item')"
-    >
-      Items</a
-    >
-    <span data-v-b6709614="" class="arrow"></span>
-    <a
-      data-v-b6709614=""
-      class="router-link-active router-link-exact-active done"
-      @click="next('info')"
-    >
-      Info</a
-    >
+    <span class="arrow"></span>
+    <a :class="isActive('item')" @click="next('item')"> Items </a>
+    <span class="arrow"></span>
+    <a :class="isActive('info')" @click="next('info')"> Info </a>
   </div>
 </template>

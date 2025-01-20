@@ -1,0 +1,6 @@
+.window-build {
+  margin-top: clamp(2em, 7vw, 6em);
+  place-self: center;
+  max-width: 1280px;
+  width: 100%;
+}

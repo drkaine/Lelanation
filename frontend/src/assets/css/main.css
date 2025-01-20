@@ -1,7 +1,6 @@
 @charset "UTF-8";
 @import './accord.css';
 @import './app.css';
-@import './base.css';
 @import './build.css';
 @import './builds.css';
 @import './champion.css';
@@ -40,6 +39,7 @@
 @import './new/dictionnaire.css';
 @import './new/proposition-dictionnaire.css';
 @import './new/variable.css';
+@import './new/build.css';
 
 [data-v-5bc51be1] {
   --tooltipMaxWidth: 640px;

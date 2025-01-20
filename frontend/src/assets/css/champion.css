@@ -1,40 +1,40 @@
-.champions .list > .filter[data-v-80441127] {
+.champions .list > .filter {
   grid-area: auto/1/auto/-1;
   display: inline-flex;
   margin-bottom: 1em;
   flex-wrap: wrap;
   gap: 0.5em;
 }
-.champ-block .spells[data-v-5bc51be1] {
+.champ-block .spells {
   flex-direction: column;
   margin-top: 1em;
   display: flex;
   gap: 0.8em;
 }
 
-.champ-block .spells .spell[data-v-5bc51be1] {
+.champ-block .spells .spell {
   flex-shrink: 0;
   display: flex;
   gap: 0.75em;
 }
 
-.champ-block .spells .spell:nth-child(2) .img[data-v-5bc51be1]:before {
+.champ-block .spells .spell:nth-child(2) .img:before {
   content: 'Q';
 }
 
-.champ-block .spells .spell:nth-child(3) .img[data-v-5bc51be1]:before {
+.champ-block .spells .spell:nth-child(3) .img:before {
   content: 'W';
 }
 
-.champ-block .spells .spell:nth-child(4) .img[data-v-5bc51be1]:before {
+.champ-block .spells .spell:nth-child(4) .img:before {
   content: 'E';
 }
 
-.champ-block .spells .spell:nth-child(5) .img[data-v-5bc51be1]:before {
+.champ-block .spells .spell:nth-child(5) .img:before {
   content: 'R';
 }
 
-.champ-block .spells .spell .img[data-v-5bc51be1] {
+.champ-block .spells .spell .img {
   border: 1px solid var(--gold-lol);
   position: relative;
   margin-top: 0.1em;
@@ -44,7 +44,7 @@
   --s: 2.6em;
 }
 
-.champ-block .spells .spell .img[data-v-5bc51be1]:before {
+.champ-block .spells .spell .img:before {
   color: var(--gold-lol);
   position: absolute;
   font-size: 0.85em;
@@ -58,17 +58,17 @@
     1px -1px 0 var(--black);
 }
 
-.champ-block .spells .spell .img img[data-v-5bc51be1] {
+.champ-block .spells .spell .img img {
   display: flex;
   height: 100%;
   width: 100%;
 }
 
-.champ-block .spells .spell .desc[data-v-5bc51be1] {
+.champ-block .spells .spell .desc {
   font-size: 13px;
 }
 
-.champ-block .break[data-v-5bc51be1] {
+.champ-block .break {
   background-color: var(--sand-4);
   display: block;
   margin: 1em 0;
@@ -76,7 +76,7 @@
   height: 1px;
 }
 
-.champ-block .info[data-v-5bc51be1] {
+.champ-block .info {
   grid-template-columns: min-content 1fr;
   align-items: center;
   grid-auto-flow: row;
@@ -84,7 +84,7 @@
   display: grid;
 }
 
-.champ-block .info .name[data-v-5bc51be1] {
+.champ-block .info .name {
   text-transform: capitalize;
   align-items: center;
   color: var(--gold-lol);
@@ -93,21 +93,21 @@
   display: flex;
 }
 
-.champ-block .info .name.difficulty[data-v-5bc51be1] {
+.champ-block .info .name.difficulty {
   color: var(--slate-2);
 }
 
-.champ-block .info .line[data-v-5bc51be1] {
+.champ-block .info .line {
   background-color: var(--gold-lol);
   border-radius: 2px;
   height: 5px;
 }
 
-.champ-block .info .line.difficulty[data-v-5bc51be1] {
+.champ-block .info .line.difficulty {
   background-color: var(--slate-2);
 }
 
-.champion[data-v-1f02dc05] {
+.champion {
   background: linear-gradient(-45deg, var(--slate-6), var(--slate-5) 140%);
   border: 1px solid var(--champBorder);
   height: var(--champSize);
@@ -118,7 +118,7 @@
   flex-shrink: 0;
 }
 
-.champion img[data-v-1f02dc05] {
+.champion img {
   position: absolute;
   width: 116%;
   --s: 50%;
@@ -128,17 +128,17 @@
   filter: var(--champImgFilter);
 }
 
-.champions .list[data-v-80441127] {
+.champions .list {
   grid-template-columns: repeat(auto-fit, var(--size));
   place-content: center;
   display: grid;
 }
 
-.champions .list .search[data-v-80441127] {
+.champions .list .search {
   grid-area: auto/1/auto/-1;
 }
 
-.champions .list > .filter[data-v-80441127] {
+.champions .list > .filter {
   grid-area: auto/1/auto/-1;
   display: inline-flex;
   margin-bottom: 1em;
@@ -146,23 +146,23 @@
   gap: 0.5em;
 }
 
-.champions .list .champ[data-v-80441127] {
+.champions .list .champ {
   border: 1px solid transparent;
   position: relative;
   height: var(--size);
   width: var(--size);
 }
 
-.champions .list .champ.hide img[data-v-80441127] {
+.champions .list .champ.hide img {
   filter: grayscale(1) brightness(0.4);
 }
 
-.champions .list .champ img[data-v-80441127] {
+.champions .list .champ img {
   display: block;
   height: 100%;
   width: 100%;
 }
 
-.champions[data-v-80441127] {
+.champions {
   --size: 54px;
 }

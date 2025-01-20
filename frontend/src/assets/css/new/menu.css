@@ -13,16 +13,12 @@
   display: flex;
 }
 
-.header a.router-link-active,
+.header a.link-active,
 .header a.active {
   color: var(--gold-lol);
 }
 
 .header .overlay {
-  display: none;
-}
-
-.header .menu {
   display: none;
 }
 
@@ -34,7 +30,6 @@
 
 .app {
   grid-template-rows: repeat(2, min-content);
-  background: var(--6d8341ae);
   background-attachment: fixed;
   padding: 0.8em 1em 4em;
   position: relative;
@@ -97,25 +92,25 @@
     font-size: 15px;
   }
 
-  .header .overlay.menu {
+  .header .overlay.menu-build {
     background-color: color-mix(in srgb, var(--black), transparent 20%);
     position: fixed;
     display: block;
     z-index: 2;
     inset: 0;
   }
-  .header .menu {
+  .header .menu-build {
     display: block;
     --size: 2em;
   }
 
-  .header .menu svg {
+  .header .menu-build svg {
     height: var(--size);
     width: var(--size);
     display: block;
   }
 
-  .header .menu svg path {
+  .header .menu-build svg path {
     stroke: var(--color);
   }
 
@@ -127,9 +122,8 @@
     padding: 1em 4em 1em 2em;
   }
 
-  .header .right-header .menu {
+  .header .right-header .menu-build {
     border-left: 1px solid var(--slate-5);
-    background-color: var(--black);
     flex-direction: column-reverse;
     display: flex;
     position: fixed;
@@ -150,5 +144,108 @@
 
   .header {
     font-size: 14px;
+  }
+}
+
+.arrow {
+  position: relative;
+  display: inline-block;
+  width: clamp(12px, 2vw, 20px);
+  height: clamp(12px, 2vw, 20px);
+  margin: 0 clamp(0.25rem, 1vw, 0.5rem);
+}
+
+.arrow::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: clamp(4px, 1vw, 8px);
+  height: clamp(4px, 1vw, 8px);
+  border-top: clamp(1px, 0.3vw, 2px) solid var(--nox-grey3);
+  border-right: clamp(1px, 0.3vw, 2px) solid var(--nox-grey3);
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+
+@media (max-width: 768px) {
+  .arrow {
+    width: 15px;
+    height: 15px;
+    margin: 0 0.25rem;
+  }
+
+  .arrow::after {
+    width: 6px;
+    height: 6px;
+  }
+}
+
+.menu-build {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  padding: 1rem;
+}
+
+@media (max-width: 768px) {
+  .menu-build {
+    justify-content: center;
+    text-align: center;
+    width: 100%;
+    gap: 0.25rem;
+    padding: 0.5rem;
+  }
+
+  .long {
+    display: none;
+  }
+
+  .short {
+    display: inline;
+  }
+}
+
+.short {
+  display: none;
+}
+
+.long {
+  display: inline;
+}
+
+.menu-build {
+  align-items: center;
+  user-select: none;
+  font-size: 16px;
+  margin: 0 auto;
+  grid-area: 1/2;
+  display: flex;
+}
+
+.link-exact {
+  color: var(--gold-lol);
+}
+
+@media (hover: hover) {
+  .menu-build a:hover {
+    text-decoration: underline;
+  }
+}
+@media (max-width: 500px) {
+  .menu-build a .short {
+    display: inline;
+  }
+
+  .menu-build a .long {
+    display: none;
+  }
+}
+
+@media (max-width: 500px) {
+  .menu-build .arrow {
+    --s: 0.5em;
+    margin: 0 0.4em;
   }
 }

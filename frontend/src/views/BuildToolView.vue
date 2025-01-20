@@ -31,10 +31,10 @@ const next = () => {
 </script>
 
 <template>
-  <div data-v-f21e856a="" class="main champions">
-    <div data-v-b6709614="" data-v-f21e856a="" class="build">
+  <div class="window-build">
+    <div class="build">
       <MenuBuild />
-      <div data-v-b6709614="" class="main">
+      <div class="main">
         <div v-if="stepStore.step === 'champion'">
           <ChampSelection />
         </div>
@@ -51,11 +51,10 @@ const next = () => {
           <BuildRecap />
         </div>
         <div
-          data-v-b6709614=""
           class="next"
           v-if="stepStore.step === 'rune' || stepStore.step === 'item'"
         >
-          <button data-v-b6709614="" @click="next()">Next</button>
+          <button @click="next()">Next</button>
         </div>
       </div>
       <SheetBuild

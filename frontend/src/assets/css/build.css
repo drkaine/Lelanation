@@ -214,7 +214,7 @@
   gap: 0.3em;
 }
 
-.build > .sheet[data-v-b6709614] {
+.build > .sheet {
   grid-area: 2/1/3;
   --sheetSize: 15;
 }
@@ -605,19 +605,19 @@
   --champSize: 1.5em;
 }
 
-.build[data-v-b6709614] {
+.build {
   grid-template-columns: min-content 1fr;
   grid-auto-flow: dense;
   display: grid;
   gap: 2em;
 }
 
-.build > .sheet[data-v-b6709614] {
+.build > .sheet {
   grid-area: 2/1/3;
   --sheetSize: 15;
 }
 
-.build .extra[data-v-b6709614] {
+.build .extra {
   flex-direction: column;
   align-items: center;
   position: sticky;
@@ -627,7 +627,7 @@
   top: 2em;
 }
 
-.build .main[data-v-b6709614] {
+.build .main {
   flex-direction: column;
   margin-bottom: 2em;
   grid-area: 2/2/6;
@@ -635,7 +635,7 @@
   gap: 2em;
 }
 
-.build .main .next[data-v-b6709614] {
+.build .main .next {
   justify-content: center;
   font-size: 0.75em;
   display: flex;
@@ -647,11 +647,11 @@
   --tooltipMinWidth: 0;
 }
 
-.build .main .next.off[data-v-b6709614] {
+.build .main .next.off {
   visibility: hidden;
 }
 
-.build .main .next button[data-v-b6709614] {
+.build .main .next button {
   --color: var(--slate-3);
   background-color: var(--black);
   justify-content: space-between;
@@ -671,7 +671,7 @@
   --s: 1.1em;
 }
 
-.build .main .next button[data-v-b6709614]:after {
+.build .main .next button:after {
   content: '';
   display: block;
   width: var(--s);
@@ -683,51 +683,13 @@
   visibility: hidden;
 }
 
-.build .main .next button[data-v-b6709614]:before {
+.build .main .next button:before {
   content: '';
   display: block;
   width: var(--s);
   height: var(--s);
 }
 
-.build .menu[data-v-b6709614] {
-  align-items: center;
-  user-select: none;
-  font-size: 16px;
-  margin: 0 auto;
-  grid-area: 1/2;
-  display: flex;
-}
-
-.build .menu a[data-v-b6709614] {
-  text-decoration: none;
-  color: var(--slate-2);
-  font-weight: 400;
-}
-
-.build .menu a.done[data-v-b6709614] {
-  color: var(--green);
-  opacity: 0.85;
-}
-
-.build .menu a.router-link-exact-active[data-v-b6709614] {
-  color: var(--gold-lol);
-  opacity: 1;
-}
-
-.build .menu a .short[data-v-b6709614] {
-  display: none;
-}
-
-.build .menu .arrow[data-v-b6709614] {
-  --s: 0.7em;
-  width: var(--s);
-  height: var(--s);
-  margin: 0 0.75em;
-  background-size: contain;
-  background-position: center;
-  background-repeat: no-repeat;
-}
 .build > .line[data-v-00f8c08d] {
   user-select: none;
   cursor: pointer;

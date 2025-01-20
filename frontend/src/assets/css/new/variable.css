@@ -1,36 +1,61 @@
 :root {
   --gold-lol: rgb(200, 170, 110);
 
-  /* Palette principale */
-  --nox-blue1: rgb(230, 242, 255); /* Bleu clair */
-  --nox-blue2: rgb(190, 215, 255); /* Bleu glacier */
-  --nox-blue3: rgb(130, 170, 255); /* Bleu profond */
-  --nox-blue4: rgb(75, 110, 190); /* Bleu sombre */
-  --nox-blue5: rgb(30, 55, 115); /* Bleu nuit */
-  --nox-blue6: rgb(15, 25, 70); /* Bleu abyssal */
+  --nox-blue1: rgb(230, 242, 255);
+  --nox-blue2: rgb(190, 215, 255);
+  --nox-blue3: rgb(130, 170, 255);
+  --nox-blue4: rgb(75, 110, 190);
+  --nox-blue5: rgb(30, 55, 115);
+  --nox-blue6: rgb(15, 25, 70);
 
-  /* Accents dorés */
-  --nox-gold1: rgb(245, 235, 205); /* Or pâle */
-  --nox-gold2: rgb(220, 190, 140); /* Or brillant */
-  --nox-gold3: rgb(200, 170, 110); /* Or riche */
-  --nox-gold4: rgb(170, 140, 80); /* Or profond */
-  --nox-gold5: rgb(110, 85, 45); /* Or sombre */
-  --nox-gold6: rgb(80, 60, 35); /* Or ombré */
+  --nox-gold1: rgb(245, 235, 205);
+  --nox-gold2: rgb(220, 190, 140);
+  --nox-gold3: rgb(200, 170, 110);
+  --nox-gold4: rgb(170, 140, 80);
+  --nox-gold5: rgb(110, 85, 45);
+  --nox-gold6: rgb(80, 60, 35);
 
-  /* Gris neutres */
-  --nox-grey1: rgb(225, 225, 235); /* Gris perle */
-  --nox-grey2: rgb(170, 170, 185); /* Gris acier */
-  --nox-grey3: rgb(115, 115, 130); /* Gris pierre */
-  --nox-grey4: rgb(60, 60, 75); /* Gris charbon */
+  --nox-grey1: rgb(225, 225, 235);
+  --nox-grey2: rgb(170, 170, 185);
+  --nox-grey3: rgb(115, 115, 130);
+  --nox-grey4: rgb(60, 60, 75);
 
-  /* Couleurs fonctionnelles */
-  --nox-success: rgb(95, 190, 115); /* Vert validation */
-  --nox-error: rgb(220, 80, 80); /* Rouge erreur */
-  --nox-warning: rgb(240, 180, 60); /* Orange alerte */
-  --nox-info: rgb(100, 160, 255); /* Bleu info */
+  --nox-success: rgb(95, 190, 115);
+  --nox-error: rgb(220, 80, 80);
+  --nox-warning: rgb(240, 180, 60);
+  --nox-info: rgb(100, 160, 255);
 
   --grey: #1e282d;
-  --black: #010a13;
+  --black: rgb(15, 25, 45);
+  --green: rgb(95, 190, 115);
+  --red: rgb(220, 80, 80);
+
+  --slate-1: rgb(200, 205, 220);
+  --slate-2: rgb(170, 175, 190);
+  --slate-3: rgb(130, 135, 150);
+  --slate-4: rgb(100, 105, 120);
+  --slate-5: rgb(60, 65, 80);
+  --slate-6: rgb(35, 40, 55);
+
+  --sand-1: rgb(235, 230, 220);
+  --sand-2: rgb(210, 200, 185);
+  --sand-3: rgb(180, 170, 155);
+  --sand-4: rgb(115, 105, 90);
+  --sand-5: rgb(75, 70, 60);
+
+  --sea-1: rgb(130, 170, 210);
+  --sheetWidth: 20.5em;
+  --transition: all 0.05s ease;
+  --accent: rgb(10, 39, 60);
+
+  font-family: var(--font);
+
+  color-scheme: dark;
+  line-height: 1.5;
+  font-weight: 400;
+  font-size: 16px;
+  --font: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  --mono: 'Server Mono', ui-monospace, Menlo, Monaco, 'Segoe UI Mono', monospace;
 }
 
 :root-test {
@@ -63,4 +88,22 @@
   --nox-error: oklch(65% 0.18 25); /* Rouge erreur */
   --nox-warning: oklch(75% 0.15 85); /* Orange alerte */
   --nox-info: oklch(70% 0.12 230); /* Bleu info */
+
+  --black: oklch(13% 0.05 210);
+  --green: oklch(60% 0.2 165);
+  --red: oklch(60% 0.2 25);
+  --slate-1: oklch(80% 0.02 250);
+  --slate-2: oklch(70% 0.02 250);
+  --slate-3: oklch(55% 0.02 250);
+  --slate-4: oklch(45% 0.02 250);
+  --slate-5: oklch(30% 0.02 250);
+  --slate-6: oklch(19% 0.03 250);
+  --sand-1: oklch(90% 0.03 80);
+  --sand-2: oklch(80% 0.02 80);
+  --sand-3: oklch(70% 0.01 80);
+  --sand-4: oklch(45% 0.01 80);
+  --sand-5: oklch(30% 0 80);
+
+  --sea-1: oklch(70% 0.08 210);
+  --accent: #0a273c;
 }

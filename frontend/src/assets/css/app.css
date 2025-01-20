@@ -1,15 +1,8 @@
-.app .main {
-  margin-top: clamp(2em, 7vw, 6em);
-  place-self: center;
-  max-width: 1280px;
-  width: 100%;
-}
-
-.app .main.buildsCompare[data-v-f21e856a] {
+.main.buildsCompare {
   max-width: 2000px;
 }
 
-.app .terms[data-v-f21e856a] {
+.app .terms {
   color: var(--slate-4);
   position: absolute;
   margin: 0.6em 1em;
@@ -25,48 +18,16 @@
   --tooltipPad: 0.8em 1em;
 }
 
-.app .terms .term[data-v-f21e856a] {
+.app .terms .term {
   user-select: none;
   cursor: default;
 }
 
-.app[data-v-0c81bdb5] {
+.app {
   grid-template-rows: repeat(2, min-content);
   background: var(--3fa16732);
   background-attachment: fixed;
   padding: 0.8em 1em 4em;
   position: relative;
   display: grid;
-}
-
-.app .main[data-v-0c81bdb5] {
-  margin-top: clamp(2em, 7vw, 6em);
-  place-self: center;
-  max-width: 1280px;
-  width: 100%;
-}
-
-.app .main.buildsCompare[data-v-0c81bdb5] {
-  max-width: 2000px;
-}
-
-.app .terms[data-v-0c81bdb5] {
-  color: var(--slate-4);
-  position: absolute;
-  margin: 0.6em 1em;
-  font-size: 0.8em;
-  font-weight: 600;
-  bottom: 0;
-  right: 0;
-  --tooltipBorder1: var(--slate-1);
-  --tooltipBorder2: var(--slate-2);
-  --tooltip: var(--slate-1);
-  --tooltipMaxWidth: 390px;
-  --tooltipTextSize: 13px;
-  --tooltipPad: 0.8em 1em;
-}
-
-.app .terms .term[data-v-0c81bdb5] {
-  user-select: none;
-  cursor: default;
 }
