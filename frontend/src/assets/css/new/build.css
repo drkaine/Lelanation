@@ -1,5 +1,4 @@
 .window-build {
-  margin-top: clamp(2em, 7vw, 6em);
   place-self: center;
   max-width: 1280px;
   width: 100%;
@@ -23,12 +22,6 @@
 .suivant {
   justify-content: center;
   font-size: 0.75em;
-  --tooltipBorder1: var(--nox-grey4);
-  --tooltipBorder2: var(--nox-grey4);
-  --tooltip: var(--nox-grey4);
-  --tooltipPad: 0.4em 0.8em;
-  --tooltipTextSize: 13px;
-  --tooltipMinWidth: 0;
   max-width: fit-content;
   margin: 0 auto;
   border: 2px solid var(--nox-grey3);

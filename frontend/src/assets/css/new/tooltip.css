@@ -1,0 +1,120 @@
+.tooltip {
+  display: contents;
+}
+
+.tooltip .box {
+  max-width: min(620px, var(--tooltipMaxWidth, calc(100vw - 70px)));
+  min-width: var(--tooltipMinWidth, 270px);
+  max-height: 100%;
+  background: linear-gradient(
+    135deg,
+    color-mix(
+        in srgb,
+        var(--base-dark),
+        color-mix(in srgb, var(--black), black 40%) 0%
+      )
+      0%,
+    color-mix(
+        in srgb,
+        var(--base-dark),
+        color-mix(in srgb, var(--black), black 35%) 5%
+      )
+      10%,
+    color-mix(
+        in srgb,
+        var(--base-dark),
+        color-mix(in srgb, var(--black), black 30%) 15%
+      )
+      20%,
+    color-mix(
+        in srgb,
+        var(--base-dark),
+        color-mix(in srgb, var(--black), black 25%) 25%
+      )
+      30%,
+    color-mix(
+        in srgb,
+        var(--base-dark),
+        color-mix(in srgb, var(--black), black 20%) 35%
+      )
+      40%,
+    color-mix(
+        in srgb,
+        var(--final-blue),
+        color-mix(in srgb, var(--black), black 15%) 45%
+      )
+      50%,
+    color-mix(
+        in srgb,
+        var(--final-blue),
+        color-mix(in srgb, var(--black), black 10%) 55%
+      )
+      60%,
+    color-mix(
+        in srgb,
+        var(--final-blue),
+        color-mix(in srgb, var(--black), black 5%) 65%
+      )
+      70%,
+    color-mix(
+        in srgb,
+        var(--final-blue),
+        color-mix(in srgb, var(--black), black 0%) 75%
+      )
+      80%,
+    var(--final-blue) 100%
+  );
+  padding: var(--tooltipPad, 1.2em);
+  border: 1px solid var(--gold-lol);
+  font-size: 1rem;
+  position: absolute;
+  display: none;
+  flex-direction: column;
+  pointer-events: none;
+  width: max-content;
+  text-align: left;
+  z-index: 2;
+}
+
+.tooltip .box .body {
+  font-weight: 400;
+  line-height: 1.5;
+  font-size: var(--tooltipTextSize, 14px);
+}
+
+.tooltip .box .body > hr {
+  margin-bottom: 0.5em;
+}
+
+.tooltip .box .footer > hr {
+  margin-bottom: 0.8em;
+}
+
+.tooltip .box hr {
+  background-color: var(--sand-4);
+  width: 100%;
+  height: 1px;
+  border: 0;
+}
+
+@media (hover: hover) {
+  .tooltip :hover + .box {
+    display: flex;
+  }
+}
+
+@media (hover: hover) and (max-width: 550px) {
+  .tooltip :hover + .box {
+    display: none;
+  }
+}
+@media (hover: none) {
+  .tooltip :hover + .box.touch:not(.off) {
+    display: flex;
+  }
+}
+@media (max-width: 1000px) {
+  .tooltip .box.left-start {
+    display: none;
+  }
+}

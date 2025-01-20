@@ -43,10 +43,7 @@
 @import './new/champion.css';
 @import './new/form.css';
 @import './new/base.css';
-
-[data-v-5bc51be1] {
-  --tooltipMaxWidth: 640px;
-}
+@import './new/tooltip.css';
 
 .fstyle[data-v-5ad5f5e7] .space,
 .fstyle[data-v-5ad5f5e7] ul {
@@ -70,10 +67,6 @@ a {
 ul,
 li {
   list-style-position: inside;
-}
-
-[data-v-5bc51be1] {
-  --tooltipMaxWidth: 640px;
 }
 
 .fstyle[data-v-5ad5f5e7] {
@@ -123,39 +116,9 @@ li {
   display: flex;
 }
 
-[data-v-bab95e98] {
-  --tooltipMaxWidth: 540px;
-}
-
-[data-v-ad54ad37] {
-  --tooltipPad: 0.4em 0.8em;
-  --tooltipTextSize: 13px;
-  --tooltipMinWidth: 0;
-}
-
-[data-v-ab218c16] {
-  --tooltipMaxWidth: 540px;
-}
-
 .sortable-chosen .sheet > .wrap[data-v-15310f80] {
   background: var(--1c64872f);
 }
-
-/* 
-button {
-  background-color: unset;
-  font-family: var(--font);
-  display: inline-block;
-  line-height: 1rem;
-  border-radius: 0;
-  appearance: none;
-  cursor: pointer;
-  font-size: 1em;
-  color: unset;
-  border: none;
-  padding: 0;
-  margin: 0;
-} */
 
 * {
   box-sizing: border-box;

@@ -48,6 +48,8 @@
   --transition: all 0.05s ease;
   --accent: rgb(10, 39, 60);
 
+  --champSizeButton: 54px;
+
   font-family: var(--font);
 
   color-scheme: dark;

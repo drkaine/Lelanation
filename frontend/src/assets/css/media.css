@@ -1,24 +1,6 @@
 @media (hover: hover) {
-  .tooltip [data-v-cbff5ddf-s]:hover + .box {
-    display: flex;
-  }
-}
-
-@media (hover: hover) and (max-width: 550px) {
-  .tooltip [data-v-cbff5ddf-s]:hover + .box {
+  .sortable-chosen .tooltip :hover + .box {
     display: none;
-  }
-}
-
-@media (hover: hover) {
-  .sortable-chosen .tooltip [data-v-cbff5ddf-s]:hover + .box {
-    display: none;
-  }
-}
-
-@media (hover: none) {
-  .tooltip [data-v-cbff5ddf-s]:hover + .box.touch:not(.off) {
-    display: flex;
   }
 }
 
@@ -456,33 +438,11 @@
 }
 
 @media (hover: hover) {
-  .tooltip [data-v-cbff5ddf-s]:hover + .box {
-    display: flex;
-  }
-}
-
-@media (hover: hover) and (max-width: 550px) {
-  .tooltip [data-v-cbff5ddf-s]:hover + .box {
+  .sortable-chosen .tooltip :hover + .box {
     display: none;
   }
 }
 
-@media (hover: hover) {
-  .sortable-chosen .tooltip [data-v-cbff5ddf-s]:hover + .box {
-    display: none;
-  }
-}
-
-@media (hover: none) {
-  .tooltip [data-v-cbff5ddf-s]:hover + .box.touch:not(.off) {
-    display: flex;
-  }
-}
-@media (max-width: 1000px) {
-  .tooltip .box.left-start[data-v-cbff5ddf] {
-    display: none;
-  }
-}
 @media (hover: hover) {
   .levels .level[data-v-575fc9df]:hover {
     background-color: var(--slate-2);

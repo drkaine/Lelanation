@@ -124,14 +124,11 @@ const selectChampion = (champion: Champion) => {
       </div>
 
       <div
-        data-v-cbff5ddf=""
-        data-v-5bc51be1=""
         class="tooltip"
         v-for="(champion, index) in filterInstance.championData"
         :key="index"
       >
         <button
-          data-v-cbff5ddf-s=""
           :class="{
             champ: true,
             hide: !filterInstance.filteredChampions.value.includes(champion),
@@ -142,13 +139,11 @@ const selectChampion = (champion: Champion) => {
         >
           <img
             loading="lazy"
-            data-v-cbff5ddf-s=""
             :src="'/assets/icons/champions/' + champion.image.full"
             :alt="champion.name"
           />
         </button>
         <div
-          data-v-cbff5ddf=""
           class="box"
           :style="{ position: 'absolute', left: tooltipLeft, top: tooltipTop }"
         >
