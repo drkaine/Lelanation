@@ -12,7 +12,7 @@
   gap: 2em;
 }
 
-.build .main {
+.build .core-build {
   flex-direction: column;
   margin-bottom: 2em;
   grid-area: 2/2/6;
@@ -43,4 +43,11 @@
   padding: 0.7em;
   display: flex;
   width: 100%;
+}
+
+@media (max-width: 1000px) {
+  .build .core-build {
+    grid-area: 2/1 / auto/-1;
+    margin-bottom: 0;
+  }
 }

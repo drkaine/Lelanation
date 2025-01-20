@@ -50,10 +50,10 @@ const selectChampion = (champion: Champion) => {
 </script>
 
 <template>
-  <div data-v-80441127="" data-v-b6709614="" class="champions">
-    <div data-v-80441127="" class="list">
-      <div data-v-80441127="" class="search">
-        <form data-v-80441127="" @submit.prevent>
+  <div class="champions">
+    <div class="list">
+      <div class="search">
+        <form @submit.prevent>
           <label class="small">
             <input
               placeholder="Search"
@@ -64,10 +64,8 @@ const selectChampion = (champion: Champion) => {
           </label>
         </form>
       </div>
-      <div data-v-80441127="" class="filter">
+      <div class="filter">
         <button
-          data-v-27037513=""
-          data-v-80441127=""
           :class="{
             active: filterInstance.selectedTag.includes('Assassin'),
           }"
@@ -76,8 +74,6 @@ const selectChampion = (champion: Champion) => {
           Assassin
         </button>
         <button
-          data-v-27037513=""
-          data-v-80441127=""
           :class="{
             active: filterInstance.selectedTag.includes('Fighter'),
           }"
@@ -86,8 +82,6 @@ const selectChampion = (champion: Champion) => {
           Combattant
         </button>
         <button
-          data-v-27037513=""
-          data-v-80441127=""
           :class="{
             active: filterInstance.selectedTag.includes('Mage'),
           }"
@@ -96,8 +90,6 @@ const selectChampion = (champion: Champion) => {
           Mage
         </button>
         <button
-          data-v-27037513=""
-          data-v-80441127=""
           :class="{
             active: filterInstance.selectedTag.includes('Marksman'),
           }"
@@ -106,8 +98,6 @@ const selectChampion = (champion: Champion) => {
           Tireur
         </button>
         <button
-          data-v-27037513=""
-          data-v-80441127=""
           :class="{
             active: filterInstance.selectedTag.includes('Support'),
           }"
@@ -116,8 +106,6 @@ const selectChampion = (champion: Champion) => {
           Support
         </button>
         <button
-          data-v-27037513=""
-          data-v-80441127=""
           :class="{
             active: filterInstance.selectedTag.includes('Tank'),
           }"
@@ -126,8 +114,6 @@ const selectChampion = (champion: Champion) => {
           Tank
         </button>
         <button
-          data-v-27037513=""
-          data-v-80441127=""
           :class="{
             active: filterInstance.selectedTag.includes('Assassin'),
           }"
@@ -140,13 +126,11 @@ const selectChampion = (champion: Champion) => {
       <div
         data-v-cbff5ddf=""
         data-v-5bc51be1=""
-        data-v-80441127=""
         class="tooltip"
         v-for="(champion, index) in filterInstance.championData"
         :key="index"
       >
         <button
-          data-v-80441127=""
           data-v-cbff5ddf-s=""
           :class="{
             champ: true,
@@ -158,7 +142,6 @@ const selectChampion = (champion: Champion) => {
         >
           <img
             loading="lazy"
-            data-v-80441127=""
             data-v-cbff5ddf-s=""
             :src="'/assets/icons/champions/' + champion.image.full"
             :alt="champion.name"

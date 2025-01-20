@@ -1,0 +1,68 @@
+.champions .list {
+  grid-template-columns: repeat(auto-fit, var(--size));
+  place-content: center;
+  display: grid;
+  width: 100%;
+}
+
+.champions .list > .filter {
+  grid-area: auto/1/auto/-1;
+  display: inline-flex;
+  margin-bottom: 1em;
+  flex-wrap: wrap;
+  gap: 0.5em;
+}
+
+.champ {
+  border: 1px solid transparent;
+  position: relative;
+  height: var(--size);
+  width: var(--size);
+}
+
+.champ.hide img {
+  filter: grayscale(1) brightness(0.4);
+}
+
+.champ img {
+  display: block;
+  height: 100%;
+  width: 100%;
+}
+
+.champions {
+  --size: 54px;
+}
+
+.champion {
+  border: 1px solid var(--champBorder);
+  height: var(--champSize);
+  width: var(--champSize);
+  position: relative;
+  border-radius: 50%;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.champion img {
+  position: absolute;
+  width: 116%;
+  --s: 50%;
+  top: var(--s);
+  left: var(--s);
+  transform: translate(calc(var(--s) * -1), calc(var(--s) * -1));
+  filter: var(--champImgFilter);
+}
+
+@media (max-width: 700px) {
+  .champions[data-v-80441127] {
+    --size: 50px;
+  }
+}
+
+@media (hover: hover) {
+  .champions .list .champ[data-v-80441127]:hover {
+    border-color: var(--gold-lol);
+    z-index: 1;
+  }
+}

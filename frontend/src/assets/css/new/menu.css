@@ -4,6 +4,9 @@
   color: var(--color);
   font-size: 15px;
   display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
 }
 
 .header a {
@@ -29,11 +32,11 @@
 }
 
 .app {
-  grid-template-rows: repeat(2, min-content);
-  background-attachment: fixed;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
   padding: 0.8em 1em 4em;
   position: relative;
-  display: grid;
 }
 
 .mobile-nav {

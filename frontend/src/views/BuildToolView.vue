@@ -34,7 +34,7 @@ const next = () => {
   <div class="window-build">
     <div class="build">
       <MenuBuild />
-      <div class="main">
+      <div class="core-build">
         <div v-if="stepStore.step === 'champion'">
           <ChampSelection />
         </div>

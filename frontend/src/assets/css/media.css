@@ -619,11 +619,6 @@
   }
 }
 
-button.active[data-v-27037513] {
-  background-color: var(--slate-3);
-  color: var(--slate-6);
-}
-
 @media (max-width: 1000px) {
   .picks[data-v-63d61340] {
     max-width: 21.2em;
@@ -655,18 +650,7 @@ button.active[data-v-27037513] {
     --sheetSize: 13;
   }
 }
-@media (max-width: 700px) {
-  .champions[data-v-80441127] {
-    --size: 50px;
-  }
-}
 
-@media (hover: hover) {
-  .champions .list .champ[data-v-80441127]:hover {
-    border-color: var(--gold-lol);
-    z-index: 1;
-  }
-}
 @media (max-width: 1000px) {
   .item-page > .wrap[data-v-f3b62e78] {
     place-items: center;
@@ -846,41 +830,6 @@ button.active[data-v-27037513] {
     position: relative;
     margin-bottom: 2em;
     top: 0;
-  }
-}
-
-@media (max-width: 1000px) {
-  .build .main[data-v-b6709614] {
-    grid-area: 2/1 / auto/-1;
-    margin-bottom: 0;
-  }
-}
-@media (max-width: 1000px) {
-  .build .main .next.off[data-v-b6709614] {
-    display: none;
-  }
-}
-@media (max-width: 1000px) {
-  .build .main .next button[data-v-b6709614] {
-    max-width: 18em;
-  }
-}
-
-@media (hover: hover) {
-  .build .main .next button[data-v-b6709614]:hover {
-    filter: brightness(1.2);
-  }
-}
-@media (max-width: 1000px) {
-  .build .menu[data-v-b6709614] {
-    grid-area: 1/1 / auto/3;
-  }
-}
-
-@media (max-width: 500px) {
-  .build .menu[data-v-b6709614] {
-    margin-bottom: -1em;
-    font-size: 14px;
   }
 }
 
