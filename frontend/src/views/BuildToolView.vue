@@ -50,12 +50,13 @@ const next = () => {
         <div v-else-if="stepStore.step === 'build'">
           <BuildRecap />
         </div>
-        <div
-          class="next"
+        <button
+          class="suivant"
           v-if="stepStore.step === 'rune' || stepStore.step === 'item'"
+          @click="next()"
         >
-          <button @click="next()">Next</button>
-        </div>
+          Suivant
+        </button>
       </div>
       <SheetBuild
         :version="null"

@@ -4,3 +4,43 @@
   max-width: 1280px;
   width: 100%;
 }
+
+.build {
+  grid-template-columns: min-content 1fr;
+  grid-auto-flow: dense;
+  display: grid;
+  gap: 2em;
+}
+
+.build .main {
+  flex-direction: column;
+  margin-bottom: 2em;
+  grid-area: 2/2/6;
+  display: flex;
+  gap: 2em;
+}
+
+.suivant {
+  justify-content: center;
+  font-size: 0.75em;
+  --tooltipBorder1: var(--nox-grey4);
+  --tooltipBorder2: var(--nox-grey4);
+  --tooltip: var(--nox-grey4);
+  --tooltipPad: 0.4em 0.8em;
+  --tooltipTextSize: 13px;
+  --tooltipMinWidth: 0;
+  max-width: fit-content;
+  margin: 0 auto;
+  border: 2px solid var(--nox-grey3);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--nox-grey2);
+  border-radius: 15px;
+  align-items: center;
+  text-align: center;
+  font-weight: 500;
+  max-width: 15em;
+  padding: 0.7em;
+  display: flex;
+  width: 100%;
+}
