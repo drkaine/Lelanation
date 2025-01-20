@@ -8,17 +8,17 @@
 
 .summoners .list > .sum > button[data-v-70a93f67] {
   --sumImgFilter: grayscale(1) brightness(0.6);
-  --sumBorder: var(--gold-4);
+  --sumBorder: var(--gold-lol);
   --sumSize: 30px;
 }
 
 .summoners .list > .sum > button.selected[data-v-70a93f67] {
-  --sumBorder: var(--gold-3);
+  --sumBorder: var(--gold-lol);
   --sumImgFilter: none;
 }
 
 .summoner[data-v-bab95e98] {
-  border: 1px solid var(--sumBorder, var(--gold-3));
+  border: 1px solid var(--sumBorder, var(--gold-lol));
   --s: var(--sumSize, 1.35em);
   overflow: hidden;
   height: var(--s);
@@ -55,11 +55,11 @@
 
 .summoners .list > .sum > button[data-v-70a93f67] {
   --sumImgFilter: grayscale(1) brightness(0.6);
-  --sumBorder: var(--gold-4);
+  --sumBorder: var(--gold-lol);
   --sumSize: 30px;
 }
 
 .summoners .list > .sum > button.selected[data-v-70a93f67] {
-  --sumBorder: var(--gold-3);
+  --sumBorder: var(--gold-lol);
   --sumImgFilter: none;
 }

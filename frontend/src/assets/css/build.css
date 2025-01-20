@@ -39,7 +39,7 @@
 .build > .itemEffects > .item[data-v-93bc3b91] {
   display: flex;
   gap: 0.5em;
-  --itemBorder: var(--gold-3);
+  --itemBorder: var(--gold-lol);
   --itemSize: 2.25em;
 }
 
@@ -378,7 +378,7 @@
 .build > .itemEffects > .item[data-v-93bc3b91] {
   display: flex;
   gap: 0.5em;
-  --itemBorder: var(--gold-3);
+  --itemBorder: var(--gold-lol);
   --itemSize: 2.25em;
 }
 
@@ -680,7 +680,6 @@
   background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
-  background-image: var(--arrow);
   visibility: hidden;
 }
 
@@ -712,7 +711,7 @@
 }
 
 .build .menu a.router-link-exact-active[data-v-b6709614] {
-  color: var(--gold-1);
+  color: var(--gold-lol);
   opacity: 1;
 }
 
@@ -728,7 +727,6 @@
   background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
-  background-image: var(--arrow);
 }
 .build > .line[data-v-00f8c08d] {
   user-select: none;

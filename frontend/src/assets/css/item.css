@@ -25,7 +25,7 @@
 
 .item > .text[data-v-7ab6e59a] {
   font-size: var(--itemTextSize, 0.25em);
-  color: var(--itemText, var(--gold-1));
+  color: var(--itemText, var(--gold-lol));
   font-weight: 500;
 }
 
@@ -76,7 +76,7 @@
 }
 
 .item-page > .wrap > .header .img[data-v-dd185d1b] {
-  border: 1px solid var(--gold-4);
+  border: 1px solid var(--gold-lol);
   height: var(--size);
   width: var(--size);
   grid-area: 1/1/3/1;
@@ -100,7 +100,7 @@
 
 .item-page > .wrap > .header .gold .total[data-v-dd185d1b] {
   align-items: center;
-  color: var(--gold-1);
+  color: var(--gold-lol);
   grid-area: 2/2;
   display: flex;
 }
@@ -111,7 +111,7 @@
 }
 
 .item-page > .wrap > .header .gold .total svg path[data-v-dd185d1b] {
-  stroke: var(--gold-1);
+  stroke: var(--gold-lol);
 }
 
 .item-page > .wrap > .header .gold .sell[data-v-dd185d1b] {
@@ -146,7 +146,7 @@
   display: flex;
   gap: 1.8em;
   --gap: 6px 10px;
-  --itemBorderH: var(--gold-1);
+  --itemBorderH: var(--gold-lol);
   --itemBorder: var(--gold-3);
   --itemTextSize: 0.28em;
   --itemSize: 2.75em;
@@ -278,7 +278,7 @@
 
 .item > .text[data-v-7ab6e59a] {
   font-size: var(--itemTextSize, 0.25em);
-  color: var(--itemText, var(--gold-1));
+  color: var(--itemText, var(--gold-lol));
   font-weight: 500;
 }
 .item-page[data-v-f3b62e78] {
@@ -311,7 +311,7 @@
 }
 
 .item-page > .wrap > .header .img[data-v-f3b62e78] {
-  border: 1px solid var(--gold-4);
+  border: 1px solid var(--gold-lol);
   height: var(--size);
   width: var(--size);
   grid-area: 1/1/3/1;
@@ -335,7 +335,7 @@
 
 .item-page > .wrap > .header .gold .total[data-v-f3b62e78] {
   align-items: center;
-  color: var(--gold-1);
+  color: var(--gold-lol);
   grid-area: 2/2;
   display: flex;
 }
@@ -346,7 +346,7 @@
 }
 
 .item-page > .wrap > .header .gold .total svg path[data-v-f3b62e78] {
-  stroke: var(--gold-1);
+  stroke: var(--gold-lol);
 }
 
 .item-page > .wrap > .header .gold .sell[data-v-f3b62e78] {
@@ -381,8 +381,8 @@
   display: flex;
   gap: 1.8em;
   --gap: 6px 10px;
-  --itemBorderH: var(--gold-1);
-  --itemBorder: var(--gold-3);
+  --itemBorderH: var(--gold-lol);
+  --itemBorder: var(--gold-lol);
   --itemTextSize: 0.28em;
   --itemSize: 2.75em;
 }

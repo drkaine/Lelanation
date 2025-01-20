@@ -7,7 +7,7 @@
 }
 
 .shards > .shard > button[data-v-5f2eb625] {
-  --shardBorder: var(--gold-2);
+  --shardBorder: var(--gold-lol);
   --shardSize: 24px;
 }
 
@@ -27,7 +27,7 @@
 }
 
 .shard > img[data-v-ad54ad37] {
-  border: 1px solid var(--shardBorder, var(--gold-2));
+  border: 1px solid var(--shardBorder, var(--gold-lol));
   border-radius: 50%;
   display: block;
   height: 100%;
@@ -50,7 +50,7 @@
 }
 
 .shards > .shard > button[data-v-5f2eb625] {
-  --shardBorder: var(--gold-2);
+  --shardBorder: var(--gold-lol);
   --shardSize: 24px;
 }
 

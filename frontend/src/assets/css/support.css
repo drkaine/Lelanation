@@ -6,12 +6,12 @@
 }
 
 @supports (-webkit-touch-callout: none) {
-  .app[data-v-0c81bdb5] {
+  .app {
     background: color-mix(in srgb, var(--black), var(--accent) 15%);
   }
 }
 @supports (-webkit-touch-callout: none) {
-  .app[data-v-f21e856a] {
+  .app {
     background: color-mix(in srgb, var(--black), var(--accent) 15%);
   }
 }

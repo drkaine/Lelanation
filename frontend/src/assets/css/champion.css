@@ -35,7 +35,7 @@
 }
 
 .champ-block .spells .spell .img[data-v-5bc51be1] {
-  border: 1px solid var(--gold-3);
+  border: 1px solid var(--gold-lol);
   position: relative;
   margin-top: 0.1em;
   height: var(--s);
@@ -45,7 +45,7 @@
 }
 
 .champ-block .spells .spell .img[data-v-5bc51be1]:before {
-  color: var(--gold-1);
+  color: var(--gold-lol);
   position: absolute;
   font-size: 0.85em;
   font-weight: 400;
@@ -87,7 +87,7 @@
 .champ-block .info .name[data-v-5bc51be1] {
   text-transform: capitalize;
   align-items: center;
-  color: var(--gold-1);
+  color: var(--gold-lol);
   font-weight: 500;
   font-size: 12px;
   display: flex;
@@ -98,7 +98,7 @@
 }
 
 .champ-block .info .line[data-v-5bc51be1] {
-  background-color: var(--gold-1);
+  background-color: var(--gold-lol);
   border-radius: 2px;
   height: 5px;
 }

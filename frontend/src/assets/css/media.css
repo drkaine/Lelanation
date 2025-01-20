@@ -41,7 +41,7 @@
 }
 @media (hover: hover) {
   .summoners .list > .sum > button[data-v-70a93f67]:hover {
-    --sumBorder: var(--gold-3);
+    --sumBorder: var(--gold-lol);
   }
 }
 @media (hover: hover) {
@@ -56,7 +56,7 @@
 }
 @media (hover: hover) {
   .runes > .rune > button[data-v-7b108f5e]:hover {
-    --runeBorder: var(--gold-3);
+    --runeBorder: var(--gold-lol);
   }
 }
 @media (max-width: 680px) {
@@ -80,7 +80,7 @@
 
 @media (hover: hover) {
   .runesPage > .wrap .path > .rune[data-v-c83b00c2]:hover {
-    --runeBorder: var(--gold-3);
+    --runeBorder: var(--gold-lol);
   }
 }
 @media (max-width: 680px) {
@@ -447,95 +447,6 @@
 }
 
 @media (max-width: 1000px) {
-  .header[data-v-2914a74a] {
-    font-size: 14px;
-  }
-}
-
-@media (max-width: 700px) {
-  .header[data-v-2914a74a] {
-    font-size: 15px;
-  }
-}
-
-@media (hover: hover) {
-  .header a[data-v-2914a74a]:hover {
-    text-decoration: underline;
-  }
-}
-@media (max-width: 700px) {
-  .header .overlay.menu[data-v-2914a74a] {
-    background-color: color-mix(in srgb, var(--black), transparent 20%);
-    position: fixed;
-    display: block;
-    z-index: 2;
-    inset: 0;
-  }
-}
-
-@media (max-width: 700px) {
-  .header .menu[data-v-2914a74a] {
-    display: block;
-    --size: 2em;
-  }
-
-  .header .menu[data-v-2914a74a] svg {
-    height: var(--size);
-    width: var(--size);
-    display: block;
-  }
-
-  .header .menu[data-v-2914a74a] svg path {
-    stroke: var(--color);
-  }
-}
-
-@media (max-width: 700px) {
-  .header .right[data-v-2914a74a] {
-    display: none;
-  }
-
-  .header .right.menu[data-v-2914a74a] {
-    border-left: 1px solid var(--slate-5);
-    background-color: var(--black);
-    flex-direction: column-reverse;
-    display: flex;
-    position: fixed;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    z-index: 2;
-    place-content: start;
-    padding-top: 1em;
-    gap: 0;
-  }
-}
-@media (max-width: 700px) {
-  .header .right span[data-v-2914a74a] {
-    display: none;
-  }
-}
-
-@media (max-width: 700px) {
-  .header .right a[data-v-2914a74a] {
-    text-align: right;
-    padding: 1em 4em 1em 2em;
-  }
-}
-
-@media (max-width: 1000px) {
-  .app[data-v-0c81bdb5] {
-    padding-bottom: 5em;
-  }
-}
-
-@media (max-width: 700px) {
-  .app[data-v-0c81bdb5] {
-    padding: 0.6em 0.8em 5em;
-  }
-}
-
-@media (max-width: 1000px) {
   .app .terms[data-v-0c81bdb5] {
     text-align: center;
     display: none;
@@ -634,7 +545,7 @@
 
 @media (hover: hover) {
   .summoners .list > .sum > button[data-v-70a93f67]:hover {
-    --sumBorder: var(--gold-3);
+    --sumBorder: var(--gold-lol);
   }
 }
 
@@ -669,7 +580,7 @@
 
 @media (hover: hover) {
   .runes > .rune > button[data-v-7b108f5e]:hover {
-    --runeBorder: var(--gold-3);
+    --runeBorder: var(--gold-lol);
   }
 }
 @media (max-width: 680px) {
@@ -693,7 +604,7 @@
 
 @media (hover: hover) {
   .runesPage > .wrap .path > .rune[data-v-c83b00c2]:hover {
-    --runeBorder: var(--gold-3);
+    --runeBorder: var(--gold-lol);
   }
 }
 
@@ -752,7 +663,7 @@ button.active[data-v-27037513] {
 
 @media (hover: hover) {
   .champions .list .champ[data-v-80441127]:hover {
-    border-color: var(--gold-1);
+    border-color: var(--gold-lol);
     z-index: 1;
   }
 }

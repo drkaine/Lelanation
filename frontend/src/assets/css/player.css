@@ -122,7 +122,6 @@
   background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
-  background-image: var(--arrow);
 }
 
 .player > .timeline .frame[data-v-83a8bb49]:last-child:after {
@@ -271,7 +270,6 @@
   background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
-  background-image: var(--arrow);
 }
 
 .player > .timeline .frame[data-v-c46e3cdc]:last-child:after {

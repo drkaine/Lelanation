@@ -19,7 +19,7 @@
 }
 
 .tip .tooltip-header > .item-header img[data-v-354b7b55] {
-  border: 1px solid var(--gold-3);
+  border: 1px solid var(--gold-lol);
   --size: 48px;
   height: var(--size);
   width: var(--size);
@@ -41,7 +41,7 @@
 }
 
 .tip .tooltip-header > .item-header > .gold .total[data-v-354b7b55] {
-  color: var(--gold-1);
+  color: var(--gold-lol);
   align-items: center;
   grid-area: 2/2;
   display: flex;
@@ -53,7 +53,7 @@
 }
 
 .tip .tooltip-header > .item-header > .gold .total svg path[data-v-354b7b55] {
-  stroke: var(--gold-1);
+  stroke: var(--gold-lol);
 }
 
 .tip .tooltip-header > .item-header > .gold .sell[data-v-354b7b55] {
@@ -76,13 +76,13 @@
   min-width: var(--tooltipMinWidth, 270px);
   color: var(--tooltip, var(--sand-1));
   padding: var(--tooltipPad, 1.2em);
-  border: 1px solid var(--gold-1);
+  border: 1px solid var(--gold-lol);
   background-color: var(--black);
   border-image-slice: 1;
   border-image-source: linear-gradient(
     to bottom right,
-    var(--tooltipBorder1, var(--gold-1)),
-    var(--tooltipBorder2, var(--gold-2))
+    var(--tooltipBorder1, var(--gold-lol)),
+    var(--tooltipBorder2, var(--gold-lol))
   );
   font-size: 1rem;
   position: absolute;
@@ -142,7 +142,7 @@
 }
 
 .tip .tooltip-header > .item-header img[data-v-354b7b55] {
-  border: 1px solid var(--gold-3);
+  border: 1px solid var(--gold-lol);
   --size: 48px;
   height: var(--size);
   width: var(--size);
@@ -164,7 +164,7 @@
 }
 
 .tip .tooltip-header > .item-header > .gold .total[data-v-354b7b55] {
-  color: var(--gold-1);
+  color: var(--gold-lol);
   align-items: center;
   grid-area: 2/2;
   display: flex;
@@ -176,7 +176,7 @@
 }
 
 .tip .tooltip-header > .item-header > .gold .total svg path[data-v-354b7b55] {
-  stroke: var(--gold-1);
+  stroke: var(--gold-lol);
 }
 
 .tip .tooltip-header > .item-header > .gold .sell[data-v-354b7b55] {
@@ -196,8 +196,8 @@
 
 .tip .tooltip-header[data-v-354b7b55],
 .tip .into[data-v-354b7b55] {
-  --itemBorder: var(--gold-3);
-  --itemText: var(--gold-1);
+  --itemBorder: var(--gold-lol);
+  --itemText: var(--gold-lol);
   --itemTextSize: 0.28em;
   --itemSize: 2.7em;
 }

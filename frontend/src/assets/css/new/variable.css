@@ -1,0 +1,65 @@
+:root {
+  --gold-lol: rgb(200, 170, 110);
+
+  --gold-lol: rgb(200, 170, 110);
+
+  /* Palette principale */
+  --nox-blue1: rgb(230, 242, 255); /* Bleu clair */
+  --nox-blue2: rgb(190, 215, 255); /* Bleu glacier */
+  --nox-blue3: rgb(130, 170, 255); /* Bleu profond */
+  --nox-blue4: rgb(75, 110, 190); /* Bleu sombre */
+  --nox-blue5: rgb(30, 55, 115); /* Bleu nuit */
+  --nox-blue6: rgb(15, 25, 70); /* Bleu abyssal */
+
+  /* Accents dorés */
+  --nox-gold1: rgb(245, 235, 205); /* Or pâle */
+  --nox-gold2: rgb(220, 190, 140); /* Or brillant */
+  --nox-gold3: rgb(200, 170, 110); /* Or riche */
+  --nox-gold4: rgb(170, 140, 80); /* Or profond */
+  --nox-gold5: rgb(110, 85, 45); /* Or sombre */
+  --nox-gold6: rgb(80, 60, 35); /* Or ombré */
+
+  /* Gris neutres */
+  --nox-grey1: rgb(225, 225, 235); /* Gris perle */
+  --nox-grey2: rgb(170, 170, 185); /* Gris acier */
+  --nox-grey3: rgb(115, 115, 130); /* Gris pierre */
+  --nox-grey4: rgb(60, 60, 75); /* Gris charbon */
+
+  /* Couleurs fonctionnelles */
+  --nox-success: rgb(95, 190, 115); /* Vert validation */
+  --nox-error: rgb(220, 80, 80); /* Rouge erreur */
+  --nox-warning: rgb(240, 180, 60); /* Orange alerte */
+  --nox-info: rgb(100, 160, 255); /* Bleu info */
+}
+
+:root-test {
+  --gold-lol-oklch: oklch(73% 0.12 85);
+
+  /* Palette principale */
+  --nox-blue1: oklch(95% 0.07 230); /* Bleu clair */
+  --nox-blue2: oklch(85% 0.09 235); /* Bleu glacier */
+  --nox-blue3: oklch(65% 0.11 240); /* Bleu profond */
+  --nox-blue4: oklch(45% 0.08 245); /* Bleu sombre */
+  --nox-blue5: oklch(25% 0.06 250); /* Bleu nuit */
+  --nox-blue6: oklch(15% 0.04 255); /* Bleu abyssal */
+
+  /* Accents dorés */
+  --nox-gold1: oklch(92% 0.1 85); /* Or pâle */
+  --nox-gold2: oklch(82% 0.12 80); /* Or brillant */
+  --nox-gold3: oklch(72% 0.14 75); /* Or riche */
+  --nox-gold4: oklch(62% 0.16 70); /* Or profond */
+  --nox-gold5: oklch(42% 0.08 65); /* Or sombre */
+  --nox-gold6: oklch(32% 0.06 60); /* Or ombré */
+
+  /* Gris neutres */
+  --nox-grey1: oklch(88% 0.02 250); /* Gris perle */
+  --nox-grey2: oklch(68% 0.03 245); /* Gris acier */
+  --nox-grey3: oklch(48% 0.04 240); /* Gris pierre */
+  --nox-grey4: oklch(28% 0.03 235); /* Gris charbon */
+
+  /* Couleurs fonctionnelles */
+  --nox-success: oklch(65% 0.18 165); /* Vert validation */
+  --nox-error: oklch(65% 0.18 25); /* Rouge erreur */
+  --nox-warning: oklch(75% 0.15 85); /* Orange alerte */
+  --nox-info: oklch(70% 0.12 230); /* Bleu info */
+}

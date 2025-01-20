@@ -3,12 +3,12 @@ import { ref, onMounted } from 'vue'
 import { RouterLink, RouterView } from 'vue-router'
 import version from '@/assets/files/data/lastVersion.json'
 import { useBuildStore } from '@/stores/buildStore'
-import { useConnexionStore } from '@/stores/connexionStore'
 
+import Footer from '@/components/FooterComponent.vue'
 const buildStore = useBuildStore()
 buildStore.loadUserBuilds()
 const userBuilds = buildStore.userBuilds
-const connexionStore = useConnexionStore()
+
 const builds = ref([])
 
 const urlApiSave = import.meta.env.VITE_URL_API_SAVE
@@ -34,13 +34,11 @@ onMounted(async () => {
 
 <template>
   <div id="app" data-server-rendered="true" data-v-app="">
-    <div data-v-f21e856a="" class="app app-background" style="">
-      <div data-v-7cc930f8="" data-v-f21e856a="" class="header">
-        <a data-v-7cc930f8="" href="/" class="name">Acceuil</a>
-        <div data-v-7cc930f8="" class="overlay"></div>
-        <button data-v-7cc930f8="" class="menu" @click="toggleMenu">
+    <div class="app app-background">
+      <nav class="header">
+        <a href="/" class="link">Acceuil</a>
+        <button class="menu-mobile" @click="toggleMenu">
           <svg
-            data-v-7cc930f8=""
             width="24"
             height="24"
             viewBox="0 0 24 24"
@@ -55,10 +53,8 @@ onMounted(async () => {
             <path d="M4 18l16 0"></path>
           </svg>
         </button>
-        <div v-if="connexionStore.isLoggedIn">
-          <p>Mode Lelariva</p>
-        </div>
-        <div class="mobile-menu" :class="{ 'is-open': isMenuOpen }">
+
+        <div class="mobile-nav" :class="{ 'is-open': isMenuOpen }">
           <RouterLink to="/dictionnaire" @click="toggleMenu"
             >Leladictionnaiva</RouterLink
           >
@@ -88,65 +84,43 @@ onMounted(async () => {
             >@darkaine</a
           >
         </div>
-        <div data-v-7cc930f8="" class="right">
-          <RouterLink
-            title="dictionnaire"
-            class="version"
-            data-v-7cc930f8=""
-            to="/dictionnaire"
-          >
+        <div class="right-header">
+          <RouterLink title="dictionnaire" class="version" to="/dictionnaire">
             Leladictionnaiva</RouterLink
           >
-          <span data-v-7cc930f8="">•</span>
-          <RouterLink
-            title="Building"
-            class="version"
-            data-v-7cc930f8=""
-            to="/build"
-          >
+
+          <RouterLink title="Building" class="version" to="/build">
             Building</RouterLink
           >
-          <span data-v-7cc930f8="">•</span>
+
           <RouterLink
             title="Mes builds"
             class="version"
-            data-v-7cc930f8=""
             v-if="userBuilds.length > 0"
             to="/builds"
           >
             Mes builds</RouterLink
           >
-          <span data-v-7cc930f8="" v-if="userBuilds.length > 0">•</span>
           <RouterLink
             v-if="builds.length > 0"
             title="Lebuildarriva"
             class="version"
-            data-v-7cc930f8=""
             to="/Lebuildarriva"
           >
             Lebuildarriva</RouterLink
           >
-          <span data-v-7cc930f8="" v-if="builds.length > 0">•</span>
+
           <a
-            data-v-7cc930f8=""
             href="https://www.leagueoflegends.com/fr-fr/news/tags/patch-notes"
             title="Patch Notes"
             target="_blank"
-            class="version"
+            class="link"
             >{{ version }}</a
           >
-          <span data-v-7cc930f8="">•</span>
-          <a
-            data-v-7cc930f8=""
-            href="https://github.com/drkaine"
-            target="_blank"
-            title="drkaine"
-          >
-            @darkaine</a
-          >
         </div>
-      </div>
+      </nav>
       <RouterView />
+      <Footer />
     </div>
   </div>
 </template>

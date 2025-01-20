@@ -185,7 +185,7 @@
 }
 
 .stats .line .runes .main[data-v-62867835] {
-  --runeBorder: var(--gold-4);
+  --runeBorder: var(--gold-lol);
 }
 
 .stats .line .runes .main[data-v-62867835],
@@ -213,7 +213,7 @@
 .stats .line .items[data-v-62867835] {
   display: flex;
   gap: 0.5em;
-  --itemBorder: var(--gold-3);
+  --itemBorder: var(--gold-lol);
   --itemText: var(--slate-1);
   --itemTextSize: 0.28em;
   --itemSize: 2.5em;
@@ -465,7 +465,7 @@
 }
 
 .stats .line .runes .main[data-v-6189e891] {
-  --runeBorder: var(--gold-4);
+  --runeBorder: var(--gold-lol);
 }
 
 .stats .line .runes .main[data-v-6189e891],
@@ -493,7 +493,7 @@
 .stats .line .items[data-v-6189e891] {
   display: flex;
   gap: 0.5em;
-  --itemBorder: var(--gold-3);
+  --itemBorder: var(--gold-lol);
   --itemText: var(--slate-1);
   --itemTextSize: 0.28em;
   --itemSize: 2.5em;

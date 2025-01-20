@@ -43,7 +43,7 @@
   --b: 0.45em;
   box-shadow: var(
     --sheetBoxShadow,
-    var(--b) var(--b) var(--b) -0.4em var(--gold-1)
+    var(--b) var(--b) var(--b) -0.4em var(--gold-lol)
   );
   opacity: 0.5;
 }
@@ -58,7 +58,7 @@
 }
 
 .sheet > .wrap .champion[data-v-15310f80] {
-  --champBorder: var(--gold-2);
+  --champBorder: var(--gold-lol);
   --champSize: 3.85em;
 }
 
@@ -67,7 +67,7 @@
 }
 
 .sheet > .wrap .name[data-v-15310f80] {
-  color: var(--gold-1);
+  color: var(--gold-lol);
   word-wrap: anywhere;
   text-align: center;
   font-weight: 500;
@@ -88,7 +88,7 @@
   grid-template-columns: repeat(3, min-content);
   grid-gap: 0.4em;
   display: grid;
-  --runeBorder: var(--gold-3);
+  --runeBorder: var(--gold-lol);
   --runeSize: 1.9em;
 }
 
@@ -119,7 +119,7 @@
   align-content: start;
   display: grid;
   width: 100%;
-  --itemBorder: var(--gold-3);
+  --itemBorder: var(--gold-lol);
   --itemSize: 3em;
 }
 
@@ -154,7 +154,6 @@
   background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
-  background-image: var(--arrow);
 }
 
 .sheet > .wrap .sums[data-v-15310f80] {
@@ -232,7 +231,7 @@
   --b: 0.45em;
   box-shadow: var(
     --sheetBoxShadow,
-    var(--b) var(--b) var(--b) -0.4em var(--gold-1)
+    var(--b) var(--b) var(--b) -0.4em var(--gold-lol)
   );
   opacity: 0.5;
 }
@@ -247,7 +246,7 @@
 }
 
 .sheet > .wrap .champion[data-v-15310f80] {
-  --champBorder: var(--gold-2);
+  --champBorder: var(--gold-lol);
   --champSize: 3.85em;
 }
 
@@ -256,7 +255,7 @@
 }
 
 .sheet > .wrap .name[data-v-15310f80] {
-  color: var(--gold-1);
+  color: var(--gold-lol);
   word-wrap: anywhere;
   text-align: center;
   font-weight: 500;
@@ -277,7 +276,7 @@
   grid-template-columns: repeat(3, min-content);
   grid-gap: 0.4em;
   display: grid;
-  --runeBorder: var(--gold-3);
+  --runeBorder: var(--gold-lol);
   --runeSize: 1.9em;
 }
 
@@ -308,7 +307,7 @@
   align-content: start;
   display: grid;
   width: 100%;
-  --itemBorder: var(--gold-3);
+  --itemBorder: var(--gold-lol);
   --itemSize: 3em;
 }
 
@@ -343,7 +342,6 @@
   background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
-  background-image: var(--arrow);
 }
 
 .sheet > .wrap .sums[data-v-15310f80] {

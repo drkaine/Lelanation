@@ -88,7 +88,7 @@ onMounted(() => {
         name: true,
         hide: !name,
       }"
-      style="color: var(--gold-1)"
+      style="color: var(--gold-lol)"
     >
       {{ name }}
     </div>

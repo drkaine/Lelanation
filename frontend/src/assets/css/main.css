@@ -14,7 +14,6 @@
 @import './form.css';
 @import './grid.css';
 @import './header.css';
-@import './home.css';
 @import './info.css';
 @import './item.css';
 @import './keyframe.css';
@@ -34,6 +33,11 @@
 @import './tooltip.css';
 @import './tree.css';
 @import './proposition-dictionnaire.css';
+
+@import './new/background.css';
+@import './new/footer.css';
+@import './new/menu.css';
+@import './new/home.css';
 
 [data-v-5bc51be1] {
   --tooltipMaxWidth: 640px;
@@ -104,8 +108,8 @@ li {
 }
 
 [data-v-85ffd0f2] {
-  --itemBorderH: var(--gold-1);
-  --itemBorder: var(--gold-4);
+  --itemBorderH: var(--gold-lol);
+  --itemBorder: var(--gold-lol);
 }
 
 .tip .into[data-v-354b7b55] {
@@ -199,7 +203,7 @@ button {
 }
 
 .btn {
-  --color1: var(--gold-1);
+  --color1: var(--gold-lol);
   --color2: oklch(from var(--color1) 65% c h);
   --linear: linear-gradient(to bottom, var(--color1), var(--color2));
   background-color: oklch(from var(--black) l c h/.4);
@@ -258,7 +262,6 @@ button {
 
 .btn.back:before {
   content: '';
-  background-image: var(--arrow);
   background-repeat: no-repeat;
   background-position: center;
   background-size: contain;

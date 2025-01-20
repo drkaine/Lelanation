@@ -11,7 +11,7 @@
 }
 
 .runes > .rune > button[data-v-7b108f5e] {
-  --runeBorder: var(--gold-4);
+  --runeBorder: var(--gold-lol);
   --runeSize: 40px;
 }
 
@@ -25,7 +25,7 @@
 
 .runes > .rune > button.selected[data-v-7b108f5e] {
   --runeImgFilter: grayscale(0) brightness(1);
-  --runeBorder: var(--gold-3);
+  --runeBorder: var(--gold-lol);
 }
 
 .runesPage > .wrap[data-v-c83b00c2] {
@@ -39,7 +39,7 @@
 }
 
 .runesPage > .wrap .path > .rune[data-v-c83b00c2] {
-  --runeBorder: var(--gold-4);
+  --runeBorder: var(--gold-lol);
   --runeBack: var(--black);
   --runeSize: 45px;
   margin: 0.3em;
@@ -63,11 +63,11 @@
 
 .runesPage > .wrap .path > .rune.selected[data-v-c83b00c2] {
   --runeImgFilter: grayscale(0);
-  --runeBorder: var(--gold-3);
+  --runeBorder: var(--gold-lol);
 }
 
 .rune[data-v-ab218c16] {
-  border: 1px solid var(--runeBorder, var(--gold-3));
+  border: 1px solid var(--runeBorder, var(--gold-lol));
   background-color: var(--runeBack);
   filter: var(--runeFilter);
   height: var(--runeSize);
@@ -108,7 +108,7 @@
 }
 
 .runes > .rune > button[data-v-7b108f5e] {
-  --runeBorder: var(--gold-4);
+  --runeBorder: var(--gold-lol);
   --runeSize: 40px;
 }
 
@@ -122,7 +122,7 @@
 
 .runes > .rune > button.selected[data-v-7b108f5e] {
   --runeImgFilter: grayscale(0) brightness(1);
-  --runeBorder: var(--gold-3);
+  --runeBorder: var(--gold-lol);
 }
 
 .runesPage[data-v-c83b00c2] {
@@ -142,7 +142,7 @@
 }
 
 .runesPage > .wrap .path > .rune[data-v-c83b00c2] {
-  --runeBorder: var(--gold-4);
+  --runeBorder: var(--gold-lol);
   --runeBack: var(--black);
   --runeSize: 45px;
   margin: 0.3em;
@@ -166,5 +166,5 @@
 
 .runesPage > .wrap .path > .rune.selected[data-v-c83b00c2] {
   --runeImgFilter: grayscale(0);
-  --runeBorder: var(--gold-3);
+  --runeBorder: var(--gold-lol);
 }
