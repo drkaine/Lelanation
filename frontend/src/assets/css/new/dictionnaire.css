@@ -10,7 +10,7 @@
   text-align: center;
   font-size: 2.5rem;
   margin-bottom: 3rem;
-  color: var(--l-gold3);
+  color: var(--nox-gold3);
 }
 
 .dictionary-content {
@@ -26,19 +26,19 @@
   align-items: flex-start;
   gap: 0.5rem;
   padding: 1rem;
-  border: 1px solid var(--l-gold4);
+  border: 1px solid var(--nox-gold4);
   border-radius: 8px;
-  background-color: var(--l-grey3);
+  background-color: var(--grey);
   transition: transform 0.2s ease;
 }
 
 .dictionary-entry:hover {
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px var(--l-gold4);
+  box-shadow: 0 4px 12px var(--nox-gold4);
 }
 
 .word {
-  color: var(--l-gold3);
+  color: var(--nox-gold3);
   font-size: 1.1rem;
   font-weight: bold;
   text-transform: capitalize;
@@ -46,7 +46,7 @@
 }
 
 .separator {
-  color: var(--l-gold3);
+  color: var(--nox-gold3);
   margin: 0 0.5rem;
 }
 
@@ -58,7 +58,7 @@
 }
 
 .definition :deep(a) {
-  color: var(--l-gold3);
+  color: var(--nox-gold3);
   text-decoration: none;
   font-weight: bold;
   transition: color 0.2s ease;
@@ -76,15 +76,15 @@
 .search-input {
   width: 100%;
   padding: 0.8rem;
-  border: 2px solid var(--l-gold3);
+  border: 2px solid var(--nox-gold3);
   border-radius: 8px;
-  background-color: var(--l-grey3);
+  background-color: var(--grey);
   color: white;
   font-size: 1rem;
 }
 
 .search-input::placeholder {
-  color: var(--l-grey);
+  color: var(--grey);
 }
 
 .alphabet-nav {
@@ -97,21 +97,21 @@
 
 .letter-btn {
   padding: 0.5rem 0.8rem;
-  border: 1px solid var(--l-gold3);
+  border: 1px solid var(--nox-gold3);
   background-color: transparent;
-  color: var(--l-gold3);
+  color: var(--nox-gold3);
   border-radius: 4px;
   cursor: pointer;
   transition: all 0.2s ease;
 }
 
 .letter-btn:hover {
-  background-color: var(--l-grey3);
+  background-color: var(--grey);
 }
 
 .letter-btn.active {
-  background-color: var(--l-gold3);
-  color: var(--l-black);
+  background-color: var(--nox-gold3);
+  color: var(--black);
 }
 
 .pagination {
@@ -125,16 +125,16 @@
 
 .page-btn {
   padding: 0.5rem 1rem;
-  border: 1px solid var(--l-gold3);
+  border: 1px solid var(--nox-gold3);
   background-color: transparent;
-  color: var(--l-gold3);
+  color: var(--nox-gold3);
   border-radius: 4px;
   cursor: pointer;
   transition: all 0.2s ease;
 }
 
 .page-btn:hover:not(:disabled) {
-  background-color: var(--l-black);
+  background-color: var(--black);
 }
 
 .page-btn:disabled {
@@ -143,7 +143,7 @@
 }
 
 .page-info {
-  color: var(--l-gold3);
+  color: var(--nox-gold3);
   font-size: 1rem;
 }
 

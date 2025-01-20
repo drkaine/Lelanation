@@ -37,26 +37,7 @@
   font-size: 16px;
   --font: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   --mono: 'Server Mono', ui-monospace, Menlo, Monaco, 'Segoe UI Mono', monospace;
-  --l-blue1: #cdfafa;
-  --l-blue2: #0ac8b9;
-  --l-blue3: #0397ab;
-  --l-blue4: #005a82;
-  --l-blue5: #0a323c;
-  --l-blue6: #091428;
-  --l-blue7: #0a1428;
-  --l-gold1: #f0e6d2;
-  --l-gold2: #c8aa6e;
-  --l-gold3: #c8aa6e;
-  --l-gold4: #c89b3c;
-  --l-gold5: #785a28;
-  --l-gold6: #463714;
-  --l-gold7: #32281e;
-  --l-grey1: #a09b8c;
-  --l-grey15: #5b5a56;
-  --l-grey2: #3c3c41;
-  --l-grey3: #1e2328;
-  --l-greycool: #1e282d;
-  --l-black: #010a13;
+
   --black: oklch(13% 0.05 210);
   --green: oklch(60% 0.2 165);
   --red: oklch(60% 0.2 25);

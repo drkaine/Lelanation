@@ -7,13 +7,13 @@
 
 .title {
   font-size: 2.5rem;
-  color: var(--l-gold2);
+  color: var(--nox-gold4);
   text-align: center;
 }
 
 .profil-image {
   max-width: 300px;
-  border: 2px solid var(--l-gold4);
+  border: 2px solid var(--nox-gold4);
   border-radius: 50%;
   object-fit: cover;
   aspect-ratio: 1;
@@ -21,7 +21,7 @@
 
 .subtitle {
   font-size: 1.2rem;
-  color: var(--l-gold3);
+  color: var(--nox-gold3);
 }
 
 @media (max-width: 600px) {
@@ -46,9 +46,9 @@
   align-items: center;
   gap: 0.5rem;
   padding: 0.8rem 1.5rem;
-  border: 1px solid var(--l-gold4);
+  border: 1px solid var(--nox-gold4);
   border-radius: 4px;
-  color: var(--l-gold2);
+  color: var(--nox-gold2);
   text-decoration: none;
   transition: all 0.2s ease;
 }
@@ -58,7 +58,7 @@
 }
 
 .social-link:hover {
-  background-color: var(--l-gold5);
+  background-color: var(--nox-gold5);
   transform: translateY(-2px);
 }
 
@@ -77,5 +77,5 @@
 .home-container {
   min-height: 100vh;
   padding: 2rem;
-  color: var(--l-gold1);
+  color: var(--nox-gold1);
 }

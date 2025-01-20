@@ -7,7 +7,7 @@
 @import './champion.css';
 @import './compare.css';
 @import './container.css';
-@import './dictionnaire.css';
+
 @import './err.css';
 @import './filter.css';
 @import './font.css';
@@ -32,12 +32,14 @@
 @import './support.css';
 @import './tooltip.css';
 @import './tree.css';
-@import './proposition-dictionnaire.css';
 
 @import './new/background.css';
 @import './new/footer.css';
 @import './new/menu.css';
 @import './new/home.css';
+@import './new/dictionnaire.css';
+@import './new/proposition-dictionnaire.css';
+@import './new/variable.css';
 
 [data-v-5bc51be1] {
   --tooltipMaxWidth: 640px;

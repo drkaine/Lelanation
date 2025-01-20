@@ -77,12 +77,6 @@ onMounted(async () => {
             @click="toggleMenu"
             >{{ version }}</a
           >
-          <a
-            href="https://github.com/drkaine"
-            target="_blank"
-            @click="toggleMenu"
-            >@darkaine</a
-          >
         </div>
         <div class="right-header">
           <RouterLink title="dictionnaire" class="version" to="/dictionnaire">

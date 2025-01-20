@@ -1,8 +1,6 @@
 :root {
   --gold-lol: rgb(200, 170, 110);
 
-  --gold-lol: rgb(200, 170, 110);
-
   /* Palette principale */
   --nox-blue1: rgb(230, 242, 255); /* Bleu clair */
   --nox-blue2: rgb(190, 215, 255); /* Bleu glacier */
@@ -30,6 +28,9 @@
   --nox-error: rgb(220, 80, 80); /* Rouge erreur */
   --nox-warning: rgb(240, 180, 60); /* Orange alerte */
   --nox-info: rgb(100, 160, 255); /* Bleu info */
+
+  --grey: #1e282d;
+  --black: #010a13;
 }
 
 :root-test {
