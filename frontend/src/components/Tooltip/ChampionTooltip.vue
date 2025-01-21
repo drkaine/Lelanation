@@ -7,28 +7,26 @@ const props = defineProps<{
 </script>
 
 <template>
-  <div data-v-5bc51be1="" data-v-cbff5ddf-s="" class="header">
-    <div data-v-5bc51be1="" data-v-cbff5ddf-s="" class="info">
+  <div class="top">
+    <div class="present">
       <img
-        data-v-5bc51be1=""
-        data-v-cbff5ddf-s=""
         class="img"
-        :src="'/assets/icons/champions/' + champion?.image.full"
-        :alt="champion?.name"
+        :src="'/assets/icons/champions/' + props.champion?.image.full"
+        :alt="props.champion?.name"
       />
-      <div data-v-5bc51be1="" data-v-cbff5ddf-s="" class="text">
-        <div data-v-5bc51be1="" data-v-cbff5ddf-s="" class="name">
-          {{ champion?.name }}
+      <div class="text">
+        <div class="name">
+          {{ props.champion?.name }}
         </div>
-        <div data-v-5bc51be1="" data-v-cbff5ddf-s="" class="title">
-          {{ champion?.title }}
+        <div class="title-champ">
+          {{ props.champion?.title }}
         </div>
       </div>
     </div>
-    <div data-v-5bc51be1="" data-v-cbff5ddf-s="" class="tags">
-      <div data-v-de17e6dc="" class="tag">
+    <div class="tags">
+      <div class="tag">
         {{
-          champion?.tags
+          props.champion?.tags
             .map((tag: string) =>
               tag === 'Fighter'
                 ? 'Combattant'
@@ -41,84 +39,37 @@ const props = defineProps<{
       </div>
     </div>
   </div>
-  <div data-v-cbff5ddf="" class="body">
-    <hr data-v-cbff5ddf="" />
-    <div data-v-5bc51be1="" data-v-cbff5ddf-s="" class="champ-block">
-      <div data-v-5bc51be1="" data-v-cbff5ddf-s="" class="spells">
-        <div data-v-5bc51be1="" data-v-cbff5ddf-s="" class="spell">
-          <div data-v-5bc51be1="" data-v-cbff5ddf-s="" class="img passive">
-            <img
-              data-v-5bc51be1=""
-              data-v-cbff5ddf-s=""
-              :src="
-                '/assets/icons/champions/passive/' +
-                champion?.passive.image.full
-              "
-              :alt="champion?.passive.name"
-            />
-          </div>
-          <div data-v-5bc51be1="" data-v-cbff5ddf-s="" class="desc">
-            {{ champion?.passive.description }}
-          </div>
+  <div class="body">
+    <hr />
+    <div class="spells">
+      <div class="spell">
+        <div class="img passive">
+          <img
+            :src="
+              '/assets/icons/champions/passive/' +
+              props.champion?.passive.image.full
+            "
+            :alt="props.champion?.passive.name"
+          />
         </div>
-        <div
-          data-v-5bc51be1=""
-          data-v-cbff5ddf-s=""
-          class="spell"
-          v-for="(spell, index) in champion?.spells"
-          :key="index"
-        >
-          <div data-v-5bc51be1="" data-v-cbff5ddf-s="" class="img">
-            <img
-              data-v-5bc51be1=""
-              data-v-cbff5ddf-s=""
-              :src="'/assets/icons/champions/sorts/' + spell.id + '.png'"
-              :alt="spell.name"
-            />
-          </div>
-          <div data-v-5bc51be1="" data-v-cbff5ddf-s="" class="desc">
-            {{ spell.description }}
-          </div>
+        <div class="desc">
+          {{ props.champion?.passive.description }}
         </div>
       </div>
-      <div data-v-5bc51be1="" data-v-cbff5ddf-s="" class="break"></div>
-      <div data-v-5bc51be1="" data-v-cbff5ddf-s="" class="info">
-        <div data-v-5bc51be1="" data-v-cbff5ddf-s="" class="name attack">
-          attack
+      <div
+        class="spell"
+        v-for="(spell, index) in props.champion?.spells"
+        :key="index"
+      >
+        <div class="img">
+          <img
+            :src="'/assets/icons/champions/sorts/' + spell.id + '.png'"
+            :alt="spell.name"
+          />
         </div>
-        <div
-          data-v-5bc51be1=""
-          data-v-cbff5ddf-s=""
-          class="line attack"
-          :style="{ width: props.champion?.info.attack + '0%' }"
-        ></div>
-        <div data-v-5bc51be1="" data-v-cbff5ddf-s="" class="name magic">
-          magic
+        <div class="desc">
+          {{ spell.description }}
         </div>
-        <div
-          data-v-5bc51be1=""
-          data-v-cbff5ddf-s=""
-          class="line magic"
-          :style="{ width: props.champion?.info.magic + '0%' }"
-        ></div>
-        <div data-v-5bc51be1="" data-v-cbff5ddf-s="" class="name defense">
-          defense
-        </div>
-        <div
-          data-v-5bc51be1=""
-          data-v-cbff5ddf-s=""
-          class="line defense"
-          :style="{ width: props.champion?.info.defense + '0%' }"
-        ></div>
-        <div data-v-5bc51be1="" data-v-cbff5ddf-s="" class="name difficulty">
-          difficult
-        </div>
-        <div
-          data-v-5bc51be1=""
-          data-v-cbff5ddf-s=""
-          class="line difficulty"
-          :style="{ width: props.champion?.info.difficulty + '0%' }"
-        ></div>
       </div>
     </div>
   </div>
