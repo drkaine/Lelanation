@@ -61,6 +61,22 @@ const selectedRune = (
   }
 }
 
+const selectAndClose = (
+  type: 'principal' | 'second',
+  slotIndex?: number,
+  subRune?: SubRune,
+  rune?: Rune,
+) => {
+  if (slotIndex !== undefined) {
+    selectedRune(type, slotIndex, subRune)
+    showPrimarySlotSelector.value[slotIndex] = false
+  } else {
+    selectedRune(type, undefined, undefined, rune)
+    showPrimarySelector.value = false
+  }
+  hideTooltip()
+}
+
 // const selectedSummoner = (summoner: Summoner | null) => {
 //   if (summonerStore.summonerSelection.principal === summoner) {
 //     summonerStore.setSummonerSelection('principal', summoner)
@@ -99,14 +115,7 @@ const getSelectedRune = (index: number | null) => {
 const showPrimarySelector = ref(false)
 const showSecondarySelector = ref(false)
 
-const selectAndClose = (type: 'principal' | 'second', rune: Rune) => {
-  selectedRune(type, undefined, undefined, rune)
-  if (type === 'principal') {
-    showPrimarySelector.value = false
-  } else {
-    showSecondarySelector.value = false
-  }
-}
+const showPrimarySlotSelector = ref([false, false, false, false, false])
 
 // const showSecondarySlotSelector = ref([false, false, false])
 
@@ -114,6 +123,30 @@ const selectAndClose = (type: 'principal' | 'second', rune: Rune) => {
 //   selectedRune('second', slotIndex, rune)
 //   showSecondarySlotSelector.value[slotIndex] = false
 // }
+
+interface TooltipRune {
+  id: number
+  name: string
+  shortDesc: string
+}
+
+const activeTooltip = ref<TooltipRune | null>(null)
+const tooltipX = ref(0)
+const tooltipY = ref(0)
+
+const showTooltip = (rune: SubRune, event: MouseEvent) => {
+  activeTooltip.value = {
+    id: rune.id,
+    name: rune.name,
+    shortDesc: rune.shortDesc,
+  }
+  tooltipX.value = event.clientX + 15
+  tooltipY.value = event.clientY + 15
+}
+
+const hideTooltip = () => {
+  activeTooltip.value = null
+}
 
 onMounted(() => {
   runesData.value = Object.values(runes)
@@ -141,7 +174,7 @@ onMounted(() => {
             <button
               v-for="(rune, index) in runesData"
               :key="index"
-              @click="selectAndClose('principal', rune)"
+              @click="selectAndClose('principal', undefined, undefined, rune)"
               :class="{
                 'rune-option': true,
                 selected: rune.id === runeStore.runesSelection.principal?.id,
@@ -172,19 +205,54 @@ onMounted(() => {
           class="rune-tier"
           :class="{ 'main-rune': index === 0 }"
         >
-          <div class="rune-slot" :class="{ selected: getSelectedRune(index) }">
+          <div
+            class="rune-slot"
+            @click="
+              showPrimarySlotSelector[index] = !showPrimarySlotSelector[index]
+            "
+            :class="{ selected: getSelectedRune(index) }"
+          >
             <img
               v-if="getSelectedRune(index)"
               :src="`/assets/icons/runes/${getSelectedRune(index)?.id}.png`"
             />
           </div>
+
+          <div
+            v-if="
+              showPrimarySlotSelector[index] &&
+              runeStore.runesSelection.principal
+            "
+            class="runes-selector"
+          >
+            <button
+              v-for="subrune in runeStore.runesSelection.principal.slots[
+                index - 1
+              ]?.runes"
+              :key="subrune.id"
+              @click="selectAndClose('principal', index, subrune)"
+              @mouseover="showTooltip(subrune, $event)"
+              @mouseleave="hideTooltip"
+              :class="{
+                'rune-option': true,
+                selected:
+                  subrune.id ===
+                  runeStore.runesSelection.groups[index]?.principal?.id,
+              }"
+            >
+              <img
+                :src="`/assets/icons/runes/${subrune.id}.png`"
+                :alt="subrune.name"
+              />
+            </button>
+          </div>
+
           <div class="rune-description">
             {{ getSelectedRune(index)?.name || 'Sélectionnez une rune' }}
           </div>
         </div>
       </div>
 
-      <!-- Colonne secondaire -->
       <div class="runes-secondary">
         <div class="column-header">
           <button
@@ -201,7 +269,7 @@ onMounted(() => {
             <button
               v-for="(rune, index) in filteredSecondaryRunes"
               :key="index"
-              @click="selectAndClose('second', rune)"
+              @click="selectAndClose('second', undefined, undefined, rune)"
               :class="{
                 'rune-option': true,
                 selected: rune.id === runeStore.runesSelection.second?.id,
@@ -250,6 +318,15 @@ onMounted(() => {
           </div>
         </div>
       </div>
+    </div>
+
+    <div
+      v-if="activeTooltip"
+      class="rune-tooltip"
+      :style="{ left: tooltipX + 'px', top: tooltipY + 'px' }"
+    >
+      <h3>{{ activeTooltip.name }}</h3>
+      <p>{{ activeTooltip.shortDesc }}</p>
     </div>
   </div>
 </template>
