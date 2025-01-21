@@ -21,7 +21,6 @@
 @import './note.css';
 @import './pick.css';
 @import './player.css';
-@import './rune.css';
 @import './shard.css';
 @import './sheet.css';
 @import './stats.css';
@@ -42,6 +41,7 @@
 @import './new/form.css';
 @import './new/base.css';
 @import './new/tooltip.css';
+@import './new/rune.css';
 
 .fstyle[data-v-5ad5f5e7] .space,
 .fstyle[data-v-5ad5f5e7] ul {
