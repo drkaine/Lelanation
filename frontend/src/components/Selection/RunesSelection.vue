@@ -3,12 +3,8 @@ import { ref, onMounted, computed } from 'vue'
 import runes from '@/assets/files/data/runesReforged.json'
 import summoner from '@/assets/files/data/summoner.json'
 import shards from '@/assets/files/data/shards.json'
-// import SummonerTooltip from '@/components/Tooltip/SummonerTooltip.vue'
-// import ShardTooltip from '@/components/Tooltip/ShardTooltip.vue'
 import { useRuneStore } from '@/stores/runeStore'
 import { useShardStore } from '@/stores/shardStore'
-// import { useSummonerStore } from '@/stores/summonerStore'
-// import { TooltipCoordonne } from '../script/TooltipCoordonne'
 
 import type { Rune, SubRune } from '@/types/rune'
 import type { Shard, ShardColumn } from '@/types/shard'
@@ -20,26 +16,6 @@ const shardsData = ref<ShardColumn>()
 
 const runeStore = useRuneStore()
 const shardStore = useShardStore()
-// const summonerStore = useSummonerStore()
-
-// const tooltip = new TooltipCoordonne()
-
-// const tooltipLeft = tooltip.tooltipLeft
-// const tooltipTop = tooltip.tooltipTop
-
-// const updateMousePosition = (event: MouseEvent) => {
-//   tooltip.updateMousePosition(event)
-// }
-
-// const resetMousePosition = () => {
-//   tooltip.resetMousePosition()
-// }
-
-// const filteredSummonerData = computed(() => {
-//   return summonerData.value.filter(summoner =>
-//     summoner.modes.includes('CLASSIC'),
-//   )
-// })
 
 const filteredSecondaryRunes = computed(() =>
   runesData.value.filter(
@@ -76,24 +52,6 @@ const selectAndClose = (
   }
   hideTooltip()
 }
-
-// const selectedSummoner = (summoner: Summoner | null) => {
-//   if (summonerStore.summonerSelection.principal === summoner) {
-//     summonerStore.setSummonerSelection('principal', summoner)
-//   } else if (summonerStore.summonerSelection.second === summoner) {
-//     summonerStore.setSummonerSelection('second', summoner)
-//   } else if (summonerStore.summonerSelection.principal === summoner) {
-//     summonerStore.setSummonerSelection('principal', summoner)
-//   } else if (summonerStore.summonerSelection.second === summoner) {
-//     summonerStore.setSummonerSelection('second', summoner)
-//   } else {
-//     summonerStore.setSummonerSelection(
-//       'second',
-//       summonerStore.summonerSelection.principal,
-//     )
-//     summonerStore.setSummonerSelection('principal', summoner)
-//   }
-// }
 
 const getSelectedRune = (index: number | null) => {
   if (index === 0 || index === null) return runeStore.runesSelection.principal
