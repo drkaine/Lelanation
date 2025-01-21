@@ -58,6 +58,7 @@ const selectedRune = (
   } else if (rune) {
     runeStore.setRuneSelection(type, rune)
   }
+  hideTooltip()
 }
 
 const selectAndClose = (
@@ -94,18 +95,6 @@ const selectAndClose = (
 //   }
 // }
 
-const selectedShard = (
-  shard: Shard | null,
-  type: 'principal' | 'second' | 'third',
-) => {
-  shardStore.setShardSelection(type, shard)
-}
-
-const getSelectedShard = (index: number) => {
-  if (index === 0) return runeStore.runesSelection.principal
-  return runeStore.runesSelection.groups[index]?.principal || null
-}
-
 const getSelectedRune = (index: number | null) => {
   if (index === 0 || index === null) return runeStore.runesSelection.principal
   return runeStore.runesSelection.groups[index]?.principal || null
@@ -123,22 +112,17 @@ const showPrimarySlotSelector = ref([false, false, false, false, false])
 
 const showSecondarySlotSelector = ref([false, false, false])
 
-interface TooltipRune {
-  id: number
+interface TooltipData {
   name: string
   shortDesc: string
 }
 
-const activeTooltip = ref<TooltipRune | null>(null)
+const activeTooltip = ref<TooltipData | null>(null)
 const tooltipX = ref(0)
 const tooltipY = ref(0)
 
-const showTooltip = (rune: SubRune, event: MouseEvent) => {
-  activeTooltip.value = {
-    id: rune.id,
-    name: rune.name,
-    shortDesc: rune.shortDesc,
-  }
+const showTooltip = (data: TooltipData, event: MouseEvent) => {
+  activeTooltip.value = data
   tooltipX.value = event.clientX + 15
   tooltipY.value = event.clientY + 15
 }
@@ -156,11 +140,20 @@ const toggleShardSelector = (index: number) => {
 }
 
 const selectShardAndClose = (shard: Shard) => {
-  selectedShard(
-    shard,
-    `stat${activeShardIndex.value}` as 'principal' | 'second' | 'third',
-  )
+  const type =
+    activeShardIndex.value === 1
+      ? 'principal'
+      : activeShardIndex.value === 2
+        ? 'second'
+        : 'third'
+  shardStore.setShardSelection(type, shard)
   showShardSelector.value = false
+  hideTooltip()
+}
+
+const getSelectedShardFromStore = (index: number) => {
+  const type = index === 1 ? 'principal' : index === 2 ? 'second' : 'third'
+  return shardStore.shardsSelection[type]
 }
 
 onMounted(() => {
@@ -246,7 +239,12 @@ onMounted(() => {
               ]?.runes"
               :key="subrune.id"
               @click="selectAndClose('principal', index, subrune)"
-              @mouseover="showTooltip(subrune, $event)"
+              @mouseover="
+                showTooltip(
+                  { name: subrune.name, shortDesc: subrune.shortDesc },
+                  $event,
+                )
+              "
               @mouseleave="hideTooltip"
               :class="{
                 'rune-option': true,
@@ -344,7 +342,12 @@ onMounted(() => {
                   v-for="rune in slot.runes"
                   :key="rune.id"
                   @click="selectAndClose('second', index, rune)"
-                  @mouseover="showTooltip(rune, $event)"
+                  @mouseover="
+                    showTooltip(
+                      { name: rune.name, shortDesc: rune.shortDesc },
+                      $event,
+                    )
+                  "
                   @mouseleave="hideTooltip"
                   :class="{
                     'rune-option': true,
@@ -370,35 +373,57 @@ onMounted(() => {
         </div>
 
         <div class="stat-shards">
-          <div v-for="index in 3" :key="'shard-' + index" class="rune-tier">
-            <div
-              class="rune-slot"
-              @click="toggleShardSelector(index)"
-              :class="{ selected: getSelectedShard(index) }"
-            >
-              <img
-                v-if="getSelectedShard(index)"
-                :src="`/assets/icons/shards/${getSelectedShard(index)?.id}.png`"
-              />
-            </div>
-            <div class="rune-description">Sélectionnez une stat</div>
-          </div>
-
-          <div
-            v-if="showShardSelector && shardsData"
-            class="runes-selector secondary-selector"
-          >
-            <div class="rune-options-container">
-              <button
-                v-for="shard in shardsData[activeShardIndex - 1]"
-                :key="shard.image"
-                @click="selectShardAndClose(shard)"
+          <div v-for="index in 3" :key="'shard-' + index" class="shard-tier">
+            <div class="rune-slot-container">
+              <div
+                class="rune-slot"
+                @click="toggleShardSelector(index)"
+                :class="{ selected: getSelectedShardFromStore(index) }"
               >
                 <img
-                  :src="`/assets/icons/shards/${shard.image}`"
-                  :alt="shard.description"
+                  v-if="getSelectedShardFromStore(index)"
+                  :src="`/assets/icons/shards/${getSelectedShardFromStore(index)?.image}`"
                 />
-              </button>
+              </div>
+
+              <div
+                v-if="
+                  showShardSelector && activeShardIndex === index && shardsData
+                "
+                class="runes-selector shard-selector"
+              >
+                <div class="rune-options-container">
+                  <button
+                    v-for="shard in shardsData[activeShardIndex - 1]"
+                    :key="shard.image"
+                    @click="selectShardAndClose(shard)"
+                    @mouseover="
+                      showTooltip(
+                        { name: 'Statistique', shortDesc: shard.description },
+                        $event,
+                      )
+                    "
+                    @mouseleave="hideTooltip"
+                    :class="{
+                      'rune-option': true,
+                      selected:
+                        shard.image ===
+                        getSelectedShardFromStore(activeShardIndex)?.image,
+                    }"
+                  >
+                    <img
+                      :src="`/assets/icons/shards/${shard.image}`"
+                      :alt="shard.description"
+                    />
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div class="rune-description">
+              {{
+                getSelectedShardFromStore(index)?.description ||
+                'Sélectionnez une stat'
+              }}
             </div>
           </div>
         </div>
