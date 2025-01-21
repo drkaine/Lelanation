@@ -1,8 +1,6 @@
 <script setup lang="ts">
 import ChampionTooltip from '@/components/Tooltip/ChampionTooltip.vue'
 import SummonerTooltip from '@/components/Tooltip/SummonerTooltip.vue'
-import RuneTooltip from '@/components/Tooltip/RuneTooltip.vue'
-import ShardTooltip from '@/components/Tooltip/ShardTooltip.vue'
 import ItemTooltip from '@/components/Tooltip/ItemTooltip.vue'
 import type { SummonerSelection } from '@/types/summoner'
 import type { RunesSelection } from '@/types/rune'
@@ -237,9 +235,7 @@ onMounted(() => {
                   left: tooltipLeft,
                   top: tooltipTop,
                 }"
-              >
-                <RuneTooltip v-if="runes" :rune="runes.groups[1].principal" />
-              </div>
+              ></div>
             </div>
           </div>
           <div data-v-15310f80="" class="main">
@@ -271,9 +267,7 @@ onMounted(() => {
                     left: tooltipLeft,
                     top: tooltipTop,
                   }"
-                >
-                  <RuneTooltip v-if="runes" :rune="runes.groups[2].principal" />
-                </div>
+                ></div>
               </div>
             </div>
             <div
@@ -304,9 +298,7 @@ onMounted(() => {
                     left: tooltipLeft,
                     top: tooltipTop,
                   }"
-                >
-                  <RuneTooltip v-if="runes" :rune="runes.groups[3].principal" />
-                </div>
+                ></div>
               </div>
             </div>
             <div
@@ -337,9 +329,7 @@ onMounted(() => {
                     left: tooltipLeft,
                     top: tooltipTop,
                   }"
-                >
-                  <RuneTooltip v-if="runes" :rune="runes.groups[4].principal" />
-                </div>
+                ></div>
               </div>
             </div>
             <div
@@ -388,9 +378,7 @@ onMounted(() => {
                     left: tooltipLeft,
                     top: tooltipTop,
                   }"
-                >
-                  <RuneTooltip :rune="group.second" />
-                </div>
+                ></div>
               </div>
             </div>
           </div>
