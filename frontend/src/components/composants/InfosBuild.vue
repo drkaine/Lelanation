@@ -65,6 +65,9 @@ const submitForm = async () => {
   let fileName = `${uuidv4()}.json`
   if (buildStore.buildToEdit?.id) {
     fileName = buildStore.buildToEdit.id
+    if (isVisible.value && fileName.startsWith('wait_')) {
+      fileName = fileName.replace('wait_', '')
+    }
   } else {
     fileName = connexionStore.isLoggedIn ? `lelariva_` + fileName : fileName
     fileName = isVisible.value ? fileName : 'wait_' + fileName
