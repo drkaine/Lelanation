@@ -1,6 +1,85 @@
+:root {
+    --item-size-mobile: 40px;
+    --item-size-desktop: 48px;
+    --item-small-size-mobile: 32px;
+    --item-small-size-desktop: 40px;
+    --grid-gap-mobile: 8px;
+    --grid-gap-desktop: 16px;
+}
+
 .itemsPage .filter-items {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5em;
-  margin-bottom: 1em;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5em;
+    margin-bottom: 1em;
+}
+
+.items-container {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.group.small {
+    color: var(--sand-1);
+    font-size: 14px;
+    font-weight: 500;
+    padding-bottom: 0.5em;
+}
+
+.items-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.tip {
+    flex: 0 0 var(--item-size-mobile);
+}
+
+.tip.small {
+    flex: 0 0 var(--item-small-size-mobile);
+}
+
+.tip .item button {
+    width: 100px;
+    height: 100px;
+}
+
+.tip .item img {
+    width: var(--item-size-mobile);
+    height: var(--item-size-mobile);
+}
+
+.tip.small .item img {
+    width: var(--item-small-size-mobile);
+    height: var(--item-small-size-mobile);
+}
+
+@media (min-width: 768px) {
+    .group.small {
+        font-size: 16px;
+
+    }
+
+    .items-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill,
+                minmax(var(--item-size-desktop), 1fr));
+        gap: 16px;
+    }
+
+    .tip {
+        flex: unset;
+    }
+
+    .tip .item img {
+        width: var(--item-size-desktop);
+        height: var(--item-size-desktop);
+    }
+
+    .tip.small .item img {
+        width: var(--item-small-size-desktop);
+        height: var(--item-small-size-desktop);
+    }
 }

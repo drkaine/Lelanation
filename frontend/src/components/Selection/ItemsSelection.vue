@@ -150,382 +150,395 @@ const itemsLegendary = computed<Item[]>(() =>
         class="search-input"
       />
     </div>
-    <div class="list">
-      <div class="filter-items">
-        <button @click="toggleTag('all')">Tous</button>
-        <button
-          :class="{
-            active: selectedTags.includes('Damage'),
-          }"
-          @click="toggleTag('Damage')"
-        >
-          Attack Damage
-        </button>
-        <button
-          :class="{
-            active: selectedTags.includes('CriticalStrike'),
-          }"
-          @click="toggleTag('CriticalStrike')"
-        >
-          Critical Strike
-        </button>
-        <button
-          :class="{
-            active: selectedTags.includes('AttackSpeed'),
-          }"
-          @click="toggleTag('AttackSpeed')"
-        >
-          Attack Speed
-        </button>
-        <button
-          :class="{
-            active: selectedTags.includes('OnHit'),
-          }"
-          @click="toggleTag('OnHit')"
-        >
-          On-Hit
-        </button>
-        <button
-          :class="{
-            active: selectedTags.includes('ArmorPenetration'),
-          }"
-          @click="toggleTag('ArmorPenetration')"
-        >
-          Armor Pen
-        </button>
-        <button
-          :class="{
-            active: selectedTags.includes('SpellDamage'),
-          }"
-          @click="toggleTag('SpellDamage')"
-        >
-          Ability Power
-        </button>
-        <button
-          :class="{
-            active: selectedTags.includes('Mana'),
-          }"
-          @click="toggleTag('Mana')"
-        >
-          Mana
-        </button>
-        <button
-          :class="{
-            active: selectedTags.includes('ManaRegen'),
-          }"
-          @click="toggleTag('ManaRegen')"
-        >
-          Mana Regen
-        </button>
-        <button
-          :class="{
-            active: selectedTags.includes('MagicPenetration'),
-          }"
-          @click="toggleTag('MagicPenetration')"
-        >
-          Magic Pen
-        </button>
-        <button
-          :class="{
-            active: selectedTags.includes('Health'),
-          }"
-          @click="toggleTag('Health')"
-        >
-          Health
-        </button>
-        <button
-          :class="{
-            active: selectedTags.includes('HealthRegen'),
-          }"
-          @click="toggleTag('HealthRegen')"
-        >
-          Health Regen
-        </button>
-        <button
-          :class="{
-            active: selectedTags.includes('Armor'),
-          }"
-          @click="toggleTag('Armor')"
-        >
-          Armor
-        </button>
-        <button
-          :class="{
-            active: selectedTags.includes('SpellBlock'),
-          }"
-          @click="toggleTag('SpellBlock')"
-        >
-          Magic Resist
-        </button>
-        <button
-          :class="{
-            active: selectedTags.includes('AbilityHaste'),
-          }"
-          @click="toggleTag('AbilityHaste')"
-        >
-          Ability Haste
-        </button>
-        <button
-          :class="{
-            active: selectedTags.includes('NonbootsMovement'),
-          }"
-          @click="toggleTag('NonbootsMovement')"
-        >
-          Movement
-        </button>
-        <button
-          :class="{
-            active: selectedTags.includes('LifeSteal'),
-          }"
-          @click="toggleTag('LifeSteal')"
-        >
-          Life Steal
-        </button>
-        <button
-          :class="{
-            active: selectedTags.includes('SpellVamp'),
-          }"
-          @click="toggleTag('SpellVamp')"
-        >
-          Omnivamp
-        </button>
-        <button
-          :class="{
-            active: selectedTags.includes('Consumable'),
-          }"
-          @click="toggleTag('Consumable')"
-        >
-          Consommable
-        </button>
-        <button
-          :class="{
-            active: selectedTags.includes('all'),
-          }"
-          @click="toggleTag('all')"
-        >
-          Tous
-        </button>
-      </div>
-      <div class="divider"></div>
-      <div class="group small" v-if="itemsStarter.length > 0">
-        Starter items
-      </div>
-      <div class="tip" v-for="(item, index) in itemsStarter" :key="index">
-        <div class="tooltip">
-          <button
-            to="false"
-            :class="{
-              selected: itemStore.ItemsSelection.core?.includes(item),
-              hide: !itemsStarter.includes(item),
-              item: true,
-            }"
-            replace="false"
-            @click="selectItem(item)"
-            @mouseenter="updateMousePosition"
-            @mouseleave="resetMousePosition"
-          >
-            <img
-              class="img"
-              :src="`/assets/icons/items/${item.image.full}`"
-              :alt="item.name"
-            />
-
-            <div class="text">
-              {{ item.gold.total }}
-            </div>
-          </button>
-          <div
-            class="box"
-            :style="{
-              position: 'absolute',
-              left: tooltipLeft,
-              top: tooltipTop,
-            }"
-          >
-            <ItemTooltip
-              :item="item"
-              :from="getItemsFrom(item)"
-              :into="getItemsInto(item)"
-            />
-          </div>
-        </div>
-      </div>
-      <div class="divider"></div>
-      <div class="group small" v-if="itemsBasic.length > 0">Basic items</div>
-      <div class="tip" v-for="(item, index) in itemsBasic" :key="index">
-        <div class="tooltip">
-          <button
-            to="false"
-            :class="{
-              selected: itemStore.ItemsSelection.core?.includes(item),
-              hide: !itemsBasic.includes(item),
-              item: true,
-            }"
-            replace="false"
-            @click="selectItem(item)"
-            @mouseenter="updateMousePosition"
-            @mouseleave="resetMousePosition"
-          >
-            <img
-              class="img"
-              :src="`/assets/icons/items/${item.image.full}`"
-              :alt="item.name"
-            />
-
-            <div class="text">
-              {{ item.gold.total }}
-            </div>
-          </button>
-          <div
-            class="box"
-            :style="{
-              position: 'absolute',
-              left: tooltipLeft,
-              top: tooltipTop,
-            }"
-          >
-            <ItemTooltip
-              :item="item"
-              :from="getItemsFrom(item)"
-              :into="getItemsInto(item)"
-            />
-          </div>
-        </div>
-      </div>
-
-      <div class="divider"></div>
-      <div class="group small" v-if="itemsBoots.length > 0">Boots items</div>
-      <div class="tip" v-for="(item, index) in itemsBoots" :key="index">
-        <div class="tooltip">
-          <button
-            to="false"
-            :class="{
-              selected: itemStore.ItemsSelection.core?.includes(item),
-              hide: !itemsBoots.includes(item),
-              item: true,
-            }"
-            replace=" false"
-            @click="selectItem(item)"
-            @mouseenter="updateMousePosition"
-            @mouseleave="resetMousePosition"
-          >
-            <img
-              class="img"
-              :src="`/assets/icons/items/${item.image.full}`"
-              :alt="item.name"
-            />
-
-            <div class="text">
-              {{ item.gold.total }}
-            </div>
-          </button>
-          <div
-            class="box"
-            :style="{
-              position: 'absolute',
-              left: tooltipLeft,
-              top: tooltipTop,
-            }"
-          >
-            <ItemTooltip
-              :item="item"
-              :from="getItemsFrom(item)"
-              :into="getItemsInto(item)"
-            />
-          </div>
-        </div>
-      </div>
-      <div class="divider"></div>
-      <div class="group small" v-if="itemsEpic.length > 0">Epic items</div>
-      <div
-        class="tip"
-        v-for="(item, index) in itemsEpic"
-        :key="index"
-        @click="selectItem(item)"
+    <div class="filter-items">
+      <button @click="toggleTag('all')">Tous</button>
+      <button
+        :class="{
+          active: selectedTags.includes('Damage'),
+        }"
+        @click="toggleTag('Damage')"
       >
-        <div class="tooltip">
-          <button
-            to="false"
-            :class="{
-              selected: itemStore.ItemsSelection.core?.includes(item),
-              hide: !itemsEpic.includes(item),
-              item: true,
-            }"
-            replace=" false"
-            @mouseenter="updateMousePosition"
-            @mouseleave="resetMousePosition"
-          >
-            <img
-              class="img"
-              :src="`/assets/icons/items/${item.image.full}`"
-              :alt="item.name"
-            />
+        Attack Damage
+      </button>
+      <button
+        :class="{
+          active: selectedTags.includes('CriticalStrike'),
+        }"
+        @click="toggleTag('CriticalStrike')"
+      >
+        Critical Strike
+      </button>
+      <button
+        :class="{
+          active: selectedTags.includes('AttackSpeed'),
+        }"
+        @click="toggleTag('AttackSpeed')"
+      >
+        Attack Speed
+      </button>
+      <button
+        :class="{
+          active: selectedTags.includes('OnHit'),
+        }"
+        @click="toggleTag('OnHit')"
+      >
+        On-Hit
+      </button>
+      <button
+        :class="{
+          active: selectedTags.includes('ArmorPenetration'),
+        }"
+        @click="toggleTag('ArmorPenetration')"
+      >
+        Armor Pen
+      </button>
+      <button
+        :class="{
+          active: selectedTags.includes('SpellDamage'),
+        }"
+        @click="toggleTag('SpellDamage')"
+      >
+        Ability Power
+      </button>
+      <button
+        :class="{
+          active: selectedTags.includes('Mana'),
+        }"
+        @click="toggleTag('Mana')"
+      >
+        Mana
+      </button>
+      <button
+        :class="{
+          active: selectedTags.includes('ManaRegen'),
+        }"
+        @click="toggleTag('ManaRegen')"
+      >
+        Mana Regen
+      </button>
+      <button
+        :class="{
+          active: selectedTags.includes('MagicPenetration'),
+        }"
+        @click="toggleTag('MagicPenetration')"
+      >
+        Magic Pen
+      </button>
+      <button
+        :class="{
+          active: selectedTags.includes('Health'),
+        }"
+        @click="toggleTag('Health')"
+      >
+        Health
+      </button>
+      <button
+        :class="{
+          active: selectedTags.includes('HealthRegen'),
+        }"
+        @click="toggleTag('HealthRegen')"
+      >
+        Health Regen
+      </button>
+      <button
+        :class="{
+          active: selectedTags.includes('Armor'),
+        }"
+        @click="toggleTag('Armor')"
+      >
+        Armor
+      </button>
+      <button
+        :class="{
+          active: selectedTags.includes('SpellBlock'),
+        }"
+        @click="toggleTag('SpellBlock')"
+      >
+        Magic Resist
+      </button>
+      <button
+        :class="{
+          active: selectedTags.includes('AbilityHaste'),
+        }"
+        @click="toggleTag('AbilityHaste')"
+      >
+        Ability Haste
+      </button>
+      <button
+        :class="{
+          active: selectedTags.includes('NonbootsMovement'),
+        }"
+        @click="toggleTag('NonbootsMovement')"
+      >
+        Movement
+      </button>
+      <button
+        :class="{
+          active: selectedTags.includes('LifeSteal'),
+        }"
+        @click="toggleTag('LifeSteal')"
+      >
+        Life Steal
+      </button>
+      <button
+        :class="{
+          active: selectedTags.includes('SpellVamp'),
+        }"
+        @click="toggleTag('SpellVamp')"
+      >
+        Omnivamp
+      </button>
+      <button
+        :class="{
+          active: selectedTags.includes('Consumable'),
+        }"
+        @click="toggleTag('Consumable')"
+      >
+        Consommable
+      </button>
+      <button
+        :class="{
+          active: selectedTags.includes('all'),
+        }"
+        @click="toggleTag('all')"
+      >
+        Tous
+      </button>
+    </div>
+    <div class="items-container">
+      <div v-if="itemsBoots.length > 0">
+        <div class="group small">Bottes ({{ itemsBoots.length }})</div>
+        <div class="items-grid">
+          <div v-for="(item, index) in itemsBoots" :key="index" class="tip">
+            <div class="tooltip">
+              <button
+                to="false"
+                :class="{
+                  selected: itemStore.ItemsSelection.core?.includes(item),
+                  hide: !filteredItems.includes(item),
+                  item: true,
+                }"
+                replace="false"
+                @click="selectItem(item)"
+                @mouseenter="updateMousePosition"
+                @mouseleave="resetMousePosition"
+              >
+                <img
+                  class="img"
+                  :src="`/assets/icons/items/${item.image.full}`"
+                  :alt="item.name"
+                />
 
-            <div class="text">
-              {{ item.gold.total }}
+                <div class="text">
+                  {{ item.gold.total }}
+                </div>
+              </button>
+              <div
+                class="box"
+                :style="{
+                  position: 'absolute',
+                  left: tooltipLeft,
+                  top: tooltipTop,
+                }"
+              >
+                <ItemTooltip
+                  :item="item"
+                  :from="getItemsFrom(item)"
+                  :into="getItemsInto(item)"
+                />
+              </div>
             </div>
-          </button>
-          <div
-            class="box"
-            :style="{
-              position: 'absolute',
-              left: tooltipLeft,
-              top: tooltipTop,
-            }"
-          >
-            <ItemTooltip
-              :item="item"
-              :from="getItemsFrom(item)"
-              :into="getItemsInto(item)"
-            />
           </div>
         </div>
       </div>
-      <div class="divider"></div>
-      <div class="group small" v-if="itemsLegendary.length > 0">
-        Legendary items
-      </div>
-      <div class="tip" v-for="(item, index) in itemsLegendary" :key="index">
-        <div class="tooltip">
-          <button
-            to="false"
-            replace="false"
-            :class="{
-              selected: itemStore.ItemsSelection.core?.includes(item),
-              hide: !itemsLegendary.includes(item),
-              item: true,
-            }"
-            @click="selectItem(item)"
-            @mouseenter="updateMousePosition"
-            @mouseleave="resetMousePosition"
-          >
-            <img
-              class="img"
-              :src="`/assets/icons/items/${item.image.full}`"
-              :alt="item.name"
-            />
 
-            <div class="text">
-              {{ item.gold.total }}
+      <div v-if="itemsStarter.length > 0">
+        <div class="group small">
+          Objets de départ ({{ itemsStarter.length }})
+        </div>
+        <div class="items-grid">
+          <div v-for="(item, index) in itemsStarter" :key="index" class="tip">
+            <div class="tooltip">
+              <button
+                to="false"
+                :class="{
+                  selected: itemStore.ItemsSelection.core?.includes(item),
+                  hide: !filteredItems.includes(item),
+                  item: true,
+                }"
+                replace="false"
+                @click="selectItem(item)"
+                @mouseenter="updateMousePosition"
+                @mouseleave="resetMousePosition"
+              >
+                <img
+                  class="img"
+                  :src="`/assets/icons/items/${item.image.full}`"
+                  :alt="item.name"
+                />
+
+                <div class="text">
+                  {{ item.gold.total }}
+                </div>
+              </button>
+              <div
+                class="box"
+                :style="{
+                  position: 'absolute',
+                  left: tooltipLeft,
+                  top: tooltipTop,
+                }"
+              >
+                <ItemTooltip
+                  :item="item"
+                  :from="getItemsFrom(item)"
+                  :into="getItemsInto(item)"
+                />
+              </div>
             </div>
-          </button>
-          <div
-            class="box"
-            :style="{
-              position: 'absolute',
-              left: tooltipLeft,
-              top: tooltipTop,
-            }"
-          >
-            <ItemTooltip
-              :item="item"
-              :from="getItemsFrom(item)"
-              :into="getItemsInto(item)"
-            />
           </div>
         </div>
       </div>
-      <div class="divider"></div>
+
+      <div v-if="itemsBasic.length > 0">
+        <div class="group small">Objets basiques ({{ itemsBasic.length }})</div>
+        <div class="items-grid">
+          <div v-for="(item, index) in itemsBasic" :key="index" class="tip">
+            <div class="tooltip">
+              <button
+                to="false"
+                :class="{
+                  selected: itemStore.ItemsSelection.core?.includes(item),
+                  hide: !filteredItems.includes(item),
+                  item: true,
+                }"
+                replace="false"
+                @click="selectItem(item)"
+                @mouseenter="updateMousePosition"
+                @mouseleave="resetMousePosition"
+              >
+                <img
+                  class="img"
+                  :src="`/assets/icons/items/${item.image.full}`"
+                  :alt="item.name"
+                />
+
+                <div class="text">
+                  {{ item.gold.total }}
+                </div>
+              </button>
+              <div
+                class="box"
+                :style="{
+                  position: 'absolute',
+                  left: tooltipLeft,
+                  top: tooltipTop,
+                }"
+              >
+                <ItemTooltip
+                  :item="item"
+                  :from="getItemsFrom(item)"
+                  :into="getItemsInto(item)"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div v-if="itemsEpic.length > 0">
+        <div class="group small">Objets épiques ({{ itemsEpic.length }})</div>
+        <div class="items-grid">
+          <div v-for="(item, index) in itemsEpic" :key="index" class="tip">
+            <div class="tooltip">
+              <button
+                to="false"
+                :class="{
+                  selected: itemStore.ItemsSelection.core?.includes(item),
+                  hide: !filteredItems.includes(item),
+                  item: true,
+                }"
+                replace="false"
+                @click="selectItem(item)"
+                @mouseenter="updateMousePosition"
+                @mouseleave="resetMousePosition"
+              >
+                <img
+                  class="img"
+                  :src="`/assets/icons/items/${item.image.full}`"
+                  :alt="item.name"
+                />
+
+                <div class="text">
+                  {{ item.gold.total }}
+                </div>
+              </button>
+              <div
+                class="box"
+                :style="{
+                  position: 'absolute',
+                  left: tooltipLeft,
+                  top: tooltipTop,
+                }"
+              >
+                <ItemTooltip
+                  :item="item"
+                  :from="getItemsFrom(item)"
+                  :into="getItemsInto(item)"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div v-if="itemsLegendary.length > 0">
+        <div class="group small">
+          Objets légendaires ({{ itemsLegendary.length }})
+        </div>
+        <div class="items-grid">
+          <div v-for="(item, index) in itemsLegendary" :key="index" class="tip">
+            <div class="tooltip">
+              <button
+                to="false"
+                :class="{
+                  selected: itemStore.ItemsSelection.core?.includes(item),
+                  hide: !filteredItems.includes(item),
+                  item: true,
+                }"
+                replace="false"
+                @click="selectItem(item)"
+                @mouseenter="updateMousePosition"
+                @mouseleave="resetMousePosition"
+              >
+                <img
+                  class="img"
+                  :src="`/assets/icons/items/${item.image.full}`"
+                  :alt="item.name"
+                />
+
+                <div class="text">
+                  {{ item.gold.total }}
+                </div>
+              </button>
+              <div
+                class="box"
+                :style="{
+                  position: 'absolute',
+                  left: tooltipLeft,
+                  top: tooltipTop,
+                }"
+              >
+                <ItemTooltip
+                  :item="item"
+                  :from="getItemsFrom(item)"
+                  :into="getItemsInto(item)"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
