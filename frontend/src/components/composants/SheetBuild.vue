@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import ChampionTooltip from '@/components/Tooltip/ChampionTooltip.vue'
-import SummonerTooltip from '@/components/Tooltip/SummonerTooltip.vue'
 import ItemTooltip from '@/components/Tooltip/ItemTooltip.vue'
 import type { SummonerSelection } from '@/types/summoner'
 import type { RunesSelection } from '@/types/rune'
@@ -575,9 +574,7 @@ onMounted(() => {
                     left: tooltipLeft,
                     top: tooltipTop,
                   }"
-                >
-                  <SummonerTooltip :summoner="summoner" />
-                </div>
+                ></div>
               </div>
             </div>
           </div>
