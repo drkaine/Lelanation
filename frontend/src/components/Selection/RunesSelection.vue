@@ -43,13 +43,53 @@ const selectAndClose = (
   subRune?: SubRune,
   rune?: Rune,
 ) => {
-  if (index !== undefined) {
-    selectedRune(type, index, subRune)
-    showSecondarySlotSelector.value[index] = false
+  if (type === 'second' && index !== undefined) {
+    const currentSelections = runeStore.runesSelection.groups
+      .map(group => group?.second)
+      .filter(Boolean)
+
+    const sameRowIndex = currentSelections.findIndex(selected =>
+      runeStore.runesSelection.second?.slots.some(slot =>
+        slot.runes.some(
+          r =>
+            r.id === selected?.id &&
+            slot.runes.some(r2 => r2.id === subRune?.id),
+        ),
+      ),
+    )
+
+    if (sameRowIndex !== -1) {
+      runeStore.setGroupRuneSelection(
+        sameRowIndex,
+        'second',
+        subRune ? subRune : null,
+      )
+    } else if (currentSelections.length >= 2) {
+      runeStore.setGroupRuneSelection(0, 'second', currentSelections[1])
+      runeStore.setGroupRuneSelection(1, 'second', subRune ? subRune : null)
+    } else {
+      runeStore.setGroupRuneSelection(
+        currentSelections.length,
+        'second',
+        subRune ? subRune : null,
+      )
+    }
+  } else if (type === 'principal' && rune) {
+    runeStore.setRuneSelection('principal', rune)
+    showPrimarySelector.value = false
+  } else if (type === 'principal' && index !== undefined && subRune) {
+    runeStore.setGroupRuneSelection(index, 'principal', subRune)
+    showPrimarySlotSelector.value = showPrimarySlotSelector.value.map(
+      () => false,
+    )
   } else {
-    selectedRune(type, undefined, undefined, rune)
-    showSecondaryKeystoneSelector.value = false
+    selectedRune(type, index, subRune, rune)
   }
+
+  showSecondarySlotSelector.value = [false, false, false]
+  showSecondaryKeystoneSelector.value = false
+  showPrimarySelector.value = false
+  activeSecondaryIndex.value = null
   hideTooltip()
 }
 
@@ -58,9 +98,8 @@ const getSelectedRune = (index: number | null) => {
   return runeStore.runesSelection.groups[index]?.principal || null
 }
 
-const getSelectedSecondaryRune = (index: number | null) => {
-  if (index === 0 || index === null) return runeStore.runesSelection.second
-  return runeStore.runesSelection.groups[index]?.second || null
+const getSelectedSecondaryRune = (index: number) => {
+  return runeStore.runesSelection.runeSecond[index]
 }
 
 const showPrimarySelector = ref(false)
@@ -137,6 +176,7 @@ const closeSecondarySelectors = () => {
   showSecondaryKeystoneSelector.value = false
   showSecondarySlotSelector.value = [false, false, false]
   activeSecondaryIndex.value = null
+  hideTooltip()
 }
 
 onMounted(() => {
@@ -295,16 +335,16 @@ onMounted(() => {
             <div
               class="rune-slot"
               @click="openSecondarySlot(index)"
-              :class="{ selected: getSelectedSecondaryRune(index) }"
+              :class="{ selected: getSelectedSecondaryRune(index - 1) }"
             >
               <img
-                v-if="getSelectedSecondaryRune(index)"
-                :src="`/assets/icons/runes/${getSelectedSecondaryRune(index)?.id}.png`"
+                v-if="getSelectedSecondaryRune(index - 1)"
+                :src="`/assets/icons/runes/${getSelectedSecondaryRune(index - 1)?.id}.png`"
               />
             </div>
 
             <div
-              v-if="showSecondarySlotSelector && activeSecondaryIndex === index"
+              v-if="showSecondarySlotSelector[index]"
               class="runes-selector secondary-slot-selector"
             >
               <div
@@ -319,9 +359,7 @@ onMounted(() => {
                   <button
                     v-for="rune in slot.runes"
                     :key="rune.id"
-                    @click="
-                      selectAndClose('second', activeSecondaryIndex, rune)
-                    "
+                    @click="selectAndClose('second', index, rune)"
                     @mouseover="
                       showTooltip(
                         { name: rune.name, shortDesc: rune.shortDesc },
@@ -333,8 +371,18 @@ onMounted(() => {
                       'rune-option': true,
                       selected:
                         rune.id ===
-                        runeStore.runesSelection.groups[activeSecondaryIndex]
-                          ?.second?.id,
+                        runeStore.runesSelection.groups[index]?.second?.id,
+                      'rune-used': runeStore.runesSelection.groups.some(
+                        group =>
+                          group?.second?.id === rune.id ||
+                          (slot.runes.some(r => r.id === group?.second?.id) &&
+                            rune.id !==
+                              runeStore.runesSelection.groups[index]?.second
+                                ?.id),
+                      ),
+                      active:
+                        runeStore.runesSelection.groups[index]?.second?.id ===
+                        rune.id,
                     }"
                   >
                     <img
@@ -428,3 +476,13 @@ onMounted(() => {
     ></div>
   </div>
 </template>
+
+<style>
+.rune-used {
+  opacity: 0.5;
+}
+
+.rune-option.active {
+  opacity: 1;
+}
+</style>

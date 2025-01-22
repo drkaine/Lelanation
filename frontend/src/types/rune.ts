@@ -20,12 +20,11 @@ export interface SubRune {
 export interface GroupSelection {
   principal: SubRune | null
   second: SubRune | null
-  first: boolean
-  two: boolean
 }
 
 export interface RunesSelection {
   principal: Rune | null
   second: Rune | null
+  runeSecond: [SubRune | null, SubRune | null]
   groups: GroupSelection[]
 }

@@ -784,12 +784,22 @@
 }
 
 .rune-option {
-  width: 50px;
-  height: 50px;
+  width: 48px;
+  height: 48px;
   border-radius: 50%;
-  border: 2px solid var(--nox-grey3);
-  padding: 0;
+  border: 2px solid transparent;
+  padding: 2px;
+  background: none;
+  cursor: pointer;
   transition: all 0.2s ease;
+}
+
+.rune-option:hover {
+  border-color: var(--gold-lol);
+}
+
+.rune-option.selected {
+  border: 2px solid var(--gold-lol);
   background: linear-gradient(
     135deg,
     color-mix(
@@ -800,141 +810,18 @@
       0%,
     color-mix(
         in srgb,
-        var(--base-dark),
-        color-mix(in srgb, var(--black), black 40%) 0%
-      )
-      5%,
-    color-mix(
-        in srgb,
-        var(--base-dark),
-        color-mix(in srgb, var(--black), black 35%) 5%
-      )
-      10%,
-    color-mix(
-        in srgb,
-        var(--base-dark),
-        color-mix(in srgb, var(--black), black 35%) 10%
-      )
-      15%,
-    color-mix(
-        in srgb,
-        var(--base-dark),
-        color-mix(in srgb, var(--black), black 30%) 15%
-      )
-      20%,
-    color-mix(
-        in srgb,
-        var(--base-dark),
-        color-mix(in srgb, var(--black), black 30%) 20%
-      )
-      25%,
-    color-mix(
-        in srgb,
-        var(--base-dark),
-        color-mix(in srgb, var(--black), black 25%) 25%
-      )
-      30%,
-    color-mix(
-        in srgb,
-        var(--base-dark),
-        color-mix(in srgb, var(--black), black 25%) 30%
-      )
-      35%,
-    color-mix(
-        in srgb,
-        var(--base-dark),
-        color-mix(in srgb, var(--black), black 20%) 35%
-      )
-      40%,
-    color-mix(
-        in srgb,
-        var(--base-dark),
-        color-mix(in srgb, var(--black), black 20%) 40%
-      )
-      45%,
-    color-mix(
-        in srgb,
-        var(--final-blue),
-        color-mix(in srgb, var(--black), black 15%) 45%
-      )
-      50%,
-    color-mix(
-        in srgb,
-        var(--final-blue),
-        color-mix(in srgb, var(--black), black 15%) 50%
-      )
-      55%,
-    color-mix(
-        in srgb,
-        var(--final-blue),
-        color-mix(in srgb, var(--black), black 10%) 55%
-      )
-      60%,
-    color-mix(
-        in srgb,
-        var(--final-blue),
-        color-mix(in srgb, var(--black), black 10%) 60%
-      )
-      65%,
-    color-mix(
-        in srgb,
-        var(--final-blue),
-        color-mix(in srgb, var(--black), black 5%) 65%
-      )
-      70%,
-    color-mix(
-        in srgb,
-        var(--final-blue),
-        color-mix(in srgb, var(--black), black 5%) 70%
-      )
-      75%,
-    color-mix(
-        in srgb,
         var(--final-blue),
         color-mix(in srgb, var(--black), black 0%) 75%
       )
       80%,
-    color-mix(
-        in srgb,
-        var(--final-blue),
-        color-mix(in srgb, var(--black), black 0%) 80%
-      )
-      85%,
-    color-mix(
-        in srgb,
-        var(--final-blue),
-        color-mix(in srgb, var(--black), black 0%) 85%
-      )
-      90%,
-    color-mix(
-        in srgb,
-        var(--final-blue),
-        color-mix(in srgb, var(--black), black 0%) 90%
-      )
-      95%,
     var(--final-blue) 100%
   );
-}
-
-.rune-option:hover {
-  transform: scale(1.1);
-  box-shadow: 0 0 10px var(--gold-lol);
-}
-
-.rune-option.selected {
-  border-color: var(--gold-lol);
-}
-
-.rune-option.disabled {
-  opacity: 0.3;
-  cursor: not-allowed;
 }
 
 .rune-option img {
   width: 100%;
   height: 100%;
-  object-fit: contain;
-  padding: 4px;
+  border-radius: 50%;
 }
 
 .rune-tooltip {
@@ -1359,146 +1246,10 @@
   gap: 16px;
 }
 
-.rune-option {
-  width: 52px;
-  height: 52px;
-  padding: 6px;
-  border: 2px solid var(--nox-grey3);
-  border-radius: 50%;
-  background: linear-gradient(
-    135deg,
-    color-mix(
-        in srgb,
-        var(--base-dark),
-        color-mix(in srgb, var(--black), black 40%) 0%
-      )
-      0%,
-    color-mix(
-        in srgb,
-        var(--base-dark),
-        color-mix(in srgb, var(--black), black 40%) 0%
-      )
-      5%,
-    color-mix(
-        in srgb,
-        var(--base-dark),
-        color-mix(in srgb, var(--black), black 35%) 5%
-      )
-      10%,
-    color-mix(
-        in srgb,
-        var(--base-dark),
-        color-mix(in srgb, var(--black), black 35%) 10%
-      )
-      15%,
-    color-mix(
-        in srgb,
-        var(--base-dark),
-        color-mix(in srgb, var(--black), black 30%) 15%
-      )
-      20%,
-    color-mix(
-        in srgb,
-        var(--base-dark),
-        color-mix(in srgb, var(--black), black 30%) 20%
-      )
-      25%,
-    color-mix(
-        in srgb,
-        var(--base-dark),
-        color-mix(in srgb, var(--black), black 25%) 25%
-      )
-      30%,
-    color-mix(
-        in srgb,
-        var(--base-dark),
-        color-mix(in srgb, var(--black), black 25%) 30%
-      )
-      35%,
-    color-mix(
-        in srgb,
-        var(--base-dark),
-        color-mix(in srgb, var(--black), black 20%) 35%
-      )
-      40%,
-    color-mix(
-        in srgb,
-        var(--base-dark),
-        color-mix(in srgb, var(--black), black 20%) 40%
-      )
-      45%,
-    color-mix(
-        in srgb,
-        var(--final-blue),
-        color-mix(in srgb, var(--black), black 15%) 45%
-      )
-      50%,
-    color-mix(
-        in srgb,
-        var(--final-blue),
-        color-mix(in srgb, var(--black), black 15%) 50%
-      )
-      55%,
-    color-mix(
-        in srgb,
-        var(--final-blue),
-        color-mix(in srgb, var(--black), black 10%) 55%
-      )
-      60%,
-    color-mix(
-        in srgb,
-        var(--final-blue),
-        color-mix(in srgb, var(--black), black 10%) 60%
-      )
-      65%,
-    color-mix(
-        in srgb,
-        var(--final-blue),
-        color-mix(in srgb, var(--black), black 5%) 65%
-      )
-      70%,
-    color-mix(
-        in srgb,
-        var(--final-blue),
-        color-mix(in srgb, var(--black), black 5%) 70%
-      )
-      75%,
-    color-mix(
-        in srgb,
-        var(--final-blue),
-        color-mix(in srgb, var(--black), black 0%) 75%
-      )
-      80%,
-    color-mix(
-        in srgb,
-        var(--final-blue),
-        color-mix(in srgb, var(--black), black 0%) 80%
-      )
-      85%,
-    color-mix(
-        in srgb,
-        var(--final-blue),
-        color-mix(in srgb, var(--black), black 0%) 85%
-      )
-      90%,
-    color-mix(
-        in srgb,
-        var(--final-blue),
-        color-mix(in srgb, var(--black), black 0%) 90%
-      )
-      95%,
-    var(--final-blue) 100%
-  );
-  transition: all 0.2s ease;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.rune-option img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
+.rune-option.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
 }
 
 .stat-shards {
@@ -1703,7 +1454,6 @@
 .runes-selector.secondary-slot-selector {
   position: absolute;
   left: 100%;
-  top: 0;
   margin-left: 10px;
   background: linear-gradient(
     135deg,
