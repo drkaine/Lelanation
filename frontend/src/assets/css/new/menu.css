@@ -201,14 +201,6 @@
     gap: 0.25rem;
     padding: 0.5rem;
   }
-
-  .long {
-    display: none;
-  }
-
-  .short {
-    display: inline;
-  }
 }
 
 .short {
@@ -240,10 +232,6 @@
 @media (max-width: 500px) {
   .menu-build a .short {
     display: inline;
-  }
-
-  .menu-build a .long {
-    display: none;
   }
 }
 

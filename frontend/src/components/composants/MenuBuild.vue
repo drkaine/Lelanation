@@ -16,10 +16,7 @@ const isActive = (type: 'champion' | 'rune' | 'item' | 'info') => {
   <div class="menu-build">
     <a :class="isActive('champion')" @click="next('champion')"> Champions </a>
     <span class="arrow"></span>
-    <a :class="isActive('rune')" @click="next('rune')">
-      <span class="long">Runes &amp; sort d'invocateur</span>
-      <span class="short">Runes</span>
-    </a>
+    <a :class="isActive('rune')" @click="next('rune')"> Runes </a>
     <span class="arrow"></span>
     <a :class="isActive('item')" @click="next('item')"> Items </a>
     <span class="arrow"></span>
