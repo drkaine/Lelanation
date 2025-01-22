@@ -254,7 +254,7 @@ onMounted(() => {
               showPrimarySlotSelector[index] &&
               runeStore.runesSelection.principal
             "
-            class="runes-selector"
+            class="runes-selector-primary"
           >
             <button
               v-for="subrune in runeStore.runesSelection.principal.slots[
