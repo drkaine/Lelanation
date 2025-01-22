@@ -50,13 +50,14 @@ const selectChampion = (champion: Champion) => {
 </script>
 
 <template>
-  <div class="champions">
+  <div class="championsPage">
     <div class="list">
       <div class="search">
         <form @submit.prevent>
           <label class="small">
             <input
-              placeholder="Search"
+              class="search-input"
+              placeholder="Rechercher un champion"
               type="search"
               v-model="searchQuery"
               @input="filterChampionsByName"

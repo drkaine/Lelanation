@@ -1,11 +1,3 @@
-.grid > .filter[data-v-72110c46] {
-  grid-area: auto/1/auto/-1;
-  display: inline-flex;
-  margin-bottom: 1.8em;
-  flex-wrap: wrap;
-  gap: 0.5em;
-}
-
 .grid[data-v-d845ff29] {
   grid-template-columns: min-content 1fr;
   position: relative;
@@ -40,14 +32,6 @@
 
 .grid .search[data-v-72110c46] {
   grid-area: auto/1/auto/-1;
-}
-
-.grid > .filter[data-v-72110c46] {
-  grid-area: auto/1/auto/-1;
-  display: inline-flex;
-  margin-bottom: 1.8em;
-  flex-wrap: wrap;
-  gap: 0.5em;
 }
 
 .grid .group[data-v-72110c46] {

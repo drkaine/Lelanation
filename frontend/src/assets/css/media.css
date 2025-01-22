@@ -5,44 +5,43 @@
 }
 
 @media not (max-width: 600px) {
-  .fstyle[data-v-5ad5f5e7]:not(.nopre)
-    span[style*='color']:not(:has(*[style*='color'])),
-  .fstyle[data-v-5ad5f5e7]:not(.nopre) span[style*='border-bottom'] {
+  .fstyle:not(.nopre) span[style*='color']:not(:has(*[style*='color'])),
+  .fstyle:not(.nopre) span[style*='border-bottom'] {
     white-space: pre !important;
   }
 }
 @media (hover: hover) {
-  .item:hover > .img[data-v-7ab6e59a] {
+  .item:hover > .img {
     border-color: var(--itemBorderH, var(--itemBorder));
   }
 }
 @media (hover: hover) {
-  .sheet > .wrap.hover[data-v-15310f80]:hover {
+  .sheet > .wrap.hover:hover {
     background: var(--1c64872f);
   }
 }
 @media (hover: hover) {
-  .summoners .list > .sum > button[data-v-70a93f67]:hover {
+  .summoners .list > .sum > button:hover {
     --sumBorder: var(--gold-lol);
   }
 }
 @media (hover: hover) {
-  .shards > .shard > button.row[data-v-5f2eb625]:hover {
+  .shards > .shard > button.row:hover {
     --shardFilter: grayscale(0);
   }
 }
 @media (max-width: 680px) {
-  .runes > .rune.slot-1-pos-0[data-v-7b108f5e] {
+  .runes > .rune.slot-1-pos-0 {
     display: none;
   }
 }
 @media (hover: hover) {
-  .runes > .rune > button[data-v-7b108f5e]:hover {
+  .runes > .rune > button:hover {
     --runeBorder: var(--gold-lol);
   }
 }
 @media (max-width: 680px) {
-  .runesPage > .wrap[data-v-c83b00c2] {
+  .runesPage > .wrap {
     grid-template-columns: min-content;
     place-content: center;
     margin-top: 0.5em;
@@ -50,108 +49,108 @@
   }
 }
 @media (max-width: 680px) {
-  .runesPage > .wrap .path[data-v-c83b00c2] {
+  .runesPage > .wrap .path {
     grid-area: 1/1;
   }
 
-  .runesPage > .wrap .path[data-v-c83b00c2]:nth-child(2) {
+  .runesPage > .wrap .path:nth-child(2) {
     grid-area: 3/1;
     margin-top: 1em;
   }
 }
 
 @media (hover: hover) {
-  .runesPage > .wrap .path > .rune[data-v-c83b00c2]:hover {
+  .runesPage > .wrap .path > .rune:hover {
     --runeBorder: var(--gold-lol);
   }
 }
 @media (max-width: 680px) {
-  .runesPage > .wrap .path > .rune.disabled[data-v-c83b00c2] {
+  .runesPage > .wrap .path > .rune.disabled {
     display: none;
   }
 }
 @media (max-width: 500px) {
-  .randomizer > .sheet[data-v-d35331c6] {
+  .randomizer > .sheet {
     --sheetSize: 13;
   }
 }
 @media (max-width: 1000px) {
-  .item-page > .wrap[data-v-dd185d1b] {
+  .item-page > .wrap {
     place-items: center;
   }
 }
 
 @media (max-width: 700px) {
-  .item-page > .wrap[data-v-dd185d1b] {
+  .item-page > .wrap {
     padding: 1.2em;
     gap: 1em 2em;
   }
 }
 @media (max-width: 1000px) {
-  .item-page > .wrap > .header[data-v-dd185d1b] {
+  .item-page > .wrap > .header {
     grid-area: 1/1 / auto/-1;
   }
 }
 
 @media (max-width: 700px) {
-  .item-page > .wrap > .header[data-v-dd185d1b] {
+  .item-page > .wrap > .header {
     font-size: 13px;
   }
 }
 
 @media (max-width: 1000px) {
-  .item-page > .wrap .body[data-v-dd185d1b] {
+  .item-page > .wrap .body {
     grid-area: 2/1 / auto/-1;
     max-width: 100%;
   }
 }
 
 @media (max-width: 700px) {
-  .item-page > .wrap .body[data-v-dd185d1b] {
+  .item-page > .wrap .body {
     font-size: 14px;
   }
 }
 
 @media (hover: hover) {
-  .item-page > .wrap .body .wiki a[data-v-dd185d1b]:hover {
+  .item-page > .wrap .body .wiki a:hover {
     color: var(--sand-3);
   }
 }
 
 @media (max-width: 1000px) {
-  .item-page > .wrap .side[data-v-dd185d1b] {
+  .item-page > .wrap .side {
     grid-area: 3/1 / auto/-1;
     margin-top: 1em;
   }
 }
 
 @media (max-width: 500px) {
-  .item-page > .wrap .side[data-v-dd185d1b] {
+  .item-page > .wrap .side {
     --gap: 6px 4px;
     --itemSize: 2.3em;
   }
 }
 
 @media (max-width: 1000px) {
-  .item-page > .wrap .build[data-v-dd185d1b] {
+  .item-page > .wrap .build {
     margin-top: 1em;
   }
 }
 
 @media (max-width: 700px) {
-  .item-page > .wrap .build[data-v-dd185d1b] {
+  .item-page > .wrap .build {
     font-size: 13px;
   }
 }
 
 @media (max-width: 1000px) {
-  .build > .wrap[data-v-6a3673aa] {
+  .build > .wrap {
     grid-template-columns: min-content;
   }
 }
 
 @media (max-width: 1000px) {
-  .build > .wrap > .sheet[data-v-6a3673aa] {
+  .build > .wrap > .sheet {
     text-align: center;
     position: relative;
     grid-area: unset;
@@ -161,26 +160,26 @@
 }
 
 @media (max-width: 500px) {
-  .build > .wrap > .sheet[data-v-6a3673aa] {
+  .build > .wrap > .sheet {
     --sheetSize: 14;
   }
 }
 
 @media (max-width: 1000px) {
-  .build > .wrap .hue[data-v-6a3673aa] {
+  .build > .wrap .hue {
     grid-area: unset;
     margin-top: 0;
   }
 }
 
 @media (max-width: 1000px) {
-  .build > .wrap .hue input[data-v-6a3673aa] {
+  .build > .wrap .hue input {
     --s: 1.1em;
   }
 }
 
 @media (max-width: 1000px) {
-  .build > .wrap .actions[data-v-6a3673aa] {
+  .build > .wrap .actions {
     place-content: center;
     grid-area: unset;
     margin-top: 0;
@@ -188,86 +187,86 @@
 }
 
 @media (max-width: 1000px) {
-  .build > .wrap .actions .image[data-v-6a3673aa] {
+  .build > .wrap .actions .image {
     place-content: center;
     grid-area: unset;
   }
 }
 @media (max-width: 1000px) {
-  .build > .wrap .actions .rest[data-v-6a3673aa] {
+  .build > .wrap .actions .rest {
     place-content: center;
   }
 }
 
 @media (max-width: 1000px) {
-  .build > .wrap > .stats[data-v-6a3673aa] {
+  .build > .wrap > .stats {
     place-content: center;
     grid-area: unset;
   }
 }
 
 @media (max-width: 500px) {
-  .build > .wrap > .stats[data-v-6a3673aa] {
+  .build > .wrap > .stats {
     display: none;
   }
 }
 
 @media (hover: hover) {
-  .build > .wrap > .stats > .pro[data-v-6a3673aa]:hover {
+  .build > .wrap > .stats > .pro:hover {
     filter: brightness(1.2);
   }
 }
 
 @media (max-width: 1000px) {
-  .build > .wrap > .stats > .pro[data-v-6a3673aa] {
+  .build > .wrap > .stats > .pro {
     display: none;
   }
 }
 @media (max-width: 1000px) {
-  .build > .sheet[data-v-b6709614] {
+  .build > .sheet {
     grid-area: 4/1 / auto/-1;
     place-self: center;
     --sheetSize: 14;
     display: none;
   }
 
-  .build > .sheet.info[data-v-b6709614] {
+  .build > .sheet.info {
     display: block;
   }
 }
 
 @media (max-width: 1000px) {
-  .items-page > .grid[data-v-5070127f] {
+  .items-page > .grid {
     grid-template-columns: 1fr;
   }
 }
 
 @media (max-width: 1000px) {
-  .items-page > .grid .side[data-v-5070127f] {
+  .items-page > .grid .side {
     display: none;
   }
 }
 
 @media not (max-width: 1000px) {
-  .items-page > .grid .items[data-v-5070127f] .grid .search,
-  .items-page > .grid .items[data-v-5070127f] .grid .filter {
+  .items-page > .grid .items .grid .search,
+  .items-page > .grid .items .grid .filter {
     display: none;
   }
 }
 @media (max-width: 374px) {
-  .home .builds > .wrap .build[data-v-f1118c6f]:nth-child(1) {
-    display: none;
-  }
-}
-
-@media (max-width: 374px) {
-  .home .builds > .wrap .build[data-v-f1118c6f]:nth-child(2) {
+  .home .builds > .wrap .build:nth-child(1) {
     display: none;
   }
 }
 
 @media (max-width: 374px) {
-  .home .builds > .wrap .build[data-v-f1118c6f]:nth-child(3) {
+  .home .builds > .wrap .build:nth-child(2) {
+    display: none;
+  }
+}
+
+@media (max-width: 374px) {
+  .home .builds > .wrap .build:nth-child(3) {
     position: relative;
     right: 0;
     top: 0;
@@ -275,37 +274,37 @@
 }
 
 @media (hover: hover) {
-  .accord > .split > .otps .otp[data-v-df4f914a]:hover {
+  .accord > .split > .otps .otp:hover {
     color: var(--slate-2);
   }
 }
 
 @media (max-width: 1084px) {
-  .stats[data-v-62867835] {
+  .stats {
     display: none;
   }
 }
 @media (hover: hover) {
-  .stats .line[data-v-62867835]:hover {
+  .stats .line:hover {
     background-color: var(--slate-6);
   }
 }
 
 @media (max-width: 1120px) {
-  .filter[data-v-046a1767] {
+  .filter {
     width: 14em;
   }
 }
 
 @media (max-width: 1084px) {
-  .filter[data-v-046a1767] {
+  .filter {
     position: static;
     display: flex;
     width: 100%;
   }
 }
 @media (max-width: 1084px) {
-  .filter > .search[data-v-046a1767] {
+  .filter > .search {
     margin-bottom: -0.5em;
     grid-area: 1/1/2/3;
     place-self: center;
@@ -313,42 +312,38 @@
 }
 
 @media (max-width: 1084px) {
-  .filter .blocks[data-v-046a1767] {
+  .filter .blocks {
     place-content: center;
     flex-direction: row;
     gap: 0.75em;
   }
 }
 @media (max-width: 1084px) {
-  .filter .blocks .block[data-v-046a1767] {
+  .filter .blocks .block {
     display: contents;
   }
 }
 
 @media (max-width: 1084px) {
-  .filter .blocks .block .title[data-v-046a1767] {
+  .filter .blocks .block .title {
     display: none;
   }
 }
 
 @media (max-width: 1084px) {
-  .filter .blocks .block .list[data-v-046a1767] {
+  .filter .blocks .block .list {
     display: contents;
   }
 }
 
 @media (min-width: 1085px) {
-  .filter .blocks .block .list .item[data-v-046a1767]:last-child {
+  .filter .blocks .block .list .item:last-child {
     margin-bottom: 0;
   }
 }
 
 @media (hover: hover) {
-  .filter
-    .blocks
-    .block
-    .list
-    .item[data-v-046a1767]:has(> .link:hover:not(.disabled)) {
+  .filter .blocks .block .list .item:has(> .link:hover:not(.disabled)) {
     background-color: var(--slate-6);
   }
 
@@ -357,71 +352,71 @@
     .block
     .list
     .item:has(> .link:hover:not(.disabled))
-    > .roles[data-v-046a1767] {
+    > .roles {
     background-color: var(--slate-6);
   }
 }
 
 @media (max-width: 1084px) {
-  .filter .blocks .block .list .item[data-v-046a1767]:nth-child(n + 3) {
+  .filter .blocks .block .list .item:nth-child(n + 3) {
     display: none;
   }
 }
 
 @media (max-width: 700px) {
-  .filter .blocks .block .list .item[data-v-046a1767]:nth-child(n + 2) {
+  .filter .blocks .block .list .item:nth-child(n + 2) {
     display: none;
   }
 }
 @media (max-width: 1084px) {
-  .filter .blocks .block .list .item .link[data-v-046a1767] {
+  .filter .blocks .block .list .item .link {
     padding: 0.4em 0.75em;
     width: auto;
   }
 }
 
 @media (max-width: 1084px) {
-  .filter .blocks .block .list .item .link .tag[data-v-046a1767] {
+  .filter .blocks .block .list .item .link .tag {
     display: none;
   }
 }
 
 @media (max-width: 1084px) {
-  .filter .blocks .block .list .item .roles[data-v-046a1767] {
+  .filter .blocks .block .list .item .roles {
     display: none;
   }
 }
 
 @media (hover: hover) {
-  .filter .blocks .block .list .item .roles .role[data-v-046a1767]:hover {
+  .filter .blocks .block .list .item .roles .role:hover {
     background-color: var(--slate-5);
   }
 }
 
 @media (hover: hover) {
-  .player > .line[data-v-83a8bb49]:hover {
+  .player > .line:hover {
     background-color: var(--slate-6);
   }
 }
 @media (hover: hover) {
-  .player > .line .add[data-v-83a8bb49]:hover {
+  .player > .line .add:hover {
     background-color: var(--slate-5);
   }
 }
 @media (hover: hover) {
-  .build .pro .name a[data-v-a0db44f6]:hover {
+  .build .pro .name a:hover {
     border-color: var(--slate-1);
   }
 }
 @media (max-width: 1084px) {
-  .grid[data-v-d845ff29] {
+  .grid {
     flex-direction: column;
     align-items: center;
     display: flex;
   }
 }
 @media (max-width: 1084px) {
-  .grid .empty[data-v-d845ff29] {
+  .grid .empty {
     position: relative;
     font-size: 0.8em;
     top: 0.5em;
@@ -429,7 +424,7 @@
 }
 
 @media (max-width: 1000px) {
-  .app .terms[data-v-0c81bdb5] {
+  .app .terms {
     text-align: center;
     display: none;
     margin: 1em 0;
@@ -444,59 +439,58 @@
 }
 
 @media (hover: hover) {
-  .levels .level[data-v-575fc9df]:hover {
+  .levels .level:hover {
     background-color: var(--slate-2);
     color: var(--slate-6);
     font-weight: 600;
   }
 }
 @media not (max-width: 600px) {
-  .fstyle[data-v-5ad5f5e7]:not(.nopre)
-    span[style*='color']:not(:has(*[style*='color'])),
-  .fstyle[data-v-5ad5f5e7]:not(.nopre) span[style*='border-bottom'] {
+  .fstyle:not(.nopre) span[style*='color']:not(:has(*[style*='color'])),
+  .fstyle:not(.nopre) span[style*='border-bottom'] {
     white-space: pre !important;
   }
 }
 @media (max-width: 700px) {
-  .grid[data-v-72110c46] {
+  .grid {
     --itemSize: 3em;
   }
 }
 
 @media (max-width: 700px) {
-  .grid.small[data-v-72110c46] {
+  .grid.small {
     --itemSize: 3em;
   }
 }
 @media (max-width: 700px) {
-  .grid .group.big[data-v-72110c46] {
+  .grid .group.big {
     font-size: 0.9em;
   }
 }
 @media (hover: hover) {
-  .item:hover > .img[data-v-7ab6e59a] {
+  .item:hover > .img {
     border-color: var(--itemBorderH, var(--itemBorder));
   }
 }
 
 @media (hover: hover) {
-  .sheet > .wrap.hover[data-v-15310f80]:hover {
+  .sheet > .wrap.hover:hover {
     background: var(--1c64872f);
   }
 }
 @media (hover: hover) {
-  .line.hover[data-v-4aa9c5fe]:hover {
+  .line.hover:hover {
     background-color: var(--sheetBackHover, var(--slate-6));
   }
 }
 
 @media (hover: hover) {
-  .stats .list .list-item[data-v-636d16e0]:hover {
+  .stats .list .list-item:hover {
     background-color: var(--slate-6);
   }
 }
 @media (max-width: 680px) {
-  .summoners[data-v-70a93f67] {
+  .summoners {
     margin-bottom: 1em;
     margin-top: 1em;
     grid-area: 6/1;
@@ -504,47 +498,47 @@
 }
 
 @media (hover: hover) {
-  .summoners .list > .sum > button[data-v-70a93f67]:hover {
+  .summoners .list > .sum > button:hover {
     --sumBorder: var(--gold-lol);
   }
 }
 
 @media (max-width: 680px) {
-  .shards[data-v-5f2eb625] {
+  .shards {
     margin-top: 1em;
     grid-area: 5/1;
   }
 }
 
 @media (hover: hover) {
-  .shards > .shard > button.row[data-v-5f2eb625]:hover {
+  .shards > .shard > button.row:hover {
     --shardFilter: grayscale(0);
   }
 }
 
 @media (max-width: 680px) {
-  .runes[data-v-7b108f5e] {
+  .runes {
     grid-area: 2/1;
   }
 
-  .runes[data-v-7b108f5e]:nth-child(4) {
+  .runes:nth-child(4) {
     grid-area: 4/1;
   }
 }
 
 @media (max-width: 680px) {
-  .runes > .rune.slot-1-pos-0[data-v-7b108f5e] {
+  .runes > .rune.slot-1-pos-0 {
     display: none;
   }
 }
 
 @media (hover: hover) {
-  .runes > .rune > button[data-v-7b108f5e]:hover {
+  .runes > .rune > button:hover {
     --runeBorder: var(--gold-lol);
   }
 }
 @media (max-width: 680px) {
-  .runesPage > .wrap[data-v-c83b00c2] {
+  .runesPage > .wrap {
     grid-template-columns: min-content;
     place-content: center;
     margin-top: 0.5em;
@@ -552,35 +546,35 @@
   }
 }
 @media (max-width: 680px) {
-  .runesPage > .wrap .path[data-v-c83b00c2] {
+  .runesPage > .wrap .path {
     grid-area: 1/1;
   }
 
-  .runesPage > .wrap .path[data-v-c83b00c2]:nth-child(2) {
+  .runesPage > .wrap .path:nth-child(2) {
     grid-area: 3/1;
     margin-top: 1em;
   }
 }
 
 @media (hover: hover) {
-  .runesPage > .wrap .path > .rune[data-v-c83b00c2]:hover {
+  .runesPage > .wrap .path > .rune:hover {
     --runeBorder: var(--gold-lol);
   }
 }
 
 @media (max-width: 680px) {
-  .runesPage > .wrap .path > .rune.disabled[data-v-c83b00c2] {
+  .runesPage > .wrap .path > .rune.disabled {
     display: none;
   }
 }
 @media (hover: hover) {
-  button[data-v-27037513]:hover {
+  button:hover {
     background-color: var(--slate-5);
   }
 }
 
 @media (max-width: 1000px) {
-  .picks[data-v-63d61340] {
+  .picks {
     max-width: 21.2em;
     position: fixed;
     padding: 0 1em;
@@ -591,7 +585,7 @@
   }
 }
 @media (max-width: 1000px) {
-  .picks .list[data-v-63d61340] {
+  .picks .list {
     box-shadow: var(--black) 0 0 10px 4px;
     border: 1px solid var(--slate-4);
     background-color: var(--black);
@@ -600,107 +594,107 @@
 }
 
 @media (max-width: 1000px) {
-  .picks .list[data-v-63d61340]:before {
+  .picks .list:before {
     display: none;
   }
 }
 
 @media (max-width: 500px) {
-  .randomizer > .sheet[data-v-470f51ae] {
+  .randomizer > .sheet {
     --sheetSize: 13;
   }
 }
 
 @media (max-width: 1000px) {
-  .item-page > .wrap[data-v-f3b62e78] {
+  .item-page > .wrap {
     place-items: center;
   }
 }
 
 @media (max-width: 700px) {
-  .item-page > .wrap[data-v-f3b62e78] {
+  .item-page > .wrap {
     padding: 1.2em;
     gap: 1em 2em;
   }
 }
 
 @media (max-width: 1000px) {
-  .item-page > .wrap > .header[data-v-f3b62e78] {
+  .item-page > .wrap > .header {
     grid-area: 1/1 / auto/-1;
   }
 }
 
 @media (max-width: 700px) {
-  .item-page > .wrap > .header[data-v-f3b62e78] {
+  .item-page > .wrap > .header {
     font-size: 13px;
   }
 }
 
 @media (max-width: 1000px) {
-  .item-page > .wrap .body[data-v-f3b62e78] {
+  .item-page > .wrap .body {
     grid-area: 2/1 / auto/-1;
     max-width: 100%;
   }
 }
 
 @media (max-width: 700px) {
-  .item-page > .wrap .body[data-v-f3b62e78] {
+  .item-page > .wrap .body {
     font-size: 14px;
   }
 }
 
 @media (hover: hover) {
-  .item-page > .wrap .body .wiki a[data-v-f3b62e78]:hover {
+  .item-page > .wrap .body .wiki a:hover {
     color: var(--sand-3);
   }
 }
 @media (max-width: 1000px) {
-  .item-page > .wrap .side[data-v-f3b62e78] {
+  .item-page > .wrap .side {
     grid-area: 3/1 / auto/-1;
     margin-top: 1em;
   }
 }
 
 @media (max-width: 500px) {
-  .item-page > .wrap .side[data-v-f3b62e78] {
+  .item-page > .wrap .side {
     --gap: 6px 4px;
     --itemSize: 2.3em;
   }
 }
 
 @media (max-width: 1000px) {
-  .item-page > .wrap .build[data-v-f3b62e78] {
+  .item-page > .wrap .build {
     margin-top: 1em;
   }
 }
 
 @media (max-width: 700px) {
-  .item-page > .wrap .build[data-v-f3b62e78] {
+  .item-page > .wrap .build {
     font-size: 13px;
   }
 }
 @media (max-width: 500px) {
-  .builds[data-v-6c16e881] {
+  .builds {
     --sheetSize: 12;
   }
 }
 @media (max-width: 1000px) {
-  .builds .settings[data-v-6c16e881] {
+  .builds .settings {
     display: none;
   }
 }
 @media (max-width: 500px) {
-  .err .text[data-v-a1902453] {
+  .err .text {
     font-size: 1em;
   }
 }
 @media (max-width: 1000px) {
-  .build > .wrap[data-v-50f7288e] {
+  .build > .wrap {
     grid-template-columns: min-content;
   }
 }
 @media (max-width: 1000px) {
-  .build > .wrap > .sheet[data-v-50f7288e] {
+  .build > .wrap > .sheet {
     text-align: center;
     position: relative;
     grid-area: unset;
@@ -710,82 +704,82 @@
 }
 
 @media (max-width: 500px) {
-  .build > .wrap > .sheet[data-v-50f7288e] {
+  .build > .wrap > .sheet {
     --sheetSize: 14;
   }
 }
 
 @media (max-width: 1000px) {
-  .build > .wrap .hue[data-v-50f7288e] {
+  .build > .wrap .hue {
     grid-area: unset;
     margin-top: 0;
   }
 }
 
 @media (max-width: 1000px) {
-  .build > .wrap .hue input[data-v-50f7288e] {
+  .build > .wrap .hue input {
     --s: 1.1em;
   }
 }
 
 @media (max-width: 1000px) {
-  .build > .wrap .actions[data-v-50f7288e] {
+  .build > .wrap .actions {
     place-content: center;
     grid-area: unset;
     margin-top: 0;
   }
 }
 @media (max-width: 1000px) {
-  .build > .wrap .actions .image[data-v-50f7288e] {
+  .build > .wrap .actions .image {
     place-content: center;
     grid-area: unset;
   }
 }
 
 @media (max-width: 1000px) {
-  .build > .wrap .actions .rest[data-v-50f7288e] {
+  .build > .wrap .actions .rest {
     place-content: center;
   }
 }
 @media (max-width: 1000px) {
-  .build > .wrap > .stats[data-v-50f7288e] {
+  .build > .wrap > .stats {
     place-content: center;
     grid-area: unset;
   }
 }
 
 @media (max-width: 500px) {
-  .build > .wrap > .stats[data-v-50f7288e] {
+  .build > .wrap > .stats {
     display: none;
   }
 }
 
 @media (hover: hover) {
-  .build > .wrap > .stats > .pro[data-v-50f7288e]:hover {
+  .build > .wrap > .stats > .pro:hover {
     filter: brightness(1.2);
   }
 }
 
 @media (max-width: 1000px) {
-  .build > .wrap > .stats > .pro[data-v-50f7288e] {
+  .build > .wrap > .stats > .pro {
     display: none;
   }
 }
 @media (max-width: 1000px) {
-  .build > .sheet[data-v-b6709614] {
+  .build > .sheet {
     grid-area: 4/1 / auto/-1;
     place-self: center;
     --sheetSize: 14;
     display: none;
   }
 
-  .build > .sheet.info[data-v-b6709614] {
+  .build > .sheet.info {
     display: block;
   }
 }
 
 @media (max-width: 1000px) {
-  .build .extra[data-v-b6709614] {
+  .build .extra {
     grid-area: 3/1 / auto/-1;
     position: relative;
     margin-bottom: 2em;
@@ -794,98 +788,98 @@
 }
 
 @media (max-width: 1000px) {
-  .items-page > .grid[data-v-5070127f] {
+  .items-page > .grid {
     grid-template-columns: 1fr;
   }
 }
 
 @media (max-width: 1000px) {
-  .items-page > .grid .side[data-v-5070127f] {
+  .items-page > .grid .side {
     display: none;
   }
 }
 
 @media not (max-width: 1000px) {
-  .items-page > .grid .items[data-v-5070127f] .grid .search,
-  .items-page > .grid .items[data-v-5070127f] .grid .filter {
+  .items-page > .grid .items .grid .search,
+  .items-page > .grid .items .grid .filter {
     display: none;
   }
 }
 @media (max-width: 500px) {
-  .info form .desc[data-v-af89f54e] {
+  .info form .desc {
     width: 100%;
   }
 }
 @media (max-width: 500px) {
-  .info form label[data-v-af89f54e] {
+  .info form label {
     width: 255px;
   }
 }
 @media (max-width: 600px) {
-  .home .hero .intro[data-v-f1118c6f] {
+  .home .hero .intro {
     font-size: 12px;
   }
 }
 @media (max-width: 600px) {
-  .home .builds[data-v-f1118c6f] {
+  .home .builds {
     --sheetSize: 12;
     font-size: calc(var(--sheetSize) * 1px);
   }
 }
 
 @media (max-width: 400px) {
-  .home .builds[data-v-f1118c6f] {
+  .home .builds {
     --sheetSize: 10;
     font-size: calc(var(--sheetSize) * 1px);
   }
 }
 
 @media (max-width: 374px) {
-  .home .builds[data-v-f1118c6f] {
+  .home .builds {
     padding: 0;
   }
 }
 @media (max-width: 374px) {
-  .home .builds > .wrap .build[data-v-f1118c6f]:nth-child(1) {
+  .home .builds > .wrap .build:nth-child(1) {
     display: none;
   }
 }
 @media (max-width: 374px) {
-  .home .builds > .wrap .build[data-v-f1118c6f]:nth-child(2) {
+  .home .builds > .wrap .build:nth-child(2) {
     display: none;
   }
 }
 @media (max-width: 374px) {
-  .home .builds > .wrap .build[data-v-f1118c6f]:nth-child(3) {
+  .home .builds > .wrap .build:nth-child(3) {
     position: relative;
     right: 0;
     top: 0;
   }
 }
 @media (hover: hover) {
-  .accord > .split > .otps .otp[data-v-df4f914a]:hover {
+  .accord > .split > .otps .otp:hover {
     color: var(--slate-2);
   }
 }
 
 @media (max-width: 1084px) {
-  .stats[data-v-6189e891] {
+  .stats {
     display: none;
   }
 }
 @media (hover: hover) {
-  .stats .line[data-v-6189e891]:hover {
+  .stats .line:hover {
     background-color: var(--slate-6);
   }
 }
 @media (max-width: 1120px) {
-  .filter[data-v-3202da8d] {
+  .filter {
     width: 14em;
   }
 }
 
 @media (max-width: 1084px) {
-  .filter[data-v-3202da8d] {
+  .filter {
     position: static;
     display: flex;
     width: 100%;
@@ -893,47 +887,43 @@
 }
 
 @media (max-width: 1084px) {
-  .filter > .search[data-v-3202da8d] {
+  .filter > .search {
     margin-bottom: -0.5em;
     grid-area: 1/1/2/3;
     place-self: center;
   }
 }
 @media (max-width: 1084px) {
-  .filter .blocks[data-v-3202da8d] {
+  .filter .blocks {
     place-content: center;
     flex-direction: row;
     gap: 0.75em;
   }
 }
 @media (max-width: 1084px) {
-  .filter .blocks .block[data-v-3202da8d] {
+  .filter .blocks .block {
     display: contents;
   }
 }
 @media (max-width: 1084px) {
-  .filter .blocks .block .title[data-v-3202da8d] {
+  .filter .blocks .block .title {
     display: none;
   }
 }
 
 @media (max-width: 1084px) {
-  .filter .blocks .block .list[data-v-3202da8d] {
+  .filter .blocks .block .list {
     display: contents;
   }
 }
 @media (min-width: 1085px) {
-  .filter .blocks .block .list .item[data-v-3202da8d]:last-child {
+  .filter .blocks .block .list .item:last-child {
     margin-bottom: 0;
   }
 }
 
 @media (hover: hover) {
-  .filter
-    .blocks
-    .block
-    .list
-    .item[data-v-3202da8d]:has(> .link:hover:not(.disabled)) {
+  .filter .blocks .block .list .item:has(> .link:hover:not(.disabled)) {
     background-color: var(--slate-6);
   }
 
@@ -942,76 +932,76 @@
     .block
     .list
     .item:has(> .link:hover:not(.disabled))
-    > .roles[data-v-3202da8d] {
+    > .roles {
     background-color: var(--slate-6);
   }
 }
 
 @media (max-width: 1084px) {
-  .filter .blocks .block .list .item[data-v-3202da8d]:nth-child(n + 3) {
+  .filter .blocks .block .list .item:nth-child(n + 3) {
     display: none;
   }
 }
 
 @media (max-width: 700px) {
-  .filter .blocks .block .list .item[data-v-3202da8d]:nth-child(n + 2) {
+  .filter .blocks .block .list .item:nth-child(n + 2) {
     display: none;
   }
 }
 
 @media (max-width: 1084px) {
-  .filter .blocks .block .list .item .link[data-v-3202da8d] {
+  .filter .blocks .block .list .item .link {
     padding: 0.4em 0.75em;
     width: auto;
   }
 }
 
 @media (max-width: 1084px) {
-  .filter .blocks .block .list .item .link .tag[data-v-3202da8d] {
+  .filter .blocks .block .list .item .link .tag {
     display: none;
   }
 }
 
 @media (max-width: 1084px) {
-  .filter .blocks .block .list .item .roles[data-v-3202da8d] {
+  .filter .blocks .block .list .item .roles {
     display: none;
   }
 }
 @media (hover: hover) {
-  .filter .blocks .block .list .item .roles .role[data-v-3202da8d]:hover {
+  .filter .blocks .block .list .item .roles .role:hover {
     background-color: var(--slate-5);
   }
 }
 @media (hover: hover) {
-  .player > .line[data-v-c46e3cdc]:hover {
+  .player > .line:hover {
     background-color: var(--slate-6);
   }
 }
 
 @media (hover: hover) {
-  .player > .line .add[data-v-c46e3cdc]:hover {
+  .player > .line .add:hover {
     background-color: var(--slate-5);
   }
 }
 @media (hover: hover) {
-  .build .pro .name a[data-v-00f8c08d]:hover {
+  .build .pro .name a:hover {
     border-color: var(--slate-1);
   }
 }
 
 @media (max-width: 828px) {
-  .builds[data-v-890e5e06] {
+  .builds {
     width: 480px;
   }
 }
 
 @media (max-width: 550px) {
-  .builds[data-v-890e5e06] {
+  .builds {
     width: 312px;
   }
 }
 @media (max-width: 1084px) {
-  .grid[data-v-f820739c] {
+  .grid {
     flex-direction: column;
     align-items: center;
     display: flex;
@@ -1019,7 +1009,7 @@
 }
 
 @media (max-width: 1084px) {
-  .grid .empty[data-v-f820739c] {
+  .grid .empty {
     position: relative;
     font-size: 0.8em;
     top: 0.5em;
@@ -1027,18 +1017,18 @@
 }
 
 @media (max-width: 700px) {
-  .header[data-v-7cc930f8] {
+  .header {
     font-size: 15px;
   }
 }
 @media (hover: hover) {
-  .header a[data-v-7cc930f8]:hover {
+  .header a:hover {
     text-decoration: underline;
   }
 }
 
 @media (max-width: 1000px) {
-  .app .terms[data-v-f21e856a] {
+  .app .terms {
     text-align: center;
     display: none;
     margin: 1em 0;

@@ -1,0 +1,6 @@
+.itemsPage .filter-items {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5em;
+  margin-bottom: 1em;
+}

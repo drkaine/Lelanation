@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import { ref, computed, watch, onBeforeUnmount } from 'vue'
 import { TooltipCoordonne } from '../script/TooltipCoordonne'
 import items from '@/assets/files/data/item.json'
 import ItemTooltip from '@/components/Tooltip/ItemTooltip.vue'
@@ -37,22 +37,38 @@ const toggleTag = (tag: string) => {
   }
 }
 
+const searchQuery = ref('')
+const debouncedSearch = ref('')
+
+watch(searchQuery, newValue => {
+  const timeoutId = setTimeout(() => {
+    debouncedSearch.value = newValue.toLowerCase()
+  }, 300)
+
+  onBeforeUnmount(() => clearTimeout(timeoutId))
+})
+
 const filteredItems = computed<Item[]>(() => {
-  if (selectedTags.value.length === 0) {
-    return Object.values(items.data).filter(
-      (item: Item) =>
-        item.maps['11'] === true &&
-        item.gold?.purchasable === true &&
-        item.gold.total > 0,
-    )
-  }
-  return Object.values(items.data).filter(
+  let filtered = Object.values(items.data).filter(
     (item: Item) =>
-      selectedTags.value.every(tag => item.tags.includes(tag)) &&
       item.maps['11'] === true &&
       item.gold?.purchasable === true &&
       item.gold.total > 0,
   )
+
+  if (selectedTags.value.length > 0) {
+    filtered = filtered.filter((item: Item) =>
+      selectedTags.value.every(tag => item.tags.includes(tag)),
+    )
+  }
+
+  if (debouncedSearch.value) {
+    filtered = filtered.filter((item: Item) =>
+      item.name.toLowerCase().includes(debouncedSearch.value),
+    )
+  }
+
+  return filtered
 })
 
 const getItemsFrom = (item: Item): Item[] => {
@@ -125,27 +141,19 @@ const itemsLegendary = computed<Item[]>(() =>
 </script>
 
 <template>
-  <div data-v-6a781413="" data-v-b6709614="" class="items-page">
-    <div data-v-72110c46="" data-v-6a781413="" class="grid small">
-      <div data-v-72110c46="" class="search">
-        <form data-v-6a781413="">
-          <label class="small">
-            <input placeholder="Search" type="search" />
-          </label>
-        </form>
-      </div>
-      <div data-v-72110c46="" class="filter">
+  <div class="itemsPage">
+    <div class="search">
+      <input
+        type="search"
+        v-model="searchQuery"
+        placeholder="Rechercher un objet..."
+        class="search-input"
+      />
+    </div>
+    <div class="list">
+      <div class="filter-items">
+        <button @click="toggleTag('all')">Tous</button>
         <button
-          data-v-27037513=""
-          data-v-6a781413=""
-          class=""
-          @click="toggleTag('all')"
-        >
-          Tous
-        </button>
-        <button
-          data-v-27037513=""
-          data-v-6a781413=""
           :class="{
             active: selectedTags.includes('Damage'),
           }"
@@ -154,8 +162,6 @@ const itemsLegendary = computed<Item[]>(() =>
           Attack Damage
         </button>
         <button
-          data-v-27037513=""
-          data-v-6a781413=""
           :class="{
             active: selectedTags.includes('CriticalStrike'),
           }"
@@ -164,8 +170,6 @@ const itemsLegendary = computed<Item[]>(() =>
           Critical Strike
         </button>
         <button
-          data-v-27037513=""
-          data-v-6a781413=""
           :class="{
             active: selectedTags.includes('AttackSpeed'),
           }"
@@ -174,8 +178,6 @@ const itemsLegendary = computed<Item[]>(() =>
           Attack Speed
         </button>
         <button
-          data-v-27037513=""
-          data-v-6a781413=""
           :class="{
             active: selectedTags.includes('OnHit'),
           }"
@@ -184,8 +186,6 @@ const itemsLegendary = computed<Item[]>(() =>
           On-Hit
         </button>
         <button
-          data-v-27037513=""
-          data-v-6a781413=""
           :class="{
             active: selectedTags.includes('ArmorPenetration'),
           }"
@@ -194,8 +194,6 @@ const itemsLegendary = computed<Item[]>(() =>
           Armor Pen
         </button>
         <button
-          data-v-27037513=""
-          data-v-6a781413=""
           :class="{
             active: selectedTags.includes('SpellDamage'),
           }"
@@ -204,8 +202,6 @@ const itemsLegendary = computed<Item[]>(() =>
           Ability Power
         </button>
         <button
-          data-v-27037513=""
-          data-v-6a781413=""
           :class="{
             active: selectedTags.includes('Mana'),
           }"
@@ -214,8 +210,6 @@ const itemsLegendary = computed<Item[]>(() =>
           Mana
         </button>
         <button
-          data-v-27037513=""
-          data-v-6a781413=""
           :class="{
             active: selectedTags.includes('ManaRegen'),
           }"
@@ -224,8 +218,6 @@ const itemsLegendary = computed<Item[]>(() =>
           Mana Regen
         </button>
         <button
-          data-v-27037513=""
-          data-v-6a781413=""
           :class="{
             active: selectedTags.includes('MagicPenetration'),
           }"
@@ -234,8 +226,6 @@ const itemsLegendary = computed<Item[]>(() =>
           Magic Pen
         </button>
         <button
-          data-v-27037513=""
-          data-v-6a781413=""
           :class="{
             active: selectedTags.includes('Health'),
           }"
@@ -244,8 +234,6 @@ const itemsLegendary = computed<Item[]>(() =>
           Health
         </button>
         <button
-          data-v-27037513=""
-          data-v-6a781413=""
           :class="{
             active: selectedTags.includes('HealthRegen'),
           }"
@@ -254,8 +242,6 @@ const itemsLegendary = computed<Item[]>(() =>
           Health Regen
         </button>
         <button
-          data-v-27037513=""
-          data-v-6a781413=""
           :class="{
             active: selectedTags.includes('Armor'),
           }"
@@ -264,8 +250,6 @@ const itemsLegendary = computed<Item[]>(() =>
           Armor
         </button>
         <button
-          data-v-27037513=""
-          data-v-6a781413=""
           :class="{
             active: selectedTags.includes('SpellBlock'),
           }"
@@ -274,8 +258,6 @@ const itemsLegendary = computed<Item[]>(() =>
           Magic Resist
         </button>
         <button
-          data-v-27037513=""
-          data-v-6a781413=""
           :class="{
             active: selectedTags.includes('AbilityHaste'),
           }"
@@ -284,8 +266,6 @@ const itemsLegendary = computed<Item[]>(() =>
           Ability Haste
         </button>
         <button
-          data-v-27037513=""
-          data-v-6a781413=""
           :class="{
             active: selectedTags.includes('NonbootsMovement'),
           }"
@@ -294,8 +274,6 @@ const itemsLegendary = computed<Item[]>(() =>
           Movement
         </button>
         <button
-          data-v-27037513=""
-          data-v-6a781413=""
           :class="{
             active: selectedTags.includes('LifeSteal'),
           }"
@@ -304,8 +282,6 @@ const itemsLegendary = computed<Item[]>(() =>
           Life Steal
         </button>
         <button
-          data-v-27037513=""
-          data-v-6a781413=""
           :class="{
             active: selectedTags.includes('SpellVamp'),
           }"
@@ -314,8 +290,6 @@ const itemsLegendary = computed<Item[]>(() =>
           Omnivamp
         </button>
         <button
-          data-v-27037513=""
-          data-v-6a781413=""
           :class="{
             active: selectedTags.includes('Consumable'),
           }"
@@ -323,28 +297,22 @@ const itemsLegendary = computed<Item[]>(() =>
         >
           Consommable
         </button>
+        <button
+          :class="{
+            active: selectedTags.includes('all'),
+          }"
+          @click="toggleTag('all')"
+        >
+          Tous
+        </button>
       </div>
-      <div data-v-72110c46="" class="divider"></div>
-      <div
-        data-v-72110c46=""
-        class="group small"
-        v-if="itemsStarter.length > 0"
-      >
+      <div class="divider"></div>
+      <div class="group small" v-if="itemsStarter.length > 0">
         Starter items
       </div>
-      <div
-        data-v-354b7b55=""
-        data-v-7ab6e59a=""
-        data-v-85ffd0f2=""
-        data-v-72110c46=""
-        class="tip"
-        v-for="(item, index) in itemsStarter"
-        :key="index"
-      >
-        <div data-v-cbff5ddf="" data-v-354b7b55="" class="tooltip">
+      <div class="tip" v-for="(item, index) in itemsStarter" :key="index">
+        <div class="tooltip">
           <button
-            data-v-7ab6e59a=""
-            data-v-cbff5ddf-s=""
             to="false"
             :class="{
               selected: itemStore.ItemsSelection.core?.includes(item),
@@ -357,19 +325,16 @@ const itemsLegendary = computed<Item[]>(() =>
             @mouseleave="resetMousePosition"
           >
             <img
-              data-v-7ab6e59a=""
-              data-v-cbff5ddf-s=""
               class="img"
               :src="`/assets/icons/items/${item.image.full}`"
               :alt="item.name"
             />
 
-            <div data-v-7ab6e59a="" data-v-cbff5ddf-s="" class="text">
+            <div class="text">
               {{ item.gold.total }}
             </div>
           </button>
           <div
-            data-v-cbff5ddf=""
             class="box"
             :style="{
               position: 'absolute',
@@ -385,23 +350,11 @@ const itemsLegendary = computed<Item[]>(() =>
           </div>
         </div>
       </div>
-      <div data-v-72110c46="" class="divider"></div>
-      <div data-v-72110c46="" class="group small" v-if="itemsBasic.length > 0">
-        Basic items
-      </div>
-      <div
-        data-v-354b7b55=""
-        data-v-7ab6e59a=""
-        data-v-85ffd0f2=""
-        data-v-72110c46=""
-        class="tip"
-        v-for="(item, index) in itemsBasic"
-        :key="index"
-      >
-        <div data-v-cbff5ddf="" data-v-354b7b55="" class="tooltip">
+      <div class="divider"></div>
+      <div class="group small" v-if="itemsBasic.length > 0">Basic items</div>
+      <div class="tip" v-for="(item, index) in itemsBasic" :key="index">
+        <div class="tooltip">
           <button
-            data-v-7ab6e59a=""
-            data-v-cbff5ddf-s=""
             to="false"
             :class="{
               selected: itemStore.ItemsSelection.core?.includes(item),
@@ -414,19 +367,16 @@ const itemsLegendary = computed<Item[]>(() =>
             @mouseleave="resetMousePosition"
           >
             <img
-              data-v-7ab6e59a=""
-              data-v-cbff5ddf-s=""
               class="img"
               :src="`/assets/icons/items/${item.image.full}`"
               :alt="item.name"
             />
 
-            <div data-v-7ab6e59a="" data-v-cbff5ddf-s="" class="text">
+            <div class="text">
               {{ item.gold.total }}
             </div>
           </button>
           <div
-            data-v-cbff5ddf=""
             class="box"
             :style="{
               position: 'absolute',
@@ -443,23 +393,11 @@ const itemsLegendary = computed<Item[]>(() =>
         </div>
       </div>
 
-      <div data-v-72110c46="" class="divider"></div>
-      <div data-v-72110c46="" class="group small" v-if="itemsBoots.length > 0">
-        Boots items
-      </div>
-      <div
-        data-v-354b7b55=""
-        data-v-7ab6e59a=""
-        data-v-85ffd0f2=""
-        data-v-72110c46=""
-        class="tip"
-        v-for="(item, index) in itemsBoots"
-        :key="index"
-      >
-        <div data-v-cbff5ddf="" data-v-354b7b55="" class="tooltip">
+      <div class="divider"></div>
+      <div class="group small" v-if="itemsBoots.length > 0">Boots items</div>
+      <div class="tip" v-for="(item, index) in itemsBoots" :key="index">
+        <div class="tooltip">
           <button
-            data-v-7ab6e59a=""
-            data-v-cbff5ddf-s=""
             to="false"
             :class="{
               selected: itemStore.ItemsSelection.core?.includes(item),
@@ -472,19 +410,16 @@ const itemsLegendary = computed<Item[]>(() =>
             @mouseleave="resetMousePosition"
           >
             <img
-              data-v-7ab6e59a=""
-              data-v-cbff5ddf-s=""
               class="img"
               :src="`/assets/icons/items/${item.image.full}`"
               :alt="item.name"
             />
 
-            <div data-v-7ab6e59a="" data-v-cbff5ddf-s="" class="text">
+            <div class="text">
               {{ item.gold.total }}
             </div>
           </button>
           <div
-            data-v-cbff5ddf=""
             class="box"
             :style="{
               position: 'absolute',
@@ -500,24 +435,16 @@ const itemsLegendary = computed<Item[]>(() =>
           </div>
         </div>
       </div>
-      <div data-v-72110c46="" class="divider"></div>
-      <div data-v-72110c46="" class="group small" v-if="itemsEpic.length > 0">
-        Epic items
-      </div>
+      <div class="divider"></div>
+      <div class="group small" v-if="itemsEpic.length > 0">Epic items</div>
       <div
-        data-v-354b7b55=""
-        data-v-7ab6e59a=""
-        data-v-85ffd0f2=""
-        data-v-72110c46=""
         class="tip"
         v-for="(item, index) in itemsEpic"
         :key="index"
         @click="selectItem(item)"
       >
-        <div data-v-cbff5ddf="" data-v-354b7b55="" class="tooltip">
+        <div class="tooltip">
           <button
-            data-v-7ab6e59a=""
-            data-v-cbff5ddf-s=""
             to="false"
             :class="{
               selected: itemStore.ItemsSelection.core?.includes(item),
@@ -529,19 +456,16 @@ const itemsLegendary = computed<Item[]>(() =>
             @mouseleave="resetMousePosition"
           >
             <img
-              data-v-7ab6e59a=""
-              data-v-cbff5ddf-s=""
               class="img"
               :src="`/assets/icons/items/${item.image.full}`"
               :alt="item.name"
             />
 
-            <div data-v-7ab6e59a="" data-v-cbff5ddf-s="" class="text">
+            <div class="text">
               {{ item.gold.total }}
             </div>
           </button>
           <div
-            data-v-cbff5ddf=""
             class="box"
             :style="{
               position: 'absolute',
@@ -557,27 +481,13 @@ const itemsLegendary = computed<Item[]>(() =>
           </div>
         </div>
       </div>
-      <div data-v-72110c46="" class="divider"></div>
-      <div
-        data-v-72110c46=""
-        class="group small"
-        v-if="itemsLegendary.length > 0"
-      >
+      <div class="divider"></div>
+      <div class="group small" v-if="itemsLegendary.length > 0">
         Legendary items
       </div>
-      <div
-        data-v-354b7b55=""
-        data-v-7ab6e59a=""
-        data-v-85ffd0f2=""
-        data-v-72110c46=""
-        class="tip"
-        v-for="(item, index) in itemsLegendary"
-        :key="index"
-      >
-        <div data-v-cbff5ddf="" data-v-354b7b55="" class="tooltip">
+      <div class="tip" v-for="(item, index) in itemsLegendary" :key="index">
+        <div class="tooltip">
           <button
-            data-v-7ab6e59a=""
-            data-v-cbff5ddf-s=""
             to="false"
             replace="false"
             :class="{
@@ -590,19 +500,16 @@ const itemsLegendary = computed<Item[]>(() =>
             @mouseleave="resetMousePosition"
           >
             <img
-              data-v-7ab6e59a=""
-              data-v-cbff5ddf-s=""
               class="img"
               :src="`/assets/icons/items/${item.image.full}`"
               :alt="item.name"
             />
 
-            <div data-v-7ab6e59a="" data-v-cbff5ddf-s="" class="text">
+            <div class="text">
               {{ item.gold.total }}
             </div>
           </button>
           <div
-            data-v-cbff5ddf=""
             class="box"
             :style="{
               position: 'absolute',
@@ -618,7 +525,7 @@ const itemsLegendary = computed<Item[]>(() =>
           </div>
         </div>
       </div>
-      <div data-v-72110c46="" class="divider"></div>
+      <div class="divider"></div>
     </div>
   </div>
 </template>
