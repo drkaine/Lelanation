@@ -9,6 +9,10 @@
   --font-size-small: 0.625rem;
   --font-size-medium: 0.75rem;
   --font-size-large: 0.875rem;
+  --small-size-mobile: 24px;
+  --small-size-desktop: 36px;
+  --selector-item-size-mobile: 28px;
+  --selector-item-size-desktop: 48px;
 }
 
 /* Base Layout */
@@ -45,7 +49,6 @@
   position: relative;
 }
 
-/* Header */
 .header-icon {
   width: var(--keystone-size-mobile);
   height: var(--keystone-size-mobile);
@@ -1446,6 +1449,65 @@
 }
 
 @media (min-width: 768px) {
+  .summoner-selector {
+    left: calc(5.5%) !important;
+    top: calc(93%) !important;
+  }
+
+  .summoner-selector .rune-option {
+    width: var(--selector-item-size-desktop);
+    height: var(--selector-item-size-desktop);
+  }
+  .secondary-selector {
+    position: fixed;
+    left: 50% !important;
+    top: 50% !important;
+    transform: translate(-50%, -50%) !important;
+    margin: 0;
+    z-index: 1000;
+  }
+
+  .stat-shards {
+    gap: var(--spacing-desktop);
+  }
+  .summoner-slot .rune-slot,
+  .shard-tier .rune-slot {
+    width: var(--selector-item-size-desktop);
+    height: var(--selector-item-size-desktop);
+  }
+  .summoner-spells {
+    gap: var(--spacing-desktop);
+    margin-top: var(--spacing-desktop);
+  }
+
+  .summoner-slot {
+    gap: var(--spacing-desktop);
+  }
+  .keystone-option {
+    width: var(--keystone-size-desktop);
+    height: var(--keystone-size-desktop);
+  }
+
+  .keystone-slot {
+    width: var(--keystone-size-desktop);
+    height: var(--keystone-size-desktop);
+  }
+
+  .keystone-icon {
+    width: var(--keystone-size-desktop);
+    height: var(--keystone-size-desktop);
+  }
+
+  .runes-selector .keystone-option {
+    width: var(--rune-size-desktop);
+    height: var(--rune-size-desktop);
+  }
+
+  .runes-selector .keystone-icon {
+    width: var(--rune-size-desktop);
+    height: var(--rune-size-desktop);
+  }
+
   .runes-selector.shard-selector {
     left: calc(96%);
   }
@@ -1480,13 +1542,13 @@
   }
 
   .rune-option {
-    width: var(--rune-size-desktop);
-    height: var(--rune-size-desktop);
+    width: var(--selector-item-size-desktop);
+    height: var(--selector-item-size-desktop);
   }
 
   .rune-slot {
-    width: var(--rune-size-desktop);
-    height: var(--rune-size-desktop);
+    width: var(--selector-item-size-desktop);
+    height: var(--selector-item-size-desktop);
   }
 
   .rune-description {
@@ -1494,21 +1556,6 @@
   }
 
   .rune-tier {
-    gap: var(--spacing-desktop);
-  }
-}
-
-@media (max-width: 767px) {
-  .secondary-selector {
-    position: fixed;
-    left: 50% !important;
-    top: 50% !important;
-    transform: translate(-50%, -50%) !important;
-    margin: 0;
-    z-index: 1000;
-  }
-
-  .stat-shards {
     gap: var(--spacing-desktop);
   }
 }
@@ -1828,30 +1875,148 @@
   height: var(--rune-size-mobile);
 }
 
-/* Desktop */
+.rune-used {
+  opacity: 0.5;
+}
+
+.rune-option.active {
+  opacity: 1;
+}
+
+.summoner-spells {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-mobile);
+  margin-top: var(--spacing-mobile);
+
+  .summoner-slot {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-mobile);
+
+    .rune-slot {
+      width: var(--small-size-mobile);
+      height: var(--small-size-mobile);
+      border: 1px solid var(--gold-lol);
+      border-radius: 4px;
+      padding: 2px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 2px;
+      }
+    }
+  }
+}
+
+.summoner-selector {
+  position: absolute;
+  background: var(--base-dark);
+  border: 1px solid var(--gold-lol);
+  border-radius: 4px;
+  padding: 8px;
+  z-index: 1000;
+
+  .rune-options-container {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 4px;
+    max-height: 200px;
+    overflow-y: auto;
+  }
+
+  .rune-option {
+    width: var(--selector-item-size-mobile);
+    height: var(--selector-item-size-mobile);
+    border: 1px solid transparent;
+    border-radius: 4px;
+    padding: 2px;
+    transition: border-color 0.2s ease;
+
+    &:hover {
+      border-color: var(--gold-lol);
+    }
+
+    &.selected {
+      border-color: var(--gold-lol);
+      background: var(--final-blue);
+    }
+
+    &.used {
+      opacity: 0.5;
+    }
+
+    img {
+      width: 100%;
+      height: 100%;
+      border-radius: 2px;
+      object-fit: cover;
+    }
+  }
+}
+
+@media (max-width: 767px) {
+  .column-header {
+    margin-bottom: 0.1rem;
+  }
+
+  .runes-selector {
+    left: calc(14%);
+  }
+
+  .summoner-selector {
+    position: fixed;
+    left: 75% !important;
+    top: 50% !important;
+    transform: translate(-50%, -50%) !important;
+    width: 90vw;
+    max-width: 300px;
+
+    .rune-options-container {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+
+  .shard-selector {
+    left: calc(98%) !important;
+  }
+
+  .wrap {
+    gap: 20px;
+  }
+
+  .runesPage {
+    max-width: 200px;
+  }
+}
+
 @media (min-width: 768px) {
-  .keystone-option {
-    width: var(--keystone-size-desktop);
-    height: var(--keystone-size-desktop);
+  .summoner-spells {
+    gap: var(--spacing-desktop);
+    margin-top: var(--spacing-desktop);
+
+    .summoner-slot {
+      gap: var(--spacing-desktop);
+
+      .rune-slot {
+        width: var(--small-size-desktop);
+        height: var(--small-size-desktop);
+      }
+    }
   }
 
-  .keystone-slot {
-    width: var(--keystone-size-desktop);
-    height: var(--keystone-size-desktop);
-  }
+  .summoner-selector {
+    left: calc(100% + 5px);
+    top: -5px;
 
-  .keystone-icon {
-    width: var(--keystone-size-desktop);
-    height: var(--keystone-size-desktop);
-  }
-
-  .runes-selector .keystone-option {
-    width: var(--rune-size-desktop);
-    height: var(--rune-size-desktop);
-  }
-
-  .runes-selector .keystone-icon {
-    width: var(--rune-size-desktop);
-    height: var(--rune-size-desktop);
+    .rune-option {
+      width: var(--selector-item-size-desktop);
+      height: var(--selector-item-size-desktop);
+    }
   }
 }

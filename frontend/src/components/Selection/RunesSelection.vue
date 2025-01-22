@@ -5,6 +5,7 @@ import summoner from '@/assets/files/data/summoner.json'
 import shards from '@/assets/files/data/shards.json'
 import { useRuneStore } from '@/stores/runeStore'
 import { useShardStore } from '@/stores/shardStore'
+import { useSummonerStore } from '@/stores/summonerStore'
 
 import type { Rune, SubRune } from '@/types/rune'
 import type { Shard, ShardColumn } from '@/types/shard'
@@ -16,11 +17,16 @@ const shardsData = ref<ShardColumn>()
 
 const runeStore = useRuneStore()
 const shardStore = useShardStore()
+const summonerStore = useSummonerStore()
 
 const filteredSecondaryRunes = computed(() =>
   runesData.value.filter(
     rune => rune.id !== runeStore.runesSelection.principal?.id,
   ),
+)
+
+const filteredSummonerSpells = computed(() =>
+  summonerData.value.filter(summoner => summoner.modes.includes('CLASSIC')),
 )
 
 const selectedRune = (
@@ -179,6 +185,40 @@ const closeSecondarySelectors = () => {
   hideTooltip()
 }
 
+const showSummonerSelector = ref(false)
+const activeSummonerIndex = ref<'principal' | 'second' | null>(null)
+
+const toggleSummonerSelector = (type: 'principal' | 'second') => {
+  if (activeSummonerIndex.value === type) {
+    showSummonerSelector.value = false
+    activeSummonerIndex.value = null
+  } else {
+    showSummonerSelector.value = true
+    activeSummonerIndex.value = type
+  }
+}
+
+const selectSummonerAndClose = (summoner: Summoner) => {
+  if (!activeSummonerIndex.value) return
+
+  const otherType =
+    activeSummonerIndex.value === 'principal' ? 'second' : 'principal'
+  const otherSummoner = summonerStore.summonerSelection[otherType]
+
+  if (otherSummoner?.id === summoner.id) {
+    summonerStore.setSummonerSelection(otherType, null)
+  }
+
+  summonerStore.setSummonerSelection(activeSummonerIndex.value, summoner)
+  showSummonerSelector.value = false
+  activeSummonerIndex.value = null
+  hideTooltip()
+}
+
+const getSelectedSummoner = (type: 'principal' | 'second') => {
+  return summonerStore.summonerSelection[type]
+}
+
 onMounted(() => {
   runesData.value = Object.values(runes)
   summonerData.value = Object.values(summoner.data)
@@ -285,6 +325,66 @@ onMounted(() => {
 
           <div class="rune-description">
             {{ getSelectedRune(index)?.name || 'Sélectionnez une rune' }}
+          </div>
+        </div>
+
+        <div class="summoner-spells">
+          <div
+            v-for="type in ['principal', 'second'] as const"
+            :key="type"
+            class="summoner-slot"
+          >
+            <div
+              class="rune-slot"
+              @click="toggleSummonerSelector(type)"
+              :class="{ selected: getSelectedSummoner(type) }"
+            >
+              <img
+                v-if="getSelectedSummoner(type)"
+                :src="`/assets/icons/summoners/${getSelectedSummoner(type)?.image.full}`"
+                :alt="getSelectedSummoner(type)?.name"
+              />
+            </div>
+
+            <div
+              v-if="showSummonerSelector && activeSummonerIndex === type"
+              class="runes-selector summoner-selector"
+            >
+              <div class="rune-options-container">
+                <button
+                  v-for="spell in filteredSummonerSpells"
+                  :key="spell.id"
+                  @click="selectSummonerAndClose(spell)"
+                  @mouseover="
+                    showTooltip(
+                      { name: spell.name, shortDesc: spell.description },
+                      $event,
+                    )
+                  "
+                  @mouseleave="hideTooltip"
+                  :class="{
+                    'rune-option': true,
+                    selected: spell.id === getSelectedSummoner(type)?.id,
+                    used:
+                      spell.id ===
+                      getSelectedSummoner(
+                        activeSummonerIndex === 'principal'
+                          ? 'second'
+                          : 'principal',
+                      )?.id,
+                  }"
+                >
+                  <img
+                    :src="`/assets/icons/summoners/${spell.image.full}`"
+                    :alt="spell.name"
+                  />
+                </button>
+              </div>
+            </div>
+
+            <div class="rune-description">
+              {{ getSelectedSummoner(type)?.name || 'Sélectionnez un sort' }}
+            </div>
           </div>
         </div>
       </div>
@@ -476,13 +576,3 @@ onMounted(() => {
     ></div>
   </div>
 </template>
-
-<style>
-.rune-used {
-  opacity: 0.5;
-}
-
-.rune-option.active {
-  opacity: 1;
-}
-</style>
