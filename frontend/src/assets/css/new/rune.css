@@ -41,7 +41,130 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(0, 0, 0, 0.5);
+  background: linear-gradient(
+    135deg,
+    color-mix(
+        in srgb,
+        var(--base-dark),
+        color-mix(in srgb, var(--black), black 40%) 0%
+      )
+      0%,
+    color-mix(
+        in srgb,
+        var(--base-dark),
+        color-mix(in srgb, var(--black), black 40%) 0%
+      )
+      5%,
+    color-mix(
+        in srgb,
+        var(--base-dark),
+        color-mix(in srgb, var(--black), black 35%) 5%
+      )
+      10%,
+    color-mix(
+        in srgb,
+        var(--base-dark),
+        color-mix(in srgb, var(--black), black 35%) 10%
+      )
+      15%,
+    color-mix(
+        in srgb,
+        var(--base-dark),
+        color-mix(in srgb, var(--black), black 30%) 15%
+      )
+      20%,
+    color-mix(
+        in srgb,
+        var(--base-dark),
+        color-mix(in srgb, var(--black), black 30%) 20%
+      )
+      25%,
+    color-mix(
+        in srgb,
+        var(--base-dark),
+        color-mix(in srgb, var(--black), black 25%) 25%
+      )
+      30%,
+    color-mix(
+        in srgb,
+        var(--base-dark),
+        color-mix(in srgb, var(--black), black 25%) 30%
+      )
+      35%,
+    color-mix(
+        in srgb,
+        var(--base-dark),
+        color-mix(in srgb, var(--black), black 20%) 35%
+      )
+      40%,
+    color-mix(
+        in srgb,
+        var(--base-dark),
+        color-mix(in srgb, var(--black), black 20%) 40%
+      )
+      45%,
+    color-mix(
+        in srgb,
+        var(--final-blue),
+        color-mix(in srgb, var(--black), black 15%) 45%
+      )
+      50%,
+    color-mix(
+        in srgb,
+        var(--final-blue),
+        color-mix(in srgb, var(--black), black 15%) 50%
+      )
+      55%,
+    color-mix(
+        in srgb,
+        var(--final-blue),
+        color-mix(in srgb, var(--black), black 10%) 55%
+      )
+      60%,
+    color-mix(
+        in srgb,
+        var(--final-blue),
+        color-mix(in srgb, var(--black), black 10%) 60%
+      )
+      65%,
+    color-mix(
+        in srgb,
+        var(--final-blue),
+        color-mix(in srgb, var(--black), black 5%) 65%
+      )
+      70%,
+    color-mix(
+        in srgb,
+        var(--final-blue),
+        color-mix(in srgb, var(--black), black 5%) 70%
+      )
+      75%,
+    color-mix(
+        in srgb,
+        var(--final-blue),
+        color-mix(in srgb, var(--black), black 0%) 75%
+      )
+      80%,
+    color-mix(
+        in srgb,
+        var(--final-blue),
+        color-mix(in srgb, var(--black), black 0%) 80%
+      )
+      85%,
+    color-mix(
+        in srgb,
+        var(--final-blue),
+        color-mix(in srgb, var(--black), black 0%) 85%
+      )
+      90%,
+    color-mix(
+        in srgb,
+        var(--final-blue),
+        color-mix(in srgb, var(--black), black 0%) 90%
+      )
+      95%,
+    var(--final-blue) 100%
+  );
 }
 
 .header-text {
@@ -76,7 +199,130 @@
   top: -30px;
   height: 30px;
   width: 2px;
-  background: var(--gold-lol);
+  background: linear-gradient(
+    135deg,
+    color-mix(
+        in srgb,
+        var(--base-dark),
+        color-mix(in srgb, var(--black), black 40%) 0%
+      )
+      0%,
+    color-mix(
+        in srgb,
+        var(--base-dark),
+        color-mix(in srgb, var(--black), black 40%) 0%
+      )
+      5%,
+    color-mix(
+        in srgb,
+        var(--base-dark),
+        color-mix(in srgb, var(--black), black 35%) 5%
+      )
+      10%,
+    color-mix(
+        in srgb,
+        var(--base-dark),
+        color-mix(in srgb, var(--black), black 35%) 10%
+      )
+      15%,
+    color-mix(
+        in srgb,
+        var(--base-dark),
+        color-mix(in srgb, var(--black), black 30%) 15%
+      )
+      20%,
+    color-mix(
+        in srgb,
+        var(--base-dark),
+        color-mix(in srgb, var(--black), black 30%) 20%
+      )
+      25%,
+    color-mix(
+        in srgb,
+        var(--base-dark),
+        color-mix(in srgb, var(--black), black 25%) 25%
+      )
+      30%,
+    color-mix(
+        in srgb,
+        var(--base-dark),
+        color-mix(in srgb, var(--black), black 25%) 30%
+      )
+      35%,
+    color-mix(
+        in srgb,
+        var(--base-dark),
+        color-mix(in srgb, var(--black), black 20%) 35%
+      )
+      40%,
+    color-mix(
+        in srgb,
+        var(--base-dark),
+        color-mix(in srgb, var(--black), black 20%) 40%
+      )
+      45%,
+    color-mix(
+        in srgb,
+        var(--final-blue),
+        color-mix(in srgb, var(--black), black 15%) 45%
+      )
+      50%,
+    color-mix(
+        in srgb,
+        var(--final-blue),
+        color-mix(in srgb, var(--black), black 15%) 50%
+      )
+      55%,
+    color-mix(
+        in srgb,
+        var(--final-blue),
+        color-mix(in srgb, var(--black), black 10%) 55%
+      )
+      60%,
+    color-mix(
+        in srgb,
+        var(--final-blue),
+        color-mix(in srgb, var(--black), black 10%) 60%
+      )
+      65%,
+    color-mix(
+        in srgb,
+        var(--final-blue),
+        color-mix(in srgb, var(--black), black 5%) 65%
+      )
+      70%,
+    color-mix(
+        in srgb,
+        var(--final-blue),
+        color-mix(in srgb, var(--black), black 5%) 70%
+      )
+      75%,
+    color-mix(
+        in srgb,
+        var(--final-blue),
+        color-mix(in srgb, var(--black), black 0%) 75%
+      )
+      80%,
+    color-mix(
+        in srgb,
+        var(--final-blue),
+        color-mix(in srgb, var(--black), black 0%) 80%
+      )
+      85%,
+    color-mix(
+        in srgb,
+        var(--final-blue),
+        color-mix(in srgb, var(--black), black 0%) 85%
+      )
+      90%,
+    color-mix(
+        in srgb,
+        var(--final-blue),
+        color-mix(in srgb, var(--black), black 0%) 90%
+      )
+      95%,
+    var(--final-blue) 100%
+  );
   opacity: 0.3;
 }
 
@@ -91,7 +337,130 @@
   top: 50%;
   height: 2px;
   width: 150px;
-  background: var(--gold-lol);
+  background: linear-gradient(
+    135deg,
+    color-mix(
+        in srgb,
+        var(--base-dark),
+        color-mix(in srgb, var(--black), black 40%) 0%
+      )
+      0%,
+    color-mix(
+        in srgb,
+        var(--base-dark),
+        color-mix(in srgb, var(--black), black 40%) 0%
+      )
+      5%,
+    color-mix(
+        in srgb,
+        var(--base-dark),
+        color-mix(in srgb, var(--black), black 35%) 5%
+      )
+      10%,
+    color-mix(
+        in srgb,
+        var(--base-dark),
+        color-mix(in srgb, var(--black), black 35%) 10%
+      )
+      15%,
+    color-mix(
+        in srgb,
+        var(--base-dark),
+        color-mix(in srgb, var(--black), black 30%) 15%
+      )
+      20%,
+    color-mix(
+        in srgb,
+        var(--base-dark),
+        color-mix(in srgb, var(--black), black 30%) 20%
+      )
+      25%,
+    color-mix(
+        in srgb,
+        var(--base-dark),
+        color-mix(in srgb, var(--black), black 25%) 25%
+      )
+      30%,
+    color-mix(
+        in srgb,
+        var(--base-dark),
+        color-mix(in srgb, var(--black), black 25%) 30%
+      )
+      35%,
+    color-mix(
+        in srgb,
+        var(--base-dark),
+        color-mix(in srgb, var(--black), black 20%) 35%
+      )
+      40%,
+    color-mix(
+        in srgb,
+        var(--base-dark),
+        color-mix(in srgb, var(--black), black 20%) 40%
+      )
+      45%,
+    color-mix(
+        in srgb,
+        var(--final-blue),
+        color-mix(in srgb, var(--black), black 15%) 45%
+      )
+      50%,
+    color-mix(
+        in srgb,
+        var(--final-blue),
+        color-mix(in srgb, var(--black), black 15%) 50%
+      )
+      55%,
+    color-mix(
+        in srgb,
+        var(--final-blue),
+        color-mix(in srgb, var(--black), black 10%) 55%
+      )
+      60%,
+    color-mix(
+        in srgb,
+        var(--final-blue),
+        color-mix(in srgb, var(--black), black 10%) 60%
+      )
+      65%,
+    color-mix(
+        in srgb,
+        var(--final-blue),
+        color-mix(in srgb, var(--black), black 5%) 65%
+      )
+      70%,
+    color-mix(
+        in srgb,
+        var(--final-blue),
+        color-mix(in srgb, var(--black), black 5%) 70%
+      )
+      75%,
+    color-mix(
+        in srgb,
+        var(--final-blue),
+        color-mix(in srgb, var(--black), black 0%) 75%
+      )
+      80%,
+    color-mix(
+        in srgb,
+        var(--final-blue),
+        color-mix(in srgb, var(--black), black 0%) 80%
+      )
+      85%,
+    color-mix(
+        in srgb,
+        var(--final-blue),
+        color-mix(in srgb, var(--black), black 0%) 85%
+      )
+      90%,
+    color-mix(
+        in srgb,
+        var(--final-blue),
+        color-mix(in srgb, var(--black), black 0%) 90%
+      )
+      95%,
+    var(--final-blue) 100%
+  );
   opacity: 0.3;
 }
 
@@ -100,7 +469,130 @@
   height: 64px;
   border-radius: 50%;
   border: 2px solid var(--nox-grey3);
-  background: rgba(0, 0, 0, 0.5);
+  background: linear-gradient(
+    135deg,
+    color-mix(
+        in srgb,
+        var(--base-dark),
+        color-mix(in srgb, var(--black), black 40%) 0%
+      )
+      0%,
+    color-mix(
+        in srgb,
+        var(--base-dark),
+        color-mix(in srgb, var(--black), black 40%) 0%
+      )
+      5%,
+    color-mix(
+        in srgb,
+        var(--base-dark),
+        color-mix(in srgb, var(--black), black 35%) 5%
+      )
+      10%,
+    color-mix(
+        in srgb,
+        var(--base-dark),
+        color-mix(in srgb, var(--black), black 35%) 10%
+      )
+      15%,
+    color-mix(
+        in srgb,
+        var(--base-dark),
+        color-mix(in srgb, var(--black), black 30%) 15%
+      )
+      20%,
+    color-mix(
+        in srgb,
+        var(--base-dark),
+        color-mix(in srgb, var(--black), black 30%) 20%
+      )
+      25%,
+    color-mix(
+        in srgb,
+        var(--base-dark),
+        color-mix(in srgb, var(--black), black 25%) 25%
+      )
+      30%,
+    color-mix(
+        in srgb,
+        var(--base-dark),
+        color-mix(in srgb, var(--black), black 25%) 30%
+      )
+      35%,
+    color-mix(
+        in srgb,
+        var(--base-dark),
+        color-mix(in srgb, var(--black), black 20%) 35%
+      )
+      40%,
+    color-mix(
+        in srgb,
+        var(--base-dark),
+        color-mix(in srgb, var(--black), black 20%) 40%
+      )
+      45%,
+    color-mix(
+        in srgb,
+        var(--final-blue),
+        color-mix(in srgb, var(--black), black 15%) 45%
+      )
+      50%,
+    color-mix(
+        in srgb,
+        var(--final-blue),
+        color-mix(in srgb, var(--black), black 15%) 50%
+      )
+      55%,
+    color-mix(
+        in srgb,
+        var(--final-blue),
+        color-mix(in srgb, var(--black), black 10%) 55%
+      )
+      60%,
+    color-mix(
+        in srgb,
+        var(--final-blue),
+        color-mix(in srgb, var(--black), black 10%) 60%
+      )
+      65%,
+    color-mix(
+        in srgb,
+        var(--final-blue),
+        color-mix(in srgb, var(--black), black 5%) 65%
+      )
+      70%,
+    color-mix(
+        in srgb,
+        var(--final-blue),
+        color-mix(in srgb, var(--black), black 5%) 70%
+      )
+      75%,
+    color-mix(
+        in srgb,
+        var(--final-blue),
+        color-mix(in srgb, var(--black), black 0%) 75%
+      )
+      80%,
+    color-mix(
+        in srgb,
+        var(--final-blue),
+        color-mix(in srgb, var(--black), black 0%) 80%
+      )
+      85%,
+    color-mix(
+        in srgb,
+        var(--final-blue),
+        color-mix(in srgb, var(--black), black 0%) 85%
+      )
+      90%,
+    color-mix(
+        in srgb,
+        var(--final-blue),
+        color-mix(in srgb, var(--black), black 0%) 90%
+      )
+      95%,
+    var(--final-blue) 100%
+  );
   position: relative;
   display: flex;
   align-items: center;
@@ -147,7 +639,130 @@
   transform: translateY(-50%);
   display: flex;
   gap: 8px;
-  background: rgba(0, 0, 0, 0.95);
+  background: linear-gradient(
+    135deg,
+    color-mix(
+        in srgb,
+        var(--base-dark),
+        color-mix(in srgb, var(--black), black 40%) 0%
+      )
+      0%,
+    color-mix(
+        in srgb,
+        var(--base-dark),
+        color-mix(in srgb, var(--black), black 40%) 0%
+      )
+      5%,
+    color-mix(
+        in srgb,
+        var(--base-dark),
+        color-mix(in srgb, var(--black), black 35%) 5%
+      )
+      10%,
+    color-mix(
+        in srgb,
+        var(--base-dark),
+        color-mix(in srgb, var(--black), black 35%) 10%
+      )
+      15%,
+    color-mix(
+        in srgb,
+        var(--base-dark),
+        color-mix(in srgb, var(--black), black 30%) 15%
+      )
+      20%,
+    color-mix(
+        in srgb,
+        var(--base-dark),
+        color-mix(in srgb, var(--black), black 30%) 20%
+      )
+      25%,
+    color-mix(
+        in srgb,
+        var(--base-dark),
+        color-mix(in srgb, var(--black), black 25%) 25%
+      )
+      30%,
+    color-mix(
+        in srgb,
+        var(--base-dark),
+        color-mix(in srgb, var(--black), black 25%) 30%
+      )
+      35%,
+    color-mix(
+        in srgb,
+        var(--base-dark),
+        color-mix(in srgb, var(--black), black 20%) 35%
+      )
+      40%,
+    color-mix(
+        in srgb,
+        var(--base-dark),
+        color-mix(in srgb, var(--black), black 20%) 40%
+      )
+      45%,
+    color-mix(
+        in srgb,
+        var(--final-blue),
+        color-mix(in srgb, var(--black), black 15%) 45%
+      )
+      50%,
+    color-mix(
+        in srgb,
+        var(--final-blue),
+        color-mix(in srgb, var(--black), black 15%) 50%
+      )
+      55%,
+    color-mix(
+        in srgb,
+        var(--final-blue),
+        color-mix(in srgb, var(--black), black 10%) 55%
+      )
+      60%,
+    color-mix(
+        in srgb,
+        var(--final-blue),
+        color-mix(in srgb, var(--black), black 10%) 60%
+      )
+      65%,
+    color-mix(
+        in srgb,
+        var(--final-blue),
+        color-mix(in srgb, var(--black), black 5%) 65%
+      )
+      70%,
+    color-mix(
+        in srgb,
+        var(--final-blue),
+        color-mix(in srgb, var(--black), black 5%) 70%
+      )
+      75%,
+    color-mix(
+        in srgb,
+        var(--final-blue),
+        color-mix(in srgb, var(--black), black 0%) 75%
+      )
+      80%,
+    color-mix(
+        in srgb,
+        var(--final-blue),
+        color-mix(in srgb, var(--black), black 0%) 80%
+      )
+      85%,
+    color-mix(
+        in srgb,
+        var(--final-blue),
+        color-mix(in srgb, var(--black), black 0%) 85%
+      )
+      90%,
+    color-mix(
+        in srgb,
+        var(--final-blue),
+        color-mix(in srgb, var(--black), black 0%) 90%
+      )
+      95%,
+    var(--final-blue) 100%
+  );
   border: 1px solid var(--gold-lol);
   border-radius: 8px;
   padding: 12px;
@@ -175,7 +790,130 @@
   border: 2px solid var(--nox-grey3);
   padding: 0;
   transition: all 0.2s ease;
-  background: transparent;
+  background: linear-gradient(
+    135deg,
+    color-mix(
+        in srgb,
+        var(--base-dark),
+        color-mix(in srgb, var(--black), black 40%) 0%
+      )
+      0%,
+    color-mix(
+        in srgb,
+        var(--base-dark),
+        color-mix(in srgb, var(--black), black 40%) 0%
+      )
+      5%,
+    color-mix(
+        in srgb,
+        var(--base-dark),
+        color-mix(in srgb, var(--black), black 35%) 5%
+      )
+      10%,
+    color-mix(
+        in srgb,
+        var(--base-dark),
+        color-mix(in srgb, var(--black), black 35%) 10%
+      )
+      15%,
+    color-mix(
+        in srgb,
+        var(--base-dark),
+        color-mix(in srgb, var(--black), black 30%) 15%
+      )
+      20%,
+    color-mix(
+        in srgb,
+        var(--base-dark),
+        color-mix(in srgb, var(--black), black 30%) 20%
+      )
+      25%,
+    color-mix(
+        in srgb,
+        var(--base-dark),
+        color-mix(in srgb, var(--black), black 25%) 25%
+      )
+      30%,
+    color-mix(
+        in srgb,
+        var(--base-dark),
+        color-mix(in srgb, var(--black), black 25%) 30%
+      )
+      35%,
+    color-mix(
+        in srgb,
+        var(--base-dark),
+        color-mix(in srgb, var(--black), black 20%) 35%
+      )
+      40%,
+    color-mix(
+        in srgb,
+        var(--base-dark),
+        color-mix(in srgb, var(--black), black 20%) 40%
+      )
+      45%,
+    color-mix(
+        in srgb,
+        var(--final-blue),
+        color-mix(in srgb, var(--black), black 15%) 45%
+      )
+      50%,
+    color-mix(
+        in srgb,
+        var(--final-blue),
+        color-mix(in srgb, var(--black), black 15%) 50%
+      )
+      55%,
+    color-mix(
+        in srgb,
+        var(--final-blue),
+        color-mix(in srgb, var(--black), black 10%) 55%
+      )
+      60%,
+    color-mix(
+        in srgb,
+        var(--final-blue),
+        color-mix(in srgb, var(--black), black 10%) 60%
+      )
+      65%,
+    color-mix(
+        in srgb,
+        var(--final-blue),
+        color-mix(in srgb, var(--black), black 5%) 65%
+      )
+      70%,
+    color-mix(
+        in srgb,
+        var(--final-blue),
+        color-mix(in srgb, var(--black), black 5%) 70%
+      )
+      75%,
+    color-mix(
+        in srgb,
+        var(--final-blue),
+        color-mix(in srgb, var(--black), black 0%) 75%
+      )
+      80%,
+    color-mix(
+        in srgb,
+        var(--final-blue),
+        color-mix(in srgb, var(--black), black 0%) 80%
+      )
+      85%,
+    color-mix(
+        in srgb,
+        var(--final-blue),
+        color-mix(in srgb, var(--black), black 0%) 85%
+      )
+      90%,
+    color-mix(
+        in srgb,
+        var(--final-blue),
+        color-mix(in srgb, var(--black), black 0%) 90%
+      )
+      95%,
+    var(--final-blue) 100%
+  );
 }
 
 .rune-option:hover {
@@ -203,7 +941,130 @@
   position: fixed;
   z-index: 1000;
   max-width: 90vw;
-  background: rgba(0, 0, 0, 0.95);
+  background: linear-gradient(
+    135deg,
+    color-mix(
+        in srgb,
+        var(--base-dark),
+        color-mix(in srgb, var(--black), black 40%) 0%
+      )
+      0%,
+    color-mix(
+        in srgb,
+        var(--base-dark),
+        color-mix(in srgb, var(--black), black 40%) 0%
+      )
+      5%,
+    color-mix(
+        in srgb,
+        var(--base-dark),
+        color-mix(in srgb, var(--black), black 35%) 5%
+      )
+      10%,
+    color-mix(
+        in srgb,
+        var(--base-dark),
+        color-mix(in srgb, var(--black), black 35%) 10%
+      )
+      15%,
+    color-mix(
+        in srgb,
+        var(--base-dark),
+        color-mix(in srgb, var(--black), black 30%) 15%
+      )
+      20%,
+    color-mix(
+        in srgb,
+        var(--base-dark),
+        color-mix(in srgb, var(--black), black 30%) 20%
+      )
+      25%,
+    color-mix(
+        in srgb,
+        var(--base-dark),
+        color-mix(in srgb, var(--black), black 25%) 25%
+      )
+      30%,
+    color-mix(
+        in srgb,
+        var(--base-dark),
+        color-mix(in srgb, var(--black), black 25%) 30%
+      )
+      35%,
+    color-mix(
+        in srgb,
+        var(--base-dark),
+        color-mix(in srgb, var(--black), black 20%) 35%
+      )
+      40%,
+    color-mix(
+        in srgb,
+        var(--base-dark),
+        color-mix(in srgb, var(--black), black 20%) 40%
+      )
+      45%,
+    color-mix(
+        in srgb,
+        var(--final-blue),
+        color-mix(in srgb, var(--black), black 15%) 45%
+      )
+      50%,
+    color-mix(
+        in srgb,
+        var(--final-blue),
+        color-mix(in srgb, var(--black), black 15%) 50%
+      )
+      55%,
+    color-mix(
+        in srgb,
+        var(--final-blue),
+        color-mix(in srgb, var(--black), black 10%) 55%
+      )
+      60%,
+    color-mix(
+        in srgb,
+        var(--final-blue),
+        color-mix(in srgb, var(--black), black 10%) 60%
+      )
+      65%,
+    color-mix(
+        in srgb,
+        var(--final-blue),
+        color-mix(in srgb, var(--black), black 5%) 65%
+      )
+      70%,
+    color-mix(
+        in srgb,
+        var(--final-blue),
+        color-mix(in srgb, var(--black), black 5%) 70%
+      )
+      75%,
+    color-mix(
+        in srgb,
+        var(--final-blue),
+        color-mix(in srgb, var(--black), black 0%) 75%
+      )
+      80%,
+    color-mix(
+        in srgb,
+        var(--final-blue),
+        color-mix(in srgb, var(--black), black 0%) 80%
+      )
+      85%,
+    color-mix(
+        in srgb,
+        var(--final-blue),
+        color-mix(in srgb, var(--black), black 0%) 85%
+      )
+      90%,
+    color-mix(
+        in srgb,
+        var(--final-blue),
+        color-mix(in srgb, var(--black), black 0%) 90%
+      )
+      95%,
+    var(--final-blue) 100%
+  );
   border: 1px solid var(--gold-lol);
   border-radius: 8px;
   padding: 12px;
@@ -226,7 +1087,130 @@
 
 .secondary-selector {
   padding: 16px;
-  background: rgba(0, 0, 0, 0.95);
+  background: linear-gradient(
+    135deg,
+    color-mix(
+        in srgb,
+        var(--base-dark),
+        color-mix(in srgb, var(--black), black 40%) 0%
+      )
+      0%,
+    color-mix(
+        in srgb,
+        var(--base-dark),
+        color-mix(in srgb, var(--black), black 40%) 0%
+      )
+      5%,
+    color-mix(
+        in srgb,
+        var(--base-dark),
+        color-mix(in srgb, var(--black), black 35%) 5%
+      )
+      10%,
+    color-mix(
+        in srgb,
+        var(--base-dark),
+        color-mix(in srgb, var(--black), black 35%) 10%
+      )
+      15%,
+    color-mix(
+        in srgb,
+        var(--base-dark),
+        color-mix(in srgb, var(--black), black 30%) 15%
+      )
+      20%,
+    color-mix(
+        in srgb,
+        var(--base-dark),
+        color-mix(in srgb, var(--black), black 30%) 20%
+      )
+      25%,
+    color-mix(
+        in srgb,
+        var(--base-dark),
+        color-mix(in srgb, var(--black), black 25%) 25%
+      )
+      30%,
+    color-mix(
+        in srgb,
+        var(--base-dark),
+        color-mix(in srgb, var(--black), black 25%) 30%
+      )
+      35%,
+    color-mix(
+        in srgb,
+        var(--base-dark),
+        color-mix(in srgb, var(--black), black 20%) 35%
+      )
+      40%,
+    color-mix(
+        in srgb,
+        var(--base-dark),
+        color-mix(in srgb, var(--black), black 20%) 40%
+      )
+      45%,
+    color-mix(
+        in srgb,
+        var(--final-blue),
+        color-mix(in srgb, var(--black), black 15%) 45%
+      )
+      50%,
+    color-mix(
+        in srgb,
+        var(--final-blue),
+        color-mix(in srgb, var(--black), black 15%) 50%
+      )
+      55%,
+    color-mix(
+        in srgb,
+        var(--final-blue),
+        color-mix(in srgb, var(--black), black 10%) 55%
+      )
+      60%,
+    color-mix(
+        in srgb,
+        var(--final-blue),
+        color-mix(in srgb, var(--black), black 10%) 60%
+      )
+      65%,
+    color-mix(
+        in srgb,
+        var(--final-blue),
+        color-mix(in srgb, var(--black), black 5%) 65%
+      )
+      70%,
+    color-mix(
+        in srgb,
+        var(--final-blue),
+        color-mix(in srgb, var(--black), black 5%) 70%
+      )
+      75%,
+    color-mix(
+        in srgb,
+        var(--final-blue),
+        color-mix(in srgb, var(--black), black 0%) 75%
+      )
+      80%,
+    color-mix(
+        in srgb,
+        var(--final-blue),
+        color-mix(in srgb, var(--black), black 0%) 80%
+      )
+      85%,
+    color-mix(
+        in srgb,
+        var(--final-blue),
+        color-mix(in srgb, var(--black), black 0%) 85%
+      )
+      90%,
+    color-mix(
+        in srgb,
+        var(--final-blue),
+        color-mix(in srgb, var(--black), black 0%) 90%
+      )
+      95%,
+    var(--final-blue) 100%
+  );
   min-width: 240px;
   display: flex;
   flex-direction: column;
@@ -242,10 +1226,128 @@
 .rune-slot-line {
   height: 1px;
   background: linear-gradient(
-    to right,
-    transparent,
-    var(--gold-lol),
-    transparent
+    135deg,
+    color-mix(
+        in srgb,
+        var(--base-dark),
+        color-mix(in srgb, var(--black), black 40%) 0%
+      )
+      0%,
+    color-mix(
+        in srgb,
+        var(--base-dark),
+        color-mix(in srgb, var(--black), black 40%) 0%
+      )
+      5%,
+    color-mix(
+        in srgb,
+        var(--base-dark),
+        color-mix(in srgb, var(--black), black 35%) 5%
+      )
+      10%,
+    color-mix(
+        in srgb,
+        var(--base-dark),
+        color-mix(in srgb, var(--black), black 35%) 10%
+      )
+      15%,
+    color-mix(
+        in srgb,
+        var(--base-dark),
+        color-mix(in srgb, var(--black), black 30%) 15%
+      )
+      20%,
+    color-mix(
+        in srgb,
+        var(--base-dark),
+        color-mix(in srgb, var(--black), black 30%) 20%
+      )
+      25%,
+    color-mix(
+        in srgb,
+        var(--base-dark),
+        color-mix(in srgb, var(--black), black 25%) 25%
+      )
+      30%,
+    color-mix(
+        in srgb,
+        var(--base-dark),
+        color-mix(in srgb, var(--black), black 25%) 30%
+      )
+      35%,
+    color-mix(
+        in srgb,
+        var(--base-dark),
+        color-mix(in srgb, var(--black), black 20%) 35%
+      )
+      40%,
+    color-mix(
+        in srgb,
+        var(--base-dark),
+        color-mix(in srgb, var(--black), black 20%) 40%
+      )
+      45%,
+    color-mix(
+        in srgb,
+        var(--final-blue),
+        color-mix(in srgb, var(--black), black 15%) 45%
+      )
+      50%,
+    color-mix(
+        in srgb,
+        var(--final-blue),
+        color-mix(in srgb, var(--black), black 15%) 50%
+      )
+      55%,
+    color-mix(
+        in srgb,
+        var(--final-blue),
+        color-mix(in srgb, var(--black), black 10%) 55%
+      )
+      60%,
+    color-mix(
+        in srgb,
+        var(--final-blue),
+        color-mix(in srgb, var(--black), black 10%) 60%
+      )
+      65%,
+    color-mix(
+        in srgb,
+        var(--final-blue),
+        color-mix(in srgb, var(--black), black 5%) 65%
+      )
+      70%,
+    color-mix(
+        in srgb,
+        var(--final-blue),
+        color-mix(in srgb, var(--black), black 5%) 70%
+      )
+      75%,
+    color-mix(
+        in srgb,
+        var(--final-blue),
+        color-mix(in srgb, var(--black), black 0%) 75%
+      )
+      80%,
+    color-mix(
+        in srgb,
+        var(--final-blue),
+        color-mix(in srgb, var(--black), black 0%) 80%
+      )
+      85%,
+    color-mix(
+        in srgb,
+        var(--final-blue),
+        color-mix(in srgb, var(--black), black 0%) 85%
+      )
+      90%,
+    color-mix(
+        in srgb,
+        var(--final-blue),
+        color-mix(in srgb, var(--black), black 0%) 90%
+      )
+      95%,
+    var(--final-blue) 100%
   );
   opacity: 0.3;
   margin: 4px 0;
@@ -263,7 +1365,130 @@
   padding: 6px;
   border: 2px solid var(--nox-grey3);
   border-radius: 50%;
-  background: transparent;
+  background: linear-gradient(
+    135deg,
+    color-mix(
+        in srgb,
+        var(--base-dark),
+        color-mix(in srgb, var(--black), black 40%) 0%
+      )
+      0%,
+    color-mix(
+        in srgb,
+        var(--base-dark),
+        color-mix(in srgb, var(--black), black 40%) 0%
+      )
+      5%,
+    color-mix(
+        in srgb,
+        var(--base-dark),
+        color-mix(in srgb, var(--black), black 35%) 5%
+      )
+      10%,
+    color-mix(
+        in srgb,
+        var(--base-dark),
+        color-mix(in srgb, var(--black), black 35%) 10%
+      )
+      15%,
+    color-mix(
+        in srgb,
+        var(--base-dark),
+        color-mix(in srgb, var(--black), black 30%) 15%
+      )
+      20%,
+    color-mix(
+        in srgb,
+        var(--base-dark),
+        color-mix(in srgb, var(--black), black 30%) 20%
+      )
+      25%,
+    color-mix(
+        in srgb,
+        var(--base-dark),
+        color-mix(in srgb, var(--black), black 25%) 25%
+      )
+      30%,
+    color-mix(
+        in srgb,
+        var(--base-dark),
+        color-mix(in srgb, var(--black), black 25%) 30%
+      )
+      35%,
+    color-mix(
+        in srgb,
+        var(--base-dark),
+        color-mix(in srgb, var(--black), black 20%) 35%
+      )
+      40%,
+    color-mix(
+        in srgb,
+        var(--base-dark),
+        color-mix(in srgb, var(--black), black 20%) 40%
+      )
+      45%,
+    color-mix(
+        in srgb,
+        var(--final-blue),
+        color-mix(in srgb, var(--black), black 15%) 45%
+      )
+      50%,
+    color-mix(
+        in srgb,
+        var(--final-blue),
+        color-mix(in srgb, var(--black), black 15%) 50%
+      )
+      55%,
+    color-mix(
+        in srgb,
+        var(--final-blue),
+        color-mix(in srgb, var(--black), black 10%) 55%
+      )
+      60%,
+    color-mix(
+        in srgb,
+        var(--final-blue),
+        color-mix(in srgb, var(--black), black 10%) 60%
+      )
+      65%,
+    color-mix(
+        in srgb,
+        var(--final-blue),
+        color-mix(in srgb, var(--black), black 5%) 65%
+      )
+      70%,
+    color-mix(
+        in srgb,
+        var(--final-blue),
+        color-mix(in srgb, var(--black), black 5%) 70%
+      )
+      75%,
+    color-mix(
+        in srgb,
+        var(--final-blue),
+        color-mix(in srgb, var(--black), black 0%) 75%
+      )
+      80%,
+    color-mix(
+        in srgb,
+        var(--final-blue),
+        color-mix(in srgb, var(--black), black 0%) 80%
+      )
+      85%,
+    color-mix(
+        in srgb,
+        var(--final-blue),
+        color-mix(in srgb, var(--black), black 0%) 85%
+      )
+      90%,
+    color-mix(
+        in srgb,
+        var(--final-blue),
+        color-mix(in srgb, var(--black), black 0%) 90%
+      )
+      95%,
+    var(--final-blue) 100%
+  );
   transition: all 0.2s ease;
   display: flex;
   align-items: center;
@@ -333,4 +1558,285 @@
     top: auto !important;
     transform: translateX(-50%);
   }
+}
+
+.runes-selector.secondary-selector {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: auto;
+  min-width: 300px;
+  max-width: 90vw;
+  background: linear-gradient(
+    135deg,
+    color-mix(
+        in srgb,
+        var(--base-dark),
+        color-mix(in srgb, var(--black), black 40%) 0%
+      )
+      0%,
+    color-mix(
+        in srgb,
+        var(--base-dark),
+        color-mix(in srgb, var(--black), black 40%) 0%
+      )
+      5%,
+    color-mix(
+        in srgb,
+        var(--base-dark),
+        color-mix(in srgb, var(--black), black 35%) 5%
+      )
+      10%,
+    color-mix(
+        in srgb,
+        var(--base-dark),
+        color-mix(in srgb, var(--black), black 35%) 10%
+      )
+      15%,
+    color-mix(
+        in srgb,
+        var(--base-dark),
+        color-mix(in srgb, var(--black), black 30%) 15%
+      )
+      20%,
+    color-mix(
+        in srgb,
+        var(--base-dark),
+        color-mix(in srgb, var(--black), black 30%) 20%
+      )
+      25%,
+    color-mix(
+        in srgb,
+        var(--base-dark),
+        color-mix(in srgb, var(--black), black 25%) 25%
+      )
+      30%,
+    color-mix(
+        in srgb,
+        var(--base-dark),
+        color-mix(in srgb, var(--black), black 25%) 30%
+      )
+      35%,
+    color-mix(
+        in srgb,
+        var(--base-dark),
+        color-mix(in srgb, var(--black), black 20%) 35%
+      )
+      40%,
+    color-mix(
+        in srgb,
+        var(--base-dark),
+        color-mix(in srgb, var(--black), black 20%) 40%
+      )
+      45%,
+    color-mix(
+        in srgb,
+        var(--final-blue),
+        color-mix(in srgb, var(--black), black 15%) 45%
+      )
+      50%,
+    color-mix(
+        in srgb,
+        var(--final-blue),
+        color-mix(in srgb, var(--black), black 15%) 50%
+      )
+      55%,
+    color-mix(
+        in srgb,
+        var(--final-blue),
+        color-mix(in srgb, var(--black), black 10%) 55%
+      )
+      60%,
+    color-mix(
+        in srgb,
+        var(--final-blue),
+        color-mix(in srgb, var(--black), black 10%) 60%
+      )
+      65%,
+    color-mix(
+        in srgb,
+        var(--final-blue),
+        color-mix(in srgb, var(--black), black 5%) 65%
+      )
+      70%,
+    color-mix(
+        in srgb,
+        var(--final-blue),
+        color-mix(in srgb, var(--black), black 5%) 70%
+      )
+      75%,
+    color-mix(
+        in srgb,
+        var(--final-blue),
+        color-mix(in srgb, var(--black), black 0%) 75%
+      )
+      80%,
+    color-mix(
+        in srgb,
+        var(--final-blue),
+        color-mix(in srgb, var(--black), black 0%) 80%
+      )
+      85%,
+    color-mix(
+        in srgb,
+        var(--final-blue),
+        color-mix(in srgb, var(--black), black 0%) 85%
+      )
+      90%,
+    color-mix(
+        in srgb,
+        var(--final-blue),
+        color-mix(in srgb, var(--black), black 0%) 90%
+      )
+      95%,
+    var(--final-blue) 100%
+  );
+  border: 1px solid var(--gold-lol);
+  padding: 1rem;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.runes-selector.secondary-slot-selector {
+  position: absolute;
+  left: 100%;
+  top: 0;
+  margin-left: 10px;
+  background: linear-gradient(
+    135deg,
+    color-mix(
+        in srgb,
+        var(--base-dark),
+        color-mix(in srgb, var(--black), black 40%) 0%
+      )
+      0%,
+    color-mix(
+        in srgb,
+        var(--base-dark),
+        color-mix(in srgb, var(--black), black 40%) 0%
+      )
+      5%,
+    color-mix(
+        in srgb,
+        var(--base-dark),
+        color-mix(in srgb, var(--black), black 35%) 5%
+      )
+      10%,
+    color-mix(
+        in srgb,
+        var(--base-dark),
+        color-mix(in srgb, var(--black), black 35%) 10%
+      )
+      15%,
+    color-mix(
+        in srgb,
+        var(--base-dark),
+        color-mix(in srgb, var(--black), black 30%) 15%
+      )
+      20%,
+    color-mix(
+        in srgb,
+        var(--base-dark),
+        color-mix(in srgb, var(--black), black 30%) 20%
+      )
+      25%,
+    color-mix(
+        in srgb,
+        var(--base-dark),
+        color-mix(in srgb, var(--black), black 25%) 25%
+      )
+      30%,
+    color-mix(
+        in srgb,
+        var(--base-dark),
+        color-mix(in srgb, var(--black), black 25%) 30%
+      )
+      35%,
+    color-mix(
+        in srgb,
+        var(--base-dark),
+        color-mix(in srgb, var(--black), black 20%) 35%
+      )
+      40%,
+    color-mix(
+        in srgb,
+        var(--base-dark),
+        color-mix(in srgb, var(--black), black 20%) 40%
+      )
+      45%,
+    color-mix(
+        in srgb,
+        var(--final-blue),
+        color-mix(in srgb, var(--black), black 15%) 45%
+      )
+      50%,
+    color-mix(
+        in srgb,
+        var(--final-blue),
+        color-mix(in srgb, var(--black), black 15%) 50%
+      )
+      55%,
+    color-mix(
+        in srgb,
+        var(--final-blue),
+        color-mix(in srgb, var(--black), black 10%) 55%
+      )
+      60%,
+    color-mix(
+        in srgb,
+        var(--final-blue),
+        color-mix(in srgb, var(--black), black 10%) 60%
+      )
+      65%,
+    color-mix(
+        in srgb,
+        var(--final-blue),
+        color-mix(in srgb, var(--black), black 5%) 65%
+      )
+      70%,
+    color-mix(
+        in srgb,
+        var(--final-blue),
+        color-mix(in srgb, var(--black), black 5%) 70%
+      )
+      75%,
+    color-mix(
+        in srgb,
+        var(--final-blue),
+        color-mix(in srgb, var(--black), black 0%) 75%
+      )
+      80%,
+    color-mix(
+        in srgb,
+        var(--final-blue),
+        color-mix(in srgb, var(--black), black 0%) 80%
+      )
+      85%,
+    color-mix(
+        in srgb,
+        var(--final-blue),
+        color-mix(in srgb, var(--black), black 0%) 85%
+      )
+      90%,
+    color-mix(
+        in srgb,
+        var(--final-blue),
+        color-mix(in srgb, var(--black), black 0%) 90%
+      )
+      95%,
+    var(--final-blue) 100%
+  );
+  border: 1px solid var(--gold-lol);
+  padding: 1rem;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.runes-selector.secondary-keystone-selector {
+  position: absolute;
 }

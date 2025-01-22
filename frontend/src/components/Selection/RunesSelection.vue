@@ -39,16 +39,16 @@ const selectedRune = (
 
 const selectAndClose = (
   type: 'principal' | 'second',
-  slotIndex?: number,
+  index?: number,
   subRune?: SubRune,
   rune?: Rune,
 ) => {
-  if (slotIndex !== undefined) {
-    selectedRune(type, slotIndex, subRune)
-    showPrimarySlotSelector.value[slotIndex] = false
+  if (index !== undefined) {
+    selectedRune(type, index, subRune)
+    showSecondarySlotSelector.value[index] = false
   } else {
     selectedRune(type, undefined, undefined, rune)
-    showPrimarySelector.value = false
+    showSecondaryKeystoneSelector.value = false
   }
   hideTooltip()
 }
@@ -112,6 +112,31 @@ const selectShardAndClose = (shard: Shard) => {
 const getSelectedShardFromStore = (index: number) => {
   const type = index === 1 ? 'principal' : index === 2 ? 'second' : 'third'
   return shardStore.shardsSelection[type]
+}
+
+const showSecondaryKeystoneSelector = ref(false)
+const activeSecondaryIndex = ref<number | null>(null)
+
+const openSecondaryKeystone = () => {
+  showSecondaryKeystoneSelector.value = !showSecondaryKeystoneSelector.value
+  showSecondarySlotSelector.value = [false, false, false]
+  activeSecondaryIndex.value = null
+}
+
+const openSecondarySlot = (index: number) => {
+  showSecondarySlotSelector.value = showSecondarySlotSelector.value.map(
+    (_, i) => (i === index ? !showSecondarySlotSelector.value[i] : false),
+  )
+  showSecondaryKeystoneSelector.value = false
+  activeSecondaryIndex.value = showSecondarySlotSelector.value[index]
+    ? index
+    : null
+}
+
+const closeSecondarySelectors = () => {
+  showSecondaryKeystoneSelector.value = false
+  showSecondarySlotSelector.value = [false, false, false]
+  activeSecondaryIndex.value = null
 }
 
 onMounted(() => {
@@ -226,17 +251,17 @@ onMounted(() => {
 
       <div class="runes-secondary">
         <div class="column-header">
-          <button
-            class="header-icon"
-            @click="showSecondarySelector = !showSecondarySelector"
-          >
+          <button class="header-icon" @click="openSecondaryKeystone">
             <img
               v-if="runeStore.runesSelection.second"
               :src="`/assets/icons/runes/${runeStore.runesSelection.second.id}.png`"
             />
           </button>
 
-          <div v-if="showSecondarySelector" class="runes-selector">
+          <div
+            v-if="showSecondaryKeystoneSelector"
+            class="runes-selector secondary-keystone-selector"
+          >
             <button
               v-for="(rune, index) in filteredSecondaryRunes"
               :key="index"
@@ -266,59 +291,58 @@ onMounted(() => {
         </div>
 
         <div v-for="index in 2" :key="index" class="rune-tier">
-          <div
-            class="rune-slot"
-            @click="
-              showSecondarySlotSelector[index] =
-                !showSecondarySlotSelector[index]
-            "
-            :class="{ selected: getSelectedSecondaryRune(index) }"
-          >
-            <img
-              v-if="getSelectedSecondaryRune(index)"
-              :src="`/assets/icons/runes/${getSelectedSecondaryRune(index)?.id}.png`"
-            />
-          </div>
-
-          <div
-            v-if="
-              showSecondarySlotSelector[index] &&
-              runeStore.runesSelection.second
-            "
-            class="runes-selector secondary-selector"
-          >
+          <div class="rune-slot-container">
             <div
-              v-for="(
-                slot, slotIndex
-              ) in runeStore.runesSelection.second.slots.slice(1, 4)"
-              :key="`slot-${slotIndex}`"
-              class="rune-slot-group"
+              class="rune-slot"
+              @click="openSecondarySlot(index)"
+              :class="{ selected: getSelectedSecondaryRune(index) }"
             >
-              <div class="rune-slot-line" v-if="slotIndex > 0"></div>
-              <div class="rune-options-container">
-                <button
-                  v-for="rune in slot.runes"
-                  :key="rune.id"
-                  @click="selectAndClose('second', index, rune)"
-                  @mouseover="
-                    showTooltip(
-                      { name: rune.name, shortDesc: rune.shortDesc },
-                      $event,
-                    )
-                  "
-                  @mouseleave="hideTooltip"
-                  :class="{
-                    'rune-option': true,
-                    selected:
-                      rune.id ===
-                      runeStore.runesSelection.groups[index]?.second?.id,
-                  }"
-                >
-                  <img
-                    :src="`/assets/icons/runes/${rune.id}.png`"
-                    :alt="rune.name"
-                  />
-                </button>
+              <img
+                v-if="getSelectedSecondaryRune(index)"
+                :src="`/assets/icons/runes/${getSelectedSecondaryRune(index)?.id}.png`"
+              />
+            </div>
+
+            <div
+              v-if="showSecondarySlotSelector && activeSecondaryIndex === index"
+              class="runes-selector secondary-slot-selector"
+            >
+              <div
+                v-for="(
+                  slot, slotIndex
+                ) in runeStore.runesSelection.second?.slots.slice(1, 4) || []"
+                :key="`slot-${slotIndex}`"
+                class="rune-slot-group"
+              >
+                <div class="rune-slot-line" v-if="slotIndex > 0"></div>
+                <div class="rune-options-container">
+                  <button
+                    v-for="rune in slot.runes"
+                    :key="rune.id"
+                    @click="
+                      selectAndClose('second', activeSecondaryIndex, rune)
+                    "
+                    @mouseover="
+                      showTooltip(
+                        { name: rune.name, shortDesc: rune.shortDesc },
+                        $event,
+                      )
+                    "
+                    @mouseleave="hideTooltip"
+                    :class="{
+                      'rune-option': true,
+                      selected:
+                        rune.id ===
+                        runeStore.runesSelection.groups[activeSecondaryIndex]
+                          ?.second?.id,
+                    }"
+                  >
+                    <img
+                      :src="`/assets/icons/runes/${rune.id}.png`"
+                      :alt="rune.name"
+                    />
+                  </button>
+                </div>
               </div>
             </div>
           </div>
@@ -396,5 +420,11 @@ onMounted(() => {
       <h3>{{ activeTooltip.name }}</h3>
       <p>{{ activeTooltip.shortDesc }}</p>
     </div>
+
+    <div
+      v-if="showSecondarySelector"
+      class="selector-overlay"
+      @click="closeSecondarySelectors"
+    ></div>
   </div>
 </template>
