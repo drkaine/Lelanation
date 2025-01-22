@@ -1,32 +1,22 @@
 @charset "UTF-8";
-@import './accord.css';
-@import './app.css';
 @import './build.css';
-@import './builds.css';
-@import './compare.css';
 @import './container.css';
 
-@import './err.css';
 @import './filter.css';
-@import './font.css';
+
 @import './form.css';
 @import './grid.css';
 @import './info.css';
 @import './item.css';
-@import './keyframe.css';
 @import './level.css';
-@import './line.css';
 @import './loading.css';
 @import './media.css';
-@import './note.css';
 @import './pick.css';
-@import './player.css';
 @import './sheet.css';
 @import './stats.css';
 @import './summoner.css';
 @import './support.css';
 @import './tooltip.css';
-@import './tree.css';
 
 @import './new/background.css';
 @import './new/footer.css';
