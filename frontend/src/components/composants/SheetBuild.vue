@@ -6,16 +6,7 @@ import type { ItemSelection } from '@/types/item'
 import type { Champion } from '@/types/champion'
 // import itemsFiles from '@/assets/files/data/item.json'
 import { useRoleStore } from '@/stores/roleStore'
-import { ref, onMounted, computed } from 'vue'
-
-interface TooltipData {
-  name: string
-  shortDesc: string
-}
-
-const activeTooltip = ref<TooltipData | null>(null)
-const tooltipX = ref(0)
-const tooltipY = ref(0)
+import { ref, onMounted } from 'vue'
 
 const roleStore = useRoleStore()
 
@@ -69,39 +60,35 @@ onMounted(() => {
   })
 })
 
-const formattedItems = computed(() => {
-  return props.items?.core?.slice(0, 6) || []
-})
+// const spellOrder = computed(() => {
+//   return [
+//     'Q',
+//     'W',
+//     'E',
+//     'Q',
+//     'Q',
+//     'R',
+//     'Q',
+//     'W',
+//     'Q',
+//     'W',
+//     'R',
+//     'W',
+//     'W',
+//     'E',
+//     'E',
+//     'R',
+//     'E',
+//     'E',
+//   ]
+// })
 
-const spellOrder = computed(() => {
-  return [
-    'Q',
-    'W',
-    'E',
-    'Q',
-    'Q',
-    'R',
-    'Q',
-    'W',
-    'Q',
-    'W',
-    'R',
-    'W',
-    'W',
-    'E',
-    'E',
-    'R',
-    'E',
-    'E',
-  ]
-})
-
-const spellGroups = computed(() => {
-  return spellOrder.value.reduce((acc: { [key: string]: number }, spell) => {
-    acc[spell] = (acc[spell] || 0) + 1
-    return acc
-  }, {})
-})
+// const spellGroups = computed(() => {
+//   return spellOrder.value.reduce((acc: { [key: string]: number }, spell) => {
+//     acc[spell] = (acc[spell] || 0) + 1
+//     return acc
+//   }, {})
+// })
 
 const getRuneAtIndex = (index: number) => {
   if (index === 0) return props.runes?.principal
@@ -302,33 +289,7 @@ const getShardAtIndex = (index: number) => {
         </div>
       </div>
 
-      <div
-        v-if="activeTooltip"
-        class="rune-tooltip"
-        :style="{ left: tooltipX + 'px', top: tooltipY + 'px' }"
-      >
-        <h3>{{ activeTooltip.name }}</h3>
-        <p>{{ activeTooltip.shortDesc }}</p>
-      </div>
-    </div>
-    <div class="separator" v-if="runes"></div>
-
-    <div class="items-section" v-if="items?.core">
-      <div class="items-grid">
-        <div
-          v-for="(item, index) in formattedItems"
-          :key="index"
-          class="item-slot"
-        >
-          <img
-            :src="`/assets/icons/items/${item.image.full}`"
-            :alt="item.name"
-          />
-        </div>
-      </div>
-    </div>
-
-    <div class="separator" v-if="items?.core"></div>
+      <!-- <div class="separator" v-if="items?.core"></div>
 
     <div class="spell-order">
       <div class="spell-header">
@@ -354,7 +315,7 @@ const getShardAtIndex = (index: number) => {
           <div class="level-number">{{ index + 1 }}</div>
           <div class="spell-key" :class="spell.toLowerCase()">{{ spell }}</div>
         </div>
-      </div>
+      </div> -->
     </div>
   </div>
 </template>

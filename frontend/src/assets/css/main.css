@@ -1,17 +1,17 @@
 @charset "UTF-8";
-@import './new/background.css';
-@import './new/footer.css';
-@import './new/menu.css';
-@import './new/home.css';
-@import './new/dictionnaire.css';
-@import './new/proposition-dictionnaire.css';
-@import './new/variable.css';
-@import './new/build.css';
-@import './new/champion.css';
-@import './new/form.css';
-@import './new/tooltip.css';
-@import './new/rune.css';
-@import './new/item.css';
+@import './background.css';
+@import './footer.css';
+@import './menu.css';
+@import './home.css';
+@import './dictionnaire.css';
+@import './proposition-dictionnaire.css';
+@import './variable.css';
+@import './build.css';
+@import './champion.css';
+@import './form.css';
+@import './tooltip.css';
+@import './rune.css';
+@import './item.css';
 
 .fstyle .space,
 .fstyle ul {

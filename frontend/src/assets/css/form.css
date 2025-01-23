@@ -1,3 +1,53 @@
+.search {
+  grid-area: auto/1/auto/-1;
+  width: 100%;
+  padding-bottom: 20px;
+}
+
+.search-input {
+  width: 100%;
+  padding: 8px 12px;
+  border: 1px solid var(--gold-lol);
+  border-radius: 4px;
+  background: var(--base-dark);
+  color: var(--sand-1);
+  font-size: 14px;
+
+  &::placeholder {
+    color: var(--sand-4);
+  }
+
+  &:focus {
+    outline: none;
+    border-color: var(--gold-1);
+    box-shadow: 0 0 0 1px var(--gold-3);
+  }
+}
+
+button {
+  border: 1px solid var(--gold-lol);
+  background: var(--base-dark);
+  color: var(--nox-gold3);
+  padding: 0.2em 0.4em;
+  white-space: nowrap;
+  border-radius: 4px;
+  font-weight: 450;
+  font-size: 0.8em;
+}
+
+button.active {
+  background-color: var(--nox-grey4);
+  color: var(--nox-blue6);
+  border-color: var(--nox-grey4);
+}
+
+@media (min-width: 768px) {
+  .search-input {
+    max-width: 300px;
+    font-size: 16px;
+  }
+}
+
 form {
   display: flex;
   flex-direction: column;
@@ -23,7 +73,7 @@ form label:first-child {
 }
 
 form label.small {
-  width: 15em;
+  width: 20em;
 }
 
 form label.small input,
@@ -77,7 +127,6 @@ form label textarea::placeholder {
   opacity: 1;
 }
 
-/* Ajout des styles pour les boutons */
 .btn {
   border: 1px solid var(--btnBorder, var(--slate-4));
   background-color: var(--btnBackground, var(--black));
@@ -103,7 +152,6 @@ form label textarea::placeholder {
   --btnColor: var(--slate-1);
 }
 
-/* Media queries pour le responsive */
 @media screen and (max-width: 768px) {
   .btn {
     padding: 0.6em 1em;
@@ -117,7 +165,6 @@ form label textarea::placeholder {
     font-size: 0.85em;
   }
 
-  /* Ajustement pour les groupes de boutons */
   .actions .rest {
     display: flex;
     flex-direction: column;
@@ -141,9 +188,8 @@ form label textarea::placeholder {
   }
 }
 
-/* Style pour le conteneur de la checkbox */
 .visibility-toggle {
-  display: flex !important; /* Override le display flex-direction: column par défaut */
+  display: flex !important;
   align-items: center !important;
   gap: 0.5em;
   margin: 1em 0;
@@ -152,9 +198,8 @@ form label textarea::placeholder {
   font-weight: 500;
 }
 
-/* Style pour la checkbox */
 .visibility-toggle input[type='checkbox'] {
-  width: auto !important; /* Override la width: 100% par défaut */
+  width: auto !important;
   margin: 0;
   padding: 0;
 }
