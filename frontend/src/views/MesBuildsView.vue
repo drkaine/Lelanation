@@ -65,28 +65,24 @@ const handleDragOver = (e: DragEvent) => {
 </script>
 
 <template>
-  <div data-v-f21e856a="" class="main builds">
-    <div data-v-6c16e881="" data-v-f21e856a="" class="builds" id="">
-      <h1 data-v-6c16e881="" class="pagetitle">
+  <div class="main builds">
+    <div class="builds" id="">
+      <h1 class="pagetitle">
         {{ isLelarivaBuildPage ? 'Builds de Lelariva' : 'Mes builds' }}
       </h1>
-      <div data-v-6c16e881="" class="settings">
-        <div data-v-6c16e881="" class="new">
-          <a data-v-6c16e881="" href="/build" class="btn small slate">
-            Nouveau Build
-          </a>
+      <div class="settings">
+        <div class="new">
+          <a href="/build" class="btn small slate"> Nouveau Build </a>
         </div>
-        <!-- <div data-v-6c16e881="" class="compare">
-          <button data-v-6c16e881="" class="btn small slate">Comparer</button>
+        <!-- <div  class="compare">
+          <button  class="btn small slate">Comparer</button>
         </div> -->
-        <div data-v-6c16e881="" class="order">
-          <button data-v-6c16e881="" class="btn small slate">Reordonner</button>
+        <div class="order">
+          <button class="btn small slate">Reordonner</button>
         </div>
       </div>
-      <div data-v-6c16e881="" class="list">
+      <div class="list">
         <div
-          data-v-04fb255b=""
-          data-v-6c16e881=""
           class="build drag"
           v-for="(build, index) in filteredBuilds"
           :key="build.id"
@@ -96,7 +92,6 @@ const handleDragOver = (e: DragEvent) => {
           @dragover="handleDragOver"
         >
           <a
-            data-v-04fb255b=""
             aria-current="page"
             :href="`/build/${build.id}`"
             class="router-link-active router-link-exact-active wrap"

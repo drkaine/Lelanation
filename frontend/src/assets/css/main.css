@@ -25,12 +25,12 @@
 @import './new/rune.css';
 @import './new/item.css';
 
-.fstyle[data-v-5ad5f5e7] .space,
-.fstyle[data-v-5ad5f5e7] ul {
+.fstyle .space,
+.fstyle ul {
   margin: 0.5em 0;
 }
 
-.sortable-chosen .sheet > .wrap[data-v-15310f80] {
+.sortable-chosen .sheet > .wrap {
   background: var(--1c64872f);
 }
 
@@ -49,11 +49,11 @@ li {
   list-style-position: inside;
 }
 
-.fstyle[data-v-5ad5f5e7] {
+.fstyle {
   font-size: 1em;
 }
 
-.fstyle[data-v-5ad5f5e7] * {
+.fstyle * {
   text-decoration: none !important;
   border-bottom: 0px !important;
   cursor: auto !important;
@@ -61,42 +61,42 @@ li {
   margin: 0;
 }
 
-.fstyle[data-v-5ad5f5e7] .space,
-.fstyle[data-v-5ad5f5e7] ul {
+.fstyle .space,
+.fstyle ul {
   margin: 0.5em 0;
 }
 
-.fstyle[data-v-5ad5f5e7] span {
+.fstyle span {
   white-space: unset !important;
 }
 
-.fstyle[data-v-5ad5f5e7] span:empty {
+.fstyle span:empty {
   display: none;
 }
 
-.fstyle[data-v-5ad5f5e7] span img {
+.fstyle span img {
   --size: 1.2em;
   vertical-align: sub;
   height: var(--size);
   min-width: var(--size);
 }
 
-.fstyle[data-v-5ad5f5e7] sup {
+.fstyle sup {
   display: none;
 }
 
-[data-v-85ffd0f2] {
+:root {
   --itemBorderH: var(--gold-lol);
   --itemBorder: var(--gold-lol);
 }
 
-.tip .into[data-v-354b7b55] {
+.tip .into {
   gap: 0.3em 0.5em;
   flex-wrap: wrap;
   display: flex;
 }
 
-.sortable-chosen .sheet > .wrap[data-v-15310f80] {
+.sortable-chosen .sheet > .wrap {
   background: var(--1c64872f);
 }
 

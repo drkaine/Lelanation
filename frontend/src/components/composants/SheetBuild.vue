@@ -78,9 +78,8 @@ onMounted(() => {
 </script>
 
 <template>
-  <div data-v-b6709614="" class="sheet champions">
+  <div class="sheet champions">
     <div
-      data-v-15310f80=""
       :class="{
         name: true,
         hide: !name,
@@ -89,7 +88,7 @@ onMounted(() => {
     >
       {{ name }}
     </div>
-    <div data-v-15310f80="" data-v-b6709614="" class="sheet sheet-background">
+    <div class="sheet sheet-background">
       <div class="roles-container">
         <div class="roles-column">
           <div
@@ -136,27 +135,18 @@ onMounted(() => {
           </div>
         </div>
       </div>
-      <div data-v-15310f80="" class="type">darkaine</div>
-      <div data-v-15310f80="" class="version">{{ props.version }}</div>
-      <div data-v-15310f80="" class="wrap">
-        <div data-v-15310f80="" class="shadow"></div>
+      <div class="type">darkaine</div>
+      <div class="version">{{ props.version }}</div>
+      <div class="wrap">
+        <div class="shadow"></div>
         <div
-          data-v-15310f80=""
           :class="{
             champion: true,
             hide: !champion,
           }"
         >
-          <div
-            data-v-cbff5ddf=""
-            data-v-5bc51be1=""
-            data-v-1f02dc05=""
-            data-v-15310f80=""
-            class="tooltip"
-          >
+          <div class="tooltip">
             <div
-              data-v-1f02dc05=""
-              data-v-cbff5ddf-s=""
               :class="{
                 champion: true,
                 hide: !champion,
@@ -165,14 +155,11 @@ onMounted(() => {
               @mouseleave="resetMousePosition"
             >
               <img
-                data-v-1f02dc05=""
-                data-v-cbff5ddf-s=""
                 :src="'/assets/icons/champions/' + champion?.image.full"
                 :alt="champion?.name"
               />
             </div>
             <div
-              data-v-cbff5ddf=""
               class="box"
               :style="{
                 position: 'absolute',
@@ -185,7 +172,6 @@ onMounted(() => {
           </div>
         </div>
         <div
-          data-v-15310f80=""
           :class="{
             name: true,
             hide: !champion,
@@ -194,40 +180,28 @@ onMounted(() => {
           {{ champion?.name }}
         </div>
         <hr
-          data-v-15310f80=""
           :class="{
             hide: !runes?.principal,
           }"
         />
         <div
-          data-v-15310f80=""
           :class="{
             runes: true,
             hide: !runes?.principal,
           }"
         >
-          <div
-            data-v-cbff5ddf=""
-            data-v-ab218c16=""
-            data-v-15310f80=""
-            class="tooltip"
-          >
+          <div class="tooltip">
             <div
-              data-v-ab218c16=""
-              data-v-cbff5ddf-s=""
               class="rune"
               @mouseenter="updateMousePosition"
               @mouseleave="resetMousePosition"
             >
               <img
                 v-if="runes?.groups[1].principal"
-                data-v-ab218c16=""
-                data-v-cbff5ddf-s=""
                 :src="`/assets/icons/runes/${runes?.groups[1].principal?.id}.png`"
                 :alt="runes?.groups[1].principal?.name"
               />
               <div
-                data-v-cbff5ddf=""
                 class="box"
                 :style="{
                   position: 'absolute',
@@ -237,29 +211,19 @@ onMounted(() => {
               ></div>
             </div>
           </div>
-          <div data-v-15310f80="" class="main">
-            <div
-              data-v-cbff5ddf=""
-              data-v-ab218c16=""
-              data-v-15310f80=""
-              class="tooltip"
-            >
+          <div class="main">
+            <div class="tooltip">
               <div
-                data-v-ab218c16=""
-                data-v-cbff5ddf-s=""
                 class="rune"
                 @mouseenter="updateMousePosition"
                 @mouseleave="resetMousePosition"
               >
                 <img
                   v-if="runes?.groups[2].principal"
-                  data-v-ab218c16=""
-                  data-v-cbff5ddf-s=""
                   :src="`/assets/icons/runes/${runes?.groups[2].principal?.id}.png`"
                   :alt="runes?.groups[2].principal?.name"
                 />
                 <div
-                  data-v-cbff5ddf=""
                   class="box"
                   :style="{
                     position: 'absolute',
@@ -269,28 +233,18 @@ onMounted(() => {
                 ></div>
               </div>
             </div>
-            <div
-              data-v-cbff5ddf=""
-              data-v-ab218c16=""
-              data-v-15310f80=""
-              class="tooltip"
-            >
+            <div class="tooltip">
               <div
-                data-v-ab218c16=""
-                data-v-cbff5ddf-s=""
                 class="rune"
                 @mouseenter="updateMousePosition"
                 @mouseleave="resetMousePosition"
               >
                 <img
-                  data-v-ab218c16=""
-                  data-v-cbff5ddf-s=""
                   v-if="runes?.groups[3].principal"
                   :src="`/assets/icons/runes/${runes?.groups[3].principal?.id}.png`"
                   :alt="runes?.groups[3].principal?.name"
                 />
                 <div
-                  data-v-cbff5ddf=""
                   class="box"
                   :style="{
                     position: 'absolute',
@@ -300,28 +254,18 @@ onMounted(() => {
                 ></div>
               </div>
             </div>
-            <div
-              data-v-cbff5ddf=""
-              data-v-ab218c16=""
-              data-v-15310f80=""
-              class="tooltip"
-            >
+            <div class="tooltip">
               <div
-                data-v-ab218c16=""
-                data-v-cbff5ddf-s=""
                 class="rune"
                 @mouseenter="updateMousePosition"
                 @mouseleave="resetMousePosition"
               >
                 <img
                   v-if="runes?.groups[4].principal"
-                  data-v-ab218c16=""
-                  data-v-cbff5ddf-s=""
                   :src="`/assets/icons/runes/${runes?.groups[4].principal?.id}.png`"
                   :alt="runes?.groups[4].principal?.name"
                 />
                 <div
-                  data-v-cbff5ddf=""
                   class="box"
                   :style="{
                     position: 'absolute',
@@ -331,16 +275,9 @@ onMounted(() => {
                 ></div>
               </div>
             </div>
-            <div
-              data-v-cbff5ddf=""
-              data-v-ab218c16=""
-              data-v-15310f80=""
-              class="tooltip"
-            >
-              <div data-v-ab218c16="" data-v-cbff5ddf-s="" class="rune path">
+            <div class="tooltip">
+              <div class="rune path">
                 <img
-                  data-v-ab218c16=""
-                  data-v-cbff5ddf-s=""
                   :src="`/assets/icons/runes/${runes?.second?.id}.png`"
                   v-if="runes?.second?.id"
                   :alt="runes?.second?.name"
@@ -348,29 +285,21 @@ onMounted(() => {
               </div>
             </div>
             <div
-              data-v-cbff5ddf=""
-              data-v-ab218c16=""
-              data-v-15310f80=""
               class="tooltip"
               v-for="(group, index) in runes?.groups"
               :key="index"
             >
               <div
-                data-v-ab218c16=""
-                data-v-cbff5ddf-s=""
                 class="rune"
                 v-if="group.second"
                 @mouseenter="updateMousePosition"
                 @mouseleave="resetMousePosition"
               >
                 <img
-                  data-v-ab218c16=""
-                  data-v-cbff5ddf-s=""
                   :src="`/assets/icons/runes/${group.second.id}.png`"
                   :alt="group.second?.name"
                 />
                 <div
-                  data-v-cbff5ddf=""
                   class="box"
                   :style="{
                     position: 'absolute',
@@ -381,29 +310,18 @@ onMounted(() => {
               </div>
             </div>
           </div>
-          <div data-v-15310f80="" class="shards">
-            <div data-v-15310f80="" class="wrap">
-              <div
-                data-v-cbff5ddf=""
-                data-v-ad54ad37=""
-                data-v-15310f80=""
-                class="tooltip"
-                v-if="shards?.principal"
-              >
+          <div class="shards">
+            <div class="wrap">
+              <div class="tooltip" v-if="shards?.principal">
                 <div
-                  data-v-ad54ad37=""
-                  data-v-cbff5ddf-s=""
                   class="shard"
                   @mouseenter="updateMousePosition"
                   @mouseleave="resetMousePosition"
                 >
                   <img
-                    data-v-ad54ad37=""
-                    data-v-cbff5ddf-s=""
                     :src="`/assets/icons/shards/${shards?.principal?.image}`"
                   />
                   <div
-                    data-v-cbff5ddf=""
                     class="box"
                     :style="{
                       position: 'absolute',
@@ -415,27 +333,14 @@ onMounted(() => {
                   </div>
                 </div>
               </div>
-              <div
-                data-v-cbff5ddf=""
-                data-v-ad54ad37=""
-                data-v-15310f80=""
-                class="tooltip"
-                v-if="shards?.second"
-              >
+              <div class="tooltip" v-if="shards?.second">
                 <div
-                  data-v-ad54ad37=""
-                  data-v-cbff5ddf-s=""
                   class="shard"
                   @mouseenter="updateMousePosition"
                   @mouseleave="resetMousePosition"
                 >
-                  <img
-                    data-v-ad54ad37=""
-                    data-v-cbff5ddf-s=""
-                    :src="`/assets/icons/shards/${shards?.second?.image}`"
-                  />
+                  <img :src="`/assets/icons/shards/${shards?.second?.image}`" />
                   <div
-                    data-v-cbff5ddf=""
                     class="box"
                     :style="{
                       position: 'absolute',
@@ -447,27 +352,14 @@ onMounted(() => {
                   </div>
                 </div>
               </div>
-              <div
-                data-v-cbff5ddf=""
-                data-v-ad54ad37=""
-                data-v-15310f80=""
-                class="tooltip"
-                v-if="shards?.third"
-              >
+              <div class="tooltip" v-if="shards?.third">
                 <div
-                  data-v-ad54ad37=""
-                  data-v-cbff5ddf-s=""
                   class="shard"
                   @mouseenter="updateMousePosition"
                   @mouseleave="resetMousePosition"
                 >
-                  <img
-                    data-v-ad54ad37=""
-                    data-v-cbff5ddf-s=""
-                    :src="`/assets/icons/shards/${shards?.third?.image}`"
-                  />
+                  <img :src="`/assets/icons/shards/${shards?.third?.image}`" />
                   <div
-                    data-v-cbff5ddf=""
                     class="box"
                     :style="{
                       position: 'absolute',
@@ -483,29 +375,20 @@ onMounted(() => {
           </div>
         </div>
         <hr
-          data-v-15310f80=""
           :class="{
             hide: !runes?.principal,
           }"
         />
-        <div data-v-15310f80="" class="itemsGroup">
-          <div data-v-15310f80="" class="items">
+        <div class="itemsGroup">
+          <div class="items">
             <div
-              data-v-15310f80=""
               class="sheetItem"
               v-for="(item, index) in props.items?.core"
               :key="index"
             >
-              <div
-                data-v-354b7b55=""
-                data-v-7ab6e59a=""
-                data-v-15310f80=""
-                class="tip"
-              >
-                <div data-v-cbff5ddf="" data-v-354b7b55="" class="tooltip">
+              <div class="tip">
+                <div class="tooltip">
                   <div
-                    data-v-7ab6e59a=""
-                    data-v-cbff5ddf-s=""
                     to="false"
                     class="item"
                     replace="false"
@@ -513,13 +396,10 @@ onMounted(() => {
                     @mouseleave="resetMousePosition"
                   >
                     <img
-                      data-v-7ab6e59a=""
-                      data-v-cbff5ddf-s=""
                       class="img"
                       :src="`/assets/icons/items/${item.image.full}`"
                     />
                     <div
-                      data-v-cbff5ddf=""
                       class="box"
                       :style="{
                         position: 'absolute',
@@ -539,35 +419,26 @@ onMounted(() => {
             </div>
           </div>
           <div
-            data-v-15310f80=""
             :class="{
               sums: true,
               hide: !summonners?.principal,
             }"
           >
             <div
-              data-v-cbff5ddf=""
-              data-v-bab95e98=""
-              data-v-15310f80=""
               class="tooltip"
               v-for="(summoner, index) in summonners"
               :key="index"
             >
               <div
-                data-v-bab95e98=""
-                data-v-cbff5ddf-s=""
                 class="summoner"
                 @mouseenter="updateMousePosition"
                 @mouseleave="resetMousePosition"
               >
                 <img
-                  data-v-bab95e98=""
-                  data-v-cbff5ddf-s=""
                   :src="`/assets/icons/summoners/${summoner?.image.full}`"
                   v-if="summoner?.image.full"
                 />
                 <div
-                  data-v-cbff5ddf=""
                   class="box"
                   :style="{
                     position: 'absolute',
@@ -580,12 +451,11 @@ onMounted(() => {
           </div>
         </div>
         <hr
-          data-v-15310f80=""
           :class="{
             hide: !description,
           }"
         />
-        <div data-v-15310f80="" class="text">{{ description }}</div>
+        <div class="text">{{ description }}</div>
       </div>
     </div>
   </div>

@@ -1,4 +1,4 @@
-.info[data-v-af89f54e] {
+.info {
   flex-direction: column;
   align-items: center;
   margin: 2em auto 0;
@@ -6,10 +6,10 @@
   display: flex;
 }
 
-.info form .desc[data-v-af89f54e] {
+.info form .desc {
   width: 30em;
 }
 
-.info form .desc textarea[data-v-af89f54e] {
+.info form .desc textarea {
   height: 9em;
 }

@@ -143,26 +143,15 @@ const submitForm = async () => {
 </script>
 
 <template>
-  <div data-v-af89f54e="" data-v-b6709614="" class="info">
-    <form data-v-af89f54e="" @submit.prevent="submitForm">
-      <label data-v-af89f54e="">
+  <div class="info">
+    <form @submit.prevent="submitForm">
+      <label>
         Name *
-        <input
-          data-v-af89f54e=""
-          maxlength="58"
-          type="text"
-          required
-          v-model="name"
-        />
+        <input maxlength="58" type="text" required v-model="name" />
       </label>
-      <label data-v-af89f54e="" class="desc">
+      <label class="desc">
         Description
-        <textarea
-          data-v-af89f54e=""
-          type="text"
-          maxlength="1500"
-          v-model="description"
-        >
+        <textarea type="text" maxlength="1500" v-model="description">
         </textarea>
       </label>
       <label v-if="connexionStore.isLoggedIn" class="visibility-toggle">
@@ -170,8 +159,8 @@ const submitForm = async () => {
         <span class="checkmark"></span>
         Visible
       </label>
-      <div data-v-b6709614="" class="next">
-        <button type="submit" data-v-b6709614="">Finish</button>
+      <div class="next">
+        <button type="submit">Finish</button>
       </div>
     </form>
   </div>

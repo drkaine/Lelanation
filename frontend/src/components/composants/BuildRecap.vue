@@ -136,12 +136,12 @@ const editBuild = () => {
 </script>
 
 <template>
-  <main data-v-0c81bdb5="" class="main builds">
-    <div data-v-6a3673aa="" data-v-0c81bdb5="" class="build">
-      <h1 data-v-6a3673aa="" class="pagetitle">Build</h1>
-      <div data-v-6a3673aa="" class="wrap">
-        <div data-v-6a3673aa="" class="sheet">
-          <div data-v-6a3673aa="" class="el">
+  <main class="main builds">
+    <div class="build">
+      <h1 class="pagetitle">Build</h1>
+      <div class="wrap">
+        <div class="sheet">
+          <div class="el">
             <SheetBuild
               v-if="buildData"
               :version="buildData.version"
@@ -156,15 +156,10 @@ const editBuild = () => {
             />
           </div>
         </div>
-        <div data-v-6a3673aa="" class="actions">
-          <div data-v-6a3673aa="" class="image">
-            <button
-              data-v-6a3673aa=""
-              class="btn small sea"
-              @click="downloadImage"
-            >
+        <div class="actions">
+          <div class="image">
+            <button class="btn small sea" @click="downloadImage">
               <svg
-                data-v-6a3673aa=""
                 width="24"
                 height="24"
                 viewBox="0 0 24 24"
@@ -186,13 +181,11 @@ const editBuild = () => {
               Télécharger l'image
             </button>
             <button
-              data-v-6a3673aa=""
               class="btn small sea"
               title="Copy to clipboard"
               @click="copyImageToClipboard"
             >
               <svg
-                data-v-6a3673aa=""
                 width="24"
                 height="24"
                 viewBox="0 0 24 24"
@@ -214,13 +207,11 @@ const editBuild = () => {
               Copier l'image
             </button>
             <button
-              data-v-6a3673aa=""
               class="btn small sea"
               title="Copy to clipboard"
               @click="downloadJson"
             >
               <svg
-                data-v-6a3673aa=""
                 width="24"
                 height="24"
                 viewBox="0 0 24 24"
@@ -242,10 +233,9 @@ const editBuild = () => {
               Télécharger le JSON
             </button>
           </div>
-          <div data-v-6a3673aa="" class="rest">
-            <!-- <button data-v-6a3673aa="" class="btn small slate">Duplicate</button> -->
+          <div class="rest">
+            <!-- <button  class="btn small slate">Duplicate</button> -->
             <button
-              data-v-6a3673aa=""
               class="btn small slate"
               v-if="
                 !fileName.startsWith('lelariva_') || connexionStore.isLoggedIn
@@ -255,7 +245,6 @@ const editBuild = () => {
               Supprimer
             </button>
             <button
-              data-v-6a3673aa=""
               class="btn small slate"
               v-if="
                 !fileName.startsWith('lelariva_') || connexionStore.isLoggedIn
@@ -266,17 +255,16 @@ const editBuild = () => {
             </button>
           </div>
         </div>
-        <div data-v-6a3673aa="" class="stats">
-          <div data-v-636d16e0="" data-v-6a3673aa="" class="stats">
-            <div data-v-636d16e0="" class="list">
-              <div data-v-636d16e0="" class="labels">
-                <div data-v-636d16e0="" class="label column">base</div>
-                <div data-v-636d16e0="" class="label column">items</div>
-                <div data-v-636d16e0="" class="label column">total</div>
+        <div class="stats">
+          <div class="stats">
+            <div class="list">
+              <div class="labels">
+                <div class="label column">base</div>
+                <div class="label column">items</div>
+                <div class="label column">total</div>
               </div>
-              <div data-v-636d16e0="" class="list-item">
+              <div class="list-item">
                 <div
-                  data-v-636d16e0=""
                   class="health value column"
                   style="
                     background: color-mix(
@@ -287,10 +275,9 @@ const editBuild = () => {
                   "
                 >
                   {{ buildData?.buildStats.baseStats[lvl - 1].hp
-                  }}<span data-v-636d16e0="">&nbsp;</span>
+                  }}<span>&nbsp;</span>
                 </div>
                 <div
-                  data-v-636d16e0=""
                   class="health value column"
                   style="
                     background: color-mix(
@@ -301,10 +288,9 @@ const editBuild = () => {
                   "
                 >
                   {{ buildData?.buildStats.buildItemStats.hp
-                  }}<span data-v-636d16e0="">&nbsp;</span>
+                  }}<span>&nbsp;</span>
                 </div>
                 <div
-                  data-v-636d16e0=""
                   class="health value column"
                   style="
                     background: color-mix(
@@ -315,13 +301,12 @@ const editBuild = () => {
                   "
                 >
                   {{ buildData?.buildStats.totalStats[lvl - 1].hp
-                  }}<span data-v-636d16e0="">&nbsp;</span>
+                  }}<span>&nbsp;</span>
                 </div>
-                <div data-v-636d16e0="" class="name">HP</div>
+                <div class="name">HP</div>
               </div>
-              <div data-v-636d16e0="" class="list-item">
+              <div class="list-item">
                 <div
-                  data-v-636d16e0=""
                   class="health-regen value column"
                   style="
                     background: color-mix(
@@ -332,10 +317,9 @@ const editBuild = () => {
                   "
                 >
                   {{ buildData?.buildStats.baseStats[lvl - 1].hpregen
-                  }}<span data-v-636d16e0="">&nbsp;</span>
+                  }}<span>&nbsp;</span>
                 </div>
                 <div
-                  data-v-636d16e0=""
                   class="health-regen value column"
                   style="
                     background: color-mix(
@@ -346,10 +330,9 @@ const editBuild = () => {
                   "
                 >
                   {{ buildData?.buildStats.buildItemStats.hpregen
-                  }}<span data-v-636d16e0="">&nbsp;</span>
+                  }}<span>&nbsp;</span>
                 </div>
                 <div
-                  data-v-636d16e0=""
                   class="health-regen value column"
                   style="
                     background: color-mix(
@@ -360,13 +343,12 @@ const editBuild = () => {
                   "
                 >
                   {{ buildData?.buildStats.totalStats[lvl - 1].hpregen
-                  }}<span data-v-636d16e0="">&nbsp;</span>
+                  }}<span>&nbsp;</span>
                 </div>
-                <div data-v-636d16e0="" class="name">HP regen</div>
+                <div class="name">HP regen</div>
               </div>
-              <div data-v-636d16e0="" class="list-item">
+              <div class="list-item">
                 <div
-                  data-v-636d16e0=""
                   class="mana value column"
                   style="
                     background: color-mix(
@@ -377,10 +359,9 @@ const editBuild = () => {
                   "
                 >
                   {{ buildData?.buildStats.baseStats[lvl - 1].mp
-                  }}<span data-v-636d16e0="">&nbsp;</span>
+                  }}<span>&nbsp;</span>
                 </div>
                 <div
-                  data-v-636d16e0=""
                   class="mana value column"
                   style="
                     background: color-mix(
@@ -391,10 +372,9 @@ const editBuild = () => {
                   "
                 >
                   {{ buildData?.buildStats.buildItemStats.mp
-                  }}<span data-v-636d16e0="">&nbsp;</span>
+                  }}<span>&nbsp;</span>
                 </div>
                 <div
-                  data-v-636d16e0=""
                   class="mana value column"
                   style="
                     background: color-mix(
@@ -405,13 +385,12 @@ const editBuild = () => {
                   "
                 >
                   {{ buildData?.buildStats.totalStats[lvl - 1].mp
-                  }}<span data-v-636d16e0="">&nbsp;</span>
+                  }}<span>&nbsp;</span>
                 </div>
-                <div data-v-636d16e0="" class="name">Mana</div>
+                <div class="name">Mana</div>
               </div>
-              <div data-v-636d16e0="" class="list-item">
+              <div class="list-item">
                 <div
-                  data-v-636d16e0=""
                   class="mana-regen value column"
                   style="
                     background: color-mix(
@@ -422,10 +401,9 @@ const editBuild = () => {
                   "
                 >
                   {{ buildData?.buildStats.baseStats[lvl - 1].mpregen
-                  }}<span data-v-636d16e0="">&nbsp;</span>
+                  }}<span>&nbsp;</span>
                 </div>
                 <div
-                  data-v-636d16e0=""
                   class="mana-regen value column"
                   style="
                     background: color-mix(
@@ -436,10 +414,9 @@ const editBuild = () => {
                   "
                 >
                   {{ buildData?.buildStats.buildItemStats.mpregen
-                  }}<span data-v-636d16e0="">&nbsp;</span>
+                  }}<span>&nbsp;</span>
                 </div>
                 <div
-                  data-v-636d16e0=""
                   class="mana-regen value column"
                   style="
                     background: color-mix(
@@ -450,13 +427,12 @@ const editBuild = () => {
                   "
                 >
                   {{ buildData?.buildStats.totalStats[lvl - 1].mpregen
-                  }}<span data-v-636d16e0="">&nbsp;</span>
+                  }}<span>&nbsp;</span>
                 </div>
-                <div data-v-636d16e0="" class="name">Mana regen</div>
+                <div class="name">Mana regen</div>
               </div>
-              <div data-v-636d16e0="" class="list-item">
+              <div class="list-item">
                 <div
-                  data-v-636d16e0=""
                   class="armor value column"
                   style="
                     background: color-mix(
@@ -467,10 +443,9 @@ const editBuild = () => {
                   "
                 >
                   {{ buildData?.buildStats.baseStats[lvl - 1].armor
-                  }}<span data-v-636d16e0="">&nbsp;</span>
+                  }}<span>&nbsp;</span>
                 </div>
                 <div
-                  data-v-636d16e0=""
                   class="armor value column"
                   style="
                     background: color-mix(
@@ -481,10 +456,9 @@ const editBuild = () => {
                   "
                 >
                   {{ buildData?.buildStats.buildItemStats.armor
-                  }}<span data-v-636d16e0="">&nbsp;</span>
+                  }}<span>&nbsp;</span>
                 </div>
                 <div
-                  data-v-636d16e0=""
                   class="armor value column"
                   style="
                     background: color-mix(
@@ -495,13 +469,12 @@ const editBuild = () => {
                   "
                 >
                   {{ buildData?.buildStats.totalStats[lvl - 1].armor
-                  }}<span data-v-636d16e0="">&nbsp;</span>
+                  }}<span>&nbsp;</span>
                 </div>
-                <div data-v-636d16e0="" class="name">Armure</div>
+                <div class="name">Armure</div>
               </div>
-              <div data-v-636d16e0="" class="list-item">
+              <div class="list-item">
                 <div
-                  data-v-636d16e0=""
                   class="magic-resist value column"
                   style="
                     background: color-mix(
@@ -512,10 +485,9 @@ const editBuild = () => {
                   "
                 >
                   {{ buildData?.buildStats.baseStats[lvl - 1].spellblock
-                  }}<span data-v-636d16e0="">&nbsp;</span>
+                  }}<span>&nbsp;</span>
                 </div>
                 <div
-                  data-v-636d16e0=""
                   class="magic-resist value column"
                   style="
                     background: color-mix(
@@ -526,10 +498,9 @@ const editBuild = () => {
                   "
                 >
                   {{ buildData?.buildStats.buildItemStats.spellblock
-                  }}<span data-v-636d16e0="">&nbsp;</span>
+                  }}<span>&nbsp;</span>
                 </div>
                 <div
-                  data-v-636d16e0=""
                   class="magic-resist value column"
                   style="
                     background: color-mix(
@@ -540,13 +511,12 @@ const editBuild = () => {
                   "
                 >
                   {{ buildData?.buildStats.totalStats[lvl - 1].spellblock
-                  }}<span data-v-636d16e0="">&nbsp;</span>
+                  }}<span>&nbsp;</span>
                 </div>
-                <div data-v-636d16e0="" class="name">Resistance magique</div>
+                <div class="name">Resistance magique</div>
               </div>
-              <div data-v-636d16e0="" class="list-item">
+              <div class="list-item">
                 <div
-                  data-v-636d16e0=""
                   class="attack-damage value column"
                   style="
                     background: color-mix(
@@ -557,10 +527,9 @@ const editBuild = () => {
                   "
                 >
                   {{ buildData?.buildStats.baseStats[lvl - 1].attackdamage
-                  }}<span data-v-636d16e0="">&nbsp;</span>
+                  }}<span>&nbsp;</span>
                 </div>
                 <div
-                  data-v-636d16e0=""
                   class="attack-damage value column"
                   style="
                     background: color-mix(
@@ -571,10 +540,9 @@ const editBuild = () => {
                   "
                 >
                   {{ buildData?.buildStats.buildItemStats.attackdamage
-                  }}<span data-v-636d16e0="">&nbsp;</span>
+                  }}<span>&nbsp;</span>
                 </div>
                 <div
-                  data-v-636d16e0=""
                   class="attack-damage value column"
                   style="
                     background: color-mix(
@@ -585,13 +553,12 @@ const editBuild = () => {
                   "
                 >
                   {{ buildData?.buildStats.totalStats[lvl - 1].attackdamage
-                  }}<span data-v-636d16e0="">&nbsp;</span>
+                  }}<span>&nbsp;</span>
                 </div>
-                <div data-v-636d16e0="" class="name">AD</div>
+                <div class="name">AD</div>
               </div>
-              <div data-v-636d16e0="" class="list-item">
+              <div class="list-item">
                 <div
-                  data-v-636d16e0=""
                   class="move-speed value column"
                   style="
                     background: color-mix(
@@ -602,10 +569,9 @@ const editBuild = () => {
                   "
                 >
                   {{ buildData?.buildStats.baseStats[lvl - 1].movespeed
-                  }}<span data-v-636d16e0="">&nbsp;</span>
+                  }}<span>&nbsp;</span>
                 </div>
                 <div
-                  data-v-636d16e0=""
                   class="move-speed value column"
                   style="
                     background: color-mix(
@@ -616,10 +582,9 @@ const editBuild = () => {
                   "
                 >
                   {{ buildData?.buildStats.buildItemStats.movespeed
-                  }}<span data-v-636d16e0="">&nbsp;</span>
+                  }}<span>&nbsp;</span>
                 </div>
                 <div
-                  data-v-636d16e0=""
                   class="move-speed value column"
                   style="
                     background: color-mix(
@@ -630,15 +595,12 @@ const editBuild = () => {
                   "
                 >
                   {{ buildData?.buildStats.totalStats[lvl - 1].movespeed
-                  }}<span data-v-636d16e0="">&nbsp;</span>
+                  }}<span>&nbsp;</span>
                 </div>
-                <div data-v-636d16e0="" class="name">
-                  Vitesse de déplacement
-                </div>
+                <div class="name">Vitesse de déplacement</div>
               </div>
-              <div data-v-636d16e0="" class="list-item">
+              <div class="list-item">
                 <div
-                  data-v-636d16e0=""
                   class="attack-range value column"
                   style="
                     background: color-mix(
@@ -649,10 +611,9 @@ const editBuild = () => {
                   "
                 >
                   {{ buildData?.buildStats.baseStats[lvl - 1].attackrange
-                  }}<span data-v-636d16e0="">&nbsp;</span>
+                  }}<span>&nbsp;</span>
                 </div>
                 <div
-                  data-v-636d16e0=""
                   class="attack-range value column"
                   style="
                     background: color-mix(
@@ -663,10 +624,9 @@ const editBuild = () => {
                   "
                 >
                   {{ buildData?.buildStats.buildItemStats.attackrange
-                  }}<span data-v-636d16e0="">&nbsp;</span>
+                  }}<span>&nbsp;</span>
                 </div>
                 <div
-                  data-v-636d16e0=""
                   class="attack-range value column"
                   style="
                     background: color-mix(
@@ -677,13 +637,12 @@ const editBuild = () => {
                   "
                 >
                   {{ buildData?.buildStats.totalStats[lvl - 1].attackrange
-                  }}<span data-v-636d16e0="">&nbsp;</span>
+                  }}<span>&nbsp;</span>
                 </div>
-                <div data-v-636d16e0="" class="name">Portée d'attaque</div>
+                <div class="name">Portée d'attaque</div>
               </div>
-              <div data-v-636d16e0="" class="list-item">
+              <div class="list-item">
                 <div
-                  data-v-636d16e0=""
                   class="attack-speed:% value column"
                   style="
                     background: color-mix(
@@ -694,10 +653,9 @@ const editBuild = () => {
                   "
                 >
                   {{ buildData?.buildStats.baseStats[lvl - 1].attackspeed
-                  }}<span data-v-636d16e0="">%</span>
+                  }}<span>%</span>
                 </div>
                 <div
-                  data-v-636d16e0=""
                   class="attack-speed:% value column"
                   style="
                     background: color-mix(
@@ -708,10 +666,9 @@ const editBuild = () => {
                   "
                 >
                   {{ buildData?.buildStats.buildItemStats.attackspeed
-                  }}<span data-v-636d16e0="">%</span>
+                  }}<span>%</span>
                 </div>
                 <div
-                  data-v-636d16e0=""
                   class="attack-speed:% value column"
                   style="
                     background: color-mix(
@@ -722,13 +679,12 @@ const editBuild = () => {
                   "
                 >
                   {{ buildData?.buildStats.totalStats[lvl - 1].attackspeed
-                  }}<span data-v-636d16e0="">%</span>
+                  }}<span>%</span>
                 </div>
-                <div data-v-636d16e0="" class="name">Vitesse d'attaque (%)</div>
+                <div class="name">Vitesse d'attaque (%)</div>
               </div>
-              <div data-v-636d16e0="" class="list-item">
+              <div class="list-item">
                 <div
-                  data-v-636d16e0=""
                   class="ability-haste value column"
                   style="
                     background: color-mix(
@@ -738,10 +694,9 @@ const editBuild = () => {
                     );
                   "
                 >
-                  0<span data-v-636d16e0="">&nbsp;</span>
+                  0<span>&nbsp;</span>
                 </div>
                 <div
-                  data-v-636d16e0=""
                   class="ability-haste value column"
                   style="
                     background: color-mix(
@@ -752,10 +707,9 @@ const editBuild = () => {
                   "
                 >
                   {{ buildData?.buildStats.buildItemStats.CDR
-                  }}<span data-v-636d16e0="">&nbsp;</span>
+                  }}<span>&nbsp;</span>
                 </div>
                 <div
-                  data-v-636d16e0=""
                   class="ability-haste value column"
                   style="
                     background: color-mix(
@@ -766,13 +720,12 @@ const editBuild = () => {
                   "
                 >
                   {{ buildData?.buildStats.totalStats[lvl - 1].CDR }}
-                  <span data-v-636d16e0="">&nbsp;</span>
+                  <span>&nbsp;</span>
                 </div>
-                <div data-v-636d16e0="" class="name">CDR</div>
+                <div class="name">CDR</div>
               </div>
-              <div data-v-636d16e0="" class="list-item">
+              <div class="list-item">
                 <div
-                  data-v-636d16e0=""
                   class="ability-power value column"
                   style="
                     background: color-mix(
@@ -782,10 +735,9 @@ const editBuild = () => {
                     );
                   "
                 >
-                  0<span data-v-636d16e0="">&nbsp;</span>
+                  0<span>&nbsp;</span>
                 </div>
                 <div
-                  data-v-636d16e0=""
                   class="ability-power value column"
                   style="
                     background: color-mix(
@@ -796,10 +748,9 @@ const editBuild = () => {
                   "
                 >
                   {{ buildData?.buildStats.buildItemStats.AP
-                  }}<span data-v-636d16e0="">&nbsp;</span>
+                  }}<span>&nbsp;</span>
                 </div>
                 <div
-                  data-v-636d16e0=""
                   class="ability-power value column"
                   style="
                     background: color-mix(
@@ -810,13 +761,12 @@ const editBuild = () => {
                   "
                 >
                   {{ buildData?.buildStats.totalStats[lvl - 1].AP }}
-                  <span data-v-636d16e0="">&nbsp;</span>
+                  <span>&nbsp;</span>
                 </div>
-                <div data-v-636d16e0="" class="name">AP</div>
+                <div class="name">AP</div>
               </div>
-              <div data-v-636d16e0="" class="list-item">
+              <div class="list-item">
                 <div
-                  data-v-636d16e0=""
                   class="lethality value column"
                   style="
                     background: color-mix(
@@ -826,10 +776,9 @@ const editBuild = () => {
                     );
                   "
                 >
-                  0<span data-v-636d16e0="">&nbsp;</span>
+                  0<span>&nbsp;</span>
                 </div>
                 <div
-                  data-v-636d16e0=""
                   class="lethality value column"
                   style="
                     background: color-mix(
@@ -840,10 +789,9 @@ const editBuild = () => {
                   "
                 >
                   {{ buildData?.buildStats.buildItemStats.lethality
-                  }}<span data-v-636d16e0="">&nbsp;</span>
+                  }}<span>&nbsp;</span>
                 </div>
                 <div
-                  data-v-636d16e0=""
                   class="lethality value column"
                   style="
                     background: color-mix(
@@ -854,13 +802,12 @@ const editBuild = () => {
                   "
                 >
                   {{ buildData?.buildStats.totalStats[lvl - 1].lethality }}
-                  <span data-v-636d16e0="">&nbsp;</span>
+                  <span>&nbsp;</span>
                 </div>
-                <div data-v-636d16e0="" class="name">Lethalité</div>
+                <div class="name">Lethalité</div>
               </div>
-              <div data-v-636d16e0="" class="list-item">
+              <div class="list-item">
                 <div
-                  data-v-636d16e0=""
                   class="magic-penetration:% value column"
                   style="
                     background: color-mix(
@@ -870,10 +817,9 @@ const editBuild = () => {
                     );
                   "
                 >
-                  0<span data-v-636d16e0="">%</span>
+                  0<span>%</span>
                 </div>
                 <div
-                  data-v-636d16e0=""
                   class="magic-penetration:% value column"
                   style="
                     background: color-mix(
@@ -884,10 +830,9 @@ const editBuild = () => {
                   "
                 >
                   {{ buildData?.buildStats.buildItemStats.magicPenetration
-                  }}<span data-v-636d16e0="">%</span>
+                  }}<span>%</span>
                 </div>
                 <div
-                  data-v-636d16e0=""
                   class="magic-penetration:% value column"
                   style="
                     background: color-mix(
@@ -900,15 +845,12 @@ const editBuild = () => {
                   {{
                     buildData?.buildStats.totalStats[lvl - 1].magicPenetration
                   }}
-                  <span data-v-636d16e0="">%</span>
+                  <span>%</span>
                 </div>
-                <div data-v-636d16e0="" class="name">
-                  Pénétration magique (%)
-                </div>
+                <div class="name">Pénétration magique (%)</div>
               </div>
-              <div data-v-636d16e0="" class="list-item">
+              <div class="list-item">
                 <div
-                  data-v-636d16e0=""
                   class="tenacity:% value column"
                   style="
                     background: color-mix(
@@ -918,10 +860,9 @@ const editBuild = () => {
                     );
                   "
                 >
-                  0<span data-v-636d16e0="">%</span>
+                  0<span>%</span>
                 </div>
                 <div
-                  data-v-636d16e0=""
                   class="tenacity:% value column"
                   style="
                     background: color-mix(
@@ -932,10 +873,9 @@ const editBuild = () => {
                   "
                 >
                   {{ buildData?.buildStats.buildItemStats.shield
-                  }}<span data-v-636d16e0="">%</span>
+                  }}<span>%</span>
                 </div>
                 <div
-                  data-v-636d16e0=""
                   class="tenacity:% value column"
                   style="
                     background: color-mix(
@@ -946,15 +886,12 @@ const editBuild = () => {
                   "
                 >
                   {{ buildData?.buildStats.totalStats[lvl - 1].shield }}
-                  <span data-v-636d16e0="">%</span>
+                  <span>%</span>
                 </div>
-                <div data-v-636d16e0="" class="name">
-                  Augmentation bouclier (%)
-                </div>
+                <div class="name">Augmentation bouclier (%)</div>
               </div>
-              <div data-v-636d16e0="" class="list-item">
+              <div class="list-item">
                 <div
-                  data-v-636d16e0=""
                   class="tenacity:% value column"
                   style="
                     background: color-mix(
@@ -964,10 +901,9 @@ const editBuild = () => {
                     );
                   "
                 >
-                  0<span data-v-636d16e0="">%</span>
+                  0<span>%</span>
                 </div>
                 <div
-                  data-v-636d16e0=""
                   class="tenacity:% value column"
                   style="
                     background: color-mix(
@@ -978,10 +914,9 @@ const editBuild = () => {
                   "
                 >
                   {{ buildData?.buildStats.buildItemStats.omnivamp
-                  }}<span data-v-636d16e0="">%</span>
+                  }}<span>%</span>
                 </div>
                 <div
-                  data-v-636d16e0=""
                   class="tenacity:% value column"
                   style="
                     background: color-mix(
@@ -992,13 +927,12 @@ const editBuild = () => {
                   "
                 >
                   {{ buildData?.buildStats.totalStats[lvl - 1].omnivamp }}
-                  <span data-v-636d16e0="">%</span>
+                  <span>%</span>
                 </div>
-                <div data-v-636d16e0="" class="name">Omnivamp (%)</div>
+                <div class="name">Omnivamp (%)</div>
               </div>
-              <div data-v-636d16e0="" class="list-item">
+              <div class="list-item">
                 <div
-                  data-v-636d16e0=""
                   class="tenacity:% value column"
                   style="
                     background: color-mix(
@@ -1008,10 +942,9 @@ const editBuild = () => {
                     );
                   "
                 >
-                  0<span data-v-636d16e0="">%</span>
+                  0<span>%</span>
                 </div>
                 <div
-                  data-v-636d16e0=""
                   class="tenacity:% value column"
                   style="
                     background: color-mix(
@@ -1021,11 +954,9 @@ const editBuild = () => {
                     );
                   "
                 >
-                  {{ buildData?.buildStats.buildItemStats.crit
-                  }}<span data-v-636d16e0="">%</span>
+                  {{ buildData?.buildStats.buildItemStats.crit }}<span>%</span>
                 </div>
                 <div
-                  data-v-636d16e0=""
                   class="tenacity:% value column"
                   style="
                     background: color-mix(
@@ -1036,13 +967,12 @@ const editBuild = () => {
                   "
                 >
                   {{ buildData?.buildStats.totalStats[lvl - 1].crit }}
-                  <span data-v-636d16e0="">%</span>
+                  <span>%</span>
                 </div>
-                <div data-v-636d16e0="" class="name">Critique (%)</div>
+                <div class="name">Critique (%)</div>
               </div>
-              <div data-v-636d16e0="" class="list-item">
+              <div class="list-item">
                 <div
-                  data-v-636d16e0=""
                   class="tenacity:% value column"
                   style="
                     background: color-mix(
@@ -1052,10 +982,9 @@ const editBuild = () => {
                     );
                   "
                 >
-                  0<span data-v-636d16e0="">%</span>
+                  0<span>%</span>
                 </div>
                 <div
-                  data-v-636d16e0=""
                   class="tenacity:% value column"
                   style="
                     background: color-mix(
@@ -1066,10 +995,9 @@ const editBuild = () => {
                   "
                 >
                   {{ buildData?.buildStats.buildItemStats.tenacity
-                  }}<span data-v-636d16e0="">%</span>
+                  }}<span>%</span>
                 </div>
                 <div
-                  data-v-636d16e0=""
                   class="tenacity:% value column"
                   style="
                     background: color-mix(
@@ -1080,13 +1008,12 @@ const editBuild = () => {
                   "
                 >
                   {{ buildData?.buildStats.totalStats[lvl - 1].tenacity }}
-                  <span data-v-636d16e0="">%</span>
+                  <span>%</span>
                 </div>
-                <div data-v-636d16e0="" class="name">ténacité (%)</div>
+                <div class="name">ténacité (%)</div>
               </div>
-              <div data-v-636d16e0="" class="list-item">
+              <div class="list-item">
                 <div
-                  data-v-636d16e0=""
                   class="gold value column"
                   style="
                     background: color-mix(
@@ -1096,10 +1023,9 @@ const editBuild = () => {
                     );
                   "
                 >
-                  0<span data-v-636d16e0="">&nbsp;</span>
+                  0<span>&nbsp;</span>
                 </div>
                 <div
-                  data-v-636d16e0=""
                   class="gold value column"
                   style="
                     background: color-mix(
@@ -1109,11 +1035,9 @@ const editBuild = () => {
                     );
                   "
                 >
-                  {{ buildData?.sheet.items.gold.total
-                  }}<span data-v-636d16e0="">&nbsp;</span>
+                  {{ buildData?.sheet.items.gold.total }}<span>&nbsp;</span>
                 </div>
                 <div
-                  data-v-636d16e0=""
                   class="gold value column"
                   style="
                     background: color-mix(
@@ -1123,21 +1047,19 @@ const editBuild = () => {
                     );
                   "
                 >
-                  {{ buildData?.sheet.items.gold.total
-                  }}<span data-v-636d16e0="">&nbsp;</span>
+                  {{ buildData?.sheet.items.gold.total }}<span>&nbsp;</span>
                 </div>
-                <div data-v-636d16e0="" class="name">Gold</div>
+                <div class="name">Gold</div>
               </div>
             </div>
 
-            <div data-v-636d16e0="" class="list">
-              <div data-v-636d16e0="" class="labels">
-                <div data-v-636d16e0="" class="label column">Réduction</div>
-                <div data-v-636d16e0="" class="label column">Effectif</div>
+            <div class="list">
+              <div class="labels">
+                <div class="label column">Réduction</div>
+                <div class="label column">Effectif</div>
               </div>
-              <div data-v-636d16e0="" class="list-item">
+              <div class="list-item">
                 <div
-                  data-v-636d16e0=""
                   class="health value column"
                   style="
                     background: color-mix(
@@ -1148,7 +1070,6 @@ const editBuild = () => {
                   "
                 ></div>
                 <div
-                  data-v-636d16e0=""
                   class="health value column"
                   style="
                     background: color-mix(
@@ -1159,13 +1080,12 @@ const editBuild = () => {
                   "
                 >
                   {{ buildData?.buildStats.totalStats[lvl - 1].effectiveAS
-                  }}<span data-v-636d16e0="">&nbsp;</span>
+                  }}<span>&nbsp;</span>
                 </div>
-                <div data-v-636d16e0="" class="name">Vitesse d'attaque (%)</div>
+                <div class="name">Vitesse d'attaque (%)</div>
               </div>
-              <div data-v-636d16e0="" class="list-item">
+              <div class="list-item">
                 <div
-                  data-v-636d16e0=""
                   class="health-regen value column"
                   style="
                     background: color-mix(
@@ -1178,10 +1098,9 @@ const editBuild = () => {
                   {{
                     buildData?.buildStats.totalStats[lvl - 1].effectiveArmor
                       .damageReduction
-                  }}<span data-v-636d16e0="">&nbsp;</span>
+                  }}<span>&nbsp;</span>
                 </div>
                 <div
-                  data-v-636d16e0=""
                   class="health-regen value column"
                   style="
                     background: color-mix(
@@ -1194,13 +1113,12 @@ const editBuild = () => {
                   {{
                     buildData?.buildStats.totalStats[lvl - 1].effectiveArmor
                       .effectiveHealth
-                  }}<span data-v-636d16e0="">&nbsp;</span>
+                  }}<span>&nbsp;</span>
                 </div>
-                <div data-v-636d16e0="" class="name">Armure</div>
+                <div class="name">Armure</div>
               </div>
-              <div data-v-636d16e0="" class="list-item">
+              <div class="list-item">
                 <div
-                  data-v-636d16e0=""
                   class="mana value column"
                   style="
                     background: color-mix(
@@ -1213,10 +1131,9 @@ const editBuild = () => {
                   {{
                     buildData?.buildStats.totalStats[lvl - 1].effectiveMR
                       .damageReduction
-                  }}<span data-v-636d16e0="">&nbsp;</span>
+                  }}<span>&nbsp;</span>
                 </div>
                 <div
-                  data-v-636d16e0=""
                   class="mana value column"
                   style="
                     background: color-mix(
@@ -1229,13 +1146,12 @@ const editBuild = () => {
                   {{
                     buildData?.buildStats.totalStats[lvl - 1].effectiveMR
                       .effectiveHealth
-                  }}<span data-v-636d16e0="">&nbsp;</span>
+                  }}<span>&nbsp;</span>
                 </div>
-                <div data-v-636d16e0="" class="name">Résistance magique</div>
+                <div class="name">Résistance magique</div>
               </div>
-              <div data-v-636d16e0="" class="list-item">
+              <div class="list-item">
                 <div
-                  data-v-636d16e0=""
                   class="mana-regen value column"
                   style="
                     background: color-mix(
@@ -1246,7 +1162,6 @@ const editBuild = () => {
                   "
                 ></div>
                 <div
-                  data-v-636d16e0=""
                   class="mana-regen value column"
                   style="
                     background: color-mix(
@@ -1259,20 +1174,18 @@ const editBuild = () => {
                   {{
                     buildData?.buildStats.totalStats[lvl - 1]
                       .effectiveMovementSpeed
-                  }}<span data-v-636d16e0="">&nbsp;</span>
+                  }}<span>&nbsp;</span>
                 </div>
-                <div data-v-636d16e0="" class="name">
-                  Vitesse de déplacement
-                </div>
+                <div class="name">Vitesse de déplacement</div>
               </div>
             </div>
 
-            <!-- <div data-v-636d16e0="" class="slot">
-              <div data-v-5f37b7fd="" data-v-6a3673aa="" class="note">
-                <div data-v-cbff5ddf="" data-v-5f37b7fd="" class="tooltip">
+            <!-- <div  class="slot">
+              <div   class="note">
+                <div   class="tooltip">
                   <svg
-                    data-v-5f37b7fd=""
-                    data-v-cbff5ddf-s=""
+                    
+                    "
                     width="24"
                     height="24"
                     viewBox="0 0 24 24"
@@ -1288,21 +1201,21 @@ const editBuild = () => {
                     <path d="M11 12h1v4h1"></path>
                   </svg>
                   <div
-                    data-v-cbff5ddf=""
+                    
                     class="touch box"
                     style="position: absolute; left: -45px; top: -101px"
                   >
-                    <div data-v-cbff5ddf="" class="body">
-                      <b data-v-5f37b7fd="" data-v-cbff5ddf-s=""
+                    <div  class="body">
+                      <b  "
                         >Combined base and item stats</b
-                      ><br data-v-5f37b7fd="" data-v-cbff5ddf-s="" />
+                      ><br  " />
                       Item percentage is calculated into the stat,<br
-                        data-v-5f37b7fd=""
-                        data-v-cbff5ddf-s=""
+                        
+                        "
                       />
                       unless the percentage stat is shown in the table.<br
-                        data-v-5f37b7fd=""
-                        data-v-cbff5ddf-s=""
+                        
+                        "
                       />
                     </div>
                   </div>
@@ -1310,16 +1223,10 @@ const editBuild = () => {
               </div>
             </div> -->
           </div>
-          <div data-v-6a3673aa="" class="levels">
-            <div
-              data-v-575fc9df=""
-              data-v-6a3673aa=""
-              class="levels horizontal"
-              title="level"
-            >
+          <div class="levels">
+            <div class="levels horizontal" title="level">
               <button
                 v-for="level in 18"
-                data-v-575fc9df=""
                 :key="level"
                 :class="['level', { active: lvl === level }]"
                 @click="updateLevel(level)"

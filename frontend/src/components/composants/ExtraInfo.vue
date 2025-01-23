@@ -13,31 +13,22 @@ const removeItem = (index: number) => {
 </script>
 
 <template>
-  <div data-v-b6709614="" class="extra" id="extra">
-    <div data-v-63d61340="" data-v-6a781413="" class="picks">
-      <div data-v-63d61340="" class="list">
+  <div class="extra" id="extra">
+    <div class="picks">
+      <div class="list">
         <div
-          data-v-1875b585=""
-          data-v-63d61340=""
           class="pick-item"
           v-for="(item, index) in itemStore.ItemsSelection.core"
           :key="index"
         >
-          <div
-            data-v-354b7b55=""
-            data-v-7ab6e59a=""
-            data-v-1875b585=""
-            class="tip"
-          >
+          <div class="tip">
             <button
-              data-v-7ab6e59a=""
               to="false"
               class="item"
               replace="false"
               @click="removeItem(index)"
             >
               <img
-                data-v-7ab6e59a=""
                 class="img"
                 :src="`/assets/icons/items/${item.image.full}`"
                 :alt="item.name"
@@ -47,20 +38,18 @@ const removeItem = (index: number) => {
         </div>
       </div>
     </div>
-    <div data-v-6a781413="" class="extra-stats">
-      <div data-v-636d16e0="" data-v-6a781413="" class="stats">
-        <div data-v-636d16e0="" class="list">
-          <div data-v-636d16e0="" class="labels">
-            <div data-v-636d16e0="" class="label column">total</div>
+    <div class="extra-stats">
+      <div class="stats">
+        <div class="list">
+          <div class="labels">
+            <div class="label column">total</div>
           </div>
           <div
-            data-v-636d16e0=""
             class="list-item"
             v-for="(stat, index) in itemStore.ItemsSelection.stats"
             :key="index"
           >
             <div
-              data-v-636d16e0=""
               class="health value column"
               style="
                 background: color-mix(
@@ -72,19 +61,17 @@ const removeItem = (index: number) => {
               v-if="stat && stat > 0"
             >
               {{ stat.toString().includes('.') ? stat.toFixed(2) : stat }}
-              <span data-v-636d16e0="">&nbsp; </span>
+              <span>&nbsp; </span>
             </div>
             <div
-              data-v-636d16e0=""
               class="name"
               v-if="typeof index === 'string' && stat && stat > 0"
             >
               <!-- {{ getTrad(index) }} -->
             </div>
           </div>
-          <div data-v-636d16e0="" class="list-item">
+          <div class="list-item">
             <div
-              data-v-636d16e0=""
               class="gold value column"
               style="
                 background: color-mix(
@@ -95,17 +82,16 @@ const removeItem = (index: number) => {
               "
             >
               {{ itemStore.ItemsSelection.gold.total }}
-              <span data-v-636d16e0="">&nbsp; </span>
+              <span>&nbsp; </span>
             </div>
-            <div data-v-636d16e0="" class="name">gold</div>
+            <div class="name">gold</div>
           </div>
         </div>
-        <div data-v-636d16e0="" class="slot">
-          <div data-v-5f37b7fd="" data-v-6a781413="" class="note">
-            <div data-v-cbff5ddf="" data-v-5f37b7fd="" class="tooltip">
+        <div class="slot">
+          <div class="note">
+            <div class="tooltip">
               <svg
-                data-v-5f37b7fd=""
-                data-v-cbff5ddf-s=""
+                s
                 width="24"
                 height="24"
                 viewBox="0 0 24 24"

@@ -1,30 +1,30 @@
 @container (max-width: 780px) {
-  .build[data-v-a0db44f6] {
+  .build {
     pointer-events: none;
   }
 }
 
 @container (min-width: 750px) {
-  .build .open[data-v-a0db44f6] {
+  .build .open {
     border-radius: 4px 4px 0 0;
     border-color: var(--slate-4);
     border-bottom: none;
   }
 
   @container (max-width: 475px) {
-    .build .open[data-v-a0db44f6] {
+    .build .open {
       width: 21rem;
     }
   }
 }
 @container (max-width: 780px) {
-  .build .info[data-v-a0db44f6] {
+  .build .info {
     grid-area: 1/1 / auto/auto;
   }
 }
 
 @container (max-width: 780px) {
-  .build .pro[data-v-a0db44f6] {
+  .build .pro {
     grid-area: 1/1 / auto/auto;
     justify-self: center;
     text-align: center;
@@ -33,7 +33,7 @@
 }
 
 @container (max-width: 475px) {
-  .build .pro[data-v-a0db44f6] {
+  .build .pro {
     grid-area: 1/2 / auto/auto;
     margin-left: -3.5em;
     text-align: center;
@@ -42,13 +42,13 @@
 }
 
 @container (max-width: 780px) {
-  .build .pro .name[data-v-a0db44f6] {
+  .build .pro .name {
     width: 14ch;
   }
 }
 
 @container (max-width: 780px) {
-  .build .match[data-v-a0db44f6] {
+  .build .match {
     grid-area: 1/1 / auto/auto;
     justify-self: right;
     margin-right: -2em;
@@ -56,7 +56,7 @@
 }
 
 @container (max-width: 475px) {
-  .build .match[data-v-a0db44f6] {
+  .build .match {
     grid-area: 1/2 / auto/auto;
     justify-self: right;
     text-align: right;
@@ -65,19 +65,19 @@
 }
 
 @container (max-width: 970px) {
-  .line.l-pro[data-v-4aa9c5fe] {
+  .line.l-pro {
     font-size: 0.9em;
   }
 }
 
 @container (max-width: 880px) {
-  .line.l-pro[data-v-4aa9c5fe] {
+  .line.l-pro {
     font-size: 0.8em;
   }
 }
 
 @container (max-width: 780px) {
-  .line.l-pro[data-v-4aa9c5fe] {
+  .line.l-pro {
     place-content: stretch;
     font-size: 0.9em;
     display: grid;
@@ -85,7 +85,7 @@
 }
 
 @container (max-width: 475px) {
-  .line.l-pro[data-v-4aa9c5fe] {
+  .line.l-pro {
     place-content: stretch;
     max-width: 100%;
     display: grid;
@@ -94,19 +94,19 @@
 }
 
 @container (max-width: 970px) {
-  .line.l-pro[data-v-4aa9c5fe] {
+  .line.l-pro {
     font-size: 0.9em;
   }
 }
 
 @container (max-width: 880px) {
-  .line.l-pro[data-v-4aa9c5fe] {
+  .line.l-pro {
     font-size: 0.8em;
   }
 }
 
 @container (max-width: 780px) {
-  .line.l-pro[data-v-4aa9c5fe] {
+  .line.l-pro {
     place-content: stretch;
     font-size: 0.9em;
     display: grid;
@@ -114,7 +114,7 @@
 }
 
 @container (max-width: 475px) {
-  .line.l-pro[data-v-4aa9c5fe] {
+  .line.l-pro {
     place-content: stretch;
     max-width: 100%;
     display: grid;
@@ -123,89 +123,89 @@
 }
 
 @container (max-width: 780px) {
-  .l-pro.line .champions[data-v-4aa9c5fe] {
+  .l-pro.line .champions {
     grid-area: 1/2 / auto/auto;
     justify-self: right;
   }
 }
 
 @container (max-width: 475px) {
-  .l-pro.line .champions[data-v-4aa9c5fe] {
+  .l-pro.line .champions {
     grid-area: 2/1 / auto/auto;
     justify-self: left;
   }
 }
 @container (max-width: 780px) {
-  .l-pro.line .runes[data-v-4aa9c5fe] {
+  .l-pro.line .runes {
     grid-area: 2/2 / auto/auto;
   }
 }
 
 @container (max-width: 475px) {
-  .l-pro.line .runes[data-v-4aa9c5fe] {
+  .l-pro.line .runes {
     grid-area: 2/2 / auto/auto;
     justify-self: right;
   }
 }
 @container (max-width: 780px) {
-  .l-pro.line .sumsItems[data-v-4aa9c5fe] {
+  .l-pro.line .sumsItems {
     grid-area: 2/1 / auto/auto;
   }
 }
 
 @container (max-width: 475px) {
-  .l-pro.line .sumsItems[data-v-4aa9c5fe] {
+  .l-pro.line .sumsItems {
     grid-area: 3/1 / auto/3;
     justify-self: right;
   }
 }
 
 @container (max-width: 970px) {
-  .accord[data-v-d78f5362] {
+  .accord {
     font-size: 0.95em;
   }
 }
 
 @container (max-width: 880px) {
-  .accord[data-v-d78f5362] {
+  .accord {
     font-size: 0.9em;
   }
 }
 
 @container (max-width: 750px) {
-  .accord[data-v-d78f5362] {
+  .accord {
     display: none;
   }
 }
 
 @container (max-width: 780px) {
-  .build[data-v-00f8c08d] {
+  .build {
     pointer-events: none;
   }
 }
 
 @container (min-width: 750px) {
-  .build .open[data-v-00f8c08d] {
+  .build .open {
     border-radius: 4px 4px 0 0;
     border-color: var(--slate-4);
     border-bottom: none;
   }
 
   @container (max-width: 475px) {
-    .build .open[data-v-00f8c08d] {
+    .build .open {
       width: 21rem;
     }
   }
 }
 
 @container (max-width: 780px) {
-  .build .info[data-v-00f8c08d] {
+  .build .info {
     grid-area: 1/1 / auto/auto;
   }
 }
 
 @container (max-width: 780px) {
-  .build .pro[data-v-00f8c08d] {
+  .build .pro {
     grid-area: 1/1 / auto/auto;
     justify-self: center;
     text-align: center;
@@ -214,7 +214,7 @@
 }
 
 @container (max-width: 475px) {
-  .build .pro[data-v-00f8c08d] {
+  .build .pro {
     grid-area: 1/2 / auto/auto;
     margin-left: -3.5em;
     text-align: center;
@@ -222,13 +222,13 @@
   }
 }
 @container (max-width: 780px) {
-  .build .pro .name[data-v-00f8c08d] {
+  .build .pro .name {
     width: 14ch;
   }
 }
 
 @container (max-width: 780px) {
-  .build .match[data-v-00f8c08d] {
+  .build .match {
     grid-area: 1/1 / auto/auto;
     justify-self: right;
     margin-right: -2em;
@@ -236,7 +236,7 @@
 }
 
 @container (max-width: 475px) {
-  .build .match[data-v-00f8c08d] {
+  .build .match {
     grid-area: 1/2 / auto/auto;
     justify-self: right;
     text-align: right;

@@ -1,19 +1,19 @@
-.levels[data-v-575fc9df] {
+.levels {
   flex-direction: column;
   display: flex;
 }
 
-.levels.horizontal[data-v-575fc9df] {
+.levels.horizontal {
   flex-direction: row;
 }
 
-.levels.horizontal .level[data-v-575fc9df] {
+.levels.horizontal .level {
   padding: 0.5em 0 0.3em;
   font-size: 12px;
   width: 2em;
 }
 
-.levels .level[data-v-575fc9df] {
+.levels .level {
   font-family: var(--mono);
   color: var(--slate-2);
   padding: 0.2em 0 0;
@@ -22,7 +22,7 @@
   width: 5em;
 }
 
-.levels .level.active[data-v-575fc9df] {
+.levels .level.active {
   background-color: var(--slate-2);
   color: var(--black);
   font-weight: 600;

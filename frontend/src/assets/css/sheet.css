@@ -1,5 +1,5 @@
-.sheet .type[data-v-15310f80],
-.sheet .version[data-v-15310f80] {
+.sheet .type,
+.sheet .version {
   visibility: var(--sheetTags, hidden);
   transition: var(--transition);
   color: var(--971f605c);
@@ -15,7 +15,7 @@
   left: 0;
 }
 
-.sheet > .wrap[data-v-15310f80] {
+.sheet > .wrap {
   border: 1px solid var(--971f605c);
   opacity: var(--sheetOpacity, 1);
   transition: var(--transition);
@@ -33,7 +33,7 @@
   background: var(--sheetWrapBack, var(--1180920d));
 }
 
-.sheet > .wrap .shadow[data-v-15310f80] {
+.sheet > .wrap .shadow {
   visibility: var(--sheetShadow, visible);
   border-radius: var(--radius);
   pointer-events: none;
@@ -48,7 +48,7 @@
   opacity: 0.5;
 }
 
-.sheet > .wrap hr[data-v-15310f80] {
+.sheet > .wrap hr {
   background-color: var(--971f605c);
   margin: 1.15em 0;
   opacity: 0.2;
@@ -57,16 +57,16 @@
   border: 0;
 }
 
-.sheet > .wrap .champion[data-v-15310f80] {
+.sheet > .wrap .champion {
   --champBorder: var(--gold-lol);
   --champSize: 3.85em;
 }
 
-.sheet > .wrap .champion.hide[data-v-15310f80] {
+.sheet > .wrap .champion.hide {
   visibility: hidden;
 }
 
-.sheet > .wrap .name[data-v-15310f80] {
+.sheet > .wrap .name {
   color: var(--gold-lol);
   word-wrap: anywhere;
   text-align: center;
@@ -75,7 +75,7 @@
   font-size: 1em;
 }
 
-.sheet > .wrap .runes[data-v-15310f80] {
+.sheet > .wrap .runes {
   grid-template-columns: 1fr repeat(3, min-content);
   align-items: center;
   display: grid;
@@ -84,7 +84,7 @@
   --runeSize: 4.7em;
 }
 
-.sheet > .wrap .runes .main[data-v-15310f80] {
+.sheet > .wrap .runes .main {
   grid-template-columns: repeat(3, min-content);
   grid-gap: 0.4em;
   display: grid;
@@ -92,28 +92,28 @@
   --runeSize: 1.9em;
 }
 
-.sheet > .wrap .runes .shards[data-v-15310f80] {
+.sheet > .wrap .runes .shards {
   align-items: center;
   margin-left: 0.5em;
   place-self: stretch;
   display: flex;
 }
 
-.sheet > .wrap .runes .shards > .wrap[data-v-15310f80] {
+.sheet > .wrap .runes .shards > .wrap {
   justify-content: space-around;
   flex-direction: column;
   display: flex;
   gap: 0.25em;
 }
 
-.sheet > .wrap .itemsGroup[data-v-15310f80] {
+.sheet > .wrap .itemsGroup {
   grid-template-columns: 1fr min-content;
   grid-gap: 0.75em;
   display: grid;
   width: 100%;
 }
 
-.sheet > .wrap .itemsGroup .items[data-v-15310f80] {
+.sheet > .wrap .itemsGroup .items {
   grid-template-columns: repeat(4, min-content);
   justify-content: center;
   align-content: start;
@@ -123,28 +123,20 @@
   --itemSize: 3em;
 }
 
-.sheet > .wrap .itemsGroup .items .sheetItem[data-v-15310f80] {
+.sheet > .wrap .itemsGroup .items .sheetItem {
   display: inline-flex;
   align-items: center;
   position: relative;
   margin: 0.5em 0;
 }
 
-.sheet
-  > .wrap
-  .itemsGroup
-  .items
-  .sheetItem[data-v-15310f80]:nth-child(4):after,
-.sheet
-  > .wrap
-  .itemsGroup
-  .items
-  .sheetItem[data-v-15310f80]:nth-child(8):after,
-.sheet > .wrap .itemsGroup .items .sheetItem[data-v-15310f80]:last-child:after {
+.sheet > .wrap .itemsGroup .items .sheetItem:nth-child(4):after,
+.sheet > .wrap .itemsGroup .items .sheetItem:nth-child(8):after,
+.sheet > .wrap .itemsGroup .items .sheetItem:last-child:after {
   opacity: 0;
 }
 
-.sheet > .wrap .itemsGroup .items .sheetItem[data-v-15310f80]:after {
+.sheet > .wrap .itemsGroup .items .sheetItem:after {
   content: '';
   opacity: 0.8;
   --s: 0.7em;
@@ -156,14 +148,14 @@
   background-repeat: no-repeat;
 }
 
-.sheet > .wrap .sums[data-v-15310f80] {
+.sheet > .wrap .sums {
   flex-direction: column;
   margin-top: 0.3em;
   display: flex;
   gap: 0.3em;
 }
 
-.sheet > .wrap .text[data-v-15310f80] {
+.sheet > .wrap .text {
   white-space: pre-wrap;
   color: var(--sand-2);
   word-wrap: anywhere;
@@ -174,12 +166,12 @@
   opacity: 0.75;
 }
 
-.sheet .hide[data-v-15310f80] {
+.sheet .hide {
   visibility: hidden;
 }
 
-.sheet .type[data-v-15310f80],
-.sheet .version[data-v-15310f80] {
+.sheet .type,
+.sheet .version {
   visibility: var(--sheetTags, hidden);
   transition: var(--transition);
   color: var(--971f605c);
@@ -195,15 +187,15 @@
   left: 0;
 }
 
-.sheet .type[data-v-15310f80] {
+.sheet .type {
   bottom: 0.5em;
 }
 
-.sheet .version[data-v-15310f80] {
+.sheet .version {
   top: 0.5em;
 }
 
-.sheet > .wrap[data-v-15310f80] {
+.sheet > .wrap {
   border: 1px solid var(--971f605c);
   opacity: var(--sheetOpacity, 1);
   transition: var(--transition);
@@ -221,7 +213,7 @@
   background: var(--sheetWrapBack, var(--1180920d));
 }
 
-.sheet > .wrap .shadow[data-v-15310f80] {
+.sheet > .wrap .shadow {
   visibility: var(--sheetShadow, visible);
   border-radius: var(--radius);
   pointer-events: none;
@@ -236,7 +228,7 @@
   opacity: 0.5;
 }
 
-.sheet > .wrap hr[data-v-15310f80] {
+.sheet > .wrap hr {
   background-color: var(--971f605c);
   margin: 1.15em 0;
   opacity: 0.2;
@@ -245,16 +237,16 @@
   border: 0;
 }
 
-.sheet > .wrap .champion[data-v-15310f80] {
+.sheet > .wrap .champion {
   --champBorder: var(--gold-lol);
   --champSize: 3.85em;
 }
 
-.sheet > .wrap .champion.hide[data-v-15310f80] {
+.sheet > .wrap .champion.hide {
   visibility: hidden;
 }
 
-.sheet > .wrap .name[data-v-15310f80] {
+.sheet > .wrap .name {
   color: var(--gold-lol);
   word-wrap: anywhere;
   text-align: center;
@@ -263,7 +255,7 @@
   font-size: 1em;
 }
 
-.sheet > .wrap .runes[data-v-15310f80] {
+.sheet > .wrap .runes {
   grid-template-columns: 1fr repeat(3, min-content);
   align-items: center;
   display: grid;
@@ -272,7 +264,7 @@
   --runeSize: 4.7em;
 }
 
-.sheet > .wrap .runes .main[data-v-15310f80] {
+.sheet > .wrap .runes .main {
   grid-template-columns: repeat(3, min-content);
   grid-gap: 0.4em;
   display: grid;
@@ -280,28 +272,28 @@
   --runeSize: 1.9em;
 }
 
-.sheet > .wrap .runes .shards[data-v-15310f80] {
+.sheet > .wrap .runes .shards {
   align-items: center;
   margin-left: 0.5em;
   place-self: stretch;
   display: flex;
 }
 
-.sheet > .wrap .runes .shards > .wrap[data-v-15310f80] {
+.sheet > .wrap .runes .shards > .wrap {
   justify-content: space-around;
   flex-direction: column;
   display: flex;
   gap: 0.25em;
 }
 
-.sheet > .wrap .itemsGroup[data-v-15310f80] {
+.sheet > .wrap .itemsGroup {
   grid-template-columns: 1fr min-content;
   grid-gap: 0.75em;
   display: grid;
   width: 100%;
 }
 
-.sheet > .wrap .itemsGroup .items[data-v-15310f80] {
+.sheet > .wrap .itemsGroup .items {
   grid-template-columns: repeat(4, min-content);
   justify-content: center;
   align-content: start;
@@ -311,28 +303,20 @@
   --itemSize: 3em;
 }
 
-.sheet > .wrap .itemsGroup .items .sheetItem[data-v-15310f80] {
+.sheet > .wrap .itemsGroup .items .sheetItem {
   display: inline-flex;
   align-items: center;
   position: relative;
   margin: 0.5em 0;
 }
 
-.sheet
-  > .wrap
-  .itemsGroup
-  .items
-  .sheetItem[data-v-15310f80]:nth-child(4):after,
-.sheet
-  > .wrap
-  .itemsGroup
-  .items
-  .sheetItem[data-v-15310f80]:nth-child(8):after,
-.sheet > .wrap .itemsGroup .items .sheetItem[data-v-15310f80]:last-child:after {
+.sheet > .wrap .itemsGroup .items .sheetItem:nth-child(4):after,
+.sheet > .wrap .itemsGroup .items .sheetItem:nth-child(8):after,
+.sheet > .wrap .itemsGroup .items .sheetItem:last-child:after {
   opacity: 0;
 }
 
-.sheet > .wrap .itemsGroup .items .sheetItem[data-v-15310f80]:after {
+.sheet > .wrap .itemsGroup .items .sheetItem:after {
   content: '';
   opacity: 0.8;
   --s: 0.7em;
@@ -344,14 +328,14 @@
   background-repeat: no-repeat;
 }
 
-.sheet > .wrap .sums[data-v-15310f80] {
+.sheet > .wrap .sums {
   flex-direction: column;
   margin-top: 0.3em;
   display: flex;
   gap: 0.3em;
 }
 
-.sheet > .wrap .text[data-v-15310f80] {
+.sheet > .wrap .text {
   white-space: pre-wrap;
   color: var(--sand-2);
   word-wrap: anywhere;
@@ -362,7 +346,7 @@
   opacity: 0.75;
 }
 
-.sheet[data-v-15310f80] {
+.sheet {
   font-size: calc(var(--sheetSize, 16) * 1px);
   background: var(--sheetBack, transparent);
   height: max-content;

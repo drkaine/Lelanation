@@ -1,4 +1,4 @@
-.pick-item[data-v-1875b585] {
+.pick-item {
   align-items: center;
   width: min-content;
   display: flex;
@@ -7,15 +7,15 @@
   --itemSize: 2.95em;
 }
 
-.pick-item[data-v-1875b585] .item {
+.pick-item .item {
   cursor: grab;
 }
 
-.pick-item.sortable-chosen[data-v-1875b585] .item {
+.pick-item.sortable-chosen .item {
   cursor: grabbing;
 }
 
-.picks[data-v-63d61340] {
+.picks {
   margin: 1em 0 1.5em;
   gap: var(--gap);
   display: flex;
@@ -23,7 +23,7 @@
   width: 100%;
 }
 
-.picks .list[data-v-63d61340] {
+.picks .list {
   border: 1px dashed var(--slate-4);
   padding: var(--gap);
   position: relative;
@@ -34,7 +34,7 @@
   width: 100%;
 }
 
-.picks .list[data-v-63d61340]:before {
+.picks .list:before {
   content: 'Drag to move / Click to delete';
   color: var(--slate-3);
   position: absolute;
