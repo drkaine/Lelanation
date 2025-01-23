@@ -141,8 +141,8 @@ const getShardAtIndex = (index: number) => {
               :src="`/assets/icons/roles/${role}.png`"
               :alt="role"
               :style="{
-                width: isMobile ? '18px' : '25px',
-                height: isMobile ? '18px' : '25px',
+                width: isMobile ? '25px' : '30px',
+                height: isMobile ? '25px' : '30px',
               }"
             />
           </div>
@@ -163,8 +163,8 @@ const getShardAtIndex = (index: number) => {
               :src="`/assets/icons/roles/${role}.png`"
               :alt="role"
               :style="{
-                width: isMobile ? '18px' : '25px',
-                height: isMobile ? '18px' : '25px',
+                width: isMobile ? '25px' : '30px',
+                height: isMobile ? '25px' : '30px',
               }"
             />
           </div>
@@ -256,6 +256,11 @@ const getShardAtIndex = (index: number) => {
 </template>
 
 <style scoped>
+.shard-slot img {
+  border: 2px solid var(--gold-lol);
+  border-radius: 50%;
+}
+
 .sheet-container {
   background: linear-gradient(
     135deg,
@@ -488,8 +493,8 @@ const getShardAtIndex = (index: number) => {
 
 .shards-row {
   display: flex;
-  gap: 24px;
   align-items: center;
+  gap: 10px;
 }
 
 .keystone {
@@ -546,8 +551,8 @@ const getShardAtIndex = (index: number) => {
 }
 
 .role-mobile {
-  width: 16px;
-  height: 16px;
+  width: 30px;
+  height: 30px;
   padding: 2px;
 }
 
@@ -673,8 +678,8 @@ const getShardAtIndex = (index: number) => {
 }
 
 .summoner-slot {
-  width: 20px;
-  height: 20px;
+  width: 25px;
+  height: 25px;
   border: 1px solid var(--gold-lol);
   border-radius: 4px;
   overflow: hidden;
@@ -776,9 +781,35 @@ const getShardAtIndex = (index: number) => {
   background: var(--gold-3);
 }
 
+@media (max-width: 768px) {
+  .summoner-slot img {
+    width: 25px;
+    height: 25px;
+  }
+
+  .shard-slot img {
+    width: 25px;
+    height: 25px;
+  }
+}
+
 @media (min-width: 768px) {
+  .summoner-slot img {
+    width: 30px;
+    height: 30px;
+  }
+
+  .shard-slot img {
+    width: 30px;
+    height: 30px;
+  }
+
   .sheet-container {
     width: 450px;
+  }
+
+  .roles-column {
+    gap: 10px !important;
   }
 
   .wrap-sheet {
