@@ -120,5 +120,4 @@ const formattedDescription = computed(() => {
       </div>
     </div>
   </div>
-  {{ console.log(props.item) }}
 </template>

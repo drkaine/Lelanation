@@ -1,9 +1,31 @@
 <script setup lang="ts">
 import type { Champion } from '@/types/champion'
+import { computed } from 'vue'
 
 const props = defineProps<{
   champion: Champion | null
 }>()
+
+const formatDescription = (text: string) => {
+  if (!text) return ''
+
+  return text
+    .replace(/<font color='#3458eb'>/g, '<span class="blue">')
+    .replace(/<font color='#FF9900'>/g, '<span class="orange">')
+    .replace(/<font color='#FF0000'>/g, '<span class="red">')
+    .replace(/<\/font>/g, '</span>')
+}
+
+const formattedPassive = computed(() =>
+  formatDescription(props.champion?.passive.description || ''),
+)
+
+const formattedSpells = computed(() =>
+  props.champion?.spells.map(spell => ({
+    ...spell,
+    description: formatDescription(spell.description),
+  })),
+)
 </script>
 
 <template>
@@ -52,25 +74,37 @@ const props = defineProps<{
             :alt="props.champion?.passive.name"
           />
         </div>
-        <div class="desc">
-          {{ props.champion?.passive.description }}
-        </div>
+        <div class="desc" v-html="formattedPassive"></div>
       </div>
-      <div
-        class="spell"
-        v-for="(spell, index) in props.champion?.spells"
-        :key="index"
-      >
+      <div class="spell" v-for="(spell, index) in formattedSpells" :key="index">
         <div class="img">
           <img
             :src="'/assets/icons/champions/sorts/' + spell.id + '.png'"
             :alt="spell.name"
           />
         </div>
-        <div class="desc">
-          {{ spell.description }}
-        </div>
+        <div class="desc" v-html="spell.description"></div>
       </div>
     </div>
   </div>
 </template>
+
+<style>
+.desc {
+  font-size: 12px;
+  line-height: 1.4;
+  color: var(--sand-2);
+}
+
+.desc .blue {
+  color: #3458eb;
+}
+
+.desc .orange {
+  color: #ff9900;
+}
+
+.desc .red {
+  color: #ff0000;
+}
+</style>
