@@ -11,7 +11,7 @@ const targets: string[] = [
 ];
 
 const folderTarget = "frontend/public/assets/icons/";
-const folderTargetJSON = "frontend/src/assets/files/data";
+const folderTargetJSON = "frontend/src/assets/files/data/";
 
 const ddragonAPI = new DdragonAPI();
 

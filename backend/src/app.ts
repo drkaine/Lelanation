@@ -111,8 +111,7 @@ app.get("/api/build/:fileName", async (req, res) => {
       const name = req.params.fileName.replace("lelariva_", "");
       filePath = path.join(
         __dirname,
-        "../../frontend/public/assets/files/build/Lelariva",
-        name,
+        "../../frontend/public/assets/files/build/Lelariva/" + name,
       );
     } else {
       filePath = path.join(
@@ -161,7 +160,7 @@ app.get("/api/builds/lelariva", async (req, res) => {
   try {
     const buildsDir = path.join(
       __dirname,
-      "../../frontend/public/assets/files/build/Lelariva",
+      "../../frontend/public/assets/files/build/Lelariva/",
     );
     const files = await fs.readdir(buildsDir);
     const builds = await Promise.all(
