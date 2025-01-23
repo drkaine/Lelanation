@@ -18,7 +18,7 @@ export class DdragonAPI {
       "https://ddragon.leagueoflegends.com/api/versions.json",
     );
     const data = await response.json();
-    const folderTarget = "frontend/src/assets/files/";
+    const folderTarget = "frontend/src/assets/files/data/";
     this.version = data[0];
     save(
       JSON.stringify(data[0]),
