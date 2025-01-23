@@ -1,16 +1,4 @@
 @charset "UTF-8";
-@import './build.css';
-@import './container.css';
-
-@import './form.css';
-@import './info.css';
-@import './level.css';
-@import './media.css';
-@import './pick.css';
-@import './sheet.css';
-@import './stats.css';
-@import './support.css';
-
 @import './new/background.css';
 @import './new/footer.css';
 @import './new/menu.css';

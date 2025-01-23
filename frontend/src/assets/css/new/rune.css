@@ -4,7 +4,7 @@
   --rune-size-desktop: 48px;
   --keystone-size-mobile: 32px;
   --keystone-size-desktop: 64px;
-  --spacing-mobile: 8px;
+  --spacing-mobile: 12px;
   --spacing-desktop: 16px;
   --font-size-small: 0.625rem;
   --font-size-medium: 0.75rem;
@@ -15,7 +15,6 @@
   --selector-item-size-desktop: 48px;
 }
 
-/* Base Layout */
 .runesPage {
   display: flex;
   padding: 0.5rem;
@@ -30,6 +29,7 @@
   gap: 32px;
   position: relative;
   flex-direction: column;
+  width: 100%;
 }
 
 .runes-primary,
@@ -1470,8 +1470,14 @@
   .stat-shards {
     gap: var(--spacing-desktop);
   }
-  .summoner-slot .rune-slot,
-  .shard-tier .rune-slot {
+
+  .shard-tier {
+    width: 38px;
+    height: 38px;
+  }
+
+  .rune-slot,
+  .summoner-slot .rune-slot {
     width: var(--selector-item-size-desktop);
     height: var(--selector-item-size-desktop);
   }
