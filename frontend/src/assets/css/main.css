@@ -10,7 +10,6 @@
 @import './sheet.css';
 @import './stats.css';
 @import './support.css';
-@import './tooltip.css';
 
 @import './new/background.css';
 @import './new/footer.css';
@@ -22,7 +21,6 @@
 @import './new/build.css';
 @import './new/champion.css';
 @import './new/form.css';
-@import './new/base.css';
 @import './new/tooltip.css';
 @import './new/rune.css';
 @import './new/item.css';

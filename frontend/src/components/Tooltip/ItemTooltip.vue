@@ -8,9 +8,30 @@ const props = defineProps<{
   into: Item[]
 }>()
 
-// Calcul du pourcentage de revente
 const sellPercentage = computed(() => {
   return Math.round((props.item.gold.sell / props.item.gold.total) * 100)
+})
+
+const formattedDescription = computed(() => {
+  if (!props.item.description) return ''
+
+  return props.item.description
+    .replace(/<mainText>/g, '')
+    .replace(/<\/mainText>/g, '')
+    .replace(/<stats>/g, '<div class="stats-block">')
+    .replace(/<\/stats>/g, '</div>')
+    .replace(/<attention>/g, '<span class="attention">')
+    .replace(/<\/attention>/g, '</span>')
+    .replace(/<passive>/g, '<span class="passive">')
+    .replace(/<\/passive>/g, '</span>')
+    .replace(/<active>/g, '<span class="active">')
+    .replace(/<\/active>/g, '</span>')
+    .replace(/<physicalDamage>/g, '<span class="physical">')
+    .replace(/<\/physicalDamage>/g, '</span>')
+    .replace(/<status>/g, '<span class="status">')
+    .replace(/<\/status>/g, '</span>')
+    .replace(/<speed>/g, '<span class="speed">')
+    .replace(/<\/speed>/g, '</span>')
 })
 </script>
 
@@ -73,8 +94,17 @@ const sellPercentage = computed(() => {
     </div>
   </div>
 
-  <div class="tooltip-body">
-    {{ props.item.description }}
+  <div class="tooltip-description">
+    <div class="separator" v-if="props.item.plaintext"></div>
+
+    <div class="plaintext" v-if="props.item.plaintext">
+      {{ props.item.plaintext }}
+    </div>
+
+    <div class="separator" v-if="formattedDescription"></div>
+
+    <div class="description" v-html="formattedDescription"></div>
+    <div class="separator" v-if="props.into?.length"></div>
   </div>
 
   <div class="tooltip-builds" v-if="props.into?.length">
@@ -92,86 +122,3 @@ const sellPercentage = computed(() => {
   </div>
   {{ console.log(props.item) }}
 </template>
-
-<style>
-.tooltip-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  margin-bottom: 8px;
-  gap: 12px;
-}
-.item-info {
-  flex: 1;
-  display: flex;
-  gap: 8px;
-  align-items: center;
-}
-
-.item-icon {
-  width: 32px;
-  height: 32px;
-  border: 1px solid var(--gold-lol);
-  border-radius: 4px;
-}
-
-.item-name {
-  color: var(--nox-grey1);
-  font-size: 14px;
-  margin: 0;
-}
-
-.item-cost {
-  display: flex;
-  gap: 4px;
-  color: var(--gold-lol);
-  font-size: 12px;
-}
-
-.cost-sell {
-  color: var(--nox-grey3);
-}
-
-.tooltip-body {
-  color: var(--nox-grey2);
-  font-size: 12px;
-  line-height: 1.4;
-  margin: 8px 0;
-}
-
-.recipe-title,
-.builds-title {
-  color: var(--nox-gold4);
-  font-size: 13px;
-  margin-bottom: 4px;
-}
-
-.recipe-items,
-.builds-items {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 4px;
-}
-
-.recipe-item,
-.builds-item {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 2px;
-}
-
-.recipe-icon,
-.builds-icon {
-  width: 24px;
-  height: 24px;
-  border: 1px solid var(--gold-3);
-  border-radius: 2px;
-}
-
-.recipe-cost,
-.builds-cost {
-  color: var(--gold-lol);
-  font-size: 10px;
-}
-</style>

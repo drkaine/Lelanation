@@ -44,6 +44,7 @@ playwright-report/
 /public/assets/files/build/*
 
 !src/assets/files/data/shards.json
+!src/assets/files/data/statsTrad.json
 
 
 .env

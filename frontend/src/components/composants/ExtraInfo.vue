@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import { useItemStore } from '@/stores/itemStore'
-import statsTrad from '../../../public/assets/files/statsTrad.json'
+// import statsTrad from '../../../public/assets/files/statsTrad.json'
 
 const itemStore = useItemStore()
-const getTrad = (name: string) => {
-  return statsTrad[name as keyof typeof statsTrad]
-}
+// const getTrad = (name: string) => {
+//   return statsTrad[name as keyof typeof statsTrad]
+// }
 
 const removeItem = (index: number) => {
   itemStore.removeItem(index)
@@ -79,7 +79,7 @@ const removeItem = (index: number) => {
               class="name"
               v-if="typeof index === 'string' && stat && stat > 0"
             >
-              {{ getTrad(index) }}
+              <!-- {{ getTrad(index) }} -->
             </div>
           </div>
           <div data-v-636d16e0="" class="list-item">
