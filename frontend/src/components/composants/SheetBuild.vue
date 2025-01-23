@@ -1,6 +1,4 @@
 <script setup lang="ts">
-// import ChampionTooltip from '@/components/Tooltip/ChampionTooltip.vue'
-// import ItemTooltip from '@/components/Tooltip/ItemTooltip.vue'
 import type { SummonerSelection } from '@/types/summoner'
 import type { RunesSelection } from '@/types/rune'
 import type { ShardSelection } from '@/types/shard'
@@ -156,8 +154,8 @@ const getShardAtIndex = (index: number) => {
               :src="`/assets/icons/roles/${role}.png`"
               :alt="role"
               :style="{
-                width: isMobile ? '10px' : '18px',
-                height: isMobile ? '10px' : '18px',
+                width: isMobile ? '18px' : '25px',
+                height: isMobile ? '18px' : '25px',
               }"
             />
           </div>
@@ -178,8 +176,8 @@ const getShardAtIndex = (index: number) => {
               :src="`/assets/icons/roles/${role}.png`"
               :alt="role"
               :style="{
-                width: isMobile ? '10px' : '18px',
-                height: isMobile ? '10px' : '18px',
+                width: isMobile ? '18px' : '25px',
+                height: isMobile ? '18px' : '25px',
               }"
             />
           </div>
@@ -286,7 +284,7 @@ const getShardAtIndex = (index: number) => {
             <div v-for="index in 3" :key="'shard-' + index" class="shard-tier">
               <div class="rune-slot-container">
                 <div
-                  class="rune-slot"
+                  class="shard-slot"
                   :class="{ selected: getShardAtIndex(index) }"
                 >
                   <img
@@ -491,7 +489,7 @@ const getShardAtIndex = (index: number) => {
   box-shadow: 0 0 20px rgba(74, 17, 21, 0.3);
   border-radius: 12px;
   padding: 16px;
-  width: 480px;
+
   margin: 0 auto;
   position: relative;
   overflow: hidden;
@@ -520,7 +518,6 @@ const getShardAtIndex = (index: number) => {
   justify-content: space-between;
   align-items: flex-start;
   gap: 16px;
-  height: 100px;
 }
 
 .champion-info {
@@ -599,10 +596,47 @@ const getShardAtIndex = (index: number) => {
   overflow: hidden;
 }
 
+.shard-slot {
+  width: 24px;
+  height: 24px;
+  border: 2px solid var(--nox-grey3);
+  border-radius: 50%;
+  overflow: hidden;
+}
+
 .runes-secondary-sheet {
+  width: calc(50% - 4px);
   display: flex;
   flex-direction: column;
+  gap: 8px;
+}
+
+.runes-secondary-sheet .rune-tier:first-child .rune-slot {
+  width: 32px;
+  height: 32px;
+  border: 2px solid var(--gold-3);
+}
+
+.runes-secondary-sheet .rune-tier:first-child .rune-slot img {
+  width: 24px;
+  height: 24px;
+}
+
+.runes-secondary-sheet .rune-tier {
+  display: flex;
   align-items: center;
+  margin-bottom: 6px;
+  width: 100%;
+}
+
+.runes-secondary-sheet .rune-tier .rune-slot {
+  width: 24px;
+  height: 24px;
+}
+
+.runes-secondary-sheet .rune-tier .rune-slot img {
+  width: 20px;
+  height: 20px;
 }
 
 .keystone-secondary {
@@ -824,36 +858,37 @@ img {
   display: flex;
   padding: 0.5rem;
   width: 100%;
-  max-width: 480px;
+  max-width: 100%;
   margin: 0 auto;
   color: var(--gold-lol);
 }
 
 .wrap-sheet {
   display: flex;
-  justify-content: space-between;
+  flex-direction: row;
   width: 100%;
-  gap: 16px;
+  gap: 8px;
+  justify-content: space-between;
 }
 
 .runes-primary-sheet,
 .runes-secondary-sheet {
-  flex: 1;
-  max-width: calc(50% - 8px);
+  width: calc(50% - 4px);
+  display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  gap: 8px;
 }
 
 .column-header {
   display: flex;
   align-items: center;
-  gap: 8px;
-  margin-bottom: 12px;
+  gap: 4px;
+  margin-bottom: 8px;
 }
 
 .header-icon {
-  width: 32px;
-  height: 32px;
+  width: 28px;
+  height: 28px;
   border-radius: 50%;
   border: 2px solid var(--gold-lol);
   overflow: hidden;
@@ -863,23 +898,27 @@ img {
 }
 
 .header-icon img {
-  width: 24px;
-  height: 24px;
+  width: 20px;
+  height: 20px;
   object-fit: cover;
 }
 
 .rune-tier {
   display: flex;
   align-items: center;
-  gap: 8px;
-  margin-bottom: 8px;
+  margin-bottom: 6px;
+}
+
+.rune-slot-container {
+  display: flex;
+  align-items: center;
 }
 
 .rune-slot {
   width: 24px;
   height: 24px;
-  border-radius: 50%;
   border: 1px solid var(--nox-grey3);
+  border-radius: 50%;
   overflow: hidden;
   display: flex;
   align-items: center;
@@ -892,57 +931,226 @@ img {
   object-fit: cover;
 }
 
-.rune-description {
-  font-size: 12px;
-  color: var(--nox-grey2);
-  white-space: nowrap;
+.shard-slot {
+  width: 20px;
+  height: 20px;
+  border: 1px solid var(--nox-grey3);
+  border-radius: 50%;
   overflow: hidden;
-  text-overflow: ellipsis;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.shard-slot img {
+  width: 16px;
+  height: 16px;
+  object-fit: cover;
+}
+
+.rune-description {
+  display: none;
 }
 
 .summoner-spells-sheet {
+  display: flex;
+  gap: 4px;
   margin-top: 8px;
 }
 
-.stat-shards-sheet {
-  margin-top: 12px;
+.summoner-spell-row {
+  display: flex;
+  align-items: center;
+}
+
+.summoner-slot {
+  width: 20px;
+  height: 20px;
+  border: 1px solid var(--gold-lol);
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.stat-shards {
+  margin-top: 8px;
 }
 
 .shard-tier {
   display: flex;
   align-items: center;
-  gap: 8px;
+  margin-bottom: 6px;
 }
 
-.rune-slot-container {
-  display: flex;
-  align-items: center;
-  gap: 8px;
+.header-subtitle {
+  display: none;
 }
 
-/* Responsive */
-@media (max-width: 767px) {
+@media (min-width: 768px) {
+  .sheet-container {
+    width: 450px;
+  }
+
+  .header-subtitle {
+    display: block;
+  }
+
   .wrap-sheet {
-    gap: 8px;
+    gap: 24px;
   }
 
   .runes-primary-sheet,
   .runes-secondary-sheet {
-    max-width: calc(50% - 4px);
+    width: calc(50% - 12px);
+  }
+
+  .rune-tier {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 8px;
+  }
+
+  .rune-description {
+    display: block;
+    font-size: 12px;
+    color: var(--nox-grey2);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .rune-slot-container {
+    display: flex;
+    align-items: center;
+    gap: 5px;
   }
 
   .header-icon {
+    width: 36px;
+    height: 36px;
+  }
+
+  .header-icon img {
     width: 28px;
     height: 28px;
   }
 
+  .rune-slot {
+    width: 32px;
+    height: 32px;
+  }
+
+  .rune-slot img {
+    width: 24px;
+    height: 24px;
+  }
+
+  .summoner-slot {
+    width: 28px;
+    height: 28px;
+  }
+
+  .summoner-spells-sheet {
+    gap: 12px;
+  }
+
+  .summoner-spell-row {
+    gap: 8px;
+  }
+
+  .runes-secondary-sheet {
+    width: calc(50% - 12px);
+  }
+
+  .runes-secondary-sheet .rune-tier:first-child .rune-slot {
+    width: 40px;
+    height: 40px;
+  }
+
+  .runes-secondary-sheet .rune-tier:first-child .rune-slot img {
+    width: 32px;
+    height: 32px;
+  }
+
+  .runes-secondary-sheet .rune-tier .rune-slot {
+    width: 32px;
+    height: 32px;
+  }
+
+  .runes-secondary-sheet .rune-tier .rune-slot img {
+    width: 24px;
+    height: 24px;
+  }
+
+  .runes-secondary-sheet .rune-tier {
+    justify-content: flex-start;
+    padding-left: 8px;
+  }
+
+  .runes-secondary-sheet .shard-tier {
+    justify-content: flex-start;
+    padding-left: 8px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .runesPage-sheet {
+    max-width: 800px;
+  }
+
+  .header-icon {
+    width: 40px;
+    height: 40px;
+  }
+
   .header-icon img {
-    width: 20px;
-    height: 20px;
+    width: 32px;
+    height: 32px;
+  }
+
+  .rune-slot {
+    width: 36px;
+    height: 36px;
+  }
+
+  .rune-slot img {
+    width: 28px;
+    height: 28px;
   }
 
   .rune-description {
-    font-size: 10px;
+    max-width: 250px;
+  }
+
+  .summoner-slot {
+    width: 32px;
+    height: 32px;
+  }
+
+  .rune-tier {
+    gap: 16px;
+  }
+
+  .rune-description {
+    font-size: 14px;
+    max-width: 200px;
+  }
+
+  .shard-tier {
+    gap: 12px;
+  }
+
+  .runes-secondary-sheet .rune-tier {
+    justify-content: flex-start;
+    padding-left: 8px;
+  }
+
+  .runes-secondary-sheet .shard-tier {
+    justify-content: flex-start;
+    padding-left: 8px;
   }
 }
 </style>

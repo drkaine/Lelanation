@@ -634,8 +634,8 @@
 }
 
 .stat-shards .rune-slot {
-  width: 40px;
-  height: 40px;
+  width: 25px;
+  height: 25px;
 }
 
 .rune-slot:not(.selected) {
@@ -1452,6 +1452,11 @@
   .summoner-selector {
     left: calc(5.5%) !important;
     top: calc(93%) !important;
+  }
+
+  .stat-shards .rune-slot {
+    width: 35px;
+    height: 35px;
   }
 
   .summoner-selector .rune-option {
