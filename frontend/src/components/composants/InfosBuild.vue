@@ -147,10 +147,10 @@ const submitForm = async () => {
     <div class="form-group">
       <label>
         Nom *
-        <input 
-          maxlength="58" 
-          type="text" 
-          required 
+        <input
+          maxlength="58"
+          type="text"
+          required
           v-model="name"
           placeholder="Nom du build"
           class="form-input"
@@ -161,9 +161,9 @@ const submitForm = async () => {
     <div class="form-group">
       <label class="desc">
         Description
-        <textarea 
-          type="text" 
-          maxlength="1500" 
+        <textarea
+          type="text"
+          maxlength="1500"
           v-model="description"
           placeholder="Description du build"
           class="form-textarea"
@@ -234,7 +234,7 @@ const submitForm = async () => {
   cursor: pointer;
 }
 
-.visibility-toggle input[type="checkbox"] {
+.visibility-toggle input[type='checkbox'] {
   display: none;
 }
 
@@ -248,12 +248,12 @@ const submitForm = async () => {
   transition: all 0.2s;
 }
 
-.visibility-toggle input[type="checkbox"]:checked + .checkmark {
+.visibility-toggle input[type='checkbox']:checked + .checkmark {
   background-color: var(--gold-lol);
   border-color: var(--gold-lol);
 }
 
-.visibility-toggle input[type="checkbox"]:checked + .checkmark:after {
+.visibility-toggle input[type='checkbox']:checked + .checkmark:after {
   content: '';
   position: absolute;
   left: 6px;

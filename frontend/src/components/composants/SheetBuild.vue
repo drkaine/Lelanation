@@ -175,8 +175,9 @@ const getShardAtIndex = (index: number) => {
     <div class="separator" v-if="champion"></div>
 
     <div class="runesPage-sheet" v-if="runes">
-      <div class="wrap-sheet">
-        <div class="runes-primary-sheet" v-if="runes.principal">
+      <!-- Première rangée : Runes primaires et Summoners -->
+      <div class="runes-row primary-row">
+        <div class="primary-runes">
           <div class="column-header">
             <div class="header-icon">
               <img
@@ -185,55 +186,41 @@ const getShardAtIndex = (index: number) => {
                 :alt="runes.principal.name"
               />
             </div>
-            <div class="header-text">
-              <div class="header-subtitle">
-                {{ runes?.principal?.name || 'Aucune rune' }}
-              </div>
-            </div>
           </div>
-
-          <div
-            v-for="index in 4"
-            :key="index"
-            class="rune-tier"
-            :class="{ 'main-rune': index === 0 }"
-          >
-            <div class="rune-slot" :class="{ selected: getRuneAtIndex(index) }">
+          <div class="runes-slots">
+            <div
+              v-for="index in 4"
+              :key="index"
+              class="rune-slot"
+              :class="{ keystone: index === 0 }"
+            >
               <img
                 v-if="getRuneAtIndex(index)"
                 :src="`/assets/icons/runes/${getRuneAtIndex(index)?.id}.png`"
                 :alt="getRuneAtIndex(index)?.name"
               />
             </div>
-            <div class="rune-description">
-              {{ getRuneAtIndex(index)?.name || 'Aucune rune' }}
-            </div>
-          </div>
-
-          <div class="summoner-spells-sheet" v-if="summonners?.principal">
-            <div
-              v-for="type in ['principal', 'second'] as const"
-              :key="type"
-              class="summoner-slot-container"
-            >
-              <div
-                class="summoner-slot"
-                :class="{ selected: getSummonerByType(type) }"
-              >
-                <img
-                  v-if="getSummonerByType(type)"
-                  :src="`/assets/icons/summoners/${getSummonerByType(type)?.image.full}`"
-                  :alt="getSummonerByType(type)?.name"
-                />
-              </div>
-              <div class="rune-description">
-                {{ getSummonerByType(type)?.name || 'Aucun sort' }}
-              </div>
-            </div>
           </div>
         </div>
 
-        <div class="runes-secondary-sheet" v-if="runes.second">
+        <div class="summoner-spells-sheet">
+          <div
+            v-for="type in ['principal', 'second'] as const"
+            :key="type"
+            class="summoner-slot"
+          >
+            <img
+              v-if="getSummonerByType(type)"
+              :src="`/assets/icons/summoners/${getSummonerByType(type)?.image.full}`"
+              :alt="getSummonerByType(type)?.name"
+            />
+          </div>
+        </div>
+      </div>
+
+      <!-- Deuxième rangée : Runes secondaires et Shards -->
+      <div class="runes-row secondary-row">
+        <div class="secondary-runes">
           <div class="column-header">
             <div class="header-icon">
               <img
@@ -242,80 +229,28 @@ const getShardAtIndex = (index: number) => {
                 :alt="runes.second.name"
               />
             </div>
-            <div class="header-text">
-              <div class="header-subtitle">
-                {{ runes?.second?.name || 'Aucune rune' }}
-              </div>
+          </div>
+          <div class="runes-slots horizontal">
+            <div v-for="index in 2" :key="index" class="rune-slot">
+              <img
+                v-if="getSecondaryRuneAtIndex(index - 1)"
+                :src="`/assets/icons/runes/${getSecondaryRuneAtIndex(index - 1)?.id}.png`"
+                :alt="getSecondaryRuneAtIndex(index - 1)?.name"
+              />
             </div>
           </div>
+        </div>
 
-          <div v-for="index in 2" :key="index" class="rune-tier">
-            <div class="rune-slot-container">
-              <div
-                class="rune-slot"
-                :class="{ selected: getSecondaryRuneAtIndex(index - 1) }"
-              >
-                <img
-                  v-if="getSecondaryRuneAtIndex(index - 1)"
-                  :src="`/assets/icons/runes/${getSecondaryRuneAtIndex(index - 1)?.id}.png`"
-                  :alt="getSecondaryRuneAtIndex(index - 1)?.name"
-                />
-              </div>
-              <div class="rune-description">
-                {{ getSecondaryRuneAtIndex(index - 1)?.name || 'Aucune rune' }}
-              </div>
-            </div>
-          </div>
-
-          <div class="stat-shards-sheet" v-if="shards?.principal">
-            <div v-for="index in 3" :key="'shard-' + index" class="shard-tier">
-              <div class="rune-slot-container">
-                <div
-                  class="shard-slot"
-                  :class="{ selected: getShardAtIndex(index) }"
-                >
-                  <img
-                    v-if="getShardAtIndex(index)"
-                    :src="`/assets/icons/shards/${getShardAtIndex(index)?.image}`"
-                    :alt="getShardAtIndex(index)?.description"
-                  />
-                </div>
-                <div class="rune-description">
-                  {{ getShardAtIndex(index)?.description || 'Aucune stat' }}
-                </div>
-              </div>
-            </div>
+        <div class="shards-row">
+          <div v-for="index in 3" :key="'shard-' + index" class="shard-slot">
+            <img
+              v-if="getShardAtIndex(index)"
+              :src="`/assets/icons/shards/${getShardAtIndex(index)?.image}`"
+              :alt="getShardAtIndex(index)?.description"
+            />
           </div>
         </div>
       </div>
-
-      <!-- <div class="separator" v-if="items?.core"></div>
-
-    <div class="spell-order">
-      <div class="spell-header">
-        <div class="spell-title">Ordre des sorts</div>
-        <div class="spell-summary">
-          <div
-            v-for="(count, spell) in spellGroups"
-            :key="spell"
-            class="spell-count"
-          >
-            <div class="spell-key">{{ spell }}</div>
-            <div class="spell-value">× {{ count }}</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="spell-sequence">
-        <div
-          v-for="(spell, index) in spellOrder"
-          :key="index"
-          class="spell-level"
-        >
-          <div class="level-number">{{ index + 1 }}</div>
-          <div class="spell-key" :class="spell.toLowerCase()">{{ spell }}</div>
-        </div>
-      </div> -->
     </div>
   </div>
 </template>
@@ -450,7 +385,6 @@ const getShardAtIndex = (index: number) => {
   box-shadow: 0 0 20px rgba(74, 17, 21, 0.3);
   border-radius: 12px;
   padding: 16px;
-  height: 750px;
   margin: 0 auto;
   position: relative;
   overflow: hidden;
@@ -524,14 +458,108 @@ const getShardAtIndex = (index: number) => {
 
 .runes-row {
   display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+}
+
+.primary-runes,
+.secondary-runes {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.runes-slots {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.runes-slots.horizontal {
+  flex-direction: row;
+}
+
+.summoner-spells-sheet {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.shards-row {
+  display: flex;
+  gap: 24px;
+  align-items: center;
+}
+
+.keystone {
+  width: 48px;
+  height: 48px;
+}
+
+.keystone img {
+  width: 40px;
+  height: 40px;
+}
+
+.rune-slot {
+  width: 32px;
+  height: 32px;
+}
+
+.roles-container {
+  display: flex;
+  gap: 8px;
   align-items: flex-start;
+}
+
+.roles-column {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.role-icon {
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  background: var(--black-2);
+  padding: 3px;
+}
+
+.role-icon:hover {
+  background: var(--black-1);
+}
+
+.role-inactive {
+  opacity: 0.3;
+  filter: grayscale(100%);
+}
+
+.role-inactive:hover {
+  opacity: 0.5;
+}
+
+.role-mobile {
+  width: 16px;
+  height: 16px;
+  padding: 2px;
+}
+
+.runesPage-sheet {
+  display: flex;
+  flex-direction: column;
   gap: 24px;
   padding: 16px;
 }
 
-.runes-primary-sheet {
+.primary-runes {
   display: flex;
-  flex-direction: column;
   align-items: flex-start;
 }
 
@@ -543,12 +571,6 @@ const getShardAtIndex = (index: number) => {
   overflow: hidden;
 }
 
-.primary-runes {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 8px;
-}
-
 .rune-slot {
   width: 32px;
   height: 32px;
@@ -557,12 +579,27 @@ const getShardAtIndex = (index: number) => {
   overflow: hidden;
 }
 
-.shard-slot {
+.rune-slot img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.rune-tier {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.rune-tier .rune-slot {
   width: 24px;
   height: 24px;
-  border: 2px solid var(--nox-grey3);
-  border-radius: 50%;
-  overflow: hidden;
+}
+
+.rune-tier .rune-slot img {
+  width: 20px;
+  height: 20px;
 }
 
 .runes-secondary-sheet {
@@ -611,8 +648,8 @@ const getShardAtIndex = (index: number) => {
 
 .secondary-runes {
   display: flex;
-  flex-direction: column;
-  gap: 8px;
+  align-items: center;
+  gap: 12px;
 }
 
 .side-spells {
@@ -626,23 +663,6 @@ const getShardAtIndex = (index: number) => {
   display: flex;
   flex-direction: column;
   gap: 8px;
-}
-
-.shard-slot {
-  width: 24px;
-  height: 24px;
-  border: 1px solid var(--gold-3);
-  border-radius: 50%;
-  overflow: hidden;
-}
-
-.summoners-row {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  margin-top: 4px;
-  padding-top: 8px;
-  border-top: 1px solid var(--gold-3);
 }
 
 .summoner-slot-container {
@@ -662,21 +682,6 @@ const getShardAtIndex = (index: number) => {
   align-items: center;
   gap: 8px;
   margin-bottom: 8px;
-}
-
-img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.items-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(48px, 1fr));
-  gap: 12px;
-  justify-items: center;
-  max-width: 400px;
-  margin: 0 auto;
 }
 
 .item-slot {
@@ -771,190 +776,9 @@ img {
   background: var(--gold-3);
 }
 
-.roles-container {
-  display: flex;
-  gap: 8px;
-  align-items: flex-start;
-}
-
-.roles-column {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-
-.role-icon {
-  width: 24px;
-  height: 24px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  background: var(--black-2);
-  padding: 3px;
-}
-
-.role-icon:hover {
-  background: var(--black-1);
-}
-
-.role-inactive {
-  opacity: 0.3;
-  filter: grayscale(100%);
-}
-
-.role-inactive:hover {
-  opacity: 0.5;
-}
-
-.role-mobile {
-  width: 16px;
-  height: 16px;
-  padding: 2px;
-}
-
-.runesPage-sheet {
-  display: flex;
-  padding: 0.5rem;
-  max-width: 100%;
-  margin: 0 auto;
-  color: var(--gold-lol);
-}
-
-.wrap-sheet {
-  display: flex;
-  flex-direction: row;
-  width: 100%;
-  gap: 8px;
-  justify-content: space-between;
-}
-
-.runes-primary-sheet,
-.runes-secondary-sheet {
-  width: calc(50% - 4px);
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.column-header {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  margin-bottom: 8px;
-}
-
-.header-icon {
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
-  border: 2px solid var(--gold-lol);
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.header-icon img {
-  width: 20px;
-  height: 20px;
-  object-fit: cover;
-}
-
-.rune-tier {
-  display: flex;
-  align-items: center;
-  margin-bottom: 6px;
-}
-
-.rune-slot-container {
-  display: flex;
-  align-items: center;
-}
-
-.rune-slot {
-  width: 24px;
-  height: 24px;
-  border: 1px solid var(--nox-grey3);
-  border-radius: 50%;
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.rune-slot img {
-  width: 20px;
-  height: 20px;
-  object-fit: cover;
-}
-
-.shard-slot {
-  width: 20px;
-  height: 20px;
-  border: 1px solid var(--nox-grey3);
-  border-radius: 50%;
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.shard-slot img {
-  width: 16px;
-  height: 16px;
-  object-fit: cover;
-}
-
-.rune-description {
-  display: none;
-}
-
-.summoner-spells-sheet {
-  display: flex;
-  gap: 4px;
-  margin-top: 8px;
-}
-
-.summoner-spell-row {
-  display: flex;
-  align-items: center;
-}
-
-.summoner-slot {
-  width: 20px;
-  height: 20px;
-  border: 1px solid var(--gold-lol);
-  border-radius: 4px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-}
-
-.stat-shards {
-  margin-top: 8px;
-}
-
-.shard-tier {
-  display: flex;
-  align-items: center;
-  margin-bottom: 6px;
-}
-
-.header-subtitle {
-  display: none;
-}
-
 @media (min-width: 768px) {
   .sheet-container {
     width: 450px;
-  }
-
-  .header-subtitle {
-    display: block;
   }
 
   .wrap-sheet {
@@ -971,15 +795,6 @@ img {
     align-items: center;
     gap: 12px;
     margin-bottom: 8px;
-  }
-
-  .rune-description {
-    display: block;
-    font-size: 12px;
-    color: var(--nox-grey2);
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
   }
 
   .rune-slot-container {
@@ -1077,10 +892,6 @@ img {
     height: 28px;
   }
 
-  .rune-description {
-    max-width: 250px;
-  }
-
   .summoner-slot {
     width: 32px;
     height: 32px;
@@ -1088,11 +899,6 @@ img {
 
   .rune-tier {
     gap: 16px;
-  }
-
-  .rune-description {
-    font-size: 14px;
-    max-width: 200px;
   }
 
   .shard-tier {
