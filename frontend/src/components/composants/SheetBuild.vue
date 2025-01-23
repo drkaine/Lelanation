@@ -857,7 +857,6 @@ img {
 .runesPage-sheet {
   display: flex;
   padding: 0.5rem;
-  width: 100%;
   max-width: 100%;
   margin: 0 auto;
   color: var(--gold-lol);
@@ -1097,10 +1096,6 @@ img {
 }
 
 @media (min-width: 1024px) {
-  .runesPage-sheet {
-    max-width: 800px;
-  }
-
   .header-icon {
     width: 40px;
     height: 40px;
