@@ -489,7 +489,7 @@ const getShardAtIndex = (index: number) => {
   box-shadow: 0 0 20px rgba(74, 17, 21, 0.3);
   border-radius: 12px;
   padding: 16px;
-
+  height: 750px;
   margin: 0 auto;
   position: relative;
   overflow: hidden;

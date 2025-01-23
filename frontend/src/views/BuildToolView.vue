@@ -32,43 +32,103 @@ const next = () => {
 
 <template>
   <div class="window-build">
+    <MenuBuild />
     <div class="build">
-      <MenuBuild />
-      <div class="core-build">
-        <div v-if="stepStore.step === 'champion'">
-          <ChampSelection />
+      <div class="build-content">
+        <div class="core-build">
+          <div v-if="stepStore.step === 'champion'">
+            <ChampSelection />
+          </div>
+          <div v-else-if="stepStore.step === 'rune'">
+            <RunesSelection />
+          </div>
+          <div v-else-if="stepStore.step === 'item'">
+            <ItemsSelection />
+          </div>
+          <div v-else-if="stepStore.step === 'info'">
+            <InfosBuild />
+          </div>
+          <div v-else-if="stepStore.step === 'build'">
+            <BuildRecap />
+          </div>
+          <button
+            class="suivant"
+            v-if="stepStore.step === 'rune' || stepStore.step === 'item'"
+            @click="next()"
+          >
+            Suivant
+          </button>
         </div>
-        <div v-else-if="stepStore.step === 'rune'">
-          <RunesSelection />
+        <div class="sheet-build">
+          <SheetBuild
+            :version="null"
+            :name="null"
+            :description="null"
+            :champion="championStore.selectedChampion"
+            :runes="runeStore.runesSelection"
+            :summonners="summonerStore.summonerSelection"
+            :shards="shardStore.shardsSelection"
+            :items="itemStore.ItemsSelection"
+          />
+          <Extra v-if="itemStore.ItemsSelection.core" />
         </div>
-        <div v-else-if="stepStore.step === 'item'">
-          <ItemsSelection />
-        </div>
-        <div v-else-if="stepStore.step === 'info'">
-          <InfosBuild />
-        </div>
-        <div v-else-if="stepStore.step === 'build'">
-          <BuildRecap />
-        </div>
-        <button
-          class="suivant"
-          v-if="stepStore.step === 'rune' || stepStore.step === 'item'"
-          @click="next()"
-        >
-          Suivant
-        </button>
       </div>
-      <SheetBuild
-        :version="null"
-        :name="null"
-        :description="null"
-        :champion="championStore.selectedChampion"
-        :runes="runeStore.runesSelection"
-        :summonners="summonerStore.summonerSelection"
-        :shards="shardStore.shardsSelection"
-        :items="itemStore.ItemsSelection"
-      />
-      <Extra v-if="itemStore.ItemsSelection.core" />
     </div>
   </div>
 </template>
+
+<style scoped>
+.window-build {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.build {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  flex: 1;
+}
+
+.build-content {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+/* Mobile par défaut */
+.core-build {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+:deep(.runesPage-sheet) {
+  width: 100%;
+}
+
+/* Tablette et Desktop */
+@media (min-width: 1060px) {
+  .build {
+    flex-direction: row;
+  }
+
+  .build-content {
+    flex-direction: row;
+    gap: 16px;
+    flex: 1;
+  }
+
+  :deep(.runesPage-sheet) {
+    order: -1; /* Force la sheet à gauche sur desktop */
+    width: 320px;
+    min-width: 320px;
+  }
+
+  .core-build {
+    flex: 1;
+    min-width: 0;
+  }
+}
+</style>
