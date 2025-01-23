@@ -143,25 +143,168 @@ const submitForm = async () => {
 </script>
 
 <template>
-  <div class="info">
-    <form @submit.prevent="submitForm">
+  <form @submit.prevent="submitForm" class="build-form">
+    <div class="form-group">
       <label>
-        Name *
-        <input maxlength="58" type="text" required v-model="name" />
+        Nom *
+        <input 
+          maxlength="58" 
+          type="text" 
+          required 
+          v-model="name"
+          placeholder="Nom du build"
+          class="form-input"
+        />
       </label>
+    </div>
+
+    <div class="form-group">
       <label class="desc">
         Description
-        <textarea type="text" maxlength="1500" v-model="description">
-        </textarea>
+        <textarea 
+          type="text" 
+          maxlength="1500" 
+          v-model="description"
+          placeholder="Description du build"
+          class="form-textarea"
+        ></textarea>
       </label>
-      <label v-if="connexionStore.isLoggedIn" class="visibility-toggle">
+    </div>
+
+    <div class="form-group" v-if="connexionStore.isLoggedIn">
+      <label class="visibility-toggle">
         <input type="checkbox" v-model="isVisible" />
         <span class="checkmark"></span>
         Visible
       </label>
-      <div class="next">
-        <button type="submit">Finish</button>
-      </div>
-    </form>
-  </div>
+    </div>
+
+    <div class="form-actions">
+      <button type="submit" class="btn-submit">Terminer</button>
+    </div>
+  </form>
 </template>
+
+<style scoped>
+.build-form {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-group label {
+  display: block;
+  color: var(--gold-lol);
+  margin-bottom: 0.5rem;
+  font-size: 1rem;
+}
+
+.form-input,
+.form-textarea {
+  width: 100%;
+  padding: 0.75rem;
+  background: var(--bg-dark);
+  border: 1px solid var(--nox-grey3);
+  border-radius: 4px;
+  color: var(--text-color);
+  font-size: 0.9rem;
+  transition: border-color 0.2s;
+}
+
+.form-input:focus,
+.form-textarea:focus {
+  outline: none;
+  border-color: var(--gold-lol);
+  box-shadow: 0 0 0 2px rgba(205, 190, 145, 0.2);
+}
+
+.form-textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+.visibility-toggle {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+}
+
+.visibility-toggle input[type="checkbox"] {
+  display: none;
+}
+
+.checkmark {
+  width: 20px;
+  height: 20px;
+  border: 2px solid var(--nox-grey3);
+  border-radius: 4px;
+  display: inline-block;
+  position: relative;
+  transition: all 0.2s;
+}
+
+.visibility-toggle input[type="checkbox"]:checked + .checkmark {
+  background-color: var(--gold-lol);
+  border-color: var(--gold-lol);
+}
+
+.visibility-toggle input[type="checkbox"]:checked + .checkmark:after {
+  content: '';
+  position: absolute;
+  left: 6px;
+  top: 2px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+.form-actions {
+  display: flex;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+.btn-submit {
+  padding: 0.75rem 2rem;
+  background: var(--nox-grey3);
+  color: var(--gold-lol);
+  border: 1px solid var(--gold-lol);
+  border-radius: 4px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-submit:hover {
+  background: var(--nox-grey2);
+  transform: translateY(-1px);
+}
+
+.btn-submit:active {
+  transform: translateY(0);
+}
+
+@media (max-width: 768px) {
+  .build-form {
+    padding: 0.5rem;
+  }
+
+  .form-input,
+  .form-textarea {
+    padding: 0.5rem;
+  }
+
+  .btn-submit {
+    width: 100%;
+    padding: 0.5rem;
+  }
+}
+</style>
