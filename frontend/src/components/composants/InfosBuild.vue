@@ -102,6 +102,16 @@ const submitForm = async () => {
         },
         body: JSON.stringify(data),
       })
+      const responseDelete = await fetch(
+        `/api/build/${(buildStore.buildToEdit?.id || '').replace('lelariva_', '')}`,
+        {
+          method: 'DELETE',
+        },
+      )
+      if (!responseDelete.ok) throw new Error('Erreur lors de la suppression')
+      buildStore.removeBuild(
+        (buildStore.buildToEdit?.id || '').replace('lelariva_', ''),
+      )
     } else {
       response = await fetch(`${urlApiSave}/api/save/${fileName}`, {
         method: 'POST',

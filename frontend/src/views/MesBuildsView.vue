@@ -141,6 +141,13 @@ const handleDragOver = (e: DragEvent) => {
         @drop="handleDrop($event, index)"
         @dragover="handleDragOver"
       >
+        <div
+          v-if="isLelarivaBuildPage && connexionStore.isLoggedIn"
+          class="visibility-badge"
+          :class="{ 'is-hidden': build.id?.startsWith('wait_') }"
+        >
+          {{ build.id?.startsWith('wait_') ? 'Invisible' : 'Visible' }}
+        </div>
         <a :href="`/build/${build.id}`" class="build-link">
           <SheetBuild
             :version="build.version"
@@ -151,7 +158,7 @@ const handleDragOver = (e: DragEvent) => {
             :summoners="build.sheet.summoners"
             :shards="build.sheet.shards"
             :items="build.sheet.items"
-            :roles="build.roles"
+            :roles="build.roles ?? null"
           />
         </a>
       </div>
@@ -277,6 +284,7 @@ const handleDragOver = (e: DragEvent) => {
   overflow: hidden;
   transition: all 0.2s ease;
   cursor: move;
+  position: relative;
 }
 
 .build-card:hover {
@@ -287,6 +295,24 @@ const handleDragOver = (e: DragEvent) => {
 .build-link {
   text-decoration: none;
   color: inherit;
+}
+
+.visibility-badge {
+  position: absolute;
+  top: 0.5rem;
+  right: 9.5rem;
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  background: var(--gold-lol);
+  color: var(--nox-grey4);
+  z-index: 1;
+}
+
+.visibility-badge.is-hidden {
+  background: var(--nox-grey4);
+  color: var(--nox-gold4);
 }
 
 @media (max-width: 768px) {

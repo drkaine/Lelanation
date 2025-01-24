@@ -89,11 +89,20 @@ app.put("/api/update/:filename", async (req, res) => {
 
 app.delete("/api/build/:fileName", async (req, res) => {
   try {
-    const filePath = path.join(
-      __dirname,
-      "../../frontend/public/assets/files/build/",
-      req.params.fileName,
-    );
+    let filePath = "";
+    if (req.params.fileName.includes("wait")) {
+      filePath = path.join(
+        __dirname,
+        "../../frontend/public/assets/files/build/Lelariva/",
+        req.params.fileName,
+      );
+    } else {
+      filePath = path.join(
+        __dirname,
+        "../../frontend/public/assets/files/build/",
+        req.params.fileName,
+      );
+    }
     await unlink(filePath);
     res.status(200).send("Build supprimé");
   } catch (error: unknown) {
