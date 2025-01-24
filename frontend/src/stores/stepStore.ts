@@ -10,8 +10,13 @@ export const useStepStore = defineStore('Step', () => {
     step.value = type
   }
 
+  const resetSteps = () => {
+    step.value = 'champion'
+  }
+
   return {
     step,
     setStepSelection,
+    resetSteps,
   }
 })

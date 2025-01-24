@@ -6,6 +6,7 @@ import { useShardStore } from '@/stores/shardStore'
 import { useItemStore } from '@/stores/itemStore'
 import { useBuildStore } from '@/stores/buildStore'
 import { useRoleStore } from '@/stores/roleStore'
+import { useStepStore } from '@/stores/stepStore'
 import { useConnexionStore } from '@/stores/connexionStore'
 import { ref } from 'vue'
 import { v4 as uuidv4 } from 'uuid'
@@ -20,6 +21,7 @@ const championStore = useChampionStore()
 const runeStore = useRuneStore()
 const summonerStore = useSummonerStore()
 const shardStore = useShardStore()
+const stepStore = useStepStore()
 const itemStore = useItemStore()
 const buildStore = useBuildStore()
 const roleStore = useRoleStore()
@@ -140,6 +142,7 @@ const submitForm = async () => {
     shardStore.resetShardsSelection()
     itemStore.resetItemsSelection()
     roleStore.resetRoles()
+    stepStore.resetSteps()
     buildStore.setBuildToEdit(null)
 
     router.push({

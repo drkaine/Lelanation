@@ -42,9 +42,10 @@ playwright-report/
 /public/assets/icons/items/
 /public/assets/images/lelariva.png
 /public/assets/files/build/*
+/public/assets/files/analytics.json
 
-!src/assets/files/data/shards.json
-!src/assets/files/data/statsTrad.json
+!/src/assets/files/data/shards.json
+!/src/assets/files/data/statsTrad.json
 
 
 .env

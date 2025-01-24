@@ -30,6 +30,42 @@ const PORT = process.env.PORT || 3500;
 
 app.use(express.json());
 
+const incrementVisitCounter = async () => {
+  try {
+    const analyticsPath = path.join(__dirname, '../../frontend/public/assets/files/analytics.json')
+    
+    let analytics = { visiteur: 0 }
+    
+    try {
+      const data = await fs.readFile(analyticsPath, 'utf8')
+      analytics = JSON.parse(data)
+    } catch (error) {
+      const dir = path.dirname(analyticsPath)
+      await fs.mkdir(dir, { recursive: true })
+      
+      await fs.writeFile(analyticsPath, JSON.stringify(analytics, null, 2))
+    }
+    
+    analytics.visiteur++
+    
+    await fs.writeFile(analyticsPath, JSON.stringify(analytics, null, 2))
+    
+    return analytics
+  } catch (error) {
+    console.error('Erreur compteur:', error)
+    return null
+  }
+}
+
+app.post('/api/analytics', async (req, res) => {
+  try {
+    const data = await incrementVisitCounter()
+    res.json(data)
+  } catch (error) {
+    res.status(500).json({ error: 'Erreur lors de l\'incrémentation du compteur' })
+  }
+})
+
 app.post("/api/save/:filename", (req, res) => {
   const filename = req.params.filename;
   const data = req.body;
