@@ -172,10 +172,9 @@ const getShardAtIndex = (index: number) => {
       </div>
     </div>
 
-    <div class="separator" v-if="champion"></div>
+    <div class="separator" v-if="runes?.principal"></div>
 
-    <div class="runesPage-sheet" v-if="runes">
-      <!-- Première rangée : Runes primaires et Summoners -->
+    <div class="runesPage-sheet" v-if="runes?.principal">
       <div class="runes-row primary-row">
         <div class="primary-runes">
           <div class="column-header">
@@ -191,7 +190,7 @@ const getShardAtIndex = (index: number) => {
             <div
               v-for="index in 4"
               :key="index"
-              class="rune-slot"
+              class="rune-slot-sheet"
               :class="{ keystone: index === 0 }"
             >
               <img
@@ -218,7 +217,6 @@ const getShardAtIndex = (index: number) => {
         </div>
       </div>
 
-      <!-- Deuxième rangée : Runes secondaires et Shards -->
       <div class="runes-row secondary-row">
         <div class="secondary-runes">
           <div class="column-header">
@@ -231,7 +229,7 @@ const getShardAtIndex = (index: number) => {
             </div>
           </div>
           <div class="runes-slots horizontal">
-            <div v-for="index in 2" :key="index" class="rune-slot">
+            <div v-for="index in 2" :key="index" class="rune-slot-sheet">
               <img
                 v-if="getSecondaryRuneAtIndex(index - 1)"
                 :src="`/assets/icons/runes/${getSecondaryRuneAtIndex(index - 1)?.id}.png`"
@@ -249,6 +247,18 @@ const getShardAtIndex = (index: number) => {
               :alt="getShardAtIndex(index)?.description"
             />
           </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="separator" v-if="items?.core"></div>
+    <div class="items-section" v-if="items?.core">
+      <div class="items-row">
+        <div v-for="item in items?.core" :key="item.name" class="item-slot">
+          <img
+            :src="`/assets/icons/items/${item.image.full}`"
+            :alt="item.name"
+          />
         </div>
       </div>
     </div>
@@ -507,7 +517,7 @@ const getShardAtIndex = (index: number) => {
   height: 40px;
 }
 
-.rune-slot {
+.rune-slot-sheet {
   width: 32px;
   height: 32px;
 }
@@ -576,18 +586,22 @@ const getShardAtIndex = (index: number) => {
   overflow: hidden;
 }
 
-.rune-slot {
+.rune-slot-sheet {
   width: 32px;
   height: 32px;
-  border: 2px solid var(--nox-grey3);
+  border: 2px solid var(--gold-lol);
   border-radius: 50%;
   overflow: hidden;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.rune-slot img {
+.rune-slot-sheet img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
 }
 
 .rune-tier {
@@ -597,12 +611,12 @@ const getShardAtIndex = (index: number) => {
   margin-bottom: 8px;
 }
 
-.rune-tier .rune-slot {
+.rune-tier .rune-slot-sheet {
   width: 24px;
   height: 24px;
 }
 
-.rune-tier .rune-slot img {
+.rune-tier .rune-slot-sheet img {
   width: 20px;
   height: 20px;
 }
@@ -614,13 +628,13 @@ const getShardAtIndex = (index: number) => {
   gap: 8px;
 }
 
-.runes-secondary-sheet .rune-tier:first-child .rune-slot {
+.runes-secondary-sheet .rune-tier:first-child .rune-slot-sheet {
   width: 32px;
   height: 32px;
   border: 2px solid var(--gold-3);
 }
 
-.runes-secondary-sheet .rune-tier:first-child .rune-slot img {
+.runes-secondary-sheet .rune-tier:first-child .rune-slot-sheet img {
   width: 24px;
   height: 24px;
 }
@@ -632,12 +646,12 @@ const getShardAtIndex = (index: number) => {
   width: 100%;
 }
 
-.runes-secondary-sheet .rune-tier .rune-slot {
+.runes-secondary-sheet .rune-tier .rune-slot-sheet {
   width: 24px;
   height: 24px;
 }
 
-.runes-secondary-sheet .rune-tier .rune-slot img {
+.runes-secondary-sheet .rune-tier .rune-slot-sheet img {
   width: 20px;
   height: 20px;
 }
@@ -648,7 +662,6 @@ const getShardAtIndex = (index: number) => {
   border: 2px solid var(--gold-3);
   border-radius: 50%;
   overflow: hidden;
-  opacity: 0.9;
 }
 
 .secondary-runes {
@@ -690,8 +703,6 @@ const getShardAtIndex = (index: number) => {
 }
 
 .item-slot {
-  width: 48px;
-  height: 48px;
   border: 2px solid var(--gold-lol);
   border-radius: 4px;
   overflow: hidden;
@@ -783,13 +794,17 @@ const getShardAtIndex = (index: number) => {
 
 @media (max-width: 768px) {
   .summoner-slot img {
-    width: 25px;
-    height: 25px;
+    width: 35px;
+    height: 35px;
   }
 
   .shard-slot img {
-    width: 25px;
-    height: 25px;
+    width: 35px;
+    height: 35px;
+  }
+  .item-slot {
+    width: 35px;
+    height: 35px;
   }
 }
 
@@ -828,7 +843,7 @@ const getShardAtIndex = (index: number) => {
     margin-bottom: 8px;
   }
 
-  .rune-slot-container {
+  .rune-slot-sheet-container {
     display: flex;
     align-items: center;
     gap: 5px;
@@ -844,12 +859,12 @@ const getShardAtIndex = (index: number) => {
     height: 28px;
   }
 
-  .rune-slot {
+  .rune-slot-sheet {
     width: 32px;
     height: 32px;
   }
 
-  .rune-slot img {
+  .rune-slot-sheet img {
     width: 24px;
     height: 24px;
   }
@@ -871,22 +886,22 @@ const getShardAtIndex = (index: number) => {
     width: calc(50% - 12px);
   }
 
-  .runes-secondary-sheet .rune-tier:first-child .rune-slot {
+  .runes-secondary-sheet .rune-tier:first-child .rune-slot-sheet {
     width: 40px;
     height: 40px;
   }
 
-  .runes-secondary-sheet .rune-tier:first-child .rune-slot img {
+  .runes-secondary-sheet .rune-tier:first-child .rune-slot-sheet img {
     width: 32px;
     height: 32px;
   }
 
-  .runes-secondary-sheet .rune-tier .rune-slot {
+  .runes-secondary-sheet .rune-tier .rune-slot-sheet {
     width: 32px;
     height: 32px;
   }
 
-  .runes-secondary-sheet .rune-tier .rune-slot img {
+  .runes-secondary-sheet .rune-tier .rune-slot-sheet img {
     width: 24px;
     height: 24px;
   }
@@ -913,12 +928,12 @@ const getShardAtIndex = (index: number) => {
     height: 32px;
   }
 
-  .rune-slot {
+  .rune-slot-sheet {
     width: 36px;
     height: 36px;
   }
 
-  .rune-slot img {
+  .rune-slot-sheet img {
     width: 28px;
     height: 28px;
   }
@@ -945,5 +960,30 @@ const getShardAtIndex = (index: number) => {
     justify-content: flex-start;
     padding-left: 8px;
   }
+}
+
+.items-section {
+  margin-top: 24px;
+}
+
+.items-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  align-items: center;
+}
+
+.item-slot {
+  width: 45px;
+  height: 45px;
+  border: 2px solid var(--gold-lol);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.item-slot img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 </style>

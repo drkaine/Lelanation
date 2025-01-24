@@ -120,12 +120,6 @@ const next = () => {
     flex: 1;
   }
 
-  :deep(.runesPage-sheet) {
-    order: -1; /* Force la sheet à gauche sur desktop */
-    width: 320px;
-    min-width: 320px;
-  }
-
   .core-build {
     flex: 1;
     min-width: 0;

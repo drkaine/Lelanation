@@ -311,6 +311,9 @@ onMounted(() => {
               @mouseleave="hideTooltip"
               :class="{
                 'rune-option': true,
+                'rune-used':
+                  subrune.id !==
+                  runeStore.runesSelection.groups[index]?.principal?.id,
                 selected:
                   subrune.id ===
                   runeStore.runesSelection.groups[index]?.principal?.id,
@@ -366,7 +369,7 @@ onMounted(() => {
                     'rune-option': true,
                     selected: spell.id === getSelectedSummoner(type)?.id,
                     used:
-                      spell.id ===
+                      spell.id !==
                       getSelectedSummoner(
                         activeSummonerIndex === 'principal'
                           ? 'second'
@@ -538,6 +541,9 @@ onMounted(() => {
                       'rune-option': true,
                       selected:
                         shard.image ===
+                        getSelectedShardFromStore(activeShardIndex)?.image,
+                      'rune-used':
+                        shard.image !==
                         getSelectedShardFromStore(activeShardIndex)?.image,
                     }"
                   >
