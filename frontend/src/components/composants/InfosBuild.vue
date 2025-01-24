@@ -213,6 +213,7 @@ const submitForm = async () => {
   color: var(--text-color);
   font-size: 0.9rem;
   transition: border-color 0.2s;
+  margin-top: 10px;
 }
 
 .form-input:focus,

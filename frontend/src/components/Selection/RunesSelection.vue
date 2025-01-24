@@ -593,7 +593,6 @@ onMounted(() => {
 </template>
 
 <style scoped>
-
 .rune-tooltip .keyword {
   color: var(--gold-lol);
   font-weight: 600;

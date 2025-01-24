@@ -168,10 +168,20 @@ export const useItemStore = defineStore('Item', () => {
     }
   }
 
+  const moveItem = (fromIndex: number, toIndex: number) => {
+    if (!ItemsSelection.value.core) return
+
+    const items = [...ItemsSelection.value.core]
+    const [movedItem] = items.splice(fromIndex, 1)
+    items.splice(toIndex, 0, movedItem)
+    ItemsSelection.value.core = items
+  }
+
   return {
     ItemsSelection,
     setItemSelection,
     removeItem,
     resetItemsSelection,
+    moveItem,
   }
 })
