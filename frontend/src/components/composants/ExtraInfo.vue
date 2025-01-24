@@ -11,25 +11,41 @@ const getTrad = (name: string) => {
 
 const draggingItem = ref<number | null>(null)
 const touchStartY = ref<number>(0)
+const touchStartX = ref<number>(0)
+const currentDropTarget = ref<number | null>(null)
 
 const startDrag = (index: number, event?: TouchEvent) => {
   draggingItem.value = index
   if (event) {
     touchStartY.value = event.touches[0].clientY
+    touchStartX.value = event.touches[0].clientX
     event.preventDefault()
   }
 }
 
 const handleTouchMove = (event: TouchEvent) => {
+  if (draggingItem.value === null) return
   event.preventDefault()
+
+  const touch = event.touches[0]
+  const elements = document.elementsFromPoint(touch.clientX, touch.clientY)
+  const dropTarget = elements.find(el => el.classList.contains('item-slot'))
+
+  if (dropTarget) {
+    const index = parseInt(dropTarget.getAttribute('data-index') || '-1')
+    if (index !== -1) {
+      currentDropTarget.value = index
+    }
+  }
 }
 
 const handleTouchEnd = (dropIndex: number, event: TouchEvent) => {
   event.preventDefault()
-  if (draggingItem.value !== null) {
-    itemStore.moveItem(draggingItem.value, dropIndex)
-    draggingItem.value = null
+  if (draggingItem.value !== null && currentDropTarget.value !== null) {
+    itemStore.moveItem(draggingItem.value, currentDropTarget.value)
   }
+  draggingItem.value = null
+  currentDropTarget.value = null
 }
 
 const onDrop = (dropIndex: number) => {
@@ -50,18 +66,28 @@ const removeItem = (index: number) => {
       <div
         v-for="(item, index) in itemStore.ItemsSelection.core"
         :key="index"
+        :data-index="index"
         class="item-slot"
         draggable="true"
         @dragstart="startDrag(index)"
-        @touchstart="startDrag(index, $event)"
-        @touchmove="handleTouchMove"
-        @touchend="handleTouchEnd(index, $event)"
+        @touchstart.stop="startDrag(index, $event)"
+        @touchmove.prevent="handleTouchMove"
+        @touchend.prevent="handleTouchEnd(index, $event)"
         @dragover.prevent
         @drop.prevent="onDrop(index)"
-        :class="{ dragging: draggingItem === index }"
+        :class="{
+          dragging: draggingItem === index,
+          'drop-target': currentDropTarget === index && draggingItem !== index,
+        }"
       >
         <img :src="`/assets/icons/items/${item.image.full}`" :alt="item.name" />
-        <button class="remove-item" @click="removeItem(index)">×</button>
+        <button
+          class="remove-item"
+          @click.stop="removeItem(index)"
+          @touchend.stop.prevent="removeItem(index)"
+        >
+          ×
+        </button>
       </div>
     </div>
 
@@ -122,12 +148,22 @@ const removeItem = (index: number) => {
   border-radius: 4px;
   overflow: hidden;
   cursor: move;
+  touch-action: none;
   transition: all 0.2s ease;
+  background: var(--slate-3);
 }
 
 .item-slot.dragging {
-  opacity: 0.5;
-  transform: scale(0.95);
+  opacity: 0.7;
+  transform: scale(1.1);
+  z-index: 100;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.item-slot.drop-target {
+  border-color: var(--gold-lol);
+  background: var(--slate-4);
+  transform: scale(1.05);
 }
 
 .item-slot img {
@@ -138,24 +174,23 @@ const removeItem = (index: number) => {
 
 .remove-item {
   position: absolute;
-  top: 0px;
-  right: 0px;
-  width: 20px;
-  height: 20px;
+  top: -2px;
+  right: -2px;
+  width: 18px;
+  height: 18px;
   background: var(--red);
   border: none;
   border-radius: 50%;
   color: white;
   font-size: 14px;
   cursor: pointer;
-  opacity: 0;
-  transform: scale(0.8);
-  transition: all 0.2s ease;
-}
-
-.item-slot:hover .remove-item {
   opacity: 1;
   transform: scale(1);
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
 }
 
 .stats-table {
@@ -201,6 +236,23 @@ const removeItem = (index: number) => {
   .item-slot {
     width: 35px;
     height: 35px;
+  }
+
+  .remove-item {
+    width: 16px;
+    height: 16px;
+    font-size: 12px;
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  .item-slot:hover .remove-item {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  .item-slot.dragging {
+    pointer-events: none;
   }
 }
 </style>

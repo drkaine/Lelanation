@@ -58,7 +58,7 @@ onMounted(async () => {
           <RouterLink to="/dictionnaire" @click="toggleMenu"
             >Leladictionnaiva</RouterLink
           >
-          <RouterLink to="/build" @click="toggleMenu">Building</RouterLink>
+          <RouterLink to="/build" @click="toggleMenu">Build</RouterLink>
           <RouterLink
             v-if="userBuilds.length > 0"
             to="/builds"
@@ -83,8 +83,8 @@ onMounted(async () => {
             Leladictionnaiva</RouterLink
           >
 
-          <RouterLink title="Building" class="version" to="/build">
-            Building</RouterLink
+          <RouterLink title="Build" class="version" to="/build">
+            Build</RouterLink
           >
 
           <RouterLink
