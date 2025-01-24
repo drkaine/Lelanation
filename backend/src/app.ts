@@ -202,7 +202,7 @@ cron.schedule("0 0,12 * * *", () => {
 cron.schedule("0 0 * * *", () => {
   console.log("Tâche cron exécutée à 00h00");
 
-  exec("bash ~/.github/.scripts/deploy.sh", (error, stdout, stderr) => {
+  exec("bash ../.github/.scripts/deploy.sh", (error, stdout, stderr) => {
     if (error) {
       console.error(`Erreur d'exécution: ${error}`);
       return;
