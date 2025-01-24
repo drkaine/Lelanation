@@ -219,6 +219,15 @@ const getSelectedSummoner = (type: 'principal' | 'second') => {
   return summonerStore.summonerSelection[type]
 }
 
+const formatDescription = (desc: string) => {
+  return desc
+    .replace(
+      /<lol-uikit-tooltipped-keyword key='([^']+)'>([^<]+)<\/lol-uikit-tooltipped-keyword>/g,
+      '<span class="keyword">$2</span>',
+    )
+    .replace(/<b>([^<]+)<\/b>/g, '<strong>$1</strong>')
+}
+
 onMounted(() => {
   runesData.value = Object.values(runes)
   summonerData.value = Object.values(summoner.data)
@@ -572,7 +581,7 @@ onMounted(() => {
       :style="{ left: tooltipX + 'px', top: tooltipY + 'px' }"
     >
       <h3>{{ activeTooltip.name }}</h3>
-      <p>{{ activeTooltip.shortDesc }}</p>
+      <p v-html="formatDescription(activeTooltip.shortDesc)"></p>
     </div>
 
     <div
@@ -582,3 +591,16 @@ onMounted(() => {
     ></div>
   </div>
 </template>
+
+<style scoped>
+
+.rune-tooltip .keyword {
+  color: var(--gold-lol);
+  font-weight: 600;
+}
+
+.rune-tooltip strong {
+  color: var(--sand-2);
+  font-weight: 700;
+}
+</style>

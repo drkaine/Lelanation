@@ -1,17 +1,17 @@
 /* Variables */
 :root {
-  --rune-size-mobile: 28px;
+  --rune-size-mobile: 40px;
   --rune-size-desktop: 48px;
-  --keystone-size-mobile: 32px;
+  --keystone-size-mobile: 50px;
   --keystone-size-desktop: 64px;
   --spacing-mobile: 12px;
   --spacing-desktop: 16px;
-  --font-size-small: 0.625rem;
-  --font-size-medium: 0.75rem;
+  --font-size-small: 0.925rem;
+  --font-size-medium: 1rem;
   --font-size-large: 0.875rem;
-  --small-size-mobile: 24px;
+  --small-size-mobile: 40px;
   --small-size-desktop: 36px;
-  --selector-item-size-mobile: 28px;
+  --selector-item-size-mobile: 40px;
   --selector-item-size-desktop: 48px;
 }
 
@@ -634,8 +634,8 @@
 }
 
 .stat-shards .rune-slot {
-  width: 25px;
-  height: 25px;
+  width: 35px;
+  height: 35px;
 }
 
 .rune-slot:not(.selected) {
@@ -1981,7 +1981,7 @@
 
   .summoner-selector {
     position: absolute;
-    left: 58% !important;
+    left: 36% !important;
     top: 46% !important;
     transform: translate(-50%, -50%) !important;
 
@@ -1996,10 +1996,6 @@
 
   .wrap {
     gap: 20px;
-  }
-
-  .runesPage {
-    max-width: 200px;
   }
 }
 

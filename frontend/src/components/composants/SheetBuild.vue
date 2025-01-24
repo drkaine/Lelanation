@@ -569,8 +569,8 @@ const getShardAtIndex = (index: number) => {
 .runesPage-sheet {
   display: flex;
   flex-direction: column;
-  gap: 24px;
-  padding: 16px;
+  gap: 10px;
+  padding: 10px;
 }
 
 .primary-runes {
@@ -793,30 +793,40 @@ const getShardAtIndex = (index: number) => {
 }
 
 @media (max-width: 768px) {
+  .header-icon {
+    width: 45px !important;
+    height: 45px !important;
+  }
+
+  .header-icon img {
+    width: 35px !important;
+    height: 35px !important;
+  }
+
   .summoner-slot img {
-    width: 35px;
-    height: 35px;
+    width: 35px !important;
+    height: 35px !important;
   }
 
   .shard-slot img {
-    width: 35px;
-    height: 35px;
+    width: 35px !important;
+    height: 35px !important;
   }
   .item-slot {
-    width: 35px;
-    height: 35px;
+    width: 35px !important;
+    height: 35px !important;
   }
 }
 
 @media (min-width: 768px) {
   .summoner-slot img {
-    width: 30px;
-    height: 30px;
+    width: 35px;
+    height: 35px;
   }
 
   .shard-slot img {
-    width: 30px;
-    height: 30px;
+    width: 40px;
+    height: 40px;
   }
 
   .sheet-container {
@@ -850,28 +860,28 @@ const getShardAtIndex = (index: number) => {
   }
 
   .header-icon {
-    width: 36px;
-    height: 36px;
+    width: 45px;
+    height: 45px;
   }
 
   .header-icon img {
-    width: 28px;
-    height: 28px;
+    width: 45px;
+    height: 45px;
   }
 
   .rune-slot-sheet {
-    width: 32px;
-    height: 32px;
+    width: 35px;
+    height: 35px;
   }
 
   .rune-slot-sheet img {
-    width: 24px;
-    height: 24px;
+    width: 35px;
+    height: 35px;
   }
 
   .summoner-slot {
-    width: 28px;
-    height: 28px;
+    width: 35px;
+    height: 35px;
   }
 
   .summoner-spells-sheet {
@@ -887,23 +897,23 @@ const getShardAtIndex = (index: number) => {
   }
 
   .runes-secondary-sheet .rune-tier:first-child .rune-slot-sheet {
-    width: 40px;
-    height: 40px;
+    width: 35px;
+    height: 35px;
   }
 
   .runes-secondary-sheet .rune-tier:first-child .rune-slot-sheet img {
-    width: 32px;
-    height: 32px;
+    width: 35px;
+    height: 35px;
   }
 
   .runes-secondary-sheet .rune-tier .rune-slot-sheet {
-    width: 32px;
-    height: 32px;
+    width: 35px;
+    height: 35px;
   }
 
   .runes-secondary-sheet .rune-tier .rune-slot-sheet img {
-    width: 24px;
-    height: 24px;
+    width: 35px;
+    height: 35px;
   }
 
   .runes-secondary-sheet .rune-tier {
@@ -919,28 +929,33 @@ const getShardAtIndex = (index: number) => {
 
 @media (min-width: 1024px) {
   .header-icon {
+    width: 50px;
+    height: 50px;
+  }
+
+  .shard-slot img {
+    width: 35px;
+    height: 35px;
+  }
+
+  .header-icon img {
     width: 40px;
     height: 40px;
   }
 
-  .header-icon img {
-    width: 32px;
-    height: 32px;
-  }
-
   .rune-slot-sheet {
-    width: 36px;
-    height: 36px;
+    width: 35px;
+    height: 35px;
   }
 
   .rune-slot-sheet img {
-    width: 28px;
-    height: 28px;
+    width: 35px;
+    height: 35px;
   }
 
   .summoner-slot {
-    width: 32px;
-    height: 32px;
+    width: 35px;
+    height: 35px;
   }
 
   .rune-tier {
