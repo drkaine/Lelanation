@@ -118,6 +118,10 @@ const handleDrop = (e: DragEvent, dropIndex: number) => {
 const handleDragOver = (e: DragEvent) => {
   e.preventDefault()
 }
+
+const canDragBuild = computed(
+  () => !isLelarivaBuildPage.value || connexionStore.isLoggedIn,
+)
 </script>
 
 <template>
@@ -185,10 +189,11 @@ const handleDragOver = (e: DragEvent) => {
         v-for="(build, index) in filteredBuilds"
         :key="build.id"
         class="build-card"
-        draggable="true"
-        @dragstart="handleDragStart($event, index)"
-        @drop="handleDrop($event, index)"
-        @dragover="handleDragOver"
+        :draggable="canDragBuild"
+        @dragstart="canDragBuild && handleDragStart($event, index)"
+        @drop="canDragBuild && handleDrop($event, index)"
+        @dragover="canDragBuild && handleDragOver($event)"
+        :class="{ 'no-drag': !canDragBuild }"
       >
         <div
           v-if="isLelarivaBuildPage && connexionStore.isLoggedIn"
@@ -378,6 +383,15 @@ const handleDragOver = (e: DragEvent) => {
 .visibility-badge.is-hidden {
   background: var(--nox-grey4);
   color: var(--nox-gold4);
+}
+
+.build-card.no-drag {
+  cursor: default;
+
+  &:hover {
+    transform: none;
+    box-shadow: none;
+  }
 }
 
 @media (max-width: 768px) {
