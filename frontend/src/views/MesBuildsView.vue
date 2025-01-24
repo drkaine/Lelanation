@@ -15,7 +15,9 @@ const isLelarivaBuildPage = computed(() =>
   route.path.endsWith('/Lebuildarriva'),
 )
 const selectedRoles = ref(new Set<string>())
+const searchType = ref('all')
 const searchQuery = ref('')
+const visibilityFilter = ref('all')
 
 onMounted(async () => {
   try {
@@ -40,29 +42,59 @@ const toggleRole = (role: string) => {
   }
 }
 
+const searchPlaceholder = computed(() => {
+  switch (searchType.value) {
+    case 'name':
+      return 'Rechercher par nom de build...'
+    case 'champion':
+      return 'Rechercher par champion...'
+    default:
+      return 'Rechercher un build...'
+  }
+})
+
 const filteredBuilds = computed(() => {
-  let filteredBuilds = isLelarivaBuildPage.value
+  let filtered = isLelarivaBuildPage.value
     ? connexionStore.isLoggedIn
       ? builds.value
       : builds.value.filter(build => !build.id?.startsWith('wait_'))
     : buildStore.userBuilds
 
+  if (isLelarivaBuildPage.value && connexionStore.isLoggedIn) {
+    switch (visibilityFilter.value) {
+      case 'visible':
+        filtered = filtered.filter(build => !build.id?.startsWith('wait_'))
+        break
+      case 'hidden':
+        filtered = filtered.filter(build => build.id?.startsWith('wait_'))
+        break
+    }
+  }
+
   if (selectedRoles.value.size > 0) {
-    filteredBuilds = filteredBuilds.filter(build =>
+    filtered = filtered.filter(build =>
       build.roles.some(role => selectedRoles.value.has(role)),
     )
   }
 
   if (searchQuery.value.trim()) {
     const query = searchQuery.value.toLowerCase().trim()
-    filteredBuilds = filteredBuilds.filter(
-      build =>
-        build.name.toLowerCase().includes(query) ||
-        build.sheet.champion.name.toLowerCase().includes(query),
-    )
+    filtered = filtered.filter(build => {
+      switch (searchType.value) {
+        case 'name':
+          return build.name.toLowerCase().includes(query)
+        case 'champion':
+          return build.sheet.champion.name.toLowerCase().includes(query)
+        default:
+          return (
+            build.name.toLowerCase().includes(query) ||
+            build.sheet.champion.name.toLowerCase().includes(query)
+          )
+      }
+    })
   }
 
-  return filteredBuilds
+  return filtered
 })
 
 const handleDragStart = (e: DragEvent, index: number) => {
@@ -95,26 +127,43 @@ const handleDragOver = (e: DragEvent) => {
     </h1>
 
     <div class="actions">
-      <a href="/build" class="btn create-btn">
-        <svg
-          width="20"
-          height="20"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-        >
-          <path d="M12 5v14m-7-7h14" />
-        </svg>
-        <span class="btn-text">Nouveau Build</span>
-      </a>
+      <div class="actions-group">
+        <a href="/build" class="btn create-btn">
+          <svg
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+          >
+            <path d="M12 5v14m-7-7h14" />
+          </svg>
+          <span class="btn-text">Nouveau Build</span>
+        </a>
 
-      <div class="search-box">
-        <input
-          v-model="searchQuery"
-          type="text"
-          placeholder="Rechercher un build..."
-          class="search-input"
-        />
+        <select
+          v-if="isLelarivaBuildPage && connexionStore.isLoggedIn"
+          v-model="visibilityFilter"
+          class="visibility-select"
+        >
+          <option value="all">Tous les builds</option>
+          <option value="visible">Builds visibles</option>
+          <option value="hidden">Builds invisibles</option>
+        </select>
+
+        <div class="search-box">
+          <select v-model="searchType" class="search-type-select">
+            <option value="all">Tout</option>
+            <option value="name">Nom</option>
+            <option value="champion">Champion</option>
+          </select>
+          <input
+            v-model="searchQuery"
+            type="text"
+            :placeholder="searchPlaceholder"
+            class="search-input"
+          />
+        </div>
       </div>
     </div>
 
@@ -222,45 +271,61 @@ const handleDragOver = (e: DragEvent) => {
 .actions {
   display: flex;
   justify-content: center;
+  margin-bottom: 1.5rem;
+  padding: 0 1rem;
+}
+
+.actions-group {
+  display: flex;
   gap: 1rem;
   align-items: center;
-  margin-bottom: 2rem;
-}
-
-.order-btn {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.75rem 1.5rem;
-  border: 2px solid var(--slate-3);
-  color: var(--sand-2);
-  border-radius: 4px;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.order-btn:hover {
-  border-color: var(--gold-lol);
-  color: var(--gold-lol);
+  max-width: 800px;
+  width: 100%;
+  justify-content: center;
 }
 
 .search-box {
-  flex-grow: 0;
+  display: flex;
+  border: 2px solid var(--slate-3);
+  border-radius: 4px;
+  overflow: hidden;
+  transition: all 0.2s ease;
   width: 300px;
+}
+
+.search-box option {
+  color: var(--nox-gold4);
+  background: black;
+}
+
+.visibility-select {
+  background: none;
+  height: 100%;
+  color: var(--nox-grey2);
+  border: 2px solid var(--nox-gold4);
+}
+
+.visibility-select option {
+  color: var(--nox-gold4);
+  background: black;
+}
+
+.search-type-select {
+  padding: 0.4rem;
+  border: none;
+  border-right: 2px solid var(--slate-3);
+  background: none;
+  color: var(--sand-2);
+  cursor: pointer;
+  font-size: 0.9rem;
+  min-width: 70px;
 }
 
 .search-input {
-  padding: 0.75rem 1rem;
-  border: 2px solid var(--slate-3);
-  border-radius: 4px;
+  flex-grow: 1;
+  padding: 0.4rem;
+  border: none;
   color: var(--sand-2);
-  width: 300px;
-  transition: all 0.2s ease;
-}
-
-.search-input:focus {
-  border-color: var(--gold-lol);
-  outline: none;
 }
 
 .role-filters {
@@ -299,7 +364,7 @@ const handleDragOver = (e: DragEvent) => {
 
 .visibility-badge {
   position: absolute;
-  top: 0.5rem;
+  top: 1.5rem;
   right: 9.5rem;
   padding: 0.25rem 0.75rem;
   border-radius: 9999px;
@@ -316,9 +381,20 @@ const handleDragOver = (e: DragEvent) => {
 }
 
 @media (max-width: 768px) {
-  .actions {
-    flex-wrap: wrap;
-    padding: 0 1rem;
+  .actions-group {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .search-box,
+  .visibility-select,
+  .create-btn {
+    width: 100%;
+    height: 30px;
+  }
+
+  .btn-text {
+    display: inline;
   }
 
   .role-filters {
@@ -332,19 +408,6 @@ const handleDragOver = (e: DragEvent) => {
 
   .role-filters::-webkit-scrollbar {
     display: none;
-  }
-
-  .search-box {
-    top: 0;
-    left: 0;
-    right: 0;
-    padding: 0.75rem;
-    z-index: 10;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-  }
-
-  .search-input {
-    width: 100%;
   }
 
   .role-filters {
@@ -393,6 +456,11 @@ const handleDragOver = (e: DragEvent) => {
   .role-btn img {
     width: 18px;
     height: 18px;
+  }
+
+  .visibility-select {
+    width: 100%;
+    margin: 0.5rem 0;
   }
 }
 </style>
