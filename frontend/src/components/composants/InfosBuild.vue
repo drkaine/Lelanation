@@ -69,8 +69,10 @@ const submitForm = async () => {
       fileName = fileName.replace('wait_', '')
     }
   } else {
-    fileName = connexionStore.isLoggedIn ? `lelariva_` + fileName : fileName
-    fileName = isVisible.value ? fileName : 'wait_' + fileName
+    if (connexionStore.isLoggedIn) {
+      fileName = `lelariva_` + fileName
+      fileName = isVisible.value ? fileName : 'wait_' + fileName
+    }
   }
 
   const data = {
@@ -79,7 +81,7 @@ const submitForm = async () => {
     name: name.value,
     description: description.value,
     version: version,
-    visible: connexionStore.isLoggedIn ? isVisible.value : false,
+    visible: connexionStore.isLoggedIn ? isVisible.value : true,
     sheet: {
       champion: championStore.$state.selectedChampion,
       runes: runeStore.$state.runesSelection,

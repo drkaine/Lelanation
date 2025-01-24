@@ -269,6 +269,12 @@ const getShardAtIndex = (index: number) => {
         </div>
       </div>
     </div>
+
+    <!-- Description section -->
+    <div class="separator" v-if="description"></div>
+    <div class="description-section" v-if="description">
+      <p class="description-text">{{ description }}</p>
+    </div>
   </div>
 </template>
 
@@ -551,12 +557,7 @@ const getShardAtIndex = (index: number) => {
   border-radius: 4px;
   cursor: pointer;
   transition: all 0.2s ease;
-  background: var(--black-2);
   padding: 3px;
-}
-
-.role-icon:hover {
-  background: var(--black-1);
 }
 
 .role-inactive {
@@ -829,6 +830,14 @@ const getShardAtIndex = (index: number) => {
     padding: 0.25rem 0.5rem;
     font-size: 0.75rem;
   }
+
+  .description-section {
+    padding: 0.75rem;
+  }
+
+  .description-text {
+    font-size: 0.75rem;
+  }
 }
 
 @media (min-width: 768px) {
@@ -1032,5 +1041,20 @@ const getShardAtIndex = (index: number) => {
 
 .version-text {
   color: var(--nox-grey3);
+}
+
+.description-section {
+  padding: 1rem;
+  margin-top: 0.5rem;
+  border-radius: 4px;
+}
+
+.description-text {
+  color: var(--nox-grey2);
+  font-size: 0.875rem;
+  line-height: 1.5;
+  white-space: pre-wrap;
+  margin: 0;
+  font-style: italic;
 }
 </style>

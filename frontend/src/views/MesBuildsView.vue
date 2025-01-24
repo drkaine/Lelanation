@@ -11,16 +11,17 @@ const route = useRoute()
 const builds = ref<BuildData[]>([])
 const urlApiSave = import.meta.env.VITE_URL_API_SAVE
 const connexionStore = useConnexionStore()
-
 const isLelarivaBuildPage = computed(() =>
   route.path.endsWith('/Lebuildarriva'),
 )
+const selectedRoles = ref(new Set<string>())
+const searchQuery = ref('')
 
 onMounted(async () => {
   try {
     const url = isLelarivaBuildPage.value
       ? `${urlApiSave}/api/builds/lelariva`
-      : '/assets/build/builds.json'
+      : `${urlApiSave}/api/builds`
 
     const response = await fetch(url)
     const data = await response.json()
@@ -31,14 +32,37 @@ onMounted(async () => {
   }
 })
 
-const filteredBuilds = computed(() => {
-  if (isLelarivaBuildPage.value) {
-    if (connexionStore.isLoggedIn) {
-      return builds.value
-    }
-    return builds.value.filter(build => !build.id?.startsWith('wait_'))
+const toggleRole = (role: string) => {
+  if (selectedRoles.value.has(role)) {
+    selectedRoles.value.delete(role)
+  } else {
+    selectedRoles.value.add(role)
   }
-  return buildStore.userBuilds
+}
+
+const filteredBuilds = computed(() => {
+  let filteredBuilds = isLelarivaBuildPage.value
+    ? connexionStore.isLoggedIn
+      ? builds.value
+      : builds.value.filter(build => !build.id?.startsWith('wait_'))
+    : buildStore.userBuilds
+
+  if (selectedRoles.value.size > 0) {
+    filteredBuilds = filteredBuilds.filter(build =>
+      build.roles.some(role => selectedRoles.value.has(role)),
+    )
+  }
+
+  if (searchQuery.value.trim()) {
+    const query = searchQuery.value.toLowerCase().trim()
+    filteredBuilds = filteredBuilds.filter(
+      build =>
+        build.name.toLowerCase().includes(query) ||
+        build.sheet.champion.name.toLowerCase().includes(query),
+    )
+  }
+
+  return filteredBuilds
 })
 
 const handleDragStart = (e: DragEvent, index: number) => {
@@ -65,52 +89,284 @@ const handleDragOver = (e: DragEvent) => {
 </script>
 
 <template>
-  <div class="main builds">
-    <div class="builds" id="">
-      <h1 class="pagetitle">
-        {{ isLelarivaBuildPage ? 'Builds de Lelariva' : 'Mes builds' }}
-      </h1>
-      <div class="settings">
-        <div class="new">
-          <a href="/build" class="btn small slate"> Nouveau Build </a>
-        </div>
-        <!-- <div  class="compare">
-          <button  class="btn small slate">Comparer</button>
-        </div> -->
-        <div class="order">
-          <button class="btn small slate">Reordonner</button>
-        </div>
-      </div>
-      <div class="list">
-        <div
-          class="build drag"
-          v-for="(build, index) in filteredBuilds"
-          :key="build.id"
-          draggable="true"
-          @dragstart="handleDragStart($event, index)"
-          @drop="handleDrop($event, index)"
-          @dragover="handleDragOver"
+  <div class="builds-page">
+    <h1 class="page-title">
+      {{ isLelarivaBuildPage ? 'Builds de Lelariva' : 'Mes builds' }}
+    </h1>
+
+    <div class="actions">
+      <a href="/build" class="btn create-btn">
+        <svg
+          width="20"
+          height="20"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
         >
-          <a
-            aria-current="page"
-            :href="`/build/${build.id}`"
-            class="router-link-active router-link-exact-active wrap"
-          >
-            <SheetBuild
-              :key="build.id"
-              :version="build.version"
-              :name="build.name"
-              :description="build.description"
-              :champion="build.sheet.champion"
-              :runes="build.sheet.runes"
-              :summoners="build.sheet.summoners"
-              :shards="build.sheet.shards"
-              :items="build.sheet.items"
-              :roles="build.roles ?? null"
-            />
-          </a>
-        </div>
+          <path d="M12 5v14m-7-7h14" />
+        </svg>
+        <span class="btn-text">Nouveau Build</span>
+      </a>
+
+      <div class="search-box">
+        <input
+          v-model="searchQuery"
+          type="text"
+          placeholder="Rechercher un build..."
+          class="search-input"
+        />
+      </div>
+    </div>
+
+    <div class="role-filters">
+      <button
+        v-for="role in ['top', 'jungle', 'mid', 'bot', 'support']"
+        :key="role"
+        class="role-btn"
+        :class="{ 'role-inactive': !selectedRoles.has(role) }"
+        @click="toggleRole(role)"
+      >
+        <img :src="`/assets/icons/roles/${role}.png`" :alt="role" />
+        <span class="role-text">{{ role }}</span>
+      </button>
+    </div>
+
+    <div class="builds-grid">
+      <div
+        v-for="(build, index) in filteredBuilds"
+        :key="build.id"
+        class="build-card"
+        draggable="true"
+        @dragstart="handleDragStart($event, index)"
+        @drop="handleDrop($event, index)"
+        @dragover="handleDragOver"
+      >
+        <a :href="`/build/${build.id}`" class="build-link">
+          <SheetBuild
+            :version="build.version"
+            :name="build.name"
+            :description="build.description"
+            :champion="build.sheet.champion"
+            :runes="build.sheet.runes"
+            :summoners="build.sheet.summoners"
+            :shards="build.sheet.shards"
+            :items="build.sheet.items"
+            :roles="build.roles"
+          />
+        </a>
       </div>
     </div>
   </div>
 </template>
+
+<style scoped>
+.builds-page {
+  max-width: 1400px;
+}
+
+.page-title {
+  color: var(--gold-lol);
+  font-size: 2rem;
+  margin: 0 0 2rem 0;
+  text-align: center;
+}
+
+.btn-text {
+  @media (max-width: 768px) {
+    display: none;
+  }
+}
+
+.role-text {
+  @media (max-width: 768px) {
+    display: none;
+  }
+}
+
+.role-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.4rem 0.8rem;
+  border: 2px solid var(--gold-lol);
+  border-radius: 4px;
+  color: var(--gold-lol);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.role-btn img {
+  width: 20px;
+  height: 20px;
+}
+
+.role-btn.role-inactive {
+  border-color: var(--slate-3);
+  color: var(--slate-3);
+  opacity: 0.7;
+}
+
+.role-btn:hover {
+  border-color: var(--gold-lol);
+  color: var(--gold-lol);
+  opacity: 1;
+}
+
+.actions {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.order-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  border: 2px solid var(--slate-3);
+  color: var(--sand-2);
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.order-btn:hover {
+  border-color: var(--gold-lol);
+  color: var(--gold-lol);
+}
+
+.search-box {
+  flex-grow: 0;
+  width: 300px;
+}
+
+.search-input {
+  padding: 0.75rem 1rem;
+  border: 2px solid var(--slate-3);
+  border-radius: 4px;
+  color: var(--sand-2);
+  width: 300px;
+  transition: all 0.2s ease;
+}
+
+.search-input:focus {
+  border-color: var(--gold-lol);
+  outline: none;
+}
+
+.role-filters {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-bottom: 2rem;
+}
+
+.builds-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  justify-content: center;
+  padding: 0 1rem;
+}
+
+.build-card {
+  flex: 0 0 450px;
+  border-radius: 8px;
+  overflow: hidden;
+  transition: all 0.2s ease;
+  cursor: move;
+}
+
+.build-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.build-link {
+  text-decoration: none;
+  color: inherit;
+}
+
+@media (max-width: 768px) {
+  .actions {
+    flex-wrap: wrap;
+    padding: 0 1rem;
+  }
+
+  .role-filters {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    justify-content: flex-start;
+    padding: 0 1rem;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  .role-filters::-webkit-scrollbar {
+    display: none;
+  }
+
+  .search-box {
+    top: 0;
+    left: 0;
+    right: 0;
+    padding: 0.75rem;
+    z-index: 10;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  }
+
+  .search-input {
+    width: 100%;
+  }
+
+  .role-filters {
+    display: flex;
+    justify-content: center;
+    gap: 0.75rem;
+    padding: 0.5rem;
+    margin: 1rem 0;
+  }
+
+  .role-btn {
+    padding: 0.5rem;
+    min-width: 40px;
+    min-height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .role-btn img {
+    width: 24px;
+    height: 24px;
+  }
+
+  .builds-grid {
+    margin-top: 1rem;
+  }
+
+  .builds-page {
+    padding-top: 4rem;
+  }
+
+  .builds-grid {
+    gap: 1rem;
+    padding: 0 0.5rem;
+  }
+
+  .build-card {
+    flex: 0 0 100%;
+  }
+
+  .role-btn {
+    padding: 0.3rem;
+  }
+
+  .role-btn img {
+    width: 18px;
+    height: 18px;
+  }
+}
+</style>

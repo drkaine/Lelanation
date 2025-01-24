@@ -32,9 +32,10 @@ const routes: RouteRecordRaw[] = [
     component: () => import('../views/MesBuildsView.vue'),
   },
   {
-    path: '/build/lelariva',
-    name: 'lelariva',
+    path: '/:name',
+    name: 'connexion',
     component: () => import('../views/ConnexionBuildView.vue'),
+    props: true,
   },
   {
     path: '/Lebuildarriva',
