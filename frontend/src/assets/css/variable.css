@@ -52,13 +52,14 @@
 
   --champSizeButton: 54px;
 
-  font-family: var(--font);
+  font-family: var(--font-S);
 
   color-scheme: dark;
   line-height: 1.5;
   font-weight: 400;
   font-size: 16px;
-  --font: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  --font-B: BeaufortForLoL;
+  --font-S: Spiegel;
   --mono: 'Server Mono', ui-monospace, Menlo, Monaco, 'Segoe UI Mono', monospace;
 }
 

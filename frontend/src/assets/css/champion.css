@@ -19,7 +19,7 @@
   height: var(--champSizeButton);
   width: var(--champSizeButton);
   background-color: unset;
-  font-family: var(--font);
+  font-family: var(--font-B);
   display: inline-block;
   line-height: 1rem;
   border-radius: 0;

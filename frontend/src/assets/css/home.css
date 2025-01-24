@@ -5,10 +5,13 @@
   gap: 2rem;
 }
 
+/* Titre principal en BeaufortForLoL pour l'impact */
 .title {
+  font-family: var(--font-beaufort);
   font-size: 2.5rem;
   color: var(--nox-gold4);
   text-align: center;
+  font-weight: bold;
 }
 
 .profil-image {
@@ -19,9 +22,12 @@
   aspect-ratio: 1;
 }
 
+/* Sous-titre en Spiegel pour la lisibilité */
 .subtitle {
+  font-family: var(--font-spiegel);
   font-size: 1.2rem;
   color: var(--nox-gold3);
+  font-weight: 500;
 }
 
 @media (max-width: 600px) {
@@ -34,14 +40,9 @@
   }
 }
 
-.social-links {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
-  justify-content: center;
-}
-
+/* Liens sociaux en BeaufortForLoL pour l'aspect bouton */
 .social-link {
+  font-family: var(--font-beaufort);
   display: flex;
   align-items: center;
   gap: 0.5rem;
@@ -51,6 +52,14 @@
   color: var(--nox-gold2);
   text-decoration: none;
   transition: all 0.2s ease;
+  font-weight: 500;
+}
+
+.social-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
 }
 
 .social-link svg {
@@ -78,4 +87,5 @@
   min-height: 100vh;
   padding: 2rem;
   color: var(--nox-gold1);
+  font-family: var(--font-spiegel); /* Police par défaut pour le contenu */
 }

@@ -7,7 +7,9 @@
   --grid-gap-desktop: 16px;
 }
 
+/* Filtres avec BeaufortForLoL pour l'aspect navigation */
 .itemsPage .filter-items {
+  font-family: var(--font-beaufort);
   display: flex;
   flex-wrap: wrap;
   gap: 0.5em;
@@ -20,7 +22,9 @@
   gap: 16px;
 }
 
+/* Titres de groupe en Spiegel pour la lisibilité */
 .group.small {
+  font-family: var(--font-spiegel);
   color: var(--sand-1);
   font-size: 14px;
   font-weight: 500;
@@ -33,7 +37,9 @@
   gap: 8px;
 }
 
+/* Tooltips en Spiegel pour la lisibilité des infos */
 .tip {
+  font-family: var(--font-spiegel);
   flex: 0 0 var(--item-size-mobile);
 }
 
@@ -41,7 +47,9 @@
   flex: 0 0 var(--item-small-size-mobile);
 }
 
+/* Boutons d'items en BeaufortForLoL pour l'aspect interactif */
 .tip .item button {
+  font-family: var(--font-beaufort);
   width: 100px;
   height: 100px;
 }

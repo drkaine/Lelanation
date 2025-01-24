@@ -195,12 +195,14 @@
 }
 
 .header-title {
+  font-family: var(--font-beaufort);
   color: var(--gold-lol);
   font-size: var(--font-size-medium);
   text-transform: uppercase;
 }
 
 .header-subtitle {
+  font-family: var(--font-spiegel);
   color: var(--nox-grey2);
   font-size: var(--font-size-small);
   max-width: 120px;
@@ -625,8 +627,9 @@
 }
 
 .rune-description {
+  font-family: var(--font-spiegel);
   color: var(--nox-grey2);
-  font-size: var(--font-size-small);
+  font-size: var(--font-size-medium);
 }
 
 .stat-shards .rune-tier {
@@ -996,6 +999,7 @@
 }
 
 .rune-tooltip {
+  font-family: var(--font-spiegel);
   position: fixed;
   z-index: 1000;
   max-width: 90vw;
@@ -1132,12 +1136,14 @@
 }
 
 .rune-tooltip h3 {
+  font-family: var(--font-beaufort);
   color: var(--gold-lol);
   font-size: 1rem;
   margin: 0 0 8px 0;
 }
 
 .rune-tooltip p {
+  font-family: var(--font-spiegel);
   margin: 0;
   font-size: 0.9rem;
   line-height: 1.4;
