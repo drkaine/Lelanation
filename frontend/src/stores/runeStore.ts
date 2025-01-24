@@ -16,11 +16,27 @@ export const useRuneStore = defineStore('Rune', () => {
     ],
   })
 
-  const setRuneSelection = (
-    type: 'principal' | 'second',
-    rune: Rune | null,
-  ) => {
-    runesSelection.value[type] = rune
+  const setRuneSelection = (type: 'principal' | 'second', rune: Rune | null) => {
+    if (type === 'principal') {
+      runesSelection.value = {
+        ...runesSelection.value,
+        principal: rune,
+        groups: runesSelection.value.groups.map(group => ({
+          ...group,
+          principal: null
+        }))
+      }
+    } else {
+      runesSelection.value = {
+        ...runesSelection.value,
+        second: rune,
+        runeSecond: [null, null],
+        groups: runesSelection.value.groups.map(group => ({
+          ...group,
+          second: null
+        }))
+      }
+    }
   }
 
   const setGroupRuneSelection = (
