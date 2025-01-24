@@ -13,6 +13,7 @@ import { useShardStore } from '@/stores/shardStore'
 import { useItemStore } from '@/stores/itemStore'
 import BuildRecap from '@/components/composants/BuildRecap.vue'
 import InfosBuild from '@/components/composants/InfosBuild.vue'
+import version from '@/assets/files/data/lastVersion.json'
 
 const championStore = useChampionStore()
 const runeStore = useRuneStore()
@@ -61,12 +62,12 @@ const next = () => {
         </div>
         <div class="sheet-build">
           <SheetBuild
-            :version="null"
+            :version="version"
             :name="null"
             :description="null"
             :champion="championStore.selectedChampion"
             :runes="runeStore.runesSelection"
-            :summonners="summonerStore.summonerSelection"
+            :summoners="summonerStore.summonerSelection"
             :shards="shardStore.shardsSelection"
             :items="itemStore.ItemsSelection"
           />

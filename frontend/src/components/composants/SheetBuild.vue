@@ -16,7 +16,7 @@ const props = defineProps<{
   description: string | null
   champion: Champion | null
   runes: RunesSelection | null
-  summonners: SummonerSelection | null
+  summoners: SummonerSelection | null
   shards: ShardSelection | null
   items: ItemSelection | null
   roles?: string[]
@@ -100,7 +100,7 @@ const getSecondaryRuneAtIndex = (index: number) => {
 }
 
 const getSummonerByType = (type: 'principal' | 'second') => {
-  return props.summonners?.[type] || null
+  return props.summoners?.[type] || null
 }
 
 const getShardAtIndex = (index: number) => {
@@ -111,6 +111,13 @@ const getShardAtIndex = (index: number) => {
 
 <template>
   <div class="sheet-container">
+    <div class="sheet-credits">
+      <span class="credit-text">@lelanation.darkaine</span>
+      <span class="version-text">v{{ version }}</span>
+    </div>
+
+    <div class="separator"></div>
+
     <div class="sheet-header">
       <div class="champion-info" v-if="champion">
         <div class="champion-portrait">
@@ -428,6 +435,7 @@ const getShardAtIndex = (index: number) => {
   justify-content: space-between;
   align-items: flex-start;
   gap: 16px;
+  padding-top: 0.5rem;
 }
 
 .champion-info {
@@ -816,6 +824,11 @@ const getShardAtIndex = (index: number) => {
     width: 35px !important;
     height: 35px !important;
   }
+
+  .sheet-credits {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.75rem;
+  }
 }
 
 @media (min-width: 768px) {
@@ -1000,5 +1013,24 @@ const getShardAtIndex = (index: number) => {
   width: 100%;
   height: 100%;
   object-fit: cover;
+}
+
+.sheet-credits {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 1rem;
+  color: var(--sand-2);
+  font-size: 0.875rem;
+  opacity: 0.8;
+}
+
+.credit-text {
+  color: var(--nox-grey3);
+  font-weight: 500;
+}
+
+.version-text {
+  color: var(--nox-grey3);
 }
 </style>
