@@ -1,27 +1,23 @@
 .footer {
   bottom: 0;
   width: var(--width-all);
-  background: transparent;
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
 .connect {
+  font-size: var(--text-base);
   color: var(--color-grey-100);
-  font-weight: 500;
   padding: 0 1rem;
 }
 
 .right {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
+  font-size: var(--text-base);
   padding: 0 1rem;
 }
 
 .footer-link {
-  text-decoration: none;
   color: var(--color-grey-100);
   transition: color 0.2s ease;
 }

@@ -10,7 +10,11 @@
   background: var(--gradient-primary);
   padding: var(--tooltipPad, 1.2em);
   border: var(--border-size) solid var(--color-gold-300);
-  border-image: linear-gradient(45deg, var(--color-gold-300), var(--final-blue))
+  border-image: linear-gradient(
+      45deg,
+      var(--color-gold-300),
+      var(--color-blue-600)
+    )
     1;
   font-size: var(--text-base);
   position: relative;
@@ -139,10 +143,10 @@
   bottom: -0.15em;
   left: 0.1em;
   text-shadow:
-    1px 1px 0 var(--black),
-    -1px 1px 0 var(--black),
-    -1px -1px 0 var(--black),
-    1px -1px 0 var(--black);
+    1px 1px 0 var(--color-grey-500),
+    -1px 1px 0 var(--color-grey-500),
+    -1px -1px 0 var(--color-grey-500),
+    1px -1px 0 var(--color-grey-500);
 }
 
 .spells .spell .img img {

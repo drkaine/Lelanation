@@ -262,8 +262,8 @@ const canDragBuild = computed(
 }
 
 .role-btn.role-inactive {
-  border-color: var(--slate-3);
-  color: var(--slate-3);
+  border-color: var(--color-grey-300);
+  color: var(--color-grey-300);
   opacity: 0.7;
 }
 
@@ -291,7 +291,7 @@ const canDragBuild = computed(
 
 .search-box {
   display: flex;
-  border: var(--border-size) solid var(--slate-3);
+  border: var(--border-size) solid var(--color-grey-300);
   border-radius: 4px;
   overflow: hidden;
   transition: all 0.2s ease;
@@ -318,7 +318,7 @@ const canDragBuild = computed(
 .search-type-select {
   padding: 0.4rem;
   border: none;
-  border-right: 2px solid var(--slate-3);
+  border-right: 2px solid var(--color-grey-300);
   background: none;
   color: var(--color-gold-500);
   cursor: pointer;

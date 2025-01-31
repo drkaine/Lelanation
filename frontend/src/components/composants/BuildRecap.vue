@@ -436,7 +436,7 @@ const statsList = [
   flex-direction: row;
   gap: 0.5rem;
   padding-top: 1rem;
-  border-top: 1px solid var(--slate-3);
+  border-top: 1px solid var(--color-grey-300);
 }
 
 .stats-panel {
@@ -447,14 +447,14 @@ const statsList = [
 .stats-table {
   border-collapse: collapse;
   margin-bottom: 0;
-  border-bottom: 1px solid var(--slate-3);
+  border-bottom: 1px solid var(--color-grey-300);
 }
 
 .stats-table th,
 .stats-table td {
   padding: 0.75rem 1rem;
   text-align: left;
-  border-bottom: 1px solid var(--slate-3);
+  border-bottom: 1px solid var(--color-grey-300);
 }
 
 .stats-table th {
@@ -468,7 +468,7 @@ const statsList = [
 
 .level-selector {
   padding: 0.75rem 1rem;
-  border-top: 1px solid var(--slate-3);
+  border-top: 1px solid var(--color-grey-300);
   margin-top: -1px;
 }
 

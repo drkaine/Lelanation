@@ -95,7 +95,7 @@ li {
 }
 
 body {
-  color: var(--slate-1);
+  color: var(--color-grey-300);
   margin: 0;
 }
 
@@ -106,7 +106,7 @@ h2 {
 }
 
 h1 {
-  color: var(--slate-1);
+  color: var(--color-grey-300);
   font-weight: 600;
   font-size: var(--title-sm);
   margin: 0 0 1.7em;
@@ -134,7 +134,7 @@ img:not([src]) {
   --color1: var(--color-gold-300);
   --color2: oklch(from var(--color1) 65% c h);
   --linear: linear-gradient(to bottom, var(--color1), var(--color2));
-  background-color: oklch(from var(--black) l c h/.4);
+  background-color: oklch(from var(--color-grey-500) l c h/.4);
   border: var(--border-size) solid var(--color1);
   border-image-source: var(--linear);
   border-image-slice: 1;
@@ -165,7 +165,7 @@ img:not([src]) {
   border-image-source: none;
   background: var(--color1);
   filter: brightness(1);
-  color: var(--black);
+  color: var(--color-grey-500);
 }
 
 .btn.medium {
@@ -179,12 +179,12 @@ img:not([src]) {
 }
 
 .btn.slate {
-  --color1: var(--slate-2);
+  --color1: var(--color-grey-300);
   --color2: oklch(from var(--color1) 60% c h);
 }
 
 .btn.sea {
-  --color1: var(--sea-1);
+  --color1: var(--color-blue-300);
   --color2: oklch(from var(--color1) 60% c h);
 }
 

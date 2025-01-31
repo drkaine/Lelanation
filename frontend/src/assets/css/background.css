@@ -1,7 +1,4 @@
 .app-background {
-  --base-dark: oklch(13% 0.05 240);
-  --final-blue: oklch(22% 0.05 240);
-
   background: var(--gradient-primary);
   position: relative;
   min-height: 100vh;

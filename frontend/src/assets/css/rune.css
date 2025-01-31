@@ -236,17 +236,17 @@
     135deg,
     color-mix(
         in srgb,
-        var(--base-dark),
-        color-mix(in srgb, var(--black), black 40%) 0%
+        var(--color-grey-500),
+        color-mix(in srgb, var(--color-grey-500), black 40%) 0%
       )
       0%,
     color-mix(
         in srgb,
-        var(--final-blue),
-        color-mix(in srgb, var(--black), black 0%) 75%
+        var(--color-blue-600),
+        color-mix(in srgb, var(--color-grey-500), black 0%) 75%
       )
       80%,
-    var(--final-blue) 100%
+    var(--color-blue-600) 100%
   );
 }
 
@@ -575,7 +575,7 @@
 
 .summoner-selector {
   position: absolute;
-  background: var(--base-dark);
+  background: var(--color-grey-500);
   border: var(--border-size) solid var(--color-gold-300);
   border-radius: 4px;
   padding: 8px;
@@ -602,7 +602,7 @@
 
     &.selected {
       border-color: var(--color-gold-300);
-      background: var(--final-blue);
+      background: var(--color-blue-600);
     }
 
     &.used {

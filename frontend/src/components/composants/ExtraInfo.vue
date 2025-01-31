@@ -150,7 +150,7 @@ const removeItem = (index: number) => {
   cursor: move;
   touch-action: none;
   transition: all 0.2s ease;
-  background: var(--slate-3);
+  background: var(--color-grey-300);
 }
 
 .item-slot.dragging {
@@ -162,7 +162,7 @@ const removeItem = (index: number) => {
 
 .item-slot.drop-target {
   border-color: var(--color-gold-300);
-  background: var(--slate-4);
+  background: var(--color-grey-300);
   transform: scale(1.05);
 }
 

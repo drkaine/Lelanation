@@ -6,7 +6,7 @@
   margin: 0;
 }
 
-.title {
+.home-title {
   text-align: center;
   font-size: var(--title-xl);
   margin-bottom: 3rem;
@@ -111,7 +111,7 @@
 
 .letter-btn.active {
   background-color: var(--color-gold-300);
-  color: var(--black);
+  color: var(--color-grey-500);
 }
 
 .pagination {
@@ -134,7 +134,7 @@
 }
 
 .page-btn:hover:not(:disabled) {
-  background-color: var(--black);
+  background-color: var(--color-grey-500);
 }
 
 .page-btn:disabled {
@@ -159,9 +159,9 @@
 }
 
 .letter-btn {
-  border: var(--border-size) solid var(--slate-4);
-  background-color: var(--black);
-  color: var(--slate-3);
+  border: var(--border-size) solid var(--color-grey-300);
+  background-color: var(--color-grey-500);
+  color: var(--color-grey-300);
   padding: 0.2em 0.4em;
   white-space: nowrap;
   border-radius: 4px;
@@ -172,8 +172,8 @@
 }
 
 .letter-btn:hover {
-  border-color: var(--slate-3);
-  color: var(--slate-2);
+  border-color: var(--color-grey-300);
+  color: var(--color-grey-300);
 }
 
 @media screen and (max-width: 768px) {
@@ -181,9 +181,9 @@
     padding: 1rem;
   }
 
-  .title {
-    font-size: var(--title-sm);
-    margin-bottom: 2rem;
+  .home-title {
+    font-size: var(--title-lg);
+    margin-bottom: 1rem;
   }
 
   .dictionary-content {
@@ -232,8 +232,8 @@
     padding: 0.5rem;
   }
 
-  .title {
-    font-size: var(--title-sm);
+  .home-title {
+    font-size: var(--title-base);
   }
 
   .search-input {
