@@ -366,6 +366,7 @@ const getShardAtIndex = (index: number) => {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-wrap: wrap;
   gap: 16px;
 }
 
@@ -690,8 +691,7 @@ const getShardAtIndex = (index: number) => {
   }
 
   .summoner-slot img {
-    width: 35px !important;
-    height: 35px !important;
+    height: 100% !important;
   }
 
   .shard-slot img {
@@ -719,8 +719,7 @@ const getShardAtIndex = (index: number) => {
 
 @media (min-width: 768px) {
   .summoner-slot img {
-    width: 35px;
-    height: 35px;
+    height: 100%;
   }
 
   .shard-slot img {
