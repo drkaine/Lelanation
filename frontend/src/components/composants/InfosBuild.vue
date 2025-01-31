@@ -186,7 +186,7 @@ const submitForm = async () => {
       </label>
     </div>
 
-    <div class="form-group" v-if="connexionStore.isLoggedIn">
+    <div class="form-group">
       <label class="visibility-toggle">
         <input type="checkbox" v-model="isVisible" />
         <span class="checkmark"></span>

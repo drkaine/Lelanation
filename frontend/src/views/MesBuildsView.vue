@@ -60,15 +60,13 @@ const filteredBuilds = computed(() => {
       : builds.value.filter(build => !build.id?.startsWith('wait_'))
     : buildStore.userBuilds
 
-  if (isLelarivaBuildPage.value && connexionStore.isLoggedIn) {
-    switch (visibilityFilter.value) {
-      case 'visible':
-        filtered = filtered.filter(build => !build.id?.startsWith('wait_'))
-        break
-      case 'hidden':
-        filtered = filtered.filter(build => build.id?.startsWith('wait_'))
-        break
-    }
+  switch (visibilityFilter.value) {
+    case 'visible':
+      filtered = filtered.filter(build => !build.id?.startsWith('wait_'))
+      break
+    case 'hidden':
+      filtered = filtered.filter(build => build.id?.startsWith('wait_'))
+      break
   }
 
   if (selectedRoles.value.size > 0) {
@@ -145,11 +143,7 @@ const canDragBuild = computed(
           <span class="btn-text">Nouveau Build</span>
         </a>
 
-        <select
-          v-if="isLelarivaBuildPage && connexionStore.isLoggedIn"
-          v-model="visibilityFilter"
-          class="visibility-select"
-        >
+        <select v-model="visibilityFilter" class="visibility-select">
           <option value="all">Tous les builds</option>
           <option value="visible">Builds visibles</option>
           <option value="hidden">Builds invisibles</option>
@@ -196,7 +190,6 @@ const canDragBuild = computed(
         :class="{ 'no-drag': !canDragBuild }"
       >
         <div
-          v-if="isLelarivaBuildPage && connexionStore.isLoggedIn"
           class="visibility-badge"
           :class="{ 'is-hidden': build.id?.startsWith('wait_') }"
         >
