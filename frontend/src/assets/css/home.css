@@ -5,13 +5,6 @@
   gap: 1rem;
 }
 
-.title {
-  font-family: var(--font-beaufort);
-  font-size: var(--title-xl);
-  color: var(--color-gold-300);
-  text-align: center;
-}
-
 .profil-image {
   max-width: 300px;
   border: var(--border-size) solid var(--color-gold-400);
@@ -69,5 +62,5 @@
 }
 
 .home-container {
-  padding: 0.75rem;
+  padding: 2rem;
 }

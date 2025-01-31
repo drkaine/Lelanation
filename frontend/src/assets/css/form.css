@@ -1,7 +1,7 @@
 .search {
   grid-area: auto/1/auto/-1;
   width: var(--width-all);
-  padding-bottom: 20px;
+  padding-bottom: 0.5rem;
 }
 
 .search-input {
@@ -197,6 +197,12 @@ form label textarea::placeholder {
 }
 
 @media screen and (max-width: 480px) {
+  .letter-btn {
+    width: 1.5rem;
+    height: 1.5rem;
+    padding: 0.15rem 0.28rem;
+  }
+
   .btn {
     padding: 0.5em 0.8em;
     font-size: var(--text-sm);

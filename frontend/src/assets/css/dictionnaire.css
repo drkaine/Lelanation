@@ -5,7 +5,7 @@
   margin: 0;
 }
 
-.home-title {
+.title {
   text-align: center;
   font-size: var(--title-xl);
   margin-bottom: 3rem;
@@ -114,13 +114,12 @@
   margin-bottom: 1em;
 }
 
-
 @media screen and (max-width: 768px) {
   .dictionary-container {
     padding: 1rem;
   }
 
-  .home-title {
+  .title {
     font-size: var(--title-lg);
     margin-bottom: 1rem;
   }
@@ -137,7 +136,6 @@
     font-size: var(--text-sm);
   }
 
-
   .page-btn {
     padding: 0.3rem 0.8rem;
     font-size: var(--text-sm);
@@ -149,7 +147,7 @@
 }
 
 @media screen and (max-width: 480px) {
-  .home-title {
+  .title {
     font-size: var(--title-base);
   }
 }

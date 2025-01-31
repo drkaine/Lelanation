@@ -6,7 +6,7 @@
 
 .explanation {
   margin-bottom: 2rem;
-  color: var(--color-grey-300);
+  color: var(--color-gold-50);
 }
 
 .explanation p {
@@ -26,8 +26,7 @@
 }
 
 .form-group label {
-  color: var(--color-gold-300);
-  font-weight: 500;
+  color: var(--color-gold-200);
 }
 
 .form-group input,
@@ -35,8 +34,8 @@
   padding: 0.8rem;
   border: var(--border-size) solid var(--color-gold-400);
   border-radius: 8px;
-  background-color: var(--grey);
-  color: white;
+  background-color: var(--color-grey-600);
+  color: var(--color-gold-200);
   font-size: var(--text-base);
   width: var(--width-all);
 }
@@ -76,7 +75,7 @@
 
 .popup.error {
   background-color: var(--color-blue-100);
-  color: white;
+  color: var(--color-gold-50);
 }
 
 .fade-enter-active,

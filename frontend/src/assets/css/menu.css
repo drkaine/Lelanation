@@ -1,7 +1,4 @@
 .header {
-  font-family: var(--font-beaufort);
-  color: var(--color-grey-50);
-  font-size: var(--text-base);
   display: flex;
   justify-content: space-between;
   padding: 1rem;
@@ -9,7 +6,7 @@
 
 .header a {
   font-family: var(--font-beaufort);
-  color: var(--color-grey-50);
+  color: var(--color-gold-50);
 }
 
 .header a.link-active,
@@ -37,7 +34,7 @@
 .mobile-nav {
   font-family: var(--font-spiegel);
   display: none;
-  position: fixed;
+  position: absolute;
   top: 60px;
   left: 0;
   right: 0;
@@ -53,7 +50,7 @@
 
 .mobile-nav a {
   font-family: var(--font-beaufort);
-  color: var(--color-grey-50);
+  color: var(--color-gold-50);
   padding: 0.5rem;
   display: block;
 }
@@ -221,6 +218,10 @@
   margin: 0 auto;
   grid-area: 1/2;
   display: flex;
+}
+
+.link {
+  color: var(--color-grey-50);
 }
 
 .link-exact {

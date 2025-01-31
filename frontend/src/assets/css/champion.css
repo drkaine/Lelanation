@@ -13,6 +13,10 @@
   gap: 0.5em;
 }
 
+.filter button {
+  border: 1px solid var(--color-gold-300);
+}
+
 .champ {
   border: var(--border-size) solid transparent;
   position: relative;

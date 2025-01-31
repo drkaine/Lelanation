@@ -9,7 +9,7 @@ defineProps<{
 
 <template>
   <div class="profil">
-    <h1 class="home-title">{{ title }}</h1>
+    <h1 class="title">{{ title }}</h1>
     <img class="profil-image" :src="imageUrl" :alt="imageAlt" />
     <p class="subtitle">{{ subtitle }}</p>
   </div>
