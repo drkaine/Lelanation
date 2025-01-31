@@ -135,7 +135,7 @@ img:not([src]) {
   --color2: oklch(from var(--color1) 65% c h);
   --linear: linear-gradient(to bottom, var(--color1), var(--color2));
   background-color: oklch(from var(--black) l c h/.4);
-  border: 0.25em solid var(--color1);
+  border: var(--border-size) solid var(--color1);
   border-image-source: var(--linear);
   border-image-slice: 1;
   text-transform: uppercase;

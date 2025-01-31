@@ -80,8 +80,8 @@ const next = () => {
 
 <style scoped>
 .window-build {
-  width: 100%;
-  height: 100%;
+  width: var(--width-all);
+  height: var(--height-all);
   display: flex;
   flex-direction: column;
 }
@@ -89,27 +89,25 @@ const next = () => {
 .build {
   display: flex;
   flex-direction: column;
-  width: 100%;
+  width: var(--width-all);
   flex: 1;
 }
 
 .build-content {
   display: flex;
   flex-direction: column;
-  width: 100%;
+  width: var(--width-all);
 }
 
-/* Mobile par défaut */
 .core-build {
-  width: 100%;
+  width: var(--width-all);
   margin-bottom: 20px;
 }
 
 :deep(.runesPage-sheet) {
-  width: 100%;
+  width: var(--width-all);
 }
 
-/* Tablette et Desktop */
 @media (min-width: 1060px) {
   .build {
     flex-direction: row;

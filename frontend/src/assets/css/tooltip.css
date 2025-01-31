@@ -5,11 +5,11 @@
 .tooltip .box {
   max-width: min(620px, var(--tooltipMaxWidth, calc(100vw - 70px)));
   min-width: var(--tooltipMinWidth, 270px);
-  max-height: 100%;
+  max-height: var(--height-all);
   border-radius: 5%;
   background: var(--gradient-primary);
   padding: var(--tooltipPad, 1.2em);
-  border: 2px solid var(--color-gold-300);
+  border: var(--border-size) solid var(--color-gold-300);
   border-image: linear-gradient(45deg, var(--color-gold-300), var(--final-blue))
     1;
   font-size: 1rem;
@@ -38,7 +38,7 @@
 
 .tooltip .box hr {
   background-color: var(--sand-4);
-  width: 100%;
+  width: var(--width-all);
   height: 1px;
   border: 0;
 }
@@ -52,7 +52,7 @@
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  width: 100%;
+  width: var(--width-all);
   margin-bottom: 1em;
 }
 
@@ -60,7 +60,7 @@
   width: 55px;
   height: 55px;
   border-radius: 50%;
-  border: 2px solid var(--color-gold-300);
+  border: var(--border-size) solid var(--color-gold-300);
   object-fit: cover;
 }
 
@@ -82,7 +82,7 @@
 }
 
 .tags {
-  width: 100%;
+  width: var(--width-all);
   padding-top: 0.5em;
   border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
@@ -122,7 +122,7 @@
 }
 
 .spells .spell .img {
-  border: 1px solid var(--color-gold-300);
+  border: var(--border-size) solid var(--color-gold-300);
   position: relative;
   margin-top: 0.1em;
   height: var(--s);
@@ -147,8 +147,8 @@
 
 .spells .spell .img img {
   display: flex;
-  height: 100%;
-  width: 100%;
+  height: var(--hei-all);
+  width: var(--width-all);
 }
 
 .spells .spell .desc {
@@ -172,7 +172,7 @@
 .item-icon {
   width: 32px;
   height: 32px;
-  border: 1px solid var(--color-gold-300);
+  border: var(--border-size) solid var(--color-gold-300);
   border-radius: 4px;
 }
 
@@ -219,7 +219,7 @@
 .builds-icon {
   width: 24px;
   height: 24px;
-  border: 1px solid var(--color-gold-300);
+  border: var(--border-size) solid var(--color-gold-300);
   border-radius: 2px;
 }
 

@@ -280,13 +280,13 @@ const getShardAtIndex = (index: number) => {
 
 <style scoped>
 .shard-slot img {
-  border: 2px solid var(--color-gold-300);
+  border: var(--border-size) solid var(--color-gold-300);
   border-radius: 50%;
 }
 
 .sheet-container {
   background: var(--gradient-primary);
-  border: 2px solid var(--color-blue-300);
+  border: var(--border-size) solid var(--color-blue-300);
   box-shadow: 0 0 20px rgba(74, 17, 21, 0.3);
   border-radius: 12px;
   padding: 16px;
@@ -331,14 +331,14 @@ const getShardAtIndex = (index: number) => {
 .champion-portrait {
   width: 64px;
   height: 64px;
-  border: 2px solid var(--color-gold-300);
+  border: var(--border-size) solid var(--color-gold-300);
   border-radius: 50%;
   overflow: hidden;
 }
 
 .champion-portrait img {
-  width: 100%;
-  height: 100%;
+  width: var(--width-all);
+  height: var(--height-all);
   object-fit: cover;
 }
 
@@ -467,7 +467,7 @@ const getShardAtIndex = (index: number) => {
 .keystone {
   width: 56px;
   height: 56px;
-  border: 2px solid var(--color-gold-300);
+  border: var(--border-size) solid var(--color-gold-300);
   border-radius: 50%;
   overflow: hidden;
 }
@@ -475,7 +475,7 @@ const getShardAtIndex = (index: number) => {
 .rune-slot-sheet {
   width: 32px;
   height: 32px;
-  border: 2px solid var(--color-gold-300);
+  border: var(--border-size) solid var(--color-gold-300);
   border-radius: 50%;
   overflow: hidden;
   position: relative;
@@ -485,8 +485,8 @@ const getShardAtIndex = (index: number) => {
 }
 
 .rune-slot-sheet img {
-  width: 100%;
-  height: 100%;
+  width: var(--width-all);
+  height: var(--height-all);
   object-fit: contain;
 }
 
@@ -517,7 +517,7 @@ const getShardAtIndex = (index: number) => {
 .runes-secondary-sheet .rune-tier:first-child .rune-slot-sheet {
   width: 32px;
   height: 32px;
-  border: 2px solid var(--color-gold-300);
+  border: var(--border-size) solid var(--color-gold-300);
 }
 
 .runes-secondary-sheet .rune-tier:first-child .rune-slot-sheet img {
@@ -529,7 +529,7 @@ const getShardAtIndex = (index: number) => {
   display: flex;
   align-items: center;
   margin-bottom: 6px;
-  width: 100%;
+  width: var(--width-all);
 }
 
 .runes-secondary-sheet .rune-tier .rune-slot-sheet {
@@ -545,7 +545,7 @@ const getShardAtIndex = (index: number) => {
 .keystone-secondary {
   width: 48px;
   height: 48px;
-  border: 2px solid var(--color-gold-300);
+  border: var(--border-size) solid var(--color-gold-300);
   border-radius: 50%;
   overflow: hidden;
 }
@@ -579,7 +579,7 @@ const getShardAtIndex = (index: number) => {
 .summoner-slot {
   width: 25px;
   height: 25px;
-  border: 1px solid var(--color-gold-300);
+  border: var(--border-size) solid var(--color-gold-300);
   border-radius: 4px;
   overflow: hidden;
   display: flex;
@@ -589,14 +589,14 @@ const getShardAtIndex = (index: number) => {
 }
 
 .item-slot {
-  border: 2px solid var(--color-gold-300);
+  border: var(--border-size) solid var(--color-gold-300);
   border-radius: 4px;
   overflow: hidden;
 }
 
 .item-slot img {
-  width: 100%;
-  height: 100%;
+  width: var(--width-all);
+  height: var(--height-all);
   object-fit: contain;
 }
 
@@ -658,7 +658,7 @@ const getShardAtIndex = (index: number) => {
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 1px solid var(--color-gold-300);
+  border: var(--border-size) solid var(--color-gold-300);
   border-radius: 4px;
   color: var(--color-gold-300);
   font-weight: 600;
@@ -890,14 +890,14 @@ const getShardAtIndex = (index: number) => {
 .item-slot {
   width: 45px;
   height: 45px;
-  border: 2px solid var(--color-gold-300);
+  border: var(--border-size) solid var(--color-gold-300);
   border-radius: 4px;
   overflow: hidden;
 }
 
 .item-slot img {
-  width: 100%;
-  height: 100%;
+  width: var(--width-all);
+  height: var(--height-all);
   object-fit: cover;
 }
 

@@ -22,14 +22,12 @@
   --color-grey-400: #1e282d;
   --color-grey-500: #010a13;
 
-  /* Variables de base pour les gradients */
-  --gradient-start: var(--color-blue-600); /* #0a1428 */
-  --gradient-middle: var(--color-blue-500); /* #091428 */
-  --gradient-end: var(--color-blue-400); /* #0a323c */
-  --gradient-accent: var(--color-blue-200); /* #0397ab */
-  --gradient-bright: var(--color-blue-100); /* #0ac8b9 */
+  --gradient-start: var(--color-blue-600); 
+  --gradient-middle: var(--color-blue-500);
+  --gradient-end: var(--color-blue-400);
+  --gradient-accent: var(--color-blue-200);
+  --gradient-bright: var(--color-blue-100);
 
-  /* Gradient principal */
   --gradient-primary: linear-gradient(
     135deg,
     var(--gradient-start) 0%,
@@ -46,6 +44,8 @@
     var(--gradient-end) 100%
   );
 
+  --background-noise: url("data:image/svg+xml,%3Csvg viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.15' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100' height='100' filter='url(%23noise)' opacity='0.05'/%3E%3C/svg%3E");
+
   --sheetWidth: 20.5em;
   --transition: all 0.05s ease;
   --accent: rgb(10, 39, 60);
@@ -57,4 +57,10 @@
   font-size: 16px;
   --font-beaufort: BeaufortForLoL;
   --font-spiegel: Spiegel;
+
+  --border-size: 3px;
+  
+  --width-all: 100%;
+
+  --height-all: 100%;
 }

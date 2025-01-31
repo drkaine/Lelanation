@@ -33,12 +33,12 @@
 .form-group input,
 .form-group textarea {
   padding: 0.8rem;
-  border: 2px solid var(--color-gold-400);
+  border: var(--border-size) solid var(--color-gold-400);
   border-radius: 8px;
   background-color: var(--grey);
   color: white;
   font-size: 1rem;
-  width: 100%;
+  width: var(--width-all);
 }
 
 .form-group textarea {
@@ -75,11 +75,10 @@
 }
 
 .popup.error {
-  background-color: var(--red);
+  background-color: var(--color-blue-100);
   color: white;
 }
 
-/* Animations */
 .fade-enter-active,
 .fade-leave-active {
   transition: all 0.3s ease;

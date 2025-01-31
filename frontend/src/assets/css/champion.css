@@ -2,7 +2,7 @@
   grid-template-columns: repeat(auto-fit, var(--champSizeButton));
   place-content: center;
   display: grid;
-  width: 100%;
+  width: var(--width-all);
 }
 
 .championsPage .list > .filter {
@@ -14,7 +14,7 @@
 }
 
 .champ {
-  border: 1px solid transparent;
+  border: var(--border-size) solid transparent;
   position: relative;
   height: var(--champSizeButton);
   width: var(--champSizeButton);
@@ -37,8 +37,8 @@
 
 .champ img {
   display: block;
-  height: 100%;
-  width: 100%;
+  height: var(--height-all);
+  width: var(--width-all);
 }
 
 .championsPage {
@@ -46,7 +46,7 @@
 }
 
 .champion {
-  border: 1px solid var(--champBorder);
+  border: var(--border-size) solid var(--champBorder);
   height: var(--champSize);
   width: var(--champSize);
   position: relative;

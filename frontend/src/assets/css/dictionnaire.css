@@ -2,7 +2,7 @@
   min-height: 100vh;
   padding: 2rem;
   color: white;
-  width: 100%;
+  width: var(--width-all);
   margin: 0;
 }
 
@@ -26,7 +26,7 @@
   align-items: flex-start;
   gap: 0.5rem;
   padding: 1rem;
-  border: 1px solid var(--color-gold-400);
+  border: var(--border-size) solid var(--color-gold-400);
   border-radius: 8px;
   background-color: var(--grey);
   transition: transform 0.2s ease;
@@ -74,9 +74,9 @@
 }
 
 .search-input {
-  width: 100%;
+  width: var(--width-all);
   padding: 0.8rem;
-  border: 2px solid var(--color-gold-300);
+  border: var(--border-size) solid var(--color-gold-300);
   border-radius: 8px;
   background-color: var(--grey);
   color: white;
@@ -97,7 +97,7 @@
 
 .letter-btn {
   padding: 0.5rem 0.8rem;
-  border: 1px solid var(--color-gold-300);
+  border: var(--border-size) solid var(--color-gold-300);
   background-color: transparent;
   color: var(--color-gold-300);
   border-radius: 4px;
@@ -125,7 +125,7 @@
 
 .page-btn {
   padding: 0.5rem 1rem;
-  border: 1px solid var(--color-gold-300);
+  border: var(--border-size) solid var(--color-gold-300);
   background-color: transparent;
   color: var(--color-gold-300);
   border-radius: 4px;
@@ -159,7 +159,7 @@
 }
 
 .letter-btn {
-  border: 1px solid var(--slate-4);
+  border: var(--border-size) solid var(--slate-4);
   background-color: var(--black);
   color: var(--slate-3);
   padding: 0.2em 0.4em;
@@ -176,7 +176,6 @@
   color: var(--slate-2);
 }
 
-/* Ajout des media queries pour le responsive */
 @media screen and (max-width: 768px) {
   .dictionary-container {
     padding: 1rem;
@@ -188,7 +187,7 @@
   }
 
   .dictionary-content {
-    grid-template-columns: 1fr; /* Passage à une seule colonne */
+    grid-template-columns: 1fr;
     gap: 0.8rem;
   }
 
@@ -228,7 +227,6 @@
   }
 }
 
-/* Ajustements pour les très petits écrans */
 @media screen and (max-width: 480px) {
   .dictionary-container {
     padding: 0.5rem;

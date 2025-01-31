@@ -220,10 +220,10 @@ const submitForm = async () => {
 
 .form-input,
 .form-textarea {
-  width: 100%;
+  width: var(--width-all);
   padding: 0.75rem;
   background: var(--bg-dark);
-  border: 1px solid var(--color-grey-100);
+  border: var(--border-size) solid var(--color-grey-100);
   border-radius: 4px;
   color: var(--text-color);
   font-size: 0.9rem;
@@ -257,7 +257,7 @@ const submitForm = async () => {
 .checkmark {
   width: 20px;
   height: 20px;
-  border: 2px solid var(--color-grey-100);
+  border: var(--border-size) solid var(--color-grey-100);
   border-radius: 4px;
   display: inline-block;
   position: relative;
@@ -291,7 +291,7 @@ const submitForm = async () => {
   padding: 0.75rem 2rem;
   background: var(--color-grey-100);
   color: var(--color-gold-300);
-  border: 1px solid var(--color-gold-300);
+  border: var(--border-size) solid var(--color-gold-300);
   border-radius: 4px;
   font-size: 1rem;
   font-weight: 600;
@@ -319,7 +319,7 @@ const submitForm = async () => {
   }
 
   .btn-submit {
-    width: 100%;
+    width: var(--width-all);
     padding: 0.5rem;
   }
 }

@@ -249,7 +249,7 @@ const canDragBuild = computed(
   align-items: center;
   gap: 0.5rem;
   padding: 0.4rem 0.8rem;
-  border: 2px solid var(--color-gold-300);
+  border: var(--border-size) solid var(--color-gold-300);
   border-radius: 4px;
   color: var(--color-gold-300);
   cursor: pointer;
@@ -285,13 +285,13 @@ const canDragBuild = computed(
   gap: 1rem;
   align-items: center;
   max-width: 800px;
-  width: 100%;
+  width: var(--width-all);
   justify-content: center;
 }
 
 .search-box {
   display: flex;
-  border: 2px solid var(--slate-3);
+  border: var(--border-size) solid var(--slate-3);
   border-radius: 4px;
   overflow: hidden;
   transition: all 0.2s ease;
@@ -305,9 +305,9 @@ const canDragBuild = computed(
 
 .visibility-select {
   background: none;
-  height: 100%;
+  height: var(--height-all);
   color: var(--color-grey-100);
-  border: 2px solid var(--color-gold-400);
+  border: var(--border-size) solid var(--color-gold-400);
 }
 
 .visibility-select option {
@@ -397,13 +397,13 @@ const canDragBuild = computed(
 @media (max-width: 768px) {
   .actions-group {
     flex-direction: column;
-    width: 100%;
+    width: var(--width-all);
   }
 
   .search-box,
   .visibility-select,
   .create-btn {
-    width: 100%;
+    width: var(--width-all);
     height: 30px;
   }
 
@@ -473,7 +473,7 @@ const canDragBuild = computed(
   }
 
   .visibility-select {
-    width: 100%;
+    width: var(--width-all);
     margin: 0.5rem 0;
   }
 }

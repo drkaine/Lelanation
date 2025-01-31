@@ -372,7 +372,7 @@ const statsList = [
 }
 
 .level-selector select {
-  border: 2px solid var(--color-gold-300);
+  border: var(--border-size) solid var(--color-gold-300);
   color: var(--sand-2);
   padding: 0.5rem;
   border-radius: 4px;
@@ -428,7 +428,7 @@ const statsList = [
   border-radius: 4px;
   cursor: pointer;
   transition: all 0.2s ease;
-  width: 100%;
+  width: var(--width-all);
 }
 
 .edit-actions {
@@ -483,7 +483,7 @@ const statsList = [
   width: 30px;
   height: 30px;
   padding: 0;
-  border: 2px solid transparent;
+  border: var(--border-size) solid transparent;
   color: var(--sand-2);
   font-size: 0.875rem;
   cursor: pointer;
@@ -572,11 +572,11 @@ const statsList = [
   }
 
   .left-column {
-    width: 100%;
+    width: var(--width-all);
   }
 
   .actions-panel {
-    width: 100%;
+    width: var(--width-all);
   }
 }
 </style>

@@ -1,6 +1,6 @@
 .footer {
   bottom: 0;
-  width: 100%;
+  width: var(--width-all);
   background: transparent;
   display: flex;
   justify-content: space-between;

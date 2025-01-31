@@ -14,11 +14,11 @@
 
 .modal-content {
   background: var(--gradient-primary);
-  border: 2px solid var(--color-gold-400);
+  border: var(--border-size) solid var(--color-gold-400);
   border-radius: 8px;
   padding: 2rem;
   max-width: 600px;
-  width: 100%;
+  width: var(--width-all);
   max-height: 90vh;
   overflow-y: auto;
 

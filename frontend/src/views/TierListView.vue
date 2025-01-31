@@ -24,8 +24,8 @@ const error = ref<string | null>(null)
 
 <style scoped>
 .excel-container {
-  width: 100%;
-  height: 100%;
+  width: var(--width-all);
+  height: var(--height-all);
   padding: 20px;
 }
 

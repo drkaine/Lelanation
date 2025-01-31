@@ -1,7 +1,7 @@
 .window-build {
   place-self: center;
   max-width: 1280px;
-  width: 100%;
+  width: var(--width-all);
 }
 
 .build {
@@ -19,14 +19,14 @@
   gap: 2em;
 }
 
-/* Bouton suivant en BeaufortForLoL pour l'aspect navigation */
+
 .suivant {
   font-family: var(--font-beaufort);
   justify-content: center;
   font-size: 0.75em;
   max-width: fit-content;
   margin: 0 auto;
-  border: 2px solid var(--color-grey-100);
+  border: var(--border-size) solid var(--color-grey-100);
   text-transform: uppercase;
   letter-spacing: 0.1em;
   color: var(--color-grey-100);
@@ -37,15 +37,13 @@
   max-width: 15em;
   padding: 0.7em;
   display: flex;
-  width: 100%;
+  width: var(--width-all);
 }
 
-/* Descriptions et textes en Spiegel */
 .build-description {
   font-family: var(--font-spiegel);
 }
 
-/* Titres de section en BeaufortForLoL */
 .build-section-title {
   font-family: var(--font-beaufort);
 }

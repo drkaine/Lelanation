@@ -136,7 +136,7 @@ const removeItem = (index: number) => {
   grid-template-columns: repeat(auto-fill, minmax(45px, 1fr));
   gap: 12px;
   padding: 8px;
-  border: 2px dashed var(--color-gold-300);
+  border: var(--border-size) dashed var(--color-gold-300);
   border-radius: 4px;
 }
 
@@ -144,7 +144,7 @@ const removeItem = (index: number) => {
   position: relative;
   width: 45px;
   height: 45px;
-  border: 2px solid var(--color-gold-300);
+  border: var(--border-size) solid var(--color-gold-300);
   border-radius: 4px;
   overflow: hidden;
   cursor: move;
@@ -167,8 +167,8 @@ const removeItem = (index: number) => {
 }
 
 .item-slot img {
-  width: 100%;
-  height: 100%;
+  width: var(--width-all);
+  height: var(--height-all);
   object-fit: cover;
 }
 

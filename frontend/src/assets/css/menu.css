@@ -326,7 +326,7 @@
   .menu-build {
     justify-content: center;
     text-align: center;
-    width: 100%;
+    width: var(--width-all);
     gap: 0.25rem;
     padding: 0.5rem;
   }

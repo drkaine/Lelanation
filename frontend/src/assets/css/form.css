@@ -1,13 +1,13 @@
 .search {
   grid-area: auto/1/auto/-1;
-  width: 100%;
+  width: var(--width-all);
   padding-bottom: 20px;
 }
 
 .search-input {
-  width: 100%;
+  width: var(--width-all);
   padding: 8px 12px;
-  border: 1px solid var(--color-gold-300);
+  border: var(--border-size) solid var(--color-gold-300);
   border-radius: 4px;
   background: var(--base-dark);
   color: var(--sand-1);
@@ -27,7 +27,7 @@
 }
 
 button {
-  border: 1px solid var(--color-gold-300);
+  border: var(--border-size) solid var(--color-gold-300);
   background: var(--base-dark);
   color: var(--color-gold-300);
   padding: 0.2em 0.4em;
@@ -67,7 +67,7 @@ form label {
   display: inline-flex;
   font-size: 0.875em;
   font-weight: 500;
-  max-width: 100%;
+  max-width: var(--width-all);
   margin: 1em 0;
   gap: 0.3em;
   font-family: var(--font-spiegel);
@@ -88,7 +88,7 @@ form label.small textarea {
 
 form label input,
 form label textarea {
-  border: 1px solid var(--inputBorder, var(--slate-4));
+  border: var(--border-size) solid var(--inputBorder, var(--slate-4));
   background-color: var(--black);
   font-family: var(--font-spiegel);
   padding: 0.7em 0.85em;
@@ -98,7 +98,7 @@ form label textarea {
   display: block;
   outline: none;
   resize: none;
-  width: 100%;
+  width: var(--width-all);
 }
 
 form label input:focus,
@@ -133,7 +133,7 @@ form label textarea::placeholder {
 }
 
 .btn {
-  border: 1px solid var(--btnBorder, var(--slate-4));
+  border: var(--border-size) solid var(--btnBorder, var(--slate-4));
   background-color: var(--btnBackground, var(--black));
   color: var(--btnColor, var(--slate-1));
   padding: 0.7em 1.2em;
@@ -155,15 +155,15 @@ form label textarea::placeholder {
 }
 
 .btn.slate {
-  --btnBorder: var(--slate-4);
-  --btnColor: var(--slate-1);
+  --btnBorder: var(--color-gold-600);
+  --btnColor: var(--color-gold-500);
 }
 
 @media screen and (max-width: 768px) {
   .btn {
     padding: 0.6em 1em;
     font-size: 0.95em;
-    width: 100%;
+    width: var(--width-all);
     max-width: 300px;
   }
 
@@ -176,7 +176,7 @@ form label textarea::placeholder {
     display: flex;
     flex-direction: column;
     gap: 0.5em;
-    width: 100%;
+    width: var(--width-all);
     align-items: center;
   }
 }
