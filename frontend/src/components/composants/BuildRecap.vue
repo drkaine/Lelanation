@@ -361,7 +361,7 @@ const statsList = [
 
 .page-title {
   color: var(--color-gold-300);
-  font-size: 2rem;
+  font-size: var(--title-base);
   font-weight: bold;
 }
 
@@ -373,10 +373,10 @@ const statsList = [
 
 .level-selector select {
   border: var(--border-size) solid var(--color-gold-300);
-  color: var(--sand-2);
+  color: var(--color-gold-500);
   padding: 0.5rem;
   border-radius: 4px;
-  font-size: 1rem;
+  font-size: var(--text-base);
 }
 
 .build-content {
@@ -463,7 +463,7 @@ const statsList = [
 }
 
 .stats-table td {
-  color: var(--sand-2);
+  color: var(--color-gold-500);
 }
 
 .level-selector {
@@ -484,8 +484,8 @@ const statsList = [
   height: 30px;
   padding: 0;
   border: var(--border-size) solid transparent;
-  color: var(--sand-2);
-  font-size: 0.875rem;
+  color: var(--color-gold-500);
+  font-size: var(--text-sm);
   cursor: pointer;
   transition: all 0.2s ease;
   border-radius: 4px;
@@ -531,7 +531,7 @@ const statsList = [
   }
 
   .stats-table {
-    font-size: 0.9rem;
+    font-size: var(--text-sm);
   }
 
   .stats-table th,
@@ -547,7 +547,7 @@ const statsList = [
   .level-btn {
     width: 25px;
     height: 25px;
-    font-size: 0.75rem;
+    font-size: var(--text-xs);
   }
 }
 

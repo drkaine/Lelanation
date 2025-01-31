@@ -599,7 +599,7 @@ onMounted(() => {
 }
 
 .rune-tooltip strong {
-  color: var(--sand-2);
+  color: var(--color-gold-500);
   font-weight: 700;
 }
 </style>

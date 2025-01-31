@@ -91,9 +91,9 @@ const formattedSpells = computed(() =>
 
 <style>
 .desc {
-  font-size: 12px;
+  font-size: var(--text-xs);
   line-height: 1.4;
-  color: var(--sand-2);
+  color: var(--color-gold-500);
 }
 
 .desc .blue {

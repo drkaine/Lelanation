@@ -227,7 +227,7 @@ const canDragBuild = computed(
 
 .page-title {
   color: var(--color-gold-300);
-  font-size: 2rem;
+  font-size: var(--title-base);
   margin: 0 0 2rem 0;
   text-align: center;
 }
@@ -320,9 +320,9 @@ const canDragBuild = computed(
   border: none;
   border-right: 2px solid var(--slate-3);
   background: none;
-  color: var(--sand-2);
+  color: var(--color-gold-500);
   cursor: pointer;
-  font-size: 0.9rem;
+  font-size: var(--text-sm);
   min-width: 70px;
 }
 
@@ -330,7 +330,7 @@ const canDragBuild = computed(
   flex-grow: 1;
   padding: 0.4rem;
   border: none;
-  color: var(--sand-2);
+  color: var(--color-gold-500);
 }
 
 .role-filters {
@@ -373,7 +373,7 @@ const canDragBuild = computed(
   right: 9.5rem;
   padding: 0.25rem 0.75rem;
   border-radius: 9999px;
-  font-size: 0.75rem;
+  font-size: var(--text-xs);
   font-weight: 600;
   background: var(--color-gold-300);
   color: var(--color-grey-300);

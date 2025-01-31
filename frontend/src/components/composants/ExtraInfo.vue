@@ -182,7 +182,7 @@ const removeItem = (index: number) => {
   border: none;
   border-radius: 50%;
   color: white;
-  font-size: 14px;
+  font-size: var(--text-base);
   cursor: pointer;
   opacity: 1;
   transform: scale(1);
@@ -241,7 +241,7 @@ const removeItem = (index: number) => {
   .remove-item {
     width: 16px;
     height: 16px;
-    font-size: 12px;
+    font-size: var(--text-base);
     opacity: 1;
     transform: scale(1);
   }

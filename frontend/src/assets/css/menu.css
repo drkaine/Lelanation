@@ -3,7 +3,7 @@
   justify-content: space-between;
   --color: var(--slate-2);
   color: var(--color);
-  font-size: 15px;
+  font-size: var(--text-base);
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -216,7 +216,7 @@
   }
 
   .header {
-    font-size: 15px;
+    font-size: var(--text-base);
   }
 
   .header .overlay.menu-build {
@@ -264,7 +264,7 @@
   }
 
   .mobile-nav {
-    font-size: 14px;
+    font-size: var(--text-base);
   }
 }
 
@@ -274,7 +274,7 @@
   }
 
   .header {
-    font-size: 14px;
+    font-size: var(--text-base);
   }
 }
 
@@ -343,7 +343,7 @@
 .menu-build {
   align-items: center;
   user-select: none;
-  font-size: 16px;
+  font-size: var(--text-base);
   margin: 0 auto;
   grid-area: 1/2;
   display: flex;

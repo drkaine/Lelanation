@@ -10,12 +10,12 @@
   border: var(--border-size) solid var(--color-gold-300);
   border-radius: 4px;
   background: var(--base-dark);
-  color: var(--sand-1);
-  font-size: 14px;
+  color: var(--color-gold-500);
+  font-size: var(--text-base);
   font-family: var(--font-spiegel);
 
   &::placeholder {
-    color: var(--sand-4);
+    color: var(--color-gold-500);
     font-family: var(--font-spiegel);
   }
 
@@ -34,7 +34,7 @@ button {
   white-space: nowrap;
   border-radius: 4px;
   font-weight: 450;
-  font-size: 0.8em;
+  font-size: var(--text-sm);
   font-family: var(--font-beaufort);
 }
 
@@ -47,7 +47,7 @@ button.active {
 @media (min-width: 768px) {
   .search-input {
     max-width: 300px;
-    font-size: 16px;
+    font-size: var(--text-base);
   }
 }
 
@@ -65,7 +65,7 @@ form label {
   flex-direction: column;
   color: var(--slate-2);
   display: inline-flex;
-  font-size: 0.875em;
+  font-size: var(--text-sm);
   font-weight: 500;
   max-width: var(--width-all);
   margin: 1em 0;
@@ -94,7 +94,7 @@ form label textarea {
   padding: 0.7em 0.85em;
   color: var(--slate-1);
   border-radius: 4px;
-  font-size: 1em;
+  font-size: var(--text-base);
   display: block;
   outline: none;
   resize: none;
@@ -138,7 +138,7 @@ form label textarea::placeholder {
   color: var(--btnColor, var(--slate-1));
   padding: 0.7em 1.2em;
   border-radius: 4px;
-  font-size: 1em;
+  font-size: var(--text-base);
   cursor: pointer;
   transition: all 0.2s ease;
   display: inline-flex;
@@ -151,7 +151,7 @@ form label textarea::placeholder {
 
 .btn.small {
   padding: 0.6em 1em;
-  font-size: 0.9em;
+  font-size: var(--text-sm);
 }
 
 .btn.slate {
@@ -162,14 +162,14 @@ form label textarea::placeholder {
 @media screen and (max-width: 768px) {
   .btn {
     padding: 0.6em 1em;
-    font-size: 0.95em;
+    font-size: var(--text-sm);
     width: var(--width-all);
     max-width: 300px;
   }
 
   .btn.small {
     padding: 0.5em 0.8em;
-    font-size: 0.85em;
+    font-size: var(--text-sm);
   }
 
   .actions .rest {
@@ -184,13 +184,13 @@ form label textarea::placeholder {
 @media screen and (max-width: 480px) {
   .btn {
     padding: 0.5em 0.8em;
-    font-size: 0.9em;
+    font-size: var(--text-sm);
     min-width: 120px;
   }
 
   .btn.small {
     padding: 0.4em 0.7em;
-    font-size: 0.8em;
+    font-size: var(--text-sm);
     min-width: 100px;
   }
 }
@@ -201,7 +201,7 @@ form label textarea::placeholder {
   gap: 0.5em;
   margin: 1em 0;
   color: var(--slate-2);
-  font-size: 0.875em;
+  font-size: var(--text-sm);
   font-weight: 500;
   font-family: var(--font-spiegel);
 }
@@ -214,6 +214,6 @@ form label textarea::placeholder {
 
 @media screen and (max-width: 768px) {
   .visibility-toggle {
-    font-size: 0.85em;
+    font-size: var(--text-sm);
   }
 }

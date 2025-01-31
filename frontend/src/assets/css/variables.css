@@ -22,7 +22,7 @@
   --color-grey-400: #1e282d;
   --color-grey-500: #010a13;
 
-  --gradient-start: var(--color-blue-600); 
+  --gradient-start: var(--color-blue-600);
   --gradient-middle: var(--color-blue-500);
   --gradient-end: var(--color-blue-400);
   --gradient-accent: var(--color-blue-200);
@@ -50,16 +50,29 @@
   --transition: all 0.05s ease;
   --accent: rgb(10, 39, 60);
   --champSizeButton: 54px;
-  font-family: var(--font-S);
+  font-family: var(--font-spiegel);
   color-scheme: dark;
   line-height: 1.5;
   font-weight: 400;
-  font-size: 16px;
+  font-size: var(--text-base);
+
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-lg: 1.125rem;
+  --text-xl: 1.25rem;
+
+  --title-xs: 1.5rem;
+  --title-sm: 1.75rem;
+  --title-base: 2rem;
+  --title-lg: 2.25rem;
+  --title-xl: 2.5rem;
+
   --font-beaufort: BeaufortForLoL;
   --font-spiegel: Spiegel;
 
   --border-size: 3px;
-  
+
   --width-all: 100%;
 
   --height-all: 100%;

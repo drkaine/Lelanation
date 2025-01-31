@@ -345,12 +345,12 @@ const getShardAtIndex = (index: number) => {
 .champion-name {
   color: var(--color-gold-300);
   font-weight: 500;
-  font-size: 14px;
+  font-size: var(--text-base);
 }
 
 .sheet-title {
-  color: var(--sand-1);
-  font-size: 20px;
+  color: var(--color-gold-500);
+  font-size: var(--text-base);
   font-weight: 600;
   text-align: center;
   flex: 1;
@@ -613,9 +613,9 @@ const getShardAtIndex = (index: number) => {
 }
 
 .spell-title {
-  color: var(--sand-1);
+  color: var(--color-gold-500);
   font-weight: 500;
-  font-size: 14px;
+  font-size: var(--text-base);
 }
 
 .spell-summary {
@@ -630,8 +630,8 @@ const getShardAtIndex = (index: number) => {
 }
 
 .spell-value {
-  color: var(--sand-2);
-  font-size: 12px;
+  color: var(--color-gold-500);
+  font-size: var(--text-base);
 }
 
 .spell-sequence {
@@ -648,8 +648,8 @@ const getShardAtIndex = (index: number) => {
 }
 
 .level-number {
-  color: var(--sand-2);
-  font-size: 10px;
+  color: var(--color-gold-500);
+  font-size: var(--text-base);
 }
 
 .spell-key {
@@ -662,7 +662,7 @@ const getShardAtIndex = (index: number) => {
   border-radius: 4px;
   color: var(--color-gold-300);
   font-weight: 600;
-  font-size: 12px;
+  font-size: var(--text-base);
 }
 
 .spell-key.q {
@@ -705,7 +705,7 @@ const getShardAtIndex = (index: number) => {
 
   .sheet-credits {
     padding: 0.25rem 0.5rem;
-    font-size: 0.75rem;
+    font-size: var(--text-xs);
   }
 
   .description-section {
@@ -713,7 +713,7 @@ const getShardAtIndex = (index: number) => {
   }
 
   .description-text {
-    font-size: 0.75rem;
+    font-size: var(--text-xs);
   }
 }
 
@@ -906,8 +906,8 @@ const getShardAtIndex = (index: number) => {
   justify-content: space-between;
   align-items: center;
   padding: 0.5rem 1rem;
-  color: var(--sand-2);
-  font-size: 0.875rem;
+  color: var(--color-gold-500);
+  font-size: var(--text-sm);
   opacity: 0.8;
 }
 
@@ -928,7 +928,7 @@ const getShardAtIndex = (index: number) => {
 
 .description-text {
   color: var(--color-grey-100);
-  font-size: 0.875rem;
+  font-size: var(--text-sm);
   line-height: 1.5;
   white-space: pre-wrap;
   margin: 0;

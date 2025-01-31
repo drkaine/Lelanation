@@ -7,7 +7,7 @@
 
 .title {
   font-family: var(--font-beaufort);
-  font-size: 2.5rem;
+  font-size: var(--title-xl);
   color: var(--color-gold-400);
   text-align: center;
   font-weight: bold;
@@ -23,14 +23,14 @@
 
 .subtitle {
   font-family: var(--font-spiegel);
-  font-size: 1.2rem;
+  font-size: var(--title-sm);
   color: var(--color-gold-300);
   font-weight: 500;
 }
 
 @media (max-width: 600px) {
   .title {
-    font-size: 2rem;
+    font-size: var(--title-base);
   }
 
   .profil-image {
@@ -60,7 +60,7 @@
 }
 
 .social-link svg {
-  font-size: 1.5rem;
+  font-size: var(--title-sm);
 }
 
 .social-link:hover {
@@ -81,8 +81,7 @@
 }
 
 .home-container {
-  min-height: 100vh;
-  padding: 2rem;
+  padding: 0.75rem;
   color: var(--color-gold-100);
   font-family: var(--font-spiegel);
 }

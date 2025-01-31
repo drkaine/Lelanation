@@ -215,7 +215,7 @@ const submitForm = async () => {
   display: block;
   color: var(--color-gold-300);
   margin-bottom: 0.5rem;
-  font-size: 1rem;
+  font-size: var(--text-base);
 }
 
 .form-input,
@@ -226,7 +226,7 @@ const submitForm = async () => {
   border: var(--border-size) solid var(--color-grey-100);
   border-radius: 4px;
   color: var(--text-color);
-  font-size: 0.9rem;
+  font-size: var(--text-sm);
   transition: border-color 0.2s;
   margin-top: 10px;
 }
@@ -293,7 +293,7 @@ const submitForm = async () => {
   color: var(--color-gold-300);
   border: var(--border-size) solid var(--color-gold-300);
   border-radius: 4px;
-  font-size: 1rem;
+  font-size: var(--text-base);
   font-weight: 600;
   cursor: pointer;
   transition: all 0.2s;
