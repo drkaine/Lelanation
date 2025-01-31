@@ -8,7 +8,7 @@
 }
 
 .connect {
-  color: var(--nox-grey3);
+  color: var(--color-grey-100);
   font-weight: 500;
   padding: 0 1rem;
 }
@@ -22,13 +22,13 @@
 
 .footer-link {
   text-decoration: none;
-  color: var(--nox-grey3);
+  color: var(--color-grey-100);
   transition: color 0.2s ease;
 }
 
 .footer-link:hover {
   text-decoration: underline;
-  color: var(--nox-grey2);
+  color: var(--color-grey-100);
 }
 
 @media (min-width: 767px) {

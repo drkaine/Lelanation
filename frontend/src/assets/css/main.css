@@ -5,13 +5,15 @@
 @import './home.css';
 @import './dictionnaire.css';
 @import './proposition-dictionnaire.css';
-@import './variable.css';
+@import './variables.css';
 @import './build.css';
 @import './champion.css';
 @import './form.css';
 @import './tooltip.css';
 @import './rune.css';
 @import './item.css';
+@import './modal.css';
+@import './fonts.css';
 
 .fstyle .space,
 .fstyle ul {
@@ -74,8 +76,8 @@ li {
 }
 
 :root {
-  --itemBorderH: var(--gold-lol);
-  --itemBorder: var(--gold-lol);
+  --itemBorderH: var(--color-gold-300);
+  --itemBorder: var(--color-gold-300);
 }
 
 .tip .into {
@@ -129,7 +131,7 @@ img:not([src]) {
 }
 
 .btn {
-  --color1: var(--gold-lol);
+  --color1: var(--color-gold-300);
   --color2: oklch(from var(--color1) 65% c h);
   --linear: linear-gradient(to bottom, var(--color1), var(--color2));
   background-color: oklch(from var(--black) l c h/.4);

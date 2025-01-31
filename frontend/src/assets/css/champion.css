@@ -73,7 +73,7 @@
 
 @media (hover: hover) {
   .championsPage .list .champ:hover {
-    border-color: var(--gold-lol);
+    border-color: var(--color-gold-300);
     z-index: 1;
   }
 }

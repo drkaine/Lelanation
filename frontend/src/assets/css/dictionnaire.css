@@ -10,7 +10,7 @@
   text-align: center;
   font-size: 2.5rem;
   margin-bottom: 3rem;
-  color: var(--nox-gold3);
+  color: var(--color-gold-300);
 }
 
 .dictionary-content {
@@ -26,7 +26,7 @@
   align-items: flex-start;
   gap: 0.5rem;
   padding: 1rem;
-  border: 1px solid var(--nox-gold4);
+  border: 1px solid var(--color-gold-400);
   border-radius: 8px;
   background-color: var(--grey);
   transition: transform 0.2s ease;
@@ -34,11 +34,11 @@
 
 .dictionary-entry:hover {
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px var(--nox-gold4);
+  box-shadow: 0 4px 12px var(--color-gold-400);
 }
 
 .word {
-  color: var(--nox-gold3);
+  color: var(--color-gold-300);
   font-size: 1.1rem;
   font-weight: bold;
   text-transform: capitalize;
@@ -46,7 +46,7 @@
 }
 
 .separator {
-  color: var(--nox-gold3);
+  color: var(--color-gold-300);
   margin: 0 0.5rem;
 }
 
@@ -58,7 +58,7 @@
 }
 
 .definition :deep(a) {
-  color: var(--nox-gold3);
+  color: var(--color-gold-300);
   text-decoration: none;
   font-weight: bold;
   transition: color 0.2s ease;
@@ -76,7 +76,7 @@
 .search-input {
   width: 100%;
   padding: 0.8rem;
-  border: 2px solid var(--nox-gold3);
+  border: 2px solid var(--color-gold-300);
   border-radius: 8px;
   background-color: var(--grey);
   color: white;
@@ -97,9 +97,9 @@
 
 .letter-btn {
   padding: 0.5rem 0.8rem;
-  border: 1px solid var(--nox-gold3);
+  border: 1px solid var(--color-gold-300);
   background-color: transparent;
-  color: var(--nox-gold3);
+  color: var(--color-gold-300);
   border-radius: 4px;
   cursor: pointer;
   transition: all 0.2s ease;
@@ -110,7 +110,7 @@
 }
 
 .letter-btn.active {
-  background-color: var(--nox-gold3);
+  background-color: var(--color-gold-300);
   color: var(--black);
 }
 
@@ -125,9 +125,9 @@
 
 .page-btn {
   padding: 0.5rem 1rem;
-  border: 1px solid var(--nox-gold3);
+  border: 1px solid var(--color-gold-300);
   background-color: transparent;
-  color: var(--nox-gold3);
+  color: var(--color-gold-300);
   border-radius: 4px;
   cursor: pointer;
   transition: all 0.2s ease;
@@ -143,7 +143,7 @@
 }
 
 .page-info {
-  color: var(--nox-gold3);
+  color: var(--color-gold-300);
   font-size: 1rem;
 }
 

@@ -226,7 +226,7 @@ const canDragBuild = computed(
 }
 
 .page-title {
-  color: var(--gold-lol);
+  color: var(--color-gold-300);
   font-size: 2rem;
   margin: 0 0 2rem 0;
   text-align: center;
@@ -249,9 +249,9 @@ const canDragBuild = computed(
   align-items: center;
   gap: 0.5rem;
   padding: 0.4rem 0.8rem;
-  border: 2px solid var(--gold-lol);
+  border: 2px solid var(--color-gold-300);
   border-radius: 4px;
-  color: var(--gold-lol);
+  color: var(--color-gold-300);
   cursor: pointer;
   transition: all 0.2s ease;
 }
@@ -268,8 +268,8 @@ const canDragBuild = computed(
 }
 
 .role-btn:hover {
-  border-color: var(--gold-lol);
-  color: var(--gold-lol);
+  border-color: var(--color-gold-300);
+  color: var(--color-gold-300);
   opacity: 1;
 }
 
@@ -299,19 +299,19 @@ const canDragBuild = computed(
 }
 
 .search-box option {
-  color: var(--nox-gold4);
+  color: var(--color-gold-400);
   background: black;
 }
 
 .visibility-select {
   background: none;
   height: 100%;
-  color: var(--nox-grey2);
-  border: 2px solid var(--nox-gold4);
+  color: var(--color-grey-100);
+  border: 2px solid var(--color-gold-400);
 }
 
 .visibility-select option {
-  color: var(--nox-gold4);
+  color: var(--color-gold-400);
   background: black;
 }
 
@@ -375,14 +375,14 @@ const canDragBuild = computed(
   border-radius: 9999px;
   font-size: 0.75rem;
   font-weight: 600;
-  background: var(--gold-lol);
-  color: var(--nox-grey4);
+  background: var(--color-gold-300);
+  color: var(--color-grey-300);
   z-index: 1;
 }
 
 .visibility-badge.is-hidden {
-  background: var(--nox-grey4);
-  color: var(--nox-gold4);
+  background: var(--color-grey-300);
+  color: var(--color-gold-400);
 }
 
 .build-card.no-drag {

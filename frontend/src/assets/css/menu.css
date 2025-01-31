@@ -20,7 +20,7 @@
 
 .header a.link-active,
 .header a.active {
-  color: var(--gold-lol);
+  color: var(--color-gold-300);
 }
 
 .header .overlay {
@@ -293,8 +293,8 @@
   left: 50%;
   width: clamp(4px, 1vw, 8px);
   height: clamp(4px, 1vw, 8px);
-  border-top: clamp(1px, 0.3vw, 2px) solid var(--nox-grey3);
-  border-right: clamp(1px, 0.3vw, 2px) solid var(--nox-grey3);
+  border-top: clamp(1px, 0.3vw, 2px) solid var(--color-grey-100);
+  border-right: clamp(1px, 0.3vw, 2px) solid var(--color-grey-100);
   transform: translate(-50%, -50%) rotate(45deg);
 }
 
@@ -351,7 +351,7 @@
 
 .link-exact {
   font-family: var(--font-beaufort);
-  color: var(--gold-lol);
+  color: var(--color-gold-300);
 }
 
 @media (hover: hover) {

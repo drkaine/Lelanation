@@ -26,14 +26,14 @@
 }
 
 .form-group label {
-  color: var(--nox-gold3);
+  color: var(--color-gold-300);
   font-weight: 500;
 }
 
 .form-group input,
 .form-group textarea {
   padding: 0.8rem;
-  border: 2px solid var(--nox-gold4);
+  border: 2px solid var(--color-gold-400);
   border-radius: 8px;
   background-color: var(--grey);
   color: white;
@@ -49,7 +49,7 @@
 .submit-btn {
   align-self: flex-end;
   padding: 0.8rem 2rem;
-  background-color: var(--nox-gold3);
+  background-color: var(--color-gold-300);
   color: var(--black);
   border: none;
   border-radius: 4px;
@@ -59,7 +59,7 @@
 }
 
 .submit-btn:hover {
-  background-color: var(--nox-gold2);
+  background-color: var(--color-gold-200);
 }
 
 .popup {
@@ -68,7 +68,7 @@
   right: 2rem;
   padding: 1rem 2rem;
   border-radius: 4px;
-  background-color: var(--nox-gold3);
+  background-color: var(--color-gold-300);
   color: var(--black);
   font-weight: 500;
   z-index: 100;

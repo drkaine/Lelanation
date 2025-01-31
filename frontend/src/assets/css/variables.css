@@ -1,0 +1,60 @@
+:root {
+  --color-blue-50: #cdfafa;
+  --color-blue-100: #0ac8b9;
+  --color-blue-200: #0397ab;
+  --color-blue-300: #005a82;
+  --color-blue-400: #0a323c;
+  --color-blue-500: #091428;
+  --color-blue-600: #0a1428;
+
+  --color-gold-50: #f0e6d2;
+  --color-gold-100: #c8aa6e;
+  --color-gold-200: #c8aa6e;
+  --color-gold-300: #c89b3c;
+  --color-gold-400: #785a28;
+  --color-gold-500: #463714;
+  --color-gold-600: #32281e;
+
+  --color-grey-50: #a09b8c;
+  --color-grey-100: #5b5a56;
+  --color-grey-200: #3c3c41;
+  --color-grey-300: #1e2328;
+  --color-grey-400: #1e282d;
+  --color-grey-500: #010a13;
+
+  /* Variables de base pour les gradients */
+  --gradient-start: var(--color-blue-600); /* #0a1428 */
+  --gradient-middle: var(--color-blue-500); /* #091428 */
+  --gradient-end: var(--color-blue-400); /* #0a323c */
+  --gradient-accent: var(--color-blue-200); /* #0397ab */
+  --gradient-bright: var(--color-blue-100); /* #0ac8b9 */
+
+  /* Gradient principal */
+  --gradient-primary: linear-gradient(
+    135deg,
+    var(--gradient-start) 0%,
+    color-mix(in srgb, var(--gradient-start), var(--gradient-middle) 20%) 15%,
+    color-mix(in srgb, var(--gradient-start), var(--gradient-accent) 10%) 20%,
+    color-mix(in srgb, var(--gradient-start), var(--gradient-bright) 5%) 25%,
+    color-mix(in srgb, var(--gradient-start), var(--gradient-middle) 40%) 35%,
+    color-mix(in srgb, var(--gradient-middle), var(--gradient-accent) 15%) 45%,
+    color-mix(in srgb, var(--gradient-middle), var(--gradient-bright) 8%) 50%,
+    color-mix(in srgb, var(--gradient-middle), var(--gradient-end) 20%) 60%,
+    color-mix(in srgb, var(--gradient-middle), var(--gradient-accent) 20%) 75%,
+    color-mix(in srgb, var(--gradient-middle), var(--gradient-bright) 5%) 80%,
+    color-mix(in srgb, var(--gradient-middle), var(--gradient-end) 40%) 85%,
+    var(--gradient-end) 100%
+  );
+
+  --sheetWidth: 20.5em;
+  --transition: all 0.05s ease;
+  --accent: rgb(10, 39, 60);
+  --champSizeButton: 54px;
+  font-family: var(--font-S);
+  color-scheme: dark;
+  line-height: 1.5;
+  font-weight: 400;
+  font-size: 16px;
+  --font-beaufort: BeaufortForLoL;
+  --font-spiegel: Spiegel;
+}

@@ -7,67 +7,11 @@
   min-width: var(--tooltipMinWidth, 270px);
   max-height: 100%;
   border-radius: 5%;
-  background: linear-gradient(
-    135deg,
-    color-mix(
-        in srgb,
-        var(--base-dark),
-        color-mix(in srgb, var(--black), black 40%) 0%
-      )
-      0%,
-    color-mix(
-        in srgb,
-        var(--base-dark),
-        color-mix(in srgb, var(--black), black 35%) 5%
-      )
-      10%,
-    color-mix(
-        in srgb,
-        var(--base-dark),
-        color-mix(in srgb, var(--black), black 30%) 15%
-      )
-      20%,
-    color-mix(
-        in srgb,
-        var(--base-dark),
-        color-mix(in srgb, var(--black), black 25%) 25%
-      )
-      30%,
-    color-mix(
-        in srgb,
-        var(--base-dark),
-        color-mix(in srgb, var(--black), black 20%) 35%
-      )
-      40%,
-    color-mix(
-        in srgb,
-        var(--final-blue),
-        color-mix(in srgb, var(--black), black 15%) 45%
-      )
-      50%,
-    color-mix(
-        in srgb,
-        var(--final-blue),
-        color-mix(in srgb, var(--black), black 10%) 55%
-      )
-      60%,
-    color-mix(
-        in srgb,
-        var(--final-blue),
-        color-mix(in srgb, var(--black), black 5%) 65%
-      )
-      70%,
-    color-mix(
-        in srgb,
-        var(--final-blue),
-        color-mix(in srgb, var(--black), black 0%) 75%
-      )
-      80%,
-    var(--final-blue) 100%
-  );
+  background: var(--gradient-primary);
   padding: var(--tooltipPad, 1.2em);
-  border: 2px solid var(--gold-lol);
-  border-image: linear-gradient(45deg, var(--gold-lol), var(--final-blue)) 1;
+  border: 2px solid var(--color-gold-300);
+  border-image: linear-gradient(45deg, var(--color-gold-300), var(--final-blue))
+    1;
   font-size: 1rem;
   position: relative;
   display: none;
@@ -116,7 +60,7 @@
   width: 55px;
   height: 55px;
   border-radius: 50%;
-  border: 2px solid var(--gold-lol);
+  border: 2px solid var(--color-gold-300);
   object-fit: cover;
 }
 
@@ -129,12 +73,12 @@
 .text .name {
   font-size: 1.2em;
   font-weight: 600;
-  color: var(--gold-lol);
+  color: var(--color-gold-300);
 }
 
 .text .title-champ {
   font-size: 0.9em;
-  color: var(--nox-grey2);
+  color: var(--color-grey-100);
 }
 
 .tags {
@@ -145,7 +89,7 @@
 
 .tag {
   font-size: 0.9em;
-  color: var(--nox-grey3);
+  color: var(--color-grey-100);
 }
 
 .spells {
@@ -178,7 +122,7 @@
 }
 
 .spells .spell .img {
-  border: 1px solid var(--gold-lol);
+  border: 1px solid var(--color-gold-300);
   position: relative;
   margin-top: 0.1em;
   height: var(--s);
@@ -188,7 +132,7 @@
 }
 
 .spells .spell .img:before {
-  color: var(--gold-lol);
+  color: var(--color-gold-300);
   position: absolute;
   font-size: 0.85em;
   font-weight: 400;
@@ -209,7 +153,7 @@
 
 .spells .spell .desc {
   font-size: 12px;
-  color: var(--nox-grey1);
+  color: var(--color-grey-50);
 }
 
 .tooltip-header {
@@ -228,12 +172,12 @@
 .item-icon {
   width: 32px;
   height: 32px;
-  border: 1px solid var(--gold-lol);
+  border: 1px solid var(--color-gold-300);
   border-radius: 4px;
 }
 
 .item-name {
-  color: var(--nox-grey2);
+  color: var(--color-grey-100);
   font-size: 14px;
   margin: 0;
 }
@@ -241,17 +185,17 @@
 .item-cost {
   display: flex;
   gap: 4px;
-  color: var(--gold-lol);
+  color: var(--color-gold-300);
   font-size: 12px;
 }
 
 .cost-sell {
-  color: var(--nox-grey3);
+  color: var(--color-grey-100);
 }
 
 .recipe-title,
 .builds-title {
-  color: var(--nox-gold4);
+  color: var(--color-gold-400);
   font-size: 13px;
   margin-bottom: 4px;
 }
@@ -275,13 +219,13 @@
 .builds-icon {
   width: 24px;
   height: 24px;
-  border: 1px solid var(--gold-3);
+  border: 1px solid var(--color-gold-300);
   border-radius: 2px;
 }
 
 .recipe-cost,
 .builds-cost {
-  color: var(--gold-lol);
+  color: var(--color-gold-300);
   font-size: 10px;
 }
 
@@ -294,7 +238,7 @@
 
 .separator {
   height: 1px;
-  background: var(--gold-lol);
+  background: var(--color-gold-300);
   opacity: 0.2;
   margin: 8px 0;
 }
@@ -310,16 +254,16 @@
 }
 
 .description .attention {
-  color: var(--gold-lol);
+  color: var(--color-gold-300);
 }
 
 .description .passive {
-  color: var(--gold-1);
+  color: var(--color-gold-300);
   font-weight: 500;
 }
 
 .description .active {
-  color: var(--gold-1);
+  color: var(--color-gold-300);
   font-weight: 500;
 }
 
@@ -355,7 +299,7 @@
 }
 
 .stat-value {
-  color: var(--gold-lol);
+  color: var(--color-gold-300);
   font-weight: 500;
 }
 

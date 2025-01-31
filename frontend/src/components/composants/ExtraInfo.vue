@@ -136,7 +136,7 @@ const removeItem = (index: number) => {
   grid-template-columns: repeat(auto-fill, minmax(45px, 1fr));
   gap: 12px;
   padding: 8px;
-  border: 2px dashed var(--gold-lol);
+  border: 2px dashed var(--color-gold-300);
   border-radius: 4px;
 }
 
@@ -144,7 +144,7 @@ const removeItem = (index: number) => {
   position: relative;
   width: 45px;
   height: 45px;
-  border: 2px solid var(--gold-lol);
+  border: 2px solid var(--color-gold-300);
   border-radius: 4px;
   overflow: hidden;
   cursor: move;
@@ -161,7 +161,7 @@ const removeItem = (index: number) => {
 }
 
 .item-slot.drop-target {
-  border-color: var(--gold-lol);
+  border-color: var(--color-gold-300);
   background: var(--slate-4);
   transform: scale(1.05);
 }
@@ -206,7 +206,7 @@ const removeItem = (index: number) => {
 
 .stats-header {
   font-weight: bold;
-  color: var(--gold-lol);
+  color: var(--color-gold-300);
 }
 
 .stats-header > div,
@@ -225,7 +225,7 @@ const removeItem = (index: number) => {
 
 .stat-row.total {
   font-weight: bold;
-  color: var(--gold-lol);
+  color: var(--color-gold-300);
 }
 
 @media (max-width: 768px) {

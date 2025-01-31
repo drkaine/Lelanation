@@ -26,10 +26,10 @@
   font-size: 0.75em;
   max-width: fit-content;
   margin: 0 auto;
-  border: 2px solid var(--nox-grey3);
+  border: 2px solid var(--color-grey-100);
   text-transform: uppercase;
   letter-spacing: 0.1em;
-  color: var(--nox-grey2);
+  color: var(--color-grey-100);
   border-radius: 15px;
   align-items: center;
   text-align: center;

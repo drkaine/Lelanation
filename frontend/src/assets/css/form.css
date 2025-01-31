@@ -7,7 +7,7 @@
 .search-input {
   width: 100%;
   padding: 8px 12px;
-  border: 1px solid var(--gold-lol);
+  border: 1px solid var(--color-gold-300);
   border-radius: 4px;
   background: var(--base-dark);
   color: var(--sand-1);
@@ -21,15 +21,15 @@
 
   &:focus {
     outline: none;
-    border-color: var(--gold-1);
-    box-shadow: 0 0 0 1px var(--gold-3);
+    border-color: var(--color-gold-300);
+    box-shadow: 0 0 0 1px var(--color-gold-300);
   }
 }
 
 button {
-  border: 1px solid var(--gold-lol);
+  border: 1px solid var(--color-gold-300);
   background: var(--base-dark);
-  color: var(--nox-gold3);
+  color: var(--color-gold-300);
   padding: 0.2em 0.4em;
   white-space: nowrap;
   border-radius: 4px;
@@ -39,9 +39,9 @@ button {
 }
 
 button.active {
-  background-color: var(--nox-grey4);
-  color: var(--nox-blue6);
-  border-color: var(--nox-grey4);
+  background-color: var(--color-grey-300);
+  color: var(--color-blue-500);
+  border-color: var(--color-grey-300);
 }
 
 @media (min-width: 768px) {

@@ -9,14 +9,14 @@
 .title {
   font-family: var(--font-beaufort);
   font-size: 2.5rem;
-  color: var(--nox-gold4);
+  color: var(--color-gold-400);
   text-align: center;
   font-weight: bold;
 }
 
 .profil-image {
   max-width: 300px;
-  border: 2px solid var(--nox-gold4);
+  border: 2px solid var(--color-gold-400);
   border-radius: 50%;
   object-fit: cover;
   aspect-ratio: 1;
@@ -26,7 +26,7 @@
 .subtitle {
   font-family: var(--font-spiegel);
   font-size: 1.2rem;
-  color: var(--nox-gold3);
+  color: var(--color-gold-300);
   font-weight: 500;
 }
 
@@ -47,9 +47,9 @@
   align-items: center;
   gap: 0.5rem;
   padding: 0.8rem 1.5rem;
-  border: 1px solid var(--nox-gold4);
+  border: 1px solid var(--color-gold-400);
   border-radius: 4px;
-  color: var(--nox-gold2);
+  color: var(--color-gold-200);
   text-decoration: none;
   transition: all 0.2s ease;
   font-weight: 500;
@@ -67,7 +67,7 @@
 }
 
 .social-link:hover {
-  background-color: var(--nox-gold5);
+  background-color: var(--color-gold-500);
   transform: translateY(-2px);
 }
 
@@ -86,6 +86,6 @@
 .home-container {
   min-height: 100vh;
   padding: 2rem;
-  color: var(--nox-gold1);
+  color: var(--color-gold-100);
   font-family: var(--font-spiegel); /* Police par défaut pour le contenu */
 }

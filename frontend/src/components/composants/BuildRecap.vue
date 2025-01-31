@@ -360,7 +360,7 @@ const statsList = [
 }
 
 .page-title {
-  color: var(--gold-lol);
+  color: var(--color-gold-300);
   font-size: 2rem;
   font-weight: bold;
 }
@@ -372,7 +372,7 @@ const statsList = [
 }
 
 .level-selector select {
-  border: 2px solid var(--gold-lol);
+  border: 2px solid var(--color-gold-300);
   color: var(--sand-2);
   padding: 0.5rem;
   border-radius: 4px;
@@ -424,7 +424,7 @@ const statsList = [
   align-items: center;
   gap: 0.5rem;
   padding: 0.5rem 1rem;
-  color: var(--gold-lol);
+  color: var(--color-gold-300);
   border-radius: 4px;
   cursor: pointer;
   transition: all 0.2s ease;
@@ -458,7 +458,7 @@ const statsList = [
 }
 
 .stats-table th {
-  color: var(--gold-lol);
+  color: var(--color-gold-300);
   font-weight: bold;
 }
 
@@ -495,12 +495,12 @@ const statsList = [
 }
 
 .level-btn:hover {
-  border-color: var(--gold-lol);
+  border-color: var(--color-gold-300);
 }
 
 .level-btn.active {
-  border-color: var(--gold-lol);
-  color: var(--gold-lol);
+  border-color: var(--color-gold-300);
+  color: var(--color-gold-300);
   font-weight: bold;
 }
 

@@ -213,7 +213,7 @@ const submitForm = async () => {
 
 .form-group label {
   display: block;
-  color: var(--gold-lol);
+  color: var(--color-gold-300);
   margin-bottom: 0.5rem;
   font-size: 1rem;
 }
@@ -223,7 +223,7 @@ const submitForm = async () => {
   width: 100%;
   padding: 0.75rem;
   background: var(--bg-dark);
-  border: 1px solid var(--nox-grey3);
+  border: 1px solid var(--color-grey-100);
   border-radius: 4px;
   color: var(--text-color);
   font-size: 0.9rem;
@@ -234,7 +234,7 @@ const submitForm = async () => {
 .form-input:focus,
 .form-textarea:focus {
   outline: none;
-  border-color: var(--gold-lol);
+  border-color: var(--color-gold-300);
   box-shadow: 0 0 0 2px rgba(205, 190, 145, 0.2);
 }
 
@@ -257,7 +257,7 @@ const submitForm = async () => {
 .checkmark {
   width: 20px;
   height: 20px;
-  border: 2px solid var(--nox-grey3);
+  border: 2px solid var(--color-grey-100);
   border-radius: 4px;
   display: inline-block;
   position: relative;
@@ -265,8 +265,8 @@ const submitForm = async () => {
 }
 
 .visibility-toggle input[type='checkbox']:checked + .checkmark {
-  background-color: var(--gold-lol);
-  border-color: var(--gold-lol);
+  background-color: var(--color-gold-300);
+  border-color: var(--color-gold-300);
 }
 
 .visibility-toggle input[type='checkbox']:checked + .checkmark:after {
@@ -289,9 +289,9 @@ const submitForm = async () => {
 
 .btn-submit {
   padding: 0.75rem 2rem;
-  background: var(--nox-grey3);
-  color: var(--gold-lol);
-  border: 1px solid var(--gold-lol);
+  background: var(--color-grey-100);
+  color: var(--color-gold-300);
+  border: 1px solid var(--color-gold-300);
   border-radius: 4px;
   font-size: 1rem;
   font-weight: 600;
@@ -300,7 +300,7 @@ const submitForm = async () => {
 }
 
 .btn-submit:hover {
-  background: var(--nox-grey2);
+  background: var(--color-grey-100);
   transform: translateY(-1px);
 }
 

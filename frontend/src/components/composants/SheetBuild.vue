@@ -280,136 +280,13 @@ const getShardAtIndex = (index: number) => {
 
 <style scoped>
 .shard-slot img {
-  border: 2px solid var(--gold-lol);
+  border: 2px solid var(--color-gold-300);
   border-radius: 50%;
 }
 
 .sheet-container {
-  background: linear-gradient(
-    135deg,
-    color-mix(
-        in srgb,
-        var(--base-dark),
-        color-mix(in srgb, var(--black), black 40%) 0%
-      )
-      0%,
-    color-mix(
-        in srgb,
-        var(--base-dark),
-        color-mix(in srgb, var(--black), black 40%) 0%
-      )
-      5%,
-    color-mix(
-        in srgb,
-        var(--base-dark),
-        color-mix(in srgb, var(--black), black 35%) 5%
-      )
-      10%,
-    color-mix(
-        in srgb,
-        var(--base-dark),
-        color-mix(in srgb, var(--black), black 35%) 10%
-      )
-      15%,
-    color-mix(
-        in srgb,
-        var(--base-dark),
-        color-mix(in srgb, var(--black), black 30%) 15%
-      )
-      20%,
-    color-mix(
-        in srgb,
-        var(--base-dark),
-        color-mix(in srgb, var(--black), black 30%) 20%
-      )
-      25%,
-    color-mix(
-        in srgb,
-        var(--base-dark),
-        color-mix(in srgb, var(--black), black 25%) 25%
-      )
-      30%,
-    color-mix(
-        in srgb,
-        var(--base-dark),
-        color-mix(in srgb, var(--black), black 25%) 30%
-      )
-      35%,
-    color-mix(
-        in srgb,
-        var(--base-dark),
-        color-mix(in srgb, var(--black), black 20%) 35%
-      )
-      40%,
-    color-mix(
-        in srgb,
-        var(--base-dark),
-        color-mix(in srgb, var(--black), black 20%) 40%
-      )
-      45%,
-    color-mix(
-        in srgb,
-        var(--final-blue),
-        color-mix(in srgb, var(--black), black 15%) 45%
-      )
-      50%,
-    color-mix(
-        in srgb,
-        var(--final-blue),
-        color-mix(in srgb, var(--black), black 15%) 50%
-      )
-      55%,
-    color-mix(
-        in srgb,
-        var(--final-blue),
-        color-mix(in srgb, var(--black), black 10%) 55%
-      )
-      60%,
-    color-mix(
-        in srgb,
-        var(--final-blue),
-        color-mix(in srgb, var(--black), black 10%) 60%
-      )
-      65%,
-    color-mix(
-        in srgb,
-        var(--final-blue),
-        color-mix(in srgb, var(--black), black 5%) 65%
-      )
-      70%,
-    color-mix(
-        in srgb,
-        var(--final-blue),
-        color-mix(in srgb, var(--black), black 5%) 70%
-      )
-      75%,
-    color-mix(
-        in srgb,
-        var(--final-blue),
-        color-mix(in srgb, var(--black), black 0%) 75%
-      )
-      80%,
-    color-mix(
-        in srgb,
-        var(--final-blue),
-        color-mix(in srgb, var(--black), black 0%) 80%
-      )
-      85%,
-    color-mix(
-        in srgb,
-        var(--final-blue),
-        color-mix(in srgb, var(--black), black 0%) 85%
-      )
-      90%,
-    color-mix(
-        in srgb,
-        var(--final-blue),
-        color-mix(in srgb, var(--black), black 0%) 90%
-      )
-      95%,
-    var(--final-blue) 100%
-  );
-  border: 2px solid var(--nox-red);
+  background: var(--gradient-primary);
+  border: 2px solid var(--color-blue-300);
   box-shadow: 0 0 20px rgba(74, 17, 21, 0.3);
   border-radius: 12px;
   padding: 16px;
@@ -454,7 +331,7 @@ const getShardAtIndex = (index: number) => {
 .champion-portrait {
   width: 64px;
   height: 64px;
-  border: 2px solid var(--gold-lol);
+  border: 2px solid var(--color-gold-300);
   border-radius: 50%;
   overflow: hidden;
 }
@@ -466,7 +343,7 @@ const getShardAtIndex = (index: number) => {
 }
 
 .champion-name {
-  color: var(--gold-lol);
+  color: var(--color-gold-300);
   font-weight: 500;
   font-size: 14px;
 }
@@ -590,7 +467,7 @@ const getShardAtIndex = (index: number) => {
 .keystone {
   width: 56px;
   height: 56px;
-  border: 2px solid var(--gold-lol);
+  border: 2px solid var(--color-gold-300);
   border-radius: 50%;
   overflow: hidden;
 }
@@ -598,7 +475,7 @@ const getShardAtIndex = (index: number) => {
 .rune-slot-sheet {
   width: 32px;
   height: 32px;
-  border: 2px solid var(--gold-lol);
+  border: 2px solid var(--color-gold-300);
   border-radius: 50%;
   overflow: hidden;
   position: relative;
@@ -640,7 +517,7 @@ const getShardAtIndex = (index: number) => {
 .runes-secondary-sheet .rune-tier:first-child .rune-slot-sheet {
   width: 32px;
   height: 32px;
-  border: 2px solid var(--gold-3);
+  border: 2px solid var(--color-gold-300);
 }
 
 .runes-secondary-sheet .rune-tier:first-child .rune-slot-sheet img {
@@ -668,7 +545,7 @@ const getShardAtIndex = (index: number) => {
 .keystone-secondary {
   width: 48px;
   height: 48px;
-  border: 2px solid var(--gold-3);
+  border: 2px solid var(--color-gold-300);
   border-radius: 50%;
   overflow: hidden;
 }
@@ -702,7 +579,7 @@ const getShardAtIndex = (index: number) => {
 .summoner-slot {
   width: 25px;
   height: 25px;
-  border: 1px solid var(--gold-lol);
+  border: 1px solid var(--color-gold-300);
   border-radius: 4px;
   overflow: hidden;
   display: flex;
@@ -712,7 +589,7 @@ const getShardAtIndex = (index: number) => {
 }
 
 .item-slot {
-  border: 2px solid var(--gold-lol);
+  border: 2px solid var(--color-gold-300);
   border-radius: 4px;
   overflow: hidden;
 }
@@ -781,9 +658,9 @@ const getShardAtIndex = (index: number) => {
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 1px solid var(--gold-3);
+  border: 1px solid var(--color-gold-300);
   border-radius: 4px;
-  color: var(--gold-lol);
+  color: var(--color-gold-300);
   font-weight: 600;
   font-size: 12px;
 }
@@ -798,7 +675,7 @@ const getShardAtIndex = (index: number) => {
   background: var(--green-3);
 }
 .spell-key.r {
-  background: var(--gold-3);
+  background: var(--color-gold-300);
 }
 
 @media (max-width: 768px) {
@@ -1013,7 +890,7 @@ const getShardAtIndex = (index: number) => {
 .item-slot {
   width: 45px;
   height: 45px;
-  border: 2px solid var(--gold-lol);
+  border: 2px solid var(--color-gold-300);
   border-radius: 4px;
   overflow: hidden;
 }
@@ -1035,12 +912,12 @@ const getShardAtIndex = (index: number) => {
 }
 
 .credit-text {
-  color: var(--nox-grey3);
+  color: var(--color-grey-100);
   font-weight: 500;
 }
 
 .version-text {
-  color: var(--nox-grey3);
+  color: var(--color-grey-100);
 }
 
 .description-section {
@@ -1050,7 +927,7 @@ const getShardAtIndex = (index: number) => {
 }
 
 .description-text {
-  color: var(--nox-grey2);
+  color: var(--color-grey-100);
   font-size: 0.875rem;
   line-height: 1.5;
   white-space: pre-wrap;
