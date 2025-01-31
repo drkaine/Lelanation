@@ -8,9 +8,8 @@
 .title {
   font-family: var(--font-beaufort);
   font-size: var(--title-xl);
-  color: var(--color-gold-400);
+  color: var(--color-gold-300);
   text-align: center;
-  font-weight: bold;
 }
 
 .profil-image {

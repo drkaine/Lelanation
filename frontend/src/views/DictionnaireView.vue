@@ -53,7 +53,6 @@ onMounted(() => {
         class="dictionary-entry"
       >
         <span class="word">{{ word }}</span>
-        <span class="separator">:</span>
         <p class="definition" v-html="definition"></p>
       </div>
     </div>
