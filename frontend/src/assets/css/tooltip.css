@@ -82,7 +82,7 @@
 
 .text .title-champ {
   font-size: var(--texte-sm);
-  color: var(--color-grey-100);
+  color: var(--color-grey-50);
 }
 
 .tags {
@@ -93,7 +93,7 @@
 
 .tag {
   font-size: var(--texte-sm);
-  color: var(--color-grey-100);
+  color: var(--color-grey-50);
 }
 
 .spells {
@@ -151,7 +151,7 @@
 
 .spells .spell .img img {
   display: flex;
-  height: var(--hei-all);
+  height: var(--height-all);
   width: var(--width-all);
 }
 
@@ -174,8 +174,7 @@
 }
 
 .item-icon {
-  width: 32px;
-  height: 32px;
+  height: 100%;
   border: var(--border-size) solid var(--color-gold-300);
   border-radius: 4px;
 }
@@ -199,7 +198,7 @@
 
 .recipe-title,
 .builds-title {
-  color: var(--color-gold-400);
+  color: var(--color-gold-200);
   font-size: var(--text-base);
   margin-bottom: 4px;
 }
@@ -221,8 +220,7 @@
 
 .recipe-icon,
 .builds-icon {
-  width: 24px;
-  height: 24px;
+  height: 100%;
   border: var(--border-size) solid var(--color-gold-300);
   border-radius: 2px;
 }
@@ -234,7 +232,7 @@
 }
 
 .plaintext {
-  color: var(--color-gold-500);
+  color: var(--color-gold-200);
   font-size: var(--text-base);
   font-weight: 500;
   margin-bottom: 8px;
@@ -248,7 +246,7 @@
 }
 
 .description {
-  color: var(--color-gold-500);
+  color: var(--color-gold-200);
   font-size: var(--text-base);
   line-height: 1.4;
 }
@@ -308,7 +306,7 @@
 }
 
 .stat-name {
-  color: var(--color-gold-500);
+  color: var(--color-gold-200);
 }
 
 @media (hover: hover) {

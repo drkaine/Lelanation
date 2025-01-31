@@ -1,18 +1,13 @@
-:root {
-  --item-size-mobile: 40px;
-  --item-size-desktop: 48px;
-  --item-small-size-mobile: 32px;
-  --item-small-size-desktop: 40px;
-  --grid-gap-mobile: 8px;
-  --grid-gap-desktop: 16px;
-}
-
 .itemsPage .filter-items {
   font-family: var(--font-beaufort);
   display: flex;
   flex-wrap: wrap;
   gap: 0.5em;
   margin-bottom: 1em;
+}
+
+.filter-items button {
+  border: 1px solid var(--color-gold-300);
 }
 
 .items-container {
@@ -23,7 +18,7 @@
 
 .group.small {
   font-family: var(--font-spiegel);
-  color: var(--color-gold-500);
+  color: var(--color-gold-300);
   font-size: var(--text-base);
   font-weight: 500;
   padding-bottom: 0.5em;

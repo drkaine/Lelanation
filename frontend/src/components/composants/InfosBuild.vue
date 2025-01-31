@@ -225,10 +225,14 @@ const submitForm = async () => {
   background: var(--bg-dark);
   border: var(--border-size) solid var(--color-grey-100);
   border-radius: 4px;
-  color: var(--text-color);
   font-size: var(--text-sm);
   transition: border-color 0.2s;
   margin-top: 10px;
+}
+
+.form-textarea::placeholder,
+.form-input::placeholder {
+  color: var(--color-grey-50);
 }
 
 .form-input:focus,
@@ -289,10 +293,6 @@ const submitForm = async () => {
 
 .btn-submit {
   padding: 0.75rem 2rem;
-  background: var(--color-grey-100);
-  color: var(--color-gold-300);
-  border: var(--border-size) solid var(--color-gold-300);
-  border-radius: 4px;
   font-size: var(--text-base);
   font-weight: 600;
   cursor: pointer;

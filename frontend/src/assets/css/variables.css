@@ -212,4 +212,11 @@
   --small-size-desktop: 36px;
   --selector-item-size-mobile: 40px;
   --selector-item-size-desktop: 48px;
+
+  --item-size-mobile: 40px;
+  --item-size-desktop: 48px;
+  --item-small-size-mobile: 32px;
+  --item-small-size-desktop: 40px;
+  --grid-gap-mobile: 8px;
+  --grid-gap-desktop: 16px;
 }

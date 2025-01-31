@@ -61,7 +61,7 @@ button {
 }
 
 button.active {
-  background-color: var(--color-grey-300);
+  background-color: var(--color-gold-300);
   color: var(--color-blue-500);
   border-color: var(--color-grey-300);
 }
@@ -172,6 +172,12 @@ form label textarea::placeholder {
 .btn.slate {
   --btnBorder: var(--color-gold-600);
   --btnColor: var(--color-gold-500);
+}
+
+@media (min-width: 768px) {
+  .itemsPage .search {
+    width: 20em;
+  }
 }
 
 @media screen and (max-width: 768px) {

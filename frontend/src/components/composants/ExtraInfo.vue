@@ -204,11 +204,6 @@ const removeItem = (index: number) => {
   grid-template-columns: 1fr 100px;
 }
 
-.stats-header {
-  font-weight: bold;
-  color: var(--color-gold-300);
-}
-
 .stats-header > div,
 .stat-row > div {
   padding: 8px 16px;
@@ -225,7 +220,7 @@ const removeItem = (index: number) => {
 
 .stat-row.total {
   font-weight: bold;
-  color: var(--color-gold-300);
+  color: var(--color-gold-200);
 }
 
 @media (max-width: 768px) {
