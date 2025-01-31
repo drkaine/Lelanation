@@ -301,7 +301,15 @@ const getShardAtIndex = (index: number) => {
   inset: 0;
   border-radius: 12px;
   padding: 2px;
-  background: linear-gradient(45deg, #4a1115, #771920, #4a1115);
+  background: linear-gradient(
+    135deg,
+    #0a1428 0%,
+    /* Bleu nuit profond */ #091428 20%,
+    /* Bleu hextech */ #132b45 40%,
+    /* Bleu acier */ #1e2328 60%,
+    /* Gris hextech */ rgba(200, 170, 110, 0.1) 80%,
+    /* Accent doré très subtil */ #0a1428 100% /* Retour au bleu profond */
+  );
   -webkit-mask:
     linear-gradient(#fff 0 0) content-box,
     linear-gradient(#fff 0 0);

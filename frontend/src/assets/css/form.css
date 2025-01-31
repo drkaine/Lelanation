@@ -147,8 +147,9 @@ form label textarea::placeholder {
   opacity: 1;
 }
 
-.btn {
-  border: var(--border-size) solid var(--btnBorder, var(--color-grey-300));
+.btn,
+.create-btn {
+  border: 1px solid var(--btnBorder, var(--color-gold-300));
   background-color: var(--btnBackground, var(--color-grey-500));
   color: var(--btnColor, var(--color-grey-300));
   padding: 0.7em 1.2em;
@@ -162,6 +163,22 @@ form label textarea::placeholder {
   gap: 0.5em;
   font-family: var(--font-beaufort);
   font-weight: 500;
+  text-decoration: none;
+}
+
+.btn:hover,
+.create-btn:hover {
+  transform: translateY(-2px);
+  background-color: var(--btnBackgroundHover, var(--color-grey-400));
+}
+
+.btn:active,
+.create-btn:active {
+  transform: translateY(1px);
+}
+
+.create-btn:visited {
+  color: var(--color-gold-300);
 }
 
 .btn.small {

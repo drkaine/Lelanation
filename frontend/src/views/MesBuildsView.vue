@@ -132,7 +132,7 @@ const canDragBuild = computed(
 
     <div class="actions">
       <div class="actions-group">
-        <a href="/build" class="btn create-btn">
+        <a href="/build" class="create-btn">
           <svg
             width="20"
             height="20"
@@ -291,7 +291,7 @@ const canDragBuild = computed(
 
 .search-box {
   display: flex;
-  border: var(--border-size) solid var(--color-grey-300);
+  border: var(--border-size) solid var(--color-gold-300);
   border-radius: 4px;
   overflow: hidden;
   transition: all 0.2s ease;
@@ -299,20 +299,20 @@ const canDragBuild = computed(
 }
 
 .search-box option {
-  color: var(--color-gold-400);
-  background: black;
+  color: var(--color-gold-300);
+  background: var(--color-grey-500);
 }
 
 .visibility-select {
   background: none;
   height: var(--height-all);
-  color: var(--color-grey-100);
-  border: var(--border-size) solid var(--color-gold-400);
+  color: var(--color-gold-300);
+  border: var(--border-size) solid var(--color-gold-300);
 }
 
 .visibility-select option {
-  color: var(--color-gold-400);
-  background: black;
+  color: var(--color-gold-300);
+  background: var(--color-grey-500);
 }
 
 .search-type-select {
@@ -320,7 +320,7 @@ const canDragBuild = computed(
   border: none;
   border-right: 2px solid var(--color-grey-300);
   background: none;
-  color: var(--color-gold-500);
+  color: var(--color-gold-300);
   cursor: pointer;
   font-size: var(--text-sm);
   min-width: 70px;
@@ -330,7 +330,7 @@ const canDragBuild = computed(
   flex-grow: 1;
   padding: 0.4rem;
   border: none;
-  color: var(--color-gold-500);
+  color: var(--color-gold-300);
 }
 
 .role-filters {
@@ -400,6 +400,12 @@ const canDragBuild = computed(
     width: var(--width-all);
   }
 
+  .visibility-badge {
+    top: 0.5rem;
+    right: 6.5rem;
+    padding: 0.15rem 0.5rem;
+  }
+
   .search-box,
   .visibility-select,
   .create-btn {
@@ -448,10 +454,6 @@ const canDragBuild = computed(
 
   .builds-grid {
     margin-top: 1rem;
-  }
-
-  .builds-page {
-    padding-top: 4rem;
   }
 
   .builds-grid {
