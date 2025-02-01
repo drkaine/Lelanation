@@ -270,7 +270,6 @@ const getShardAtIndex = (index: number) => {
       </div>
     </div>
 
-    <!-- Description section -->
     <div class="separator" v-if="description"></div>
     <div class="description-section" v-if="description">
       <p class="description-text">{{ description }}</p>
@@ -304,11 +303,11 @@ const getShardAtIndex = (index: number) => {
   background: linear-gradient(
     135deg,
     #0a1428 0%,
-    /* Bleu nuit profond */ #091428 20%,
-    /* Bleu hextech */ #132b45 40%,
-    /* Bleu acier */ #1e2328 60%,
-    /* Gris hextech */ rgba(200, 170, 110, 0.1) 80%,
-    /* Accent doré très subtil */ #0a1428 100% /* Retour au bleu profond */
+    #091428 20%,
+    #132b45 40%,
+    #1e2328 60%,
+    rgba(200, 170, 110, 0.1) 80%,
+    #0a1428 100%
   );
   -webkit-mask:
     linear-gradient(#fff 0 0) content-box,
@@ -357,7 +356,7 @@ const getShardAtIndex = (index: number) => {
 }
 
 .sheet-title {
-  color: var(--color-gold-500);
+  color: var(--color-gold-300);
   font-size: var(--text-base);
   font-weight: 600;
   text-align: center;

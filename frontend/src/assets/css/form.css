@@ -151,7 +151,6 @@ form label textarea::placeholder {
 .create-btn {
   border: 1px solid var(--btnBorder, var(--color-gold-300));
   background-color: var(--btnBackground, var(--color-grey-500));
-  color: var(--btnColor, var(--color-grey-300));
   padding: 0.7em 1.2em;
   border-radius: 4px;
   font-size: var(--text-base);

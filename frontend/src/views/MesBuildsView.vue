@@ -190,6 +190,10 @@ const canDragBuild = computed(
         :class="{ 'no-drag': !canDragBuild }"
       >
         <div
+          v-if="
+            (isLelarivaBuildPage && connexionStore.isLoggedIn) ||
+            !isLelarivaBuildPage
+          "
           class="visibility-badge"
           :class="{ 'is-hidden': build.id?.startsWith('wait_') }"
         >
@@ -232,6 +236,7 @@ const canDragBuild = computed(
 }
 
 .role-text {
+  color: var(--color-gold-200);
   @media (max-width: 768px) {
     display: none;
   }
@@ -288,7 +293,7 @@ const canDragBuild = computed(
   border-radius: 4px;
   overflow: hidden;
   transition: all 0.2s ease;
-  width: 300px;
+  height: var(--height-all);
 }
 
 .search-box option {

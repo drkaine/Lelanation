@@ -180,6 +180,13 @@ const statsList = [
   'omnivamp',
   'tenacity',
 ]
+
+const statsListFiltered = statsList.filter(
+  stat =>
+    buildData.value?.buildStats.totalStats[lvl.value - 1][
+      stat as keyof Stats
+    ] !== '0',
+)
 </script>
 
 <template>
@@ -212,7 +219,7 @@ const statsList = [
                 <path d="M8 11h.01" />
                 <path d="M8 15h.01" />
               </svg>
-              JSON
+              <span>JSON</span>
             </button>
             <button class="btn" @click="downloadImage">
               <svg
@@ -232,7 +239,7 @@ const statsList = [
                 <path d="M19 16v6"></path>
                 <path d="M22 19l-3 3l-3 -3"></path>
               </svg>
-              Image
+              <span>Image</span>
             </button>
             <button class="btn" @click="copyImageToClipboard">
               <svg
@@ -252,7 +259,7 @@ const statsList = [
                 <path d="M20 21l2 -2l-2 -2"></path>
                 <path d="M17 17l-2 2l2 2"></path>
               </svg>
-              Image
+              <span>Image</span>
             </button>
           </div>
 
@@ -297,7 +304,7 @@ const statsList = [
               </tr>
             </thead>
             <tbody>
-              <tr v-for="stat in statsList" :key="stat">
+              <tr v-for="stat in statsListFiltered" :key="stat">
                 <td>{{ statTranslations[stat] }}</td>
                 <td>
                   {{
@@ -419,18 +426,6 @@ const statsList = [
   margin-bottom: 1rem;
 }
 
-.btn {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.5rem 1rem;
-  color: var(--color-gold-300);
-  border-radius: 4px;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  width: var(--width-all);
-}
-
 .edit-actions {
   display: flex;
   flex-direction: row;
@@ -447,14 +442,14 @@ const statsList = [
 .stats-table {
   border-collapse: collapse;
   margin-bottom: 0;
-  border-bottom: 1px solid var(--color-grey-300);
+  border-bottom: 1px solid var(--color-gold-50);
 }
 
 .stats-table th,
 .stats-table td {
   padding: 0.75rem 1rem;
   text-align: left;
-  border-bottom: 1px solid var(--color-grey-300);
+  border-bottom: 1px solid var(--color-gold-50);
 }
 
 .stats-table th {
@@ -463,7 +458,7 @@ const statsList = [
 }
 
 .stats-table td {
-  color: var(--color-gold-500);
+  color: var(--color-gold-200);
 }
 
 .level-selector {
@@ -484,7 +479,7 @@ const statsList = [
   height: 30px;
   padding: 0;
   border: var(--border-size) solid transparent;
-  color: var(--color-gold-500);
+  color: var(--color-gold-300);
   font-size: var(--text-sm);
   cursor: pointer;
   transition: all 0.2s ease;
@@ -495,13 +490,19 @@ const statsList = [
 }
 
 .level-btn:hover {
-  border-color: var(--color-gold-300);
+  border-color: var(--color-grey-300);
 }
 
 .level-btn.active {
   border-color: var(--color-gold-300);
-  color: var(--color-gold-300);
+  color: var(--color-grey-300);
   font-weight: bold;
+}
+
+@media (max-width: 500px) {
+  .sheet-container {
+    padding: 10px;
+  }
 }
 
 @media (max-width: 1024px) {
@@ -548,6 +549,17 @@ const statsList = [
     width: 25px;
     height: 25px;
     font-size: var(--text-xs);
+  }
+
+  .btn span {
+    display: none;
+  }
+
+  .btn {
+    padding: 0.5em;
+    aspect-ratio: 1;
+    min-width: 30px !important;
+    height: 30px;
   }
 }
 

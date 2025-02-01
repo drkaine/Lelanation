@@ -1,0 +1,36 @@
+:root {
+  --color-blue-50: #cdfafa;
+  --color-blue-100: #0ac8b9;
+  --color-blue-200: #0397ab;
+  --color-blue-300: #005a82;
+  --color-blue-400: #0a323c;
+  --color-blue-500: #091428;
+  --color-blue-600: #0a1428;
+
+  --color-gold-50: #f0e6d2;
+  --color-gold-100: #c8aa6e;
+  --color-gold-200: #c8aa6e;
+  --color-gold-300: #c89b3c;
+  --color-gold-400: #785a28;
+  --color-gold-500: #463714;
+  --color-gold-600: #32281e;
+
+  --color-grey-50: #a09b8c;
+  --color-grey-100: #5b5a56;
+  --color-grey-200: #3c3c41;
+  --color-grey-300: #1e2328;
+  --color-grey-400: #1e282d;
+  --color-grey-500: #010a13;
+
+  --color-primary: var(--color-blue-400);
+  --color-primary-light: var(--color-blue-50);
+  --color-primary-dark: var(--color-blue-600);
+
+  --color-accent: var(--color-gold-300);
+  --color-accent-light: var(--color-gold-50);
+  --color-accent-dark: var(--color-gold-500);
+
+  --color-background: var(--color-grey-500);
+  --color-surface: var(--color-grey-400);
+  --color-text: var(--color-grey-50);
+}
