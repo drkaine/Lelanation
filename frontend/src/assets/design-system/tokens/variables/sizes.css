@@ -1,0 +1,141 @@
+:root {
+  --base-font-size: 16px;
+  --base-space-unit: 4px;
+
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-lg: 1.125rem;
+  --text-xl: 1.25rem;
+
+  --space-xs: 0.25rem;
+  --space-sm: 0.5rem;
+  --space-md: 1rem;
+  --space-lg: 1.5rem;
+  --space-xl: 2rem;
+
+  --container-sm: 100%;
+  --container-md: 90%;
+  --container-lg: 85%;
+  --container-xl: 75%;
+
+  --icon-sm: 16px;
+  --icon-md: 24px;
+  --icon-lg: 32px;
+
+  --text-container: 65ch;
+}
+
+/* Tailles de Police (Font Sizes) */
+.text {
+  /* ✅ REM - Meilleur choix pour les polices */
+  font-size: 1rem; /* Taille de base, relative à la racine (html) */
+  font-size: 1.25rem; /* Plus grand */
+  font-size: 0.875rem; /* Plus petit */
+
+  /* ⚠️ EM - Uniquement pour des cas spécifiques */
+  font-size: 1em; /* Relatif au parent, peut créer des cascades complexes */
+
+  /* ❌ PX - À éviter pour l'accessibilité */
+  font-size: 16px; /* Ne s'adapte pas aux préférences utilisateur */
+}
+
+/* Espacements (Margins, Paddings) */
+.spacing {
+  /* ✅ REM - Meilleur choix pour la consistance */
+  margin: 1rem;
+  padding: 1.5rem;
+  gap: 0.5rem;
+
+  /* ✅ EM - Bon pour les espacements liés à la taille du texte */
+  margin-bottom: 0.5em; /* S'adapte à la taille du texte parent */
+
+  /* ⚠️ PX - Acceptable pour très petits espacements */
+  margin: 1px; /* Pour des ajustements fins */
+}
+
+/* Largeurs et Hauteurs */
+.dimensions {
+  /* ✅ % - Pour les layouts responsives */
+  width: 100%;
+  max-width: 90%;
+
+  /* ✅ VW/VH - Pour les dimensions viewport */
+  height: 100vh;
+  width: 50vw;
+
+  /* ✅ REM - Pour des tailles fixes mais adaptatives */
+  width: 20rem;
+  max-width: 60rem;
+
+  /* ⚠️ PX - Pour des éléments qui ne doivent pas changer */
+  width: 24px; /* Icons, borders fins, etc. */
+}
+
+/* Media Queries */
+@media (min-width: 768px) {
+  /* ✅ EM - Meilleur choix pour les breakpoints */
+  @media (min-width: 48em) {
+    /* styles */
+  }
+
+  /* ❌ PX - Moins flexible */
+  @media (min-width: 768px) {
+    /* styles */
+  }
+}
+
+/* Grilles et Flexbox */
+.grid-layout {
+  /* ✅ FR - Pour les grilles */
+  grid-template-columns: 1fr 2fr 1fr;
+
+  /* ✅ AUTO - Pour les grilles adaptatives */
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+
+  /* ✅ % - Pour les divisions simples */
+  grid-template-columns: 30% 70%;
+}
+
+/* Cas Spéciaux */
+.special {
+  /* ✅ CH - Pour la largeur de texte */
+  max-width: 65ch; /* Optimal pour la lecture */
+
+  /* ✅ CLAMP - Pour des valeurs responsives avec limites */
+  font-size: clamp(1rem, 5vw, 2rem);
+  width: clamp(300px, 50%, 800px);
+
+  /* ✅ CALC - Pour des calculs dynamiques */
+  width: calc(100% - 2rem);
+}
+
+/* Bonnes Pratiques par Contexte */
+.best-practices {
+  /* Typographie */
+  font-size: 1rem; /* Base */
+  line-height: 1.5; /* Sans unité pour multiplication */
+
+  /* Layout */
+  max-width: 1200px; /* Container principal */
+  padding: 0 1rem; /* Espacements latéraux */
+
+  /* Composants */
+  border-radius: 0.25rem; /* Coins arrondis */
+  border: 1px solid; /* Bordures fines */
+
+  /* Images/Icônes */
+  --icon-size: 24px;
+  width: var(--icon-size);
+  height: var(--icon-size);
+}
+
+/* Règles générales :
+rem pour la typographie et les espacements généraux
+em pour les espacements liés au texte
+% pour les layouts responsifs
+vw/vh pour les dimensions viewport
+px uniquement pour les bordures et petits détails
+fr pour les grilles
+ch pour la largeur de texte
+clamp() pour les valeurs responsives avec limites */

@@ -145,8 +145,8 @@ const canDragBuild = computed(
 
         <select v-model="visibilityFilter" class="visibility-select">
           <option value="all">Tous les builds</option>
-          <option value="visible">Builds visibles</option>
-          <option value="hidden">Builds invisibles</option>
+          <option value="visible">Builds publics</option>
+          <option value="hidden">Builds privés</option>
         </select>
 
         <div class="search-box">
@@ -197,7 +197,7 @@ const canDragBuild = computed(
           class="visibility-badge"
           :class="{ 'is-hidden': build.id?.startsWith('wait_') }"
         >
-          {{ build.id?.startsWith('wait_') ? 'Invisible' : 'Visible' }}
+          {{ build.id?.startsWith('wait_') ? 'Privé' : 'Public' }}
         </div>
         <a :href="`/build/${build.id}`" class="build-link">
           <SheetBuild
@@ -218,10 +218,6 @@ const canDragBuild = computed(
 </template>
 
 <style scoped>
-.builds-page {
-  max-width: 1400px;
-}
-
 .page-title {
   color: var(--color-gold-300);
   font-size: var(--title-base);

@@ -355,7 +355,6 @@ const statsListFiltered = statsList.filter(
 <style scoped>
 .build-recap {
   padding: 2rem;
-  max-width: 1400px;
   margin: 0 auto;
 }
 

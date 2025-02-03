@@ -1,6 +1,6 @@
 .window-build {
   place-self: center;
-  max-width: 1280px;
+  max-width: 80%;
   width: var(--width-all);
 }
 

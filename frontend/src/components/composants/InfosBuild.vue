@@ -190,7 +190,7 @@ const submitForm = async () => {
       <label class="visibility-toggle">
         <input type="checkbox" v-model="isVisible" />
         <span class="checkmark"></span>
-        Visible
+        Public
       </label>
     </div>
 
