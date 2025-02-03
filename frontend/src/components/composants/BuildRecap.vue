@@ -28,14 +28,22 @@ const shardStore = useShardStore()
 const itemStore = useItemStore()
 const roleStore = useRoleStore()
 
-const response = await fetch(`/api/build/${fileName}`)
+let path = ''
+
+let response = await fetch(`/api/build/${fileName}`)
+
+if (!response.ok) {
+  path = 'lelariva/'
+  response = await fetch(`/api/build/${path}${fileName}`)
+}
+
 const data = await response.json()
 
 buildData.value = data
 
 async function deleteBuild() {
   try {
-    const response = await fetch(`/api/build/${fileName}`, {
+    const response = await fetch(`/api/build/${path}${fileName}`, {
       method: 'DELETE',
     })
 
@@ -266,7 +274,7 @@ const statsListFiltered = statsList.filter(
           <div
             class="edit-actions"
             v-if="
-              !fileName.startsWith('lelariva_') || connexionStore.isLoggedIn
+              (path === 'lelariva/' && connexionStore.isLoggedIn) || path === ''
             "
           >
             <button class="btn edit" @click="editBuild">Modifier</button>

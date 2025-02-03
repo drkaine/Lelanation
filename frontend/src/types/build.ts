@@ -10,6 +10,7 @@ export interface BuildData {
   roles: string[]
   name: string
   description: string
+  visible: boolean
   version: string
   sheet: {
     champion: Champion

@@ -79,16 +79,6 @@ app.post("/api/save/:filename", (req, res) => {
   const filename = req.params.filename;
   const data = req.body;
 
-  if (data.id.includes("lelariva")) {
-    const filename = req.params.filename.replace("lelariva_", "");
-    save(
-      JSON.stringify(data),
-      path.join(
-        __dirname,
-        "../../frontend/public/assets/files/build/Lelariva/" + filename,
-      ),
-    );
-  } else {
     save(
       JSON.stringify(data),
       path.join(
@@ -96,29 +86,56 @@ app.post("/api/save/:filename", (req, res) => {
         "../../frontend/public/assets/files/build/" + filename,
       ),
     );
-  }
+  res.sendStatus(200);
+});
+
+app.post("/api/save/lelariva/:filename", (req, res) => {
+  const filename = req.params.filename;
+  const data = req.body;
+
+    save(
+      JSON.stringify(data),
+      path.join(
+        __dirname,
+        "../../frontend/public/assets/files/build/Lelariva/" + filename,
+      ),
+    );
+
   res.sendStatus(200);
 });
 
 app.put("/api/update/:filename", async (req, res) => {
   try {
     const data = req.body;
-    let filePath = "";
-    let filename = "";
-
-    if (data.id.includes("lelariva")) {
-      filename = req.params.filename.replace("lelariva_", "");
-      filePath = path.join(
-        __dirname,
-        "../../frontend/public/assets/files/build/Lelariva/" + filename,
-      );
-    } else {
-      filename = req.params.filename;
-      filePath = path.join(
+    
+     const filename = req.params.filename;
+      const filePath = path.join(
         __dirname,
         "../../frontend/public/assets/files/build/" + filename,
       );
+
+    if (existsSync(filePath)) {
+      await fs.unlink(filePath);
     }
+
+    await save(JSON.stringify(data), filePath);
+    res.sendStatus(200);
+  } catch (error) {
+    console.error("Erreur lors de la mise à jour:", error);
+    res.status(500).send("Erreur lors de la mise à jour du fichier");
+  }
+});
+
+app.put("/api/update/lelariva/:filename", async (req, res) => {
+  try {
+    const data = req.body;
+   
+    const filename = req.params.filename;
+      const filePath = path.join(
+        __dirname,
+        "../../frontend/public/assets/files/build/Lelariva/" + filename,
+      );
+    
 
     if (existsSync(filePath)) {
       await fs.unlink(filePath);
@@ -134,20 +151,30 @@ app.put("/api/update/:filename", async (req, res) => {
 
 app.delete("/api/build/:fileName", async (req, res) => {
   try {
-    let filePath = "";
-    if (req.params.fileName.includes("wait")) {
-      filePath = path.join(
-        __dirname,
-        "../../frontend/public/assets/files/build/Lelariva/",
-        req.params.fileName,
-      );
-    } else {
-      filePath = path.join(
+      const filePath = path.join(
         __dirname,
         "../../frontend/public/assets/files/build/",
         req.params.fileName,
       );
-    }
+    await unlink(filePath);
+    res.status(200).send("Build supprimé");
+  } catch (error: unknown) {
+    const errorMessage =
+      error instanceof Error ? error.message : "Erreur inconnue";
+    console.error("Erreur lors de la suppression:", errorMessage);
+    res.status(500).send(`Erreur lors de la suppression: ${errorMessage}`);
+  }
+});
+
+app.delete("/api/build/lelariva/:fileName", async (req, res) => {
+  try {
+    
+     const filePath = path.join(
+        __dirname,
+        "../../frontend/public/assets/files/build/Lelariva/",
+        req.params.fileName,
+      );
+    
     await unlink(filePath);
     res.status(200).send("Build supprimé");
   } catch (error: unknown) {
@@ -160,20 +187,12 @@ app.delete("/api/build/:fileName", async (req, res) => {
 
 app.get("/api/build/:fileName", async (req, res) => {
   try {
-    let filePath = "";
-    if (req.params.fileName.includes("lelariva")) {
-      const name = req.params.fileName.replace("lelariva_", "");
-      filePath = path.join(
-        __dirname,
-        "../../frontend/public/assets/files/build/Lelariva/" + name,
-      );
-    } else {
-      filePath = path.join(
+    
+      const filePath = path.join(
         __dirname,
         "../../frontend/public/assets/files/build/",
         req.params.fileName,
       );
-    }
     const data = await fs.readFile(filePath, "utf8");
     res.json(JSON.parse(data));
   } catch (error) {
@@ -181,18 +200,20 @@ app.get("/api/build/:fileName", async (req, res) => {
   }
 });
 
-app.put("/api/build/:filename", (req, res) => {
-  const filename = req.params.filename;
-  const data = req.body;
-
-  save(
-    JSON.stringify(data),
-    path.join(
-      __dirname,
-      "../../frontend/public/assets/files/build/" + filename,
-    ),
-  );
-  res.sendStatus(200);
+app.get("/api/build/lelariva/:fileName", async (req, res) => {
+  try {
+    
+    const filename = req.params.fileName;
+      const filePath = path.join(
+        __dirname,
+        "../../frontend/public/assets/files/build/Lelariva/" + filename,
+      );
+    
+    const data = await fs.readFile(filePath, "utf8");
+    res.json(JSON.parse(data));
+  } catch (error) {
+    res.status(404).send("Build non trouvé" + error);
+  }
 });
 
 app.post("/api/dictionnaire", async (req, res) => {

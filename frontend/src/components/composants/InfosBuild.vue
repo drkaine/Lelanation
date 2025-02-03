@@ -31,7 +31,9 @@ const name = ref(buildStore.buildToEdit ? buildStore.buildToEdit.name : '')
 const description = ref(
   buildStore.buildToEdit ? buildStore.buildToEdit.description : '',
 )
-const isVisible = ref(buildStore.visibleBuild)
+const isVisible = ref(
+  buildStore.buildToEdit ? buildStore.buildToEdit.visible : true,
+)
 
 const championStats =
   championStore.$state.selectedChampion !== null
@@ -67,14 +69,18 @@ const submitForm = async () => {
   let fileName = `${uuidv4()}.json`
   if (buildStore.buildToEdit?.id) {
     fileName = buildStore.buildToEdit.id
-    if (isVisible.value && fileName.startsWith('wait_')) {
-      fileName = fileName.replace('wait_', '')
-    }
-  } else {
-    if (connexionStore.isLoggedIn) {
-      fileName = `lelariva_` + fileName
-      fileName = isVisible.value ? fileName : 'wait_' + fileName
-    }
+  }
+
+  if (
+    !isVisible.value &&
+    !(buildStore.buildToEdit?.id || '').includes('wait_')
+  ) {
+    fileName = 'wait_' + fileName
+  } else if (
+    isVisible.value &&
+    (buildStore.buildToEdit?.id || '').includes('wait_')
+  ) {
+    fileName = fileName.replace('wait_', '')
   }
 
   const data = {
@@ -83,7 +89,7 @@ const submitForm = async () => {
     name: name.value,
     description: description.value,
     version: version,
-    visible: connexionStore.isLoggedIn ? isVisible.value : true,
+    visible: isVisible.value,
     sheet: {
       champion: championStore.$state.selectedChampion,
       runes: runeStore.$state.runesSelection,
@@ -96,26 +102,43 @@ const submitForm = async () => {
 
   try {
     let response
+    let path = ''
+
+    if (connexionStore.isLoggedIn) {
+      path = 'lelariva/'
+    }
+
     if (buildStore.buildToEdit) {
-      response = await fetch(`${urlApiSave}/api/update/${fileName}`, {
+      response = await fetch(`${urlApiSave}/api/update/${path}${fileName}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(data),
       })
-      const responseDelete = await fetch(
-        `/api/build/${(buildStore.buildToEdit?.id || '').replace('lelariva_', '')}`,
-        {
-          method: 'DELETE',
-        },
-      )
-      if (!responseDelete.ok) throw new Error('Erreur lors de la suppression')
-      buildStore.removeBuild(
-        (buildStore.buildToEdit?.id || '').replace('lelariva_', ''),
-      )
+
+      if (
+        ((buildStore.buildToEdit?.id || '').includes('wait_') &&
+          isVisible.value) ||
+        (!(buildStore.buildToEdit?.id || '').includes('wait_') &&
+          !isVisible.value)
+      ) {
+        const responseDelete = await fetch(
+          `${urlApiSave}/api/build/${path}${buildStore.buildToEdit?.id}`,
+          {
+            method: 'DELETE',
+          },
+        )
+
+        if (!responseDelete.ok) throw new Error('Erreur lors de la suppression')
+
+        buildStore.updateBuild(
+          data as BuildData,
+          buildStore.buildToEdit?.id || '',
+        )
+      }
     } else {
-      response = await fetch(`${urlApiSave}/api/save/${fileName}`, {
+      response = await fetch(`${urlApiSave}/api/save/${path}${fileName}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

@@ -55,8 +55,12 @@ export const useBuildStore = defineStore('build', () => {
   }
 
   const removeBuild = (fileName: string) => {
-    userBuilds.value = userBuilds.value.filter(build => build.name !== fileName)
-    localStorage.setItem('userBuilds', JSON.stringify(userBuilds.value))
+    userBuilds.value = userBuilds.value.filter(build => build.id !== fileName)
+    if (userBuilds.value.length === 0) {
+      localStorage.removeItem('userBuilds')
+    } else {
+      localStorage.setItem('userBuilds', JSON.stringify(userBuilds.value))
+    }
   }
 
   const updateBuildsOrder = (newOrder: BuildData[]) => {
@@ -74,13 +78,21 @@ export const useBuildStore = defineStore('build', () => {
     buildToEdit.value = build
   }
 
-  const updateBuild = (updatedBuild: BuildData) => {
-    const index = userBuilds.value.findIndex(
-      build => build.id === updatedBuild.id,
-    )
-    if (index !== -1) {
-      userBuilds.value[index] = updatedBuild
-      localStorage.setItem('userBuilds', JSON.stringify(userBuilds.value))
+  const updateBuild = (
+    updatedBuild: BuildData,
+    oldName: string | null = null,
+  ) => {
+    if (oldName) {
+      removeBuild(oldName)
+      saveBuild(updatedBuild)
+    } else {
+      const index = userBuilds.value.findIndex(
+        build => build.id === updatedBuild.id,
+      )
+      if (index !== -1) {
+        userBuilds.value[index] = updatedBuild
+        localStorage.setItem('userBuilds', JSON.stringify(userBuilds.value))
+      }
     }
   }
 

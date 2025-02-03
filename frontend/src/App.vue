@@ -149,7 +149,7 @@ const acceptConditions = () => {
           <RouterLink
             title="Mes builds"
             class="version"
-            v-if="userBuilds.length > 0"
+            v-if="userBuilds.length > 0 && !connexionStore.isLoggedIn"
             to="/builds"
           >
             Mes builds</RouterLink
