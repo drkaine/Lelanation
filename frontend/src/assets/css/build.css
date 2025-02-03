@@ -37,7 +37,7 @@
   padding: 0.7em;
   display: flex;
   width: var(--width-all);
-  background: var(--color-grey-500);
+  background: var(--color-blue-500);
 }
 
 .build-description {

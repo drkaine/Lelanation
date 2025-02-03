@@ -294,7 +294,7 @@ const canDragBuild = computed(
 
 .search-box option {
   color: var(--color-gold-300);
-  background: var(--color-grey-500);
+  background: var(--color-blue-500);
 }
 
 .visibility-select {
@@ -306,7 +306,7 @@ const canDragBuild = computed(
 
 .visibility-select option {
   color: var(--color-gold-300);
-  background: var(--color-grey-500);
+  background: var(--color-blue-500);
 }
 
 .search-type-select {

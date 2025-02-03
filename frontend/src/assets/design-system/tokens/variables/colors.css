@@ -30,7 +30,7 @@
   --color-accent-light: var(--color-gold-50);
   --color-accent-dark: var(--color-gold-500);
 
-  --color-background: var(--color-grey-500);
+  --color-background: var(--color-blue-500);
   --color-surface: var(--color-grey-400);
   --color-text: var(--color-grey-50);
 }

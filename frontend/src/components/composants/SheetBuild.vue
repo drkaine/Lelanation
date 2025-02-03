@@ -918,12 +918,12 @@ const getShardAtIndex = (index: number) => {
 }
 
 .credit-text {
-  color: var(--color-grey-100);
+  color: var(--color-grey-50);
   font-weight: 500;
 }
 
 .version-text {
-  color: var(--color-grey-100);
+  color: var(--color-grey-50);
 }
 
 .description-section {
@@ -933,7 +933,7 @@ const getShardAtIndex = (index: number) => {
 }
 
 .description-text {
-  color: var(--color-grey-100);
+  color: var(--color-blue-50);
   font-size: var(--text-sm);
   line-height: 1.5;
   white-space: pre-wrap;

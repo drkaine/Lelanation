@@ -8,7 +8,7 @@
 
 .connect {
   font-size: var(--text-base);
-  color: var(--color-grey-100);
+  color: var(--color-blue-50);
   padding: 0 1rem;
 }
 
@@ -18,13 +18,13 @@
 }
 
 .footer-link {
-  color: var(--color-grey-100);
+  color: var(--color-blue-50);
   transition: color 0.2s ease;
 }
 
 .footer-link:hover {
   text-decoration: underline;
-  color: var(--color-grey-100);
+  color: var(--color-blue-50);
 }
 
 @media (min-width: 767px) {

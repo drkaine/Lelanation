@@ -86,7 +86,7 @@
   top: 50%;
   height: 2px;
   width: 150px;
-  background: var(--color-grey-500);
+  background: var(--color-blue-500);
   opacity: 0.3;
 }
 
@@ -95,7 +95,7 @@
   height: var(--rune-size-mobile);
   border-radius: 50%;
   border: var(--border-size) solid var(--color-grey-100);
-  background: var(--color-grey-500);
+  background: var(--color-blue-500);
   position: relative;
   display: flex;
   align-items: center;
@@ -142,7 +142,7 @@
   transform: translateY(-50%);
   display: flex;
   gap: 8px;
-  background: var(--color-grey-500);
+  background: var(--color-blue-500);
   border: var(--border-size) solid var(--color-gold-300);
   border-radius: 8px;
   padding: 12px;
@@ -157,7 +157,7 @@
   transform: translateY(-50%);
   display: flex;
   gap: 8px;
-  background: var(--color-grey-500);
+  background: var(--color-blue-500);
   border: var(--border-size) solid var(--color-gold-300);
   border-radius: 8px;
   padding: 12px;
@@ -197,7 +197,7 @@
   border-radius: 50%;
   border: var(--border-size) solid transparent;
   padding: 2px;
-  background: var(--color-grey-500);
+  background: var(--color-blue-500);
   cursor: pointer;
   transition: all 0.2s ease;
 }
@@ -262,7 +262,7 @@
 
 .secondary-selector {
   padding: 16px;
-  background: var(--color-grey-500);
+  background: var(--color-blue-500);
   min-width: 240px;
   display: flex;
   flex-direction: column;
@@ -277,7 +277,7 @@
 
 .rune-slot-line {
   height: 1px;
-  background: var(--color-grey-500);
+  background: var(--color-blue-500);
   opacity: 0.3;
   margin: 4px 0;
 }
@@ -459,7 +459,7 @@
   width: auto;
   min-width: 300px;
   max-width: 90vw;
-  background: var(--color-grey-500);
+  background: var(--color-blue-500);
   border: var(--border-size) solid var(--color-gold-300);
   padding: 1rem;
   z-index: 1000;
@@ -472,7 +472,7 @@
   position: absolute;
   left: 100%;
   margin-left: 10px;
-  background: var(--color-grey-500);
+  background: var(--color-blue-500);
   border: var(--border-size) solid var(--color-gold-300);
   padding: 1rem;
   z-index: 1000;
@@ -551,7 +551,7 @@
 
 .summoner-selector {
   position: absolute;
-  background: var(--color-grey-500);
+  background: var(--color-blue-500);
   border: var(--border-size) solid var(--color-gold-300);
   border-radius: 4px;
   padding: 8px;
