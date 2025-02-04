@@ -43,11 +43,6 @@ const routes: RouteRecordRaw[] = [
     component: () => import('../views/MesBuildsView.vue'),
   },
   {
-    path: '/tier-list',
-    name: 'tier-list',
-    component: () => import('../views/TierListView.vue'),
-  },
-  {
     path: '/dictionnaire/proposition',
     name: 'Proposition de définition',
     component: () => import('../views/DictionnairePropositionView.vue'),
@@ -56,6 +51,11 @@ const routes: RouteRecordRaw[] = [
     path: '/dictionnaire',
     name: 'dictionnaire',
     component: () => import('../views/DictionnaireView.vue'),
+  },
+  {
+    path: '/statistique',
+    name: 'statistique',
+    component: () => import('../views/StatistiqueView.vue'),
   },
   // {
   //   path: '/champions',

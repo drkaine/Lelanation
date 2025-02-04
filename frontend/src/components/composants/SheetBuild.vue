@@ -4,7 +4,7 @@ import type { RunesSelection } from '@/types/rune'
 import type { ShardSelection } from '@/types/shard'
 import type { ItemSelection } from '@/types/item'
 import type { Champion } from '@/types/champion'
-// import itemsFiles from '@/assets/files/data/item.json'
+
 import { useRoleStore } from '@/stores/roleStore'
 import { ref, onMounted } from 'vue'
 
@@ -35,22 +35,6 @@ const toggleRole = (role: string) => {
   }
   roleStore.updateSelectedRoles(new Set(selectedRoles))
 }
-
-// const getItemsFrom = (item: Item) => {
-//   return (
-//     item.from
-//       ?.map((id: string) => itemsFiles.data[id as keyof typeof itemsFiles.data])
-//       .filter(Boolean) || []
-//   )
-// }
-
-// const getItemsInto = (item: Item) => {
-//   return (
-//     item.into
-//       ?.map((id: string) => itemsFiles.data[id as keyof typeof itemsFiles.data])
-//       .filter(Boolean) || []
-//   )
-// }
 
 const isMobile = ref(window.innerWidth <= 768)
 

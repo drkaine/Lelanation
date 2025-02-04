@@ -138,6 +138,9 @@ const acceptConditions = () => {
           >
         </div>
         <div class="right-header">
+          <!-- <RouterLink title="statistique" class="version" to="/statistique">
+            Lelanalytics</RouterLink
+          > -->
           <RouterLink title="dictionnaire" class="version" to="/dictionnaire">
             Leladictionnaiva</RouterLink
           >
