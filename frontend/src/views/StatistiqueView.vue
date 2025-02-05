@@ -165,9 +165,9 @@ const toggleTier = (tier: string) => {
 const getChampionsInTier = (tier: string) => {
   if (!selectedTier.value || selectedTier.value !== tier) return []
 
-  return championsData.filter(champion => {
-    return champion.tier === tier
-  })
+  return championsData
+    .filter(champion => champion.tier === tier)
+    .sort((a, b) => b.score - a.score)
 }
 
 const formatChampionName = (name: string): string => {
@@ -246,6 +246,11 @@ const formatChampionName = (name: string): string => {
               formatChampionName(champion.name) +
               '.png'
             "
+            :style="{
+              border:
+                '1px solid ' +
+                TIER_COLORS[selectedTier as keyof typeof TIER_COLORS],
+            }"
             :alt="champion.name"
           />
           <span
@@ -254,29 +259,18 @@ const formatChampionName = (name: string): string => {
               color: TIER_COLORS[selectedTier as keyof typeof TIER_COLORS],
             }"
           >
-            {{ champion.score }}
+            Score : {{ champion.score }}
+          </span>
+          <span
+            class="champion-score"
+            :style="{
+              color: TIER_COLORS[selectedTier as keyof typeof TIER_COLORS],
+            }"
+          >
+            Pickrate : {{ champion.pickrate }}%
           </span>
         </div>
       </div>
     </div>
   </div>
 </template>
-
-<style scoped>
-.champion-item {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.tier-list-icon {
-  width: 40px;
-  height: 40px;
-  border-radius: 4px;
-}
-
-.champion-score {
-  font-weight: bold;
-}
-</style>
