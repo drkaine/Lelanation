@@ -6,6 +6,7 @@ export interface TierStats {
   pickrate: number
   bestMatchup: string
   worstMatchup: string
+  otp: boolean
 }
 
 export interface Tier {
@@ -58,6 +59,7 @@ export type ChampionData = {
   Column24?: string
   Column25?: string
   Column26?: string
+  Column4?: string
 } | null
 
 export const roleMapping = {

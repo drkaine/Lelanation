@@ -44,11 +44,13 @@ const processRoleData = (role: string) => {
         pickrate: Number(champion.Column9),
         bestMatchup: champion.Column20 || '',
         worstMatchup: champion.Column25 || '',
+        otp: champion.Column4 ? true : false,
       })
     }
   })
 
   championsData.sort((a, b) => a.score - b.score)
+  championsData = championsData.filter(champion => !champion.otp)
   return {
     title: `TIERLIST : ${role}`,
     champions: championsData.map(c => c.name),
@@ -70,6 +72,8 @@ const createChart = async () => {
   currentChart?.destroy()
   currentChart = null
 
+  const isMobile = window.innerWidth <= 768
+
   const roleInfo = processRoleData(selectedRole.value)
 
   currentChart = new Chart(ctx, {
@@ -82,12 +86,9 @@ const createChart = async () => {
           backgroundColor: context => {
             const tier = roleInfo.tiers[context.dataIndex]
             const color = TIER_COLORS[tier as keyof typeof TIER_COLORS]
-
-            if (selectedTier.value && tier !== selectedTier.value) {
-              return `${color}26`
-            }
-
-            return `${color}FF`
+            return selectedTier.value && tier !== selectedTier.value
+              ? `${color}26`
+              : `${color}FF`
           },
         },
       ],
@@ -95,33 +96,20 @@ const createChart = async () => {
     options: {
       indexAxis: window.innerWidth <= 768 ? 'y' : 'x',
       responsive: true,
-      maintainAspectRatio: false,
-      scales: {
-        y: {
-          min: -1000,
-          max: 1000,
-          grid: {
-            color: 'rgba(255, 255, 255, 0.1)',
-          },
-          ticks: {
-            color: '#f0e6d2',
-            stepSize: 100,
-            maxRotation: window.innerWidth <= 768 ? 0 : 45,
-          },
-        },
-        x: {
-          grid: {
-            display: false,
-          },
-          ticks: {
-            color: '#f0e6d2',
-            autoSkip: true,
-            maxRotation: window.innerWidth <= 768 ? 0 : 45,
-            minRotation: window.innerWidth <= 768 ? 0 : 45,
-          },
-        },
-      },
+      maintainAspectRatio: !isMobile,
       plugins: {
+        tooltip: {
+          enabled: true,
+          yAlign: 'bottom',
+          callbacks: {
+            title: tooltipItems => {
+              return roleInfo.champions[tooltipItems[0].dataIndex]
+            },
+            label: context => {
+              return `Score: ${context.parsed.y}  Pickrate: ${context.parsed.y}`
+            },
+          },
+        },
         legend: {
           display: false,
         },
@@ -132,6 +120,23 @@ const createChart = async () => {
           font: {
             size: 24,
             weight: 'bold',
+          },
+        },
+      },
+      scales: {
+        x: {
+          ticks: {
+            color: '#f0e6d2',
+            maxRotation: window.innerWidth <= 768 ? 0 : 45,
+          },
+        },
+        y: {
+          grid: {
+            color: '#5b5a56',
+          },
+          ticks: {
+            color: '#f0e6d2',
+            autoSkip: true,
           },
         },
       },
@@ -152,6 +157,7 @@ onBeforeUnmount(() => {
     currentChart.destroy()
     currentChart = null
   }
+  window.removeEventListener('resize', createChart)
 })
 
 const getTierDescription = (tier: string) => {
@@ -189,6 +195,10 @@ const formatChampionName = (name: string): string => {
 
   return name.replace(/['\s.-]/g, '').replace(/&/g, 'and')
 }
+
+window.addEventListener('resize', () => {
+  createChart()
+})
 </script>
 
 <template>
@@ -231,45 +241,44 @@ const formatChampionName = (name: string): string => {
       </div>
       <canvas id="tierlistChart"></canvas>
     </div>
-
-    <div v-if="selectedTier" class="tier-details">
-      <div class="tier-champions">
-        <div
-          v-for="champion in getChampionsInTier(selectedTier)"
-          :key="champion.name"
-          class="champion-item"
+  </div>
+  <div v-if="selectedTier" class="tier-details">
+    <div class="tier-champions">
+      <div
+        v-for="champion in getChampionsInTier(selectedTier)"
+        :key="champion.name"
+        class="champion-item"
+      >
+        <img
+          class="tier-list-icon"
+          :src="
+            '/assets/icons/champions/' +
+            formatChampionName(champion.name) +
+            '.png'
+          "
+          :style="{
+            border:
+              '1px solid ' +
+              TIER_COLORS[selectedTier as keyof typeof TIER_COLORS],
+          }"
+          :alt="champion.name"
+        />
+        <span
+          class="champion-score"
+          :style="{
+            color: TIER_COLORS[selectedTier as keyof typeof TIER_COLORS],
+          }"
         >
-          <img
-            class="tier-list-icon"
-            :src="
-              '/assets/icons/champions/' +
-              formatChampionName(champion.name) +
-              '.png'
-            "
-            :style="{
-              border:
-                '1px solid ' +
-                TIER_COLORS[selectedTier as keyof typeof TIER_COLORS],
-            }"
-            :alt="champion.name"
-          />
-          <span
-            class="champion-score"
-            :style="{
-              color: TIER_COLORS[selectedTier as keyof typeof TIER_COLORS],
-            }"
-          >
-            Score : {{ champion.score }}
-          </span>
-          <span
-            class="champion-score"
-            :style="{
-              color: TIER_COLORS[selectedTier as keyof typeof TIER_COLORS],
-            }"
-          >
-            Pickrate : {{ champion.pickrate }}%
-          </span>
-        </div>
+          Score : {{ champion.score }}
+        </span>
+        <span
+          class="champion-score"
+          :style="{
+            color: TIER_COLORS[selectedTier as keyof typeof TIER_COLORS],
+          }"
+        >
+          Pickrate : {{ champion.pickrate }}%
+        </span>
       </div>
     </div>
   </div>
