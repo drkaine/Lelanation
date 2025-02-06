@@ -1,5 +1,6 @@
 export interface TierStats {
   name: string
+  image: string
   score: number
   tier: string
   matchups: number
@@ -37,13 +38,14 @@ export const TIER_DESCRIPTIONS: Tier = {
 } as const
 
 export type ChampionData = {
-  TOP?: string
-  JNG?: string
-  MID?: string
-  ADC?: string
-  SUP?: string
+  name?: string
+  image?: string
+  Column?: string
+  Column1?: string
   Column2?: string
-  Column7: string
+  Column3?: string
+  Column6?: string
+  Column7?: string
   Column8?: string
   Column9?: string
   Column10?: string
@@ -62,10 +64,13 @@ export type ChampionData = {
   Column4?: string
 } | null
 
-export const roleMapping = {
-  TOPLANE: 'TOP',
-  JUNGLE: 'JNG',
-  MIDLANE: 'MID',
-  'ADC-BOT': 'ADC',
-  SUPPORT: 'SUP',
-} as const
+export type TierList = {
+  TOPLANE: ChampionData[]
+  JUNGLE: ChampionData[]
+  MIDLANE: ChampionData[]
+  'ADC-BOT': ChampionData[]
+  SUPPORT: ChampionData[]
+  TierList: ChampionData[]
+  Resultats: ChampionData[]
+  GRAPH: ChampionData[]
+}

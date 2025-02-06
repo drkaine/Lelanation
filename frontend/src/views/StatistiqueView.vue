@@ -1,18 +1,20 @@
 <script setup lang="ts">
 import { ref, onMounted, watch, onBeforeUnmount, nextTick } from 'vue'
 import { Chart, registerables } from 'chart.js'
-import tierData from '@/assets/files/tiers-listes/Lelariva - Tierlist PATREON - 14.13 (1).json'
+
 import {
-  roleMapping,
   type ChampionData,
   type TierStats,
+  type TierList,
   TIER_COLORS,
   TIER_DESCRIPTIONS,
 } from '@/types/tier-list'
 
 const validRoles = ['TOPLANE', 'JUNGLE', 'MIDLANE', 'ADC-BOT', 'SUPPORT']
 
-function isValidRole(role: string): role is keyof typeof tierData {
+function isValidRole(
+  role: string,
+): role is 'TOPLANE' | 'JUNGLE' | 'MIDLANE' | 'ADC-BOT' | 'SUPPORT' {
   return validRoles.includes(role)
 }
 
@@ -20,9 +22,30 @@ Chart.register(...registerables)
 const selectedRole = ref<
   'TOPLANE' | 'JUNGLE' | 'MIDLANE' | 'ADC-BOT' | 'SUPPORT'
 >('TOPLANE')
-let currentChart: Chart | null = null
+let currentChart: Chart<'bar', number[], string> | null = null
 
 let championsData: Array<TierStats> = []
+
+const tierData = ref<TierList>({
+  GRAPH: [],
+  TOPLANE: [],
+  JUNGLE: [],
+  MIDLANE: [],
+  'ADC-BOT': [],
+  SUPPORT: [],
+  TierList: [],
+  Resultats: [],
+})
+
+const loadTierData = async () => {
+  try {
+    const response = await fetch('/assets/files/tiers-listes/tierlist.json')
+    if (!response.ok) throw new Error('Erreur lors du chargement des données')
+    tierData.value = await response.json()
+  } catch (error) {
+    console.error('Erreur:', error)
+  }
+}
 
 const processRoleData = (role: string) => {
   if (!isValidRole(role)) {
@@ -31,20 +54,20 @@ const processRoleData = (role: string) => {
 
   championsData = []
 
-  const mappedRole = roleMapping[role as keyof typeof roleMapping]
-  const data = tierData[role] as ChampionData[]
+  const data = tierData.value[role] as ChampionData[]
 
   data.forEach(champion => {
-    if (champion && champion.Column7 && champion[mappedRole]) {
+    if (champion && champion.name && champion.name !== 'CHAMPION') {
       championsData.push({
-        name: champion[mappedRole] as string,
-        score: Number(champion.Column7),
-        tier: champion.Column2 || '',
-        matchups: Number(champion.Column8),
-        pickrate: Number(champion.Column9),
-        bestMatchup: champion.Column20 || '',
-        worstMatchup: champion.Column25 || '',
-        otp: champion.Column4 ? true : false,
+        name: champion.name,
+        image: champion.image || '',
+        score: Number(champion.Column2) || 0,
+        tier: champion.Column || '',
+        matchups: Number(champion.Column3) || 0,
+        pickrate: Number(champion.Column4) || 0,
+        bestMatchup: champion.Column15 || '',
+        worstMatchup: champion.Column20 || '',
+        otp: champion.Column1 === 'OTP',
       })
     }
   })
@@ -60,9 +83,30 @@ const processRoleData = (role: string) => {
     pickrate: championsData.map(c => c.pickrate),
     bestMatchup: championsData.map(c => c.bestMatchup),
     worstMatchup: championsData.map(c => c.worstMatchup),
+    name: championsData.map(c => c.name),
+    image: championsData.map(c => c.image),
   }
 }
 
+const formatChampionName = (name: string): string => {
+  if (name === "Cho'Gath") {
+    return 'Chogath'
+  } else if (name === 'Wukong') {
+    return 'MonkeyKing'
+  } else if (name === "Bel'Veth") {
+    return 'Belveth'
+  } else if (name === "Kai'Sa") {
+    return 'Kaisa'
+  } else if (name === "Kha'Zix") {
+    return 'Khazix'
+  } else if (name === 'LeBlanc') {
+    return 'Leblanc'
+  } else if (name === "Vel'Koz") {
+    return 'Velkoz'
+  }
+
+  return name.replace(/['\s.-]/g, '').replace(/&/g, 'and')
+}
 const selectedTier = ref<string | null>(null)
 
 const createChart = async () => {
@@ -79,10 +123,10 @@ const createChart = async () => {
   currentChart = new Chart(ctx, {
     type: 'bar',
     data: {
-      labels: roleInfo.champions,
+      labels: roleInfo.champions.map(champion => champion || ''),
       datasets: [
         {
-          data: roleInfo.scores,
+          data: roleInfo.scores.map(score => score || 0),
           backgroundColor: context => {
             const tier = roleInfo.tiers[context.dataIndex]
             const color = TIER_COLORS[tier as keyof typeof TIER_COLORS]
@@ -152,6 +196,7 @@ watch([selectedTier, selectedRole], async () => {
 })
 
 onMounted(async () => {
+  await loadTierData()
   await createChart()
 })
 
@@ -174,29 +219,7 @@ const toggleTier = (tier: string) => {
 const getChampionsInTier = (tier: string) => {
   if (!selectedTier.value || selectedTier.value !== tier) return []
 
-  return championsData
-    .filter(champion => champion.tier === tier)
-    .sort((a, b) => b.score - a.score)
-}
-
-const formatChampionName = (name: string): string => {
-  if (name === "Cho'Gath") {
-    return 'Chogath'
-  } else if (name === 'Wukong') {
-    return 'MonkeyKing'
-  } else if (name === "Bel'Veth") {
-    return 'Belveth'
-  } else if (name === "Kai'Sa") {
-    return 'Kaisa'
-  } else if (name === "Kha'Zix") {
-    return 'Khazix'
-  } else if (name === 'LeBlanc') {
-    return 'Leblanc'
-  } else if (name === "Vel'Koz") {
-    return 'Velkoz'
-  }
-
-  return name.replace(/['\s.-]/g, '').replace(/&/g, 'and')
+  return championsData.filter(champion => champion.tier === tier)
 }
 
 window.addEventListener('resize', () => {

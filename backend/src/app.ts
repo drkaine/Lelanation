@@ -9,6 +9,9 @@ import { unlink } from "fs/promises";
 import fs from "fs/promises";
 import { exec } from "child_process";
 import { existsSync } from "fs";
+import { convertOdsToJson } from "./OdsToJson";
+import multer from "multer";
+import { Request, Response } from "express";
 
 dotenv.config();
 
@@ -29,6 +32,24 @@ app.use(cors(corsOptions));
 const PORT = process.env.PORT || 3500;
 
 app.use(express.json());
+
+const upload = multer({
+  storage: multer.memoryStorage(),
+  fileFilter: (_req, file, cb) => {
+    if (file.mimetype === "application/vnd.oasis.opendocument.spreadsheet") {
+      cb(null, true);
+    } else {
+      cb(new Error("Format de fichier non supporté. Utilisez .ods"));
+    }
+  },
+  limits: {
+    fileSize: 5 * 1024 * 1024,
+  },
+});
+
+interface MulterRequest extends Request {
+  file?: Express.Multer.File;
+}
 
 const incrementVisitCounter = async () => {
   try {
@@ -79,13 +100,13 @@ app.post("/api/save/:filename", (req, res) => {
   const filename = req.params.filename;
   const data = req.body;
 
-    save(
-      JSON.stringify(data),
-      path.join(
-        __dirname,
-        "../../frontend/public/assets/files/build/" + filename,
-      ),
-    );
+  save(
+    JSON.stringify(data),
+    path.join(
+      __dirname,
+      "../../frontend/public/assets/files/build/" + filename,
+    ),
+  );
   res.sendStatus(200);
 });
 
@@ -93,13 +114,13 @@ app.post("/api/save/lelariva/:filename", (req, res) => {
   const filename = req.params.filename;
   const data = req.body;
 
-    save(
-      JSON.stringify(data),
-      path.join(
-        __dirname,
-        "../../frontend/public/assets/files/build/Lelariva/" + filename,
-      ),
-    );
+  save(
+    JSON.stringify(data),
+    path.join(
+      __dirname,
+      "../../frontend/public/assets/files/build/Lelariva/" + filename,
+    ),
+  );
 
   res.sendStatus(200);
 });
@@ -107,12 +128,12 @@ app.post("/api/save/lelariva/:filename", (req, res) => {
 app.put("/api/update/:filename", async (req, res) => {
   try {
     const data = req.body;
-    
-     const filename = req.params.filename;
-      const filePath = path.join(
-        __dirname,
-        "../../frontend/public/assets/files/build/" + filename,
-      );
+
+    const filename = req.params.filename;
+    const filePath = path.join(
+      __dirname,
+      "../../frontend/public/assets/files/build/" + filename,
+    );
 
     if (existsSync(filePath)) {
       await fs.unlink(filePath);
@@ -129,13 +150,12 @@ app.put("/api/update/:filename", async (req, res) => {
 app.put("/api/update/lelariva/:filename", async (req, res) => {
   try {
     const data = req.body;
-   
+
     const filename = req.params.filename;
-      const filePath = path.join(
-        __dirname,
-        "../../frontend/public/assets/files/build/Lelariva/" + filename,
-      );
-    
+    const filePath = path.join(
+      __dirname,
+      "../../frontend/public/assets/files/build/Lelariva/" + filename,
+    );
 
     if (existsSync(filePath)) {
       await fs.unlink(filePath);
@@ -151,11 +171,11 @@ app.put("/api/update/lelariva/:filename", async (req, res) => {
 
 app.delete("/api/build/:fileName", async (req, res) => {
   try {
-      const filePath = path.join(
-        __dirname,
-        "../../frontend/public/assets/files/build/",
-        req.params.fileName,
-      );
+    const filePath = path.join(
+      __dirname,
+      "../../frontend/public/assets/files/build/",
+      req.params.fileName,
+    );
     await unlink(filePath);
     res.status(200).send("Build supprimé");
   } catch (error: unknown) {
@@ -168,13 +188,12 @@ app.delete("/api/build/:fileName", async (req, res) => {
 
 app.delete("/api/build/lelariva/:fileName", async (req, res) => {
   try {
-    
-     const filePath = path.join(
-        __dirname,
-        "../../frontend/public/assets/files/build/Lelariva/",
-        req.params.fileName,
-      );
-    
+    const filePath = path.join(
+      __dirname,
+      "../../frontend/public/assets/files/build/Lelariva/",
+      req.params.fileName,
+    );
+
     await unlink(filePath);
     res.status(200).send("Build supprimé");
   } catch (error: unknown) {
@@ -187,12 +206,11 @@ app.delete("/api/build/lelariva/:fileName", async (req, res) => {
 
 app.get("/api/build/:fileName", async (req, res) => {
   try {
-    
-      const filePath = path.join(
-        __dirname,
-        "../../frontend/public/assets/files/build/",
-        req.params.fileName,
-      );
+    const filePath = path.join(
+      __dirname,
+      "../../frontend/public/assets/files/build/",
+      req.params.fileName,
+    );
     const data = await fs.readFile(filePath, "utf8");
     res.json(JSON.parse(data));
   } catch (error) {
@@ -202,13 +220,12 @@ app.get("/api/build/:fileName", async (req, res) => {
 
 app.get("/api/build/lelariva/:fileName", async (req, res) => {
   try {
-    
     const filename = req.params.fileName;
-      const filePath = path.join(
-        __dirname,
-        "../../frontend/public/assets/files/build/Lelariva/" + filename,
-      );
-    
+    const filePath = path.join(
+      __dirname,
+      "../../frontend/public/assets/files/build/Lelariva/" + filename,
+    );
+
     const data = await fs.readFile(filePath, "utf8");
     res.json(JSON.parse(data));
   } catch (error) {
@@ -269,6 +286,40 @@ app.get("/api/builds", async (req, res) => {
   }
 });
 
+app.post(
+  "/api/upload/ods",
+  upload.single("file"),
+  async (req: MulterRequest, res: Response): Promise<void> => {
+    try {
+      if (!req.file) {
+        res.status(400).json({ error: "Aucun fichier fourni" });
+        return;
+      }
+
+      const jsonData = await convertOdsToJson(req.file.buffer);
+
+      const outputPath = path.join(
+        __dirname,
+        "../../frontend/public/assets/files/tiers-listes/tierlist.json",
+      );
+
+      await fs.mkdir(path.dirname(outputPath), { recursive: true });
+      await fs.writeFile(outputPath, JSON.stringify(jsonData, null, 2));
+
+      res.json({
+        message: "Fichier converti et sauvegardé avec succès",
+        data: jsonData,
+      });
+    } catch (error) {
+      console.error("Erreur lors du traitement du fichier:", error);
+      res.status(500).json({
+        error: "Erreur lors du traitement du fichier",
+        details: error instanceof Error ? error.message : "Erreur inconnue",
+      });
+    }
+  },
+);
+
 cron.schedule("0 0,12 * * *", () => {
   console.log("Tâche cron exécutée à 00h00 et 12h00");
   compilation();
@@ -292,3 +343,5 @@ cron.schedule("0 2 * * *", () => {
 app.listen(PORT, () => {
   console.log(`Serveur en cours d'exécution sur le port ${PORT}`);
 });
+
+export default app;
