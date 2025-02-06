@@ -9,6 +9,15 @@ import {
   TIER_COLORS,
   TIER_DESCRIPTIONS,
 } from '@/types/tier-list'
+import { useRouter } from 'vue-router'
+import { useConnexionStore } from '@/stores/connexionStore'
+
+const router = useRouter()
+const connexionStore = useConnexionStore()
+
+if (!connexionStore.isLoggedIn) {
+  router.push('/')
+}
 
 const validRoles = ['TOPLANE', 'JUNGLE', 'MIDLANE', 'ADC-BOT', 'SUPPORT']
 
@@ -39,7 +48,9 @@ const tierData = ref<TierList>({
 
 const loadTierData = async () => {
   try {
-    const response = await fetch('/assets/files/tiers-listes/tierlist.json')
+    const response = await fetch(
+      '/assets/files/tiers-listes/normal/tierlist.json',
+    )
     if (!response.ok) throw new Error('Erreur lors du chargement des données')
     tierData.value = await response.json()
   } catch (error) {

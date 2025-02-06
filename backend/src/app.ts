@@ -287,9 +287,10 @@ app.get("/api/builds", async (req, res) => {
 });
 
 app.post(
-  "/api/upload/ods",
+  "/api/upload/ods/:nameFolder",
   upload.single("file"),
   async (req: MulterRequest, res: Response): Promise<void> => {
+    const nameFolder = req.params.nameFolder + "/";
     try {
       if (!req.file) {
         res.status(400).json({ error: "Aucun fichier fourni" });
@@ -300,7 +301,7 @@ app.post(
 
       const outputPath = path.join(
         __dirname,
-        "../../frontend/public/assets/files/tiers-listes/tierlist.json",
+        `../../frontend/public/assets/files/tiers-listes/${nameFolder}tierlist.json`,
       );
 
       await fs.mkdir(path.dirname(outputPath), { recursive: true });

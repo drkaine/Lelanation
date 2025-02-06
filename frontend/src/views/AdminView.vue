@@ -1,3 +1,74 @@
+<script setup lang="ts">
+import { ref } from 'vue'
+import { useRouter } from 'vue-router'
+import { useConnexionStore } from '@/stores/connexionStore'
+
+const connexionStore = useConnexionStore()
+const fileInput = ref<HTMLInputElement | null>(null)
+const selectedFile = ref<File | null>(null)
+const isUploading = ref(false)
+const message = ref('')
+const messageType = ref('')
+
+const router = useRouter()
+const nameTarget = import.meta.env.VITE_ADMIN
+
+const props = defineProps({
+  name: {
+    type: String,
+    required: true,
+  },
+})
+
+if (nameTarget !== props.name && !connexionStore.isLoggedIn) {
+  router.push('/')
+}
+
+const handleFileChange = (event: Event) => {
+  const input = event.target as HTMLInputElement
+  if (input.files && input.files[0]) {
+    selectedFile.value = input.files[0]
+    message.value = ''
+  }
+}
+
+const handleSubmit = async () => {
+  if (!selectedFile.value) return
+
+  const formData = new FormData()
+  formData.append('file', selectedFile.value)
+
+  isUploading.value = true
+  message.value = ''
+
+  try {
+    const response = await fetch('/api/upload/ods/normal', {
+      method: 'POST',
+      body: formData,
+    })
+
+    const result = await response.json()
+
+    if (!response.ok) {
+      throw new Error(result.error || "Erreur lors de l'upload")
+    }
+
+    message.value = 'Fichier importé avec succès'
+    messageType.value = 'success'
+    selectedFile.value = null
+    if (fileInput.value) {
+      fileInput.value.value = ''
+    }
+  } catch (error) {
+    message.value =
+      error instanceof Error ? error.message : "Erreur lors de l'upload"
+    messageType.value = 'error'
+  } finally {
+    isUploading.value = false
+  }
+}
+</script>
+
 <template>
   <div class="admin-container">
     <h1>Administration</h1>
@@ -35,60 +106,6 @@
     </div>
   </div>
 </template>
-
-<script setup lang="ts">
-import { ref } from 'vue'
-
-const fileInput = ref<HTMLInputElement | null>(null)
-const selectedFile = ref<File | null>(null)
-const isUploading = ref(false)
-const message = ref('')
-const messageType = ref('')
-
-const handleFileChange = (event: Event) => {
-  const input = event.target as HTMLInputElement
-  if (input.files && input.files[0]) {
-    selectedFile.value = input.files[0]
-    message.value = ''
-  }
-}
-
-const handleSubmit = async () => {
-  if (!selectedFile.value) return
-
-  const formData = new FormData()
-  formData.append('file', selectedFile.value)
-
-  isUploading.value = true
-  message.value = ''
-
-  try {
-    const response = await fetch('/api/upload/ods', {
-      method: 'POST',
-      body: formData,
-    })
-
-    const result = await response.json()
-
-    if (!response.ok) {
-      throw new Error(result.error || "Erreur lors de l'upload")
-    }
-
-    message.value = 'Fichier importé avec succès'
-    messageType.value = 'success'
-    selectedFile.value = null
-    if (fileInput.value) {
-      fileInput.value.value = ''
-    }
-  } catch (error) {
-    message.value =
-      error instanceof Error ? error.message : "Erreur lors de l'upload"
-    messageType.value = 'error'
-  } finally {
-    isUploading.value = false
-  }
-}
-</script>
 
 <style scoped>
 .admin-container {
