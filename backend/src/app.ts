@@ -31,19 +31,20 @@ app.use(cors(corsOptions));
 
 const PORT = process.env.PORT || 3500;
 
-app.use(express.json());
+app.use(express.json({ limit: '50mb' }));
+app.use(express.urlencoded({ limit: '50mb', extended: true }));
 
 const upload = multer({
   storage: multer.memoryStorage(),
+  limits: {
+    fileSize: 50 * 1024 * 1024, // 50MB
+  },
   fileFilter: (_req, file, cb) => {
     if (file.mimetype === "application/vnd.oasis.opendocument.spreadsheet") {
       cb(null, true);
     } else {
       cb(new Error("Format de fichier non supporté. Utilisez .ods"));
     }
-  },
-  limits: {
-    fileSize: 5 * 1024 * 1024,
   },
 });
 
