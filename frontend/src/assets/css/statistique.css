@@ -49,16 +49,18 @@
 }
 
 .tier-details {
-  margin-top: 1rem;
+  width: 85%;
+  margin: auto;
   padding: 1rem;
   border: 1px solid var(--color-gold-300);
   border-radius: 8px;
 }
 
 .tier-champions {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  display: flex;
+  justify-content: space-around;
   gap: 0.5rem;
+  flex-wrap: wrap;
 }
 
 .tier-list-icon {
@@ -87,10 +89,6 @@
 @media (max-width: 768px) {
   .tier-details {
     margin-top: 0.5rem;
-  }
-
-  .tier-champions {
-    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
   }
 }
 

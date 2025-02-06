@@ -94,6 +94,9 @@ const createChart = async () => {
       ],
     },
     options: {
+      animation: {
+        duration: 0,
+      },
       indexAxis: window.innerWidth <= 768 ? 'y' : 'x',
       responsive: true,
       maintainAspectRatio: !isMobile,
@@ -106,7 +109,7 @@ const createChart = async () => {
               return roleInfo.champions[tooltipItems[0].dataIndex]
             },
             label: context => {
-              return `Score: ${context.parsed.y}  Pickrate: ${context.parsed.y}`
+              return `Score: ${context.parsed.y}`
             },
           },
         },
