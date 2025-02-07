@@ -7,8 +7,6 @@ const props = defineProps<{
 }>()
 
 const formatDescription = (text: string) => {
-  if (!text) return ''
-
   return text
     .replace(/<font color='#3458eb'>/g, '<span class="blue">')
     .replace(/<font color='#FF9900'>/g, '<span class="orange">')

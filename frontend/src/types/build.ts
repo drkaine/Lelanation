@@ -4,7 +4,7 @@ import type { SummonerSelection } from './summoner'
 import type { ShardSelection } from './shard'
 import type { ItemSelection } from './item'
 import type { ItemStats, ChampionStats, Stats, TotalStats } from './stat'
-
+import type { ChampionSkillsOrder } from './champion'
 export interface BuildData {
   id?: string
   roles: string[]
@@ -18,6 +18,7 @@ export interface BuildData {
     summoners: SummonerSelection
     shards: ShardSelection
     items: ItemSelection
+    skillOrder: ChampionSkillsOrder
   }
   buildStats: Build
 }

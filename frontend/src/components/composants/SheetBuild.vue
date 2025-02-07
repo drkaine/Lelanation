@@ -4,7 +4,7 @@ import type { RunesSelection } from '@/types/rune'
 import type { ShardSelection } from '@/types/shard'
 import type { ItemSelection } from '@/types/item'
 import type { Champion } from '@/types/champion'
-
+import type { ChampionSkillsOrder } from '@/types/champion'
 import { useRoleStore } from '@/stores/roleStore'
 import { ref, onMounted } from 'vue'
 
@@ -19,6 +19,7 @@ const props = defineProps<{
   summoners: SummonerSelection | null
   shards: ShardSelection | null
   items: ItemSelection | null
+  skillOrder: ChampionSkillsOrder | null
   roles?: string[]
 }>()
 
@@ -44,36 +45,6 @@ onMounted(() => {
   })
 })
 
-// const spellOrder = computed(() => {
-//   return [
-//     'Q',
-//     'W',
-//     'E',
-//     'Q',
-//     'Q',
-//     'R',
-//     'Q',
-//     'W',
-//     'Q',
-//     'W',
-//     'R',
-//     'W',
-//     'W',
-//     'E',
-//     'E',
-//     'R',
-//     'E',
-//     'E',
-//   ]
-// })
-
-// const spellGroups = computed(() => {
-//   return spellOrder.value.reduce((acc: { [key: string]: number }, spell) => {
-//     acc[spell] = (acc[spell] || 0) + 1
-//     return acc
-//   }, {})
-// })
-
 const getRuneAtIndex = (index: number) => {
   if (index === 0) return props.runes?.principal
   return props.runes?.groups[index]?.principal || null
@@ -90,6 +61,21 @@ const getSummonerByType = (type: 'principal' | 'second') => {
 const getShardAtIndex = (index: number) => {
   const type = index === 1 ? 'principal' : index === 2 ? 'second' : 'third'
   return props.shards?.[type] || null
+}
+
+const formatSkillSequence = (skillOrder: ChampionSkillsOrder | null) => {
+  if (!skillOrder) return []
+
+  const sequence: string[] = []
+  for (let i = 1; i <= 18; i++) {
+    for (const [skill, points] of Object.entries(skillOrder)) {
+      if (points.includes(i)) {
+        sequence.push(skill)
+        break
+      }
+    }
+  }
+  return sequence
 }
 </script>
 
@@ -250,6 +236,29 @@ const getShardAtIndex = (index: number) => {
             :src="`/assets/icons/items/${item.image.full}`"
             :alt="item.name"
           />
+        </div>
+      </div>
+    </div>
+
+    <div class="separator" v-if="skillOrder"></div>
+
+    <div
+      class="skill-order-section"
+      v-if="skillOrder && Object.values(skillOrder).some(arr => arr.length > 0)"
+    >
+      <div class="skill-sequence">
+        <div
+          v-for="(skill, index) in formatSkillSequence(skillOrder)"
+          :key="index"
+          class="skill-box"
+          :class="{
+            'skill-box-ultimate': skill === 'R',
+            'skill-box-A': skill === 'A',
+            'skill-box-Z': skill === 'Z',
+            'skill-box-E': skill === 'E',
+          }"
+        >
+          {{ skill }}
         </div>
       </div>
     </div>
@@ -706,6 +715,12 @@ const getShardAtIndex = (index: number) => {
   .description-text {
     font-size: var(--text-xs);
   }
+
+  .skill-box {
+    width: 25px;
+    height: 25px;
+    font-size: var(--text-xs);
+  }
 }
 
 @media (min-width: 768px) {
@@ -923,5 +938,51 @@ const getShardAtIndex = (index: number) => {
   white-space: pre-wrap;
   margin: 0;
   font-style: italic;
+}
+
+.skill-order-section {
+  padding: 1rem;
+}
+
+.skill-sequence {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  justify-content: center;
+  padding: 1rem;
+}
+
+.skill-box {
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-grey-800);
+  border: 1px solid var(--color-gold-300);
+  border-radius: 4px;
+  color: var(--color-gold-300);
+  font-weight: bold;
+  font-size: var(--text-sm);
+}
+
+.skill-box-ultimate {
+  background: var(--color-grey-500);
+  color: var(--color-gold-200);
+}
+
+.skill-box-A {
+  background: var(--color-blue-600);
+  color: var(--color-gold-50);
+}
+
+.skill-box-Z {
+  background: var(--color-blue-600);
+  color: var(--color-grey-50);
+}
+
+.skill-box-E {
+  background: var(--color-blue-600);
+  color: var(--color-blue-50);
 }
 </style>

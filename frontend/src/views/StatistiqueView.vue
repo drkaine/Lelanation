@@ -58,13 +58,14 @@ const loadTierData = async () => {
   }
 }
 
+const filterType = ref<'all' | 'otp' | 'no-otp'>('no-otp')
+
 const processRoleData = (role: string) => {
   if (!isValidRole(role)) {
     throw new Error(`Invalid role: ${role}`)
   }
 
   championsData = []
-
   const data = tierData.value[role] as ChampionData[]
 
   data.forEach(champion => {
@@ -84,7 +85,15 @@ const processRoleData = (role: string) => {
   })
 
   championsData.sort((a, b) => a.score - b.score)
-  championsData = championsData.filter(champion => !champion.otp)
+
+  // Filtre selon le type sélectionné
+  if (filterType.value === 'otp') {
+    championsData = championsData.filter(champion => champion.otp)
+  } else if (filterType.value === 'no-otp') {
+    championsData = championsData.filter(champion => !champion.otp)
+  }
+  // 'all' ne filtre rien
+
   return {
     title: `TIERLIST : ${role}`,
     champions: championsData.map(c => c.name),
@@ -202,7 +211,7 @@ const createChart = async () => {
   })
 }
 
-watch([selectedTier, selectedRole], async () => {
+watch([selectedRole, selectedTier, filterType], async () => {
   await createChart()
 })
 
@@ -256,6 +265,11 @@ window.addEventListener('resize', () => {
       >
         {{ role.replace('LANE', '').replace('-BOT', '') }}
       </button>
+      <select v-model="filterType" class="filter-select">
+        <option value="all">Tous</option>
+        <option value="otp">OTP</option>
+        <option value="no-otp">Sans OTP</option>
+      </select>
     </div>
     <div class="chart-container">
       <div class="legend">
@@ -320,3 +334,38 @@ window.addEventListener('resize', () => {
     </div>
   </div>
 </template>
+
+<style scoped>
+.filter-select {
+  background: transparent;
+  border: var(--border-size) solid var(--color-gold-300);
+  color: var(--color-gold-300);
+  padding: 0.5rem;
+  border-radius: 4px;
+  font-size: var(--text-base);
+  cursor: pointer;
+  font-family: var(--font-beaufort);
+}
+
+.filter-select:focus {
+  outline: none;
+  border-color: var(--color-gold-500);
+}
+
+.filter-select option {
+  background-color: var(--color-grey-800);
+  color: var(--color-gold-300);
+}
+
+@media (max-width: 768px) {
+  .tabs {
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .filter-select {
+    width: 100%;
+    margin-top: 0.5rem;
+  }
+}
+</style>

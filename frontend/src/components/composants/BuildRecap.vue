@@ -295,6 +295,7 @@ const statsListFiltered = statsList.filter(
               :shards="buildData.sheet.shards"
               :items="buildData.sheet.items"
               :roles="buildData.roles"
+              :skillOrder="buildData.sheet.skillOrder"
             />
           </div>
         </section>

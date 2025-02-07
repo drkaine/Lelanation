@@ -2,6 +2,13 @@ import type { Image } from './common'
 import type { RecommendedItem } from './item'
 import type { ChampionStats } from './stat'
 
+export interface ChampionSkillsOrder {
+  A: number[]
+  Z: number[]
+  E: number[]
+  R: number[]
+}
+
 export interface Champion {
   id: string
   key: string

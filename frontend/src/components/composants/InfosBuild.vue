@@ -13,7 +13,7 @@ import { v4 as uuidv4 } from 'uuid'
 import version from '@/assets/files/data/lastVersion.json'
 import { useRouter } from 'vue-router'
 import type { BuildData } from '@/types/build'
-
+import SkillUp from './SkillUp.vue'
 const router = useRouter()
 
 const urlApiSave = import.meta.env.VITE_URL_API_SAVE
@@ -96,6 +96,7 @@ const submitForm = async () => {
       summoners: summonerStore.$state.summonerSelection,
       shards: shardStore.$state.shardsSelection,
       items: itemStore.$state.ItemsSelection,
+      skillOrder: championStore.$state.championSkillsOrder,
     },
     buildStats: build,
   }
@@ -181,6 +182,10 @@ const submitForm = async () => {
 </script>
 
 <template>
+  <div v-if="championStore.$state.selectedChampion" class="skill-up">
+    <SkillUp />
+  </div>
+
   <form @submit.prevent="submitForm" class="build-form">
     <div class="form-group">
       <label>

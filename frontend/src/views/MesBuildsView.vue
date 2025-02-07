@@ -210,6 +210,7 @@ const canDragBuild = computed(
             :shards="build.sheet.shards"
             :items="build.sheet.items"
             :roles="build.roles ?? null"
+            :skillOrder="build.sheet.skillOrder"
           />
         </a>
       </div>

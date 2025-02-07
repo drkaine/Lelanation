@@ -70,6 +70,7 @@ const next = () => {
             :summoners="summonerStore.summonerSelection"
             :shards="shardStore.shardsSelection"
             :items="itemStore.ItemsSelection"
+            :skillOrder="championStore.championSkillsOrder"
           />
           <Extra v-if="itemStore.ItemsSelection.core" />
         </div>

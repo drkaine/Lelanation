@@ -1,0 +1,176 @@
+.skill-order {
+  margin: 2rem 0;
+  padding: 1rem;
+  background: var(--bg-dark);
+  border-radius: 4px;
+}
+
+.skill-order h3 {
+  color: var(--color-gold-300);
+  margin-bottom: 1rem;
+  font-size: var(--text-lg);
+}
+
+.skill-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.skill-row {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.skill-label-container {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-width: 65px;
+}
+
+.skill-icon {
+  width: 30px;
+  height: 30px;
+  object-fit: cover;
+  border-radius: 4px;
+}
+
+.skill-label {
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-grey-200);
+  color: var(--color-gold-300);
+  font-weight: bold;
+  border-radius: 4px;
+}
+
+.skill-cell {
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--color-grey-200);
+  border-radius: 4px;
+  color: var(--color-gold-300);
+  font-size: var(--text-sm);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.skill-cell.available:hover {
+  border-color: var(--color-gold-300);
+  background: rgba(205, 190, 145, 0.1);
+}
+
+.skill-cell.filled {
+  background: var(--color-grey-200);
+  border-color: var(--color-gold-300);
+}
+
+@media (max-width: 768px) {
+  .skill-label,
+  .skill-cell {
+    width: 25px;
+    height: 25px;
+    font-size: var(--text-xs);
+  }
+
+  .skill-grid {
+    gap: 2px;
+  }
+
+  .skill-row {
+    gap: 2px;
+  }
+}
+
+.tooltip-skill-container {
+  position: relative;
+}
+
+.tooltip-skill-container:hover .tooltip-skill {
+  display: block;
+  background: var(--gradient-primary);
+}
+
+.tooltip-skill {
+  display: none;
+  position: absolute;
+  left: calc(100% + 1rem);
+  top: 50%;
+  transform: translateY(-50%);
+  background: var(--gradient-primary);
+  border: 1px solid var(--color-gold-300);
+  padding: 1rem;
+  border-radius: 4px;
+  width: 300px;
+  z-index: 1000;
+}
+
+.tooltip-skill::before {
+  content: '';
+  position: absolute;
+  left: -8px;
+  top: 50%;
+  transform: translateY(-50%);
+  border-width: 8px 8px 8px 0;
+  border-style: solid;
+  border-color: transparent var(--color-gold-300) transparent transparent;
+}
+
+.tooltip-skill-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.tooltip-skill-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 4px;
+  border: 1px solid var(--color-gold-300);
+}
+
+.tooltip-skill h4 {
+  color: var(--color-gold-300);
+  font-size: var(--text-base);
+  margin: 0;
+}
+
+.tooltip-skill p {
+  color: var(--color-grey-50);
+  font-size: var(--text-sm);
+  line-height: 1.4;
+}
+
+.level-row {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-bottom: 4px;
+}
+
+.level-number {
+  width: 30px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-grey-50);
+  font-size: var(--text-sm);
+}
+
+@media (max-width: 768px) {
+  .level-number {
+    width: 25px;
+    height: 15px;
+    font-size: var(--text-xs);
+  }
+}
