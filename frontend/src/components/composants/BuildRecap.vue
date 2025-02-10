@@ -136,6 +136,7 @@ const editBuild = () => {
   if (!buildData.value) return
 
   championStore.setSelectedChampion(buildData.value.sheet.champion)
+  championStore.setChampionSkillsOrder(buildData.value.sheet.skillOrder)
   runeStore.runesSelection = buildData.value.sheet.runes
   summonerStore.summonerSelection = buildData.value.sheet.summoners
   shardStore.shardsSelection = buildData.value.sheet.shards
