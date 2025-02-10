@@ -84,10 +84,8 @@ watch(
     <h3>Ordre des compétences</h3>
     <div class="skill-grid">
       <div class="level-row">
-        <div class="skill-label-container"></div>
-        <div v-for="i in 18" :key="i" class="level-number">
-          {{ i }}
-        </div>
+        <div class="skill-label-spacer"></div>
+        <div v-for="i in 18" :key="i" class="level-number">{{ i }}</div>
       </div>
       <div
         v-for="skill in ['A', 'Z', 'E', 'R'] as const"
@@ -129,9 +127,7 @@ watch(
               </div>
             </div>
           </div>
-          <div class="skill-label">
-            {{ skill }}
-          </div>
+          <div class="skill-label">{{ skill }}</div>
         </div>
         <div
           v-for="i in 18"
@@ -153,6 +149,80 @@ watch(
 </template>
 
 <style scoped>
+.skill-order {
+  width: 100%;
+  overflow-x: auto;
+  padding: 1rem 0;
+}
+
+.skill-grid {
+  min-width: min-content;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.level-row,
+.skill-row {
+  display: grid;
+  grid-template-columns: 60px repeat(18, minmax(25px, 30px));
+  gap: 4px;
+}
+
+.skill-label-spacer {
+  width: 60px;
+}
+
+.skill-label-container {
+  width: 60px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.skill-icon {
+  width: 25px;
+  height: 25px;
+  border-radius: 4px;
+}
+
+.level-number,
+.skill-cell {
+  width: 100%;
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--text-sm);
+}
+
+@media (max-width: 768px) {
+  .skill-order {
+    padding: 0.5rem;
+  }
+
+  .level-row,
+  .skill-row {
+    grid-template-columns: 50px repeat(18, minmax(20px, 25px));
+    gap: 2px;
+  }
+
+  .skill-label-spacer,
+  .skill-label-container {
+    width: 50px;
+  }
+
+  .skill-icon {
+    width: 20px;
+    height: 20px;
+  }
+
+  .level-number,
+  .skill-cell {
+    font-size: var(--text-xs);
+  }
+}
+
 .tooltip-skill-stats {
   margin-top: 0.75rem;
   padding-top: 0.75rem;

@@ -6,7 +6,7 @@ import type { ItemSelection } from '@/types/item'
 import type { Champion } from '@/types/champion'
 import type { ChampionSkillsOrder } from '@/types/champion'
 import { useRoleStore } from '@/stores/roleStore'
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, computed } from 'vue'
 
 const roleStore = useRoleStore()
 
@@ -77,6 +77,10 @@ const formatSkillSequence = (skillOrder: ChampionSkillsOrder | null) => {
   }
   return sequence
 }
+
+const hasSkillPoints = computed(() =>
+  Object.values(props.skillOrder || {}).some(arr => arr && arr.length > 0),
+)
 </script>
 
 <template>
@@ -88,8 +92,8 @@ const formatSkillSequence = (skillOrder: ChampionSkillsOrder | null) => {
 
     <div class="separator"></div>
 
-    <div class="sheet-header">
-      <div class="champion-info" v-if="champion">
+    <div class="sheet-header" v-if="champion">
+      <div class="champion-info">
         <div class="champion-portrait">
           <img
             :src="`/assets/icons/champions/${champion?.image.full}`"
@@ -240,8 +244,7 @@ const formatSkillSequence = (skillOrder: ChampionSkillsOrder | null) => {
       </div>
     </div>
 
-    <div class="separator" v-if="skillOrder"></div>
-
+    <div class="separator" v-if="hasSkillPoints"></div>
     <div
       class="skill-order-section"
       v-if="skillOrder && Object.values(skillOrder).some(arr => arr.length > 0)"
@@ -258,7 +261,7 @@ const formatSkillSequence = (skillOrder: ChampionSkillsOrder | null) => {
             'skill-box-E': skill === 'E',
           }"
         >
-          {{ skill }}
+          {{ skill }} {{ index + 1 }}
         </div>
       </div>
     </div>
