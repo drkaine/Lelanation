@@ -48,13 +48,21 @@ watch(searchQuery, newValue => {
   onBeforeUnmount(() => clearTimeout(timeoutId))
 })
 
+const FILTERED_ITEMS = ['Jus chapi-chapo', 'Promesse empyréenne'] as const
+
 const filteredItems = computed<Item[]>(() => {
-  let filtered = Object.values(items.data).filter(
-    (item: Item) =>
-      item.maps['11'] === true &&
-      item.gold?.purchasable === true &&
-      item.gold.total > 0,
-  )
+  let filtered = Object.values(items.data)
+    .filter(
+      (item: Item) =>
+        item.maps['11'] === true &&
+        item.gold?.purchasable === true &&
+        item.gold.total > 0 &&
+        !FILTERED_ITEMS.includes(item.name as (typeof FILTERED_ITEMS)[number]),
+    )
+    .filter(
+      (item: Item, index: number, self: Item[]) =>
+        self.findIndex((i: Item) => i.name === item.name) === index,
+    )
 
   if (selectedTags.value.length > 0) {
     filtered = filtered.filter((item: Item) =>
@@ -85,11 +93,18 @@ const getItemsInto = (item: Item): Item[] => {
     .filter(Boolean)
 }
 
+const SPECIAL_BOOTS_ITEMS = ['Jambières de métal', 'Lucidité pourpre'] as const
+
 const itemsBoots = computed<Item[]>(() =>
   filteredItems.value
-    .filter(
-      (item: Item) => item.tags?.includes('Boots') || item.name === 'Zéphyr',
-    )
+    .filter((item: Item) => {
+      return (
+        item.tags?.includes('Boots') ||
+        SPECIAL_BOOTS_ITEMS.includes(
+          item.name as (typeof SPECIAL_BOOTS_ITEMS)[number],
+        )
+      )
+    })
     .sort((a: Item, b: Item) => (a.gold.total || 0) - (b.gold.total || 0)),
 )
 
@@ -98,7 +113,8 @@ const itemsStarter = computed<Item[]>(() =>
     .filter(
       (item: Item) =>
         (item.depth === undefined && item.tags?.includes('Lane')) ||
-        (item.tags?.includes('Jungle') && item.maps['21'] === true),
+        (item.tags?.includes('Jungle') && item.maps['21'] === true) ||
+        item.name === 'Larme de la déesse',
     )
     .sort((a: Item, b: Item) => (a.gold.total || 0) - (b.gold.total || 0)),
 )
@@ -134,7 +150,9 @@ const itemsLegendary = computed<Item[]>(() =>
         item.depth !== undefined &&
         item.depth > 1 &&
         !item.tags?.includes('Boots') &&
-        item.name !== 'Zéphyr',
+        !SPECIAL_BOOTS_ITEMS.includes(
+          item.name as (typeof SPECIAL_BOOTS_ITEMS)[number],
+        ),
     )
     .sort((a: Item, b: Item) => (a.gold.total || 0) - (b.gold.total || 0)),
 )
