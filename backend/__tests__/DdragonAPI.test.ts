@@ -5,7 +5,7 @@ describe("Ddragon ", () => {
 
   beforeEach(async () => {
     ddragonAPI = new DdragonAPI();
-    await ddragonAPI.lastVersion();
+    await ddragonAPI.getLastVersion();
   });
 
   const targets: string[] = [

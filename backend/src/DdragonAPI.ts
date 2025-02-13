@@ -13,7 +13,7 @@ export class DdragonAPI {
     return response;
   }
 
-  public async lastVersion() {
+  public async getLastVersion() {
     const response = await fetch(
       "https://ddragon.leagueoflegends.com/api/versions.json",
     );

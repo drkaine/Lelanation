@@ -4,16 +4,17 @@ import { saveFile, openFile } from "./FileManager";
 import { Champion, Item, Summoner, RunePath } from "./types";
 import { exec } from "child_process";
 
-const targets: string[] = [
-  "data/fr_FR/championFull.json",
-  "data/fr_FR/item.json",
-  "data/fr_FR/summoner.json",
-  "data/fr_FR/runesReforged.json",
-  "data/fr_FR/map.json",
-];
-
-const folderTarget = "frontend/public/assets/icons/";
-const folderTargetJSON = "frontend/src/assets/files/data/";
+const targets: { urlFR: string[]; folder: string; folderJSON: string } = {
+  urlFR: [
+    "data/fr_FR/championFull.json",
+    "data/fr_FR/item.json",
+    "data/fr_FR/summoner.json",
+    "data/fr_FR/runesReforged.json",
+    "data/fr_FR/map.json",
+  ],
+  folder: "../../frontend/public/assets/icons/",
+  folderJSON: "../../frontend/src/assets/files/data/",
+};
 
 const ddragonAPI = new DdragonAPI();
 
@@ -31,14 +32,11 @@ export async function execution() {
 }
 
 async function downloadFiles() {
-  for (const target of targets) {
+  for (const target of targets["urlFR"]) {
     const data = await ddragonAPI.loadJson(target);
 
     const filename = target.split("/").pop();
-    const filePath = path.join(
-      __dirname,
-      "../../" + folderTargetJSON + filename,
-    );
+    const filePath = path.join(__dirname, targets["folderJSON"] + filename);
 
     saveFile(JSON.stringify(data), filePath);
   }
@@ -46,7 +44,7 @@ async function downloadFiles() {
 
 async function downloadChampions() {
   const championsFull = await openFile(
-    path.join(__dirname, "../../" + folderTargetJSON + "championFull.json"),
+    path.join(__dirname, targets["folderJSON"] + "championFull.json"),
   );
 
   const championsData = JSON.parse(championsFull).data;
@@ -56,10 +54,7 @@ async function downloadChampions() {
     const image = await ddragonAPI.loadImage("img/champion/" + Data.image.full);
     await saveFile(
       image,
-      path.join(
-        __dirname,
-        "../../" + folderTarget + "/champions/" + Data.image.full,
-      ),
+      path.join(__dirname, targets["folder"] + "/champions/" + Data.image.full),
     );
     const passive = await ddragonAPI.loadImage(
       "img/passive/" + Data.passive.image.full,
@@ -69,7 +64,7 @@ async function downloadChampions() {
       path.join(
         __dirname,
         "../../" +
-          folderTarget +
+          targets["folder"] +
           "/champions/passive/" +
           Data.passive.image.full,
       ),
@@ -82,7 +77,11 @@ async function downloadChampions() {
         spell,
         path.join(
           __dirname,
-          "../../" + folderTarget + "/champions/sorts/" + value.id + ".png",
+          "../../" +
+            targets["folder"] +
+            "/champions/sorts/" +
+            value.id +
+            ".png",
         ),
       );
     }
@@ -91,7 +90,7 @@ async function downloadChampions() {
 
 async function downloadSpells() {
   const item = await openFile(
-    path.join(__dirname, "../../" + folderTargetJSON + "item.json"),
+    path.join(__dirname, targets["folderJSON"] + "item.json"),
   );
 
   const itemFile = JSON.parse(item).data;
@@ -101,17 +100,14 @@ async function downloadSpells() {
     const image = await ddragonAPI.loadImage("img/item/" + Data.image.full);
     await saveFile(
       image,
-      path.join(
-        __dirname,
-        "../../" + folderTarget + "/items/" + Data.image.full,
-      ),
+      path.join(__dirname, targets["folder"] + "/items/" + Data.image.full),
     );
   }
 }
 
 async function downloadSummoners() {
   const summoner = await openFile(
-    path.join(__dirname, "../../" + folderTargetJSON + "summoner.json"),
+    path.join(__dirname, targets["folderJSON"] + "summoner.json"),
   );
 
   const summonerFile = JSON.parse(summoner).data;
@@ -121,17 +117,14 @@ async function downloadSummoners() {
     const image = await ddragonAPI.loadImage("img/spell/" + Data.image.full);
     await saveFile(
       image,
-      path.join(
-        __dirname,
-        "../../" + folderTarget + "/summoners/" + Data.image.full,
-      ),
+      path.join(__dirname, targets["folder"] + "/summoners/" + Data.image.full),
     );
   }
 }
 
 async function downloadRunes() {
   const runesReforged = await openFile(
-    path.join(__dirname, "../../" + folderTargetJSON + "runesReforged.json"),
+    path.join(__dirname, targets["folderJSON"] + "runesReforged.json"),
   );
 
   const runesReforgedFile = JSON.parse(runesReforged) as RunePath[];
@@ -142,7 +135,7 @@ async function downloadRunes() {
       pathImage,
       path.join(
         __dirname,
-        "../../" + folderTarget + "/runes/" + runePath.id + ".png",
+        targets["folder"] + "/runes/" + runePath.id + ".png",
       ),
     );
 
@@ -153,7 +146,7 @@ async function downloadRunes() {
           runeImage,
           path.join(
             __dirname,
-            "../../" + folderTarget + "/runes/" + rune.id + ".png",
+            targets["folder"] + "/runes/" + rune.id + ".png",
           ),
         );
       }
@@ -162,7 +155,7 @@ async function downloadRunes() {
 }
 
 export async function compilation() {
-  await ddragonAPI.lastVersion();
+  await ddragonAPI.getLastVersion();
 
   await downloadFiles();
 
@@ -178,6 +171,6 @@ export async function compilation() {
 
   saveFile(
     JSON.stringify(date),
-    path.join(__dirname, "../../" + folderTargetJSON + date),
+    path.join(__dirname, targets["folderJSON"] + date),
   );
 }
