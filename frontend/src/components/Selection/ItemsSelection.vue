@@ -343,6 +343,10 @@ const itemsLegendary = computed<Item[]>(() =>
               >
                 <img
                   class="img"
+                  loading="lazy"
+                  width="32"
+                  height="32"
+                  decoding="async"
                   :src="`/assets/icons/items/${item.image.full}`"
                   :alt="item.name"
                 />
@@ -391,6 +395,10 @@ const itemsLegendary = computed<Item[]>(() =>
               >
                 <img
                   class="img"
+                  loading="lazy"
+                  width="32"
+                  height="32"
+                  decoding="async"
                   :src="`/assets/icons/items/${item.image.full}`"
                   :alt="item.name"
                 />
@@ -437,6 +445,10 @@ const itemsLegendary = computed<Item[]>(() =>
               >
                 <img
                   class="img"
+                  loading="lazy"
+                  width="32"
+                  height="32"
+                  decoding="async"
                   :src="`/assets/icons/items/${item.image.full}`"
                   :alt="item.name"
                 />
@@ -483,6 +495,10 @@ const itemsLegendary = computed<Item[]>(() =>
               >
                 <img
                   class="img"
+                  loading="lazy"
+                  width="32"
+                  height="32"
+                  decoding="async"
                   :src="`/assets/icons/items/${item.image.full}`"
                   :alt="item.name"
                 />
@@ -531,6 +547,10 @@ const itemsLegendary = computed<Item[]>(() =>
               >
                 <img
                   class="img"
+                  loading="lazy"
+                  width="32"
+                  height="32"
+                  decoding="async"
                   :src="`/assets/icons/items/${item.image.full}`"
                   :alt="item.name"
                 />

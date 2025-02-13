@@ -140,6 +140,9 @@ const selectChampion = (champion: Champion) => {
         >
           <img
             loading="lazy"
+            width="48"
+            height="48"
+            decoding="async"
             :src="'/assets/icons/champions/' + champion.image.full"
             :alt="champion.name"
           />

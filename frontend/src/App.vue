@@ -96,7 +96,9 @@ const acceptConditions = () => {
 
       <header role="banner">
         <nav class="header">
-          <a href="/" class="link">Acceuil</a>
+          <a href="/" class="link" aria-label="Accueil">
+            <span>Accueil</span>
+          </a>
           <button class="menu-mobile" @click="toggleMenu">
             <svg
               width="24"
@@ -118,7 +120,14 @@ const acceptConditions = () => {
             <RouterLink to="/dictionnaire" @click="toggleMenu"
               >Leladictionnaiva</RouterLink
             >
-            <RouterLink to="/build" @click="toggleMenu">Build</RouterLink>
+            <RouterLink
+              to="/build"
+              @click="toggleMenu"
+              class="link"
+              aria-label="Créer un build"
+            >
+              <span>Build</span>
+            </RouterLink>
             <RouterLink
               v-if="userBuilds.length > 0"
               to="/builds"
