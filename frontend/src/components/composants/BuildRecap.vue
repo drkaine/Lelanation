@@ -199,7 +199,7 @@ const statsListFiltered = statsList.filter(
 </script>
 
 <template>
-  <main class="build-recap">
+  <main class="build-recap" role="main">
     <h1 class="page-title">Build</h1>
 
     <div class="build-content">
@@ -363,9 +363,17 @@ const statsListFiltered = statsList.filter(
 </template>
 
 <style scoped>
+main[role='main'] {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
 .build-recap {
   padding: 2rem;
+  max-width: 1200px;
   margin: 0 auto;
+  width: 100%;
 }
 
 .build-header {
@@ -397,16 +405,17 @@ const statsListFiltered = statsList.filter(
 
 .build-content {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: auto 1fr;
   gap: 2rem;
+  align-items: start;
+  width: 100%;
 }
 
 .sheet-section {
-  background: transparent;
-  border-radius: 8px;
-  padding: 0;
-  width: fit-content;
-  margin: 0;
+  position: sticky;
+  top: 2rem;
+  width: 100%;
+  max-width: 800px;
 }
 
 .sheet-section .sheet {
@@ -424,8 +433,11 @@ const statsListFiltered = statsList.filter(
 }
 
 .actions-panel {
-  border-radius: 8px;
-  padding: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  width: 100%;
 }
 
 .action-buttons {
@@ -519,8 +531,13 @@ const statsListFiltered = statsList.filter(
     grid-template-columns: 1fr;
   }
 
-  .build-recap {
-    padding: 1rem;
+  .sheet-section {
+    position: static;
+    margin: 0 auto;
+  }
+
+  .actions-panel {
+    justify-content: center;
   }
 
   .level-buttons {
@@ -530,6 +547,14 @@ const statsListFiltered = statsList.filter(
 }
 
 @media (max-width: 768px) {
+  .build-recap {
+    padding: 1rem;
+  }
+
+  .sheet-section {
+    max-width: 100%;
+  }
+
   .build-header {
     flex-direction: column;
     gap: 1rem;
