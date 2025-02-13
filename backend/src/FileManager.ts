@@ -1,9 +1,10 @@
 import * as fs from "fs";
 import { promisify } from "util";
+import multer from "multer";
 
 const readFileAsync = promisify(fs.readFile);
 
-export function save(data: string | Buffer, path: string) {
+export function saveFile(data: string | Buffer, path: string) {
   const dirPath = path.substring(0, path.lastIndexOf("/"));
 
   if (!fs.existsSync(dirPath)) {
@@ -13,7 +14,7 @@ export function save(data: string | Buffer, path: string) {
   fs.writeFileSync(path, data);
 }
 
-export async function open(file: string) {
+export async function openFile(file: string) {
   try {
     const data = await readFileAsync(file, "utf8");
     return data;
@@ -37,10 +38,24 @@ export async function appendToJson<T>(newData: T, path: string) {
       date: new Date().toISOString(),
     });
 
-    save(JSON.stringify(existingData, null, 2), path);
+    saveFile(JSON.stringify(existingData, null, 2), path);
     return true;
   } catch (error) {
     console.error("Erreur lors de l'ajout au JSON:", error);
     throw error;
   }
 }
+
+export const upload = multer({
+  storage: multer.memoryStorage(),
+  limits: {
+    fileSize: 50 * 1024 * 1024, // 50MB
+  },
+  fileFilter: (_req, file, cb) => {
+    if (file.mimetype === "application/vnd.oasis.opendocument.spreadsheet") {
+      cb(null, true);
+    } else {
+      cb(new Error("Format de fichier non supporté. Utilisez .ods"));
+    }
+  },
+});

@@ -1,35 +1,5 @@
 import { read, utils } from "xlsx-js-style";
-
-interface ChampionData {
-  champion?: string;
-  TOP?: string;
-  JNG?: string;
-  MID?: string;
-  SUP?: string;
-  "Counter highlight"?: string;
-  Couleur?: string;
-  "Rappel Tech"?: string;
-  Lane?: string;
-  id?: string;
-  "ORDER BY"?: string;
-  WINRATE?: string | number;
-  PICKRATE?: string | number;
-  PRO?: string;
-  LIMIT?: string | number;
-  Custom?: string;
-  [key: string]: unknown;
-}
-
-interface TierListData {
-  GRAPH: ChampionData[];
-  TOPLANE: ChampionData[];
-  JUNGLE: ChampionData[];
-  MIDLANE: ChampionData[];
-  "ADC-BOT": ChampionData[];
-  SUPPORT: ChampionData[];
-  TierList: ChampionData[];
-  Resultats: ChampionData[];
-}
+import { type TierListData } from "./types";
 
 export const convertOdsToJson = async (
   fileBuffer: Buffer,

@@ -1,7 +1,9 @@
 import path from "path";
 import { DdragonAPI } from "./DdragonAPI";
-import { save, open } from "./FileManager";
+import { saveFile, openFile } from "./FileManager";
 import { Champion, Item, Summoner, RunePath } from "./types";
+import { exec } from "child_process";
+
 const targets: string[] = [
   "data/fr_FR/championFull.json",
   "data/fr_FR/item.json",
@@ -15,9 +17,20 @@ const folderTargetJSON = "frontend/src/assets/files/data/";
 
 const ddragonAPI = new DdragonAPI();
 
-export async function compilation() {
-  await ddragonAPI.lastVersion();
+export async function execution() {
+  exec("bash ../.github/.scripts/deploy.sh", (error, stdout, stderr) => {
+    if (error) {
+      console.error(`Erreur d'exécution: ${error}`);
+      return;
+    }
+    console.log(`Sortie du déploiement: ${stdout}`);
+    if (stderr) {
+      console.error(`Erreurs du déploiement: ${stderr}`);
+    }
+  });
+}
 
+async function downloadFiles() {
   for (const target of targets) {
     const data = await ddragonAPI.loadJson(target);
 
@@ -27,19 +40,21 @@ export async function compilation() {
       "../../" + folderTargetJSON + filename,
     );
 
-    save(JSON.stringify(data), filePath);
+    saveFile(JSON.stringify(data), filePath);
   }
+}
 
-  const championFull = await open(
+async function downloadChampions() {
+  const championsFull = await openFile(
     path.join(__dirname, "../../" + folderTargetJSON + "championFull.json"),
   );
 
-  const championFullFile = JSON.parse(championFull).data;
+  const championsData = JSON.parse(championsFull).data;
 
-  for (const value of Object.values(championFullFile)) {
+  for (const value of Object.values(championsData)) {
     const Data = value as Champion;
     const image = await ddragonAPI.loadImage("img/champion/" + Data.image.full);
-    await save(
+    await saveFile(
       image,
       path.join(
         __dirname,
@@ -49,7 +64,7 @@ export async function compilation() {
     const passive = await ddragonAPI.loadImage(
       "img/passive/" + Data.passive.image.full,
     );
-    await save(
+    await saveFile(
       passive,
       path.join(
         __dirname,
@@ -63,7 +78,7 @@ export async function compilation() {
       const spell = await ddragonAPI.loadImage(
         "img/spell/" + value.id + ".png",
       );
-      await save(
+      await saveFile(
         spell,
         path.join(
           __dirname,
@@ -72,8 +87,10 @@ export async function compilation() {
       );
     }
   }
+}
 
-  const item = await open(
+async function downloadSpells() {
+  const item = await openFile(
     path.join(__dirname, "../../" + folderTargetJSON + "item.json"),
   );
 
@@ -82,7 +99,7 @@ export async function compilation() {
   for (const value of Object.values(itemFile)) {
     const Data = value as Item;
     const image = await ddragonAPI.loadImage("img/item/" + Data.image.full);
-    await save(
+    await saveFile(
       image,
       path.join(
         __dirname,
@@ -90,8 +107,10 @@ export async function compilation() {
       ),
     );
   }
+}
 
-  const summoner = await open(
+async function downloadSummoners() {
+  const summoner = await openFile(
     path.join(__dirname, "../../" + folderTargetJSON + "summoner.json"),
   );
 
@@ -100,7 +119,7 @@ export async function compilation() {
   for (const value of Object.values(summonerFile)) {
     const Data = value as Summoner;
     const image = await ddragonAPI.loadImage("img/spell/" + Data.image.full);
-    await save(
+    await saveFile(
       image,
       path.join(
         __dirname,
@@ -108,8 +127,10 @@ export async function compilation() {
       ),
     );
   }
+}
 
-  const runesReforged = await open(
+async function downloadRunes() {
+  const runesReforged = await openFile(
     path.join(__dirname, "../../" + folderTargetJSON + "runesReforged.json"),
   );
 
@@ -117,7 +138,7 @@ export async function compilation() {
 
   for (const runePath of runesReforgedFile) {
     const pathImage = await ddragonAPI.loadImage("img/" + runePath.icon, false);
-    await save(
+    await saveFile(
       pathImage,
       path.join(
         __dirname,
@@ -128,7 +149,7 @@ export async function compilation() {
     for (const slot of runePath.slots) {
       for (const rune of slot.runes) {
         const runeImage = await ddragonAPI.loadImage("img/" + rune.icon, false);
-        await save(
+        await saveFile(
           runeImage,
           path.join(
             __dirname,
@@ -138,9 +159,24 @@ export async function compilation() {
       }
     }
   }
+}
+
+export async function compilation() {
+  await ddragonAPI.lastVersion();
+
+  await downloadFiles();
+
+  await downloadChampions();
+
+  await downloadSpells();
+
+  await downloadSummoners();
+
+  await downloadRunes();
 
   const date = new Date();
-  save(
+
+  saveFile(
     JSON.stringify(date),
     path.join(__dirname, "../../" + folderTargetJSON + date),
   );

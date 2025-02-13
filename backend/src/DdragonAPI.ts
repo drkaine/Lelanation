@@ -1,5 +1,5 @@
 import path from "path";
-import { save } from "./FileManager";
+import { saveFile } from "./FileManager";
 
 export class DdragonAPI {
   private url: string = "https://ddragon.leagueoflegends.com/cdn/";
@@ -20,7 +20,7 @@ export class DdragonAPI {
     const data = await response.json();
     const folderTarget = "frontend/src/assets/files/data/";
     this.version = data[0];
-    save(
+    saveFile(
       JSON.stringify(data[0]),
       path.join(__dirname, "../../" + folderTarget + "lastVersion.json"),
     );

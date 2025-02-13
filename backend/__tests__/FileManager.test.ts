@@ -1,4 +1,4 @@
-import { save, appendToJson } from "../src/FileManager";
+import { saveFile, appendToJson } from "../src/FileManager";
 import * as fs from "fs";
 import * as path from "path";
 
@@ -21,7 +21,7 @@ describe("Create", () => {
     async (data: string | Buffer, extension: string) => {
       filePath = filePath + extension;
 
-      save(JSON.stringify(data), filePath);
+      saveFile(JSON.stringify(data), filePath);
 
       expect(fs.existsSync(filePath)).toBe(true);
 
@@ -34,7 +34,7 @@ describe("Create", () => {
     async (data: string | Buffer, extension: string) => {
       filePath = filePath + extension;
 
-      save(JSON.stringify(data), filePath);
+      saveFile(JSON.stringify(data), filePath);
 
       expect(fs.existsSync(dirPath)).toBe(true);
 
