@@ -94,93 +94,101 @@ const acceptConditions = () => {
         </div>
       </div>
 
-      <nav class="header">
-        <a href="/" class="link">Acceuil</a>
-        <button class="menu-mobile" @click="toggleMenu">
-          <svg
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            stroke-width="2"
-            stroke="currentColor"
-            fill="none"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          >
-            <path d="M4 6l16 0"></path>
-            <path d="M4 12l16 0"></path>
-            <path d="M4 18l16 0"></path>
-          </svg>
-        </button>
+      <header role="banner">
+        <nav class="header">
+          <a href="/" class="link">Acceuil</a>
+          <button class="menu-mobile" @click="toggleMenu">
+            <svg
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              stroke-width="2"
+              stroke="currentColor"
+              fill="none"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M4 6l16 0"></path>
+              <path d="M4 12l16 0"></path>
+              <path d="M4 18l16 0"></path>
+            </svg>
+          </button>
 
-        <div class="mobile-nav" :class="{ 'is-open': isMenuOpen }">
-          <RouterLink to="/dictionnaire" @click="toggleMenu"
-            >Leladictionnaiva</RouterLink
-          >
-          <RouterLink to="/build" @click="toggleMenu">Build</RouterLink>
-          <RouterLink
-            v-if="userBuilds.length > 0"
-            to="/builds"
-            @click="toggleMenu"
-            >Mes builds</RouterLink
-          >
-          <RouterLink
-            v-if="builds.length > 0"
-            to="/Lebuildarriva"
-            @click="toggleMenu"
-            >Lebuildarriva</RouterLink
-          >
-          <a
-            href="https://www.leagueoflegends.com/fr-fr/news/tags/patch-notes"
-            target="_blank"
-            @click="toggleMenu"
-            >{{ version }}</a
-          >
-        </div>
-        <div class="right-header">
-          <RouterLink
-            title="statistique"
-            class="version"
-            to="/statistique"
-            v-if="connexionStore.isLoggedIn"
-            >Lelanalytics</RouterLink
-          >
-          <RouterLink title="dictionnaire" class="version" to="/dictionnaire">
-            Leladictionnaiva</RouterLink
-          >
+          <div class="mobile-nav" :class="{ 'is-open': isMenuOpen }">
+            <RouterLink to="/dictionnaire" @click="toggleMenu"
+              >Leladictionnaiva</RouterLink
+            >
+            <RouterLink to="/build" @click="toggleMenu">Build</RouterLink>
+            <RouterLink
+              v-if="userBuilds.length > 0"
+              to="/builds"
+              @click="toggleMenu"
+              >Mes builds</RouterLink
+            >
+            <RouterLink
+              v-if="builds.length > 0"
+              to="/Lebuildarriva"
+              @click="toggleMenu"
+              >Lebuildarriva</RouterLink
+            >
+            <a
+              href="https://www.leagueoflegends.com/fr-fr/news/tags/patch-notes"
+              target="_blank"
+              @click="toggleMenu"
+              >{{ version }}</a
+            >
+          </div>
+          <div class="right-header">
+            <RouterLink
+              title="statistique"
+              class="version"
+              to="/statistique"
+              v-if="connexionStore.isLoggedIn"
+              >Lelanalytics</RouterLink
+            >
+            <RouterLink title="dictionnaire" class="version" to="/dictionnaire">
+              Leladictionnaiva</RouterLink
+            >
 
-          <RouterLink title="Build" class="version" to="/build">
-            Build</RouterLink
-          >
+            <RouterLink title="Build" class="version" to="/build">
+              Build</RouterLink
+            >
 
-          <RouterLink
-            title="Mes builds"
-            class="version"
-            v-if="userBuilds.length > 0 && !connexionStore.isLoggedIn"
-            to="/builds"
-          >
-            Mes builds</RouterLink
-          >
-          <RouterLink
-            v-if="builds.length > 0"
-            title="Lebuildarriva"
-            class="version"
-            to="/Lebuildarriva"
-          >
-            Lebuildarriva</RouterLink
-          >
+            <RouterLink
+              title="Mes builds"
+              class="version"
+              v-if="userBuilds.length > 0 && !connexionStore.isLoggedIn"
+              to="/builds"
+            >
+              Mes builds</RouterLink
+            >
+            <RouterLink
+              v-if="builds.length > 0"
+              title="Lebuildarriva"
+              class="version"
+              to="/Lebuildarriva"
+            >
+              Lebuildarriva</RouterLink
+            >
 
-          <a
-            href="https://www.leagueoflegends.com/fr-fr/news/tags/patch-notes"
-            title="Patch Notes"
-            target="_blank"
-            class="link"
-            >{{ version }}</a
-          >
-        </div>
-      </nav>
-      <RouterView />
-      <Footer />
+            <a
+              href="https://www.leagueoflegends.com/fr-fr/news/tags/patch-notes"
+              title="Patch Notes"
+              target="_blank"
+              class="link"
+              >{{ version }}</a
+            >
+          </div>
+        </nav>
+      </header>
+
+      <main role="main">
+        <RouterView />
+      </main>
+
+      <footer role="contentinfo">
+        <Footer />
+      </footer>
     </div>
   </div>
 </template>

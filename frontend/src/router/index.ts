@@ -101,4 +101,45 @@ const router = createRouter({
   routes,
 })
 
+// Gestion des meta tags dynamiques
+router.beforeEach((to, from, next) => {
+  // Titre par défaut
+  let title = 'Lelanation - Builds League of Legends'
+  let description =
+    'Créez et partagez vos builds League of Legends. Guides détaillés et statistiques.'
+
+  // Personnalisation selon la route
+  switch (to.name) {
+    case 'build-tool':
+      title = 'Créer un Build LoL - Lelanation'
+      description =
+        'Créez votre build personnalisé pour League of Legends avec notre outil intuitif.'
+      break
+    case 'dictionnaire':
+      title = 'Dictionnaire Lelariva - Lelanation'
+      description =
+        'Le dictionnaire officiel de la communauté Lelariva. Découvrez le vocabulaire unique de LoL.'
+      break
+    case 'statistique':
+      title = 'Statistiques LoL - Lelanation'
+      description =
+        'Analysez les statistiques des champions et des builds League of Legends.'
+      break
+  }
+
+  // Mise à jour des meta tags
+  document.title = title
+  document
+    .querySelector('meta[name="description"]')
+    ?.setAttribute('content', description)
+  document
+    .querySelector('meta[property="og:title"]')
+    ?.setAttribute('content', title)
+  document
+    .querySelector('meta[property="og:description"]')
+    ?.setAttribute('content', description)
+
+  next()
+})
+
 export default router

@@ -9,16 +9,13 @@ test.describe('Build Tool Page', () => {
       await page.goto('/build');
       console.log('Navigation terminée');
 
-      // Vérifier si la page est accessible
       const url = page.url();
       console.log('URL actuelle:', url);
 
-      // Attendre que la page soit interactive
       console.log('Attente du chargement...');
       await page.waitForLoadState('load');
       console.log('Page chargée');
 
-      // Vérifier le DOM de manière plus robuste avec locator
       const rootLocator = page.locator('#root');
       await expect(rootLocator).toBeAttached();
       console.log('Root element trouvé');

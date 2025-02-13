@@ -85,7 +85,6 @@ describe('RunesSelection', () => {
     runeStore.runesSelection.second = runesTest[1]
     await nextTick()
 
-    // Vérifions plutôt la présence des boutons de sélection
     const runeButtons = wrapper.findAll('.path button')
     expect(runeButtons.length).toBeGreaterThan(0)
   })

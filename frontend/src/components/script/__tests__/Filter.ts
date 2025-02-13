@@ -5,7 +5,6 @@ import type { Champion } from '@/types/champion'
 describe('Filter', () => {
   let filter: Filter
 
-  // Mock des champions pour les tests
   const mockChampions: Champion[] = [
     {
       id: 'Ahri',
@@ -26,7 +25,6 @@ describe('Filter', () => {
 
   beforeEach(() => {
     filter = new Filter()
-    // Override des données de champion pour les tests
     filter.championData = mockChampions
     filter.filteredChampions.value = mockChampions
   })

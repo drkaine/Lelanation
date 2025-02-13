@@ -7,7 +7,6 @@ describe('TooltipCoordonne', () => {
   beforeEach(() => {
     tooltip = new TooltipCoordonne()
 
-    // Mock window properties
     vi.spyOn(window, 'innerWidth', 'get').mockImplementation(() => 1024)
     vi.spyOn(window, 'innerHeight', 'get').mockImplementation(() => 768)
     vi.spyOn(window, 'scrollY', 'get').mockImplementation(() => 0)
@@ -46,7 +45,7 @@ describe('TooltipCoordonne', () => {
 
       tooltip.updateMousePosition(mockEvent)
 
-      expect(tooltip.tooltipLeft.value).toBe('100px') // Valeur exacte de rect.right
+      expect(tooltip.tooltipLeft.value).toBe('100px')
       expect(tooltip.tooltipTop.value).toBe('100px')
     })
 
@@ -70,7 +69,7 @@ describe('TooltipCoordonne', () => {
 
       tooltip.updateMousePosition(mockEvent)
 
-      expect(tooltip.tooltipLeft.value).toBe('650px') // left - width
+      expect(tooltip.tooltipLeft.value).toBe('650px')
       expect(tooltip.tooltipTop.value).toBe('100px')
     })
 

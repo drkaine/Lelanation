@@ -86,13 +86,11 @@ const processRoleData = (role: string) => {
 
   championsData.sort((a, b) => a.score - b.score)
 
-  // Filtre selon le type sélectionné
   if (filterType.value === 'otp') {
     championsData = championsData.filter(champion => champion.otp)
   } else if (filterType.value === 'no-otp') {
     championsData = championsData.filter(champion => !champion.otp)
   }
-  // 'all' ne filtre rien
 
   return {
     title: `TIERLIST : ${role}`,
