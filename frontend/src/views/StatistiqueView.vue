@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, onMounted, watch, onBeforeUnmount, nextTick } from 'vue'
+import { ref, onMounted, watch, onBeforeUnmount, nextTick, computed } from 'vue'
 import { Chart, registerables } from 'chart.js'
 
 import {
@@ -46,10 +46,12 @@ const tierData = ref<TierList>({
   Resultats: [],
 })
 
+const selectedList = ref<'normal' | 'bronze' | 'pro'>('normal')
+
 const loadTierData = async () => {
   try {
     const response = await fetch(
-      '/assets/files/tiers-listes/normal/tierlist.json',
+      `/assets/files/tiers-listes/${selectedList.value}/tierlist.json`,
     )
     if (!response.ok) throw new Error('Erreur lors du chargement des données')
     tierData.value = await response.json()
@@ -77,8 +79,20 @@ const processRoleData = (role: string) => {
         tier: champion.Column || '',
         matchups: Number(champion.Column3) || 0,
         pickrate: Number(champion.Column4) || 0,
-        bestMatchup: champion.Column15 || '',
-        worstMatchup: champion.Column20 || '',
+        bestMatchup: [
+          champion.Column15 || '',
+          champion.Column16 || '',
+          champion.Column14 || '',
+        ]
+          .filter(Boolean)
+          .join(', '),
+        worstMatchup: [
+          champion.Column20 || '',
+          champion.Column19 || '',
+          champion.Column21 || '',
+        ]
+          .filter(Boolean)
+          .join(', '),
         otp: champion.Column1 === 'OTP',
       })
     }
@@ -209,7 +223,8 @@ const createChart = async () => {
   })
 }
 
-watch([selectedRole, selectedTier, filterType], async () => {
+watch([selectedRole, selectedTier, filterType, selectedList], async () => {
+  await loadTierData()
   await createChart()
 })
 
@@ -243,33 +258,145 @@ const getChampionsInTier = (tier: string) => {
 window.addEventListener('resize', () => {
   createChart()
 })
+
+const displayMode = ref<'graph' | 'list'>('graph')
+
+const sortBy = ref<'score' | 'pickrate' | 'tier'>('score')
+const sortOrder = ref<'asc' | 'desc'>('desc')
+const searchType = ref<'name' | 'easy' | 'hard'>('name')
+const searchQuery = ref('')
+
+const sortedAndFilteredChampions = computed(() => {
+  const roleData = tierData.value[selectedRole.value] as ChampionData[]
+  let filtered: TierStats[] = []
+
+  roleData.forEach(champion => {
+    if (champion && champion.name && champion.name !== 'CHAMPION') {
+      filtered.push({
+        name: champion.name,
+        image: champion.image || '',
+        score: Number(champion.Column2) || 0,
+        tier: champion.Column || '',
+        matchups: Number(champion.Column3) || 0,
+        pickrate: Number(champion.Column4) || 0,
+        bestMatchup: [
+          champion.Column15 || '',
+          champion.Column16 || '',
+          champion.Column14 || '',
+        ]
+          .filter(Boolean)
+          .join(', '),
+        worstMatchup: [
+          champion.Column20 || '',
+          champion.Column19 || '',
+          champion.Column21 || '',
+        ]
+          .filter(Boolean)
+          .join(', '),
+        otp: champion.Column1 === 'OTP',
+      })
+    }
+  })
+
+  if (filterType.value === 'otp') {
+    filtered = filtered.filter(champion => champion?.otp)
+  } else if (filterType.value === 'no-otp') {
+    filtered = filtered.filter(champion => !champion?.otp)
+  }
+
+  if (searchQuery.value) {
+    const query = searchQuery.value.toLowerCase()
+    filtered = filtered.filter(champion => {
+      switch (searchType.value) {
+        case 'name':
+          return champion?.name?.toLowerCase().includes(query)
+        case 'easy':
+          return champion?.bestMatchup?.toLowerCase().includes(query)
+        case 'hard':
+          return champion?.worstMatchup?.toLowerCase().includes(query)
+        default:
+          return true
+      }
+    })
+  }
+
+  return filtered.sort((a, b) => {
+    const factor = sortOrder.value === 'desc' ? -1 : 1
+
+    switch (sortBy.value) {
+      case 'tier':
+        const tierOrder = { 'S+': 6, S: 5, A: 4, B: 3, C: 2, F: 1 }
+        return (
+          (tierOrder[b?.tier as keyof typeof tierOrder] -
+            tierOrder[a?.tier as keyof typeof tierOrder]) *
+          factor
+        )
+      case 'score':
+        return (a?.score - b?.score) * factor
+      case 'pickrate':
+        return (a?.pickrate - b?.pickrate) * factor
+      default:
+        return 0
+    }
+  })
+})
 </script>
 
 <template>
   <div class="statistique-container">
-    <div class="tabs">
-      <button
-        v-for="role in ['TOPLANE', 'JUNGLE', 'MIDLANE', 'ADC-BOT', 'SUPPORT']"
-        :key="role"
-        :class="{ active: selectedRole === role }"
-        @click="
-          selectedRole = role as
-            | 'TOPLANE'
-            | 'JUNGLE'
-            | 'MIDLANE'
-            | 'ADC-BOT'
-            | 'SUPPORT'
-        "
-      >
-        {{ role.replace('LANE', '').replace('-BOT', '') }}
-      </button>
-      <select v-model="filterType" class="filter-select">
-        <option value="all">Tous</option>
-        <option value="otp">OTP</option>
-        <option value="no-otp">Sans OTP</option>
-      </select>
+    <div class="tabs-container">
+      <div class="tier-type-tabs tab-group">
+        <button
+          v-for="type in ['normal', 'bronze', 'pro']"
+          :key="type"
+          :class="{ active: selectedList === type }"
+          @click="selectedList = type as 'normal' | 'bronze' | 'pro'"
+        >
+          {{
+            type === 'normal'
+              ? 'TIER-LISTE'
+              : type === 'bronze'
+                ? 'BRONZE-LISTE'
+                : 'PRO-LISTE'
+          }}
+        </button>
+      </div>
+
+      <div class="display-mode-selector tab-group">
+        <button
+          v-for="mode in ['graph', 'list']"
+          :key="mode"
+          :class="{ active: displayMode === mode }"
+          @click="displayMode = mode as 'graph' | 'list'"
+        >
+          {{ mode === 'graph' ? 'GRAPHIQUE' : 'LISTE' }}
+        </button>
+      </div>
+
+      <div class="role-tabs tab-group">
+        <button
+          v-for="role in ['TOPLANE', 'JUNGLE', 'MIDLANE', 'ADC-BOT', 'SUPPORT']"
+          :key="role"
+          :class="{ active: selectedRole === role }"
+          @click="
+            selectedRole = role as
+              | 'TOPLANE'
+              | 'JUNGLE'
+              | 'MIDLANE'
+              | 'ADC-BOT'
+              | 'SUPPORT'
+          "
+        >
+          {{ role.replace('LANE', '').replace('-BOT', '') }}
+        </button>
+        <select v-model="filterType" class="filter-select">
+          <option value="all">Tous</option>
+          <option value="otp">OTP</option>
+          <option value="no-otp">Sans OTP</option>
+        </select>
+      </div>
     </div>
-    <div class="chart-container">
+    <div v-if="displayMode === 'graph'" class="chart-container">
       <div class="legend">
         <div
           v-for="(color, tier) in TIER_COLORS"
@@ -289,6 +416,90 @@ window.addEventListener('resize', () => {
         </div>
       </div>
       <canvas id="tierlistChart"></canvas>
+    </div>
+    <div v-else class="tier-list-container">
+      <div class="list-controls">
+        <div class="search-controls">
+          <input
+            v-model="searchQuery"
+            type="text"
+            placeholder="Rechercher..."
+            class="search-input"
+          />
+          <select v-model="searchType" class="search-type">
+            <option value="name">Nom</option>
+            <option value="easy">Matchup Facile</option>
+            <option value="hard">Matchup Difficile</option>
+          </select>
+        </div>
+        <div class="sort-controls">
+          <select v-model="sortBy" class="sort-select">
+            <option value="tier">Tier</option>
+            <option value="score">Score CP</option>
+            <option value="pickrate">Pickrate</option>
+          </select>
+          <button
+            class="sort-order"
+            @click="sortOrder = sortOrder === 'desc' ? 'asc' : 'desc'"
+          >
+            {{ sortOrder === 'desc' ? '↓' : '↑' }}
+          </button>
+        </div>
+      </div>
+
+      <div class="tier-list-header">
+        <div class="tier-col">TIER</div>
+        <div class="champion-col">CHAMPION</div>
+        <div class="score-col">Score CP</div>
+        <div class="pickrate-col">Pickrate</div>
+        <div class="matchups-col">Facile et Commun</div>
+        <div class="matchups-col">Le plus dur et Commun</div>
+      </div>
+
+      <div
+        v-for="champion in sortedAndFilteredChampions"
+        :key="champion?.name"
+        class="tier-list-row"
+        :class="{ 'otp-champion': champion?.otp }"
+      >
+        <div
+          class="tier-col"
+          :style="{
+            color: TIER_COLORS[champion?.tier as keyof typeof TIER_COLORS],
+          }"
+        >
+          {{ champion?.tier }}
+        </div>
+        <div class="champion-col">
+          <img
+            class="champion-icon"
+            :src="`/assets/icons/champions/${formatChampionName(champion?.name || '')}.png`"
+            :alt="champion?.name || ''"
+          />
+          <span>{{ champion?.name || '' }}</span>
+          <span v-if="champion?.otp" class="otp-badge">OTP</span>
+        </div>
+        <div class="score-col">{{ champion?.score || 0 }}</div>
+        <div class="pickrate-col">
+          {{ champion?.pickrate?.toFixed(2) || 0 }}
+        </div>
+        <div class="matchups-col easy-matchups">
+          <span
+            v-for="(matchup, index) in champion?.bestMatchup?.split(',')"
+            :key="index"
+          >
+            {{ matchup.trim() }}
+          </span>
+        </div>
+        <div class="matchups-col hard-matchups">
+          <span
+            v-for="(matchup, index) in champion?.worstMatchup?.split(',')"
+            :key="index"
+          >
+            {{ matchup.trim() }}
+          </span>
+        </div>
+      </div>
     </div>
   </div>
   <div v-if="selectedTier" class="tier-details">
@@ -334,36 +545,218 @@ window.addEventListener('resize', () => {
 </template>
 
 <style scoped>
+.tabs-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
+.tab-group {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  width: 100%;
+  padding: 0 1rem;
+}
+
+.tab-group button {
+  flex: 0 1 auto;
+  min-width: 120px;
+  background: transparent;
+  border: var(--border-size) solid var(--color-gold-300);
+  color: var(--color-gold-300);
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-family: var(--font-beaufort);
+  text-transform: uppercase;
+  transition: all 0.2s ease;
+}
+
+.tab-group button:hover {
+  background-color: var(--color-gold-300);
+  color: var(--color-grey-900);
+}
+
+.tab-group button.active {
+  background-color: var(--color-gold-300);
+  color: var(--color-grey-900);
+}
+
 .filter-select {
+  min-width: 120px;
+  background: transparent;
+  border: var(--border-size) solid var(--color-gold-300);
+  color: var(--color-gold-300);
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-family: var(--font-beaufort);
+  text-transform: uppercase;
+}
+
+.filter-select:hover {
+  border-color: var(--color-gold-500);
+}
+
+.filter-select option {
+  background-color: var(--color-grey-900);
+  color: var(--color-gold-300);
+}
+
+@media (max-width: 768px) {
+  .tab-group {
+    flex-wrap: wrap;
+  }
+
+  .tab-group button,
+  .filter-select {
+    flex: 1 1 auto;
+    min-width: 100px;
+    font-size: 0.9rem;
+    padding: 0.5rem;
+  }
+}
+
+.tier-list-container {
+  width: 100%;
+  margin-top: 1rem;
+  color: var(--color-gold-300);
+}
+
+.tier-list-header,
+.tier-list-row {
+  display: grid;
+  grid-template-columns: 60px 2fr 1fr 1fr 2fr 2fr;
+  padding: 0.5rem;
+  border-bottom: 1px solid var(--color-gold-300);
+  align-items: center;
+}
+
+.tier-list-header {
+  font-weight: bold;
+  text-transform: uppercase;
+  background-color: var(--color-grey-900);
+}
+
+.tier-col {
+  font-weight: bold;
+  text-align: center;
+  font-size: 1.2rem;
+  font-family: var(--font-beaufort);
+}
+
+.champion-col {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.champion-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 1px solid var(--color-gold-300);
+}
+
+.otp-badge {
+  background-color: var(--color-gold-300);
+  color: var(--color-grey-900);
+  padding: 0.2rem 0.4rem;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  font-weight: bold;
+}
+
+.easy-matchups {
+  color: var(--color-green-500);
+}
+
+.hard-matchups {
+  color: var(--color-red-500);
+}
+
+.matchups-col span:not(:last-child)::after {
+  content: ', ';
+}
+
+@media (max-width: 768px) {
+  .tier-list-header,
+  .tier-list-row {
+    grid-template-columns: 60px 2fr 1fr 1fr;
+  }
+
+  .matchups-col {
+    display: none;
+  }
+}
+
+.list-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  gap: 1rem;
+  padding: 0 0.5rem;
+}
+
+.search-controls {
+  display: flex;
+  gap: 0.5rem;
+  flex: 1;
+}
+
+.search-input {
+  flex: 1;
   background: transparent;
   border: var(--border-size) solid var(--color-gold-300);
   color: var(--color-gold-300);
   padding: 0.5rem;
   border-radius: 4px;
-  font-size: var(--text-base);
+  font-family: var(--font-beaufort);
+}
+
+.search-type,
+.sort-select {
+  background: transparent;
+  border: var(--border-size) solid var(--color-gold-300);
+  color: var(--color-gold-300);
+  padding: 0.5rem;
+  border-radius: 4px;
   cursor: pointer;
   font-family: var(--font-beaufort);
 }
 
-.filter-select:focus {
-  outline: none;
-  border-color: var(--color-gold-500);
+.sort-controls {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
 }
 
-.filter-select option {
-  background-color: var(--color-grey-800);
+.sort-order {
+  background: transparent;
+  border: var(--border-size) solid var(--color-gold-300);
   color: var(--color-gold-300);
+  width: 2rem;
+  height: 2rem;
+  border-radius: 4px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
 }
 
 @media (max-width: 768px) {
-  .tabs {
-    flex-wrap: wrap;
-    gap: 0.5rem;
+  .list-controls {
+    flex-direction: column;
   }
 
-  .filter-select {
+  .search-controls,
+  .sort-controls {
     width: 100%;
-    margin-top: 0.5rem;
   }
 }
 </style>
