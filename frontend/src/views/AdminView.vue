@@ -9,6 +9,7 @@ const selectedFile = ref<File | null>(null)
 const isUploading = ref(false)
 const message = ref('')
 const messageType = ref('')
+const selectedList = ref<'normal' | 'bronze' | 'pro'>('normal')
 
 const router = useRouter()
 const nameTarget = import.meta.env.VITE_ADMIN
@@ -42,7 +43,7 @@ const handleSubmit = async () => {
   message.value = ''
 
   try {
-    const response = await fetch('/api/upload/ods/normal', {
+    const response = await fetch(`/api/upload/ods/${selectedList.value}`, {
       method: 'POST',
       body: formData,
     })
@@ -72,6 +73,23 @@ const handleSubmit = async () => {
 <template>
   <div class="admin-container">
     <h1>Administration</h1>
+
+    <div class="list-type-tabs">
+      <button
+        v-for="type in ['normal', 'bronze', 'pro']"
+        :key="type"
+        :class="{ active: selectedList === type }"
+        @click="selectedList = type as 'normal' | 'bronze' | 'pro'"
+      >
+        {{
+          type === 'normal'
+            ? 'TIER-LISTE'
+            : type === 'bronze'
+              ? 'BRONZE-LISTE'
+              : 'PRO-LISTE'
+        }}
+      </button>
+    </div>
 
     <div class="upload-section">
       <h2>Import Tierlist</h2>
@@ -180,5 +198,33 @@ h2 {
   background: rgba(255, 0, 0, 0.1);
   color: #f44336;
   border: 1px solid #f44336;
+}
+
+.list-type-tabs {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.list-type-tabs button {
+  background: transparent;
+  border: 1px solid var(--color-gold-300);
+  color: var(--color-gold-300);
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-family: var(--font-beaufort);
+  text-transform: uppercase;
+}
+
+.list-type-tabs button.active {
+  background-color: var(--color-gold-300);
+  color: var(--color-grey-900);
+}
+
+.list-type-tabs button:hover {
+  background-color: var(--color-gold-300);
+  color: var(--color-grey-900);
 }
 </style>
