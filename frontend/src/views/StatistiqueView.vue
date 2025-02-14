@@ -663,11 +663,12 @@ const sortedAndFilteredChampions = computed(() => {
 
 .otp-badge {
   background-color: var(--color-gold-300);
-  color: var(--color-grey-900);
+  color: var(--color-grey-500);
   padding: 0.2rem 0.4rem;
   border-radius: 4px;
   font-size: 0.8rem;
   font-weight: bold;
+  margin-left: 0.5rem;
 }
 
 .easy-matchups {
