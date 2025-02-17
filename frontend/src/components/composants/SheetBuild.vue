@@ -85,7 +85,7 @@ const hasSkillPoints = computed(() =>
 </script>
 
 <template>
-  <div class="sheet-container">
+  <div class="sheet-container" v-if="champion || runes?.principal || runes?.second || items?.core || (skillOrder && Object.values(skillOrder).some(arr => arr.length > 0))">
     <div class="sheet-credits" v-if="stepStore.step === 'info'">
       <span class="credit-text">@lelanation.darkaine</span>
       <span class="version-text">v{{ version }}</span>
