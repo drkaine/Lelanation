@@ -7,9 +7,10 @@ import type { Champion } from '@/types/champion'
 import type { ChampionSkillsOrder } from '@/types/champion'
 import { useRoleStore } from '@/stores/roleStore'
 import { ref, onMounted, computed } from 'vue'
+import { useStepStore } from '@/stores/stepStore'
 
 const roleStore = useRoleStore()
-
+const stepStore = useStepStore()
 const props = defineProps<{
   version: string | null
   name: string | null
@@ -85,12 +86,12 @@ const hasSkillPoints = computed(() =>
 
 <template>
   <div class="sheet-container">
-    <div class="sheet-credits">
+    <div class="sheet-credits" v-if="stepStore.step === 'info'">
       <span class="credit-text">@lelanation.darkaine</span>
       <span class="version-text">v{{ version }}</span>
     </div>
 
-    <div class="separator"></div>
+    <div class="separator" v-if="stepStore.step === 'info'"></div>
 
     <div class="sheet-header" v-if="champion">
       <div class="champion-info">

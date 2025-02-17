@@ -322,7 +322,8 @@ onMounted(() => {
                 'rune-option': true,
                 'rune-used':
                   subrune.id !==
-                  runeStore.runesSelection.groups[index]?.principal?.id,
+                    runeStore.runesSelection.groups[index]?.principal?.id &&
+                  runeStore.runesSelection.groups[index].principal !== null,
                 selected:
                   subrune.id ===
                   runeStore.runesSelection.groups[index]?.principal?.id,
@@ -379,11 +380,11 @@ onMounted(() => {
                     selected: spell.id === getSelectedSummoner(type)?.id,
                     used:
                       spell.id !==
-                      getSelectedSummoner(
-                        activeSummonerIndex === 'principal'
-                          ? 'second'
-                          : 'principal',
-                      )?.id,
+                        getSelectedSummoner(
+                          activeSummonerIndex === 'principal'
+                            ? 'second'
+                            : 'principal',
+                        )?.id && getSelectedSummoner('principal') !== null,
                   }"
                 >
                   <img
@@ -553,7 +554,8 @@ onMounted(() => {
                         getSelectedShardFromStore(activeShardIndex)?.image,
                       'rune-used':
                         shard.image !==
-                        getSelectedShardFromStore(activeShardIndex)?.image,
+                          getSelectedShardFromStore(activeShardIndex)?.image &&
+                        getSelectedShardFromStore(activeShardIndex) !== null,
                     }"
                   >
                     <img
@@ -564,7 +566,7 @@ onMounted(() => {
                 </div>
               </div>
             </div>
-            <div class="rune-description">
+            <div class="shard-description">
               {{
                 getSelectedShardFromStore(index)?.description ||
                 'Sélectionnez une stat'

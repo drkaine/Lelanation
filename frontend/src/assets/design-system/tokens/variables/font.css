@@ -1,0 +1,7 @@
+:root {
+  font-family: var(--font-spiegel);
+  font-size: var(--text-base);
+
+  --font-beaufort: BeaufortForLoL;
+  --font-spiegel: Spiegel;
+}

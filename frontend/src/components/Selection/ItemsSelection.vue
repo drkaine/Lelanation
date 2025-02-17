@@ -48,7 +48,11 @@ watch(searchQuery, newValue => {
   onBeforeUnmount(() => clearTimeout(timeoutId))
 })
 
-const FILTERED_ITEMS = ['Jus chapi-chapo', 'Promesse empyréenne'] as const
+const FILTERED_ITEMS = [
+  'Jus chapi-chapo',
+  'Promesse empyréenne',
+  'Protège-bras pulvérisé',
+] as const
 
 const filteredItems = computed<Item[]>(() => {
   let filtered = Object.values(items.data)
@@ -84,6 +88,7 @@ const getItemsFrom = (item: Item): Item[] => {
   return item.from
     .map(id => items.data[id as keyof typeof items.data])
     .filter(Boolean)
+    .filter(item => filteredItems.value.includes(item))
 }
 
 const getItemsInto = (item: Item): Item[] => {
@@ -91,6 +96,7 @@ const getItemsInto = (item: Item): Item[] => {
   return item.into
     .map(id => items.data[id as keyof typeof items.data])
     .filter(Boolean)
+    .filter(item => filteredItems.value.includes(item))
 }
 
 const SPECIAL_BOOTS_ITEMS = ['Jambières de métal', 'Lucidité pourpre'] as const
@@ -125,7 +131,8 @@ const itemsBasic = computed<Item[]>(() =>
       (item: Item) =>
         item.depth === undefined &&
         !item.tags?.includes('Lane') &&
-        !item.tags?.includes('Jungle'),
+        !item.tags?.includes('Jungle') &&
+        !item.tags?.includes('Boots'),
     )
     .sort((a: Item, b: Item) => (a.gold.total || 0) - (b.gold.total || 0)),
 )

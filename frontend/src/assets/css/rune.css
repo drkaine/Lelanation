@@ -305,6 +305,16 @@
   display: flex;
   align-items: center;
   gap: var(--spacing-mobile);
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.shard-description {
+  font-family: var(--font-spiegel);
+  color: var(--color-grey-100);
+  font-size: var(--text-base);
+  margin-top: 0.75rem;
+  min-height: 2.5rem;
 }
 
 .rune-slot-container {
