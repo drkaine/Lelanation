@@ -37,6 +37,7 @@
     "workbox-expiration": "^7.0.0"
   },
   "devDependencies": {
+     "esbuild": ">=0.25.0",
     "@playwright/test": "^1.48.0",
     "@tsconfig/node20": "^20.1.4",
     "@types/chart.js": "^2.9.41",
