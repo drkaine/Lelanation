@@ -510,7 +510,8 @@ onMounted(() => {
 
           <div class="rune-description">
             {{
-              getSelectedSecondaryRune(index)?.name || 'Sélectionnez une rune'
+              getSelectedSecondaryRune(index - 1)?.name ||
+              'Sélectionnez une rune'
             }}
           </div>
         </div>
