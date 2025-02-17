@@ -144,6 +144,25 @@ export const buildService = {
     }
   },
 
+  async getAllPublicBuilds(req: Request, res: Response) {
+    try {
+      const buildsDir = path.join(__dirname, this.path);
+      const files = await readdir(buildsDir);
+      const builds = await Promise.all(
+        files.map(async (file) => {
+          const content = await readFile(path.join(buildsDir, file), "utf8");
+          return JSON.parse(content);
+        }),
+      );
+      const publicBuilds = builds.filter(
+        (build) => !build.id.startsWith("wait_"),
+      );
+      res.json(publicBuilds);
+    } catch (error) {
+      res.status(500).send("Erreur lors de la récupération des builds" + error);
+    }
+  },
+
   async getAllLelarivaBuilds(req: Request, res: Response) {
     try {
       await this.getAll("Lelariva/", res);

@@ -32,6 +32,11 @@ const routes: RouteRecordRaw[] = [
     component: () => import('../views/MesBuildsView.vue'),
   },
   {
+    path: '/builds-publics',
+    name: 'Builds de la communauté',
+    component: () => import('../views/CommuBuildsView.vue'),
+  },
+  {
     path: '/:name',
     name: 'connexion',
     component: () => import('../views/ConnexionBuildView.vue'),

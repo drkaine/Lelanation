@@ -117,6 +117,13 @@ const acceptConditions = () => {
           </button>
 
           <div class="mobile-nav" :class="{ 'is-open': isMenuOpen }">
+            <RouterLink
+              title="statistique"
+              class="version"
+              to="/statistique"
+              v-if="connexionStore.isLoggedIn"
+              >Lelanalytics</RouterLink
+            >
             <RouterLink to="/dictionnaire" @click="toggleMenu"
               >Leladictionnaiva</RouterLink
             >
@@ -126,13 +133,16 @@ const acceptConditions = () => {
               class="link"
               aria-label="Créer un build"
             >
-              <span>Build</span>
+              Build
             </RouterLink>
             <RouterLink
               v-if="userBuilds.length > 0"
               to="/builds"
               @click="toggleMenu"
               >Mes builds</RouterLink
+            >
+            <RouterLink to="/builds-publics" @click="toggleMenu"
+              >Builds de la communauté</RouterLink
             >
             <RouterLink
               v-if="builds.length > 0"
@@ -162,7 +172,9 @@ const acceptConditions = () => {
             <RouterLink title="Build" class="version" to="/build">
               Build</RouterLink
             >
-
+            <RouterLink to="/builds-publics"
+              >Builds de la communauté</RouterLink
+            >
             <RouterLink
               title="Mes builds"
               class="version"
