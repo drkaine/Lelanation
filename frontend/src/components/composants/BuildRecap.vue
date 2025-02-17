@@ -275,7 +275,11 @@ const statsListFiltered = statsList.filter(
           <div
             class="edit-actions"
             v-if="
-              (path === 'lelariva/' && connexionStore.isLoggedIn) || path === ''
+              (path === 'lelariva/' && connexionStore.isLoggedIn) ||
+              (path === '' &&
+                buildStore.userBuilds.some(
+                  (build: BuildData) => build.id === buildData?.id,
+                ))
             "
           >
             <button class="btn edit" @click="editBuild">Modifier</button>
