@@ -15,7 +15,9 @@ onMounted(async () => {
 
     const response = await fetch(url)
     const data = await response.json()
-    builds.value = data
+    builds.value = data.filter(
+      (build: BuildData) => !build.id?.startsWith('wait_'),
+    )
   } catch (error) {
     console.error('Erreur lors du chargement des builds:', error)
     builds.value = []

@@ -53,8 +53,11 @@ export const buildService = {
   async getAll(folder: string, res: Response) {
     const buildsDir = path.join(__dirname, this.path + folder);
     const files = await readdir(buildsDir);
+
+    const jsonFiles = files.filter((file) => file.endsWith(".json"));
+
     const builds = await Promise.all(
-      files.map(async (file) => {
+      jsonFiles.map(async (file) => {
         const content = await readFile(path.join(buildsDir, file), "utf8");
         return JSON.parse(content);
       }),
