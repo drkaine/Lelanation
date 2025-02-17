@@ -1,27 +1,17 @@
 <script setup lang="ts">
 import { ref, computed, onMounted } from 'vue'
-import { useRoute } from 'vue-router'
 import SheetBuild from '@/components/composants/SheetBuild.vue'
-import { useBuildStore } from '@/stores/buildStore'
-import { useConnexionStore } from '@/stores/connexionStore'
 import type { BuildData } from '@/types/build'
 
-const buildStore = useBuildStore()
-const route = useRoute()
 const builds = ref<BuildData[]>([])
 const urlApiSave = import.meta.env.VITE_URL_API_SAVE
-const connexionStore = useConnexionStore()
-const isLelarivaBuildPage = computed(() =>
-  route.path.endsWith('/Lebuildarriva'),
-)
 const selectedRoles = ref(new Set<string>())
 const searchType = ref('all')
 const searchQuery = ref('')
-const visibilityFilter = ref('all')
 
 onMounted(async () => {
   try {
-    const url = `${urlApiSave}/api/builds/public`
+    const url = `${urlApiSave}/api/builds`
 
     const response = await fetch(url)
     const data = await response.json()
@@ -31,8 +21,6 @@ onMounted(async () => {
     builds.value = []
   }
 })
-
-console.log(builds.value)
 
 const toggleRole = (role: string) => {
   if (selectedRoles.value.has(role)) {
@@ -54,20 +42,7 @@ const searchPlaceholder = computed(() => {
 })
 
 const filteredBuilds = computed(() => {
-  let filtered = isLelarivaBuildPage.value
-    ? connexionStore.isLoggedIn
-      ? builds.value
-      : builds.value.filter(build => !build.id?.startsWith('wait_'))
-    : buildStore.userBuilds
-
-  switch (visibilityFilter.value) {
-    case 'visible':
-      filtered = filtered.filter(build => !build.id?.startsWith('wait_'))
-      break
-    case 'hidden':
-      filtered = filtered.filter(build => build.id?.startsWith('wait_'))
-      break
-  }
+  let filtered = builds.value
 
   if (selectedRoles.value.size > 0) {
     filtered = filtered.filter(build =>
@@ -94,32 +69,6 @@ const filteredBuilds = computed(() => {
 
   return filtered
 })
-
-const handleDragStart = (e: DragEvent, index: number) => {
-  if (e.dataTransfer) {
-    e.dataTransfer.effectAllowed = 'move'
-    e.dataTransfer.setData('text/plain', index.toString())
-  }
-}
-
-const handleDrop = (e: DragEvent, dropIndex: number) => {
-  e.preventDefault()
-  const dragIndex = parseInt(e.dataTransfer?.getData('text/plain') || '-1')
-  if (dragIndex !== -1 && dragIndex !== dropIndex) {
-    const builds = [...filteredBuilds.value]
-    const [movedBuild] = builds.splice(dragIndex, 1)
-    builds.splice(dropIndex, 0, movedBuild)
-    buildStore.updateBuildsOrder(builds)
-  }
-}
-
-const handleDragOver = (e: DragEvent) => {
-  e.preventDefault()
-}
-
-const canDragBuild = computed(
-  () => !isLelarivaBuildPage.value || connexionStore.isLoggedIn,
-)
 </script>
 
 <template>
@@ -140,12 +89,6 @@ const canDragBuild = computed(
           </svg>
           <span class="btn-text">Nouveau Build</span>
         </a>
-
-        <select v-model="visibilityFilter" class="visibility-select">
-          <option value="all">Tous les builds</option>
-          <option value="visible">Builds publics</option>
-          <option value="hidden">Builds privés</option>
-        </select>
 
         <div class="search-box">
           <select v-model="searchType" class="search-type-select">
@@ -177,26 +120,7 @@ const canDragBuild = computed(
     </div>
 
     <div class="builds-grid">
-      <div
-        v-for="(build, index) in filteredBuilds"
-        :key="build.id"
-        class="build-card"
-        :draggable="canDragBuild"
-        @dragstart="canDragBuild && handleDragStart($event, index)"
-        @drop="canDragBuild && handleDrop($event, index)"
-        @dragover="canDragBuild && handleDragOver($event)"
-        :class="{ 'no-drag': !canDragBuild }"
-      >
-        <div
-          v-if="
-            (isLelarivaBuildPage && connexionStore.isLoggedIn) ||
-            !isLelarivaBuildPage
-          "
-          class="visibility-badge"
-          :class="{ 'is-hidden': build.id?.startsWith('wait_') }"
-        >
-          {{ build.id?.startsWith('wait_') ? 'Privé' : 'Public' }}
-        </div>
+      <div v-for="build in filteredBuilds" :key="build.id" class="build-card">
         <a :href="`/build/${build.id}`" class="build-link">
           <SheetBuild
             :version="build.version"

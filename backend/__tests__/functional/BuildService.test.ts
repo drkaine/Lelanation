@@ -209,31 +209,4 @@ describe("BuildService", () => {
       );
     });
   });
-
-  describe("getAllPublicBuilds", () => {
-    it("devrait récupérer uniquement les builds publics", async () => {
-      const mockFiles = ["build1.json", "wait_build2.json", "build3.json"];
-      const mockContent1 = '{"id": "build1", "name": "Public Build 1"}';
-      const mockContent2 = '{"id": "wait_build2", "name": "Private Build"}';
-      const mockContent3 = '{"id": "build3", "name": "Public Build 2"}';
-
-      (readdir as jest.Mock).mockResolvedValue(mockFiles);
-      (readFile as jest.Mock)
-        .mockResolvedValueOnce(mockContent1)
-        .mockResolvedValueOnce(mockContent2)
-        .mockResolvedValueOnce(mockContent3);
-
-      await buildService.getAllPublicBuilds(
-        mockRequest as Request,
-        mockResponse as Response,
-      );
-
-      expect(readdir).toHaveBeenCalled();
-      expect(readFile).toHaveBeenCalledTimes(3);
-      expect(mockResponse.json).toHaveBeenCalledWith([
-        JSON.parse(mockContent1),
-        JSON.parse(mockContent3),
-      ]);
-    });
-  });
 });

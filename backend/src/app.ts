@@ -58,10 +58,6 @@ app.get("/api/builds/lelariva", async (req, res) => {
 app.get("/api/builds", async (req, res) => {
   buildService.getAllBuilds(req, res);
 });
-app.get("/api/builds/public", async (req, res) => {
-  buildService.getAllPublicBuilds(req, res);
-});
-
 app.post("/api/dictionnaire", async (req, res) => {
   dictionnaireService.saveDictionnaire(req, res);
 });
