@@ -105,9 +105,11 @@ const removeItem = (index: number) => {
           <div class="stat-value">
             {{
               typeof value[1] === 'number'
-                ? value[1].toString().includes('.')
-                  ? value[1].toFixed(2)
-                  : value[1]
+                ? value[1] < 1 && value[1] > 0
+                  ? (value[1] * 100).toFixed(0) + '%'
+                  : value[1].toString().includes('.')
+                    ? value[1].toFixed(2)
+                    : value[1]
                 : value[1]
             }}
           </div>
@@ -213,9 +215,12 @@ const removeItem = (index: number) => {
   border-radius: 4px 0 0 4px;
 }
 
+.stats-header .stat-value {
+  text-align: right;
+}
+
 .stat-row .stat-value {
   text-align: right;
-  font-family: monospace;
 }
 
 .stat-row.total {

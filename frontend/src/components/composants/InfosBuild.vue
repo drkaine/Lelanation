@@ -235,6 +235,12 @@ const submitForm = async () => {
   padding: 1rem;
 }
 
+.skill-up {
+  max-width: 700px;
+  margin: 0 auto 0 auto;
+  padding: 0.5rem;
+}
+
 .form-group {
   margin-bottom: 1.5rem;
 }
@@ -316,7 +322,6 @@ const submitForm = async () => {
 .form-actions {
   display: flex;
   justify-content: center;
-  margin-top: 2rem;
 }
 
 .btn-submit {
