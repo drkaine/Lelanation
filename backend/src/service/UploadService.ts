@@ -22,6 +22,16 @@ export const uploadService = {
       await fs.mkdir(path.dirname(outputPath), { recursive: true });
       await fs.writeFile(outputPath, JSON.stringify(jsonData, null, 2));
 
+      const date = new Date();
+
+      await fs.writeFile(
+        path.join(
+          __dirname,
+          `../../../frontend/public/assets/files/tiers-listes/${nameFolder}${date}`,
+        ),
+        JSON.stringify(date),
+      );
+
       res.json({
         message: "Fichier converti et sauvegardé avec succès",
         data: jsonData,
