@@ -20,6 +20,7 @@
 .footer-link {
   color: var(--color-blue-50);
   transition: color 0.2s ease;
+  margin-right: 1rem;
 }
 
 .footer-link:hover {

@@ -9,6 +9,7 @@ const connexionStore = useConnexionStore()
       <p>Mode Lelariva</p>
     </div>
     <div class="right">
+      <RouterLink to="/legal" class="footer-link">Lelalegal</RouterLink>
       <a
         href="https://github.com/drkaine"
         target="_blank"
