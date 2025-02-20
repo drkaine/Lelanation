@@ -6,6 +6,16 @@ import path from "path";
 export const uploadService = {
   async uploadOds(req: Request, res: Response) {
     const nameFolder = req.params.nameFolder + "/";
+    let fileName = req.body.fileName || "tierlist";
+
+    // Vérifier et ajouter l'extension .ods si nécessaire
+    if (!fileName.toLowerCase().endsWith(".ods")) {
+      fileName += ".ods";
+    }
+
+    // Retirer l'extension .ods pour le fichier JSON
+    const jsonFileName = fileName.replace(/\.ods$/i, "");
+
     try {
       if (!req.file) {
         res.status(400).json({ error: "Aucun fichier fourni" });
@@ -16,21 +26,19 @@ export const uploadService = {
 
       const outputPath = path.join(
         __dirname,
-        `../../../frontend/public/assets/files/tiers-listes/${nameFolder}tierlist.json`,
+        `../../../frontend/public/assets/files/tiers-listes/${nameFolder}${jsonFileName}.json`,
       );
 
       await fs.mkdir(path.dirname(outputPath), { recursive: true });
       await fs.writeFile(outputPath, JSON.stringify(jsonData, null, 2));
 
       const date = new Date();
-
-      await fs.writeFile(
-        path.join(
-          __dirname,
-          `../../../frontend/public/assets/files/tiers-listes/${nameFolder}${date}`,
-        ),
-        JSON.stringify(date),
+      const dateFilePath = path.join(
+        __dirname,
+        `../../../frontend/public/assets/files/tiers-listes/${nameFolder}${jsonFileName}-${date.getTime()}`,
       );
+
+      await fs.writeFile(dateFilePath, JSON.stringify(date));
 
       res.json({
         message: "Fichier converti et sauvegardé avec succès",

@@ -11,7 +11,7 @@ import { buildService } from "./service/BuildService";
 import { type MulterRequest } from "./types";
 import { dictionnaireService } from "./service/DictionnaireService";
 import { analyticsService } from "./service/AnalyticsService";
-import { uploadService } from "./service/UploadService";
+import { uploadService } from "./service/TierListService";
 import { contactService } from "./service/ContactService";
 
 dotenv.config();
