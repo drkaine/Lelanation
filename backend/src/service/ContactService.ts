@@ -15,7 +15,7 @@ export const contactService = {
 
       const contactDir = path.join(
         __dirname,
-        "../../../frontend/public/assets/files/contact",
+        "../../../frontend/src/assets/files/contact",
       );
       const filePath = path.join(contactDir, `${subject}.json`);
 
