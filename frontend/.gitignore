@@ -45,6 +45,7 @@ playwright-report/
 /public/assets/files/tiers-listes/*
 /public/assets/files/contact/*
 /src/assets/files/data/*
+/src/assets/files/contact/*
 /src/assets/files/dictionnaire/*
 
 .env
