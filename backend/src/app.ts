@@ -28,6 +28,9 @@ app.use(express.urlencoded({ limit: "50mb", extended: true }));
 app.post("/api/analytics", async (req, res) => {
   analyticsService.saveAnalytics(req, res);
 });
+app.get("/api/analytics", async (req, res) => {
+  analyticsService.getAnalytics(req, res);
+});
 
 app.post("/api/save/:filename", async (req, res) => {
   buildService.saveBuild(req, res);
@@ -59,12 +62,20 @@ app.get("/api/builds/lelariva", async (req, res) => {
 app.get("/api/builds", async (req, res) => {
   buildService.getAllBuilds(req, res);
 });
+
 app.post("/api/dictionnaire", async (req, res) => {
   dictionnaireService.saveDictionnaire(req, res);
+});
+app.get("/api/dictionnaire", async (req, res) => {
+  dictionnaireService.getDictionnaire(req, res);
 });
 
 app.post("/api/contact", async (req, res) => {
   contactService.sendContact(req, res);
+});
+
+app.get("/api/contact", async (req, res) => {
+  contactService.getContact(req, res);
 });
 
 app.post(

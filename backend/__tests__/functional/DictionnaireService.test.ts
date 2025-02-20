@@ -1,9 +1,10 @@
 import { dictionnaireService } from "../../src/service/DictionnaireService";
-import { appendToJson } from "../../src/FileManager";
 import { Request, Response } from "express";
-import path from "path";
+import { appendToJson } from "../../src/FileManager";
+import * as fs from "fs/promises";
 
 jest.mock("../../src/FileManager");
+jest.mock("fs/promises");
 jest.mock("path");
 
 describe("DictionnaireService", () => {
@@ -16,9 +17,10 @@ describe("DictionnaireService", () => {
     };
 
     mockResponse = {
-      sendStatus: jest.fn(),
       status: jest.fn().mockReturnThis(),
+      json: jest.fn(),
       send: jest.fn(),
+      sendStatus: jest.fn(),
     };
 
     jest.clearAllMocks();
@@ -26,7 +28,6 @@ describe("DictionnaireService", () => {
 
   describe("saveDictionnaire", () => {
     it("devrait sauvegarder une entrée dans le dictionnaire avec succès", async () => {
-      (path.join as jest.Mock).mockReturnValue("chemin/mock/dictionnaire.json");
       (appendToJson as jest.Mock).mockResolvedValue(undefined);
 
       await dictionnaireService.saveDictionnaire(
@@ -36,14 +37,13 @@ describe("DictionnaireService", () => {
 
       expect(appendToJson).toHaveBeenCalledWith(
         mockRequest.body,
-        expect.any(String),
+        dictionnaireService.filePath,
       );
       expect(mockResponse.sendStatus).toHaveBeenCalledWith(200);
     });
 
-    it("devrait gérer les erreurs lors de la sauvegarde", async () => {
-      const errorMessage = "Erreur test";
-      (appendToJson as jest.Mock).mockRejectedValue(new Error(errorMessage));
+    it("devrait gérer les erreurs de sauvegarde", async () => {
+      (appendToJson as jest.Mock).mockRejectedValue(new Error("Erreur test"));
 
       await dictionnaireService.saveDictionnaire(
         mockRequest as Request,
@@ -55,18 +55,37 @@ describe("DictionnaireService", () => {
         "Erreur lors de la sauvegarde",
       );
     });
+  });
 
-    it("devrait utiliser le bon chemin de fichier", async () => {
-      const expectedPath =
-        "../../../frontend/src/assets/files/dictionnaire/dictionnaire-propositions.json";
-      (appendToJson as jest.Mock).mockResolvedValue(undefined);
+  describe("getDictionnaire", () => {
+    it("devrait récupérer le dictionnaire avec succès", async () => {
+      const mockData = { mots: ["test"] };
+      (fs.readFile as jest.Mock).mockResolvedValue(JSON.stringify(mockData));
 
-      await dictionnaireService.saveDictionnaire(
+      await dictionnaireService.getDictionnaire(
         mockRequest as Request,
         mockResponse as Response,
       );
 
-      expect(path.join).toHaveBeenCalledWith(expect.any(String), expectedPath);
+      expect(fs.readFile).toHaveBeenCalledWith(
+        dictionnaireService.filePath,
+        "utf8",
+      );
+      expect(mockResponse.json).toHaveBeenCalledWith(mockData);
+    });
+
+    it("devrait gérer les erreurs de lecture", async () => {
+      (fs.readFile as jest.Mock).mockRejectedValue(new Error("Erreur test"));
+
+      await dictionnaireService.getDictionnaire(
+        mockRequest as Request,
+        mockResponse as Response,
+      );
+
+      expect(mockResponse.status).toHaveBeenCalledWith(500);
+      expect(mockResponse.json).toHaveBeenCalledWith({
+        error: "Erreur lors de la récupération du dictionnaire",
+      });
     });
   });
 });

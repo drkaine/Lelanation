@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import path from "path";
 import { existsSync } from "fs";
 import { readFile, writeFile, mkdir } from "fs/promises";
-
+import { readdir } from "fs/promises";
 export const contactService = {
   async sendContact(req: Request, res: Response) {
     try {
@@ -38,6 +38,34 @@ export const contactService = {
       res
         .status(500)
         .json({ error: "Erreur lors de l'enregistrement du contact" });
+    }
+  },
+
+  async getContact(req: Request, res: Response) {
+    try {
+      const contactDir = path.join(
+        __dirname,
+        "../../../frontend/src/assets/files/contact",
+      );
+      const files = await readdir(contactDir);
+      const contactFiles = files.filter((file) => file.endsWith(".json"));
+      const contactData = [];
+      for (const file of contactFiles) {
+        const filePath = path.join(contactDir, file);
+        const fileContent = await readFile(filePath, "utf-8");
+        const data = JSON.parse(fileContent);
+        const fileName = file.replace(".json", "");
+        contactData.push({
+          category: fileName,
+          messages: data,
+        });
+      }
+      res.json(contactData);
+    } catch (error) {
+      console.error("Erreur lors de la récupération des contacts:", error);
+      res
+        .status(500)
+        .json({ error: "Erreur lors de la récupération des contacts" });
     }
   },
 };

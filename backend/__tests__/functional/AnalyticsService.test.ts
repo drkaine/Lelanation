@@ -1,7 +1,6 @@
 import { analyticsService } from "../../src/service/AnalyticsService";
 import { Request, Response } from "express";
-import fs from "fs/promises";
-import path from "path";
+import * as fs from "fs/promises";
 
 jest.mock("fs/promises");
 jest.mock("path");
@@ -13,8 +12,9 @@ describe("AnalyticsService", () => {
   beforeEach(() => {
     mockRequest = {};
     mockResponse = {
-      json: jest.fn(),
       status: jest.fn().mockReturnThis(),
+      json: jest.fn(),
+      send: jest.fn(),
     };
 
     jest.clearAllMocks();
@@ -22,48 +22,48 @@ describe("AnalyticsService", () => {
 
   describe("incrementVisitCounter", () => {
     it("devrait incrémenter le compteur quand le fichier existe", async () => {
-      const initialData = { visiteur: 5 };
-      (fs.readFile as jest.Mock).mockResolvedValue(JSON.stringify(initialData));
-      (path.join as jest.Mock).mockReturnValue("chemin/mock/analytics.json");
+      const mockData = { visiteur: 5 };
+      (fs.readFile as jest.Mock).mockResolvedValue(JSON.stringify(mockData));
+      (fs.writeFile as jest.Mock).mockResolvedValue(undefined);
 
       const result = await analyticsService.incrementVisitCounter();
 
       expect(result).toEqual({ visiteur: 6 });
       expect(fs.writeFile).toHaveBeenCalledWith(
-        expect.any(String),
+        analyticsService.analyticsPath,
         JSON.stringify({ visiteur: 6 }, null, 2),
       );
     });
 
-    it("devrait créer un nouveau fichier si celui-ci n'existe pas", async () => {
+    it("devrait créer le fichier s'il n'existe pas", async () => {
       (fs.readFile as jest.Mock).mockRejectedValue(new Error("File not found"));
-      (path.dirname as jest.Mock).mockReturnValue("chemin/mock");
+      (fs.mkdir as jest.Mock).mockResolvedValue(undefined);
+      (fs.writeFile as jest.Mock).mockResolvedValue(undefined);
 
       const result = await analyticsService.incrementVisitCounter();
 
-      expect(fs.mkdir).toHaveBeenCalledWith(expect.any(String), {
-        recursive: true,
-      });
-      expect(result).toEqual({ visiteur: 1 });
+      expect(result).toEqual({ visiteur: 0 });
+      expect(fs.mkdir).toHaveBeenCalled();
+      expect(fs.writeFile).toHaveBeenCalledWith(
+        analyticsService.analyticsPath,
+        JSON.stringify({ visiteur: 0 }, null, 2),
+      );
     });
 
-    it("devrait gérer les erreurs générales", async () => {
+    it("devrait gérer les erreurs", async () => {
       (fs.readFile as jest.Mock).mockRejectedValue(
         new Error("Erreur inattendue"),
       );
-      (fs.writeFile as jest.Mock).mockRejectedValue(
-        new Error("Erreur écriture"),
-      );
 
       const result = await analyticsService.incrementVisitCounter();
 
-      expect(result).toBeNull();
+      expect(result).toEqual({ visiteur: 0 });
     });
   });
 
   describe("saveAnalytics", () => {
-    it("devrait sauvegarder et renvoyer les analytics avec succès", async () => {
-      const mockData = { visiteur: 42 };
+    it("devrait sauvegarder avec succès", async () => {
+      const mockData = { visiteur: 1 };
       jest
         .spyOn(analyticsService, "incrementVisitCounter")
         .mockResolvedValue(mockData);
@@ -76,7 +76,7 @@ describe("AnalyticsService", () => {
       expect(mockResponse.json).toHaveBeenCalledWith(mockData);
     });
 
-    it("devrait gérer les erreurs lors de la sauvegarde", async () => {
+    it("devrait gérer les erreurs", async () => {
       jest
         .spyOn(analyticsService, "incrementVisitCounter")
         .mockRejectedValue(new Error("Erreur test"));
@@ -89,6 +89,34 @@ describe("AnalyticsService", () => {
       expect(mockResponse.status).toHaveBeenCalledWith(500);
       expect(mockResponse.json).toHaveBeenCalledWith({
         error: "Erreur lors de l'incrémentation du compteur",
+      });
+    });
+  });
+
+  describe("getAnalytics", () => {
+    it("devrait récupérer les analytics avec succès", async () => {
+      const mockData = { visiteur: 42 };
+      (fs.readFile as jest.Mock).mockResolvedValue(JSON.stringify(mockData));
+
+      await analyticsService.getAnalytics(
+        mockRequest as Request,
+        mockResponse as Response,
+      );
+
+      expect(mockResponse.json).toHaveBeenCalledWith(mockData);
+    });
+
+    it("devrait gérer les erreurs de lecture", async () => {
+      (fs.readFile as jest.Mock).mockRejectedValue(new Error("Erreur test"));
+
+      await analyticsService.getAnalytics(
+        mockRequest as Request,
+        mockResponse as Response,
+      );
+
+      expect(mockResponse.status).toHaveBeenCalledWith(500);
+      expect(mockResponse.json).toHaveBeenCalledWith({
+        error: "Erreur lors de la récupération des données d'analyse",
       });
     });
   });

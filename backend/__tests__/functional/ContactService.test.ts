@@ -1,7 +1,7 @@
 import { contactService } from "../../src/service/ContactService";
 import { Request, Response } from "express";
 import { existsSync } from "fs";
-import { readFile, writeFile, mkdir } from "fs/promises";
+import { readFile, writeFile, mkdir, readdir } from "fs/promises";
 
 jest.mock("fs");
 jest.mock("fs/promises");
@@ -100,6 +100,47 @@ describe("ContactService", () => {
       const writeFileCall = (writeFile as jest.Mock).mock.calls[0][1];
       const writtenData = JSON.parse(writeFileCall);
       expect(writtenData[0].name).toBe("Anonyme");
+    });
+  });
+
+  describe("getContact", () => {
+    it("devrait récupérer et formater les contacts correctement", async () => {
+      const mockFiles = ["bug.json", "suggestion.json"];
+      const mockBugData = [
+        { date: "2024-01-01", name: "User1", message: "Bug report" },
+      ];
+      const mockSuggestionData = [
+        { date: "2024-01-02", name: "User2", message: "New feature" },
+      ];
+
+      (readdir as jest.Mock).mockResolvedValue(mockFiles);
+      (readFile as jest.Mock)
+        .mockResolvedValueOnce(JSON.stringify(mockBugData))
+        .mockResolvedValueOnce(JSON.stringify(mockSuggestionData));
+
+      await contactService.getContact(
+        mockRequest as Request,
+        mockResponse as Response,
+      );
+
+      expect(mockResponse.json).toHaveBeenCalledWith([
+        { category: "bug", messages: mockBugData },
+        { category: "suggestion", messages: mockSuggestionData },
+      ]);
+    });
+
+    it("devrait gérer les erreurs de lecture", async () => {
+      (readdir as jest.Mock).mockRejectedValue(new Error("Test error"));
+
+      await contactService.getContact(
+        mockRequest as Request,
+        mockResponse as Response,
+      );
+
+      expect(mockResponse.status).toHaveBeenCalledWith(500);
+      expect(mockResponse.json).toHaveBeenCalledWith({
+        error: "Erreur lors de la récupération des contacts",
+      });
     });
   });
 });
