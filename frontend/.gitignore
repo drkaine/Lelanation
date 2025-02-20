@@ -32,7 +32,6 @@ coverage
 test-results/
 playwright-report/
 
-/src/assets/files/*
 /src/assets/build/*
 /src/assets/images/*
 
@@ -42,11 +41,10 @@ playwright-report/
 /public/assets/icons/items/
 /public/assets/images/lelariva.png
 /public/assets/files/build/*
-/public/assets/files/analytics.json
+/src/assets/files/analytics.json
 /public/assets/files/tiers-listes/*
-
-!/src/assets/files/data/shards.json
-!/src/assets/files/data/statsTrad.json
-
+/public/assets/files/contact/*
+/src/assets/files/data/*
+/src/assets/files/dictionnaire/*
 
 .env

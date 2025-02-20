@@ -2,7 +2,7 @@
 import { ref, onMounted, computed } from 'vue'
 import runes from '@/assets/files/data/runesReforged.json'
 import summoner from '@/assets/files/data/summoner.json'
-import shards from '@/assets/files/data/shards.json'
+import shards from '@/assets/files/data-manuel/shards.json'
 import { useRuneStore } from '@/stores/runeStore'
 import { useShardStore } from '@/stores/shardStore'
 import { useSummonerStore } from '@/stores/summonerStore'

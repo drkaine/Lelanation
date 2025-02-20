@@ -4,7 +4,7 @@ import { RouterLink, RouterView } from 'vue-router'
 import version from '@/assets/files/data/lastVersion.json'
 import { useBuildStore } from '@/stores/buildStore'
 import { useConnexionStore } from '@/stores/connexionStore'
-import LegalModal from '@/components/composants/LegalModal.vue'
+import LegalModal from '@/components/Modal/LegalModal.vue'
 import Footer from '@/components/FooterComponent.vue'
 
 const buildStore = useBuildStore()

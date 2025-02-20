@@ -1,6 +1,10 @@
 <script setup lang="ts">
+import { ref } from 'vue'
 import { useConnexionStore } from '@/stores/connexionStore'
+import ContactModal from '@/components/Modal/ContactModal.vue'
+
 const connexionStore = useConnexionStore()
+const showContactModal = ref(false)
 </script>
 
 <template>
@@ -8,6 +12,9 @@ const connexionStore = useConnexionStore()
     <div class="connect" v-if="connexionStore.isLoggedIn">
       <p>Mode Lelariva</p>
     </div>
+    <a href="#" @click.prevent="showContactModal = true" class="footer-link"
+      >Contact</a
+    >
     <div class="right">
       <RouterLink to="/legal" class="footer-link">Lelalegal</RouterLink>
       <a
@@ -19,5 +26,7 @@ const connexionStore = useConnexionStore()
         @darkaine
       </a>
     </div>
+
+    <ContactModal v-if="showContactModal" @close="showContactModal = false" />
   </footer>
 </template>

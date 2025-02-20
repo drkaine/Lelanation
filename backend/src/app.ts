@@ -12,6 +12,7 @@ import { type MulterRequest } from "./types";
 import { dictionnaireService } from "./service/DictionnaireService";
 import { analyticsService } from "./service/AnalyticsService";
 import { uploadService } from "./service/UploadService";
+import { contactService } from "./service/ContactService";
 
 dotenv.config();
 
@@ -62,6 +63,10 @@ app.post("/api/dictionnaire", async (req, res) => {
   dictionnaireService.saveDictionnaire(req, res);
 });
 
+app.post("/api/contact", async (req, res) => {
+  contactService.sendContact(req, res);
+});
+
 app.post(
   "/api/upload/ods/:nameFolder",
   upload.single("file"),
@@ -70,8 +75,8 @@ app.post(
   },
 );
 
-cron.schedule("0 0, 2, 4, 6, 8, 10, 12 * * *", () => {
-  console.log("Tâche cron exécutée à 00h00 et 12h00");
+cron.schedule("0 * * * *", () => {
+  console.log("Tâche cron exécutée à chaque heure");
   compilation();
   console.log("Tâche cron finie");
 });

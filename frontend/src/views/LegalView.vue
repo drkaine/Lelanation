@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import LegalModal from '@/components/composants/LegalModal.vue'
+import LegalModal from '@/components/Modal/LegalModal.vue'
 </script>
 
 <template>

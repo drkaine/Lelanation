@@ -7,7 +7,7 @@ export const analyticsService = {
     try {
       const analyticsPath = path.join(
         __dirname,
-        "../../../frontend/public/assets/files/analytics.json",
+        "../../../frontend/src/assets/files/analytics.json",
       );
 
       let analytics = { visiteur: 0 };

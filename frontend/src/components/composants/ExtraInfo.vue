@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useItemStore } from '@/stores/itemStore'
-import statsTrad from '@/assets/files/data/statsTrad.json'
+import statsTrad from '@/assets/files/data-manuel/statsTrad.json'
 import { ref } from 'vue'
 
 const itemStore = useItemStore()
