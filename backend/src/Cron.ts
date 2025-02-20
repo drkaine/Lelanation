@@ -156,7 +156,7 @@ async function downloadRunes() {
 
 export async function compilation() {
   const date = new Date();
-  if (await !ddragonAPI.isLastVersion()) {
+  if (!(await ddragonAPI.isLastVersion())) {
     await ddragonAPI.getLastVersion();
     await downloadFiles();
 

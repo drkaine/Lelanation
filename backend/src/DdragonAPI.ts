@@ -27,7 +27,7 @@ export class DdragonAPI {
         ),
       ),
     );
-    return lastVersionWeb !== lastVersionFile;
+    return lastVersionWeb === lastVersionFile;
   }
 
   public async getLastVersion() {
