@@ -1,5 +1,5 @@
 import path from "path";
-import { saveFile } from "./FileManager";
+import { saveFile, openFile } from "./FileManager";
 
 export class DdragonAPI {
   private url: string = "https://ddragon.leagueoflegends.com/cdn/";
@@ -11,6 +11,23 @@ export class DdragonAPI {
     );
 
     return response;
+  }
+
+  public async isLastVersion() {
+    const response = await fetch(
+      "https://ddragon.leagueoflegends.com/api/versions.json",
+    );
+    const data = await response.json();
+    const lastVersionWeb = data[0];
+    const lastVersionFile = JSON.parse(
+      await openFile(
+        path.join(
+          __dirname,
+          "../../frontend/src/assets/files/data/lastVersion.json",
+        ),
+      ),
+    );
+    return lastVersionWeb !== lastVersionFile;
   }
 
   public async getLastVersion() {

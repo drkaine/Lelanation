@@ -155,22 +155,27 @@ async function downloadRunes() {
 }
 
 export async function compilation() {
-  await ddragonAPI.getLastVersion();
-
-  await downloadFiles();
-
-  await downloadChampions();
-
-  await downloadSpells();
-
-  await downloadSummoners();
-
-  await downloadRunes();
-
   const date = new Date();
+  if (await ddragonAPI.isLastVersion()) {
+    await ddragonAPI.getLastVersion();
+    await downloadFiles();
 
-  saveFile(
-    JSON.stringify(date),
-    path.join(__dirname, targets["folderJSON"] + date),
-  );
+    await downloadChampions();
+
+    await downloadSpells();
+
+    await downloadSummoners();
+
+    await downloadRunes();
+
+    saveFile(
+      JSON.stringify(date),
+      path.join(__dirname, targets["folderJSON"] + "nouvelle-version"),
+    );
+  } else {
+    saveFile(
+      JSON.stringify(date),
+      path.join(__dirname, targets["folderJSON"] + "pas-de-nouvelle-version"),
+    );
+  }
 }
