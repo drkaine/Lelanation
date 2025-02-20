@@ -143,4 +143,55 @@ describe("ContactService", () => {
       });
     });
   });
+
+  describe("deleteContact", () => {
+    it("devrait supprimer un message spécifique", async () => {
+      const mockMessages = [
+        { date: "2024-01-01", name: "User1", message: "Message 1" },
+        { date: "2024-01-02", name: "User2", message: "Message 2" },
+      ];
+
+      mockRequest.body = {
+        category: "bug",
+        date: "2024-01-01",
+      };
+
+      (readFile as jest.Mock).mockResolvedValue(JSON.stringify(mockMessages));
+      (writeFile as jest.Mock).mockResolvedValue(undefined);
+
+      await contactService.deleteContact(
+        mockRequest as Request,
+        mockResponse as Response,
+      );
+
+      const writeFileCall = (writeFile as jest.Mock).mock.calls[0][1];
+      const writtenData = JSON.parse(writeFileCall);
+
+      expect(writtenData).toHaveLength(1);
+      expect(writtenData[0].date).toBe("2024-01-02");
+      expect(mockResponse.status).toHaveBeenCalledWith(200);
+      expect(mockResponse.json).toHaveBeenCalledWith({
+        message: "Message supprimé",
+      });
+    });
+
+    it("devrait gérer les erreurs lors de la suppression", async () => {
+      mockRequest.body = {
+        category: "bug",
+        date: "2024-01-01",
+      };
+
+      (readFile as jest.Mock).mockRejectedValue(new Error("Test error"));
+
+      await contactService.deleteContact(
+        mockRequest as Request,
+        mockResponse as Response,
+      );
+
+      expect(mockResponse.status).toHaveBeenCalledWith(500);
+      expect(mockResponse.json).toHaveBeenCalledWith({
+        error: "Erreur lors de la suppression du message",
+      });
+    });
+  });
 });

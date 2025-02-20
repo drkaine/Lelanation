@@ -70,6 +70,9 @@ app.get("/api/dictionnaire", async (req, res) => {
   dictionnaireService.getDictionnaire(req, res);
 });
 
+app.post("/api/dictionnaire/approve", dictionnaireService.approveDictionnaire);
+app.post("/api/dictionnaire/reject", dictionnaireService.rejectDictionnaire);
+
 app.post("/api/contact", async (req, res) => {
   contactService.sendContact(req, res);
 });

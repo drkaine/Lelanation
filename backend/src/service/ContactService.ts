@@ -3,6 +3,7 @@ import path from "path";
 import { existsSync } from "fs";
 import { readFile, writeFile, mkdir } from "fs/promises";
 import { readdir } from "fs/promises";
+
 export const contactService = {
   async sendContact(req: Request, res: Response) {
     try {
@@ -66,6 +67,33 @@ export const contactService = {
       res
         .status(500)
         .json({ error: "Erreur lors de la récupération des contacts" });
+    }
+  },
+
+  async deleteContact(req: Request, res: Response) {
+    try {
+      const { category, date } = req.body;
+      const contactDir = path.join(
+        __dirname,
+        "../../../frontend/src/assets/files/contact",
+      );
+      const filePath = path.join(contactDir, `${category}.json`);
+
+      const fileContent = await readFile(filePath, "utf-8");
+      const messages = JSON.parse(fileContent);
+
+      const filteredMessages = messages.filter(
+        (message: { date: string }) => message.date !== date,
+      );
+
+      await writeFile(filePath, JSON.stringify(filteredMessages, null, 2));
+
+      res.status(200).json({ message: "Message supprimé" });
+    } catch (error) {
+      console.error("Erreur lors de la suppression du message:", error);
+      res
+        .status(500)
+        .json({ error: "Erreur lors de la suppression du message" });
     }
   },
 };

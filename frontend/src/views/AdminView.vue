@@ -2,17 +2,18 @@
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { useConnexionStore } from '@/stores/connexionStore'
+import AnalyticsTab from '@/components/Admin/AnalyticsTab.vue'
+import TierListTab from '@/components/Admin/TierListTab.vue'
+import DictionnaireTab from '@/components/Admin/DictionnaireTab.vue'
+import ContactTab from '@/components/Admin/ContactTab.vue'
 
 const connexionStore = useConnexionStore()
-const fileInput = ref<HTMLInputElement | null>(null)
-const selectedFile = ref<File | null>(null)
-const isUploading = ref(false)
-const message = ref('')
-const messageType = ref('')
-const selectedList = ref<'normal' | 'bronze' | 'pro'>('normal')
+
+const activeTab = ref('Tier-list')
 
 const router = useRouter()
 const nameTarget = import.meta.env.VITE_ADMIN
+const nameAdmin = import.meta.env.VITE_ADMIN_RIGHT
 
 const props = defineProps({
   name: {
@@ -21,210 +22,51 @@ const props = defineProps({
   },
 })
 
-if (nameTarget !== props.name && !connexionStore.isLoggedIn) {
+if (
+  (nameTarget !== props.name || nameAdmin !== props.name) &&
+  !connexionStore.isLoggedIn
+) {
   router.push('/')
 }
 
-const handleFileChange = (event: Event) => {
-  const input = event.target as HTMLInputElement
-  if (input.files && input.files[0]) {
-    selectedFile.value = input.files[0]
-    message.value = ''
-  }
-}
-
-const handleSubmit = async () => {
-  if (!selectedFile.value) return
-
-  const formData = new FormData()
-  formData.append('file', selectedFile.value)
-
-  isUploading.value = true
-  message.value = ''
-
-  try {
-    const response = await fetch(`/api/upload/ods/${selectedList.value}`, {
-      method: 'POST',
-      body: formData,
-    })
-
-    const result = await response.json()
-
-    if (!response.ok) {
-      throw new Error(result.error || "Erreur lors de l'upload")
-    }
-
-    message.value = 'Fichier importé avec succès'
-    messageType.value = 'success'
-    selectedFile.value = null
-    if (fileInput.value) {
-      fileInput.value.value = ''
-    }
-  } catch (error) {
-    message.value =
-      error instanceof Error ? error.message : "Erreur lors de l'upload"
-    messageType.value = 'error'
-  } finally {
-    isUploading.value = false
-  }
-}
+const SuperAdmin = nameAdmin === props.name
 </script>
 
 <template>
   <div class="admin-container">
     <h1>Administration</h1>
 
-    <div class="list-type-tabs">
+    <div class="admin-tabs" v-if="SuperAdmin">
       <button
-        v-for="type in ['normal', 'bronze', 'pro']"
-        :key="type"
-        :class="{ active: selectedList === type }"
-        @click="selectedList = type as 'normal' | 'bronze' | 'pro'"
+        v-for="tab in ['Tier-list', 'analytique', 'dictionnaire', 'contact']"
+        :key="tab"
+        :class="{ active: activeTab === tab }"
+        @click="activeTab = tab"
       >
-        {{
-          type === 'normal'
-            ? 'TIER-LISTE'
-            : type === 'bronze'
-              ? 'BRONZE-LISTE'
-              : 'PRO-LISTE'
-        }}
+        {{ tab.toUpperCase() }}
       </button>
     </div>
 
-    <div class="upload-section">
-      <h2>Import Tierlist</h2>
-      <form @submit.prevent="handleSubmit" class="upload-form">
-        <div class="file-input-wrapper">
-          <input
-            type="file"
-            ref="fileInput"
-            accept=".ods"
-            @change="handleFileChange"
-            class="file-input"
-          />
-          <div class="file-info" v-if="selectedFile">
-            Fichier sélectionné: {{ selectedFile.name }}
-          </div>
-        </div>
+    <div v-if="activeTab === 'Tier-list'" class="tab-content">
+      <h2>Tier-list</h2>
+      <TierListTab />
+    </div>
 
-        <div class="upload-actions">
-          <button
-            type="submit"
-            :disabled="!selectedFile || isUploading"
-            class="upload-button"
-          >
-            {{ isUploading ? 'Envoi en cours...' : 'Importer' }}
-          </button>
-        </div>
+    <div v-else-if="activeTab === 'analytique'" class="tab-content">
+      <h2>Analytiques</h2>
+      <AnalyticsTab />
+    </div>
 
-        <div v-if="message" :class="['upload-message', messageType]">
-          {{ message }}
-        </div>
-      </form>
+    <div v-else-if="activeTab === 'dictionnaire'" class="tab-content">
+      <h2>Dictionnaire</h2>
+      <DictionnaireTab />
+    </div>
+
+    <div v-else-if="activeTab === 'contact'" class="tab-content">
+      <h2>Messages de Contact</h2>
+      <ContactTab />
     </div>
   </div>
 </template>
 
-<style scoped>
-.admin-container {
-  padding: 2rem;
-  max-width: 800px;
-  margin: 0 auto;
-}
-
-h1,
-h2 {
-  color: var(--color-gold-300);
-}
-
-.upload-section {
-  background: rgba(0, 0, 0, 0.3);
-  border: 1px solid var(--color-gold-300);
-  border-radius: 8px;
-  padding: 2rem;
-  margin-top: 2rem;
-}
-
-.upload-form {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-}
-
-.file-input-wrapper {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-
-.file-input {
-  color: var(--color-gold-50);
-}
-
-.file-info {
-  color: var(--color-gold-200);
-  font-size: 0.9rem;
-}
-
-.upload-button {
-  background: var(--color-gold-300);
-  color: black;
-  border: none;
-  padding: 0.75rem 1.5rem;
-  border-radius: 4px;
-  cursor: pointer;
-  font-weight: bold;
-  transition: opacity 0.2s;
-}
-
-.upload-button:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-}
-
-.upload-message {
-  padding: 1rem;
-  border-radius: 4px;
-  font-weight: bold;
-}
-
-.upload-message.success {
-  background: rgba(0, 255, 0, 0.1);
-  color: #4caf50;
-  border: 1px solid #4caf50;
-}
-
-.upload-message.error {
-  background: rgba(255, 0, 0, 0.1);
-  color: #f44336;
-  border: 1px solid #f44336;
-}
-
-.list-type-tabs {
-  display: flex;
-  justify-content: center;
-  gap: 1rem;
-  margin-bottom: 1rem;
-}
-
-.list-type-tabs button {
-  background: transparent;
-  border: 1px solid var(--color-gold-300);
-  color: var(--color-gold-300);
-  padding: 0.5rem 1rem;
-  border-radius: 4px;
-  cursor: pointer;
-  font-family: var(--font-beaufort);
-  text-transform: uppercase;
-}
-
-.list-type-tabs button.active {
-  background-color: var(--color-gold-300);
-  color: var(--color-grey-900);
-}
-
-.list-type-tabs button:hover {
-  background-color: var(--color-gold-300);
-  color: var(--color-grey-900);
-}
-</style>
+<style scoped></style>
