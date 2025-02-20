@@ -70,7 +70,7 @@ app.post(
   },
 );
 
-cron.schedule("0 0,12 * * *", () => {
+cron.schedule("0 0, 2, 4, 6, 8, 10, 12 * * *", () => {
   console.log("Tâche cron exécutée à 00h00 et 12h00");
   compilation();
   console.log("Tâche cron finie");
