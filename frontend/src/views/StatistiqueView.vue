@@ -48,10 +48,31 @@ const tierData = ref<TierList>({
 
 const selectedList = ref<'normal' | 'bronze' | 'pro'>('normal')
 
+const availableFiles = ref<Record<string, string[]>>({})
+const selectedFile = ref<string>('tierlist')
+
+const fetchAvailableFiles = async () => {
+  try {
+    const response = await fetch('/api/tierlist/all')
+    if (!response.ok)
+      throw new Error('Erreur lors de la récupération des listes')
+    const allFiles = await response.json()
+
+    availableFiles.value = Object.fromEntries(
+      Object.entries(allFiles).map(([category, files]) => [
+        category,
+        (files as string[]).filter(file => !file.startsWith('private_')),
+      ]),
+    )
+  } catch (error) {
+    console.error('Erreur:', error)
+  }
+}
+
 const loadTierData = async () => {
   try {
     const response = await fetch(
-      `/assets/files/tiers-listes/${selectedList.value}/tierlist.json`,
+      `/assets/files/tiers-listes/${selectedList.value}/${selectedFile.value}.json`,
     )
     if (!response.ok) throw new Error('Erreur lors du chargement des données')
     tierData.value = await response.json()
@@ -223,12 +244,17 @@ const createChart = async () => {
   })
 }
 
-watch([selectedRole, selectedTier, filterType, selectedList], async () => {
-  await loadTierData()
-  await createChart()
-})
+watch(
+  [selectedRole, selectedTier, filterType, selectedList, selectedFile],
+  async () => {
+    await fetchAvailableFiles()
+    await loadTierData()
+    await createChart()
+  },
+)
 
 onMounted(async () => {
+  await fetchAvailableFiles()
   await loadTierData()
   await createChart()
 })
@@ -393,6 +419,21 @@ const sortedAndFilteredChampions = computed(() => {
           <option value="all">Tous</option>
           <option value="otp">OTP</option>
           <option value="no-otp">Sans OTP</option>
+        </select>
+      </div>
+
+      <div
+        class="file-selector"
+        v-if="availableFiles[selectedList]?.length > 1"
+      >
+        <select v-model="selectedFile" class="file-select">
+          <option
+            v-for="file in availableFiles[selectedList]"
+            :key="file"
+            :value="file"
+          >
+            {{ file }}
+          </option>
         </select>
       </div>
     </div>
@@ -759,5 +800,27 @@ const sortedAndFilteredChampions = computed(() => {
   .sort-controls {
     width: 100%;
   }
+}
+
+.file-selector {
+  margin: 1rem 0;
+  display: flex;
+  justify-content: center;
+}
+
+.file-select {
+  min-width: 200px;
+  background: transparent;
+  border: var(--border-size) solid var(--color-gold-300);
+  color: var(--color-gold-300);
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-family: var(--font-beaufort);
+}
+
+.file-select option {
+  background: var(--color-grey-900);
+  color: var(--color-gold-300);
 }
 </style>
