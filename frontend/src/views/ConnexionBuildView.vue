@@ -5,7 +5,7 @@ import { useRouter } from 'vue-router'
 const router = useRouter()
 const connexionStore = useConnexionStore()
 
-const nameTarget = import.meta.env.VITE_NAME
+const nameTarget = [import.meta.env.VITE_NAME, import.meta.env.VITE_NAME_DEV]
 
 const props = defineProps({
   name: {
@@ -14,9 +14,9 @@ const props = defineProps({
   },
 })
 
-if (nameTarget === props.name) {
+if (nameTarget.includes(props.name)) {
   if (!connexionStore.isLoggedIn) {
-    connexionStore.login()
+    connexionStore.login(props.name)
     router.push('/build')
   } else {
     connexionStore.logout()

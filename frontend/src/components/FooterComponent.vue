@@ -10,7 +10,7 @@ const showContactModal = ref(false)
 <template>
   <footer class="footer">
     <div class="connect" v-if="connexionStore.isLoggedIn">
-      <p>Mode Lelariva</p>
+      <p>Mode {{ connexionStore.userName }}</p>
     </div>
     <a href="#" @click.prevent="showContactModal = true" class="footer-link"
       >Contact</a

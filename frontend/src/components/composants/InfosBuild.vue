@@ -105,7 +105,7 @@ const submitForm = async () => {
     let response
     let path = ''
 
-    if (connexionStore.isLoggedIn) {
+    if (connexionStore.userName === 'Lelariva') {
       path = 'lelariva/'
     }
 
@@ -155,7 +155,7 @@ const submitForm = async () => {
     if (buildStore.buildToEdit) {
       buildStore.updateBuild(data as BuildData)
     } else {
-      if (!connexionStore.isLoggedIn) {
+      if (connexionStore.userName !== 'Lelariva') {
         buildStore.saveBuild(data as BuildData)
       }
     }

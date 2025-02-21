@@ -275,7 +275,8 @@ const statsListFiltered = statsList.filter(
           <div
             class="edit-actions"
             v-if="
-              (path === 'lelariva/' && connexionStore.isLoggedIn) ||
+              (path === 'lelariva/' &&
+                connexionStore.userName === 'Lelariva') ||
               (path === '' &&
                 buildStore.userBuilds.some(
                   (build: BuildData) => build.id === buildData?.id,

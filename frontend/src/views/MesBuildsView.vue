@@ -55,7 +55,7 @@ const searchPlaceholder = computed(() => {
 
 const filteredBuilds = computed(() => {
   let filtered = isLelarivaBuildPage.value
-    ? connexionStore.isLoggedIn
+    ? connexionStore.userName === 'Lelariva'
       ? builds.value
       : builds.value.filter(build => !build.id?.startsWith('wait_'))
     : buildStore.userBuilds
@@ -118,7 +118,7 @@ const handleDragOver = (e: DragEvent) => {
 }
 
 const canDragBuild = computed(
-  () => !isLelarivaBuildPage.value || connexionStore.isLoggedIn,
+  () => !isLelarivaBuildPage.value || connexionStore.userName === 'Lelariva',
 )
 </script>
 
@@ -191,7 +191,7 @@ const canDragBuild = computed(
       >
         <div
           v-if="
-            (isLelarivaBuildPage && connexionStore.isLoggedIn) ||
+            (isLelarivaBuildPage && connexionStore.userName === 'Lelariva') ||
             !isLelarivaBuildPage
           "
           class="visibility-badge"

@@ -9,6 +9,7 @@ export interface BuildData {
   id?: string
   roles: string[]
   name: string
+  author: string
   description: string
   visible: boolean
   version: string
