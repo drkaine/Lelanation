@@ -1,6 +1,8 @@
-import { saveFile, appendToJson } from "../src/FileManager";
+import { saveFile, appendToJson, upload } from "../src/FileManager";
 import * as fs from "fs";
 import * as path from "path";
+import { Request } from "express";
+import { FileFilterCallback } from "multer";
 
 describe("Create", () => {
   let dirPath: string;
@@ -93,5 +95,78 @@ describe("JSON Operations", () => {
 
     const testData = { test: "value" };
     await expect(appendToJson(testData, testPath)).rejects.toThrow();
+  });
+});
+
+describe("Upload Middleware", () => {
+  const originalConsoleError = console.error;
+  beforeAll(() => {
+    console.error = jest.fn();
+  });
+
+  afterAll(() => {
+    console.error = originalConsoleError;
+  });
+
+  it("should accept valid ODS MIME types", (done) => {
+    const validMimeTypes = [
+      "application/vnd.oasis.opendocument.spreadsheet",
+      "application/x-vnd.oasis.opendocument.spreadsheet",
+      "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+      "application/octet-stream",
+    ];
+
+    validMimeTypes.forEach((mimeType) => {
+      const file = {
+        mimetype: mimeType,
+        originalname: "test.ods",
+      };
+
+      (
+        upload as unknown as {
+          fileFilter: (
+            req: Request,
+            file: Express.Multer.File,
+            callback: FileFilterCallback,
+          ) => void;
+        }
+      ).fileFilter(
+        {} as Request,
+        file as Express.Multer.File,
+        ((error: Error | null, acceptFile: boolean) => {
+          expect(error).toBeNull();
+          expect(acceptFile).toBeTruthy();
+        }) as FileFilterCallback,
+      );
+    });
+    done();
+  });
+
+  it("should reject invalid MIME types", (done) => {
+    const file = {
+      mimetype: "application/pdf",
+      originalname: "test.pdf",
+    };
+
+    (
+      upload as unknown as {
+        fileFilter: (
+          req: Request,
+          file: Express.Multer.File,
+          callback: FileFilterCallback,
+        ) => void;
+      }
+    ).fileFilter(
+      {} as Request,
+      file as Express.Multer.File,
+      ((error: Error | null, acceptFile: boolean) => {
+        expect(error).toBeInstanceOf(Error);
+        expect(error?.message).toBe(
+          "Format de fichier non supporté. Utilisez .ods",
+        );
+        expect(acceptFile).toBeFalsy();
+      }) as FileFilterCallback,
+    );
+    done();
   });
 });

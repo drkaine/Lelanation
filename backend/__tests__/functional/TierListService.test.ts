@@ -117,4 +117,194 @@ describe("TierListService", () => {
       details: "Test error",
     });
   });
+
+  describe("getAllTierLists", () => {
+    let mockRequest: Partial<Request>;
+    let mockResponse: Partial<Response>;
+
+    beforeEach(() => {
+      mockRequest = {};
+      mockResponse = {
+        json: jest.fn(),
+        status: jest.fn().mockReturnThis(),
+      };
+      jest.clearAllMocks();
+    });
+
+    it("devrait retourner la liste des fichiers par catégorie", async () => {
+      const mockFiles = {
+        normal: ["file1.json", "file2.json", "file1-123456.json"],
+        bronze: ["file3.json"],
+        pro: ["file4.json", "file4-123456.json"],
+      };
+
+      (path.join as jest.Mock).mockImplementation((...args) => args.join("/"));
+      (fs.readdir as jest.Mock).mockImplementation((path) => {
+        if (path.includes("normal")) return mockFiles.normal;
+        if (path.includes("bronze")) return mockFiles.bronze;
+        if (path.includes("pro")) return mockFiles.pro;
+        return [];
+      });
+
+      await uploadService.getAllTierLists(
+        mockRequest as Request,
+        mockResponse as Response,
+      );
+
+      expect(mockResponse.json).toHaveBeenCalledWith({
+        normal: ["file1", "file2", "file1-123456"],
+        bronze: ["file3"],
+        pro: ["file4", "file4-123456"],
+      });
+    });
+
+    it("devrait gérer les dossiers manquants", async () => {
+      (path.join as jest.Mock).mockImplementation((...args) => args.join("/"));
+      (fs.readdir as jest.Mock).mockRejectedValue(new Error("ENOENT"));
+
+      await uploadService.getAllTierLists(
+        mockRequest as Request,
+        mockResponse as Response,
+      );
+
+      expect(mockResponse.json).toHaveBeenCalledWith({
+        normal: [],
+        bronze: [],
+        pro: [],
+      });
+    });
+
+    it("devrait gérer les erreurs générales", async () => {
+      const error = new Error("Test error");
+      (path.join as jest.Mock).mockImplementation(() => {
+        throw error;
+      });
+
+      await uploadService.getAllTierLists(
+        mockRequest as Request,
+        mockResponse as Response,
+      );
+
+      expect(mockResponse.status).toHaveBeenCalledWith(500);
+      expect(mockResponse.json).toHaveBeenCalledWith({
+        error: "Erreur lors de la récupération des tier lists",
+      });
+    });
+
+    it("devrait filtrer les fichiers de date", async () => {
+      const mockFiles = ["file1.json", "file1-123456.json", "file2.json"];
+
+      (path.join as jest.Mock).mockImplementation((...args) => args.join("/"));
+      (fs.readdir as jest.Mock).mockResolvedValue(mockFiles);
+
+      await uploadService.getAllTierLists(
+        mockRequest as Request,
+        mockResponse as Response,
+      );
+
+      const result = (mockResponse.json as jest.Mock).mock.calls[0][0];
+      expect(result.normal).toContain("file1-123456");
+      expect(result.normal).toContain("file1");
+      expect(result.normal).toContain("file2");
+    });
+  });
+
+  describe("File Operations", () => {
+    beforeEach(() => {
+      (path.join as jest.Mock).mockImplementation((...args) => args.join("/"));
+      (fs.unlink as jest.Mock).mockResolvedValue(undefined);
+      (fs.rename as jest.Mock).mockResolvedValue(undefined);
+      (fs.readdir as jest.Mock).mockResolvedValue([]);
+    });
+
+    describe("deleteFile", () => {
+      it("devrait supprimer un fichier avec succès", async () => {
+        const mockRequest = {
+          params: {
+            category: "normal",
+            fileName: "test",
+          },
+        };
+
+        await uploadService.deleteFile(
+          mockRequest as unknown as Request,
+          mockResponse as Response,
+        );
+
+        expect(fs.unlink).toHaveBeenCalled();
+        expect(jsonMock).toHaveBeenCalledWith({
+          message: "Fichier supprimé avec succès",
+        });
+      });
+
+      it("devrait gérer les erreurs de suppression", async () => {
+        (fs.unlink as jest.Mock).mockRejectedValue(new Error("Erreur test"));
+
+        const mockRequest = {
+          params: {
+            category: "normal",
+            fileName: "test",
+          },
+        };
+
+        await uploadService.deleteFile(
+          mockRequest as unknown as Request,
+          mockResponse as Response,
+        );
+
+        expect(statusMock).toHaveBeenCalledWith(500);
+        expect(jsonMock).toHaveBeenCalledWith({
+          error: "Erreur lors de la suppression du fichier",
+        });
+      });
+    });
+
+    describe("toggleVisibility", () => {
+      it("devrait modifier la visibilité avec succès", async () => {
+        const mockRequest = {
+          params: {
+            category: "normal",
+            fileName: "test",
+          },
+          body: {
+            newFileName: "private_test",
+          },
+        };
+
+        await uploadService.toggleVisibility(
+          mockRequest as unknown as Request,
+          mockResponse as Response,
+        );
+
+        expect(fs.rename).toHaveBeenCalled();
+        expect(jsonMock).toHaveBeenCalledWith({
+          message: "Visibilité modifiée avec succès",
+        });
+      });
+
+      it("devrait gérer les erreurs de modification de visibilité", async () => {
+        (fs.rename as jest.Mock).mockRejectedValue(new Error("Erreur test"));
+
+        const mockRequest = {
+          params: {
+            category: "normal",
+            fileName: "test",
+          },
+          body: {
+            newFileName: "private_test",
+          },
+        };
+
+        await uploadService.toggleVisibility(
+          mockRequest as unknown as Request,
+          mockResponse as Response,
+        );
+
+        expect(statusMock).toHaveBeenCalledWith(500);
+        expect(jsonMock).toHaveBeenCalledWith({
+          error: "Erreur lors du changement de visibilité",
+        });
+      });
+    });
+  });
 });

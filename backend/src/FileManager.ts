@@ -52,9 +52,17 @@ export const upload = multer({
     fileSize: 50 * 1024 * 1024, // 50MB
   },
   fileFilter: (_req, file, cb) => {
-    if (file.mimetype === "application/vnd.oasis.opendocument.spreadsheet") {
+    const validMimeTypes = [
+      "application/vnd.oasis.opendocument.spreadsheet",
+      "application/x-vnd.oasis.opendocument.spreadsheet",
+      "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+      "application/octet-stream",
+    ];
+
+    if (validMimeTypes.includes(file.mimetype)) {
       cb(null, true);
     } else {
+      console.log("MIME type reçu:", file.mimetype);
       cb(new Error("Format de fichier non supporté. Utilisez .ods"));
     }
   },

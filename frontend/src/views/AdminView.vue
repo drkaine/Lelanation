@@ -12,8 +12,8 @@ const connexionStore = useConnexionStore()
 const activeTab = ref('Tier-list')
 
 const router = useRouter()
-const nameTarget = import.meta.env.VITE_ADMIN
-const nameAdmin = import.meta.env.VITE_ADMIN_RIGHT
+
+const nameAdmin = [import.meta.env.VITE_ADMIN, import.meta.env.VITE_ADMIN_RIGHT]
 
 const props = defineProps({
   name: {
@@ -22,14 +22,11 @@ const props = defineProps({
   },
 })
 
-if (
-  (nameTarget !== props.name || nameAdmin !== props.name) &&
-  !connexionStore.isLoggedIn
-) {
+if (!nameAdmin.includes(props.name) || !connexionStore.isLoggedIn) {
   router.push('/')
 }
 
-const SuperAdmin = nameAdmin === props.name
+const SuperAdmin = nameAdmin[1] === props.name
 </script>
 
 <template>

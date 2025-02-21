@@ -82,12 +82,17 @@ app.get("/api/contact", async (req, res) => {
 });
 
 app.post(
-  "/api/upload/ods/:nameFolder",
+  "/api/tierlist/upload/:nameFolder",
   upload.single("file"),
   async (req: MulterRequest, res: Response): Promise<void> => {
     uploadService.uploadOds(req, res);
   },
 );
+
+app.delete("/api/tierlist/:category/:fileName", uploadService.deleteFile);
+app.put("/api/tierlist/:category/:fileName", uploadService.toggleVisibility);
+
+app.get("/api/tierlist/all", uploadService.getAllTierLists);
 
 cron.schedule("0 * * * *", () => {
   console.log("Tâche cron exécutée à chaque heure");

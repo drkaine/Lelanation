@@ -52,8 +52,8 @@ describe("ContactService", () => {
       ];
 
       (existsSync as jest.Mock)
-        .mockReturnValueOnce(true) // pour le dossier
-        .mockReturnValueOnce(true); // pour le fichier
+        .mockReturnValueOnce(true)
+        .mockReturnValueOnce(true);
       (readFile as jest.Mock).mockResolvedValue(JSON.stringify(existingData));
       (writeFile as jest.Mock).mockResolvedValue(undefined);
 

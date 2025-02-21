@@ -73,21 +73,6 @@ const routes: RouteRecordRaw[] = [
     name: 'legal',
     component: () => import('../views/LegalView.vue'),
   },
-  // {
-  //   path: '/champions',
-  //   name: 'champions',
-  //   component: () => import('../views/ChampionView.vue'),
-  // },
-  // {
-  //   path: '/runes',
-  //   name: 'runes',
-  //   component: () => import('../views/RunesView.vue'),
-  // },
-  // {
-  //   path: '/items',
-  //   name: 'items',
-  //   component: () => import('../views/ItemsView.vue'),
-  // },
   {
     path: '/build/:fileName',
     name: 'build',
@@ -111,14 +96,11 @@ const router = createRouter({
   routes,
 })
 
-// Gestion des meta tags dynamiques
 router.beforeEach((to, from, next) => {
-  // Titre par défaut
   let title = 'Lelanation - Builds League of Legends'
   let description =
     'Créez et partagez vos builds League of Legends. Guides détaillés et statistiques.'
 
-  // Personnalisation selon la route
   switch (to.name) {
     case 'build-tool':
       title = 'Créer un Build LoL - Lelanation'
@@ -137,7 +119,6 @@ router.beforeEach((to, from, next) => {
       break
   }
 
-  // Mise à jour des meta tags
   document.title = title
   document
     .querySelector('meta[name="description"]')
