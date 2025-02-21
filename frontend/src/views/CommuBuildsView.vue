@@ -127,6 +127,7 @@ const filteredBuilds = computed(() => {
           <SheetBuild
             :version="build.version"
             :name="build.name"
+            :author="build.author"
             :description="build.description"
             :champion="build.sheet.champion"
             :runes="build.sheet.runes"

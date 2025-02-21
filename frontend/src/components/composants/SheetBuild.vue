@@ -12,6 +12,7 @@ const roleStore = useRoleStore()
 const props = defineProps<{
   version: string | null
   name: string | null
+  author: string | null
   description: string | null
   champion: Champion | null
   runes: RunesSelection | null
@@ -95,6 +96,7 @@ const hasSkillPoints = computed(() =>
   >
     <div class="sheet-credits">
       <span class="credit-text">@lelanation.darkaine</span>
+      <span v-if="author" class="author">{{ author }}</span>
       <span class="version-text">v{{ version }}</span>
     </div>
 
@@ -282,6 +284,13 @@ const hasSkillPoints = computed(() =>
 </template>
 
 <style scoped>
+.author {
+  color: var(--color-gold-300);
+  font-size: var(--text-base);
+  font-weight: 1000;
+  text-align: center;
+  flex: 1;
+}
 .shard-slot img {
   border: var(--border-size) solid var(--color-gold-300);
   border-radius: 50%;

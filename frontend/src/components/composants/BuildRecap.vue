@@ -294,6 +294,7 @@ const statsListFiltered = statsList.filter(
               v-if="buildData"
               :version="buildData.version"
               :name="buildData.name"
+              :author="null"
               :description="buildData.description"
               :champion="buildData.sheet.champion"
               :runes="buildData.sheet.runes"

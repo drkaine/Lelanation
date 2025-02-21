@@ -34,7 +34,7 @@ const description = ref(
 const isVisible = ref(
   buildStore.buildToEdit ? buildStore.buildToEdit.visible : true,
 )
-
+const author = ref(buildStore.buildToEdit ? buildStore.buildToEdit.author : '')
 const championStats =
   championStore.$state.selectedChampion !== null
     ? championStore.$state.selectedChampion.stats
@@ -87,6 +87,7 @@ const submitForm = async () => {
     id: fileName,
     roles: Array.from(roleStore.selectedRoles),
     name: name.value,
+    author: author.value,
     description: description.value,
     version: version,
     visible: isVisible.value,
@@ -196,6 +197,20 @@ const submitForm = async () => {
           required
           v-model="name"
           placeholder="Nom du build"
+          class="form-input"
+        />
+      </label>
+    </div>
+
+    <div class="form-group">
+      <label>
+        Pseudo *
+        <input
+          maxlength="58"
+          type="text"
+          required
+          v-model="author"
+          placeholder="Pseudo de l'auteur"
           class="form-input"
         />
       </label>

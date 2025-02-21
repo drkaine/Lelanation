@@ -203,6 +203,7 @@ const canDragBuild = computed(
           <SheetBuild
             :version="build.version"
             :name="build.name"
+            :author="null"
             :description="build.description"
             :champion="build.sheet.champion"
             :runes="build.sheet.runes"

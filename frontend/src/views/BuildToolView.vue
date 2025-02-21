@@ -64,6 +64,7 @@ const next = () => {
           <SheetBuild
             :version="version"
             :name="null"
+            :author="null"
             :description="null"
             :champion="championStore.selectedChampion"
             :runes="runeStore.runesSelection"
