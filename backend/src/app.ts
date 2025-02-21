@@ -95,7 +95,8 @@ app.put("/api/tierlist/:category/:fileName", uploadService.toggleVisibility);
 app.get("/api/tierlist/all", uploadService.getAllTierLists);
 
 cron.schedule("0 * * * *", () => {
-  console.log("Tâche cron exécutée à chaque heure");
+  const heure = new Date().getHours();
+  console.log(`Tâche cron exécutée à ${heure}h00`);
   compilation();
   console.log("Tâche cron finie");
 });
