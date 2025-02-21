@@ -6,6 +6,7 @@ import AnalyticsTab from '@/components/Admin/AnalyticsTab.vue'
 import TierListTab from '@/components/Admin/TierListTab.vue'
 import DictionnaireTab from '@/components/Admin/DictionnaireTab.vue'
 import ContactTab from '@/components/Admin/ContactTab.vue'
+import BuildsTab from '@/components/Admin/BuildsTab.vue'
 
 const connexionStore = useConnexionStore()
 
@@ -35,7 +36,13 @@ const SuperAdmin = nameAdmin[1] === props.name
 
     <div class="admin-tabs" v-if="SuperAdmin">
       <button
-        v-for="tab in ['Tier-list', 'analytique', 'dictionnaire', 'contact']"
+        v-for="tab in [
+          'Tier-list',
+          'analytique',
+          'dictionnaire',
+          'contact',
+          'builds',
+        ]"
         :key="tab"
         :class="{ active: activeTab === tab }"
         @click="activeTab = tab"
@@ -62,6 +69,11 @@ const SuperAdmin = nameAdmin[1] === props.name
     <div v-else-if="activeTab === 'contact'" class="tab-content">
       <h2>Messages de Contact</h2>
       <ContactTab />
+    </div>
+
+    <div v-else-if="activeTab === 'builds'" class="tab-content">
+      <h2>Gestion des Builds</h2>
+      <BuildsTab />
     </div>
   </div>
 </template>
