@@ -89,6 +89,11 @@ const routes: RouteRecordRaw[] = [
         fileName: route.query.file as string | undefined,
       }) satisfies BuildProps,
   },
+  {
+    path: '/videos',
+    name: 'videos',
+    component: () => import('../views/ShortView.vue'),
+  },
 ]
 
 const router = createRouter({

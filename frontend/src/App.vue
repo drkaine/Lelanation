@@ -82,6 +82,7 @@ const acceptConditions = () => {
               v-if="connexionStore.isLoggedIn"
               >Lelanalytics</RouterLink
             >
+            <RouterLink to="/short" @click="toggleMenu">Lelashorts</RouterLink>
             <RouterLink to="/dictionnaire" @click="toggleMenu"
               >Leladictionnaiva</RouterLink
             >
@@ -123,6 +124,7 @@ const acceptConditions = () => {
               v-if="connexionStore.isLoggedIn"
               >Lelanalytics</RouterLink
             >
+            <RouterLink to="/videos">Lelarideos</RouterLink>
             <RouterLink title="dictionnaire" class="version" to="/dictionnaire">
               Leladictionnaiva</RouterLink
             >
