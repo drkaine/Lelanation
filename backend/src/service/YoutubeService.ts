@@ -55,6 +55,7 @@ export class YoutubeService {
   private readonly TOKEN_PATH: string;
   private readonly QUOTA_LIMIT: number;
   private readonly MAX_RESULTS: number;
+  private readonly CHECK_INTERVAL = 3600000; // 1 heure en millisecondes
 
   constructor() {
     if (!process.env.YOUTUBE_API_KEY) {
@@ -166,10 +167,66 @@ export class YoutubeService {
     }
   }
 
+  /**
+   * Vérifie si de nouvelles vidéos sont disponibles sans télécharger toutes les vidéos
+   */
+  async checkForNewVideos(channelId: string): Promise<boolean> {
+    try {
+      const storage = await this.loadStorage();
+      
+      // Si nous n'avons pas encore de vidéos ou si le dernier check était il y a plus d'une heure
+      if (
+        !storage.videos.length || 
+        !storage.lastVideoDate ||
+        Date.now() - storage.lastUpdate > this.CHECK_INTERVAL
+      ) {
+        return true;
+      }
+      
+      // Récupérer seulement la vidéo la plus récente pour économiser le quota
+      const checkUrl = `https://www.googleapis.com/youtube/v3/search?key=${this.API_KEY}&channelId=${channelId}&part=snippet,id&order=date&maxResults=1&type=video`;
+      
+      const response = await fetch(checkUrl);
+      
+      if (!response.ok) {
+        const error = await response.json();
+        console.error("Error checking new videos:", error);
+        return false;
+      }
+      
+      const data = await response.json();
+      
+      // Ajouter au quota
+      const tokenState = await this.loadTokenState();
+      tokenState.tokenQuota += 100; // Coût d'une requête de recherche
+      await this.saveTokenState(tokenState);
+      
+      // Aucun résultat, donc pas de nouvelle vidéo
+      if (!data.items?.length) return false;
+      
+      // Comparer la date de la vidéo la plus récente avec celle que nous avons déjà
+      const latestVideoDate = new Date(data.items[0].snippet.publishedAt);
+      const storedLatestDate = new Date(storage.lastVideoDate);
+      
+      // Retourner true si une nouvelle vidéo est sortie
+      return latestVideoDate > storedLatestDate;
+    } catch (error) {
+      console.error("Error checking for new videos:", error);
+      return false; // En cas d'erreur, on suppose qu'il n'y a pas de nouvelles vidéos
+    }
+  }
+
   async fetchAndStoreVideos(channelId: string): Promise<Video[]> {
     try {
       const storage = await this.loadStorage();
       let tokenState = await this.loadTokenState();
+
+      // Vérifier si de nouvelles vidéos sont disponibles
+      const hasNewVideos = await this.checkForNewVideos(channelId);
+      if (!hasNewVideos) {
+        console.log("No new videos found, returning cached videos");
+        return storage.videos;
+      }
 
       if (this.isNewDay(tokenState.lastUpdate)) {
         tokenState = {
@@ -229,12 +286,27 @@ export class YoutubeService {
       );
 
       // Sauvegarder les vidéos
-      await this.saveStorage({
-        videos: uniqueVideos,
-        lastVideoDate: new Date().toISOString(),
-        channelId,
-        lastUpdate: Date.now(),
-      });
+      if (uniqueVideos.length > 0) {
+        // Trier les vidéos par date de publication (plus récente d'abord)
+        const sortedVideos = [...uniqueVideos].sort((a, b) => 
+          new Date(b.snippet.publishedAt).getTime() - new Date(a.snippet.publishedAt).getTime()
+        );
+        
+        // Sauvegarder avec la date de la vidéo la plus récente
+        await this.saveStorage({
+          videos: uniqueVideos,
+          lastVideoDate: sortedVideos[0].snippet.publishedAt,
+          channelId,
+          lastUpdate: Date.now(),
+        });
+      } else {
+        await this.saveStorage({
+          videos: uniqueVideos,
+          lastVideoDate: storage.lastVideoDate || new Date().toISOString(),
+          channelId,
+          lastUpdate: Date.now(),
+        });
+      }
 
       return uniqueVideos;
     } catch (error) {
@@ -245,16 +317,17 @@ export class YoutubeService {
 
   async getVideos(channelId: string): Promise<Video[]> {
     const storage = await this.loadStorage();
-
-    // Si les données sont récentes (moins d'une heure), retourner le cache
-    if (
-      storage.channelId === channelId &&
-      Date.now() - storage.lastUpdate < 3600000
-    ) {
-      return storage.videos;
+    
+    // Vérifier si le cache existe et si c'est pour le bon channelId
+    if (storage.channelId === channelId) {
+      // Vérifier s'il y a de nouvelles vidéos
+      const hasNewVideos = await this.checkForNewVideos(channelId);
+      if (!hasNewVideos) {
+        return storage.videos;
+      }
     }
 
-    // Sinon, récupérer de nouvelles données
+    // Récupérer de nouvelles données
     return this.fetchAndStoreVideos(channelId);
   }
 

@@ -154,9 +154,20 @@ export default {
         >
           Précédent
         </button>
+        
+        <!-- Ajout du sélecteur de page -->
+        <div class="page-selector-container">
+          <select v-model="currentPage" class="page-selector">
+            <option v-for="page in totalPages" :key="page" :value="page">
+              Page {{ page }}
+            </option>
+          </select>
+        </div>
+        
         <span class="page-info">
-          Page {{ currentPage }} sur {{ totalPages }}
+          sur {{ totalPages }}
         </span>
+        
         <button
           :disabled="currentPage === totalPages"
           @click="currentPage++"
@@ -344,9 +355,45 @@ export default {
   background-color: var(--color-gold-300);
 }
 
+.page-selector-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.page-selector {
+  padding: 0.5rem 2rem 0.5rem 1rem;
+  border: 2px solid var(--color-grey-100);
+  border-radius: 0.5rem;
+  background-color: var(--color-gold-50);
+  color: var(--color-blue-400);
+  font-weight: 500;
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  transition: all 0.3s ease;
+}
+
+.page-selector:focus {
+  outline: none;
+  border-color: var(--color-gold-400);
+  box-shadow: 0 0 0 3px rgba(var(--color-gold-400), 0.1);
+}
+
+.page-selector-container::after {
+  content: "▼";
+  position: absolute;
+  right: 10px;
+  font-size: 0.8rem;
+  color: var(--color-gold-300);
+  pointer-events: none;
+}
+
 .page-info {
   color: var(--color-gold-300);
   font-weight: 500;
+  margin-left: 0.5rem;
 }
 
 .search-info {
