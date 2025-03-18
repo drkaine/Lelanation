@@ -3,6 +3,7 @@ import { DdragonAPI } from "./DdragonAPI";
 import { saveFile, openFile } from "./FileManager";
 import { Champion, Item, Summoner, RunePath } from "./types";
 import { exec } from "child_process";
+import { YoutubeService } from "./service/YoutubeService";
 
 const targets: { urlFR: string[]; folder: string; folderJSON: string } = {
   urlFR: [
@@ -17,6 +18,7 @@ const targets: { urlFR: string[]; folder: string; folderJSON: string } = {
 };
 
 const ddragonAPI = new DdragonAPI();
+const youtubeService = new YoutubeService();
 
 export async function execution() {
   exec("bash ../.github/.scripts/deploy.sh", (error, stdout, stderr) => {
@@ -154,6 +156,16 @@ async function downloadRunes() {
   }
 }
 
+async function downloadYoutubeVideos() {
+  try {
+    const channelId = await youtubeService.getChannelId("Lelariva_LoL");
+    await youtubeService.fetchAndStoreVideos(channelId);
+    console.log("YouTube videos updated successfully");
+  } catch (error) {
+    console.error("Error updating YouTube videos:", error);
+  }
+}
+
 export async function compilation() {
   const date = new Date();
   if (!(await ddragonAPI.isLastVersion())) {
@@ -178,4 +190,6 @@ export async function compilation() {
       path.join(__dirname, targets["folderJSON"] + "pas-de-nouvelle-version"),
     );
   }
+
+  await downloadYoutubeVideos();
 }

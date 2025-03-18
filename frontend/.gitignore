@@ -47,5 +47,7 @@ playwright-report/
 /src/assets/files/data/*
 /src/assets/files/contact/*
 /src/assets/files/dictionnaire/*
+/src/assets/files/data/youtube.json
+/src/assets/files/data/token-state.json
 
 .env

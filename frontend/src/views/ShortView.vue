@@ -1,21 +1,14 @@
 <script lang="ts">
-import {
-  type Video,
-  type Tab,
-  type YouTubeApiItem,
-  type CacheData,
-} from '@/types/video'
+import { type Video, type Tab } from '@/types/video'
+import youtubeData from '@/assets/files/data/youtube.json'
 
 export default {
   name: 'ShortView',
   data() {
     return {
-      channelUsername: 'Lelariva_LoL',
-      channelId: '',
       shorts: [] as Video[],
       loading: false,
       error: null as string | null,
-      apiKey: import.meta.env.VITE_API_YOUTUBE as string,
       currentTab: 'all',
       searchQuery: '',
       currentPage: 1,
@@ -26,8 +19,6 @@ export default {
         { id: 'build', name: 'Build' },
         { id: 'debrief', name: 'Debrief' },
       ] as Tab[],
-      debouncedSearch: null as ((query: string) => void) | null,
-      cacheExpiration: 3600000, // 1 heure en millisecondes
     }
   },
   computed: {
@@ -77,11 +68,8 @@ export default {
     },
   },
   watch: {
-    searchQuery(newQuery: string) {
+    searchQuery() {
       this.currentPage = 1
-      if (this.debouncedSearch) {
-        this.debouncedSearch(newQuery)
-      }
     },
     currentTab() {
       this.currentPage = 1
@@ -91,132 +79,21 @@ export default {
     formatDate(dateString: string): string {
       return new Date(dateString).toLocaleDateString('fr-FR')
     },
-    async getChannelId(): Promise<string> {
-      const handleResponse = await fetch(
-        `https://www.googleapis.com/youtube/v3/search?key=${this.apiKey}&q=${this.channelUsername}&type=channel&part=id`,
-      )
-      const handleData = await handleResponse.json()
 
-      if (handleData.items && handleData.items.length > 0) {
-        return handleData.items[0].id.channelId
-      }
-
-      throw new Error('Impossible de trouver la chaîne')
-    },
-    getCacheKey(): string {
-      return `youtube_videos_${this.channelUsername}`
-    },
-    saveToCache(videos: Video[]): void {
-      const cacheData: CacheData = {
-        videos,
-        timestamp: Date.now(),
-        channelId: this.channelId,
-      }
-      localStorage.setItem(this.getCacheKey(), JSON.stringify(cacheData))
-    },
-    getFromCache(): Video[] | null {
-      const cached = localStorage.getItem(this.getCacheKey())
-      if (!cached) return null
-
-      const cacheData: CacheData = JSON.parse(cached)
-      const isExpired = Date.now() - cacheData.timestamp > this.cacheExpiration
-
-      if (isExpired) {
-        localStorage.removeItem(this.getCacheKey())
-        return null
-      }
-
-      this.channelId = cacheData.channelId
-      return cacheData.videos
-    },
-    async fetchShorts(searchQuery = ''): Promise<void> {
+    loadVideos(): void {
       this.loading = true
-      this.error = null
-
       try {
-        if (!searchQuery) {
-          const cachedVideos = this.getFromCache()
-          if (cachedVideos) {
-            this.shorts = cachedVideos
-            this.loading = false
-            return
-          }
-        }
-
-        this.channelId = await this.getChannelId()
-        let nextPageToken = ''
-        let allVideos: Video[] = []
-
-        const baseUrl = `https://www.googleapis.com/youtube/v3/search?key=${this.apiKey}&channelId=${this.channelId}&part=snippet,id&order=date&maxResults=50&type=video`
-        const searchParam = searchQuery
-          ? `&q=${encodeURIComponent(searchQuery)}`
-          : ''
-
-        do {
-          const response = await fetch(
-            `${baseUrl}${searchParam}${nextPageToken ? '&pageToken=' + nextPageToken : ''}`,
-          )
-          const data = await response.json()
-
-          if (data.error) {
-            throw new Error(data.error.message)
-          }
-
-          if (!data.items || data.items.length === 0) {
-            break
-          }
-
-          allVideos = [
-            ...allVideos,
-            ...data.items.map((item: YouTubeApiItem) => ({
-              ...item,
-              id: item.id.videoId,
-            })),
-          ]
-          nextPageToken = data.nextPageToken
-
-          if (allVideos.length >= 100) break
-        } while (nextPageToken)
-
-        if (allVideos.length === 0) {
-          this.error = 'Aucune vidéo trouvée pour cette chaîne'
-          return
-        }
-
-        this.shorts = allVideos
-
-        if (!searchQuery) {
-          this.saveToCache(allVideos)
-        }
+        this.shorts = youtubeData.videos
       } catch (err) {
-        this.error = `Erreur lors de la récupération des vidéos: ${err instanceof Error ? err.message : 'Erreur inconnue'}`
+        this.error = 'Erreur lors du chargement des vidéos'
         console.error('Erreur détaillée:', err)
       } finally {
         this.loading = false
       }
     },
-    debounce(
-      func: (query: string) => void,
-      wait: number,
-    ): (query: string) => void {
-      let timeout: number | null = null
-      return (query: string): void => {
-        const later = () => {
-          if (timeout) window.clearTimeout(timeout)
-          func(query)
-        }
-        if (timeout) window.clearTimeout(timeout)
-        timeout = window.setTimeout(later, wait)
-      }
-    },
-  },
-  created() {
-    this.debouncedSearch = this.debounce((query: string) => {
-      this.fetchShorts(query)
-    }, 500)
   },
   mounted() {
-    this.fetchShorts()
+    this.loadVideos()
   },
 }
 </script>
