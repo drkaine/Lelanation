@@ -230,6 +230,71 @@ export class YoutubeService {
     }
   }
 
+  /**
+   * Nettoie les entités HTML d'une chaîne de caractères
+   */
+  private cleanHtmlEntities(text: string): string {
+    if (!text) return "";
+
+    return text
+      .replace(/&quot;/g, '"')
+      .replace(/&#39;/g, "'")
+      .replace(/&apos;/g, "'")
+      .replace(/&amp;/g, "&")
+      .replace(/&lt;/g, "<")
+      .replace(/&gt;/g, ">")
+      .replace(/&#x27;/g, "'")
+      .replace(/&#x2F;/g, "/");
+  }
+
+  /**
+   * Nettoie les entités HTML dans les données de vidéo
+   */
+  private cleanVideoData(video: Video): Video {
+    if (!video || !video.snippet) return video;
+
+    return {
+      ...video,
+      snippet: {
+        ...video.snippet,
+        title: this.cleanHtmlEntities(video.snippet.title),
+        description: this.cleanHtmlEntities(video.snippet.description),
+      },
+    };
+  }
+
+  /**
+   * Nettoie les données existantes dans le fichier JSON
+   */
+  async cleanExistingData(): Promise<void> {
+    try {
+      const storage = await this.loadStorage();
+
+      if (!storage.videos || !storage.videos.length) {
+        console.log("No videos to clean");
+        return;
+      }
+
+      console.log(`Cleaning ${storage.videos.length} videos`);
+
+      // Nettoyer chaque vidéo
+      const cleanedVideos = storage.videos.map((video) =>
+        this.cleanVideoData(video),
+      );
+
+      // Sauvegarder les vidéos nettoyées
+      await this.saveStorage({
+        ...storage,
+        videos: cleanedVideos,
+      });
+
+      console.log("Videos cleaned successfully");
+    } catch (error) {
+      console.error("Error cleaning video data:", error);
+      throw error;
+    }
+  }
+
   async fetchAndStoreVideos(channelId: string): Promise<Video[]> {
     try {
       console.log("Fetching videos for channel:", channelId);
@@ -298,10 +363,16 @@ export class YoutubeService {
           break;
         }
 
-        const newVideos = data.items.map((item: YouTubeApiItem) => ({
-          ...item,
-          id: item.id.videoId,
-        }));
+        const newVideos = data.items.map((item: YouTubeApiItem) => {
+          // Créer l'objet vidéo
+          const video = {
+            ...item,
+            id: item.id.videoId,
+          };
+
+          // Nettoyer les entités HTML
+          return this.cleanVideoData(video);
+        });
 
         allNewVideos = [...allNewVideos, ...newVideos];
 
