@@ -80,6 +80,20 @@ export default {
       return new Date(dateString).toLocaleDateString('fr-FR')
     },
 
+    cleanHtmlEntities(text: string): string {
+      if (!text) return ''
+
+      return text
+        .replace(/&quot;/g, '"')
+        .replace(/&#39;/g, "'")
+        .replace(/&apos;/g, "'")
+        .replace(/&amp;/g, '&')
+        .replace(/&lt;/g, '<')
+        .replace(/&gt;/g, '>')
+        .replace(/&#x27;/g, "'")
+        .replace(/&#x2F;/g, '/')
+    },
+
     loadVideos(): void {
       this.loading = true
       try {
