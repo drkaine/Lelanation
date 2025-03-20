@@ -173,64 +173,81 @@ export class YoutubeService {
   async checkForNewVideos(channelId: string): Promise<boolean> {
     try {
       const storage = await this.loadStorage();
-      
-      // Si nous n'avons pas encore de vidéos ou si le dernier check était il y a plus d'une heure
+
+      // Forcer la vérification si nous n'avons pas de vidéos ou de channelId incorrect
       if (
-        !storage.videos.length || 
-        !storage.lastVideoDate ||
-        Date.now() - storage.lastUpdate > this.CHECK_INTERVAL
+        !storage.videos.length ||
+        storage.channelId !== channelId ||
+        !storage.lastVideoDate
       ) {
+        console.log("Forcing check: no videos or different channel ID");
         return true;
       }
-      
+
+      // Forcer la vérification si le dernier check était il y a plus d'une heure
+      if (Date.now() - storage.lastUpdate > this.CHECK_INTERVAL) {
+        console.log("Forcing check: last update was too long ago");
+        return true;
+      }
+
+      console.log("Checking for new videos since:", storage.lastVideoDate);
+
       // Récupérer seulement la vidéo la plus récente pour économiser le quota
       const checkUrl = `https://www.googleapis.com/youtube/v3/search?key=${this.API_KEY}&channelId=${channelId}&part=snippet,id&order=date&maxResults=1&type=video`;
-      
+
       const response = await fetch(checkUrl);
-      
+
       if (!response.ok) {
         const error = await response.json();
         console.error("Error checking new videos:", error);
-        return false;
+        return true; // En cas d'erreur, on force le refresh pour être sûr
       }
-      
+
       const data = await response.json();
-      
+
       // Ajouter au quota
       const tokenState = await this.loadTokenState();
-      tokenState.tokenQuota += 100; // Coût d'une requête de recherche
+      tokenState.tokenQuota += 100;
       await this.saveTokenState(tokenState);
-      
-      // Aucun résultat, donc pas de nouvelle vidéo
-      if (!data.items?.length) return false;
-      
+
+      // Aucun résultat, on retourne quand même true pour forcer la vérification complète
+      if (!data.items?.length) {
+        console.log("No items in check response, forcing full check");
+        return true;
+      }
+
       // Comparer la date de la vidéo la plus récente avec celle que nous avons déjà
       const latestVideoDate = new Date(data.items[0].snippet.publishedAt);
       const storedLatestDate = new Date(storage.lastVideoDate);
-      
-      // Retourner true si une nouvelle vidéo est sortie
-      return latestVideoDate > storedLatestDate;
+
+      console.log("Latest video date:", latestVideoDate);
+      console.log("Stored latest date:", storedLatestDate);
+
+      return true; // Forcer la vérification complète pour déboguer
     } catch (error) {
       console.error("Error checking for new videos:", error);
-      return false; // En cas d'erreur, on suppose qu'il n'y a pas de nouvelles vidéos
+      return true; // En cas d'erreur, on force le refresh pour être sûr
     }
   }
 
   async fetchAndStoreVideos(channelId: string): Promise<Video[]> {
     try {
+      console.log("Fetching videos for channel:", channelId);
+
       const storage = await this.loadStorage();
       let tokenState = await this.loadTokenState();
 
-      // Vérifier si de nouvelles vidéos sont disponibles
-      const hasNewVideos = await this.checkForNewVideos(channelId);
-      if (!hasNewVideos) {
-        console.log("No new videos found, returning cached videos");
-        return storage.videos;
+      // Réinitialiser le token si nous changeons de chaîne
+      if (storage.channelId !== channelId) {
+        console.log("Channel ID changed, resetting token");
+        tokenState.nextPageToken = "";
       }
 
+      // Réinitialiser le quota si c'est un nouveau jour
       if (this.isNewDay(tokenState.lastUpdate)) {
+        console.log("New day, resetting quota");
         tokenState = {
-          nextPageToken: "",
+          nextPageToken: tokenState.nextPageToken, // Garder le token pour continuer la pagination
           lastUpdate: Date.now(),
           tokenQuota: 0,
           channelId,
@@ -245,70 +262,115 @@ export class YoutubeService {
       const baseUrl = `https://www.googleapis.com/youtube/v3/search?key=${this.API_KEY}&channelId=${channelId}&part=snippet,id&order=date&maxResults=${this.MAX_RESULTS}&type=video`;
 
       let nextPageToken = tokenState.nextPageToken;
-      let newVideos: Video[] = [];
+      let allNewVideos: Video[] = [];
+      let pageCount = 0;
+      const MAX_PAGES = 10; // Limiter le nombre de pages à récupérer par session
+
+      console.log("Starting with page token:", nextPageToken || "none");
 
       do {
+        console.log(
+          `Fetching page ${pageCount + 1}${nextPageToken ? " with token: " + nextPageToken : ""}`,
+        );
+
         const response = await fetch(
           `${baseUrl}${nextPageToken ? "&pageToken=" + nextPageToken : ""}`,
         );
 
         if (!response.ok) {
-          const error = await response.json();
-          throw new Error(error.error?.message || "Failed to fetch videos");
+          const errorData = await response.json();
+          console.error("API error:", errorData);
+          throw new Error(
+            errorData.error?.message ||
+              `Failed to fetch videos: ${response.status}`,
+          );
         }
 
         const data = await response.json();
 
+        console.log(`Received ${data.items?.length || 0} videos`);
+
         tokenState.tokenQuota += 100;
         tokenState.lastUpdate = Date.now();
 
-        if (!data.items?.length) break;
+        if (!data.items?.length) {
+          console.log("No items in response, breaking loop");
+          break;
+        }
 
-        newVideos = [
-          ...newVideos,
-          ...data.items.map((item: YouTubeApiItem) => ({
-            ...item,
-            id: item.id.videoId,
-          })),
-        ];
+        const newVideos = data.items.map((item: YouTubeApiItem) => ({
+          ...item,
+          id: item.id.videoId,
+        }));
+
+        allNewVideos = [...allNewVideos, ...newVideos];
 
         nextPageToken = data.nextPageToken;
         tokenState.nextPageToken = nextPageToken;
+        tokenState.channelId = channelId;
 
+        // Sauvegarder l'état du token après chaque page
         await this.saveTokenState(tokenState);
 
-        if (tokenState.tokenQuota >= this.QUOTA_LIMIT) break;
+        pageCount++;
+
+        // Arrêter si on atteint la limite de quota ou le nombre max de pages
+        if (
+          tokenState.tokenQuota >= this.QUOTA_LIMIT ||
+          pageCount >= MAX_PAGES
+        ) {
+          console.log(
+            tokenState.tokenQuota >= this.QUOTA_LIMIT
+              ? "Quota limit reached, stopping pagination"
+              : "Max pages reached, stopping pagination",
+          );
+          break;
+        }
       } while (nextPageToken);
 
-      const allVideos = [...storage.videos, ...newVideos];
-      const uniqueVideos = Array.from(
-        new Map(allVideos.map((video) => [video.id, video])).values(),
+      console.log(`Total new videos fetched: ${allNewVideos.length}`);
+
+      // Fusionner avec les vidéos existantes
+      // Utiliser un Set pour éviter les doublons
+      const videoMap = new Map<string, Video>();
+
+      // D'abord ajouter les vidéos existantes
+      storage.videos.forEach((video) => {
+        videoMap.set(video.id, video);
+      });
+
+      // Puis ajouter/remplacer par les nouvelles
+      allNewVideos.forEach((video) => {
+        videoMap.set(video.id, video);
+      });
+
+      const uniqueVideos = Array.from(videoMap.values());
+
+      console.log(`Total unique videos after merge: ${uniqueVideos.length}`);
+
+      // Trier les vidéos par date (plus récentes d'abord)
+      const sortedVideos = uniqueVideos.sort(
+        (a, b) =>
+          new Date(b.snippet.publishedAt).getTime() -
+          new Date(a.snippet.publishedAt).getTime(),
       );
 
       // Sauvegarder les vidéos
-      if (uniqueVideos.length > 0) {
-        // Trier les vidéos par date de publication (plus récente d'abord)
-        const sortedVideos = [...uniqueVideos].sort((a, b) => 
-          new Date(b.snippet.publishedAt).getTime() - new Date(a.snippet.publishedAt).getTime()
-        );
-        
-        // Sauvegarder avec la date de la vidéo la plus récente
-        await this.saveStorage({
-          videos: uniqueVideos,
-          lastVideoDate: sortedVideos[0].snippet.publishedAt,
-          channelId,
-          lastUpdate: Date.now(),
-        });
-      } else {
-        await this.saveStorage({
-          videos: uniqueVideos,
-          lastVideoDate: storage.lastVideoDate || new Date().toISOString(),
-          channelId,
-          lastUpdate: Date.now(),
-        });
-      }
+      const lastVideoDate =
+        sortedVideos.length > 0
+          ? sortedVideos[0].snippet.publishedAt
+          : storage.lastVideoDate || new Date().toISOString();
 
-      return uniqueVideos;
+      console.log("Last video date:", lastVideoDate);
+
+      await this.saveStorage({
+        videos: sortedVideos,
+        lastVideoDate,
+        channelId,
+        lastUpdate: Date.now(),
+      });
+
+      return sortedVideos;
     } catch (error) {
       console.error("Error fetching videos:", error);
       throw error;
@@ -316,19 +378,18 @@ export class YoutubeService {
   }
 
   async getVideos(channelId: string): Promise<Video[]> {
-    const storage = await this.loadStorage();
-    
-    // Vérifier si le cache existe et si c'est pour le bon channelId
-    if (storage.channelId === channelId) {
-      // Vérifier s'il y a de nouvelles vidéos
-      const hasNewVideos = await this.checkForNewVideos(channelId);
-      if (!hasNewVideos) {
+    try {
+      // Force le rafraîchissement pour déboguer
+      return this.fetchAndStoreVideos(channelId);
+    } catch (error) {
+      // En cas d'erreur, retourner le cache s'il existe
+      const storage = await this.loadStorage();
+      if (storage.videos.length > 0) {
+        console.warn("Error fetching new videos, using cache:", error);
         return storage.videos;
       }
+      throw error;
     }
-
-    // Récupérer de nouvelles données
-    return this.fetchAndStoreVideos(channelId);
   }
 
   async searchVideos(channelId: string, query: string): Promise<Video[]> {
