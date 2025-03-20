@@ -154,7 +154,7 @@ export default {
         >
           Précédent
         </button>
-        
+
         <!-- Ajout du sélecteur de page -->
         <div class="page-selector-container">
           <select v-model="currentPage" class="page-selector">
@@ -163,11 +163,9 @@ export default {
             </option>
           </select>
         </div>
-        
-        <span class="page-info">
-          sur {{ totalPages }}
-        </span>
-        
+
+        <span class="page-info"> sur {{ totalPages }} </span>
+
         <button
           :disabled="currentPage === totalPages"
           @click="currentPage++"
@@ -382,7 +380,7 @@ export default {
 }
 
 .page-selector-container::after {
-  content: "▼";
+  content: '▼';
   position: absolute;
   right: 10px;
   font-size: 0.8rem;

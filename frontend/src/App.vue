@@ -82,14 +82,27 @@ const acceptConditions = () => {
               v-if="connexionStore.isLoggedIn"
               >Lelanalytics</RouterLink
             >
-            <RouterLink to="/short" @click="toggleMenu">Lelashorts</RouterLink>
-            <RouterLink to="/dictionnaire" @click="toggleMenu"
+
+            <RouterLink
+              to="/videos"
+              title="videos"
+              class="version"
+              @click="toggleMenu"
+            >
+              Lelarideos</RouterLink
+            >
+            <RouterLink
+              to="/dictionnaire"
+              title="dictionnaire"
+              class="version"
+              @click="toggleMenu"
               >Leladictionnaiva</RouterLink
             >
             <RouterLink
               to="/build"
+              title="build"
+              class="version"
               @click="toggleMenu"
-              class="link"
               aria-label="Créer un build"
             >
               Build
@@ -97,15 +110,23 @@ const acceptConditions = () => {
             <RouterLink
               v-if="userBuilds.length > 0"
               to="/builds"
+              title="mes builds"
+              class="version"
               @click="toggleMenu"
               >Mes builds</RouterLink
             >
-            <RouterLink to="/builds-publics" @click="toggleMenu"
+            <RouterLink
+              to="/builds-publics"
+              title="builds publics"
+              class="version"
+              @click="toggleMenu"
               >Builds de la communauté</RouterLink
             >
             <RouterLink
               v-if="builds.length > 0"
               to="/Lebuildarriva"
+              title="lebuildarriva"
+              class="version"
               @click="toggleMenu"
               >Lebuildarriva</RouterLink
             >
@@ -124,7 +145,9 @@ const acceptConditions = () => {
               v-if="connexionStore.isLoggedIn"
               >Lelanalytics</RouterLink
             >
-            <RouterLink to="/videos">Lelarideos</RouterLink>
+            <RouterLink to="/videos" title="videos" class="version">
+              Lelarideos</RouterLink
+            >
             <RouterLink title="dictionnaire" class="version" to="/dictionnaire">
               Leladictionnaiva</RouterLink
             >
