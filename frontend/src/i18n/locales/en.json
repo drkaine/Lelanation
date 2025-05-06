@@ -1,0 +1,26 @@
+{
+  "common": {
+    "welcome": "Welcome",
+    "language": "Language",
+    "settings": "Settings",
+    "search": "Search",
+    "loading": "Loading..."
+  },
+  "navigation": {
+    "home": "Home",
+    "champions": "Champions",
+    "items": "Items",
+    "runes": "Runes",
+    "summoners": "Summoner Spells"
+  },
+  "champions": {
+    "title": "Champions",
+    "searchPlaceholder": "Search for a champion...",
+    "noResults": "No champions found"
+  },
+  "items": {
+    "title": "Items",
+    "searchPlaceholder": "Search for an item...",
+    "noResults": "No items found"
+  }
+} 

@@ -5,13 +5,20 @@ import { Champion, Item, Summoner, RunePath } from "./types";
 import { exec } from "child_process";
 import { YoutubeService } from "./service/YoutubeService";
 
-const targets: { urlFR: string[]; folder: string; folderJSON: string } = {
+const targets: { urlFR: string[]; urlEN: string[]; folder: string; folderJSON: string } = {
   urlFR: [
     "data/fr_FR/championFull.json",
     "data/fr_FR/item.json",
     "data/fr_FR/summoner.json",
     "data/fr_FR/runesReforged.json",
     "data/fr_FR/map.json",
+  ],
+  urlEN: [
+    "data/en_US/championFull.json",
+    "data/en_US/item.json",
+    "data/en_US/summoner.json",
+    "data/en_US/runesReforged.json",
+    "data/en_US/map.json",
   ],
   folder: "../../frontend/public/assets/icons/",
   folderJSON: "../../frontend/src/assets/files/data/",
@@ -39,6 +46,14 @@ async function downloadFiles() {
 
     const filename = target.split("/").pop();
     const filePath = path.join(__dirname, targets["folderJSON"] + filename);
+
+    saveFile(JSON.stringify(data), filePath);
+  }
+  for (const target of targets["urlEN"]) {
+    const data = await ddragonAPI.loadJson(target);
+
+    const filename = target.split("/").pop();
+    const filePath = path.join(__dirname, targets["folderJSON"] + "en/" + filename);
 
     saveFile(JSON.stringify(data), filePath);
   }

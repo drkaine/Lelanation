@@ -6,10 +6,15 @@ import { useBuildStore } from '@/stores/buildStore'
 import { useConnexionStore } from '@/stores/connexionStore'
 import LegalModal from '@/components/Modal/LegalModal.vue'
 import Footer from '@/components/FooterComponent.vue'
+import LanguageSwitcher from '@/components/LanguageSwitcher.vue'
+import { useI18n } from 'vue-i18n'
 
 const buildStore = useBuildStore()
 const connexionStore = useConnexionStore()
+const { locale } = useI18n()
+
 buildStore.loadUserBuilds()
+
 const userBuilds = buildStore.userBuilds
 
 const builds = ref([])
@@ -57,6 +62,7 @@ const acceptConditions = () => {
           <a href="/" class="link" aria-label="Accueil">
             <span>Accueil</span>
           </a>
+          <LanguageSwitcher />
           <button class="menu-mobile" @click="toggleMenu">
             <svg
               width="24"
@@ -92,11 +98,12 @@ const acceptConditions = () => {
               Lelarideos</RouterLink
             >
             <RouterLink
+              v-if="locale === 'lelarivien'"
               to="/dictionnaire"
               title="dictionnaire"
               class="version"
               @click="toggleMenu"
-              >Leladictionnaiva</RouterLink
+              >{{ $t('navigation.dictionary') }}</RouterLink
             >
             <RouterLink
               to="/build"
@@ -148,8 +155,12 @@ const acceptConditions = () => {
             <RouterLink to="/videos" title="videos" class="version">
               Lelarideos</RouterLink
             >
-            <RouterLink title="dictionnaire" class="version" to="/dictionnaire">
-              Leladictionnaiva</RouterLink
+            <RouterLink
+              v-if="locale === 'lelarivien'"
+              title="dictionnaire"
+              class="version"
+              to="/dictionnaire"
+              >{{ $t('navigation.dictionary') }}</RouterLink
             >
 
             <RouterLink title="Build" class="version" to="/build">
