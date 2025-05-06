@@ -65,7 +65,6 @@ async function downloadChampions() {
       passive,
       path.join(
         __dirname,
-        "../../" +
           targets["folder"] +
           "/champions/passive/" +
           Data.passive.image.full,
@@ -79,8 +78,7 @@ async function downloadChampions() {
         spell,
         path.join(
           __dirname,
-          "../../" +
-            targets["folder"] +
+          targets["folder"] +
             "/champions/sorts/" +
             value.id +
             ".png",
