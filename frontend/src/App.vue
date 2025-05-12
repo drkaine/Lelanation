@@ -8,10 +8,16 @@ import LegalModal from '@/components/Modal/LegalModal.vue'
 import Footer from '@/components/FooterComponent.vue'
 import LanguageSwitcher from '@/components/LanguageSwitcher.vue'
 import { useI18n } from 'vue-i18n'
+import { directTranslation } from './i18nCompat'
 
 const buildStore = useBuildStore()
 const connexionStore = useConnexionStore()
 const { locale } = useI18n()
+
+// Custom translation getter using our direct translation function
+const translateDirect = (key: string) => {
+  return directTranslation(key);
+}
 
 buildStore.loadUserBuilds()
 
@@ -38,7 +44,7 @@ onMounted(async () => {
     builds.value = []
   }
 })
-console.log(connexionStore.userName)
+
 const acceptConditions = () => {
   connexionStore.isUser()
 }
@@ -52,7 +58,7 @@ const acceptConditions = () => {
           <LegalModal />
           <div class="modal-actions">
             <button class="accept-btn" @click="acceptConditions">
-              {{ $t('legal.accept') }}
+              {{ translateDirect('legal.accept') }}
             </button>
           </div>
         </div>

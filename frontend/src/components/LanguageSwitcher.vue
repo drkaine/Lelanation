@@ -12,27 +12,51 @@
 import { ref, watch, onMounted } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { setLocale } from '@/i18n'
+import i18n from '@/i18n'
 
 type Locale = 'fr' | 'en' | 'laranguiva'
 
-const { locale, t } = useI18n()
-const currentLocale = ref<Locale>(locale.value as Locale)
+// Use direct access to i18n for reliable locale information
+const i18nAny = i18n as any
+
+// Get current locale from stored value or i18n instance
+const getInitialLocale = (): Locale => {
+  // Try to get from localStorage first
+  const stored = localStorage.getItem('locale') as Locale
+  if (stored && ['fr', 'en', 'laranguiva'].includes(stored)) {
+    return stored
+  }
+  
+  // Then try from i18n instance
+  try {
+    return (i18nAny.global.locale || 'fr') as Locale
+  } catch (e) {
+    return 'fr' // Default fallback
+  }
+}
+
+// Use the Composition API for i18n
+const { locale } = useI18n()
+const currentLocale = ref<Locale>(getInitialLocale())
 
 const changeLanguage = async () => {
-  console.log('Changing language to:', currentLocale.value)
   await setLocale(currentLocale.value)
   // Force reload to ensure all components are updated
   window.location.reload()
 }
 
 watch(() => locale.value, (newLocale) => {
-  console.log('Locale changed to:', newLocale)
-  currentLocale.value = newLocale as Locale
+  if (newLocale) {
+    currentLocale.value = newLocale as Locale
+  }
 })
 
+// Initialize on mount to ensure currentLocale is set properly
 onMounted(() => {
-  console.log('Current locale:', locale.value)
-  console.log('Available messages:', t('home.title'))
+  const storedLocale = getInitialLocale()
+  if (storedLocale) {
+    currentLocale.value = storedLocale
+  }
 })
 </script>
 

@@ -3,46 +3,46 @@ import fr from './locales/fr.json'
 import en from './locales/en.json'
 import laranguiva from './locales/laranguiva.json'
 
-type Locale = 'fr' | 'en' | 'laranguiva'
+export type Locale = 'fr' | 'en' | 'laranguiva'
 
-// Get the saved locale or default to 'fr'
-const savedLocale = localStorage.getItem('locale') as Locale
-const defaultLocale = savedLocale || 'fr'
+// Handle browser environment safely
+const savedLocale = typeof localStorage !== 'undefined' ? localStorage.getItem('locale') : null
+const defaultLocale: Locale = (savedLocale as Locale) || 'fr'
 
-const messages = {
-  fr,
-  en,
-  laranguiva
-}
-
+// Create i18n instance with legacy: true for Vue template compatibility
 const i18n = createI18n({
-  legacy: false,
-  locale: defaultLocale,
-  fallbackLocale: 'en',
-  messages,
-  silentTranslationWarn: true,
-  silentFallbackWarn: true,
-  missingWarn: false,
-  fallbackWarn: false,
-  runtimeOnly: true,
+  legacy: true, // Critical for template usage with $t
   globalInjection: true,
-  allowComposition: true,
-  sync: true
+  locale: defaultLocale,
+  fallbackLocale: 'fr',
+  messages: {
+    fr,
+    en,
+    laranguiva
+  },
+  silentTranslationWarn: false,
+  fallbackWarn: false,
+  missingWarn: true
 })
 
-// Exporter une fonction pour changer de langue
-export async function setLocale(locale: Locale) {
-  i18n.global.locale.value = locale
-  localStorage.setItem('locale', locale)
-  // Force reload to ensure all components are updated
-  window.location.reload()
+// Function to change locale
+export function setLocale(locale: Locale) {
+  try {
+    // Cast to any to fix TypeScript errors with legacy mode
+    const i18nAny = i18n as any;
+    i18nAny.global.locale = locale;
+    
+    localStorage.setItem('locale', locale)
+    document.querySelector('html')?.setAttribute('lang', locale)
+  } catch (error) {
+    console.error('Failed to change locale:', error)
+  }
 }
 
-// Log the current configuration
-console.log('i18n configuration:', {
-  currentLocale: i18n.global.locale.value,
-  availableLocales: Object.keys(messages),
-  messages: messages
-})
+// Force initial locale setting to ensure it's properly applied
+const i18nAny = i18n as any
+if (i18nAny.global.locale !== defaultLocale) {
+  i18nAny.global.locale = defaultLocale
+}
 
 export default i18n 
