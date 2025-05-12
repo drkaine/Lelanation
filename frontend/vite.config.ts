@@ -23,17 +23,26 @@ export default defineConfig({
         main: fileURLToPath(new URL('./index.html', import.meta.url)),
       },
       output: {
-        manualChunks: (id) => {
+        manualChunks: (id: string) => {
+          if (id.includes('node_modules/vue-i18n')) {
+            return 'vue-i18n'
+          }
           if (id.includes('champion.json')) {
             return 'champion-data'
+          }
+          if (id.includes('locales/')) {
+            return 'i18n'
           }
         }
       }
     },
     assetsInlineLimit: 0,
+    sourcemap: true,
+    chunkSizeWarningLimit: 1000,
+    target: 'es2020'
   },
   optimizeDeps: {
-    include: ['uuid']
+    include: ['uuid', 'vue-i18n']
   },
   server: {
     proxy: {
@@ -42,5 +51,8 @@ export default defineConfig({
         changeOrigin: true
       }
     }
+  },
+  json: {
+    stringify: true
   }
 })

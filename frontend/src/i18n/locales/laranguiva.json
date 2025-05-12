@@ -9,25 +9,26 @@
   },
   "navigation": {
     "home": "Accueil",
-    "analytics": "Statistiques",
-    "videos": "Vidéos",
-    "lela-builds": "Builds de Lelariva",
+    "analytics": "Lelanalytics",
+    "videos": "Lelarideos",
+    "lela-builds": "Lelabuilds",
     "builds-public": "Builds de la communauté",
     "builds-private": "Mes builds",
-    "build": "build"
+    "build": "build",
+    "dictionary": "Leladictionnaiva"
   },
+
   "home": {
-    "title": "Bienvenue sur Lelanation !",
-    "description": "Retrouver le grand Lelariva, chercher le meilleur build pour votre champion",
+    "title": "Lelanation vous saluriva tous !",
+    "description": "Retrouver le grand Lelariva",
     "links": {
-      "discord": "Discord",
-      "twitter": "X",
-      "youtube": "Youtube",
-      "instagram": "Instagram",
-      "tiktok": "TikTok",
-      "twitch": "Twitch",
-      "website": "Site web",
-      "patreon": "Patreon"
+      "discord": "Lelaricord",
+      "twitter": "LelariX",
+      "youtube": "Lelaritube",
+      "tiktok": "Lelaritiktok",
+      "twitch": "Lelaritwitch",
+      "website": "Lelariva",
+      "patreon": "Lepatreonva"
     }
   },
   "menu-build": {
@@ -170,7 +171,12 @@
    "matchups-hard": "Le plus dur et Commun",
    "otp": "OTP"
   },
- "legal": {
+  "footer": {
+    "legal": "Lelalegal",
+    "contact": "Contact",
+    "admin": "Admin"
+  },
+  "legal": {
     "title": "Mentions légales",
     "title2": "Bienvenue sur Lelanation",
     "description": "Lelanation est un site web qui permet de trouver les meilleures builds pour les champions de League of Legends. Il est conçu et maintenu par Lelariva et ses contributeurs.",
@@ -193,10 +199,5 @@
     "shared-builds": "Les builds partagés sont sous licence Creative Commons",
     "league-of-legends": "League of Legends est une marque déposée de Riot Games",
     "no-link": "Nous n'avons pas de lien avec Riot Games ni avec Lelariva"
-  },
-  "footer": {
-    "legal": "Mentions légales",
-    "contact": "Contact",
-    "admin": "Admin"
   }
 } 

@@ -190,7 +190,7 @@ const submitForm = async () => {
   <form @submit.prevent="submitForm" class="build-form">
     <div class="form-group">
       <label>
-        Nom *
+        {{ $t('infos-build.name') }} *
         <input
           maxlength="58"
           type="text"
@@ -204,7 +204,7 @@ const submitForm = async () => {
 
     <div class="form-group">
       <label>
-        Pseudo *
+        {{ $t('infos-build.author') }} *
         <input
           maxlength="58"
           type="text"
@@ -218,7 +218,7 @@ const submitForm = async () => {
 
     <div class="form-group">
       <label class="desc">
-        Description
+        {{ $t('infos-build.description') }}
         <textarea
           type="text"
           maxlength="1500"
@@ -233,12 +233,14 @@ const submitForm = async () => {
       <label class="visibility-toggle">
         <input type="checkbox" v-model="isVisible" />
         <span class="checkmark"></span>
-        Public
+        {{ $t('infos-build.public') }}
       </label>
     </div>
 
     <div class="form-actions">
-      <button type="submit" class="btn-submit">Terminer</button>
+      <button type="submit" class="btn-submit">
+        {{ $t('infos-build.finish') }}
+      </button>
     </div>
   </form>
 </template>

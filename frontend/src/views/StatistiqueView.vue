@@ -489,12 +489,12 @@ const sortedAndFilteredChampions = computed(() => {
       </div>
 
       <div class="tier-list-header">
-        <div class="tier-col">TIER</div>
-        <div class="champion-col">CHAMPION</div>
-        <div class="score-col">Score CP</div>
-        <div class="pickrate-col">Pickrate</div>
-        <div class="matchups-col">Facile et Commun</div>
-        <div class="matchups-col">Le plus dur et Commun</div>
+        <div class="tier-col">{{ $t('statistique.tier') }}</div>
+        <div class="champion-col">{{ $t('statistique.champion') }}</div>
+        <div class="score-col">{{ $t('statistique.score') }}</div>
+        <div class="pickrate-col">{{ $t('statistique.pickrate') }}</div>
+        <div class="matchups-col">{{ $t('statistique.matchups') }}</div>
+        <div class="matchups-col">{{ $t('statistique.matchups-hard') }}</div>
       </div>
 
       <div
@@ -518,7 +518,7 @@ const sortedAndFilteredChampions = computed(() => {
             :alt="champion?.name || ''"
           />
           <span>{{ champion?.name || '' }}</span>
-          <span v-if="champion?.otp" class="otp-badge">OTP</span>
+          <span v-if="champion?.otp" class="otp-badge">{{ $t('statistique.otp') }}</span>
         </div>
         <div class="score-col">{{ champion?.score || 0 }}</div>
         <div class="pickrate-col">

@@ -19,8 +19,6 @@ describe('HomeView', () => {
     const heroSection = wrapper.findComponent(HeroSection)
     expect(heroSection.exists()).toBe(true)
     expect(heroSection.props()).toEqual({
-      title: 'Lelanation vous saluriva tous !',
-      subtitle: 'Retrouver le grand Lelariva',
       imageUrl: '/assets/images/lelariva.png',
       imageAlt: 'Lelariva',
     })

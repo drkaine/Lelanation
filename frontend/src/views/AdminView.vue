@@ -32,7 +32,7 @@ const SuperAdmin = nameAdmin[1] === props.name
 
 <template>
   <div class="admin-container">
-    <h1>Administration</h1>
+    <h1>{{ $t('admin.title') }}</h1>
 
     <div class="admin-tabs" v-if="SuperAdmin">
       <button
@@ -52,27 +52,27 @@ const SuperAdmin = nameAdmin[1] === props.name
     </div>
 
     <div v-if="activeTab === 'Tier-list'" class="tab-content">
-      <h2>Tier-list</h2>
+      <h2>{{ $t('admin.tier-list') }}</h2>
       <TierListTab />
     </div>
 
     <div v-else-if="activeTab === 'analytique'" class="tab-content">
-      <h2>Analytiques</h2>
+      <h2>{{ $t('admin.analytique') }}</h2>
       <AnalyticsTab />
     </div>
 
     <div v-else-if="activeTab === 'dictionnaire'" class="tab-content">
-      <h2>Dictionnaire</h2>
+      <h2>{{ $t('admin.dictionnaire') }}</h2>
       <DictionnaireTab />
     </div>
 
     <div v-else-if="activeTab === 'contact'" class="tab-content">
-      <h2>Messages de Contact</h2>
+      <h2>{{ $t('admin.contact') }}</h2>
       <ContactTab />
     </div>
 
     <div v-else-if="activeTab === 'builds'" class="tab-content">
-      <h2>Gestion des Builds</h2>
+      <h2>{{ $t('admin.builds') }}</h2>
       <BuildsTab />
     </div>
   </div>

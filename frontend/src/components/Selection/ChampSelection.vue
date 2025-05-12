@@ -72,7 +72,7 @@ const selectChampion = (champion: Champion) => {
           }"
           @click="filterChampions('Assassin')"
         >
-          Assassin
+          {{ $t('champion.assassin') }}
         </button>
         <button
           :class="{
@@ -80,7 +80,7 @@ const selectChampion = (champion: Champion) => {
           }"
           @click="filterChampions('Fighter')"
         >
-          Combattant
+          {{ $t('champion.fighter') }}
         </button>
         <button
           :class="{
@@ -88,7 +88,7 @@ const selectChampion = (champion: Champion) => {
           }"
           @click="filterChampions('Mage')"
         >
-          Mage
+          {{ $t('champion.mage') }}
         </button>
         <button
           :class="{
@@ -96,7 +96,7 @@ const selectChampion = (champion: Champion) => {
           }"
           @click="filterChampions('Marksman')"
         >
-          Tireur
+          {{ $t('champion.marksman') }}
         </button>
         <button
           :class="{
@@ -104,7 +104,7 @@ const selectChampion = (champion: Champion) => {
           }"
           @click="filterChampions('Support')"
         >
-          Support
+          {{ $t('champion.support') }}
         </button>
         <button
           :class="{
@@ -112,7 +112,7 @@ const selectChampion = (champion: Champion) => {
           }"
           @click="filterChampions('Tank')"
         >
-          Tank
+          {{ $t('champion.tank') }}
         </button>
         <button
           :class="{
@@ -120,7 +120,7 @@ const selectChampion = (champion: Champion) => {
           }"
           @click="filterChampions('')"
         >
-          Tous
+          {{ $t('champion.all') }}
         </button>
       </div>
 

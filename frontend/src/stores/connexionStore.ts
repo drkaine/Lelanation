@@ -31,6 +31,7 @@ export const useConnexionStore = defineStore('Connexion', () => {
 
   const login = (userName: string) => {
     isLoggedIn.value = true
+    userName = userName
     localStorage.setItem('isLoggedIn', 'true')
     localStorage.setItem('userName', userName)
   }

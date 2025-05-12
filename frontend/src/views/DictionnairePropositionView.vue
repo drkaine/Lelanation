@@ -48,52 +48,50 @@ const submitProposition = async () => {
   <div class="dictionary-container">
     <div class="proposition-content">
       <div class="explanation">
-        <h1 class="title">Proposer une nouvelle définition</h1>
+        <h1 class="title">{{ $t('dictionnaire-proposition.title') }}</h1>
         <p>
-          Vous pouvez proposer une nouvelle définition pour le dictionnaire
-          Laranguiva. Votre proposition sera examinée avant d'être ajoutée.
-          Merci de votre contribution à l'enrichissement de notre langue !
+          {{ $t('dictionnaire-proposition.explanation') }}
         </p>
       </div>
 
       <form @submit.prevent="submitProposition" class="proposition-form">
         <div class="form-group">
-          <label for="pseudo">Pseudo *</label>
+          <label for="pseudo">{{ $t('dictionnaire-proposition.pseudo') }}</label>
           <input
             id="pseudo"
             v-model="pseudo"
             type="text"
             required
             maxlength="30"
-            placeholder="Votre pseudo"
+            :placeholder="$t('dictionnaire-proposition.pseudo')"
           />
         </div>
 
         <div class="form-group">
-          <label for="word">Mot *</label>
+          <label for="word">{{ $t('dictionnaire-proposition.word') }}</label>
           <input
             id="word"
             v-model="word"
             type="text"
             required
             maxlength="50"
-            placeholder="Le mot à ajouter"
+            :placeholder="$t('dictionnaire-proposition.word')"
           />
         </div>
 
         <div class="form-group">
-          <label for="definition">Définition *</label>
+          <label for="definition">{{ $t('dictionnaire-proposition.definition') }}</label>
           <textarea
             id="definition"
             v-model="definition"
             required
             maxlength="1000"
-            placeholder="La définition du mot"
+            :placeholder="$t('dictionnaire-proposition.definition')"
             rows="5"
           />
         </div>
 
-        <button type="submit" class="submit-btn">Envoyer</button>
+        <button type="submit" class="submit-btn">{{ $t('button.submit') }}</button>
       </form>
     </div>
   </div>

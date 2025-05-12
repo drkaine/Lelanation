@@ -1,5 +1,8 @@
 <script setup lang="ts">
 import { Icon } from '@iconify/vue'
+import { useI18n } from 'vue-i18n'
+
+const { t } = useI18n()
 
 interface SocialLink {
   href: string
@@ -9,27 +12,40 @@ interface SocialLink {
 
 const socialLinks: SocialLink[] = [
   {
-    href: 'https://discord.gg/uBqgfMbq',
+    href: 'https://discord.gg/wxExt22Qjt',
     icon: 'mdi:discord',
-    text: 'Lelaricord',
+    text: t('home.links.discord'),
   },
   {
     href: 'https://www.patreon.com/c/Lelariva/posts',
     icon: 'mdi:patreon',
-    text: 'Lepatreonva',
+    text: t('home.links.patreon'),
   },
   {
     href: 'https://www.youtube.com/@Lelariva_LoL/featured',
     icon: 'mdi:youtube',
-    text: 'Lelaritube',
+    text: t('home.links.youtube'),
   },
   {
     href: 'https://www.twitch.tv/lelariva',
     icon: 'mdi:twitch',
-    text: 'Lelaritwitch',
+    text: t('home.links.twitch'),
   },
-  { href: 'https://x.com/Lelariva_fr', icon: 'mdi:twitter', text: 'LelarivaX' },
-  { href: 'https://www.lelariva.fr/', icon: 'mdi:web', text: 'Lelariva' },
+  { 
+    href: 'https://x.com/Lelariva_fr', 
+    icon: 'mdi:twitter', 
+    text: t('home.links.twitter') 
+  },
+  {
+    href: 'https://www.tiktok.com/@lelariva_fr',
+    icon: 'mdi:music-note',
+    text: t('home.links.tiktok'),
+  },
+  { 
+    href: 'https://www.lelariva.fr/', 
+    icon: 'mdi:web',
+    text: t('home.links.website'),
+  },
 ]
 </script>
 

@@ -6,8 +6,6 @@ import SocialLinks from '@/components/home/SocialLinks.vue'
 <template>
   <main class="home-container">
     <HeroSection
-      title="Lelanation vous saluriva tous !"
-      subtitle="Retrouver le grand Lelariva"
       imageUrl="/assets/images/lelariva.png"
       imageAlt="Lelariva"
     />

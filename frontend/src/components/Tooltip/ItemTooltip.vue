@@ -76,7 +76,7 @@ const formattedDescription = computed(() => {
       </div>
     </div>
     <div class="tooltip-recipe" v-if="props.from?.length">
-      <div class="recipe-title">Composants:</div>
+      <div class="recipe-title">{{ $t('item.recipe') }}:</div>
       <div class="recipe-items">
         <div
           v-for="(item, index) in props.from"
@@ -108,7 +108,7 @@ const formattedDescription = computed(() => {
   </div>
 
   <div class="tooltip-builds" v-if="props.into?.length">
-    <div class="builds-title">Se transforme en:</div>
+    <div class="builds-title">{{ $t('item.transforms-into') }}:</div>
     <div class="builds-items">
       <div v-for="(item, index) in props.into" :key="index" class="builds-item">
         <img

@@ -57,7 +57,7 @@ const next = () => {
             v-if="stepStore.step === 'rune' || stepStore.step === 'item'"
             @click="next()"
           >
-            Suivant
+            {{ $t('button.next') }}
           </button>
         </div>
         <div class="sheet-build">

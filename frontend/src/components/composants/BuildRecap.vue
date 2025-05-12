@@ -228,7 +228,7 @@ const statsListFiltered = statsList.filter(
                 <path d="M8 11h.01" />
                 <path d="M8 15h.01" />
               </svg>
-              <span>JSON</span>
+              <span>{{ $t('build-recap.json') }}</span>
             </button>
             <button class="btn" @click="downloadImage">
               <svg
@@ -248,7 +248,7 @@ const statsListFiltered = statsList.filter(
                 <path d="M19 16v6"></path>
                 <path d="M22 19l-3 3l-3 -3"></path>
               </svg>
-              <span>Image</span>
+              <span>{{ $t('build-recap.image') }}</span>
             </button>
             <button class="btn" @click="copyImageToClipboard">
               <svg
@@ -268,7 +268,7 @@ const statsListFiltered = statsList.filter(
                 <path d="M20 21l2 -2l-2 -2"></path>
                 <path d="M17 17l-2 2l2 2"></path>
               </svg>
-              <span>Image</span>
+              <span>{{ $t('build-recap.image') }}</span>
             </button>
           </div>
 
@@ -283,8 +283,12 @@ const statsListFiltered = statsList.filter(
                 ))
             "
           >
-            <button class="btn edit" @click="editBuild">Modifier</button>
-            <button class="btn delete" @click="deleteBuild">Supprimer</button>
+            <button class="btn edit" @click="editBuild">
+              {{ $t('build-recap.edit') }}
+            </button>
+            <button class="btn delete" @click="deleteBuild">
+              {{ $t('build-recap.delete') }}
+            </button>
           </div>
         </div>
 
@@ -313,10 +317,10 @@ const statsListFiltered = statsList.filter(
           <table class="stats-table">
             <thead>
               <tr>
-                <th>Statistique</th>
-                <th>Base</th>
-                <th>Items</th>
-                <th>Total</th>
+                <th>{{ $t('build-recap.statistic') }}</th>
+                <th>{{ $t('build-recap.base') }}</th>
+                <th>{{ $t('build-recap.items') }}</th>
+                <th>{{ $t('build-recap.total') }}</th>
               </tr>
             </thead>
             <tbody>
@@ -343,7 +347,7 @@ const statsListFiltered = statsList.filter(
                 </td>
               </tr>
               <tr>
-                <td>Or</td>
+                <td>{{ $t('build-recap.gold') }}</td>
                 <td>0</td>
                 <td>{{ buildData?.sheet.items.gold.total }}</td>
                 <td>{{ buildData?.sheet.items.gold.total }}</td>

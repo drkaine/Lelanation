@@ -140,20 +140,20 @@ const canDragBuild = computed(
           >
             <path d="M12 5v14m-7-7h14" />
           </svg>
-          <span class="btn-text">Nouveau Build</span>
+          <span class="btn-text">{{ $t('build.new') }}</span>
         </a>
 
         <select v-model="visibilityFilter" class="visibility-select">
-          <option value="all">Tous les builds</option>
-          <option value="visible">Builds publics</option>
-          <option value="hidden">Builds privés</option>
+          <option value="all">{{ $t('button.search.all') }}</option>
+          <option value="visible">{{ $t('button.search.public') }}</option>
+          <option value="hidden">{{ $t('button.search.private') }}</option>
         </select>
 
         <div class="search-box">
           <select v-model="searchType" class="search-type-select">
-            <option value="all">Tout</option>
-            <option value="name">Nom</option>
-            <option value="champion">Champion</option>
+            <option value="all">{{ $t('search.all') }}</option>
+            <option value="name">{{ $t('search.name') }}</option>
+            <option value="champion">{{ $t('search.champion') }}</option>
           </select>
           <input
             v-model="searchQuery"

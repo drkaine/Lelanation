@@ -1,47 +1,93 @@
 <template>
   <div class="language-switcher">
     <select v-model="currentLocale" @change="changeLanguage" class="language-select">
-      <option value="fr">Français</option>
-      <option value="en">English</option>
-      <option value="lelarivien">Lelarivien</option>
+      <option value="fr">FR</option>
+      <option value="en">EN</option>
+      <option value="laranguiva">LA</option>
     </select>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, watch } from 'vue'
+import { ref, watch, onMounted } from 'vue'
 import { useI18n } from 'vue-i18n'
+import { setLocale } from '@/i18n'
 
-const { locale } = useI18n()
-const currentLocale = ref(locale.value)
+type Locale = 'fr' | 'en' | 'laranguiva'
 
-const changeLanguage = () => {
-  locale.value = currentLocale.value
-  localStorage.setItem('locale', currentLocale.value)
+const { locale, t } = useI18n()
+const currentLocale = ref<Locale>(locale.value as Locale)
+
+const changeLanguage = async () => {
+  console.log('Changing language to:', currentLocale.value)
+  await setLocale(currentLocale.value)
+  // Force reload to ensure all components are updated
+  window.location.reload()
 }
 
-// Watch for changes in the locale
 watch(() => locale.value, (newLocale) => {
-  currentLocale.value = newLocale
+  console.log('Locale changed to:', newLocale)
+  currentLocale.value = newLocale as Locale
+})
+
+onMounted(() => {
+  console.log('Current locale:', locale.value)
+  console.log('Available messages:', t('home.title'))
 })
 </script>
 
 <style scoped>
 .language-switcher {
-  display: flex;
+  display: inline-flex;
   align-items: center;
+  margin-left: 1rem;
+  margin-right: 1rem;
+  position: relative;
 }
 
 .language-select {
-  padding: 0.5rem;
-  border-radius: 4px;
-  border: 1px solid #ccc;
-  background-color: white;
+  padding: 0.5rem 2.5rem 0.5rem 1rem;
+  border-radius: 6px;
+  border: 2px solid var(--color-gold-200);
+  background-color: var(--color-blue-600);
+  color: var(--color-gold-100);
   cursor: pointer;
-  font-size: 0.9rem;
+  font-size: var(--text-sm);
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  transition: all 0.3s ease;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23c8aa6e' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 0.75rem center;
+  background-size: 1.2em;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .language-select:hover {
-  border-color: #666;
+  border-color: var(--color-gold-300);
+  background-color: var(--color-blue-500);
+  color: var(--color-gold-50);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
+}
+
+.language-select:focus {
+  outline: none;
+  border-color: var(--color-gold-400);
+  box-shadow: 0 0 0 3px rgba(200, 170, 110, 0.2);
+}
+
+.language-select option {
+  background-color: var(--color-blue-600);
+  color: var(--color-gold-100);
+  padding: 0.5rem;
+  font-weight: 500;
+}
+
+.language-select option:hover {
+  background-color: var(--color-blue-500);
 }
 </style> 

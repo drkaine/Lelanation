@@ -81,7 +81,7 @@ watch(
 
 <template>
   <div class="skill-order">
-    <h3>Ordre des compétences</h3>
+    <h3>{{ $t('skill-order.title') }}</h3>
     <div class="skill-grid">
       <div class="level-row">
         <div class="skill-label-spacer"></div>
@@ -107,19 +107,19 @@ watch(
               <p v-html="getSpellInfo(skill)?.description"></p>
               <div class="tooltip-skill-stats">
                 <div class="stat-row" v-if="getSpellInfo(skill)?.cooldown">
-                  <span class="stat-label">Temps de recharge :</span>
+                  <span class="stat-label">{{ $t('skill-order.cooldown') }}</span>
                   <span class="stat-value"
                     >{{ getSpellInfo(skill)?.cooldown }}s</span
                   >
                 </div>
                 <div class="stat-row" v-if="getSpellInfo(skill)?.cost">
-                  <span class="stat-label">Coût :</span>
+                  <span class="stat-label">{{ $t('skill-order.cost') }}</span>
                   <span class="stat-value">{{
                     getSpellInfo(skill)?.cost
                   }}</span>
                 </div>
                 <div class="stat-row" v-if="getSpellInfo(skill)?.range">
-                  <span class="stat-label">Portée :</span>
+                  <span class="stat-label">{{ $t('skill-order.range') }}</span>
                   <span class="stat-value">{{
                     getSpellInfo(skill)?.range
                   }}</span>

@@ -269,11 +269,11 @@ onMounted(() => {
           </div>
 
           <div class="header-text">
-            <div class="header-title">RUNES FONDAMENTALES</div>
+            <div class="header-title">{{ $t('runes.fundamental') }}</div>
             <div class="header-subtitle">
               {{
                 runeStore.runesSelection.principal?.name ||
-                'Sélectionnez une rune fondamentale'
+                $t('runes.fundamental-selection')
               }}
             </div>
           </div>
@@ -433,11 +433,11 @@ onMounted(() => {
           </div>
 
           <div class="header-text">
-            <div class="header-title">BRANCHE SECONDAIRE</div>
+            <div class="header-title">{{ $t('runes.secondary-branch') }}</div>
             <div class="header-subtitle">
               {{
                 runeStore.runesSelection.second?.name ||
-                'Sélectionnez une branche secondaire'
+                $t('runes.secondary-branch-selection')
               }}
             </div>
           </div>
@@ -511,7 +511,7 @@ onMounted(() => {
           <div class="rune-description">
             {{
               getSelectedSecondaryRune(index - 1)?.name ||
-              'Sélectionnez une rune'
+              $t('runes.secondary-rune-selection')
             }}
           </div>
         </div>
@@ -570,7 +570,7 @@ onMounted(() => {
             <div class="shard-description">
               {{
                 getSelectedShardFromStore(index)?.description ||
-                'Sélectionnez une stat'
+                $t('runes.stat-selection')
               }}
             </div>
           </div>

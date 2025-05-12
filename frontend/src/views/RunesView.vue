@@ -10,7 +10,7 @@ import MenuBuild from '@/components/composants/MenuBuild.vue'
       <div class="main">
         <RunesSelection />
         <div class="next">
-          <button>Next</button>
+          <button>{{ $t('button.next') }}</button>
         </div>
       </div>
     </div>

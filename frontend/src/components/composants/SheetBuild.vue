@@ -95,7 +95,7 @@ const hasSkillPoints = computed(() =>
     "
   >
     <div class="sheet-credits">
-      <span class="credit-text">@lelanation.darkaine</span>
+      <span class="credit-text">@lelanation</span>
       <span v-if="author" class="author">{{ author }}</span>
       <span class="version-text">v{{ version }}</span>
     </div>

@@ -75,7 +75,7 @@ const filteredBuilds = computed(() => {
 
 <template>
   <div class="builds-page">
-    <h1 class="page-title">Builds de la communauté</h1>
+    <h1 class="page-title">{{ $t('navigation.builds-public') }}</h1>
 
     <div class="actions">
       <div class="actions-group">
@@ -89,14 +89,14 @@ const filteredBuilds = computed(() => {
           >
             <path d="M12 5v14m-7-7h14" />
           </svg>
-          <span class="btn-text">Nouveau Build</span>
+          <span class="btn-text">{{ $t('button.new-build') }}</span>
         </a>
 
         <div class="search-box">
           <select v-model="searchType" class="search-type-select">
-            <option value="all">Tout</option>
-            <option value="name">Nom</option>
-            <option value="champion">Champion</option>
+            <option value="all">{{ $t('button.search.all') }}</option>
+            <option value="name">{{ $t('button.search.name') }}</option>
+            <option value="champion">{{ $t('button.search.champion') }}</option>
           </select>
           <input
             v-model="searchQuery"

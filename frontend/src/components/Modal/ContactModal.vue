@@ -45,15 +45,15 @@ const submitForm = async () => {
 <template>
   <div class="modal-overlay" @click.self="emit('close')">
     <div class="modal-content">
-      <h2>Contact</h2>
+      <h2>{{ $t('contact.title') }}</h2>
       <form @submit.prevent="submitForm">
         <p v-if="error" class="error">{{ error }}</p>
-        <p v-if="success" class="success">Message envoyé avec succès !</p>
-        <p class="required">* Champs obligatoires</p>
+        <p v-if="success" class="success">{{ $t('contact.success') }}</p>
+        <p class="required">* {{ $t('contact.required') }}</p>
         <div class="form-group">
-          <label for="subject">Objet *</label>
+          <label for="subject">{{ $t('contact.subject') }}</label>
           <select v-model="formData.subject" id="subject" required>
-            <option value="" disabled>Sélectionnez une objet</option>
+            <option value="" disabled>{{ $t('contact.select') }}</option>
             <option v-for="obj in objectEntries" :key="obj.id" :value="obj.id">
               {{ obj.name }}
             </option>
@@ -61,12 +61,12 @@ const submitForm = async () => {
         </div>
 
         <div class="form-group">
-          <label for="name">Nom</label>
+          <label for="name">{{ $t('contact.name') }}</label>
           <input type="text" id="name" v-model="formData.name" />
         </div>
 
         <div class="form-group">
-          <label for="message">Message *</label>
+          <label for="message">{{ $t('contact.message') }}</label>
           <textarea
             id="message"
             v-model="formData.message"
@@ -77,7 +77,7 @@ const submitForm = async () => {
 
         <div class="form-actions">
           <button type="submit" class="submit-btn" :disabled="loading">
-            {{ loading ? 'Envoi...' : 'Envoyer' }}
+            {{ loading ? $t('contact.sending') : $t('contact.send') }}
           </button>
           <button
             type="button"
@@ -85,7 +85,7 @@ const submitForm = async () => {
             class="cancel-btn"
             :disabled="loading"
           >
-            Annuler
+            {{ $t('contact.cancel') }}
           </button>
         </div>
       </form>

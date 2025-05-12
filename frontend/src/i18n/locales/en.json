@@ -1,26 +1,202 @@
 {
-  "common": {
-    "welcome": "Welcome",
-    "language": "Language",
-    "settings": "Settings",
-    "search": "Search",
-    "loading": "Loading..."
+  "admin": {
+    "title": "Administration",
+    "tier-list": "Tier-list",
+    "analytique": "Analytics",
+    "dictionnaire": "Dictionary",
+    "contact": "Contact",
+    "builds": "Builds"
   },
   "navigation": {
     "home": "Home",
-    "champions": "Champions",
+    "analytics": "Analytics",
+    "videos": "Videos",
+    "lela-builds": "Builds of Lelariva",
+    "builds-public": "Builds of the community",
+    "builds-private": "My builds",
+    "build": "build"
+  },
+  "home": {
+    "title": "Welcome to Lelanation !",
+    "description": "Find the great Lelariva, look for the best build for your champion",
+    "links": {
+      "discord": "Discord",
+      "twitter": "X",
+      "youtube": "Youtube",
+      "instagram": "Instagram",
+      "tiktok": "TikTok",
+      "twitch": "Twitch",
+      "website": "Website",
+      "patreon": "Patreon"
+    }
+  },
+  "menu-build": {
+    "champion": "Champions",
+    "rune": "Runes",
+    "item": "Items",
+    "info": "Info"
+  },
+  "infos-build": {
+    "name": "Name",
+    "author": "Author",
+    "description": "Description",
+    "public": "Public",
+    "finish": "Finish"
+  },
+  "extra-info": {
+    "statistic": "Statistic",
+    "value": "Value",
+    "total-cost": "Total Cost",
+    "gold": "Gold"
+  },
+  "build-recap": {
+    "json": "JSON",
+    "image": "Image",
+    "delete": "Delete",
+    "edit": "Edit",
+    "base": "Base",
     "items": "Items",
-    "runes": "Runes",
-    "summoners": "Summoner Spells"
+    "total": "Total"
   },
-  "champions": {
-    "title": "Champions",
-    "searchPlaceholder": "Search for a champion...",
-    "noResults": "No champions found"
+  "contact": {
+    "title": "Contact",
+    "subject": "Subject",
+    "name": "Name",
+    "message": "Message",
+    "sending": "Sending...",
+    "send": "Send",
+    "cancel": "Cancel",
+    "required": "* Required fields",
+    "success": "Message sent successfully!",
+    "select": "Select a subject"
   },
-  "items": {
-    "title": "Items",
-    "searchPlaceholder": "Search for an item...",
-    "noResults": "No items found"
+  "skill-order": {
+    "title": "Skill Order",
+    "cooldown": "Cooldown",
+    "cost": "Cost",
+    "range": "Range"
+  },
+  "dictionnaire": {
+    "title": "Laranguiva Dictionary",
+    "search": "Search for a word...",
+    "add": "+"
+  },
+  "dictionnaire-proposition": {
+    "title": "Propose a new definition",
+    "explanation": "You can propose a new definition for the Laranguiva dictionary. Your proposal will be reviewed before being added. Thank you for contributing to enriching our language!",
+    "pseudo": "Username",
+    "word": "Word",
+    "definition": "Definition"
+  },
+  "build": {
+    "new": "New Build",
+    "all": "All builds",
+    "public": "Public builds",
+    "private": "Private builds",
+    "loading": "Loading..."
+  },
+  "item": {
+    "recipe": "Components",
+    "transforms-into": "Transforms into",
+    "boots": "Boots",
+    "starter": "Starter Items",
+    "basic": "Basic Items",
+    "epic": "Epic Items",
+    "legendary": "Legendary Items",
+    "consumable": "Consumables",
+    "all": "All",
+    "critical-strike": "Critical Strike",
+    "attack-speed": "Attack Speed",
+    "on-hit": "On-Hit",
+    "armor-penetration": "Armor Pen",
+    "ability-power": "Ability Power",
+    "mana": "Mana",
+    "mana-regen": "Mana Regen",
+    "magic-penetration": "Magic Pen",
+    "health": "Health",
+    "health-regen": "Health Regen",
+    "armor": "Armor",
+    "magic-resist": "Magic Resist",
+    "ability-haste": "Ability Haste",
+    "movement": "Movement",
+    "life-steal": "Life Steal",
+    "spell-vamp": "Spell Vamp",
+    "omnivamp": "Omnivamp",
+    "spell-block": "Spell Block",
+    "magic-lifesteal": "Magic Lifesteal",
+    "magic-pen": "Magic Pen",
+    "damage": "Damage"
+  },
+  "champion": {
+    "assassin": "Assassin",
+    "fighter": "Fighter",
+    "mage": "Mage",
+    "marksman": "Marksman",
+    "support": "Support",
+    "tank": "Tank",
+    "all": "All"
+  },
+  "runes": {
+    "fundamental": "FUNDAMENTAL RUNES",
+    "fundamental-selection": "Select a fundamental rune",
+    "secondary-branch": "SECONDARY BRANCH",
+    "secondary-branch-selection": "Select a secondary branch",
+    "secondary-rune-selection": "Select a rune",
+    "stat-selection": "Select a stat"
+  },
+  "button": {
+    "next": "Next",
+    "submit": "Submit",
+    "previous": "Previous",
+    "search": {
+      "all": "All",
+      "name": "Name",
+      "champion": "Champion"
+    },
+    "new-build": "New Build"
+  },
+  "short": {
+    "search": "Search for a video...",
+    "see-video": "Watch video",
+    "loading": "Loading...",
+    "previous": "Previous"
+  },
+  "statistique": {
+    "tier": "TIER",
+    "champion": "CHAMPION",
+    "score": "CP SCORE",
+    "pickrate": "PICKRATE",
+    "matchups": "Easy and Common",
+    "matchups-hard": "Hardest and Common",
+    "otp": "OTP"
+  },
+  "legal": {
+    "title": "Legal Notice",
+    "title2": "Welcome to Lelanation",
+    "description": "Lelanation is a website that helps you find the best builds for League of Legends champions. It is designed and maintained by Lelariva and its contributors.",
+    "accept": "I accept the terms",
+    "cookies": "Cookies and Local Storage",
+    "cookies-description": "We use your browser's local storage to:",
+    "save": "Save your custom builds",
+    "remember": "Remember your login status",
+    "remember2": "Keep track of your selected builds and items",
+    "delete": "Delete your builds through the interface",
+    "delete2": "Reset your preferences at any time",
+    "delete3": "Delete your builds through the interface",
+    "delete4": "Clear all stored data by clearing your browser cache",
+    "duration": "Retention Period",
+    "duration-description": "This data is kept:",
+    "your-rights": "Your Rights",
+    "your-rights-description": "You have the right to:",
+    "intellectual-property": "Intellectual Property",
+    "intellectual-property-description": "Champion and item data comes from the Riot Games API",
+    "shared-builds": "Shared builds are under Creative Commons license",
+    "league-of-legends": "League of Legends is a registered trademark of Riot Games",
+    "no-link": "We are not affiliated with Riot Games or Lelariva"
+  },
+  "footer": {
+    "legal": "Legal",
+    "contact": "Contact",
+    "admin": "Admin"
   }
 } 

@@ -93,8 +93,8 @@ const removeItem = (index: number) => {
 
     <div class="stats-table">
       <div class="stats-header">
-        <div class="stat-name">Statistique</div>
-        <div class="stat-value">Valeur</div>
+        <div class="stat-name">{{ $t('extra-info.statistic') }}</div>
+        <div class="stat-value">{{ $t('extra-info.value') }}</div>
       </div>
       <template
         v-for="(value, key) in Object.entries(itemStore.ItemsSelection.stats)"
@@ -116,7 +116,7 @@ const removeItem = (index: number) => {
         </div>
       </template>
       <div class="stat-row total">
-        <div class="stat-name">Coût total</div>
+        <div class="stat-name">{{ $t('extra-info.total-cost') }}</div>
         <div class="stat-value">{{ itemStore.ItemsSelection.gold.total }}</div>
       </div>
     </div>

@@ -38,7 +38,7 @@ onMounted(async () => {
     builds.value = []
   }
 })
-
+console.log(connexionStore.userName)
 const acceptConditions = () => {
   connexionStore.isUser()
 }
@@ -52,17 +52,20 @@ const acceptConditions = () => {
           <LegalModal />
           <div class="modal-actions">
             <button class="accept-btn" @click="acceptConditions">
-              J'accepte les conditions
+              {{ $t('legal.accept') }}
             </button>
           </div>
         </div>
       </div>
       <header role="banner">
         <nav class="header">
-          <a href="/" class="link" aria-label="Accueil">
-            <span>Accueil</span>
-          </a>
-          <LanguageSwitcher />
+          <div class="left-header">
+            <LanguageSwitcher />
+            <a href="/" class="link" aria-label="Accueil">
+              <span>{{ $t('navigation.home') }}</span>
+            </a>
+           
+          </div>
           <button class="menu-mobile" @click="toggleMenu">
             <svg
               width="24"
@@ -86,7 +89,7 @@ const acceptConditions = () => {
               class="version"
               to="/statistique"
               v-if="connexionStore.isLoggedIn"
-              >Lelanalytics</RouterLink
+              >{{ $t('navigation.analytics') }}</RouterLink
             >
 
             <RouterLink
@@ -95,10 +98,10 @@ const acceptConditions = () => {
               class="version"
               @click="toggleMenu"
             >
-              Lelarideos</RouterLink
+              {{ $t('navigation.videos') }}</RouterLink
             >
             <RouterLink
-              v-if="locale === 'lelarivien'"
+              v-if="locale === 'laranguiva'"
               to="/dictionnaire"
               title="dictionnaire"
               class="version"
@@ -112,7 +115,7 @@ const acceptConditions = () => {
               @click="toggleMenu"
               aria-label="Créer un build"
             >
-              Build
+              {{ $t('navigation.build') }}
             </RouterLink>
             <RouterLink
               v-if="userBuilds.length > 0"
@@ -120,14 +123,14 @@ const acceptConditions = () => {
               title="mes builds"
               class="version"
               @click="toggleMenu"
-              >Mes builds</RouterLink
+              >{{ $t('navigation.builds-private') }}</RouterLink
             >
             <RouterLink
               to="/builds-publics"
               title="builds publics"
               class="version"
               @click="toggleMenu"
-              >Builds de la communauté</RouterLink
+              >{{ $t('navigation.builds-public') }}</RouterLink
             >
             <RouterLink
               v-if="builds.length > 0"
@@ -135,7 +138,7 @@ const acceptConditions = () => {
               title="lebuildarriva"
               class="version"
               @click="toggleMenu"
-              >Lebuildarriva</RouterLink
+              >{{ $t('navigation.lela-builds') }}</RouterLink
             >
             <a
               href="https://www.leagueoflegends.com/fr-fr/news/tags/patch-notes"
@@ -150,13 +153,13 @@ const acceptConditions = () => {
               class="version"
               to="/statistique"
               v-if="connexionStore.isLoggedIn"
-              >Lelanalytics</RouterLink
+              >{{ $t('navigation.analytics') }}</RouterLink
             >
             <RouterLink to="/videos" title="videos" class="version">
-              Lelarideos</RouterLink
+              {{ $t('navigation.videos') }}</RouterLink
             >
             <RouterLink
-              v-if="locale === 'lelarivien'"
+              v-if="locale === 'laranguiva'"
               title="dictionnaire"
               class="version"
               to="/dictionnaire"
@@ -164,10 +167,10 @@ const acceptConditions = () => {
             >
 
             <RouterLink title="Build" class="version" to="/build">
-              Build</RouterLink
+              {{ $t('navigation.build') }}</RouterLink
             >
             <RouterLink to="/builds-publics"
-              >Builds de la communauté</RouterLink
+              >{{ $t('navigation.builds-public') }}</RouterLink
             >
             <RouterLink
               title="Mes builds"
@@ -175,7 +178,7 @@ const acceptConditions = () => {
               v-if="userBuilds.length > 0 && !connexionStore.isLoggedIn"
               to="/builds"
             >
-              Mes builds</RouterLink
+              {{ $t('navigation.builds-private') }}</RouterLink
             >
             <RouterLink
               v-if="builds.length > 0"
@@ -183,7 +186,7 @@ const acceptConditions = () => {
               class="version"
               to="/Lebuildarriva"
             >
-              Lebuildarriva</RouterLink
+              {{ $t('navigation.lela-builds') }}</RouterLink
             >
 
             <a

@@ -16,7 +16,7 @@ const emit = defineEmits<{
       @click="emit('change', currentPage - 1)"
       class="page-btn"
     >
-      Précédent
+      {{ $t('button.previous') }}
     </button>
     <span class="page-info">{{ currentPage }} / {{ totalPages }}</span>
     <button
@@ -24,7 +24,7 @@ const emit = defineEmits<{
       @click="emit('change', currentPage + 1)"
       class="page-btn"
     >
-      Suivant
+      {{ $t('button.next') }}
     </button>
   </div>
 </template>

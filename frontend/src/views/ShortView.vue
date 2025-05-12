@@ -122,7 +122,7 @@ export default {
         class="search-input"
       />
       <div v-if="searchQuery" class="search-info">
-        Recherche en cours dans toutes les vidéos de la chaîne...
+        {{ $t('short.search') }}
       </div>
     </div>
 
@@ -137,7 +137,9 @@ export default {
       </button>
     </div>
 
-    <div v-if="loading" class="loading">Chargement...</div>
+    <div v-if="loading" class="loading">
+      {{ $t('short.loading') }}
+    </div>
 
     <div v-else-if="error" class="error">
       {{ error }}
@@ -154,7 +156,7 @@ export default {
           <h3>{{ video.snippet.title }}</h3>
           <p class="video-date">{{ formatDate(video.snippet.publishedAt) }}</p>
           <a :href="`https://youtube.com/watch?v=${video.id}`" target="_blank">
-            Voir la vidéo
+            {{ $t('short.see-video') }}
           </a>
         </div>
       </div>
@@ -166,7 +168,7 @@ export default {
           @click="currentPage--"
           class="pagination-button"
         >
-          Précédent
+          {{ $t('short.previous') }}
         </button>
 
         <!-- Ajout du sélecteur de page -->
@@ -185,7 +187,7 @@ export default {
           @click="currentPage++"
           class="pagination-button"
         >
-          Suivant
+          {{ $t('button.next') }}
         </button>
       </div>
     </div>

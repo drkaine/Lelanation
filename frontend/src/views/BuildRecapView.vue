@@ -8,7 +8,7 @@ import BuildRecap from '@/components/composants/BuildRecap.vue'
       <BuildRecap />
     </template>
     <template #fallback>
-      <div>Chargement...</div>
+      <div>{{ $t('build.loading') }}</div>
     </template>
   </Suspense>
 </template>

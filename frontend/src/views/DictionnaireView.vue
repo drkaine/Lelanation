@@ -26,13 +26,13 @@ onMounted(() => {
 
 <template>
   <div class="dictionary-container">
-    <h1 class="title">Dictionnaire laranguiva</h1>
+    <h1 class="title">{{ $t('dictionnaire.title') }}</h1>
 
     <div class="search-container">
       <input
         v-model="searchQuery"
         type="text"
-        placeholder="Rechercher un mot..."
+        :placeholder="$t('dictionnaire.search')"
         class="search-input"
       />
       <a
@@ -40,7 +40,7 @@ onMounted(() => {
         aria-label="Ajouter"
         href="/dictionnaire/proposition"
       >
-        +
+        {{ $t('dictionnaire.add') }}
       </a>
     </div>
 

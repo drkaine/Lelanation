@@ -183,7 +183,7 @@ const itemsLegendary = computed<Item[]>(() =>
         }"
         @click="toggleTag('Damage')"
       >
-        Attack Damage
+        {{ $t('item.damage') }}
       </button>
       <button
         :class="{
@@ -191,7 +191,7 @@ const itemsLegendary = computed<Item[]>(() =>
         }"
         @click="toggleTag('CriticalStrike')"
       >
-        Critical Strike
+        {{ $t('item.critical-strike') }}
       </button>
       <button
         :class="{
@@ -199,7 +199,7 @@ const itemsLegendary = computed<Item[]>(() =>
         }"
         @click="toggleTag('AttackSpeed')"
       >
-        Attack Speed
+        {{ $t('item.attack-speed') }}
       </button>
       <button
         :class="{
@@ -207,7 +207,7 @@ const itemsLegendary = computed<Item[]>(() =>
         }"
         @click="toggleTag('OnHit')"
       >
-        On-Hit
+        {{ $t('item.on-hit') }}
       </button>
       <button
         :class="{
@@ -215,7 +215,7 @@ const itemsLegendary = computed<Item[]>(() =>
         }"
         @click="toggleTag('ArmorPenetration')"
       >
-        Armor Pen
+        {{ $t('item.armor-penetration') }}
       </button>
       <button
         :class="{
@@ -223,7 +223,7 @@ const itemsLegendary = computed<Item[]>(() =>
         }"
         @click="toggleTag('SpellDamage')"
       >
-        Ability Power
+        {{ $t('item.ability-power') }}
       </button>
       <button
         :class="{
@@ -231,7 +231,7 @@ const itemsLegendary = computed<Item[]>(() =>
         }"
         @click="toggleTag('Mana')"
       >
-        Mana
+        {{ $t('item.mana') }}
       </button>
       <button
         :class="{
@@ -239,7 +239,7 @@ const itemsLegendary = computed<Item[]>(() =>
         }"
         @click="toggleTag('ManaRegen')"
       >
-        Mana Regen
+        {{ $t('item.mana-regen') }}
       </button>
       <button
         :class="{
@@ -247,7 +247,7 @@ const itemsLegendary = computed<Item[]>(() =>
         }"
         @click="toggleTag('MagicPenetration')"
       >
-        Magic Pen
+        {{ $t('item.magic-penetration') }}
       </button>
       <button
         :class="{
@@ -255,7 +255,7 @@ const itemsLegendary = computed<Item[]>(() =>
         }"
         @click="toggleTag('Health')"
       >
-        Health
+        {{ $t('item.health') }}
       </button>
       <button
         :class="{
@@ -263,7 +263,7 @@ const itemsLegendary = computed<Item[]>(() =>
         }"
         @click="toggleTag('HealthRegen')"
       >
-        Health Regen
+        {{ $t('item.health-regen') }}
       </button>
       <button
         :class="{
@@ -271,7 +271,7 @@ const itemsLegendary = computed<Item[]>(() =>
         }"
         @click="toggleTag('Armor')"
       >
-        Armor
+        {{ $t('item.armor') }}
       </button>
       <button
         :class="{
@@ -279,7 +279,7 @@ const itemsLegendary = computed<Item[]>(() =>
         }"
         @click="toggleTag('SpellBlock')"
       >
-        Magic Resist
+        {{ $t('item.magic-resist') }}
       </button>
       <button
         :class="{
@@ -287,7 +287,7 @@ const itemsLegendary = computed<Item[]>(() =>
         }"
         @click="toggleTag('AbilityHaste')"
       >
-        Ability Haste
+        {{ $t('item.ability-haste') }}
       </button>
       <button
         :class="{
@@ -295,7 +295,7 @@ const itemsLegendary = computed<Item[]>(() =>
         }"
         @click="toggleTag('NonbootsMovement')"
       >
-        Movement
+        {{ $t('item.movement') }}
       </button>
       <button
         :class="{
@@ -303,7 +303,7 @@ const itemsLegendary = computed<Item[]>(() =>
         }"
         @click="toggleTag('LifeSteal')"
       >
-        Life Steal
+        {{ $t('item.life-steal') }}
       </button>
       <button
         :class="{
@@ -311,7 +311,7 @@ const itemsLegendary = computed<Item[]>(() =>
         }"
         @click="toggleTag('SpellVamp')"
       >
-        Omnivamp
+        {{ $t('item.omnivamp') }}
       </button>
       <button
         :class="{
@@ -319,7 +319,7 @@ const itemsLegendary = computed<Item[]>(() =>
         }"
         @click="toggleTag('Consumable')"
       >
-        Consommable
+        {{ $t('item.consumable') }}
       </button>
       <button
         :class="{
@@ -327,12 +327,12 @@ const itemsLegendary = computed<Item[]>(() =>
         }"
         @click="toggleTag('all')"
       >
-        Tous
+        {{ $t('item.all') }}
       </button>
     </div>
     <div class="items-container">
       <div v-if="itemsBoots.length > 0">
-        <div class="group small">Bottes ({{ itemsBoots.length }})</div>
+        <div class="group small">{{ $t('item.boots') }} ({{ itemsBoots.length }})</div>
         <div class="items-grid">
           <div v-for="(item, index) in itemsBoots" :key="index" class="tip">
             <div class="tooltip">
@@ -383,7 +383,7 @@ const itemsLegendary = computed<Item[]>(() =>
 
       <div v-if="itemsStarter.length > 0">
         <div class="group small">
-          Objets de départ ({{ itemsStarter.length }})
+          {{ $t('item.starter') }} ({{ itemsStarter.length }})
         </div>
         <div class="items-grid">
           <div v-for="(item, index) in itemsStarter" :key="index" class="tip">
@@ -434,7 +434,7 @@ const itemsLegendary = computed<Item[]>(() =>
       </div>
 
       <div v-if="itemsBasic.length > 0">
-        <div class="group small">Objets basiques ({{ itemsBasic.length }})</div>
+        <div class="group small">{{ $t('item.basic') }} ({{ itemsBasic.length }})</div>
         <div class="items-grid">
           <div v-for="(item, index) in itemsBasic" :key="index" class="tip">
             <div class="tooltip">
@@ -484,7 +484,7 @@ const itemsLegendary = computed<Item[]>(() =>
       </div>
 
       <div v-if="itemsEpic.length > 0">
-        <div class="group small">Objets épiques ({{ itemsEpic.length }})</div>
+        <div class="group small">{{ $t('item.epic') }} ({{ itemsEpic.length }})</div>
         <div class="items-grid">
           <div v-for="(item, index) in itemsEpic" :key="index" class="tip">
             <div class="tooltip">
@@ -535,7 +535,7 @@ const itemsLegendary = computed<Item[]>(() =>
 
       <div v-if="itemsLegendary.length > 0">
         <div class="group small">
-          Objets légendaires ({{ itemsLegendary.length }})
+          {{ $t('item.legendary') }} ({{ itemsLegendary.length }})
         </div>
         <div class="items-grid">
           <div v-for="(item, index) in itemsLegendary" :key="index" class="tip">
