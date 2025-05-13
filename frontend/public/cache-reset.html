@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Réinitialisation du cache</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 20px;
+      line-height: 1.6;
+    }
+    .container {
+      border: 1px solid #ddd;
+      padding: 20px;
+      border-radius: 5px;
+      background-color: #f9f9f9;
+    }
+    button {
+      background-color: #4CAF50;
+      color: white;
+      padding: 10px 15px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 16px;
+      margin-top: 10px;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+    .result {
+      margin-top: 20px;
+      padding: 10px;
+      display: none;
+    }
+    .success {
+      background-color: #dff0d8;
+      color: #3c763d;
+      border: 1px solid #d6e9c6;
+    }
+    .error {
+      background-color: #f2dede;
+      color: #a94442;
+      border: 1px solid #ebccd1;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Réinitialisation du cache</h1>
+    <p>Si vous rencontrez des problèmes d'affichage après une mise à jour du site, vous pouvez réinitialiser le cache de votre navigateur en cliquant sur le bouton ci-dessous.</p>
+    <button id="clearCacheButton">Vider le cache</button>
+    <div id="result" class="result"></div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const clearCacheButton = document.getElementById('clearCacheButton');
+      const resultElement = document.getElementById('result');
+
+      clearCacheButton.addEventListener('click', async function() {
+        clearCacheButton.disabled = true;
+        clearCacheButton.textContent = 'Nettoyage en cours...';
+
+        try {
+          // Enregistrer et exécuter le service worker de nettoyage
+          if ('serviceWorker' in navigator) {
+            const registration = await navigator.serviceWorker.register('/clear-cache.js', {
+              scope: '/'
+            });
+            
+            // Attendre l'activation
+            await navigator.serviceWorker.ready;
+            
+            // Rafraîchir les caches via la méthode window si disponible
+            if (window.clearCaches) {
+              await window.clearCaches();
+            }
+            
+            resultElement.textContent = 'Cache nettoyé avec succès! La page va se recharger dans 3 secondes.';
+            resultElement.className = 'result success';
+            resultElement.style.display = 'block';
+            
+            // Recharger la page après 3 secondes
+            setTimeout(() => {
+              window.location.reload(true);
+            }, 3000);
+          } else {
+            throw new Error('Service Worker non supporté par ce navigateur');
+          }
+        } catch (error) {
+          console.error('Erreur lors du nettoyage du cache:', error);
+          resultElement.textContent = `Erreur: ${error.message}. Essayez de vider manuellement le cache de votre navigateur.`;
+          resultElement.className = 'result error';
+          resultElement.style.display = 'block';
+          clearCacheButton.disabled = false;
+          clearCacheButton.textContent = 'Réessayer';
+        }
+      });
+    });
+  </script>
+</body>
+</html> 

@@ -2,13 +2,10 @@ import http from 'k6/http';
 import { sleep, check } from 'k6';
 import { Counter, Rate } from 'k6/metrics';
 
-// Métriques personnalisées
 const failedRequests = new Counter('failed_requests');
 const successRate = new Rate('page_load_success');
 
-// Configuration du test
 export const options = {
-  // Test en plusieurs étapes pour simuler une montée en charge
   stages: [
     // Montée progressive à 50 utilisateurs simultanés
     { duration: '30s', target: 50 },
@@ -23,7 +20,6 @@ export const options = {
     // Redescendre à 0 utilisateurs
     { duration: '30s', target: 0 },
   ],
-  // Limites de seuil pour considérer le test comme réussi ou échoué
   thresholds: {
     http_req_duration: ['p(95)<2000'], // 95% des requêtes doivent répondre en moins de 2s
     http_req_failed: ['rate<0.1'],     // Moins de 10% d'erreurs
@@ -32,12 +28,9 @@ export const options = {
   },
 };
 
-// URL de base - à remplacer par l'URL de votre site
-const BASE_URL = 'https:/r'; // Sera remplacé par le script shell
+const BASE_URL = 'https:/r';
 
-// Simuler les actions d'un utilisateur typique sur Lelanation
 export default function() {
-  // Visiter la page d'accueil
   let homeRes = http.get(`${BASE_URL}/`);
   const homeSuccess = check(homeRes, {
     'homepage_status_200': (r) => r.status === 200,
@@ -49,7 +42,6 @@ export default function() {
   
   sleep(Math.random() * 2 + 1); // Pause aléatoire entre 1 et 3 secondes
   
-  // Visiter la page des champions
   let championsRes = http.get(`${BASE_URL}/champions`);
   const championsSuccess = check(championsRes, {
     'champions_status_200': (r) => r.status === 200,
@@ -61,11 +53,9 @@ export default function() {
   
   sleep(Math.random() * 2 + 1); // Pause aléatoire entre 1 et 3 secondes
   
-  // Sélectionner un champion aléatoire parmi les plus populaires
   const champions = ['Ahri', 'Yasuo', 'Lux', 'Zed', 'Jinx', 'Kaisa', 'Aatrox', 'Darius'];
   const randomChampion = champions[Math.floor(Math.random() * champions.length)];
   
-  // Visiter la page d'un champion spécifique
   let championDetailRes = http.get(`${BASE_URL}/champion/${randomChampion}`);
   const championDetailSuccess = check(championDetailRes, {
     'champion_detail_status_200': (r) => r.status === 200,
@@ -77,7 +67,6 @@ export default function() {
   
   sleep(Math.random() * 3 + 2); // Pause aléatoire entre 2 et 5 secondes (lecture de la page du champion)
   
-  // Visiter la page de création d'un build (simuler le flux utilisateur normal)
   let createBuildRes = http.get(`${BASE_URL}/build/create`);
   const createBuildSuccess = check(createBuildRes, {
     'create_build_page_status_200': (r) => r.status === 200,
@@ -89,7 +78,6 @@ export default function() {
   
   sleep(Math.random() * 3 + 2);
   
-  // Visiter la page des builds
   let buildsRes = http.get(`${BASE_URL}/builds`);
   const buildsSuccess = check(buildsRes, {
     'builds_status_200': (r) => r.status === 200,
@@ -101,7 +89,6 @@ export default function() {
   
   sleep(Math.random() * 2 + 1);
   
-  // Visiter la page des tier lists
   let tierListRes = http.get(`${BASE_URL}/tierlist`);
   const tierListSuccess = check(tierListRes, {
     'tierlist_status_200': (r) => r.status === 200,
@@ -113,7 +100,6 @@ export default function() {
   
   sleep(Math.random() * 2 + 1);
   
-  // Visiter la page de dictionnaire
   let dictionnaireRes = http.get(`${BASE_URL}/dictionnaire`);
   const dictionnaireSuccess = check(dictionnaireRes, {
     'dictionnaire_status_200': (r) => r.status === 200,
@@ -123,6 +109,5 @@ export default function() {
   successRate.add(dictionnaireSuccess);
   if (!dictionnaireSuccess) failedRequests.add(1);
   
-  // Pause finale pour simuler le délai entre les sessions utilisateur
   sleep(Math.random() * 5 + 2);
 } 

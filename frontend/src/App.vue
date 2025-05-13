@@ -9,6 +9,7 @@ import Footer from '@/components/FooterComponent.vue'
 import LanguageSwitcher from '@/components/LanguageSwitcher.vue'
 import { useI18n } from 'vue-i18n'
 import { directTranslation } from './i18nCompat'
+import { useAssetPreloading } from './composables/useAssetPreloading'
 
 const buildStore = useBuildStore()
 const connexionStore = useConnexionStore()
@@ -47,6 +48,9 @@ onMounted(async () => {
 const acceptConditions = () => {
   connexionStore.isUser()
 }
+
+// Préchargement des assets
+useAssetPreloading()
 </script>
 
 <template>

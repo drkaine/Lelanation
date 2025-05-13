@@ -2,15 +2,12 @@ import http from 'k6/http';
 import { check, sleep } from 'k6';
 import { Counter, Rate, Trend } from 'k6/metrics';
 
-// Configuration variables
-const BUILDS_API_URL = 'https://'; // Sera remplacé par le script shell
+const BUILDS_API_URL = 'https://'; 
 
-// Métriques personnalisées
 const buildCreationDuration = new Trend('build_creation_duration');
 const failedBuildCreations = new Counter('failed_build_creations');
 const successfulBuildCreations = new Counter('successful_build_creations');
 
-// Options de configuration du test
 export const options = {
   stages: [
     { duration: '20s', target: 5 },    // Montée progressive à 5 utilisateurs
@@ -27,14 +24,12 @@ export const options = {
   },
 };
 
-// Liste des champions pour les tests
 const champions = [
   'Ahri', 'Akali', 'Aatrox', 'Blitzcrank', 'Caitlyn', 'Darius', 
   'Ezreal', 'Fiora', 'Garen', 'Jinx', 'Leona', 'Lux', 
   'Miss Fortune', 'Morgana', 'Nasus', 'Teemo', 'Yasuo', 'Zed'
 ];
 
-// Liste des items pour les tests
 const items = [
   'Doran\'s Blade', 'Doran\'s Ring', 'Doran\'s Shield',
   'Infinity Edge', 'Rabadon\'s Deathcap', 'Trinity Force',
@@ -42,22 +37,18 @@ const items = [
   'Void Staff', 'Thornmail', 'Warmog\'s Armor'
 ];
 
-// Runes pour les tests
 const runes = [
   'Conqueror', 'Press the Attack', 'Lethal Tempo', 'Fleet Footwork',
   'Electrocute', 'Predator', 'Dark Harvest', 'Summon Aery',
   'Arcane Comet', 'Phase Rush', 'Grasp of the Undying', 'Aftershock'
 ];
 
-// Fonction pour vérifier si la réponse JSON contient un ID
 function responseContainsId(response) {
   try {
     const body = JSON.parse(response.body);
     
-    // Log de débogage
     console.log(`Réponse du serveur: ${JSON.stringify(body).substring(0, 200)}...`);
     
-    // Plusieurs cas de figure pour l'ID
     return (
       !!body.id || 
       !!body._id || 
@@ -69,7 +60,7 @@ function responseContainsId(response) {
     );
   } catch (e) {
     console.log(`Erreur de parsing JSON: ${e.message}, Corps: ${response.body.substring(0, 100)}`);
-    // Si la réponse n'est pas du JSON mais contient "success", on considère que c'est bon
+  
     if (typeof response.body === 'string' && response.body.includes("success")) {
       return true;
     }
@@ -78,13 +69,10 @@ function responseContainsId(response) {
 }
 
 export default function() {
-  // Création d'un nom unique pour le build
   const buildName = `test-build-${__VU}-${Date.now()}`;
   
-  // Sélection aléatoire d'un champion
   const randomChampion = champions[Math.floor(Math.random() * champions.length)];
   
-  // Sélection aléatoire de 2-6 items
   const numItems = Math.floor(Math.random() * 5) + 2;
   const selectedItems = [];
   for (let i = 0; i < numItems; i++) {
@@ -94,7 +82,6 @@ export default function() {
     }
   }
   
-  // Sélection aléatoire de 1-2 runes
   const numRunes = Math.floor(Math.random() * 2) + 1;
   const selectedRunes = [];
   for (let i = 0; i < numRunes; i++) {
@@ -104,11 +91,9 @@ export default function() {
     }
   }
   
-  // Deux formats de payload différents pour tester
   let buildPayload;
   
   if (Math.random() > 0.5) {
-    // Format 1: avec fileName et content
     buildPayload = JSON.stringify({
       fileName: buildName,
       content: {
@@ -119,7 +104,6 @@ export default function() {
       }
     });
   } else {
-    // Format 2: structure plus simple
     buildPayload = JSON.stringify({
       name: buildName,
       champion: randomChampion,
@@ -129,28 +113,22 @@ export default function() {
     });
   }
   
-  // Headers pour la requête
   const headers = {
     'Content-Type': 'application/json',
   };
   
-  // Tester la création de builds normaux et lelariva (50/50)
   const useLelariva = Math.random() > 0.5;
   const endpoint = useLelariva ? 
     `${BUILDS_API_URL}/save/lelariva/${buildName}` : 
     `${BUILDS_API_URL}/save/${buildName}`;
   
-  // Mesurer le temps de début
   const startTime = new Date().getTime();
   
-  // Envoyer la requête de création de build
   const response = http.post(endpoint, buildPayload, { headers });
   
-  // Calculer la durée
   const duration = new Date().getTime() - startTime;
   buildCreationDuration.add(duration);
   
-  // Vérifier si la création a réussi
   const creationSuccessful = check(response, {
     'build_creation_successful': (r) => r.status === 200 || r.status === 201,
     'build_contains_id': (r) => responseContainsId(r),
@@ -159,7 +137,6 @@ export default function() {
   if (creationSuccessful) {
     successfulBuildCreations.add(1);
     
-    // Si la création a réussi, récupérons le build après une petite pause
     sleep(0.3);
     
     const getBuildResponse = http.get(
@@ -174,7 +151,6 @@ export default function() {
       'get_created_build_contains_data': (r) => {
         try {
           const body = JSON.parse(r.body);
-          // Accepter différentes structures de données
           return body && 
                 (
                   (body.content && body.content.champion === randomChampion) || 
@@ -192,6 +168,5 @@ export default function() {
     console.log(`Échec de création du build - Status: ${response.status}, Body: ${response.body.substring(0, 200)}`);
   }
   
-  // Pause entre les créations
   sleep(1);
 } 

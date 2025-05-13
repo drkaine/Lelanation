@@ -45,3 +45,41 @@ try {
 }
 
 app.mount('#app')
+
+// Ajout de la déclaration de type pour window.clearCaches
+declare global {
+  interface Window {
+    clearCaches: () => Promise<boolean>
+  }
+}
+
+// Enregistrement du service worker avec un paramètre de version pour éviter le cache
+if ('serviceWorker' in navigator) {
+  const buildId = import.meta.env.VITE_BUILD_ID || Date.now().toString()
+  navigator.serviceWorker
+    .register('/service-worker.js?v=' + buildId)
+    .then(registration => {
+      console.log('Service Worker enregistré avec succès:', registration)
+    })
+    .catch(error => {
+      console.error("Erreur lors de l'enregistrement du Service Worker:", error)
+    })
+
+  // Exposer une méthode pour vider le cache si nécessaire
+  window.clearCaches = async () => {
+    if (!('caches' in window)) {
+      console.error('API Cache non supportée par ce navigateur')
+      return false
+    }
+
+    try {
+      const cacheNames = await window.caches.keys()
+      await Promise.all(cacheNames.map(cacheName => caches.delete(cacheName)))
+      console.log('Tous les caches ont été vidés avec succès')
+      return true
+    } catch (error) {
+      console.error('Erreur lors du nettoyage des caches:', error)
+      return false
+    }
+  }
+}

@@ -2,15 +2,12 @@ import http from 'k6/http';
 import { check, sleep, group } from 'k6';
 import { Counter, Rate, Trend } from 'k6/metrics';
 
-// Configuration variables
-const API_URL = 'https://'; // Sera remplacé par le script shell
+const API_URL = 'https://'; 
 
-// Métriques personnalisées
 const apiCallsDuration = new Trend('api_call_duration');
 const failedRequests = new Counter('failed_requests');
 const successRate = new Rate('success_rate');
 
-// Options de configuration du test
 export const options = {
   stages: [
     { duration: '30s', target: 10 },   // Montée progressive à 10 utilisateurs
@@ -33,7 +30,6 @@ export default function() {
   };
 
   group('Analytics API Tests', function() {
-    // GET analytics
     const getAnalyticsResponse = http.get(`${API_URL}/api/analytics`, { headers });
     
     check(getAnalyticsResponse, {
@@ -44,7 +40,6 @@ export default function() {
     successRate.add(getAnalyticsResponse.status === 200);
     if (getAnalyticsResponse.status !== 200) failedRequests.add(1);
     
-    // POST analytics
     const analyticsPayload = JSON.stringify({ 
       page: 'homepage',
       event: 'visit',
@@ -67,7 +62,6 @@ export default function() {
   });
   
   group('Build API Tests', function() {
-    // GET all builds
     const getBuildsResponse = http.get(`${API_URL}/api/builds`, { headers });
     
     check(getBuildsResponse, {
@@ -78,10 +72,8 @@ export default function() {
     successRate.add(getBuildsResponse.status === 200);
     if (getBuildsResponse.status !== 200) failedRequests.add(1);
     
-    // Test with a specific build
     const testBuildName = `test-build-${__VU}-${Date.now()}`;
     
-    // POST save a build
     const buildPayload = JSON.stringify({ 
       name: testBuildName,
       content: { 
@@ -105,7 +97,6 @@ export default function() {
     successRate.add(postBuildResponse.status === 200);
     if (postBuildResponse.status !== 200) failedRequests.add(1);
     
-    // GET a specific build
     if (postBuildResponse.status === 200) {
       const getBuildResponse = http.get(`${API_URL}/api/build/${testBuildName}`, { headers });
       
@@ -120,7 +111,7 @@ export default function() {
   });
   
   group('Dictionnaire API Tests', function() {
-    // GET dictionnaire
+
     const getDictionnaireResponse = http.get(`${API_URL}/api/dictionnaire`, { headers });
     
     check(getDictionnaireResponse, {
@@ -133,7 +124,7 @@ export default function() {
   });
   
   group('Contact API Tests', function() {
-    // GET contacts
+
     const getContactResponse = http.get(`${API_URL}/api/contact`, { headers });
     
     check(getContactResponse, {
@@ -144,7 +135,6 @@ export default function() {
     successRate.add(getContactResponse.status === 200);
     if (getContactResponse.status !== 200) failedRequests.add(1);
     
-    // POST contact
     const contactPayload = JSON.stringify({ 
       name: `Test User ${__VU}`,
       email: `test${__VU}@example.com`,
@@ -168,7 +158,7 @@ export default function() {
   });
   
   group('TierList API Tests', function() {
-    // GET tierlist
+
     const getTierlistResponse = http.get(`${API_URL}/api/tierlist/all`, { headers });
     
     check(getTierlistResponse, {
@@ -180,6 +170,5 @@ export default function() {
     if (getTierlistResponse.status !== 200) failedRequests.add(1);
   });
   
-  // Ajouter un délai entre les itérations pour éviter de surcharger le serveur
   sleep(1);
 } 
