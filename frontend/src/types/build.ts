@@ -5,6 +5,7 @@ import type { ShardSelection } from './shard'
 import type { ItemSelection } from './item'
 import type { ItemStats, ChampionStats, Stats, TotalStats } from './stat'
 import type { ChampionSkillsOrder } from './champion'
+
 export interface BuildData {
   id?: string
   roles: string[]
@@ -30,4 +31,9 @@ export interface Build {
   baseStats: Stats[]
   buildItemStats: Stats
   totalStats: TotalStats[]
+}
+
+export interface BuildProps {
+  editMode: boolean
+  fileName?: string
 }

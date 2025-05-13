@@ -1,12 +1,6 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
-
-interface DictionnaireEntry {
-  word: string
-  definition: string
-  pseudo: string
-  date: string
-}
+import type { DictionnaireEntry } from '@/types/dictionary'
 
 const entries = ref<DictionnaireEntry[]>([])
 const loading = ref(true)

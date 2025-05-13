@@ -73,3 +73,48 @@ export interface TierListData {
   TierList: ChampionData[];
   Resultats: ChampionData[];
 }
+
+
+export interface TokenStorage {
+  nextPageToken: string;
+  lastUpdate: number;
+  tokenQuota: number;
+  channelId: string;
+}
+
+export interface VideoStorage {
+  videos: Video[];
+  lastVideoDate: string;
+  channelId: string;
+  lastUpdate: number;
+}
+
+export interface Video {
+  id: string;
+  snippet: {
+    title: string;
+    description: string;
+    publishedAt: string;
+    thumbnails: {
+      medium: {
+        url: string;
+      };
+    };
+  };
+}
+
+export interface YouTubeApiItem {
+  id: {
+    videoId: string;
+  };
+  snippet: {
+    title: string;
+    description: string;
+    publishedAt: string;
+    thumbnails: {
+      medium: {
+        url: string;
+      };
+    };
+  };
+}

@@ -1,52 +1,9 @@
 import fs from "fs/promises";
 import path from "path";
 import dotenv from "dotenv";
+import type { Video, VideoStorage, TokenStorage, YouTubeApiItem } from "../types";
 
 dotenv.config();
-
-interface TokenStorage {
-  nextPageToken: string;
-  lastUpdate: number;
-  tokenQuota: number;
-  channelId: string;
-}
-
-interface VideoStorage {
-  videos: Video[];
-  lastVideoDate: string;
-  channelId: string;
-  lastUpdate: number;
-}
-
-interface Video {
-  id: string;
-  snippet: {
-    title: string;
-    description: string;
-    publishedAt: string;
-    thumbnails: {
-      medium: {
-        url: string;
-      };
-    };
-  };
-}
-
-interface YouTubeApiItem {
-  id: {
-    videoId: string;
-  };
-  snippet: {
-    title: string;
-    description: string;
-    publishedAt: string;
-    thumbnails: {
-      medium: {
-        url: string;
-      };
-    };
-  };
-}
 
 export class YoutubeService {
   private readonly API_KEY: string;

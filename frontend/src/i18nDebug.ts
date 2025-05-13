@@ -1,15 +1,5 @@
 import i18n from './i18n'
-
-interface MessageStructure {
-  [key: string]: string | boolean | undefined
-}
-
-interface LocaleMessages {
-  home?: {
-    title?: string
-  }
-  [key: string]: unknown
-}
+import type { LocaleMessages, MessageStructure } from '@/types/i18n'
 
 interface I18nGlobal {
   global: {

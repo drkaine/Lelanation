@@ -2,14 +2,9 @@ import { createI18n } from 'vue-i18n'
 import fr from './locales/fr.json'
 import en from './locales/en.json'
 import laranguiva from './locales/laranguiva.json'
+import type { I18nGlobal } from '@/types/i18n'
 
 export type Locale = 'fr' | 'en' | 'laranguiva'
-
-interface I18nGlobal {
-  global: {
-    locale: string
-  }
-}
 
 const savedLocale =
   typeof localStorage !== 'undefined' ? localStorage.getItem('locale') : null

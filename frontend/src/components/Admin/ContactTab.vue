@@ -1,15 +1,6 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
-
-interface ContactMessage {
-  category: string
-  messages: Array<{
-    name: string
-    email: string
-    message: string
-    date: string
-  }>
-}
+import type { ContactMessage } from '@/types/contact'
 
 const contacts = ref<ContactMessage[]>([])
 const loading = ref(true)

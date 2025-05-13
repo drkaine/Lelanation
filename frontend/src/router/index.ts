@@ -1,9 +1,5 @@
 import { createRouter, createWebHistory, type RouteRecordRaw } from 'vue-router'
-
-interface BuildProps {
-  editMode: boolean
-  fileName?: string
-}
+import type { BuildProps } from '@/types/build'
 
 const routes: RouteRecordRaw[] = [
   {

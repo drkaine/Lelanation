@@ -1,14 +1,9 @@
 <script setup lang="ts">
 import { Icon } from '@iconify/vue'
 import { useI18n } from 'vue-i18n'
+import type { SocialLink } from '@/types/social'
 
 const { t } = useI18n()
-
-interface SocialLink {
-  href: string
-  icon: string
-  text: string
-}
 
 const socialLinks: SocialLink[] = [
   {

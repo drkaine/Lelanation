@@ -10,7 +10,7 @@ import { useSummonerStore } from '@/stores/summonerStore'
 import type { Rune, SubRune } from '@/types/rune'
 import type { Shard, ShardColumn } from '@/types/shard'
 import type { Summoner } from '@/types/summoner'
-
+import type { TooltipData } from '@/types/tooltip'
 const runesData = ref<Rune[]>(runes)
 const summonerData = ref<Summoner[]>([])
 const shardsData = ref<ShardColumn>()
@@ -114,11 +114,6 @@ const showSecondarySelector = ref(false)
 const showPrimarySlotSelector = ref([false, false, false, false, false])
 
 const showSecondarySlotSelector = ref([false, false, false])
-
-interface TooltipData {
-  name: string
-  shortDesc: string
-}
 
 const activeTooltip = ref<TooltipData | null>(null)
 const tooltipX = ref(0)

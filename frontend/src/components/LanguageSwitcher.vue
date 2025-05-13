@@ -7,7 +7,7 @@
     >
       <option value="fr">FR</option>
       <option value="en">EN</option>
-      <option value="laranguiva">LA</option>
+      <option value="laranguiva">LELA</option>
     </select>
   </div>
 </template>
