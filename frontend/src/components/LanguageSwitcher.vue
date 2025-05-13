@@ -7,7 +7,7 @@
     >
       <option value="fr">FR</option>
       <option value="en">EN</option>
-      <option value="laranguiva">LELA</option>
+      <option value="laranguiva">LA</option>
     </select>
   </div>
 </template>
@@ -35,7 +35,8 @@ const getInitialLocale = (): Locale => {
   }
 
   try {
-    return (i18nAny.global.locale || 'fr') as Locale
+    const defaultLocale = (i18nAny.global.locale || 'fr') as Locale
+    return defaultLocale
   } catch {
     return 'fr'
   }

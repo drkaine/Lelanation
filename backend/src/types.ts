@@ -74,7 +74,6 @@ export interface TierListData {
   Resultats: ChampionData[];
 }
 
-
 export interface TokenStorage {
   nextPageToken: string;
   lastUpdate: number;

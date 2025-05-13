@@ -2,9 +2,14 @@ import { createI18n } from 'vue-i18n'
 import fr from './locales/fr.json'
 import en from './locales/en.json'
 import laranguiva from './locales/laranguiva.json'
-import type { I18nGlobal } from '@/types/i18n'
 
 export type Locale = 'fr' | 'en' | 'laranguiva'
+
+export interface I18nInternal {
+  global: {
+    locale: string
+  }
+}
 
 const savedLocale =
   typeof localStorage !== 'undefined' ? localStorage.getItem('locale') : null
@@ -27,19 +32,32 @@ const i18n = createI18n({
 
 export function setLocale(locale: Locale) {
   try {
-    const i18nAny = i18n as unknown as I18nGlobal
+    const i18nAny = i18n as unknown as I18nInternal
     i18nAny.global.locale = locale
 
     localStorage.setItem('locale', locale)
     document.querySelector('html')?.setAttribute('lang', locale)
+
+    if (typeof window !== 'undefined') {
+      window.dispatchEvent(
+        new CustomEvent('languageChanged', { detail: locale }),
+      )
+    }
   } catch (error) {
-    console.error('Failed to change locale:', error)
+    console.error('[i18n] Failed to change locale:', error)
   }
 }
 
-const i18nAny = i18n as unknown as I18nGlobal
+const i18nAny = i18n as unknown as I18nInternal
 if (i18nAny.global.locale !== defaultLocale) {
   i18nAny.global.locale = defaultLocale
+}
+
+if (typeof window !== 'undefined') {
+  // @ts-expect-error - Adding i18n to window for debugging
+  window._i18n = i18n
+  // @ts-expect-error - Adding setLocale to window for debugging
+  window._setLocale = setLocale
 }
 
 export default i18n

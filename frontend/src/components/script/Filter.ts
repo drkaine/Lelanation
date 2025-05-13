@@ -1,19 +1,63 @@
 import type { Ref } from 'vue'
 import { ref } from 'vue'
-import champions from '@/assets/files/data/championFull.json'
 import type { Champion } from '@/types/champion'
+import i18n from '@/i18n'
+import { type I18nInternal } from '@/i18n'
 
 export class Filter {
   public championData: Champion[]
   public selectedTag: string[]
   public filteredChampions: Ref<Champion[]>
   public searchQuery: string
+  private i18nInstance: I18nInternal
 
   constructor() {
-    this.championData = Object.values(champions.data)
+    this.i18nInstance = i18n as unknown as I18nInternal
+    this.championData = []
     this.selectedTag = []
-    this.filteredChampions = ref(this.championData)
+    this.filteredChampions = ref([])
     this.searchQuery = ''
+    this.loadChampionData()
+
+    if (typeof window !== 'undefined') {
+      window.addEventListener('languageChanged', (_event: Event) => {
+        console.log(
+          'Language changed event received in Filter',
+          (_event as CustomEvent).detail,
+        )
+        this.loadChampionData()
+      })
+    }
+  }
+
+  public async loadChampionData() {
+    const locale = this.i18nInstance.global.locale
+
+    try {
+      let championsModule
+
+      if (locale === 'en') {
+        championsModule = await import(
+          '@/assets/files/data/en/championFull.json'
+        )
+      } else {
+        championsModule = await import('@/assets/files/data/championFull.json')
+      }
+
+      this.championData = Object.values(championsModule.default.data)
+      this.filteredChampions.value = this.championData
+    } catch (error) {
+      console.error(`Failed to load champion data for locale ${locale}:`, error)
+      try {
+        const defaultModule = await import(
+          '@/assets/files/data/championFull.json'
+        )
+        this.championData = Object.values(defaultModule.default.data)
+        this.filteredChampions.value = this.championData
+      } catch (fallbackError) {
+        console.error('Fallback loading also failed:', fallbackError)
+      }
+    }
   }
 
   public filterChampions(tag: string): void {

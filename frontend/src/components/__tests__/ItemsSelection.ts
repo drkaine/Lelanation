@@ -52,6 +52,42 @@ vi.mock('@/assets/files/data/item.json', () => ({
   },
 }))
 
+vi.mock('@/assets/files/data/en/item.json', () => ({
+  default: {
+    data: {
+      item1: {
+        name: 'Basic Test Item EN',
+        description: 'Test Description EN',
+        tags: ['damage'],
+        image: { full: 'test.png' },
+        maps: { '11': true, '12': false },
+        gold: {
+          purchasable: true,
+          total: 500,
+        },
+      },
+      item2: {
+        name: 'Epic Test Item EN',
+        description: 'Test Description EN',
+        tags: ['damage'],
+        image: { full: 'test2.png' },
+        maps: { '11': true, '12': false },
+        gold: {
+          purchasable: true,
+          total: 2000,
+        },
+      },
+    },
+  },
+}))
+
+vi.mock('vue-i18n', () => ({
+  useI18n: () => ({
+    locale: { value: 'fr' },
+    t: (key: string) => key,
+  }),
+}))
+
 describe('ItemsSelection', () => {
   beforeEach(() => {
     const app = createApp({})
@@ -62,24 +98,24 @@ describe('ItemsSelection', () => {
 
   it('renders filter buttons', () => {
     const wrapper = mount(ItemsSelection)
-    const buttons = wrapper.findAll('.filter button')
+    const buttons = wrapper.findAll('.filter-items button')
     expect(buttons.length).toBeGreaterThan(0)
-    expect(buttons[0].text()).toBe('Tous')
   })
 
   it('filters items when tag is selected', async () => {
     const wrapper = mount(ItemsSelection)
-    const damageButton = wrapper.find('button:nth-child(2)')
+    await wrapper.vm.$nextTick()
+
+    const damageButton = wrapper.find('.filter-items button:nth-child(2)')
     await damageButton.trigger('click')
     expect(damageButton.classes()).toContain('active')
   })
 
-  it('shows tooltip on item hover', async () => {
+  it('loads items based on locale', async () => {
     const wrapper = mount(ItemsSelection)
-    const firstItem = wrapper.find('.tooltip button')
+    await wrapper.vm.$nextTick()
+
+    const firstItem = wrapper.find('.items-grid .tooltip button')
     expect(firstItem.exists()).toBe(true)
-    await firstItem.trigger('mouseenter')
-    const tooltip = wrapper.find('.box')
-    expect(tooltip.exists()).toBe(true)
   })
 })

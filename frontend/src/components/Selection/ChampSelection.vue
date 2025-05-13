@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { ref, onMounted, defineAsyncComponent } from 'vue'
+import { ref, onMounted, defineAsyncComponent, watch } from 'vue'
+import { useI18n } from 'vue-i18n'
 import { Filter } from '../script/Filter'
 import { TooltipCoordonne } from '../script/TooltipCoordonne'
 import { useChampionStore } from '@/stores/championStore'
@@ -10,6 +11,7 @@ const ChampionTooltip = defineAsyncComponent(
 import type { Champion } from '@/types/champion'
 import { useStepStore } from '@/stores/stepStore'
 
+const { locale } = useI18n()
 const stepStore = useStepStore()
 const searchQuery = ref<string>('')
 const filterInstance = new Filter()
@@ -39,6 +41,32 @@ onMounted(async () => {
   isLoading.value = false
 })
 
+watch(
+  () => locale.value,
+  async _newLocale => {
+    console.log(
+      `[ChampSelection] Locale changed to: ${_newLocale}, reloading champions`,
+    )
+    isLoading.value = true
+    await championStore.loadChampions()
+    await filterInstance.loadChampionData()
+    isLoading.value = false
+  },
+)
+
+onMounted(() => {
+  window.addEventListener('languageChanged', async (_event: Event) => {
+    console.log(
+      `[ChampSelection] Language changed event received:`,
+      (_event as CustomEvent).detail,
+    )
+    isLoading.value = true
+    await championStore.loadChampions()
+    await filterInstance.loadChampionData()
+    isLoading.value = false
+  })
+})
+
 const filterChampions = (tag: string) => {
   filterInstance.filterChampions(tag)
 }
@@ -51,7 +79,10 @@ const selectChampion = (champion: Champion) => {
 
 <template>
   <div class="championsPage">
-    <div class="list">
+    <div v-if="isLoading" class="loading-indicator">
+      {{ $t('champion.loading') }}...
+    </div>
+    <div v-else class="list">
       <div class="search">
         <form @submit.prevent>
           <label class="small">
@@ -116,7 +147,7 @@ const selectChampion = (champion: Champion) => {
         </button>
         <button
           :class="{
-            active: filterInstance.selectedTag.includes('Assassin'),
+            active: filterInstance.selectedTag.length === 0,
           }"
           @click="filterChampions('')"
         >
@@ -126,14 +157,11 @@ const selectChampion = (champion: Champion) => {
 
       <div
         class="tooltip"
-        v-for="(champion, index) in filterInstance.championData"
+        v-for="(champion, index) in filterInstance.filteredChampions.value"
         :key="index"
       >
         <button
-          :class="{
-            champ: true,
-            hide: !filterInstance.filteredChampions.value.includes(champion),
-          }"
+          class="champ"
           @mouseenter="updateMousePosition"
           @mouseleave="resetMousePosition"
           @click="selectChampion(champion)"
@@ -157,3 +185,14 @@ const selectChampion = (champion: Champion) => {
     </div>
   </div>
 </template>
+
+<style scoped>
+.loading-indicator {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100px;
+  font-size: 1.2rem;
+  color: var(--color-gold-200);
+}
+</style>

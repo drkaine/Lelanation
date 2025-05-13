@@ -1,6 +1,8 @@
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
 import type { Champion, ChampionSkillsOrder } from '@/types/champion'
+import i18n from '@/i18n'
+import { type I18nInternal } from '@/i18n'
 
 export const useChampionStore = defineStore('champion', () => {
   const selectedChampion = ref<Champion | null>(null)
@@ -11,6 +13,7 @@ export const useChampionStore = defineStore('champion', () => {
     E: [] as number[],
     R: [] as number[],
   })
+  const i18nInstance = i18n as unknown as I18nInternal
 
   const setSelectedChampion = (champion: Champion) => {
     selectedChampion.value = champion
@@ -31,8 +34,48 @@ export const useChampionStore = defineStore('champion', () => {
   }
 
   const loadChampions = async () => {
-    const { data } = await import('@/assets/files/data/championFull.json')
-    champions.value = Object.values(data)
+    const locale = i18nInstance.global.locale
+
+    try {
+      let championsModule
+
+      if (locale === 'en') {
+        championsModule = await import(
+          '@/assets/files/data/en/championFull.json'
+        )
+      } else {
+        championsModule = await import('@/assets/files/data/championFull.json')
+      }
+
+      champions.value = Object.values(championsModule.default.data)
+    } catch (error) {
+      console.error(
+        `[ChampionStore] Failed to load champion data for locale ${locale}:`,
+        error,
+      )
+      try {
+        const defaultModule = await import(
+          '@/assets/files/data/championFull.json'
+        )
+        champions.value = Object.values(defaultModule.default.data)
+      } catch (fallbackError) {
+        console.error(
+          '[ChampionStore] Fallback loading also failed:',
+          fallbackError,
+        )
+      }
+    }
+  }
+
+  // Listen for language changes
+  if (typeof window !== 'undefined') {
+    window.addEventListener('languageChanged', (_event: Event) => {
+      console.log(
+        '[ChampionStore] Language changed:',
+        (_event as CustomEvent).detail,
+      )
+      loadChampions()
+    })
   }
 
   return {

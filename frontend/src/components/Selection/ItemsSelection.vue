@@ -1,12 +1,17 @@
 <script setup lang="ts">
-import { ref, computed, watch, onBeforeUnmount } from 'vue'
+import { ref, computed, watch, onBeforeUnmount, onMounted } from 'vue'
+import { useI18n } from 'vue-i18n'
 import { TooltipCoordonne } from '../script/TooltipCoordonne'
-import items from '@/assets/files/data/item.json'
 import ItemTooltip from '@/components/Tooltip/ItemTooltip.vue'
 import type { Item } from '@/types/item'
 import { useItemStore } from '@/stores/itemStore'
+import i18n, { type I18nInternal } from '@/i18n'
 
+const { locale } = useI18n()
 const tooltip = new TooltipCoordonne()
+const itemsData = ref<Record<string, Item>>({})
+
+const i18nInstance = i18n as unknown as I18nInternal
 
 const tooltipLeft = tooltip.tooltipLeft
 const tooltipTop = tooltip.tooltipTop
@@ -18,6 +23,50 @@ const updateMousePosition = (event: MouseEvent) => {
 const resetMousePosition = () => {
   tooltip.resetMousePosition()
 }
+
+const loadData = async () => {
+  const currentLocale = i18nInstance.global.locale || 'fr'
+
+  try {
+    let itemsModule
+
+    if (currentLocale === 'en') {
+      itemsModule = await import('@/assets/files/data/en/item.json')
+    } else {
+      itemsModule = await import('@/assets/files/data/item.json')
+    }
+
+    itemsData.value = itemsModule.default.data
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  } catch (_error) {
+    try {
+      const itemsModule = await import('@/assets/files/data/item.json')
+      itemsData.value = itemsModule.default.data
+    } catch (fallbackError) {
+      console.error(
+        '[ItemsSelection] Fallback loading also failed:',
+        fallbackError,
+      )
+    }
+  }
+}
+
+watch(
+  () => locale.value,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  _newLocale => {
+    loadData()
+  },
+)
+
+onMounted(() => {
+  loadData()
+
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  window.addEventListener('languageChanged', (_event: Event) => {
+    loadData()
+  })
+})
 
 const selectedTags = ref<string[]>([])
 const itemStore = useItemStore()
@@ -55,7 +104,7 @@ const FILTERED_ITEMS = [
 ] as const
 
 const filteredItems = computed<Item[]>(() => {
-  let filtered = Object.values(items.data)
+  let filtered = Object.values(itemsData.value)
     .filter(
       (item: Item) =>
         item.maps['11'] === true &&
@@ -86,7 +135,7 @@ const filteredItems = computed<Item[]>(() => {
 const getItemsFrom = (item: Item): Item[] => {
   if (!item.from) return []
   return item.from
-    .map(id => items.data[id as keyof typeof items.data])
+    .map(id => itemsData.value[id as string])
     .filter(Boolean)
     .filter(item => filteredItems.value.includes(item))
 }
@@ -94,7 +143,7 @@ const getItemsFrom = (item: Item): Item[] => {
 const getItemsInto = (item: Item): Item[] => {
   if (!item.into) return []
   return item.into
-    .map(id => items.data[id as keyof typeof items.data])
+    .map(id => itemsData.value[id as string])
     .filter(Boolean)
     .filter(item => filteredItems.value.includes(item))
 }

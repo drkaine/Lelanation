@@ -1,23 +1,88 @@
 <script setup lang="ts">
-import { ref, onMounted, computed } from 'vue'
-import runes from '@/assets/files/data/runesReforged.json'
-import summoner from '@/assets/files/data/summoner.json'
-import shards from '@/assets/files/data-manuel/shards.json'
+import { ref, onMounted, computed, watch } from 'vue'
+import { useI18n } from 'vue-i18n'
 import { useRuneStore } from '@/stores/runeStore'
 import { useShardStore } from '@/stores/shardStore'
 import { useSummonerStore } from '@/stores/summonerStore'
+import i18n, { type I18nInternal } from '@/i18n'
 
 import type { Rune, SubRune } from '@/types/rune'
 import type { Shard, ShardColumn } from '@/types/shard'
 import type { Summoner } from '@/types/summoner'
 import type { TooltipData } from '@/types/tooltip'
-const runesData = ref<Rune[]>(runes)
+
+const { locale } = useI18n()
+const runesData = ref<Rune[]>([])
 const summonerData = ref<Summoner[]>([])
 const shardsData = ref<ShardColumn>()
 
 const runeStore = useRuneStore()
 const shardStore = useShardStore()
 const summonerStore = useSummonerStore()
+
+const i18nInstance = i18n as unknown as I18nInternal
+
+const loadData = async () => {
+  const currentLocale = i18nInstance.global.locale || 'fr'
+
+  try {
+    let runesModule
+    let summonerModule
+
+    if (currentLocale === 'en') {
+      runesModule = await import('@/assets/files/data/en/runesReforged.json')
+      summonerModule = await import('@/assets/files/data/en/summoner.json')
+    } else {
+      runesModule = await import('@/assets/files/data/runesReforged.json')
+      summonerModule = await import('@/assets/files/data/summoner.json')
+    }
+
+    runesData.value = runesModule.default
+
+    summonerData.value = Object.values(summonerModule.default.data)
+  } catch (error) {
+    console.error(
+      `[RunesSelection] Failed to load language-specific data for ${currentLocale}:`,
+      error,
+    )
+    try {
+      const runesModule = await import('@/assets/files/data/runesReforged.json')
+      runesData.value = runesModule.default
+
+      const summonerModule = await import('@/assets/files/data/summoner.json')
+      summonerData.value = Object.values(summonerModule.default.data)
+    } catch (fallbackError) {
+      console.error(
+        '[RunesSelection] Fallback loading also failed:',
+        fallbackError,
+      )
+    }
+  }
+
+  try {
+    const shardsModule = await import('@/assets/files/data-manuel/shards.json')
+    shardsData.value = shardsModule.default.data
+  } catch (shardError) {
+    console.error('[RunesSelection] Failed to load shards data:', shardError)
+  }
+}
+
+watch(
+  () => locale.value,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  _newLocale => {
+    loadData()
+  },
+)
+
+onMounted(() => {
+  loadData()
+
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  window.addEventListener('languageChanged', (_event: Event) => {
+    loadData()
+  })
+})
 
 const filteredSecondaryRunes = computed(() =>
   runesData.value.filter(
@@ -222,12 +287,6 @@ const formatDescription = (desc: string) => {
     )
     .replace(/<b>([^<]+)<\/b>/g, '<strong>$1</strong>')
 }
-
-onMounted(() => {
-  runesData.value = Object.values(runes)
-  summonerData.value = Object.values(summoner.data)
-  shardsData.value = shards.data
-})
 </script>
 
 <template>

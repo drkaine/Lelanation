@@ -1,7 +1,12 @@
 import fs from "fs/promises";
 import path from "path";
 import dotenv from "dotenv";
-import type { Video, VideoStorage, TokenStorage, YouTubeApiItem } from "../types";
+import type {
+  Video,
+  VideoStorage,
+  TokenStorage,
+  YouTubeApiItem,
+} from "../types";
 
 dotenv.config();
 

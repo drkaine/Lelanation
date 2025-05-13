@@ -5,7 +5,12 @@ import { Champion, Item, Summoner, RunePath } from "./types";
 import { exec } from "child_process";
 import { YoutubeService } from "./service/YoutubeService";
 
-const targets: { urlFR: string[]; urlEN: string[]; folder: string; folderJSON: string } = {
+const targets: {
+  urlFR: string[];
+  urlEN: string[];
+  folder: string;
+  folderJSON: string;
+} = {
   urlFR: [
     "data/fr_FR/championFull.json",
     "data/fr_FR/item.json",
@@ -53,7 +58,10 @@ async function downloadFiles() {
     const data = await ddragonAPI.loadJson(target);
 
     const filename = target.split("/").pop();
-    const filePath = path.join(__dirname, targets["folderJSON"] + "en/" + filename);
+    const filePath = path.join(
+      __dirname,
+      targets["folderJSON"] + "en/" + filename,
+    );
 
     saveFile(JSON.stringify(data), filePath);
   }
@@ -80,9 +88,7 @@ async function downloadChampions() {
       passive,
       path.join(
         __dirname,
-          targets["folder"] +
-          "/champions/passive/" +
-          Data.passive.image.full,
+        targets["folder"] + "/champions/passive/" + Data.passive.image.full,
       ),
     );
     for (const value of Object.values(Data.spells)) {
@@ -93,10 +99,7 @@ async function downloadChampions() {
         spell,
         path.join(
           __dirname,
-          targets["folder"] +
-            "/champions/sorts/" +
-            value.id +
-            ".png",
+          targets["folder"] + "/champions/sorts/" + value.id + ".png",
         ),
       );
     }
