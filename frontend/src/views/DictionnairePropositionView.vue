@@ -56,7 +56,9 @@ const submitProposition = async () => {
 
       <form @submit.prevent="submitProposition" class="proposition-form">
         <div class="form-group">
-          <label for="pseudo">{{ $t('dictionnaire-proposition.pseudo') }}</label>
+          <label for="pseudo">{{
+            $t('dictionnaire-proposition.pseudo')
+          }}</label>
           <input
             id="pseudo"
             v-model="pseudo"
@@ -80,7 +82,9 @@ const submitProposition = async () => {
         </div>
 
         <div class="form-group">
-          <label for="definition">{{ $t('dictionnaire-proposition.definition') }}</label>
+          <label for="definition">{{
+            $t('dictionnaire-proposition.definition')
+          }}</label>
           <textarea
             id="definition"
             v-model="definition"
@@ -91,7 +95,9 @@ const submitProposition = async () => {
           />
         </div>
 
-        <button type="submit" class="submit-btn">{{ $t('button.submit') }}</button>
+        <button type="submit" class="submit-btn">
+          {{ $t('button.submit') }}
+        </button>
       </form>
     </div>
   </div>

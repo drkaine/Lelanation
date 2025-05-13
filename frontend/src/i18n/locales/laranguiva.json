@@ -163,13 +163,13 @@
     "previous": "Précédent"
   },
   "statistique": {
-   "tier": "TIER",
-   "champion": "CHAMPION",
-   "score": "SCORE CP",
-   "pickrate": "PICKRATE",
-   "matchups": "Facile et Commun",
-   "matchups-hard": "Le plus dur et Commun",
-   "otp": "OTP"
+    "tier": "TIER",
+    "champion": "CHAMPION",
+    "score": "SCORE CP",
+    "pickrate": "PICKRATE",
+    "matchups": "Facile et Commun",
+    "matchups-hard": "Le plus dur et Commun",
+    "otp": "OTP"
   },
   "footer": {
     "legal": "Lelalegal",
@@ -200,4 +200,4 @@
     "league-of-legends": "League of Legends est une marque déposée de Riot Games",
     "no-link": "Nous n'avons pas de lien avec Riot Games ni avec Lelariva"
   }
-} 
+}

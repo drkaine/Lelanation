@@ -4,7 +4,7 @@
   <div class="legal-text">
     <h3>{{ $t('legal.cookies') }}</h3>
     <p>{{ $t('legal.cookies-description') }}</p>
-    <ul>  
+    <ul>
       <li>{{ $t('legal.save') }}</li>
       <li>{{ $t('legal.remember') }}</li>
       <li>{{ $t('legal.remember2') }}</li>

@@ -17,7 +17,9 @@ defineProps<{
       fetchpriority="high"
       sizes="(max-width: 768px) 100vw, 50vw"
     />
-    <h2 class="subtitle" itemprop="alternativeHeadline">{{ $t('home.description') }}</h2>
+    <h2 class="subtitle" itemprop="alternativeHeadline">
+      {{ $t('home.description') }}
+    </h2>
     <div itemscope itemtype="http://schema.org/WebSite">
       <meta itemprop="url" content="https://lelanation.fr/" />
       <meta itemprop="name" content="Lelanation" />

@@ -14,9 +14,8 @@ const buildStore = useBuildStore()
 const connexionStore = useConnexionStore()
 const { locale } = useI18n()
 
-// Custom translation getter using our direct translation function
 const translateDirect = (key: string) => {
-  return directTranslation(key);
+  return directTranslation(key)
 }
 
 buildStore.loadUserBuilds()
@@ -70,7 +69,6 @@ const acceptConditions = () => {
             <a href="/" class="link" aria-label="Accueil">
               <span>{{ $t('navigation.home') }}</span>
             </a>
-           
           </div>
           <button class="menu-mobile" @click="toggleMenu">
             <svg
@@ -175,9 +173,9 @@ const acceptConditions = () => {
             <RouterLink title="Build" class="version" to="/build">
               {{ $t('navigation.build') }}</RouterLink
             >
-            <RouterLink to="/builds-publics"
-              >{{ $t('navigation.builds-public') }}</RouterLink
-            >
+            <RouterLink to="/builds-publics">{{
+              $t('navigation.builds-public')
+            }}</RouterLink>
             <RouterLink
               title="Mes builds"
               class="version"

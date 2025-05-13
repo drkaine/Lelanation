@@ -162,15 +162,15 @@
     "previous": "Précédent"
   },
   "statistique": {
-   "tier": "TIER",
-   "champion": "CHAMPION",
-   "score": "SCORE CP",
-   "pickrate": "PICKRATE",
-   "matchups": "Facile et Commun",
-   "matchups-hard": "Le plus dur et Commun",
-   "otp": "OTP"
+    "tier": "TIER",
+    "champion": "CHAMPION",
+    "score": "SCORE CP",
+    "pickrate": "PICKRATE",
+    "matchups": "Facile et Commun",
+    "matchups-hard": "Le plus dur et Commun",
+    "otp": "OTP"
   },
- "legal": {
+  "legal": {
     "title": "Mentions légales",
     "title2": "Bienvenue sur Lelanation",
     "description": "Lelanation est un site web qui permet de trouver les meilleures builds pour les champions de League of Legends. Il est conçu et maintenu par Lelariva et ses contributeurs.",
@@ -199,4 +199,4 @@
     "contact": "Contact",
     "admin": "Admin"
   }
-} 
+}

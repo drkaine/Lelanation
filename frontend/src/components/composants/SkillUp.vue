@@ -107,7 +107,9 @@ watch(
               <p v-html="getSpellInfo(skill)?.description"></p>
               <div class="tooltip-skill-stats">
                 <div class="stat-row" v-if="getSpellInfo(skill)?.cooldown">
-                  <span class="stat-label">{{ $t('skill-order.cooldown') }}</span>
+                  <span class="stat-label">{{
+                    $t('skill-order.cooldown')
+                  }}</span>
                   <span class="stat-value"
                     >{{ getSpellInfo(skill)?.cooldown }}s</span
                   >

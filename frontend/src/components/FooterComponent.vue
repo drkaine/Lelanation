@@ -12,11 +12,13 @@ const showContactModal = ref(false)
     <div class="connect" v-if="connexionStore.isLoggedIn">
       <p>{{ $t('footer.admin') }} {{ connexionStore.userName }}</p>
     </div>
-    <a href="#" @click.prevent="showContactModal = true" class="footer-link"
-      >{{ $t('footer.contact') }}</a
-    >
+    <a href="#" @click.prevent="showContactModal = true" class="footer-link">{{
+      $t('footer.contact')
+    }}</a>
     <div class="right">
-      <RouterLink to="/legal" class="footer-link">{{ $t('footer.legal') }}</RouterLink>
+      <RouterLink to="/legal" class="footer-link">{{
+        $t('footer.legal')
+      }}</RouterLink>
       <a
         href="https://github.com/drkaine"
         target="_blank"

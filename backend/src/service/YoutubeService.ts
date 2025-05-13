@@ -2,7 +2,6 @@ import fs from "fs/promises";
 import path from "path";
 import dotenv from "dotenv";
 
-// Charger les variables d'environnement
 dotenv.config();
 
 interface TokenStorage {
@@ -84,7 +83,6 @@ export class YoutubeService {
       const dataDir = path.dirname(this.STORAGE_PATH);
       await fs.mkdir(dataDir, { recursive: true });
     } catch (error) {
-      // Ignorer l'erreur si le dossier existe déjà
       if (error instanceof Error && !error.message.includes("EEXIST")) {
         throw error;
       }
@@ -97,7 +95,6 @@ export class YoutubeService {
       return JSON.parse(data);
     } catch (error) {
       if (error instanceof Error && error.message.includes("ENOENT")) {
-        // Fichier n'existe pas encore, retourner un état initial
         return {
           videos: [],
           lastVideoDate: "",
@@ -115,7 +112,6 @@ export class YoutubeService {
       return JSON.parse(data);
     } catch (error) {
       if (error instanceof Error && error.message.includes("ENOENT")) {
-        // Fichier n'existe pas encore, retourner un état initial
         return {
           nextPageToken: "",
           lastUpdate: 0,
@@ -167,14 +163,10 @@ export class YoutubeService {
     }
   }
 
-  /**
-   * Vérifie si de nouvelles vidéos sont disponibles sans télécharger toutes les vidéos
-   */
   async checkForNewVideos(channelId: string): Promise<boolean> {
     try {
       const storage = await this.loadStorage();
 
-      // Forcer la vérification si nous n'avons pas de vidéos ou de channelId incorrect
       if (
         !storage.videos.length ||
         storage.channelId !== channelId ||
@@ -184,7 +176,6 @@ export class YoutubeService {
         return true;
       }
 
-      // Forcer la vérification si le dernier check était il y a plus d'une heure
       if (Date.now() - storage.lastUpdate > this.CHECK_INTERVAL) {
         console.log("Forcing check: last update was too long ago");
         return true;
@@ -192,7 +183,6 @@ export class YoutubeService {
 
       console.log("Checking for new videos since:", storage.lastVideoDate);
 
-      // Récupérer seulement la vidéo la plus récente pour économiser le quota
       const checkUrl = `https://www.googleapis.com/youtube/v3/search?key=${this.API_KEY}&channelId=${channelId}&part=snippet,id&order=date&maxResults=1&type=video`;
 
       const response = await fetch(checkUrl);
@@ -200,39 +190,33 @@ export class YoutubeService {
       if (!response.ok) {
         const error = await response.json();
         console.error("Error checking new videos:", error);
-        return true; // En cas d'erreur, on force le refresh pour être sûr
+        return true;
       }
 
       const data = await response.json();
 
-      // Ajouter au quota
       const tokenState = await this.loadTokenState();
       tokenState.tokenQuota += 100;
       await this.saveTokenState(tokenState);
 
-      // Aucun résultat, on retourne quand même true pour forcer la vérification complète
       if (!data.items?.length) {
         console.log("No items in check response, forcing full check");
         return true;
       }
 
-      // Comparer la date de la vidéo la plus récente avec celle que nous avons déjà
       const latestVideoDate = new Date(data.items[0].snippet.publishedAt);
       const storedLatestDate = new Date(storage.lastVideoDate);
 
       console.log("Latest video date:", latestVideoDate);
       console.log("Stored latest date:", storedLatestDate);
 
-      return true; // Forcer la vérification complète pour déboguer
+      return true;
     } catch (error) {
       console.error("Error checking for new videos:", error);
-      return true; // En cas d'erreur, on force le refresh pour être sûr
+      return true;
     }
   }
 
-  /**
-   * Nettoie les entités HTML d'une chaîne de caractères
-   */
   private cleanHtmlEntities(text: string): string {
     if (!text) return "";
 
@@ -247,9 +231,6 @@ export class YoutubeService {
       .replace(/&#x2F;/g, "/");
   }
 
-  /**
-   * Nettoie les entités HTML dans les données de vidéo
-   */
   private cleanVideoData(video: Video): Video {
     if (!video || !video.snippet) return video;
 
@@ -263,9 +244,6 @@ export class YoutubeService {
     };
   }
 
-  /**
-   * Nettoie les données existantes dans le fichier JSON
-   */
   async cleanExistingData(): Promise<void> {
     try {
       const storage = await this.loadStorage();
@@ -277,12 +255,10 @@ export class YoutubeService {
 
       console.log(`Cleaning ${storage.videos.length} videos`);
 
-      // Nettoyer chaque vidéo
       const cleanedVideos = storage.videos.map((video) =>
         this.cleanVideoData(video),
       );
 
-      // Sauvegarder les vidéos nettoyées
       await this.saveStorage({
         ...storage,
         videos: cleanedVideos,
@@ -302,17 +278,15 @@ export class YoutubeService {
       const storage = await this.loadStorage();
       let tokenState = await this.loadTokenState();
 
-      // Réinitialiser le token si nous changeons de chaîne
       if (storage.channelId !== channelId) {
         console.log("Channel ID changed, resetting token");
         tokenState.nextPageToken = "";
       }
 
-      // Réinitialiser le quota si c'est un nouveau jour
       if (this.isNewDay(tokenState.lastUpdate)) {
         console.log("New day, resetting quota");
         tokenState = {
-          nextPageToken: tokenState.nextPageToken, // Garder le token pour continuer la pagination
+          nextPageToken: tokenState.nextPageToken,
           lastUpdate: Date.now(),
           tokenQuota: 0,
           channelId,
@@ -329,7 +303,7 @@ export class YoutubeService {
       let nextPageToken = tokenState.nextPageToken;
       let allNewVideos: Video[] = [];
       let pageCount = 0;
-      const MAX_PAGES = 10; // Limiter le nombre de pages à récupérer par session
+      const MAX_PAGES = 10;
 
       console.log("Starting with page token:", nextPageToken || "none");
 
@@ -364,13 +338,11 @@ export class YoutubeService {
         }
 
         const newVideos = data.items.map((item: YouTubeApiItem) => {
-          // Créer l'objet vidéo
           const video = {
             ...item,
             id: item.id.videoId,
           };
 
-          // Nettoyer les entités HTML
           return this.cleanVideoData(video);
         });
 
@@ -380,12 +352,10 @@ export class YoutubeService {
         tokenState.nextPageToken = nextPageToken;
         tokenState.channelId = channelId;
 
-        // Sauvegarder l'état du token après chaque page
         await this.saveTokenState(tokenState);
 
         pageCount++;
 
-        // Arrêter si on atteint la limite de quota ou le nombre max de pages
         if (
           tokenState.tokenQuota >= this.QUOTA_LIMIT ||
           pageCount >= MAX_PAGES
@@ -401,16 +371,12 @@ export class YoutubeService {
 
       console.log(`Total new videos fetched: ${allNewVideos.length}`);
 
-      // Fusionner avec les vidéos existantes
-      // Utiliser un Set pour éviter les doublons
       const videoMap = new Map<string, Video>();
 
-      // D'abord ajouter les vidéos existantes
       storage.videos.forEach((video) => {
         videoMap.set(video.id, video);
       });
 
-      // Puis ajouter/remplacer par les nouvelles
       allNewVideos.forEach((video) => {
         videoMap.set(video.id, video);
       });
@@ -419,14 +385,12 @@ export class YoutubeService {
 
       console.log(`Total unique videos after merge: ${uniqueVideos.length}`);
 
-      // Trier les vidéos par date (plus récentes d'abord)
       const sortedVideos = uniqueVideos.sort(
         (a, b) =>
           new Date(b.snippet.publishedAt).getTime() -
           new Date(a.snippet.publishedAt).getTime(),
       );
 
-      // Sauvegarder les vidéos
       const lastVideoDate =
         sortedVideos.length > 0
           ? sortedVideos[0].snippet.publishedAt
@@ -450,10 +414,8 @@ export class YoutubeService {
 
   async getVideos(channelId: string): Promise<Video[]> {
     try {
-      // Force le rafraîchissement pour déboguer
       return this.fetchAndStoreVideos(channelId);
     } catch (error) {
-      // En cas d'erreur, retourner le cache s'il existe
       const storage = await this.loadStorage();
       if (storage.videos.length > 0) {
         console.warn("Error fetching new videos, using cache:", error);

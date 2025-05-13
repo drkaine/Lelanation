@@ -11,5 +11,4 @@ async function cleanJson() {
   }
 }
 
-// Exécuter le script
 cleanJson();

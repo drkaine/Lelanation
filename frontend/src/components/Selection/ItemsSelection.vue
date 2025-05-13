@@ -332,7 +332,9 @@ const itemsLegendary = computed<Item[]>(() =>
     </div>
     <div class="items-container">
       <div v-if="itemsBoots.length > 0">
-        <div class="group small">{{ $t('item.boots') }} ({{ itemsBoots.length }})</div>
+        <div class="group small">
+          {{ $t('item.boots') }} ({{ itemsBoots.length }})
+        </div>
         <div class="items-grid">
           <div v-for="(item, index) in itemsBoots" :key="index" class="tip">
             <div class="tooltip">
@@ -434,7 +436,9 @@ const itemsLegendary = computed<Item[]>(() =>
       </div>
 
       <div v-if="itemsBasic.length > 0">
-        <div class="group small">{{ $t('item.basic') }} ({{ itemsBasic.length }})</div>
+        <div class="group small">
+          {{ $t('item.basic') }} ({{ itemsBasic.length }})
+        </div>
         <div class="items-grid">
           <div v-for="(item, index) in itemsBasic" :key="index" class="tip">
             <div class="tooltip">
@@ -484,7 +488,9 @@ const itemsLegendary = computed<Item[]>(() =>
       </div>
 
       <div v-if="itemsEpic.length > 0">
-        <div class="group small">{{ $t('item.epic') }} ({{ itemsEpic.length }})</div>
+        <div class="group small">
+          {{ $t('item.epic') }} ({{ itemsEpic.length }})
+        </div>
         <div class="items-grid">
           <div v-for="(item, index) in itemsEpic" :key="index" class="tip">
             <div class="tooltip">

@@ -31,18 +31,18 @@ const socialLinks: SocialLink[] = [
     icon: 'mdi:twitch',
     text: t('home.links.twitch'),
   },
-  { 
-    href: 'https://x.com/Lelariva_fr', 
-    icon: 'mdi:twitter', 
-    text: t('home.links.twitter') 
+  {
+    href: 'https://x.com/Lelariva_fr',
+    icon: 'mdi:twitter',
+    text: t('home.links.twitter'),
   },
   {
     href: 'https://www.tiktok.com/@lelariva_fr',
     icon: 'mdi:music-note',
     text: t('home.links.tiktok'),
   },
-  { 
-    href: 'https://www.lelariva.fr/', 
+  {
+    href: 'https://www.lelariva.fr/',
     icon: 'mdi:web',
     text: t('home.links.website'),
   },

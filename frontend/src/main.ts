@@ -8,42 +8,40 @@ import { directTranslation, installGlobalTranslation } from './i18nCompat'
 import App from './App.vue'
 import router from './router'
 
-// Create app instance
-const app = createApp(App)
-
-// Register i18n first
-app.use(i18n)
-
-// Register other plugins
-app.use(createPinia())
-app.use(router)
-
-// Install our direct translation function as the global $t
-installGlobalTranslation(app);
-
-// Explicitly add $t to global properties to ensure it's available
-app.config.globalProperties.$t = directTranslation;
-
-// Explicitly define $t to ensure TypeScript compatibility
-declare module '@vue/runtime-core' {
-  interface ComponentCustomProperties {
-    $t: (key: string) => string;
+interface I18nGlobal {
+  global: {
+    locale: string | undefined
+    t: (key: string) => string
   }
 }
 
-// Force direct setting of locale to ensure it's properly applied
+const app = createApp(App)
+
+app.use(i18n)
+
+app.use(createPinia())
+app.use(router)
+
+installGlobalTranslation(app)
+
+app.config.globalProperties.$t = directTranslation
+
+declare module '@vue/runtime-core' {
+  interface ComponentCustomProperties {
+    $t: (key: string) => string
+  }
+}
+
 try {
-  const i18nAny = i18n as any
+  const i18nAny = i18n as unknown as I18nGlobal
   if (i18nAny.global) {
     const currentLocale = i18nAny.global.locale || 'fr'
     i18nAny.global.locale = currentLocale
-    
-    // Override the Vue I18n global t function with our direct implementation
+
     i18nAny.global.t = directTranslation
   }
 } catch (e) {
   console.error('Error setting i18n:', e)
 }
 
-// Mount app after all setup is complete
 app.mount('#app')

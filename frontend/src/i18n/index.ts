@@ -5,33 +5,36 @@ import laranguiva from './locales/laranguiva.json'
 
 export type Locale = 'fr' | 'en' | 'laranguiva'
 
-// Handle browser environment safely
-const savedLocale = typeof localStorage !== 'undefined' ? localStorage.getItem('locale') : null
+interface I18nGlobal {
+  global: {
+    locale: string
+  }
+}
+
+const savedLocale =
+  typeof localStorage !== 'undefined' ? localStorage.getItem('locale') : null
 const defaultLocale: Locale = (savedLocale as Locale) || 'fr'
 
-// Create i18n instance with legacy: true for Vue template compatibility
 const i18n = createI18n({
-  legacy: true, // Critical for template usage with $t
+  legacy: true,
   globalInjection: true,
   locale: defaultLocale,
   fallbackLocale: 'fr',
   messages: {
     fr,
     en,
-    laranguiva
+    laranguiva,
   },
   silentTranslationWarn: false,
   fallbackWarn: false,
-  missingWarn: true
+  missingWarn: true,
 })
 
-// Function to change locale
 export function setLocale(locale: Locale) {
   try {
-    // Cast to any to fix TypeScript errors with legacy mode
-    const i18nAny = i18n as any;
-    i18nAny.global.locale = locale;
-    
+    const i18nAny = i18n as unknown as I18nGlobal
+    i18nAny.global.locale = locale
+
     localStorage.setItem('locale', locale)
     document.querySelector('html')?.setAttribute('lang', locale)
   } catch (error) {
@@ -39,10 +42,9 @@ export function setLocale(locale: Locale) {
   }
 }
 
-// Force initial locale setting to ensure it's properly applied
-const i18nAny = i18n as any
+const i18nAny = i18n as unknown as I18nGlobal
 if (i18nAny.global.locale !== defaultLocale) {
   i18nAny.global.locale = defaultLocale
 }
 
-export default i18n 
+export default i18n

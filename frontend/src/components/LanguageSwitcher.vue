@@ -1,6 +1,10 @@
 <template>
   <div class="language-switcher">
-    <select v-model="currentLocale" @change="changeLanguage" class="language-select">
+    <select
+      v-model="currentLocale"
+      @change="changeLanguage"
+      class="language-select"
+    >
       <option value="fr">FR</option>
       <option value="en">EN</option>
       <option value="laranguiva">LA</option>
@@ -16,42 +20,44 @@ import i18n from '@/i18n'
 
 type Locale = 'fr' | 'en' | 'laranguiva'
 
-// Use direct access to i18n for reliable locale information
-const i18nAny = i18n as any
+interface I18nGlobal {
+  global: {
+    locale: string
+  }
+}
 
-// Get current locale from stored value or i18n instance
+const i18nAny = i18n as unknown as I18nGlobal
+
 const getInitialLocale = (): Locale => {
-  // Try to get from localStorage first
   const stored = localStorage.getItem('locale') as Locale
   if (stored && ['fr', 'en', 'laranguiva'].includes(stored)) {
     return stored
   }
-  
-  // Then try from i18n instance
+
   try {
     return (i18nAny.global.locale || 'fr') as Locale
-  } catch (e) {
-    return 'fr' // Default fallback
+  } catch {
+    return 'fr'
   }
 }
 
-// Use the Composition API for i18n
 const { locale } = useI18n()
 const currentLocale = ref<Locale>(getInitialLocale())
 
 const changeLanguage = async () => {
   await setLocale(currentLocale.value)
-  // Force reload to ensure all components are updated
   window.location.reload()
 }
 
-watch(() => locale.value, (newLocale) => {
-  if (newLocale) {
-    currentLocale.value = newLocale as Locale
-  }
-})
+watch(
+  () => locale.value,
+  newLocale => {
+    if (newLocale) {
+      currentLocale.value = newLocale as Locale
+    }
+  },
+)
 
-// Initialize on mount to ensure currentLocale is set properly
 onMounted(() => {
   const storedLocale = getInitialLocale()
   if (storedLocale) {
@@ -114,4 +120,4 @@ onMounted(() => {
 .language-select option:hover {
   background-color: var(--color-blue-500);
 }
-</style> 
+</style>

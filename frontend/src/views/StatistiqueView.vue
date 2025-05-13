@@ -518,7 +518,9 @@ const sortedAndFilteredChampions = computed(() => {
             :alt="champion?.name || ''"
           />
           <span>{{ champion?.name || '' }}</span>
-          <span v-if="champion?.otp" class="otp-badge">{{ $t('statistique.otp') }}</span>
+          <span v-if="champion?.otp" class="otp-badge">{{
+            $t('statistique.otp')
+          }}</span>
         </div>
         <div class="score-col">{{ champion?.score || 0 }}</div>
         <div class="pickrate-col">
