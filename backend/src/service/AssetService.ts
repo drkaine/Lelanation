@@ -6,13 +6,7 @@ import { promisify } from "util";
 const readdir = promisify(fs.readdir);
 const stat = promisify(fs.stat);
 
-/**
- * Service pour la gestion des assets statiques
- */
 export class AssetService {
-  /**
-   * Liste les fichiers d'un répertoire avec filtrage par extension
-   */
   async listFiles(req: Request, res: Response): Promise<void> {
     try {
       const { directory, extensions } = req.query;
@@ -22,18 +16,15 @@ export class AssetService {
         return;
       }
 
-      // Sécurité: nettoyer le chemin et vérifier qu'il est dans les répertoires autorisés
       const cleanDirectory = this.sanitizePath(directory);
       if (!this.isAllowedDirectory(cleanDirectory)) {
         res.status(403).json({ error: "Accès non autorisé à ce répertoire" });
         return;
       }
 
-      // Construire le chemin absolu
       const baseDir = path.join(__dirname, "../..");
       const dirPath = path.join(baseDir, cleanDirectory);
 
-      // Vérifier que le répertoire existe
       try {
         const stats = await stat(dirPath);
         if (!stats.isDirectory()) {
@@ -47,10 +38,8 @@ export class AssetService {
         return;
       }
 
-      // Lire le contenu du répertoire
       const files = await readdir(dirPath);
 
-      // Filtrer par extensions si spécifiées
       let filteredFiles = files;
       if (extensions && typeof extensions === "string") {
         const extList = extensions
@@ -62,7 +51,6 @@ export class AssetService {
         });
       }
 
-      // Construire les chemins relatifs pour le frontend
       const relativePaths = filteredFiles.map((file) => {
         return `${cleanDirectory.startsWith("/") ? "" : "/"}${cleanDirectory}/${file}`;
       });
@@ -76,11 +64,7 @@ export class AssetService {
     }
   }
 
-  /**
-   * Nettoie un chemin pour éviter les attaques de traversée de répertoire
-   */
   private sanitizePath(unsafePath: string): string {
-    // Normaliser le chemin et supprimer les caractères dangereux
     const normalized = path
       .normalize(unsafePath)
       .replace(/^\.\.(\/|\\|$)+/, "")
@@ -89,9 +73,6 @@ export class AssetService {
     return normalized;
   }
 
-  /**
-   * Vérifie si le répertoire est dans la liste des répertoires autorisés
-   */
   private isAllowedDirectory(dirPath: string): boolean {
     const allowedDirectories = [
       "public",
@@ -99,10 +80,10 @@ export class AssetService {
       "public/assets/icons",
       "public/assets/images",
       "public/assets/files",
+      "public/assets/tiers-listes",
       "data",
     ];
 
-    // Vérifier si le répertoire commence par l'un des préfixes autorisés
     return allowedDirectories.some(
       (allowed) => dirPath === allowed || dirPath.startsWith(`${allowed}/`),
     );

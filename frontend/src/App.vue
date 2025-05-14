@@ -49,7 +49,6 @@ const acceptConditions = () => {
   connexionStore.isUser()
 }
 
-// Préchargement des assets
 useAssetPreloading()
 </script>
 

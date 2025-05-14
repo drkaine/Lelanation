@@ -46,14 +46,12 @@ try {
 
 app.mount('#app')
 
-// Ajout de la déclaration de type pour window.clearCaches
 declare global {
   interface Window {
     clearCaches: () => Promise<boolean>
   }
 }
 
-// Enregistrement du service worker avec un paramètre de version pour éviter le cache
 if ('serviceWorker' in navigator) {
   const buildId = import.meta.env.VITE_BUILD_ID || Date.now().toString()
   navigator.serviceWorker
@@ -65,7 +63,6 @@ if ('serviceWorker' in navigator) {
       console.error("Erreur lors de l'enregistrement du Service Worker:", error)
     })
 
-  // Exposer une méthode pour vider le cache si nécessaire
   window.clearCaches = async () => {
     if (!('caches' in window)) {
       console.error('API Cache non supportée par ce navigateur')

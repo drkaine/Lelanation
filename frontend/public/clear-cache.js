@@ -1,7 +1,3 @@
-// Script de nettoyage du cache navigateur
-// Ce fichier sera servi à /clear-cache.js
-
-// Nettoyer tous les caches du service worker
 self.addEventListener('install', event => {
   self.skipWaiting();
   

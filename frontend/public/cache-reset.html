@@ -66,16 +66,13 @@
         clearCacheButton.textContent = 'Nettoyage en cours...';
 
         try {
-          // Enregistrer et exécuter le service worker de nettoyage
           if ('serviceWorker' in navigator) {
             const registration = await navigator.serviceWorker.register('/clear-cache.js', {
               scope: '/'
             });
             
-            // Attendre l'activation
             await navigator.serviceWorker.ready;
             
-            // Rafraîchir les caches via la méthode window si disponible
             if (window.clearCaches) {
               await window.clearCaches();
             }

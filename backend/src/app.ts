@@ -14,7 +14,7 @@ import { dictionnaireService } from "./service/DictionnaireService";
 import { analyticsService } from "./service/AnalyticsService";
 import { uploadService } from "./service/TierListService";
 import { contactService } from "./service/ContactService";
-import { connectRedis } from "./utils/redisClient";
+import { connectRedis, redisClient } from "./utils/redisClient";
 import {
   cacheMiddleware,
   invalidateCacheMiddleware,
@@ -32,15 +32,50 @@ import {
 } from "./middleware/cacheMonitoringMiddleware";
 import maintainRedisCache from "./scripts/redisCacheMaintenance";
 import { assetService } from "./service/AssetService";
+import { serverHealth } from "./utils/serverUtils";
 
 dotenv.config();
 
-connectRedis().catch((err) => {
-  console.error(
-    "Erreur lors de la connexion à Redis, le cache ne sera pas disponible:",
-    err,
-  );
-});
+let redisConnected = false;
+
+async function initRedis() {
+  try {
+    redisConnected = await connectRedis();
+    
+    if (redisConnected) {
+      console.log("Serveur en cours d'exécution sur le port 3500 avec cache Redis");
+      
+      setInterval(async () => {
+        if (!serverHealth.isRedisAvailable()) {
+          console.log("Connexion Redis perdue, tentative de reconnexion...");
+          await serverHealth.tryReconnectRedis();
+        }
+      }, 30000);
+    } else {
+      console.log("Serveur en cours d'exécution sur le port 3500 sans cache Redis");
+      
+      setInterval(async () => {
+        console.log("Tentative de reconnexion Redis programmée...");
+        const reconnected = await serverHealth.tryReconnectRedis();
+        if (reconnected) {
+          redisConnected = true;
+          console.log("Reconnexion Redis réussie!");
+        }
+      }, 60000);
+    }
+  } catch (err) {
+    redisConnected = false;
+    console.error(
+      "Erreur lors de la connexion à Redis, le cache ne sera pas disponible:",
+      err,
+    );
+    console.log("Serveur en cours d'exécution sur le port 3500 sans cache Redis");
+    
+    setTimeout(initRedis, 10000);
+  }
+}
+
+initRedis();
 
 const app = express();
 
@@ -256,6 +291,15 @@ app.post("/api/metrics/cache/reset", resetCacheMetricsRoute);
 
 app.get("/api/health", (req, res) => {
   res.json({ status: "ok", timestamp: new Date().toISOString() });
+});
+
+app.get("/api/status", (req, res) => {
+  res.json({
+    status: "ok",
+    redis: serverHealth.getRedisStatus(),
+    uptime: process.uptime(),
+    timestamp: new Date().toISOString()
+  });
 });
 
 cron.schedule("0 4 * * *", () => {

@@ -1,9 +1,10 @@
 import { Request, Response, NextFunction } from "express";
-import { redisUtils } from "../utils/redisClient";
+import { redisUtils, isRedisAvailable } from "../utils/redisClient";
 
 interface CacheOptions {
   ttl?: number;
   keyFn?: (req: Request) => string;
+  bypassCache?: boolean;
 }
 
 export const cacheMiddleware = (options: CacheOptions = {}) => {
@@ -12,7 +13,12 @@ export const cacheMiddleware = (options: CacheOptions = {}) => {
     res: Response,
     next: NextFunction,
   ): Promise<void> => {
-    if (req.method !== "GET") {
+    if (req.method !== "GET" || options.bypassCache) {
+      return next();
+    }
+
+    if (!isRedisAvailable()) {
+      res.setHeader("X-Cache", "UNAVAILABLE");
       return next();
     }
 
@@ -37,8 +43,10 @@ export const cacheMiddleware = (options: CacheOptions = {}) => {
       const originalJson = res.json.bind(res);
       res.json = function (data) {
         res.json = originalJson;
+        
         if (res.statusCode >= 200 && res.statusCode < 300) {
-          redisUtils.set(cacheKey, data, options.ttl);
+          redisUtils.set(cacheKey, data, options.ttl)
+            .catch(err => console.error(`Erreur lors du stockage dans le cache pour ${cacheKey}:`, err));
           console.log(`Cache miss for ${cacheKey}, storing data`);
         }
 
@@ -48,7 +56,7 @@ export const cacheMiddleware = (options: CacheOptions = {}) => {
       next();
     } catch (error) {
       console.error("Erreur dans le middleware de cache:", error);
-      res.setHeader("X-Cache", "BYPASS");
+      res.setHeader("X-Cache", "ERROR");
       next();
     }
   };
