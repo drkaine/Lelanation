@@ -6,9 +6,13 @@ import type { ItemSelection } from '@/types/item'
 import type { Champion } from '@/types/champion'
 import type { ChampionSkillsOrder } from '@/types/champion'
 import { useRoleStore } from '@/stores/roleStore'
+import { useGameVersionStore } from '@/stores/gameVersionStore'
 import { ref, onMounted, computed } from 'vue'
+import { useI18n } from 'vue-i18n'
 
+const { t } = useI18n()
 const roleStore = useRoleStore()
+const gameVersionStore = useGameVersionStore()
 const props = defineProps<{
   version: string | null
   name: string | null
@@ -25,6 +29,14 @@ const props = defineProps<{
 
 const selectedRoles = roleStore.selectedRoles
 const rolesListe = ['top', 'jungle', 'mid', 'bot', 'support']
+
+const isOutdatedVersion = computed(() => {
+  return (
+    props.version &&
+    gameVersionStore.currentVersion &&
+    props.version !== gameVersionStore.currentVersion
+  )
+})
 
 const toggleRole = (role: string) => {
   if (props.roles) return
@@ -94,6 +106,10 @@ const hasSkillPoints = computed(() =>
       (skillOrder && Object.values(skillOrder).some(arr => arr.length > 0))
     "
   >
+    <div v-if="isOutdatedVersion" class="version-warning">
+      {{ t('warning.version') }}
+    </div>
+
     <div class="sheet-credits">
       <span class="credit-text">@lelanation</span>
       <span v-if="author" class="author">{{ author }}</span>
@@ -284,6 +300,19 @@ const hasSkillPoints = computed(() =>
 </template>
 
 <style scoped>
+.version-warning {
+  background-color: rgba(220, 38, 38, 0.8);
+  color: white;
+  padding: 8px 12px;
+  border-radius: 4px;
+  font-size: var(--text-sm);
+  font-weight: 500;
+  margin-bottom: 12px;
+  text-align: center;
+  border: 1px solid rgba(220, 38, 38, 1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
 .author {
   color: var(--color-gold-300);
   font-size: var(--text-base);

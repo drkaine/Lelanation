@@ -16,6 +16,9 @@
     "builds-private": "Mes builds",
     "build": "build"
   },
+  "warning": {
+    "version": "Ce build a été créé pour une version antérieure du jeu et pourrait être obsolète."
+  },
   "home": {
     "title": "Bienvenue sur Lelanation !",
     "description": "Retrouver le grand Lelariva, chercher le meilleur build pour votre champion",

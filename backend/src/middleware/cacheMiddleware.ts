@@ -43,10 +43,16 @@ export const cacheMiddleware = (options: CacheOptions = {}) => {
       const originalJson = res.json.bind(res);
       res.json = function (data) {
         res.json = originalJson;
-        
+
         if (res.statusCode >= 200 && res.statusCode < 300) {
-          redisUtils.set(cacheKey, data, options.ttl)
-            .catch(err => console.error(`Erreur lors du stockage dans le cache pour ${cacheKey}:`, err));
+          redisUtils
+            .set(cacheKey, data, options.ttl)
+            .catch((err) =>
+              console.error(
+                `Erreur lors du stockage dans le cache pour ${cacheKey}:`,
+                err,
+              ),
+            );
           console.log(`Cache miss for ${cacheKey}, storing data`);
         }
 

@@ -151,9 +151,9 @@ const canDragBuild = computed(
 
         <div class="search-box">
           <select v-model="searchType" class="search-type-select">
-            <option value="all">{{ $t('search.all') }}</option>
-            <option value="name">{{ $t('search.name') }}</option>
-            <option value="champion">{{ $t('search.champion') }}</option>
+            <option value="all">{{ $t('button.search.all') }}</option>
+            <option value="name">{{ $t('button.search.name') }}</option>
+            <option value="champion">{{ $t('button.search.champion') }}</option>
           </select>
           <input
             v-model="searchQuery"

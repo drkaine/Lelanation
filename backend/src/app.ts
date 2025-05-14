@@ -14,7 +14,7 @@ import { dictionnaireService } from "./service/DictionnaireService";
 import { analyticsService } from "./service/AnalyticsService";
 import { uploadService } from "./service/TierListService";
 import { contactService } from "./service/ContactService";
-import { connectRedis, redisClient } from "./utils/redisClient";
+import { connectRedis } from "./utils/redisClient";
 import {
   cacheMiddleware,
   invalidateCacheMiddleware,
@@ -41,10 +41,12 @@ let redisConnected = false;
 async function initRedis() {
   try {
     redisConnected = await connectRedis();
-    
+
     if (redisConnected) {
-      console.log("Serveur en cours d'exécution sur le port 3500 avec cache Redis");
-      
+      console.log(
+        "Serveur en cours d'exécution sur le port 3500 avec cache Redis",
+      );
+
       setInterval(async () => {
         if (!serverHealth.isRedisAvailable()) {
           console.log("Connexion Redis perdue, tentative de reconnexion...");
@@ -52,8 +54,10 @@ async function initRedis() {
         }
       }, 30000);
     } else {
-      console.log("Serveur en cours d'exécution sur le port 3500 sans cache Redis");
-      
+      console.log(
+        "Serveur en cours d'exécution sur le port 3500 sans cache Redis",
+      );
+
       setInterval(async () => {
         console.log("Tentative de reconnexion Redis programmée...");
         const reconnected = await serverHealth.tryReconnectRedis();
@@ -69,8 +73,10 @@ async function initRedis() {
       "Erreur lors de la connexion à Redis, le cache ne sera pas disponible:",
       err,
     );
-    console.log("Serveur en cours d'exécution sur le port 3500 sans cache Redis");
-    
+    console.log(
+      "Serveur en cours d'exécution sur le port 3500 sans cache Redis",
+    );
+
     setTimeout(initRedis, 10000);
   }
 }
@@ -298,7 +304,7 @@ app.get("/api/status", (req, res) => {
     status: "ok",
     redis: serverHealth.getRedisStatus(),
     uptime: process.uptime(),
-    timestamp: new Date().toISOString()
+    timestamp: new Date().toISOString(),
   });
 });
 

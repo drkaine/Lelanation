@@ -6,10 +6,16 @@ dotenv.config();
 const REDIS_URL = process.env.REDIS_URL || "redis://127.0.0.1:6379";
 const CACHE_TTL = parseInt(process.env.REDIS_CACHE_TTL || "3600"); // TTL par défaut: 1 heure
 
+// Interface for cache entry
+interface CacheEntry<T> {
+  value: T;
+  expiry: number;
+}
+
 // Mémoire locale pour le fallback quand Redis n'est pas disponible
 // Conçue pour dégradation gracieuse du service, pas pour remplacer Redis
 class LocalCacheStore {
-  private store: Map<string, { value: any; expiry: number }>;
+  private store: Map<string, CacheEntry<unknown>>;
   private maxSize: number;
 
   constructor(maxSize = 1000) {
@@ -17,7 +23,7 @@ class LocalCacheStore {
     this.maxSize = maxSize;
   }
 
-  set(key: string, value: any, ttl: number): void {
+  set<T>(key: string, value: T, ttl: number): void {
     // Éviter de dépasser la taille maximale
     if (this.store.size >= this.maxSize) {
       // Stratégie simple: supprimer l'entrée la plus ancienne
@@ -32,17 +38,17 @@ class LocalCacheStore {
     this.store.set(key, { value, expiry });
   }
 
-  get(key: string): any {
-    const entry = this.store.get(key);
-    
+  get<T>(key: string): T | null {
+    const entry = this.store.get(key) as CacheEntry<T> | undefined;
+
     if (!entry) return null;
-    
+
     // Vérifier si l'entrée a expiré
     if (entry.expiry < Date.now()) {
       this.store.delete(key);
       return null;
     }
-    
+
     return entry.value;
   }
 
@@ -51,8 +57,8 @@ class LocalCacheStore {
   }
 
   delByPattern(pattern: string): void {
-    const regex = new RegExp(pattern.replace(/\*/g, '.*'));
-    
+    const regex = new RegExp(pattern.replace(/\*/g, ".*"));
+
     for (const key of this.store.keys()) {
       if (regex.test(key)) {
         this.store.delete(key);
@@ -61,7 +67,8 @@ class LocalCacheStore {
   }
 
   exists(key: string): boolean {
-    return this.store.has(key) && this.store.get(key)!.expiry >= Date.now();
+    const entry = this.store.get(key);
+    return !!entry && entry.expiry >= Date.now();
   }
 }
 
@@ -74,7 +81,9 @@ const redisClient = createClient({
   socket: {
     reconnectStrategy: (retries) => {
       const delay = Math.min(retries * 50, 2000);
-      console.log(`Tentative de reconnexion Redis (${retries + 1}) dans ${delay}ms...`);
+      console.log(
+        `Tentative de reconnexion Redis (${retries + 1}) dans ${delay}ms...`,
+      );
       return delay;
     },
     keepAlive: true,
@@ -108,11 +117,11 @@ const connectRedis = async () => {
   try {
     await redisClient.connect();
     console.log("Connexion Redis établie");
-    
+
     // Ping pour vérifier la connexion
     const pong = await redisClient.ping();
     console.log(`Test de connexion Redis: ${pong}`);
-    
+
     return true;
   } catch (error) {
     console.error("Impossible de se connecter à Redis:", error);
@@ -133,7 +142,9 @@ const redisUtils = {
         return data ? (JSON.parse(data) as T) : null;
       } else {
         // Fallback vers le cache local
-        console.log(`Redis indisponible, utilisation du cache local pour GET ${key}`);
+        console.log(
+          `Redis indisponible, utilisation du cache local pour GET ${key}`,
+        );
         return localCache.get(key) as T | null;
       }
     } catch (error) {
@@ -148,11 +159,13 @@ const redisUtils = {
       const stringValue = JSON.stringify(value);
       // Toujours mettre en cache localement
       localCache.set(key, JSON.parse(stringValue), ttl);
-      
+
       if (isRedisAvailable()) {
         await redisClient.set(key, stringValue, { EX: ttl });
       } else {
-        console.log(`Redis indisponible, mise en cache uniquement locale pour ${key}`);
+        console.log(
+          `Redis indisponible, mise en cache uniquement locale pour ${key}`,
+        );
       }
     } catch (error) {
       console.error(`Erreur lors du stockage de ${key}:`, error);
@@ -168,8 +181,8 @@ const redisUtils = {
   async del(...keys: string[]): Promise<void> {
     try {
       // Supprimer du cache local
-      keys.forEach(key => localCache.del(key));
-      
+      keys.forEach((key) => localCache.del(key));
+
       if (isRedisAvailable() && keys.length > 0) {
         await redisClient.del(keys);
       }
@@ -182,7 +195,7 @@ const redisUtils = {
     try {
       // Supprimer du cache local
       localCache.delByPattern(pattern);
-      
+
       if (isRedisAvailable()) {
         const keys = await redisClient.keys(pattern);
         if (keys.length > 0) {

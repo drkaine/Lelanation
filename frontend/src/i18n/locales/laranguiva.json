@@ -17,7 +17,9 @@
     "build": "build",
     "dictionary": "Leladictionnaiva"
   },
-
+  "warning": {
+    "version": "Ce build a été créé pour une version antérieure du jeu et pourrait être obsolète."
+  },
   "home": {
     "title": "Lelanation vous saluriva tous !",
     "description": "Retrouver le grand Lelariva",
