@@ -174,6 +174,7 @@ const hasCertifiedBuilds = computed(() => {
           :skillOrder="build.sheet.skillOrder"
           :certified="build.certified"
           :buildId="build.id"
+          :isLelarivaBuild="build.id?.includes('lelariva/')"
           @certification-toggled="build.certified = !build.certified"
           @click="navigateToBuild(build.id, $event)"
         />

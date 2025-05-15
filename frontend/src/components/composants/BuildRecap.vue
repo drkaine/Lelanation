@@ -32,9 +32,12 @@ let path = ''
 
 let response = await fetch(`/api/build/${fileName}`)
 
+let lelarivaBuild = false
+
 if (!response.ok) {
   path = 'lelariva/'
   response = await fetch(`/api/build/${path}${fileName}`)
+  lelarivaBuild = true
 }
 
 const data = await response.json()
@@ -347,6 +350,7 @@ const statsListFiltered = statsList.filter(
               :skillOrder="buildData.sheet.skillOrder"
               :certified="buildData.certified"
               :buildId="fileName"
+              :isLelarivaBuild="lelarivaBuild"
               @certification-toggled="
                 buildData.certified = !buildData.certified
               "

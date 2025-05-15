@@ -38,6 +38,7 @@ const props = defineProps<{
   roles?: string[]
   certified?: boolean
   buildId?: string
+  isLelarivaBuild?: boolean
 }>()
 
 const isAdmin = connexionStore.userName === import.meta.env.VITE_NAME
@@ -52,7 +53,8 @@ const showCertificationButton = computed(
   () =>
     isAdmin &&
     (isCommunityPage.value || isBuildRecap.value) &&
-    !isLelarivaBuildPage.value,
+    !isLelarivaBuildPage.value &&
+    !props.isLelarivaBuild,
 )
 
 const toggleCertification = async () => {
@@ -186,15 +188,13 @@ const hasSkillPoints = computed(() =>
 
       <span class="version-text">v{{ version }}</span>
       <img
-        v-if="
-          (isCertified && !isAdmin) || (!showCertificationButton && isAdmin)
-        "
+        v-if="isCertified && !isAdmin && !props.isLelarivaBuild"
         class="certification-badge"
         src="/assets/images/lelariva-quality.png"
         alt="Certified by Lelariva"
       />
       <div
-        v-if="showCertificationButton"
+        v-if="showCertificationButton && !props.isLelarivaBuild"
         class="certification-badge-container"
         @click.stop="toggleCertification"
         :class="{ 'not-certified': !isCertified }"
