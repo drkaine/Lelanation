@@ -14,7 +14,8 @@
     "lela-builds": "Builds de Lelariva",
     "builds-public": "Builds de la communauté",
     "builds-private": "Mes builds",
-    "build": "build"
+    "build": "build",
+    "dictionary": "Dictionnaire"
   },
   "warning": {
     "version": "Ce build a été créé pour une version antérieure du jeu et pourrait être obsolète."

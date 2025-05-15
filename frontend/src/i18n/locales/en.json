@@ -14,7 +14,8 @@
     "lela-builds": "Builds of Lelariva",
     "builds-public": "Builds of the community",
     "builds-private": "My builds",
-    "build": "build"
+    "build": "build",
+    "dictionary": "Dictionary"
   },
   "warning": {
     "version": "This build was created for an older game version and may be outdated."
@@ -59,7 +60,10 @@
     "edit": "Edit",
     "base": "Base",
     "items": "Items",
-    "total": "Total"
+    "total": "Total",
+    "certify": "Certify",
+    "uncertify": "Uncertify",
+    "statistic": "Statistic"
   },
   "contact": {
     "title": "Contact",

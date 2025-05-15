@@ -27,6 +27,7 @@
       "discord": "Lelaricord",
       "twitter": "LelariX",
       "youtube": "Lelaritube",
+      "instagram": "Lelariinsta",
       "tiktok": "Lelaritiktok",
       "twitch": "Lelaritwitch",
       "website": "Lelariva",
@@ -59,7 +60,10 @@
     "edit": "Modifier",
     "base": "Base",
     "items": "Items",
-    "total": "Total"
+    "total": "Total",
+    "certify": "Certifiva",
+    "uncertify": "Décertifiva",
+    "statistic": "Statistique"
   },
   "contact": {
     "title": "Contact",
@@ -96,7 +100,10 @@
     "all": "Tous les builds",
     "public": "Builds publics",
     "private": "Builds privés",
-    "loading": "Chargement..."
+    "loading": "Chargement...",
+    "certified": "Builds certifiva",
+    "uncertified": "Builds non certifiva",
+    "certification": "Certificativa"
   },
   "item": {
     "recipe": "Composants",
@@ -154,7 +161,9 @@
     "search": {
       "all": "Tout",
       "name": "Nom",
-      "champion": "Champion"
+      "champion": "Champion",
+      "public": "Public",
+      "private": "Privé"
     },
     "new-build": "Nouveau Build"
   },
