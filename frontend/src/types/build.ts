@@ -14,6 +14,7 @@ export interface BuildData {
   description: string
   visible: boolean
   version: string
+  certified?: boolean
   sheet: {
     champion: Champion
     runes: RunesSelection

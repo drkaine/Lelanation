@@ -5,20 +5,12 @@ test.describe('Build Tool Page', () => {
     test.setTimeout(120000);
     
     try {
-      console.log('Début de la navigation...');
       await page.goto('/build');
-      console.log('Navigation terminée');
 
-      const url = page.url();
-      console.log('URL actuelle:', url);
-
-      console.log('Attente du chargement...');
       await page.waitForLoadState('load');
-      console.log('Page chargée');
 
       const rootLocator = page.locator('#root');
       await expect(rootLocator).toBeAttached();
-      console.log('Root element trouvé');
 
     } catch (error) {
       console.error('Erreur détaillée:', error);

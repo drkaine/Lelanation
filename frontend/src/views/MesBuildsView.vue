@@ -18,6 +18,7 @@ const selectedRoles = ref(new Set<string>())
 const searchType = ref('all')
 const searchQuery = ref('')
 const visibilityFilter = ref('all')
+const certificationFilter = ref('all')
 
 onMounted(async () => {
   try {
@@ -67,6 +68,16 @@ const filteredBuilds = computed(() => {
     case 'hidden':
       filtered = filtered.filter(build => build.id?.startsWith('wait_'))
       break
+  }
+
+  if (certificationFilter.value !== 'all') {
+    filtered = filtered.filter(build => {
+      if (certificationFilter.value === 'certified') {
+        return build.certified === true
+      } else {
+        return !build.certified
+      }
+    })
   }
 
   if (selectedRoles.value.size > 0) {
@@ -149,6 +160,16 @@ const canDragBuild = computed(
           <option value="hidden">{{ $t('button.search.private') }}</option>
         </select>
 
+        <select
+          v-if="!isLelarivaBuildPage"
+          v-model="certificationFilter"
+          class="certification-select"
+        >
+          <option value="all">{{ $t('build.all') }}</option>
+          <option value="certified">{{ $t('build.certified') }}</option>
+          <option value="uncertified">{{ $t('build.uncertified') }}</option>
+        </select>
+
         <div class="search-box">
           <select v-model="searchType" class="search-type-select">
             <option value="all">{{ $t('button.search.all') }}</option>
@@ -212,6 +233,9 @@ const canDragBuild = computed(
             :items="build.sheet.items"
             :roles="build.roles ?? null"
             :skillOrder="build.sheet.skillOrder"
+            :certified="build.certified"
+            :buildId="build.id"
+            @certification-toggled="build.certified = !build.certified"
           />
         </a>
       </div>
@@ -388,6 +412,21 @@ const canDragBuild = computed(
     transform: none;
     box-shadow: none;
   }
+}
+
+.certification-select {
+  background: none;
+  height: var(--height-all);
+  color: var(--color-gold-300);
+  border: var(--border-size) solid var(--color-gold-300);
+  border-radius: 4px;
+  padding: 0 0.5rem;
+  cursor: pointer;
+}
+
+.certification-select option {
+  color: var(--color-gold-300);
+  background: var(--color-blue-500);
 }
 
 @media (max-width: 768px) {

@@ -56,9 +56,6 @@ if ('serviceWorker' in navigator) {
   const buildId = import.meta.env.VITE_BUILD_ID || Date.now().toString()
   navigator.serviceWorker
     .register('/service-worker.js?v=' + buildId)
-    .then(registration => {
-      console.log('Service Worker enregistré avec succès:', registration)
-    })
     .catch(error => {
       console.error("Erreur lors de l'enregistrement du Service Worker:", error)
     })
@@ -72,7 +69,7 @@ if ('serviceWorker' in navigator) {
     try {
       const cacheNames = await window.caches.keys()
       await Promise.all(cacheNames.map(cacheName => caches.delete(cacheName)))
-      console.log('Tous les caches ont été vidés avec succès')
+
       return true
     } catch (error) {
       console.error('Erreur lors du nettoyage des caches:', error)

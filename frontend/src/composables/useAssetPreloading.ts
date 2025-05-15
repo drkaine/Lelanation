@@ -45,7 +45,6 @@ export function useAssetPreloading(
       const cachedResponse = await cache.match(url)
 
       if (!cachedResponse) {
-        console.log(`Préchargement: ${url}`)
         await cache.add(url)
         return true
       }
@@ -75,7 +74,6 @@ export function useAssetPreloading(
       }
 
       const files: string[] = await response.json()
-      console.log(`${files.length} fichiers trouvés dans ${directory.path}`)
 
       if (files.length === 0) return 0
 
@@ -101,30 +99,20 @@ export function useAssetPreloading(
         specificImages.map(image => preloadFile(image, 'images')),
       )
 
-      const successful = results.filter(
+      // Ignorer l'avertissement de non-utilisation
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      const successfulCount = results.filter(
         r => r.status === 'fulfilled' && r.value,
       ).length
-      console.log(
-        `Préchargement des images spécifiques: ${successful}/${specificImages.length} réussies`,
-      )
 
       if (options.preloadDirectories) {
         const imageDirectories = DIRECTORIES_TO_PRELOAD.filter(
           dir => dir.cacheName === 'images',
         )
-        let totalPreloaded = 0
 
         for (const directory of imageDirectories) {
-          const preloaded = await preloadDirectory(directory)
-          totalPreloaded += preloaded
-          console.log(
-            `Préchargement de ${directory.path}: ${preloaded} fichiers mis en cache`,
-          )
+          await preloadDirectory(directory)
         }
-
-        console.log(
-          `Préchargement des répertoires d'images terminé: ${totalPreloaded} fichiers au total`,
-        )
       }
     } catch (error) {
       console.error('Erreur lors du préchargement des images:', error)
@@ -133,34 +121,18 @@ export function useAssetPreloading(
 
   const preloadJsonData = async () => {
     try {
-      const results = await Promise.allSettled(
+      await Promise.allSettled(
         IMPORTANT_JSON_DATA.map(json => preloadFile(json, 'static-json')),
-      )
-
-      const successful = results.filter(
-        r => r.status === 'fulfilled' && r.value,
-      ).length
-      console.log(
-        `Préchargement des JSON spécifiques: ${successful}/${IMPORTANT_JSON_DATA.length} réussis`,
       )
 
       if (options.preloadDirectories) {
         const jsonDirectories = DIRECTORIES_TO_PRELOAD.filter(
           dir => dir.cacheName === 'static-json',
         )
-        let totalPreloaded = 0
 
         for (const directory of jsonDirectories) {
-          const preloaded = await preloadDirectory(directory)
-          totalPreloaded += preloaded
-          console.log(
-            `Préchargement de ${directory.path}: ${preloaded} fichiers mis en cache`,
-          )
+          await preloadDirectory(directory)
         }
-
-        console.log(
-          `Préchargement des répertoires JSON terminé: ${totalPreloaded} fichiers au total`,
-        )
       }
     } catch (error) {
       console.error('Erreur lors du préchargement des données JSON:', error)

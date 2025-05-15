@@ -14,11 +14,10 @@ export const useGameVersionStore = defineStore('gameVersion', () => {
     error.value = null
 
     try {
-      // Fetch version from Riot API or your backend
       const response = await axios.get(
         'https://ddragon.leagueoflegends.com/api/versions.json',
       )
-      currentVersion.value = response.data[0] // Get latest version
+      currentVersion.value = response.data[0]
     } catch (err) {
       console.error('Error fetching game version:', err)
       error.value = 'Failed to load game version'
@@ -31,7 +30,6 @@ export const useGameVersionStore = defineStore('gameVersion', () => {
     currentVersion.value = version
   }
 
-  // Initialize on store creation
   onMounted(() => {
     fetchCurrentVersion()
   })

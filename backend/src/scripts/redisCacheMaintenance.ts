@@ -70,10 +70,6 @@ async function maintainRedisCache() {
   }
 }
 
-/**
- * Vide complètement le cache Redis
- * À utiliser lors des déploiements pour garantir la cohérence des données
- */
 export const flushRedisCache = async (): Promise<void> => {
   try {
     console.log("Vidage complet du cache Redis...");

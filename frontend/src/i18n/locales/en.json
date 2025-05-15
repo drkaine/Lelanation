@@ -96,7 +96,10 @@
     "all": "All builds",
     "public": "Public builds",
     "private": "Private builds",
-    "loading": "Loading..."
+    "loading": "Loading...",
+    "certified": "Certified builds",
+    "uncertified": "Uncertified builds",
+    "certification": "Certification"
   },
   "item": {
     "recipe": "Components",
@@ -154,7 +157,9 @@
     "search": {
       "all": "All",
       "name": "Name",
-      "champion": "Champion"
+      "champion": "Champion",
+      "public": "Public",
+      "private": "Private"
     },
     "new-build": "New Build"
   },

@@ -43,10 +43,7 @@ onMounted(async () => {
 
 watch(
   () => locale.value,
-  async _newLocale => {
-    console.log(
-      `[ChampSelection] Locale changed to: ${_newLocale}, reloading champions`,
-    )
+  async () => {
     isLoading.value = true
     await championStore.loadChampions()
     await filterInstance.loadChampionData()
@@ -55,11 +52,7 @@ watch(
 )
 
 onMounted(() => {
-  window.addEventListener('languageChanged', async (_event: Event) => {
-    console.log(
-      `[ChampSelection] Language changed event received:`,
-      (_event as CustomEvent).detail,
-    )
+  window.addEventListener('languageChanged', async () => {
     isLoading.value = true
     await championStore.loadChampions()
     await filterInstance.loadChampionData()

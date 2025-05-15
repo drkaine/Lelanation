@@ -1,13 +1,16 @@
 <script setup lang="ts">
 import { ref, computed, onMounted } from 'vue'
+import { useRouter } from 'vue-router'
 import SheetBuild from '@/components/composants/SheetBuild.vue'
 import type { BuildData } from '@/types/build'
 
+const router = useRouter()
 const builds = ref<BuildData[]>([])
 const urlApiSave = import.meta.env.VITE_URL_API_SAVE
 const selectedRoles = ref(new Set<string>())
 const searchType = ref('all')
 const searchQuery = ref('')
+const certificationFilter = ref('all')
 
 onMounted(async () => {
   try {
@@ -52,6 +55,16 @@ const filteredBuilds = computed(() => {
     )
   }
 
+  if (certificationFilter.value !== 'all') {
+    filtered = filtered.filter(build => {
+      if (certificationFilter.value === 'certified') {
+        return build.certified === true
+      } else {
+        return !build.certified
+      }
+    })
+  }
+
   if (searchQuery.value.trim()) {
     const query = searchQuery.value.toLowerCase().trim()
     filtered = filtered.filter(build => {
@@ -70,6 +83,20 @@ const filteredBuilds = computed(() => {
   }
 
   return filtered
+})
+
+const navigateToBuild = (buildId: string | undefined, event: Event) => {
+  if (!buildId) return
+  if (
+    !event.target ||
+    !(event.target as Element).closest('.certification-badge-container')
+  ) {
+    router.push(`/build/${buildId}`)
+  }
+}
+
+const hasCertifiedBuilds = computed(() => {
+  return builds.value.some(build => build.certified === true)
 })
 </script>
 
@@ -105,6 +132,16 @@ const filteredBuilds = computed(() => {
             class="search-input"
           />
         </div>
+
+        <select
+          v-if="hasCertifiedBuilds"
+          v-model="certificationFilter"
+          class="certification-select"
+        >
+          <option value="all">{{ $t('build.all') }}</option>
+          <option value="certified">{{ $t('build.certified') }}</option>
+          <option value="uncertified">{{ $t('build.uncertified') }}</option>
+        </select>
       </div>
     </div>
 
@@ -123,21 +160,23 @@ const filteredBuilds = computed(() => {
 
     <div class="builds-grid">
       <div v-for="build in filteredBuilds" :key="build.id" class="build-card">
-        <a :href="`/build/${build.id}`" class="build-link">
-          <SheetBuild
-            :version="build.version"
-            :name="build.name"
-            :author="build.author"
-            :description="build.description"
-            :champion="build.sheet.champion"
-            :runes="build.sheet.runes"
-            :summoners="build.sheet.summoners"
-            :shards="build.sheet.shards"
-            :items="build.sheet.items"
-            :roles="build.roles ?? null"
-            :skillOrder="build.sheet.skillOrder"
-          />
-        </a>
+        <SheetBuild
+          :version="build.version"
+          :name="build.name"
+          :author="build.author"
+          :description="build.description"
+          :champion="build.sheet.champion"
+          :runes="build.sheet.runes"
+          :summoners="build.sheet.summoners"
+          :shards="build.sheet.shards"
+          :items="build.sheet.items"
+          :roles="build.roles ?? null"
+          :skillOrder="build.sheet.skillOrder"
+          :certified="build.certified"
+          :buildId="build.id"
+          @certification-toggled="build.certified = !build.certified"
+          @click="navigateToBuild(build.id, $event)"
+        />
       </div>
     </div>
   </div>
@@ -273,7 +312,7 @@ const filteredBuilds = computed(() => {
   border-radius: 8px;
   overflow: hidden;
   transition: all 0.2s ease;
-  cursor: move;
+  cursor: pointer;
   position: relative;
 }
 
@@ -312,6 +351,21 @@ const filteredBuilds = computed(() => {
     transform: none;
     box-shadow: none;
   }
+}
+
+.certification-select {
+  background: none;
+  height: var(--height-all);
+  color: var(--color-gold-300);
+  border: var(--border-size) solid var(--color-gold-300);
+  border-radius: 4px;
+  padding: 0 0.5rem;
+  cursor: pointer;
+}
+
+.certification-select option {
+  color: var(--color-gold-300);
+  background: var(--color-blue-500);
 }
 
 @media (max-width: 768px) {

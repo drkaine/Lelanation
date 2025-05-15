@@ -20,11 +20,7 @@ export class Filter {
     this.loadChampionData()
 
     if (typeof window !== 'undefined') {
-      window.addEventListener('languageChanged', (_event: Event) => {
-        console.log(
-          'Language changed event received in Filter',
-          (_event as CustomEvent).detail,
-        )
+      window.addEventListener('languageChanged', () => {
         this.loadChampionData()
       })
     }

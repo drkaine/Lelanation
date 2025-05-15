@@ -7,8 +7,19 @@ import type { Champion } from '@/types/champion'
 import type { ChampionSkillsOrder } from '@/types/champion'
 import { useRoleStore } from '@/stores/roleStore'
 import { useGameVersionStore } from '@/stores/gameVersionStore'
+import { useConnexionStore } from '@/stores/connexionStore'
+import { useBuildStore } from '@/stores/buildStore'
 import { ref, onMounted, computed } from 'vue'
 import { useI18n } from 'vue-i18n'
+import { useRoute } from 'vue-router'
+
+const route = useRoute()
+const connexionStore = useConnexionStore()
+const buildStore = useBuildStore()
+
+const isLelarivaBuildPage = computed(() =>
+  route.path.endsWith('/Lebuildarriva'),
+)
 
 const { t } = useI18n()
 const roleStore = useRoleStore()
@@ -25,7 +36,67 @@ const props = defineProps<{
   items: ItemSelection | null
   skillOrder: ChampionSkillsOrder | null
   roles?: string[]
+  certified?: boolean
+  buildId?: string
 }>()
+
+const isAdmin = connexionStore.userName === import.meta.env.VITE_NAME
+
+const isCertified = computed(() => props.certified === true)
+const urlApiSave = import.meta.env.VITE_URL_API_SAVE
+
+const isCommunityPage = computed(() => route.path === '/builds-publics')
+const isBuildRecap = computed(() => route.path.includes('/build/'))
+
+const showCertificationButton = computed(
+  () =>
+    isAdmin &&
+    (isCommunityPage.value || isBuildRecap.value) &&
+    !isLelarivaBuildPage.value,
+)
+
+const toggleCertification = async () => {
+  if (!props.buildId) return
+
+  try {
+    const path = props.buildId.includes('lelariva/') ? 'lelariva/' : ''
+    const fileName = props.buildId.replace('lelariva/', '')
+
+    const response = await fetch(`${urlApiSave}/api/build/${path}${fileName}`)
+    if (!response.ok) throw new Error('Erreur lors de la récupération du build')
+
+    const buildData = await response.json()
+
+    const updatedBuild = {
+      ...buildData,
+      certified: !buildData.certified,
+    }
+
+    const updateResponse = await fetch(
+      `${urlApiSave}/api/update/${path}${fileName}`,
+      {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(updatedBuild),
+      },
+    )
+
+    if (!updateResponse.ok)
+      throw new Error('Erreur lors de la mise à jour du build')
+
+    if (buildStore.buildToEdit?.id === props.buildId) {
+      buildStore.updateBuild(updatedBuild)
+    }
+
+    emit('certification-toggled', !isCertified.value)
+  } catch (error) {
+    console.error('Erreur lors de la modification de la certification:', error)
+  }
+}
+
+const emit = defineEmits(['certification-toggled'])
 
 const selectedRoles = roleStore.selectedRoles
 const rolesListe = ['top', 'jungle', 'mid', 'bot', 'support']
@@ -112,9 +183,38 @@ const hasSkillPoints = computed(() =>
 
     <div class="sheet-credits">
       <span class="credit-text">@lelanation</span>
-      <span v-if="author" class="author">{{ author }}</span>
+
       <span class="version-text">v{{ version }}</span>
+      <img
+        v-if="
+          (isCertified && !isAdmin) || (!showCertificationButton && isAdmin)
+        "
+        class="certification-badge"
+        src="/assets/images/lelariva-quality.png"
+        alt="Certified by Lelariva"
+      />
+      <div
+        v-if="showCertificationButton"
+        class="certification-badge-container"
+        @click.stop="toggleCertification"
+        :class="{ 'not-certified': !isCertified }"
+      >
+        <img
+          v-if="isCertified"
+          class="certification-badge clickable"
+          src="/assets/images/lelariva-quality.png"
+          alt="Certified by Lelariva"
+          title="Cliquez pour décertifier"
+        />
+        <div
+          v-else
+          class="certification-placeholder"
+          title="Cliquez pour certifier"
+        ></div>
+      </div>
     </div>
+    <div v-if="author" class="separator"></div>
+    <span v-if="author" class="author">{{ author }}</span>
 
     <div class="separator"></div>
 
@@ -313,13 +413,69 @@ const hasSkillPoints = computed(() =>
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
+.certification-badge {
+  height: 40px;
+  width: auto;
+  vertical-align: middle;
+  margin-left: 6px;
+  border-radius: 100%;
+  border: 2px solid var(--color-gold-300);
+}
+
+.certification-badge.clickable {
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.certification-badge.clickable:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 10px rgba(200, 170, 110, 0.5);
+}
+
+.certification-badge-container {
+  display: inline-block;
+  vertical-align: middle;
+  margin-left: 6px;
+  cursor: pointer;
+}
+
+.certification-badge-container.not-certified {
+  height: 40px;
+  width: 40px;
+  border-radius: 100%;
+  border: 2px dashed var(--color-gold-300);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.certification-badge-container.not-certified:hover {
+  border-color: var(--color-gold-400);
+  background-color: rgba(200, 170, 110, 0.1);
+  transform: scale(1.1);
+}
+
+.certification-placeholder {
+  height: 36px;
+  width: 36px;
+  border-radius: 100%;
+}
+
+.certification-container {
+  display: none;
+}
+
 .author {
   color: var(--color-gold-300);
   font-size: var(--text-base);
   font-weight: 1000;
   text-align: center;
-  flex: 1;
+  width: 100%;
+  display: block;
+  margin: 10px 0;
 }
+
 .shard-slot img {
   border: var(--border-size) solid var(--color-gold-300);
   border-radius: 50%;

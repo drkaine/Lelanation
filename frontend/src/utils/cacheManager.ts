@@ -1,23 +1,14 @@
-/**
- * Gestionnaire de cache pour le frontend
- * Permet de gérer les caches du service worker
- */
-
 interface CacheInfo {
   name: string
   description: string
 }
 
-// Liste des caches utilisés par l'application
 const CACHES: CacheInfo[] = [
   { name: 'images', description: 'Images mises en cache' },
   { name: 'static-json', description: 'Données JSON statiques' },
   { name: 'api-cache', description: 'Réponses API mises en cache' },
 ]
 
-/**
- * Récupère les informations sur tous les caches
- */
 export async function getCacheStats() {
   if (!('caches' in window)) {
     return { error: 'Cache API non supportée par ce navigateur' }
@@ -44,9 +35,6 @@ export async function getCacheStats() {
   }
 }
 
-/**
- * Nettoie un cache spécifique
- */
 export async function clearCache(cacheName: string) {
   if (!('caches' in window)) {
     return { error: 'Cache API non supportée par ce navigateur' }
@@ -66,9 +54,6 @@ export async function clearCache(cacheName: string) {
   }
 }
 
-/**
- * Nettoie tous les caches
- */
 export async function clearAllCaches() {
   if (!('caches' in window)) {
     return { error: 'Cache API non supportée par ce navigateur' }
@@ -93,9 +78,6 @@ export async function clearAllCaches() {
   }
 }
 
-/**
- * Précharge un fichier dans le cache
- */
 export async function preloadToCache(url: string, cacheName: string) {
   if (!('caches' in window)) {
     return { error: 'Cache API non supportée par ce navigateur' }

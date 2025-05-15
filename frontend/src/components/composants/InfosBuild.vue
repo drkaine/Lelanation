@@ -34,6 +34,9 @@ const description = ref(
 const isVisible = ref(
   buildStore.buildToEdit ? buildStore.buildToEdit.visible : true,
 )
+const isCertified = ref(
+  buildStore.buildToEdit ? buildStore.buildToEdit.certified || false : false,
+)
 const author = ref(buildStore.buildToEdit ? buildStore.buildToEdit.author : '')
 const championStats =
   championStore.$state.selectedChampion !== null
@@ -91,6 +94,8 @@ const submitForm = async () => {
     description: description.value,
     version: version,
     visible: isVisible.value,
+    certified:
+      connexionStore.userName === 'Lelariva' ? isCertified.value : false,
     sheet: {
       champion: championStore.$state.selectedChampion,
       runes: runeStore.$state.runesSelection,
@@ -237,6 +242,14 @@ const submitForm = async () => {
       </label>
     </div>
 
+    <div v-if="connexionStore.userName === 'Lelariva'" class="form-group">
+      <label class="certification-toggle">
+        <input type="checkbox" v-model="isCertified" />
+        <span class="checkmark"></span>
+        Certifier ce build
+      </label>
+    </div>
+
     <div class="form-actions">
       <button type="submit" class="btn-submit">
         {{ $t('infos-build.finish') }}
@@ -325,6 +338,34 @@ const submitForm = async () => {
 }
 
 .visibility-toggle input[type='checkbox']:checked + .checkmark:after {
+  content: '';
+  position: absolute;
+  left: 6px;
+  top: 2px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+.certification-toggle {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+}
+
+.certification-toggle input[type='checkbox'] {
+  display: none;
+}
+
+.certification-toggle input[type='checkbox']:checked + .checkmark {
+  background-color: var(--color-gold-300);
+  border-color: var(--color-gold-300);
+}
+
+.certification-toggle input[type='checkbox']:checked + .checkmark:after {
   content: '';
   position: absolute;
   left: 6px;

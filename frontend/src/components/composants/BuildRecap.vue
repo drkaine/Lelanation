@@ -55,6 +55,31 @@ async function deleteBuild() {
   }
 }
 
+async function toggleCertification() {
+  try {
+    if (!buildData.value) return
+
+    const updatedBuild = {
+      ...buildData.value,
+      certified: !buildData.value.certified,
+    }
+
+    const response = await fetch(`/api/update/${path}${fileName}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(updatedBuild),
+    })
+
+    if (!response.ok) throw new Error('Erreur lors de la mise à jour')
+
+    buildData.value = updatedBuild
+  } catch (error) {
+    console.error('Erreur lors de la certification:', error)
+  }
+}
+
 const updateLevel = (newLevel: number) => {
   lvl.value = newLevel
 }
@@ -290,6 +315,19 @@ const statsListFiltered = statsList.filter(
               {{ $t('build-recap.delete') }}
             </button>
           </div>
+
+          <div
+            class="certification-actions"
+            v-if="connexionStore.userName === 'Lelariva' && buildData"
+          >
+            <button class="btn certification" @click="toggleCertification">
+              {{
+                buildData?.certified
+                  ? $t('build-recap.uncertify')
+                  : $t('build-recap.certify')
+              }}
+            </button>
+          </div>
         </div>
 
         <section class="sheet-section">
@@ -307,6 +345,11 @@ const statsListFiltered = statsList.filter(
               :items="buildData.sheet.items"
               :roles="buildData.roles"
               :skillOrder="buildData.sheet.skillOrder"
+              :certified="buildData.certified"
+              :buildId="fileName"
+              @certification-toggled="
+                buildData.certified = !buildData.certified
+              "
             />
           </div>
         </section>
@@ -463,6 +506,19 @@ main[role='main'] {
   gap: 0.5rem;
   padding-top: 1rem;
   border-top: 1px solid var(--color-grey-300);
+  width: 100%;
+  flex-wrap: wrap;
+}
+
+.certification-actions {
+  display: flex;
+  flex-direction: row;
+  gap: 0.5rem;
+  padding-top: 1rem;
+  margin-top: 1rem;
+  border-top: 1px solid var(--color-gold-300);
+  width: 100%;
+  justify-content: center;
 }
 
 .stats-panel {
@@ -490,6 +546,23 @@ main[role='main'] {
 
 .stats-table td {
   color: var(--color-gold-200);
+}
+
+.btn.certification {
+  background-color: var(--color-gold-300);
+  color: var(--color-grey-800);
+  font-weight: bold;
+  font-size: 1.1em;
+  padding: 0.6em 1em;
+  border: 2px solid var(--color-gold-400);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  min-width: 120px !important;
+}
+
+.btn.certification:hover {
+  background-color: var(--color-gold-400);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
 .level-selector {
@@ -604,6 +677,32 @@ main[role='main'] {
     aspect-ratio: 1;
     min-width: 30px !important;
     height: 30px;
+  }
+
+  .btn.certification {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: auto;
+    height: auto;
+    aspect-ratio: auto;
+    padding: 0.6em 1em;
+    min-width: 100px !important;
+  }
+
+  .btn.certification span {
+    display: inline;
+  }
+
+  .edit-actions {
+    width: 100%;
+    flex-wrap: wrap;
+  }
+
+  .certification-actions {
+    width: 100%;
+    justify-content: center;
+    margin-top: 1rem;
   }
 }
 

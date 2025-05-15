@@ -68,11 +68,7 @@ export const useChampionStore = defineStore('champion', () => {
   }
 
   if (typeof window !== 'undefined') {
-    window.addEventListener('languageChanged', (_event: Event) => {
-      console.log(
-        '[ChampionStore] Language changed:',
-        (_event as CustomEvent).detail,
-      )
+    window.addEventListener('languageChanged', () => {
       loadChampions()
     })
   }

@@ -1,8 +1,5 @@
 import { redisClient, isRedisAvailable } from "./redisClient";
 
-/**
- * Classe utilitaire pour gérer la santé du serveur et ses composants externes
- */
 class ServerHealth {
   private redisStatus: {
     isConnected: boolean;
@@ -19,13 +16,9 @@ class ServerHealth {
       maxReconnectAttempts: 10,
     };
 
-    // Configurer les écouteurs d'événements Redis
     this.setupRedisListeners();
   }
 
-  /**
-   * Configure les écouteurs d'événements Redis pour suivre l'état de la connexion
-   */
   private setupRedisListeners() {
     redisClient.on("connect", () => {
       console.log("Redis socket connecté");
@@ -49,16 +42,10 @@ class ServerHealth {
     });
   }
 
-  /**
-   * Vérifie si Redis est utilisable
-   */
   public isRedisAvailable(): boolean {
     return isRedisAvailable();
   }
 
-  /**
-   * Teste la connexion Redis avec un ping
-   */
   public async testRedisConnection(): Promise<boolean> {
     try {
       if (!this.isRedisAvailable()) {
@@ -73,9 +60,6 @@ class ServerHealth {
     }
   }
 
-  /**
-   * Récupère l'état de Redis sous forme de rapport
-   */
   public getRedisStatus() {
     return {
       ...this.redisStatus,
@@ -83,9 +67,6 @@ class ServerHealth {
     };
   }
 
-  /**
-   * Essaie de reconnecter Redis si déconnecté
-   */
   public async tryReconnectRedis(): Promise<boolean> {
     if (this.isRedisAvailable()) {
       return true;

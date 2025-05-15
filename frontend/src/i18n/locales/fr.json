@@ -59,7 +59,10 @@
     "edit": "Modifier",
     "base": "Base",
     "items": "Items",
-    "total": "Total"
+    "total": "Total",
+    "certify": "Certifier",
+    "uncertify": "Décertifier",
+    "statistic": "Statistique"
   },
   "contact": {
     "title": "Contact",
@@ -96,7 +99,10 @@
     "all": "Tous les builds",
     "public": "Builds publics",
     "private": "Builds privés",
-    "loading": "Chargement..."
+    "loading": "Chargement...",
+    "certified": "Builds certifiés",
+    "uncertified": "Builds non certifiés",
+    "certification": "Certification"
   },
   "item": {
     "recipe": "Composants",
@@ -154,7 +160,9 @@
     "search": {
       "all": "Tout",
       "name": "Nom",
-      "champion": "Champion"
+      "champion": "Champion",
+      "public": "Public",
+      "private": "Privé"
     },
     "new-build": "Nouveau Build"
   },
