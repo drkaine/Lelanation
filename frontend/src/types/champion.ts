@@ -15,13 +15,7 @@ export interface Champion {
   name: string
   title: string
   image: Image
-  skins: Skin[]
-  lore: string
-  blurb: string
-  allytips: string[]
-  enemytips: string[]
   tags: string[]
-  partype: string
   info: Info
   stats: ChampionStats
   spells: Spell[]

@@ -67,6 +67,58 @@ async function downloadFiles() {
   }
 }
 
+async function cleanChampionsFullJson() {
+  console.log("🧹 Cleaning champions data...");
+  try {
+    const championsFull = await openFile(
+      path.join(__dirname, targets["folderJSON"] + "championFull.json"),
+    );
+
+    const championsData = JSON.parse(championsFull);
+    const keysToRemove = ["skins", "lore", "blurb", "allytips", "enemytips", "partype"];
+    
+    for (const championKey of Object.keys(championsData.data)) {
+      const champion = championsData.data[championKey];
+      
+      keysToRemove.forEach(key => {
+        if (champion[key]) {
+          delete champion[key];
+        }
+      });
+    }
+
+    await saveFile(
+      JSON.stringify(championsData),
+      path.join(__dirname, targets["folderJSON"] + "championFull.json"),
+    );
+    
+    const championsFullEN = await openFile(
+      path.join(__dirname, targets["folderJSON"] + "en/championFull.json"),
+    );
+
+    const championsDataEN = JSON.parse(championsFullEN);
+    
+    for (const championKey of Object.keys(championsDataEN.data)) {
+      const champion = championsDataEN.data[championKey];
+      
+      keysToRemove.forEach(key => {
+        if (champion[key]) {
+          delete champion[key];
+        }
+      });
+    }
+
+    await saveFile(
+      JSON.stringify(championsDataEN),
+      path.join(__dirname, targets["folderJSON"] + "en/championFull.json"),
+    );
+    console.log("✅ English champions data cleaned successfully");
+    
+  } catch (error) {
+    console.error("❌ Error cleaning champions data:", error);
+  }
+}
+
 async function downloadChampions() {
   const championsFull = await openFile(
     path.join(__dirname, targets["folderJSON"] + "championFull.json"),
@@ -104,6 +156,8 @@ async function downloadChampions() {
       );
     }
   }
+  
+  await cleanChampionsFullJson();
 }
 
 async function downloadSpells() {
