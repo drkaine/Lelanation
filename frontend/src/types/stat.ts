@@ -184,3 +184,35 @@ export interface TotalStats {
   effectiveMovementSpeed: number
   lvl: number
 }
+
+export interface ArmorPenetrationReductionParams {
+  baseArmor: number
+  bonusArmor: number
+  flatReduction: number
+  percentReduction: number
+  percentPenetration: number
+  percentBonusPenetration: number
+  lethality: number
+}
+
+export interface ExtendedStats extends Stats {
+  armorDamageReductionPercent?: number
+  magicDamageReductionPercent?: number
+  physicalEffectiveHealth?: number
+  magicalEffectiveHealth?: number
+  averageEffectiveHealth?: number
+  mixedEffectiveHealth?: number
+  goldValue?: number
+  goldEfficiency?: number
+}
+
+export interface ExtendedTotalStats extends TotalStats {
+  armorDamageReductionPercent: string
+  magicDamageReductionPercent: string
+  physicalEffectiveHealth: string
+  magicalEffectiveHealth: string
+  averageEffectiveHealth: string
+  mixedEffectiveHealth: string
+  goldValue: string
+  goldEfficiency: string
+}

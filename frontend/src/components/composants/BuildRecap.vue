@@ -180,161 +180,143 @@ const editBuild = () => {
     <h1 class="page-title">Build</h1>
 
     <div class="build-content">
-      <div class="tabs-container">
-        <div class="tabs-header">
-          <button 
-            :class="['tab-button', { active: activeTab === 'sheet' }]" 
-            @click="activeTab = 'sheet'"
-          >
-            {{ $t('build-recap.sheet') || 'Feuille de build' }}
-          </button>
-          <button 
-            :class="['tab-button', { active: activeTab === 'stats' }]" 
-            @click="activeTab = 'stats'"
-          >
-            {{ $t('build-recap.statistics') || 'Statistiques' }}
-          </button>
-        </div>
-
-        <div class="tab-content">
-          <!-- Sheet Tab -->
-          <div v-show="activeTab === 'sheet'" class="tab-pane">
-            <div class="left-column">
-              <div class="actions-panel">
-                <div class="action-buttons">
-                  <button class="btn" @click="downloadJson">
-                    <svg
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                      stroke-width="2"
-                      stroke="currentColor"
-                      fill="none"
-                    >
-                      <path
-                        d="M5 4h4l3 3h7a2 2 0 0 1 2 2v8a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-11a2 2 0 0 1 2 -2"
-                      />
-                      <path
-                        d="M12 15h-1c-.5 0-1 .5-1 1s.5 1 1 1h1c.5 0 1-.5 1-1s-.5-1-1-1z"
-                      />
-                      <path d="M19 16v6" />
-                      <path d="M22 19l-3 3l-3 -3" />
-                      <path d="M4 11h.01" />
-                      <path d="M4 15h.01" />
-                      <path d="M8 11h.01" />
-                      <path d="M8 15h.01" />
-                    </svg>
-                    <span>{{ $t('build-recap.json') }}</span>
-                  </button>
-                  <button class="btn" @click="downloadImage">
-                    <svg
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                      stroke-width="2"
-                      stroke="currentColor"
-                      fill="none"
-                    >
-                      <path d="M15 8h.01"></path>
-                      <path
-                        d="M12.5 21h-6.5a3 3 0 0 1 -3 -3v-12a3 3 0 0 1 3 -3h12a3 3 0 0 1 3 3v6.5"
-                      ></path>
-                      <path d="M3 16l5 -5c.928 -.893 2.072 -.893 3 0l4 4"></path>
-                      <path d="M14 14l1 -1c.653 -.629 1.413 -.815 2.13 -.559"></path>
-                      <path d="M19 16v6"></path>
-                      <path d="M22 19l-3 3l-3 -3"></path>
-                    </svg>
-                    <span>{{ $t('build-recap.image') }}</span>
-                  </button>
-                  <button class="btn" @click="copyImageToClipboard">
-                    <svg
-                      width="24"
-                      height="24"
-                      viewBox="0 0 24 24"
-                      stroke-width="2"
-                      stroke="currentColor"
-                      fill="none"
-                    >
-                      <path d="M15 8h.01"></path>
-                      <path
-                        d="M11.5 21h-5.5a3 3 0 0 1 -3 -3v-12a3 3 0 0 1 3 -3h12a3 3 0 0 1 3 3v7"
-                      ></path>
-                      <path d="M3 16l5 -5c.928 -.893 2.072 -.893 3 0l3 3"></path>
-                      <path d="M14 14l1 -1c.928 -.893 2.072 -.893 3 0"></path>
-                      <path d="M20 21l2 -2l-2 -2"></path>
-                      <path d="M17 17l-2 2l2 2"></path>
-                    </svg>
-                    <span>{{ $t('build-recap.image') }}</span>
-                  </button>
-                </div>
-
-                <div
-                  class="edit-actions"
-                  v-if="
-                    (path === 'lelariva/' &&
-                      connexionStore.userName === 'Lelariva') ||
-                    (path === '' &&
-                      buildStore.userBuilds.some(
-                        (build: BuildData) => build.id === buildData?.id,
-                      ))
-                  "
+      <div v-show="activeTab === 'sheet'" class="tab-pane">
+        <div class="left-column">
+          <div class="actions-panel">
+            <div class="action-buttons">
+              <button class="btn" @click="downloadJson">
+                <svg
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  stroke-width="2"
+                  stroke="currentColor"
+                  fill="none"
                 >
-                  <button class="btn edit" @click="editBuild">
-                    {{ $t('build-recap.edit') }}
-                  </button>
-                  <button class="btn delete" @click="deleteBuild">
-                    {{ $t('build-recap.delete') }}
-                  </button>
-                </div>
-
-                <div
-                  class="certification-actions"
-                  v-if="connexionStore.userName === 'Lelariva' && buildData"
-                >
-                  <button class="btn certification" @click="toggleCertification">
-                    {{
-                      buildData?.certified
-                        ? $t('build-recap.uncertify')
-                        : $t('build-recap.certify')
-                    }}
-                  </button>
-                </div>
-              </div>
-
-              <section class="sheet-section">
-                <div class="sheet">
-                  <SheetBuild
-                    v-if="buildData"
-                    :version="buildData.version"
-                    :name="buildData.name"
-                    :author="null"
-                    :description="buildData.description"
-                    :champion="buildData.sheet.champion"
-                    :runes="buildData.sheet.runes"
-                    :summoners="buildData.sheet.summoners"
-                    :shards="buildData.sheet.shards"
-                    :items="buildData.sheet.items"
-                    :roles="buildData.roles"
-                    :skillOrder="buildData.sheet.skillOrder"
-                    :certified="buildData.certified"
-                    :buildId="fileName"
-                    :isLelarivaBuild="lelarivaBuild"
-                    @certification-toggled="
-                      buildData.certified = !buildData.certified
-                    "
+                  <path
+                    d="M5 4h4l3 3h7a2 2 0 0 1 2 2v8a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-11a2 2 0 0 1 2 -2"
                   />
-                </div>
-              </section>
+                  <path
+                    d="M12 15h-1c-.5 0-1 .5-1 1s.5 1 1 1h1c.5 0 1-.5 1-1s-.5-1-1-1z"
+                  />
+                  <path d="M19 16v6" />
+                  <path d="M22 19l-3 3l-3 -3" />
+                  <path d="M4 11h.01" />
+                  <path d="M4 15h.01" />
+                  <path d="M8 11h.01" />
+                  <path d="M8 15h.01" />
+                </svg>
+                <span>{{ $t('build-recap.json') }}</span>
+              </button>
+              <button class="btn" @click="downloadImage">
+                <svg
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  stroke-width="2"
+                  stroke="currentColor"
+                  fill="none"
+                >
+                  <path d="M15 8h.01"></path>
+                  <path
+                    d="M12.5 21h-6.5a3 3 0 0 1 -3 -3v-12a3 3 0 0 1 3 -3h12a3 3 0 0 1 3 3v6.5"
+                  ></path>
+                  <path d="M3 16l5 -5c.928 -.893 2.072 -.893 3 0l4 4"></path>
+                  <path
+                    d="M14 14l1 -1c.653 -.629 1.413 -.815 2.13 -.559"
+                  ></path>
+                  <path d="M19 16v6"></path>
+                  <path d="M22 19l-3 3l-3 -3"></path>
+                </svg>
+                <span>{{ $t('build-recap.image') }}</span>
+              </button>
+              <button class="btn" @click="copyImageToClipboard">
+                <svg
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  stroke-width="2"
+                  stroke="currentColor"
+                  fill="none"
+                >
+                  <path d="M15 8h.01"></path>
+                  <path
+                    d="M11.5 21h-5.5a3 3 0 0 1 -3 -3v-12a3 3 0 0 1 3 -3h12a3 3 0 0 1 3 3v7"
+                  ></path>
+                  <path d="M3 16l5 -5c.928 -.893 2.072 -.893 3 0l3 3"></path>
+                  <path d="M14 14l1 -1c.928 -.893 2.072 -.893 3 0"></path>
+                  <path d="M20 21l2 -2l-2 -2"></path>
+                  <path d="M17 17l-2 2l2 2"></path>
+                </svg>
+                <span>{{ $t('build-recap.image') }}</span>
+              </button>
+            </div>
+
+            <div
+              class="edit-actions"
+              v-if="
+                (path === 'lelariva/' &&
+                  connexionStore.userName === 'Lelariva') ||
+                (path === '' &&
+                  buildStore.userBuilds.some(
+                    (build: BuildData) => build.id === buildData?.id,
+                  ))
+              "
+            >
+              <button class="btn edit" @click="editBuild">
+                {{ $t('build-recap.edit') }}
+              </button>
+              <button class="btn delete" @click="deleteBuild">
+                {{ $t('build-recap.delete') }}
+              </button>
+            </div>
+
+            <div
+              class="certification-actions"
+              v-if="connexionStore.userName === 'Lelariva' && buildData"
+            >
+              <button class="btn certification" @click="toggleCertification">
+                {{
+                  buildData?.certified
+                    ? $t('build-recap.uncertify')
+                    : $t('build-recap.certify')
+                }}
+              </button>
             </div>
           </div>
-          
-          <!-- Stats Tab -->
-          <div v-show="activeTab === 'stats'" class="tab-pane">
-            <section class="stats-section" v-if="buildData">
-              <StatistiquesBuild :build="buildData.buildStats" :total="buildData.sheet.items.gold.total" />
-            </section>
-          </div>
+
+          <section class="sheet-section">
+            <div class="sheet">
+              <SheetBuild
+                v-if="buildData"
+                :version="buildData.version"
+                :name="buildData.name"
+                :author="null"
+                :description="buildData.description"
+                :champion="buildData.sheet.champion"
+                :runes="buildData.sheet.runes"
+                :summoners="buildData.sheet.summoners"
+                :shards="buildData.sheet.shards"
+                :items="buildData.sheet.items"
+                :roles="buildData.roles"
+                :skillOrder="buildData.sheet.skillOrder"
+                :certified="buildData.certified"
+                :buildId="fileName"
+                :isLelarivaBuild="lelarivaBuild"
+                @certification-toggled="
+                  buildData.certified = !buildData.certified
+                "
+              />
+            </div>
+          </section>
         </div>
+
+        <section class="stats-section" v-if="buildData">
+          <StatistiquesBuild
+            :build="buildData.buildStats"
+            :total="buildData.sheet.items.gold.total"
+          />
+        </section>
       </div>
     </div>
   </main>

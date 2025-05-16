@@ -30,8 +30,11 @@ const isActive = (type: 'champion' | 'rune' | 'item' | 'info') => {
       {{ $t('menu-build.item') }}
     </a>
     <span class="arrow"></span>
-    <a 
-      :class="[isActive('info'), !championStore.$state.selectedChampion ? 'disabled' : '']" 
+    <a
+      :class="[
+        isActive('info'),
+        !championStore.$state.selectedChampion ? 'disabled' : '',
+      ]"
       @click="next('info')"
     >
       {{ $t('menu-build.info') }}

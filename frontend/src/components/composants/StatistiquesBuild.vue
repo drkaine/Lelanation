@@ -1,9 +1,13 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import type { Stats } from '@/types/stat'
 import type { Build } from '@/types/build'
 
 const lvl = ref(1)
+
+const showBasicStats = ref(true)
+const showDerivedStats = ref(false)
+const showEconomicStats = ref(false)
 
 const props = defineProps<{
   build: Build
@@ -12,6 +16,37 @@ const props = defineProps<{
 
 const updateLevel = (newLevel: number) => {
   lvl.value = newLevel
+}
+
+const toggleBasicStats = () => {
+  showBasicStats.value = !showBasicStats.value
+}
+
+const toggleDerivedStats = () => {
+  showDerivedStats.value = !showDerivedStats.value
+}
+
+const toggleEconomicStats = () => {
+  showEconomicStats.value = !showEconomicStats.value
+}
+
+const roundValue = (value: string | number): string => {
+  if (typeof value === 'string') {
+    const num = parseFloat(value)
+    if (isNaN(num)) return value
+    return formatNumber(num)
+  }
+  return formatNumber(value)
+}
+
+const formatNumber = (num: number): string => {
+  const rounded = Math.round(num * 100) / 100
+
+  if (rounded === Math.floor(rounded)) {
+    return rounded.toString()
+  }
+
+  return rounded.toString()
 }
 
 const statTranslations: Record<string, string> = {
@@ -33,6 +68,13 @@ const statTranslations: Record<string, string> = {
   shield: 'Augmentation bouclier',
   omnivamp: 'Omnivamp (%)',
   tenacity: 'Tenacité (%)',
+  armorDamageReductionPercent: 'Réduction dégâts physiques (%)',
+  magicDamageReductionPercent: 'Réduction dégâts magiques (%)',
+  physicalEffectiveHealth: 'Santé effective physique',
+  magicalEffectiveHealth: 'Santé effective magique',
+  averageEffectiveHealth: 'Santé effective moyenne',
+  goldValue: 'Valeur en or',
+  goldEfficiency: 'Efficacité or (%)',
 }
 
 const statsList = [
@@ -54,19 +96,63 @@ const statsList = [
   'shield',
   'omnivamp',
   'tenacity',
+  'armorDamageReductionPercent',
+  'magicDamageReductionPercent',
+  'physicalEffectiveHealth',
+  'magicalEffectiveHealth',
+  'averageEffectiveHealth',
 ]
 
+const statCategories: Record<string, string[]> = {
+  basic: [
+    'hp',
+    'hpregen',
+    'mp',
+    'mpregen',
+    'armor',
+    'spellblock',
+    'attackdamage',
+    'movespeed',
+    'attackrange',
+    'attackspeed',
+    'CDR',
+    'AP',
+    'lethality',
+    'crit',
+    'magicPenetration',
+    'shield',
+    'omnivamp',
+    'tenacity',
+  ],
+  derived: [
+    'armorDamageReductionPercent',
+    'magicDamageReductionPercent',
+    'physicalEffectiveHealth',
+    'magicalEffectiveHealth',
+    'averageEffectiveHealth',
+  ],
+  economic: ['goldValue', 'goldEfficiency'],
+}
+
 const statsListFiltered = statsList.filter(
-  stat =>
-    props.build.totalStats[lvl.value - 1][
-      stat as keyof Stats
-    ] !== '0',
+  stat => props.build.totalStats[lvl.value - 1][stat as keyof Stats] !== '0',
+)
+
+const hasBasicStats = computed(() =>
+  statsListFiltered.some(s => statCategories.basic.includes(s)),
+)
+
+const hasDerivedStats = computed(() =>
+  statsListFiltered.some(s => statCategories.derived.includes(s)),
+)
+
+const hasEconomicStats = computed(() =>
+  statsListFiltered.some(s => statCategories.economic.includes(s)),
 )
 </script>
 
-
 <template>
-<div class="stats-panel">
+  <div class="stats-panel">
     <table class="stats-table">
       <thead>
         <tr>
@@ -77,28 +163,128 @@ const statsListFiltered = statsList.filter(
         </tr>
       </thead>
       <tbody>
-        <tr v-for="stat in statsListFiltered" :key="stat">
-          <td>{{ statTranslations[stat] }}</td>
-          <td>
-            {{
-              props.build?.baseStats[lvl - 1][
-                stat as keyof Stats
-              ]
-            }}
-          </td>
-          <td>
-            {{
-              props.build?.buildItemStats[stat as keyof Stats]
-            }}
-          </td>
-          <td>
-            {{
-              props.build?.totalStats[lvl - 1][
-                stat as keyof Stats
-              ]
-            }}
+        <tr
+          class="stat-category-separator"
+          v-if="hasBasicStats"
+          @click="toggleBasicStats"
+        >
+          <td colspan="4" class="stat-category-title">
+            <div class="category-header">
+              <span>Statistiques de base</span>
+              <span class="toggle-icon" :class="{ open: showBasicStats }"
+                >▼</span
+              >
+            </div>
           </td>
         </tr>
+
+        <template v-if="showBasicStats">
+          <tr
+            v-for="stat in statsListFiltered.filter(s =>
+              statCategories.basic.includes(s),
+            )"
+            :key="stat"
+            class="basic-stat"
+          >
+            <td>{{ statTranslations[stat] }}</td>
+            <td>
+              {{
+                roundValue(props.build?.baseStats[lvl - 1][stat as keyof Stats])
+              }}
+            </td>
+            <td>
+              {{ roundValue(props.build?.buildItemStats[stat as keyof Stats]) }}
+            </td>
+            <td>
+              {{
+                roundValue(
+                  props.build?.totalStats[lvl - 1][stat as keyof Stats],
+                )
+              }}
+            </td>
+          </tr>
+        </template>
+
+        <tr
+          class="stat-category-separator"
+          v-if="hasDerivedStats"
+          @click="toggleDerivedStats"
+        >
+          <td colspan="4" class="stat-category-title">
+            <div class="category-header">
+              <span>Statistiques avancées</span>
+              <span class="toggle-icon" :class="{ open: showDerivedStats }"
+                >▼</span
+              >
+            </div>
+          </td>
+        </tr>
+
+        <template v-if="showDerivedStats">
+          <tr
+            v-for="stat in statsListFiltered.filter(s =>
+              statCategories.derived.includes(s),
+            )"
+            :key="stat"
+            class="derived-stat"
+          >
+            <td>{{ statTranslations[stat] }}</td>
+            <td>
+              {{
+                roundValue(props.build?.baseStats[lvl - 1][stat as keyof Stats])
+              }}
+            </td>
+            <td>
+              {{ roundValue(props.build?.buildItemStats[stat as keyof Stats]) }}
+            </td>
+            <td>
+              {{
+                roundValue(
+                  props.build?.totalStats[lvl - 1][stat as keyof Stats],
+                )
+              }}
+            </td>
+          </tr>
+        </template>
+
+        <tr
+          class="stat-category-separator"
+          v-if="hasEconomicStats"
+          @click="toggleEconomicStats"
+        >
+          <td colspan="4" class="stat-category-title">
+            <div class="category-header">
+              <span>Statistiques économiques</span>
+              <span class="toggle-icon" :class="{ open: showEconomicStats }"
+                >▼</span
+              >
+            </div>
+          </td>
+        </tr>
+
+        <template v-if="showEconomicStats">
+          <tr
+            v-for="stat in statsListFiltered.filter(s =>
+              statCategories.economic.includes(s),
+            )"
+            :key="stat"
+            class="economic-stat"
+          >
+            <td>{{ statTranslations[stat] }}</td>
+            <td>-</td>
+            <td>
+              {{ roundValue(props.build?.buildItemStats[stat as keyof Stats]) }}
+            </td>
+            <td>
+              {{
+                roundValue(
+                  props.build?.totalStats[lvl - 1][stat as keyof Stats],
+                )
+              }}
+            </td>
+          </tr>
+        </template>
+
         <tr>
           <td>{{ $t('build-recap.gold') }}</td>
           <td>0</td>
@@ -123,7 +309,6 @@ const statsListFiltered = statsList.filter(
 </template>
 
 <style scoped>
-
 .stats-panel {
   border-radius: 8px;
   padding: 1rem;
@@ -149,6 +334,40 @@ const statsListFiltered = statsList.filter(
 
 .stats-table td {
   color: var(--color-gold-200);
+}
+
+.stat-category-separator {
+  background-color: rgba(218, 165, 32, 0.05);
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.stat-category-separator:hover {
+  background-color: rgba(218, 165, 32, 0.1);
+}
+
+.stat-category-title {
+  color: var(--color-gold-300);
+  font-weight: bold;
+  text-align: left;
+  padding: 0.5rem 1rem;
+}
+
+.category-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.toggle-icon {
+  font-size: 10px;
+  transition: transform 0.3s ease;
+  display: inline-block;
+  color: var(--color-gold-300);
+}
+
+.toggle-icon.open {
+  transform: rotate(180deg);
 }
 
 .level-selector {
@@ -189,7 +408,6 @@ const statsListFiltered = statsList.filter(
   font-weight: bold;
 }
 
-
 @media (max-width: 768px) {
   .build-recap {
     padding: 1rem;
@@ -228,7 +446,5 @@ const statsListFiltered = statsList.filter(
     height: 25px;
     font-size: var(--text-xs);
   }
-
 }
-
 </style>

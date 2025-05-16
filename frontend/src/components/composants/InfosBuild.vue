@@ -194,21 +194,20 @@ const submitForm = async () => {
 <template>
   <div class="tabs-container">
     <div class="tabs-header" v-show="championStore.$state.selectedChampion">
-
-      <button 
-        :class="['tab-button', { active: activeTab === 'skills' }]" 
+      <button
+        :class="['tab-button', { active: activeTab === 'skills' }]"
         @click="activeTab = 'skills'"
       >
         {{ $t('infos-build.skills') }}
       </button>
-      <button 
-        :class="['tab-button', { active: activeTab === 'stats' }]" 
+      <button
+        :class="['tab-button', { active: activeTab === 'stats' }]"
         @click="activeTab = 'stats'"
       >
         {{ $t('infos-build.stats') }}
       </button>
-      <button 
-        :class="['tab-button', { active: activeTab === 'form' }]" 
+      <button
+        :class="['tab-button', { active: activeTab === 'form' }]"
         @click="activeTab = 'form'"
       >
         {{ $t('infos-build.form') }}
@@ -216,11 +215,20 @@ const submitForm = async () => {
     </div>
 
     <div class="tab-content">
-      <div v-show="activeTab === 'stats' && championStore.$state.selectedChampion" class="tab-pane">
-        <StatistiquesBuild :build="build" :total="itemStore.$state.ItemsSelection.gold.total" />
+      <div
+        v-show="activeTab === 'stats' && championStore.$state.selectedChampion"
+        class="tab-pane"
+      >
+        <StatistiquesBuild
+          :build="build"
+          :total="itemStore.$state.ItemsSelection.gold.total"
+        />
       </div>
 
-      <div v-show="activeTab === 'skills' && championStore.$state.selectedChampion" class="tab-pane skill-up">
+      <div
+        v-show="activeTab === 'skills' && championStore.$state.selectedChampion"
+        class="tab-pane skill-up"
+      >
         <SkillUp />
       </div>
 
@@ -503,7 +511,7 @@ const submitForm = async () => {
   .tabs-header {
     flex-wrap: wrap;
   }
-  
+
   .tab-button {
     padding: 0.5rem 1rem;
     font-size: var(--text-sm);
