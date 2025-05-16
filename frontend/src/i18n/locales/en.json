@@ -45,7 +45,10 @@
     "author": "Author",
     "description": "Description",
     "public": "Public",
-    "finish": "Finish"
+    "finish": "Finish",
+    "skills": "Skills",
+    "stats": "Stats",
+    "form": "Form"
   },
   "extra-info": {
     "statistic": "Statistic",

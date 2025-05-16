@@ -39,7 +39,7 @@ const handleTouchMove = (event: TouchEvent) => {
   }
 }
 
-const handleTouchEnd = (dropIndex: number, event: TouchEvent) => {
+const handleTouchEnd = (event: TouchEvent) => {
   event.preventDefault()
   if (draggingItem.value !== null && currentDropTarget.value !== null) {
     itemStore.moveItem(draggingItem.value, currentDropTarget.value)
@@ -72,7 +72,7 @@ const removeItem = (index: number) => {
         @dragstart="startDrag(index)"
         @touchstart.stop="startDrag(index, $event)"
         @touchmove.prevent="handleTouchMove"
-        @touchend.prevent="handleTouchEnd(index, $event)"
+        @touchend.prevent="handleTouchEnd($event)"
         @dragover.prevent
         @drop.prevent="onDrop(index)"
         :class="{

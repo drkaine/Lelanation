@@ -9,40 +9,48 @@ import {
 } from './StatsCalculator'
 
 export function calculateBaseStats(championStats: ChampionStats, lvl: number) {
-  return {
+  const levelMultiplier = lvl > 1 ? lvl - 1 : 0
+
+  const baseStats = {
     armor: Math.round(
-      (championStats.armor ?? 0) + (championStats.armorperlevel ?? 0) * lvl,
+      (championStats.armor ?? 0) +
+        (championStats.armorperlevel ?? 0) * levelMultiplier,
     ),
     attackdamage: Math.round(
       (championStats.attackdamage ?? 0) +
-        (championStats.attackdamageperlevel ?? 0) * lvl,
+        (championStats.attackdamageperlevel ?? 0) * levelMultiplier,
     ),
     attackrange: Math.round(championStats.attackrange ?? 0),
     attackspeed:
       Math.round(
         ((championStats.attackspeed ?? 0) +
-          (championStats.attackspeedperlevel ?? 0) * lvl) *
+          (championStats.attackspeedperlevel ?? 0) * levelMultiplier) *
           100,
       ) / 100,
     crit: Math.round(
-      (championStats.crit ?? 0) + (championStats.critperlevel ?? 0) * lvl,
+      (championStats.crit ?? 0) +
+        (championStats.critperlevel ?? 0) * levelMultiplier,
     ),
     hp: Math.round(
-      (championStats.hp ?? 0) + (championStats.hpperlevel ?? 0) * lvl,
+      (championStats.hp ?? 0) +
+        (championStats.hpperlevel ?? 0) * levelMultiplier,
     ),
     hpregen: Math.round(
-      (championStats.hpregen ?? 0) + (championStats.hpregenperlevel ?? 0) * lvl,
+      (championStats.hpregen ?? 0) +
+        (championStats.hpregenperlevel ?? 0) * levelMultiplier,
     ),
     movespeed: Math.round(championStats.movespeed ?? 0),
     mp: Math.round(
-      (championStats.mp ?? 0) + (championStats.mpperlevel ?? 0) * lvl,
+      (championStats.mp ?? 0) +
+        (championStats.mpperlevel ?? 0) * levelMultiplier,
     ),
     mpregen: Math.round(
-      (championStats.mpregen ?? 0) + (championStats.mpregenperlevel ?? 0) * lvl,
+      (championStats.mpregen ?? 0) +
+        (championStats.mpregenperlevel ?? 0) * levelMultiplier,
     ),
     spellblock: Math.round(
       (championStats.spellblock ?? 0) +
-        (championStats.spellblockperlevel ?? 0) * lvl,
+        (championStats.spellblockperlevel ?? 0) * levelMultiplier,
     ),
     CDR: 0,
     AP: 0,
@@ -56,6 +64,8 @@ export function calculateBaseStats(championStats: ChampionStats, lvl: number) {
     magicpen: 0,
     lvl: lvl,
   }
+
+  return baseStats
 }
 
 export function calculateItemStats(ItemStats: ItemStats) {
@@ -155,7 +165,7 @@ export function calculateTotalStats(
       0,
     ),
     attackrange: (championStats.attackrange + itemStats.attackrange).toFixed(0),
-    attackspeed: (championStats.attackspeed + itemStats.attackspeed).toFixed(0),
+    attackspeed: (championStats.attackspeed + itemStats.attackspeed).toFixed(2),
     crit: (championStats.crit + itemStats.crit).toFixed(0),
     hp: (championStats.hp + itemStats.hp).toFixed(0),
     hpregen: (championStats.hpregen + itemStats.hpregen).toFixed(0),

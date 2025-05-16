@@ -12,7 +12,7 @@ import { useSummonerStore } from '@/stores/summonerStore'
 import { useShardStore } from '@/stores/shardStore'
 import { useItemStore } from '@/stores/itemStore'
 import { useRoleStore } from '@/stores/roleStore'
-import type { Stats } from '@/types/stat'
+import StatistiquesBuild from '@/components/composants/StatistiquesBuild.vue'
 
 const connexionStore = useConnexionStore()
 const route = useRoute()
@@ -20,13 +20,15 @@ const router = useRouter()
 const buildStore = useBuildStore()
 const fileName = route.params.fileName as string
 const buildData = ref<BuildData | null>(null)
-const lvl = ref(1)
+
 const championStore = useChampionStore()
 const runeStore = useRuneStore()
 const summonerStore = useSummonerStore()
 const shardStore = useShardStore()
 const itemStore = useItemStore()
 const roleStore = useRoleStore()
+
+const activeTab = ref('sheet')
 
 let path = ''
 
@@ -81,10 +83,6 @@ async function toggleCertification() {
   } catch (error) {
     console.error('Erreur lors de la certification:', error)
   }
-}
-
-const updateLevel = (newLevel: number) => {
-  lvl.value = newLevel
 }
 
 function downloadJson() {
@@ -175,55 +173,6 @@ const editBuild = () => {
 
   router.push('/build')
 }
-
-const statTranslations: Record<string, string> = {
-  hp: 'HP',
-  hpregen: 'HP Regen',
-  mp: 'Mana',
-  mpregen: 'Mana Regen',
-  armor: 'Armure',
-  spellblock: 'Résistance magique',
-  attackdamage: 'AD',
-  movespeed: 'Vitesse de déplacement (%)',
-  attackrange: "Portée d'attaque",
-  attackspeed: "Vitesse d'attaque",
-  CDR: 'CDR',
-  AP: 'AP',
-  lethality: 'Léthalité',
-  crit: 'Chance de critique (%)',
-  magicPenetration: 'Pénétration magique',
-  shield: 'Augmentation bouclier',
-  omnivamp: 'Omnivamp (%)',
-  tenacity: 'Tenacité (%)',
-}
-
-const statsList = [
-  'hp',
-  'hpregen',
-  'mp',
-  'mpregen',
-  'armor',
-  'spellblock',
-  'attackdamage',
-  'movespeed',
-  'attackrange',
-  'attackspeed',
-  'CDR',
-  'AP',
-  'lethality',
-  'crit',
-  'magicPenetration',
-  'shield',
-  'omnivamp',
-  'tenacity',
-]
-
-const statsListFiltered = statsList.filter(
-  stat =>
-    buildData.value?.buildStats.totalStats[lvl.value - 1][
-      stat as keyof Stats
-    ] !== '0',
-)
 </script>
 
 <template>
@@ -231,190 +180,162 @@ const statsListFiltered = statsList.filter(
     <h1 class="page-title">Build</h1>
 
     <div class="build-content">
-      <div class="left-column">
-        <div class="actions-panel">
-          <div class="action-buttons">
-            <button class="btn" @click="downloadJson">
-              <svg
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                stroke-width="2"
-                stroke="currentColor"
-                fill="none"
-              >
-                <path
-                  d="M5 4h4l3 3h7a2 2 0 0 1 2 2v8a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-11a2 2 0 0 1 2 -2"
-                />
-                <path
-                  d="M12 15h-1c-.5 0-1 .5-1 1s.5 1 1 1h1c.5 0 1-.5 1-1s-.5-1-1-1z"
-                />
-                <path d="M19 16v6" />
-                <path d="M22 19l-3 3l-3 -3" />
-                <path d="M4 11h.01" />
-                <path d="M4 15h.01" />
-                <path d="M8 11h.01" />
-                <path d="M8 15h.01" />
-              </svg>
-              <span>{{ $t('build-recap.json') }}</span>
-            </button>
-            <button class="btn" @click="downloadImage">
-              <svg
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                stroke-width="2"
-                stroke="currentColor"
-                fill="none"
-              >
-                <path d="M15 8h.01"></path>
-                <path
-                  d="M12.5 21h-6.5a3 3 0 0 1 -3 -3v-12a3 3 0 0 1 3 -3h12a3 3 0 0 1 3 3v6.5"
-                ></path>
-                <path d="M3 16l5 -5c.928 -.893 2.072 -.893 3 0l4 4"></path>
-                <path d="M14 14l1 -1c.653 -.629 1.413 -.815 2.13 -.559"></path>
-                <path d="M19 16v6"></path>
-                <path d="M22 19l-3 3l-3 -3"></path>
-              </svg>
-              <span>{{ $t('build-recap.image') }}</span>
-            </button>
-            <button class="btn" @click="copyImageToClipboard">
-              <svg
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                stroke-width="2"
-                stroke="currentColor"
-                fill="none"
-              >
-                <path d="M15 8h.01"></path>
-                <path
-                  d="M11.5 21h-5.5a3 3 0 0 1 -3 -3v-12a3 3 0 0 1 3 -3h12a3 3 0 0 1 3 3v7"
-                ></path>
-                <path d="M3 16l5 -5c.928 -.893 2.072 -.893 3 0l3 3"></path>
-                <path d="M14 14l1 -1c.928 -.893 2.072 -.893 3 0"></path>
-                <path d="M20 21l2 -2l-2 -2"></path>
-                <path d="M17 17l-2 2l2 2"></path>
-              </svg>
-              <span>{{ $t('build-recap.image') }}</span>
-            </button>
-          </div>
-
-          <div
-            class="edit-actions"
-            v-if="
-              (path === 'lelariva/' &&
-                connexionStore.userName === 'Lelariva') ||
-              (path === '' &&
-                buildStore.userBuilds.some(
-                  (build: BuildData) => build.id === buildData?.id,
-                ))
-            "
+      <div class="tabs-container">
+        <div class="tabs-header">
+          <button 
+            :class="['tab-button', { active: activeTab === 'sheet' }]" 
+            @click="activeTab = 'sheet'"
           >
-            <button class="btn edit" @click="editBuild">
-              {{ $t('build-recap.edit') }}
-            </button>
-            <button class="btn delete" @click="deleteBuild">
-              {{ $t('build-recap.delete') }}
-            </button>
-          </div>
-
-          <div
-            class="certification-actions"
-            v-if="connexionStore.userName === 'Lelariva' && buildData"
+            {{ $t('build-recap.sheet') || 'Feuille de build' }}
+          </button>
+          <button 
+            :class="['tab-button', { active: activeTab === 'stats' }]" 
+            @click="activeTab = 'stats'"
           >
-            <button class="btn certification" @click="toggleCertification">
-              {{
-                buildData?.certified
-                  ? $t('build-recap.uncertify')
-                  : $t('build-recap.certify')
-              }}
-            </button>
-          </div>
+            {{ $t('build-recap.statistics') || 'Statistiques' }}
+          </button>
         </div>
 
-        <section class="sheet-section">
-          <div class="sheet">
-            <SheetBuild
-              v-if="buildData"
-              :version="buildData.version"
-              :name="buildData.name"
-              :author="null"
-              :description="buildData.description"
-              :champion="buildData.sheet.champion"
-              :runes="buildData.sheet.runes"
-              :summoners="buildData.sheet.summoners"
-              :shards="buildData.sheet.shards"
-              :items="buildData.sheet.items"
-              :roles="buildData.roles"
-              :skillOrder="buildData.sheet.skillOrder"
-              :certified="buildData.certified"
-              :buildId="fileName"
-              :isLelarivaBuild="lelarivaBuild"
-              @certification-toggled="
-                buildData.certified = !buildData.certified
-              "
-            />
-          </div>
-        </section>
-      </div>
+        <div class="tab-content">
+          <!-- Sheet Tab -->
+          <div v-show="activeTab === 'sheet'" class="tab-pane">
+            <div class="left-column">
+              <div class="actions-panel">
+                <div class="action-buttons">
+                  <button class="btn" @click="downloadJson">
+                    <svg
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      stroke-width="2"
+                      stroke="currentColor"
+                      fill="none"
+                    >
+                      <path
+                        d="M5 4h4l3 3h7a2 2 0 0 1 2 2v8a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-11a2 2 0 0 1 2 -2"
+                      />
+                      <path
+                        d="M12 15h-1c-.5 0-1 .5-1 1s.5 1 1 1h1c.5 0 1-.5 1-1s-.5-1-1-1z"
+                      />
+                      <path d="M19 16v6" />
+                      <path d="M22 19l-3 3l-3 -3" />
+                      <path d="M4 11h.01" />
+                      <path d="M4 15h.01" />
+                      <path d="M8 11h.01" />
+                      <path d="M8 15h.01" />
+                    </svg>
+                    <span>{{ $t('build-recap.json') }}</span>
+                  </button>
+                  <button class="btn" @click="downloadImage">
+                    <svg
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      stroke-width="2"
+                      stroke="currentColor"
+                      fill="none"
+                    >
+                      <path d="M15 8h.01"></path>
+                      <path
+                        d="M12.5 21h-6.5a3 3 0 0 1 -3 -3v-12a3 3 0 0 1 3 -3h12a3 3 0 0 1 3 3v6.5"
+                      ></path>
+                      <path d="M3 16l5 -5c.928 -.893 2.072 -.893 3 0l4 4"></path>
+                      <path d="M14 14l1 -1c.653 -.629 1.413 -.815 2.13 -.559"></path>
+                      <path d="M19 16v6"></path>
+                      <path d="M22 19l-3 3l-3 -3"></path>
+                    </svg>
+                    <span>{{ $t('build-recap.image') }}</span>
+                  </button>
+                  <button class="btn" @click="copyImageToClipboard">
+                    <svg
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      stroke-width="2"
+                      stroke="currentColor"
+                      fill="none"
+                    >
+                      <path d="M15 8h.01"></path>
+                      <path
+                        d="M11.5 21h-5.5a3 3 0 0 1 -3 -3v-12a3 3 0 0 1 3 -3h12a3 3 0 0 1 3 3v7"
+                      ></path>
+                      <path d="M3 16l5 -5c.928 -.893 2.072 -.893 3 0l3 3"></path>
+                      <path d="M14 14l1 -1c.928 -.893 2.072 -.893 3 0"></path>
+                      <path d="M20 21l2 -2l-2 -2"></path>
+                      <path d="M17 17l-2 2l2 2"></path>
+                    </svg>
+                    <span>{{ $t('build-recap.image') }}</span>
+                  </button>
+                </div>
 
-      <section class="info-section">
-        <div class="stats-panel">
-          <table class="stats-table">
-            <thead>
-              <tr>
-                <th>{{ $t('build-recap.statistic') }}</th>
-                <th>{{ $t('build-recap.base') }}</th>
-                <th>{{ $t('build-recap.items') }}</th>
-                <th>{{ $t('build-recap.total') }}</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr v-for="stat in statsListFiltered" :key="stat">
-                <td>{{ statTranslations[stat] }}</td>
-                <td>
-                  {{
-                    buildData?.buildStats.baseStats[lvl - 1][
-                      stat as keyof Stats
-                    ]
-                  }}
-                </td>
-                <td>
-                  {{
-                    buildData?.buildStats.buildItemStats[stat as keyof Stats]
-                  }}
-                </td>
-                <td>
-                  {{
-                    buildData?.buildStats.totalStats[lvl - 1][
-                      stat as keyof Stats
-                    ]
-                  }}
-                </td>
-              </tr>
-              <tr>
-                <td>{{ $t('build-recap.gold') }}</td>
-                <td>0</td>
-                <td>{{ buildData?.sheet.items.gold.total }}</td>
-                <td>{{ buildData?.sheet.items.gold.total }}</td>
-              </tr>
-            </tbody>
-          </table>
-          <div class="level-selector">
-            <div class="level-buttons">
-              <button
-                v-for="n in 18"
-                :key="n"
-                :class="['level-btn', { active: lvl === n }]"
-                @click="updateLevel(n)"
-              >
-                {{ n }}
-              </button>
+                <div
+                  class="edit-actions"
+                  v-if="
+                    (path === 'lelariva/' &&
+                      connexionStore.userName === 'Lelariva') ||
+                    (path === '' &&
+                      buildStore.userBuilds.some(
+                        (build: BuildData) => build.id === buildData?.id,
+                      ))
+                  "
+                >
+                  <button class="btn edit" @click="editBuild">
+                    {{ $t('build-recap.edit') }}
+                  </button>
+                  <button class="btn delete" @click="deleteBuild">
+                    {{ $t('build-recap.delete') }}
+                  </button>
+                </div>
+
+                <div
+                  class="certification-actions"
+                  v-if="connexionStore.userName === 'Lelariva' && buildData"
+                >
+                  <button class="btn certification" @click="toggleCertification">
+                    {{
+                      buildData?.certified
+                        ? $t('build-recap.uncertify')
+                        : $t('build-recap.certify')
+                    }}
+                  </button>
+                </div>
+              </div>
+
+              <section class="sheet-section">
+                <div class="sheet">
+                  <SheetBuild
+                    v-if="buildData"
+                    :version="buildData.version"
+                    :name="buildData.name"
+                    :author="null"
+                    :description="buildData.description"
+                    :champion="buildData.sheet.champion"
+                    :runes="buildData.sheet.runes"
+                    :summoners="buildData.sheet.summoners"
+                    :shards="buildData.sheet.shards"
+                    :items="buildData.sheet.items"
+                    :roles="buildData.roles"
+                    :skillOrder="buildData.sheet.skillOrder"
+                    :certified="buildData.certified"
+                    :buildId="fileName"
+                    :isLelarivaBuild="lelarivaBuild"
+                    @certification-toggled="
+                      buildData.certified = !buildData.certified
+                    "
+                  />
+                </div>
+              </section>
             </div>
           </div>
+          
+          <!-- Stats Tab -->
+          <div v-show="activeTab === 'stats'" class="tab-pane">
+            <section class="stats-section" v-if="buildData">
+              <StatistiquesBuild :build="buildData.buildStats" :total="buildData.sheet.items.gold.total" />
+            </section>
+          </div>
         </div>
-      </section>
+      </div>
     </div>
   </main>
 </template>
@@ -525,33 +446,6 @@ main[role='main'] {
   justify-content: center;
 }
 
-.stats-panel {
-  border-radius: 8px;
-  padding: 1rem;
-}
-
-.stats-table {
-  border-collapse: collapse;
-  margin-bottom: 0;
-  border-bottom: 1px solid var(--color-gold-50);
-}
-
-.stats-table th,
-.stats-table td {
-  padding: 0.75rem 1rem;
-  text-align: left;
-  border-bottom: 1px solid var(--color-gold-50);
-}
-
-.stats-table th {
-  color: var(--color-gold-300);
-  font-weight: bold;
-}
-
-.stats-table td {
-  color: var(--color-gold-200);
-}
-
 .btn.certification {
   background-color: var(--color-gold-300);
   color: var(--color-grey-800);
@@ -567,44 +461,6 @@ main[role='main'] {
   background-color: var(--color-gold-400);
   transform: translateY(-2px);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-}
-
-.level-selector {
-  padding: 0.75rem 1rem;
-  border-top: 1px solid var(--color-grey-300);
-  margin-top: -1px;
-}
-
-.level-buttons {
-  display: grid;
-  grid-template-columns: repeat(18, 30px);
-  gap: 0.5rem;
-  justify-content: center;
-}
-
-.level-btn {
-  width: 30px;
-  height: 30px;
-  padding: 0;
-  border: var(--border-size) solid transparent;
-  color: var(--color-gold-300);
-  font-size: var(--text-sm);
-  cursor: pointer;
-  transition: all 0.2s ease;
-  border-radius: 4px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.level-btn:hover {
-  border-color: var(--color-grey-300);
-}
-
-.level-btn.active {
-  border-color: var(--color-gold-300);
-  color: var(--color-grey-300);
-  font-weight: bold;
 }
 
 @media (max-width: 500px) {
@@ -737,5 +593,59 @@ main[role='main'] {
   .actions-panel {
     width: var(--width-all);
   }
+}
+
+.tabs-container {
+  width: 100%;
+  margin: 0 auto;
+}
+
+.tabs-header {
+  display: flex;
+  border-bottom: 2px solid var(--color-grey-300);
+  margin-bottom: 1.5rem;
+}
+
+.tab-button {
+  padding: 0.75rem 1.5rem;
+  background: transparent;
+  border: none;
+  color: var(--color-grey-200);
+  font-size: var(--text-base);
+  cursor: pointer;
+  transition: all 0.2s;
+  position: relative;
+}
+
+.tab-button:hover {
+  color: var(--color-gold-200);
+}
+
+.tab-button.active {
+  color: var(--color-gold-300);
+  font-weight: bold;
+}
+
+.tab-button.active:after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: var(--color-gold-300);
+}
+
+.tab-content {
+  padding: 0.5rem;
+}
+
+.tab-pane {
+  transition: opacity 0.2s ease-in-out;
+}
+
+.stats-section {
+  max-width: 800px;
+  margin: 0 auto;
 }
 </style>

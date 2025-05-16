@@ -10,7 +10,7 @@ const showContactModal = ref(false)
 <template>
   <footer class="footer">
     <div class="connect" v-if="connexionStore.isLoggedIn">
-      <p>{{ $t('footer.admin') }} {{ connexionStore.userName }}</p>
+      <p>{{ $t('footer.admin') }}</p>
     </div>
     <a href="#" @click.prevent="showContactModal = true" class="footer-link">{{
       $t('footer.contact')

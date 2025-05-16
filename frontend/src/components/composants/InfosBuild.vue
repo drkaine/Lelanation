@@ -14,7 +14,11 @@ import version from '@/assets/files/data/lastVersion.json'
 import { useRouter } from 'vue-router'
 import type { BuildData } from '@/types/build'
 import SkillUp from './SkillUp.vue'
+import StatistiquesBuild from './StatistiquesBuild.vue'
+
 const router = useRouter()
+
+const activeTab = ref('skills')
 
 const urlApiSave = import.meta.env.VITE_URL_API_SAVE
 const championStore = useChampionStore()
@@ -188,74 +192,98 @@ const submitForm = async () => {
 </script>
 
 <template>
-  <div v-if="championStore.$state.selectedChampion" class="skill-up">
-    <SkillUp />
-  </div>
+  <div class="tabs-container">
+    <div class="tabs-header" v-show="championStore.$state.selectedChampion">
 
-  <form @submit.prevent="submitForm" class="build-form">
-    <div class="form-group">
-      <label>
-        {{ $t('infos-build.name') }} *
-        <input
-          maxlength="58"
-          type="text"
-          required
-          v-model="name"
-          placeholder="Nom du build"
-          class="form-input"
-        />
-      </label>
-    </div>
-
-    <div class="form-group">
-      <label>
-        {{ $t('infos-build.author') }} *
-        <input
-          maxlength="58"
-          type="text"
-          required
-          v-model="author"
-          placeholder="Pseudo de l'auteur"
-          class="form-input"
-        />
-      </label>
-    </div>
-
-    <div class="form-group">
-      <label class="desc">
-        {{ $t('infos-build.description') }}
-        <textarea
-          type="text"
-          maxlength="1500"
-          v-model="description"
-          placeholder="Description du build"
-          class="form-textarea"
-        ></textarea>
-      </label>
-    </div>
-
-    <div class="form-group">
-      <label class="visibility-toggle">
-        <input type="checkbox" v-model="isVisible" />
-        <span class="checkmark"></span>
-        {{ $t('infos-build.public') }}
-      </label>
-    </div>
-
-    <div v-if="connexionStore.userName === 'Lelariva'" class="form-group">
-      <label class="certification-toggle">
-        <input type="checkbox" v-model="isCertified" />
-        <span class="checkmark"></span>
-        Certifier ce build
-      </label>
-    </div>
-
-    <div class="form-actions">
-      <button type="submit" class="btn-submit">
-        {{ $t('infos-build.finish') }}
+      <button 
+        :class="['tab-button', { active: activeTab === 'skills' }]" 
+        @click="activeTab = 'skills'"
+      >
+        {{ $t('infos-build.skills') }}
+      </button>
+      <button 
+        :class="['tab-button', { active: activeTab === 'stats' }]" 
+        @click="activeTab = 'stats'"
+      >
+        {{ $t('infos-build.stats') }}
+      </button>
+      <button 
+        :class="['tab-button', { active: activeTab === 'form' }]" 
+        @click="activeTab = 'form'"
+      >
+        {{ $t('infos-build.form') }}
       </button>
     </div>
-  </form>
+
+    <div class="tab-content">
+      <div v-show="activeTab === 'stats' && championStore.$state.selectedChampion" class="tab-pane">
+        <StatistiquesBuild :build="build" :total="itemStore.$state.ItemsSelection.gold.total" />
+      </div>
+
+      <div v-show="activeTab === 'skills' && championStore.$state.selectedChampion" class="tab-pane skill-up">
+        <SkillUp />
+      </div>
+
+      <div v-show="activeTab === 'form'" class="tab-pane">
+        <form @submit.prevent="submitForm" class="build-form">
+          <div class="form-group">
+            <label>
+              {{ $t('infos-build.name') }} *
+              <input
+                maxlength="58"
+                type="text"
+                required
+                v-model="name"
+                placeholder="Nom du build"
+                class="form-input"
+              />
+            </label>
+          </div>
+
+          <div class="form-group">
+            <label>
+              {{ $t('infos-build.author') }} *
+              <input
+                maxlength="58"
+                type="text"
+                required
+                v-model="author"
+                placeholder="Pseudo de l'auteur"
+                class="form-input"
+              />
+            </label>
+          </div>
+
+          <div class="form-group">
+            <label class="desc">
+              {{ $t('infos-build.description') }}
+              <textarea
+                type="text"
+                maxlength="1500"
+                v-model="description"
+                placeholder="Description du build"
+                class="form-textarea"
+              ></textarea>
+            </label>
+          </div>
+
+          <div class="form-group">
+            <label class="visibility-toggle">
+              <input type="checkbox" v-model="isVisible" />
+              <span class="checkmark"></span>
+              {{ $t('infos-build.public') }}
+            </label>
+          </div>
+
+          <div class="form-actions">
+            <button type="submit" class="btn-submit">
+              {{ $t('infos-build.finish') }}
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
 </template>
 
 <style scoped>
@@ -412,6 +440,74 @@ const submitForm = async () => {
   .btn-submit {
     width: var(--width-all);
     padding: 0.5rem;
+  }
+}
+
+.info-section {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.tabs-container {
+  width: 100%;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.tabs-header {
+  display: flex;
+  border-bottom: 2px solid var(--color-grey-300);
+  margin-bottom: 1.5rem;
+}
+
+.tab-button {
+  padding: 0.75rem 1.5rem;
+  background: transparent;
+  border: none;
+  color: var(--color-grey-200);
+  font-size: var(--text-base);
+  cursor: pointer;
+  transition: all 0.2s;
+  position: relative;
+}
+
+.tab-button:hover {
+  color: var(--color-gold-200);
+}
+
+.tab-button.active {
+  color: var(--color-gold-300);
+  font-weight: bold;
+}
+
+.tab-button.active:after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: var(--color-gold-300);
+}
+
+.tab-content {
+  padding: 0.5rem;
+}
+
+.tab-pane {
+  transition: opacity 0.2s ease-in-out;
+}
+
+@media (max-width: 768px) {
+  .tabs-header {
+    flex-wrap: wrap;
+  }
+  
+  .tab-button {
+    padding: 0.5rem 1rem;
+    font-size: var(--text-sm);
+    flex: 1;
   }
 }
 </style>
