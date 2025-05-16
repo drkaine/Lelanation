@@ -213,5 +213,37 @@
     "shared-builds": "Les builds partagés sont sous licence Creative Commons",
     "league-of-legends": "League of Legends est une marque déposée de Riot Games",
     "no-link": "Nous n'avons pas de lien avec Riot Games ni avec Lelariva"
+  },
+  "stats": {
+    "categories": {
+      "basic": "Statistiques de base",
+      "advanced": "Statistiques avancées",
+      "economic": "Statistiques économiques"
+    },
+    "hp": "HP",
+    "hpregen": "HP Regen",
+    "mp": "Mana",
+    "mpregen": "Mana Regen",
+    "armor": "Armure",
+    "spellblock": "Résistance magique",
+    "attackdamage": "AD",
+    "movespeed": "Vitesse de déplacement",
+    "attackrange": "Portée d'attaque",
+    "attackspeed": "Vitesse d'attaque",
+    "CDR": "CDR",
+    "AP": "AP",
+    "lethality": "Léthalité",
+    "crit": "Chance de critique (%)",
+    "magicPenetration": "Pénétration magique",
+    "shield": "Augmentation bouclier",
+    "omnivamp": "Omnivamp (%)",
+    "tenacity": "Tenacité (%)",
+    "armorDamageReductionPercent": "Réduction dégâts physiques (%)",
+    "magicDamageReductionPercent": "Réduction dégâts magiques (%)",
+    "physicalEffectiveHealth": "Santé effective physique",
+    "magicalEffectiveHealth": "Santé effective magique",
+    "averageEffectiveHealth": "Santé effective moyenne",
+    "goldValue": "Valeur en or",
+    "goldEfficiency": "Efficacité or (%)"
   }
 }

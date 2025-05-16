@@ -1,8 +1,10 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue'
+import { useI18n } from 'vue-i18n'
 import type { Stats } from '@/types/stat'
 import type { Build } from '@/types/build'
 
+const { t } = useI18n()
 const lvl = ref(1)
 
 const showBasicStats = ref(true)
@@ -49,32 +51,8 @@ const formatNumber = (num: number): string => {
   return rounded.toString()
 }
 
-const statTranslations: Record<string, string> = {
-  hp: 'HP',
-  hpregen: 'HP Regen',
-  mp: 'Mana',
-  mpregen: 'Mana Regen',
-  armor: 'Armure',
-  spellblock: 'Résistance magique',
-  attackdamage: 'AD',
-  movespeed: 'Vitesse de déplacement',
-  attackrange: "Portée d'attaque",
-  attackspeed: "Vitesse d'attaque",
-  CDR: 'CDR',
-  AP: 'AP',
-  lethality: 'Léthalité',
-  crit: 'Chance de critique (%)',
-  magicPenetration: 'Pénétration magique',
-  shield: 'Augmentation bouclier',
-  omnivamp: 'Omnivamp (%)',
-  tenacity: 'Tenacité (%)',
-  armorDamageReductionPercent: 'Réduction dégâts physiques (%)',
-  magicDamageReductionPercent: 'Réduction dégâts magiques (%)',
-  physicalEffectiveHealth: 'Santé effective physique',
-  magicalEffectiveHealth: 'Santé effective magique',
-  averageEffectiveHealth: 'Santé effective moyenne',
-  goldValue: 'Valeur en or',
-  goldEfficiency: 'Efficacité or (%)',
+const getStatTranslation = (stat: string): string => {
+  return t(`stats.${stat}`)
 }
 
 const statsList = [
@@ -170,7 +148,7 @@ const hasEconomicStats = computed(() =>
         >
           <td colspan="4" class="stat-category-title">
             <div class="category-header">
-              <span>Statistiques de base</span>
+              <span>{{ t('stats.categories.basic') }}</span>
               <span class="toggle-icon" :class="{ open: showBasicStats }"
                 >▼</span
               >
@@ -186,7 +164,7 @@ const hasEconomicStats = computed(() =>
             :key="stat"
             class="basic-stat"
           >
-            <td>{{ statTranslations[stat] }}</td>
+            <td>{{ getStatTranslation(stat) }}</td>
             <td>
               {{
                 roundValue(props.build?.baseStats[lvl - 1][stat as keyof Stats])
@@ -212,7 +190,7 @@ const hasEconomicStats = computed(() =>
         >
           <td colspan="4" class="stat-category-title">
             <div class="category-header">
-              <span>Statistiques avancées</span>
+              <span>{{ t('stats.categories.advanced') }}</span>
               <span class="toggle-icon" :class="{ open: showDerivedStats }"
                 >▼</span
               >
@@ -228,7 +206,7 @@ const hasEconomicStats = computed(() =>
             :key="stat"
             class="derived-stat"
           >
-            <td>{{ statTranslations[stat] }}</td>
+            <td>{{ getStatTranslation(stat) }}</td>
             <td>
               {{
                 roundValue(props.build?.baseStats[lvl - 1][stat as keyof Stats])
@@ -254,7 +232,7 @@ const hasEconomicStats = computed(() =>
         >
           <td colspan="4" class="stat-category-title">
             <div class="category-header">
-              <span>Statistiques économiques</span>
+              <span>{{ t('stats.categories.economic') }}</span>
               <span class="toggle-icon" :class="{ open: showEconomicStats }"
                 >▼</span
               >
@@ -270,7 +248,7 @@ const hasEconomicStats = computed(() =>
             :key="stat"
             class="economic-stat"
           >
-            <td>{{ statTranslations[stat] }}</td>
+            <td>{{ getStatTranslation(stat) }}</td>
             <td>-</td>
             <td>
               {{ roundValue(props.build?.buildItemStats[stat as keyof Stats]) }}

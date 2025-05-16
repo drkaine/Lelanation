@@ -213,5 +213,37 @@
     "legal": "Legal",
     "contact": "Contact",
     "admin": "Admin"
+  },
+  "stats": {
+    "categories": {
+      "basic": "Basic Statistics",
+      "advanced": "Advanced Statistics",
+      "economic": "Economic Statistics"
+    },
+    "hp": "HP",
+    "hpregen": "HP Regen",
+    "mp": "Mana",
+    "mpregen": "Mana Regen",
+    "armor": "Armor",
+    "spellblock": "Magic Resist",
+    "attackdamage": "AD",
+    "movespeed": "Movement Speed",
+    "attackrange": "Attack Range",
+    "attackspeed": "Attack Speed",
+    "CDR": "CDR",
+    "AP": "AP",
+    "lethality": "Lethality",
+    "crit": "Critical Chance (%)",
+    "magicPenetration": "Magic Penetration",
+    "shield": "Shield Power",
+    "omnivamp": "Omnivamp (%)",
+    "tenacity": "Tenacity (%)",
+    "armorDamageReductionPercent": "Physical Damage Reduction (%)",
+    "magicDamageReductionPercent": "Magic Damage Reduction (%)",
+    "physicalEffectiveHealth": "Physical Effective Health",
+    "magicalEffectiveHealth": "Magic Effective Health",
+    "averageEffectiveHealth": "Average Effective Health",
+    "goldValue": "Gold Value",
+    "goldEfficiency": "Gold Efficiency (%)"
   }
 }
