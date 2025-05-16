@@ -21,11 +21,35 @@ export function calculateBaseStats(
 ): ExtendedStats {
   const levelMultiplier = lvl > 1 ? lvl - 1 : 0
 
+  const armor = Math.round(
+    (championStats.armor ?? 0) +
+      (championStats.armorperlevel ?? 0) * levelMultiplier,
+  )
+  const spellblock = Math.round(
+    (championStats.spellblock ?? 0) +
+      (championStats.spellblockperlevel ?? 0) * levelMultiplier,
+  )
+  const health = Math.round(
+    (championStats.hp ?? 0) + (championStats.hpperlevel ?? 0) * levelMultiplier,
+  )
+
+  const armorDamageReductionPercent =
+    calculateArmorDamageReductionPercent(armor)
+  const magicDamageReductionPercent =
+    calculateMagicDamageReductionPercent(spellblock)
+  const physicalEffectiveHealth = calculatePhysicalEffectiveHealth(
+    health,
+    armor,
+  )
+  const magicalEffectiveHealth = calculateMagicalEffectiveHealth(
+    health,
+    spellblock,
+  )
+  const averageEffectiveHealth =
+    (physicalEffectiveHealth + magicalEffectiveHealth) / 2
+
   const baseStats: ExtendedStats = {
-    armor: Math.round(
-      (championStats.armor ?? 0) +
-        (championStats.armorperlevel ?? 0) * levelMultiplier,
-    ),
+    armor,
     attackdamage: Math.round(
       (championStats.attackdamage ?? 0) +
         (championStats.attackdamageperlevel ?? 0) * levelMultiplier,
@@ -41,10 +65,7 @@ export function calculateBaseStats(
       (championStats.crit ?? 0) +
         (championStats.critperlevel ?? 0) * levelMultiplier,
     ),
-    hp: Math.round(
-      (championStats.hp ?? 0) +
-        (championStats.hpperlevel ?? 0) * levelMultiplier,
-    ),
+    hp: health,
     hpregen: Math.round(
       (championStats.hpregen ?? 0) +
         (championStats.hpregenperlevel ?? 0) * levelMultiplier,
@@ -58,10 +79,7 @@ export function calculateBaseStats(
       (championStats.mpregen ?? 0) +
         (championStats.mpregenperlevel ?? 0) * levelMultiplier,
     ),
-    spellblock: Math.round(
-      (championStats.spellblock ?? 0) +
-        (championStats.spellblockperlevel ?? 0) * levelMultiplier,
-    ),
+    spellblock,
     CDR: 0,
     AP: 0,
     lethality: 0,
@@ -73,31 +91,15 @@ export function calculateBaseStats(
     armorpen: 0,
     magicpen: 0,
     lvl: lvl,
-    armorDamageReductionPercent: 0,
-    magicDamageReductionPercent: 0,
-    physicalEffectiveHealth: 0,
-    magicalEffectiveHealth: 0,
-    averageEffectiveHealth: 0,
+
+    armorDamageReductionPercent:
+      Math.round(armorDamageReductionPercent * 10) / 10,
+    magicDamageReductionPercent:
+      Math.round(magicDamageReductionPercent * 10) / 10,
+    physicalEffectiveHealth: Math.round(physicalEffectiveHealth),
+    magicalEffectiveHealth: Math.round(magicalEffectiveHealth),
+    averageEffectiveHealth: Math.round(averageEffectiveHealth),
   }
-
-  const armor = baseStats.armor
-  const spellblock = baseStats.spellblock
-  const health = baseStats.hp
-
-  baseStats.armorDamageReductionPercent =
-    calculateArmorDamageReductionPercent(armor)
-  baseStats.magicDamageReductionPercent =
-    calculateMagicDamageReductionPercent(spellblock)
-  baseStats.physicalEffectiveHealth = calculatePhysicalEffectiveHealth(
-    health,
-    armor,
-  )
-  baseStats.magicalEffectiveHealth = calculateMagicalEffectiveHealth(
-    health,
-    spellblock,
-  )
-  baseStats.averageEffectiveHealth =
-    (baseStats.physicalEffectiveHealth + baseStats.magicalEffectiveHealth) / 2
 
   return baseStats
 }
@@ -187,39 +189,68 @@ export function calculateTotalStats(
   itemStats: ExtendedStats,
   lvl: number,
 ): ExtendedTotalStats {
+  const totalArmor = Math.round(championStats.armor + itemStats.armor)
+  const totalSpellblock = Math.round(
+    championStats.spellblock + itemStats.spellblock,
+  )
+  const totalHealth = Math.round(championStats.hp + itemStats.hp)
+
+  const armorDamageReductionPercent =
+    calculateArmorDamageReductionPercent(totalArmor)
+  const magicDamageReductionPercent =
+    calculateMagicDamageReductionPercent(totalSpellblock)
+  const physicalEffectiveHealth = calculatePhysicalEffectiveHealth(
+    totalHealth,
+    totalArmor,
+  )
+  const magicalEffectiveHealth = calculateMagicalEffectiveHealth(
+    totalHealth,
+    totalSpellblock,
+  )
+  const averageEffectiveHealth =
+    (physicalEffectiveHealth + magicalEffectiveHealth) / 2
+  const mixedEffectiveHealth = calculateMixedEffectiveHealth(
+    totalHealth,
+    totalArmor,
+    totalSpellblock,
+    50, // 50% physical damage
+    50, // 50% magic damage
+    0, // 0% true damage
+  )
+
   const totalStats = {
-    hp: Number(championStats.hp + itemStats.hp).toFixed(0),
-    attackdamage: Number(
+    hp: totalHealth.toString(),
+    attackdamage: Math.round(
       championStats.attackdamage + itemStats.attackdamage,
-    ).toFixed(0),
-    attackrange: Number(
+    ).toString(),
+    attackrange: Math.round(
       championStats.attackrange + itemStats.attackrange,
-    ).toFixed(0),
-    attackspeed: Number(
-      championStats.attackspeed + itemStats.attackspeed,
+    ).toString(),
+    attackspeed: (
+      Math.round((championStats.attackspeed + itemStats.attackspeed) * 100) /
+      100
     ).toFixed(2),
-    crit: Number(championStats.crit + itemStats.crit).toFixed(0),
-    mp: Number(championStats.mp + itemStats.mp).toFixed(0),
-    movespeed: Number(championStats.movespeed + itemStats.movespeed).toFixed(0),
-    hpregen: Number(championStats.hpregen + itemStats.hpregen).toFixed(0),
-    mpregen: Number(championStats.mpregen + itemStats.mpregen).toFixed(0),
-    spellblock: Number(championStats.spellblock + itemStats.spellblock).toFixed(
-      0,
-    ),
-    armor: Number(championStats.armor + itemStats.armor).toFixed(0),
-    CDR: Number(itemStats.CDR).toFixed(0),
-    AP: Number(itemStats.AP).toFixed(0),
-    lethality: Number(itemStats.lethality).toFixed(0),
-    magicPenetration: Number(itemStats.magicPenetration).toFixed(0),
-    tenacity: Number(itemStats.tenacity).toFixed(0),
-    omnivamp: Number(itemStats.omnivamp).toFixed(0),
-    shield: Number(itemStats.shield).toFixed(0),
-    spellvamp: Number(itemStats.spellvamp).toFixed(0),
-    armorpen: Number(itemStats.armorpen).toFixed(0),
-    magicpen: Number(itemStats.magicpen).toFixed(0),
+    crit: Math.round(championStats.crit + itemStats.crit).toString(),
+    mp: Math.round(championStats.mp + itemStats.mp).toString(),
+    movespeed: Math.round(
+      championStats.movespeed + itemStats.movespeed,
+    ).toString(),
+    hpregen: Math.round(championStats.hpregen + itemStats.hpregen).toString(),
+    mpregen: Math.round(championStats.mpregen + itemStats.mpregen).toString(),
+    spellblock: totalSpellblock.toString(),
+    armor: totalArmor.toString(),
+    CDR: Math.round(itemStats.CDR).toString(),
+    AP: Math.round(itemStats.AP).toString(),
+    lethality: Math.round(itemStats.lethality).toString(),
+    magicPenetration: Math.round(itemStats.magicPenetration).toString(),
+    tenacity: Math.round(itemStats.tenacity).toString(),
+    omnivamp: Math.round(itemStats.omnivamp).toString(),
+    shield: Math.round(itemStats.shield).toString(),
+    spellvamp: Math.round(itemStats.spellvamp).toString(),
+    armorpen: Math.round(itemStats.armorpen).toString(),
+    magicpen: Math.round(itemStats.magicpen).toString(),
     lvl: lvl,
 
-    // Objets complexes conformes à TotalStats
     effectiveAS: calculateAttackSpeed({
       baseAS: championStats.attackspeed,
       asRatio: 1,
@@ -234,75 +265,52 @@ export function calculateTotalStats(
       slowRatio: 0,
     }),
 
-    // Objets structurés pour effectiveArmor et effectiveMR
     effectiveArmor: {
-      totalArmor: Number(championStats.armor + itemStats.armor),
-      damageReduction: calculateArmorDamageReductionPercent(
-        Number(championStats.armor + itemStats.armor),
+      totalArmor: totalArmor,
+      damageReduction: (
+        Math.round(armorDamageReductionPercent * 10) / 10
       ).toFixed(1),
-      effectiveHealth: calculatePhysicalEffectiveHealth(
-        Number(championStats.hp + itemStats.hp),
-        Number(championStats.armor + itemStats.armor),
-      ),
+      effectiveHealth: Math.round(physicalEffectiveHealth),
       effectiveHealthMultiplier: (
-        1 +
-        Number(championStats.armor + itemStats.armor) / 100
+        Math.round((1 + totalArmor / 100) * 100) / 100
       ).toFixed(2),
     },
 
     effectiveMR: {
-      totalMR: Number(championStats.spellblock + itemStats.spellblock),
-      damageReduction: calculateMagicDamageReductionPercent(
-        Number(championStats.spellblock + itemStats.spellblock),
+      totalMR: totalSpellblock,
+      damageReduction: (
+        Math.round(magicDamageReductionPercent * 10) / 10
       ).toFixed(1),
-      effectiveHealth: calculateMagicalEffectiveHealth(
-        Number(championStats.hp + itemStats.hp),
-        Number(championStats.spellblock + itemStats.spellblock),
-      ),
+      effectiveHealth: Math.round(magicalEffectiveHealth),
       effectiveHealthMultiplier: (
-        1 +
-        Number(championStats.spellblock + itemStats.spellblock) / 100
+        Math.round((1 + totalSpellblock / 100) * 100) / 100
       ).toFixed(2),
     },
   }
 
-  const totalArmor = Number(totalStats.armor)
-  const totalSpellblock = Number(totalStats.spellblock)
-  const totalHealth = Number(totalStats.hp)
-
-  // Ajouter les propriétés supplémentaires en tant qu'attributs personnalisés
-  // Ces propriétés ne sont pas dans le type TotalStats mais sont utiles pour l'affichage
   const extendedStats = totalStats as ExtendedTotalStats
 
-  extendedStats.armorDamageReductionPercent =
-    calculateArmorDamageReductionPercent(totalArmor).toFixed(1)
-  extendedStats.magicDamageReductionPercent =
-    calculateMagicDamageReductionPercent(totalSpellblock).toFixed(1)
-  extendedStats.physicalEffectiveHealth = calculatePhysicalEffectiveHealth(
-    totalHealth,
-    totalArmor,
-  ).toFixed(0)
-  extendedStats.magicalEffectiveHealth = calculateMagicalEffectiveHealth(
-    totalHealth,
-    totalSpellblock,
-  ).toFixed(0)
-  extendedStats.averageEffectiveHealth = (
-    (Number(extendedStats.physicalEffectiveHealth) +
-      Number(extendedStats.magicalEffectiveHealth)) /
-    2
-  ).toFixed(0)
-
-  extendedStats.mixedEffectiveHealth = calculateMixedEffectiveHealth(
-    totalHealth,
-    totalArmor,
-    totalSpellblock,
-    50,
-    50,
-    0,
-  ).toFixed(0)
-
-  extendedStats.goldValue = (itemStats.goldValue || 0).toString()
-  extendedStats.goldEfficiency = (itemStats.goldEfficiency || 0).toString()
+  extendedStats.armorDamageReductionPercent = (
+    Math.round(armorDamageReductionPercent * 10) / 10
+  ).toFixed(1)
+  extendedStats.magicDamageReductionPercent = (
+    Math.round(magicDamageReductionPercent * 10) / 10
+  ).toFixed(1)
+  extendedStats.physicalEffectiveHealth = Math.round(
+    physicalEffectiveHealth,
+  ).toString()
+  extendedStats.magicalEffectiveHealth = Math.round(
+    magicalEffectiveHealth,
+  ).toString()
+  extendedStats.averageEffectiveHealth = Math.round(
+    averageEffectiveHealth,
+  ).toString()
+  extendedStats.mixedEffectiveHealth =
+    Math.round(mixedEffectiveHealth).toString()
+  extendedStats.goldValue = Math.round(itemStats.goldValue || 0).toString()
+  extendedStats.goldEfficiency = Math.round(
+    itemStats.goldEfficiency || 0,
+  ).toString()
 
   return extendedStats
 }
