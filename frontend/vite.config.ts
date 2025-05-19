@@ -7,6 +7,7 @@ import vueDevTools from 'vite-plugin-vue-devtools'
 
 // https://vite.dev/config/
 export default defineConfig({
+  base: process.env.NODE_ENV === 'production' ? '/' : '/',
   plugins: [
     vue(),
     vueJsx(),
@@ -33,7 +34,20 @@ export default defineConfig({
           if (id.includes('locales/')) {
             return 'i18n'
           }
-        }
+        },
+        assetFileNames: (assetInfo) => {
+          const info = assetInfo.name ? assetInfo.name.split('.') : ['']
+          const ext = info[info.length - 1]
+          if (/png|jpe?g|svg|gif|tiff|bmp|ico/i.test(ext)) {
+            return `assets/images/[name]-[hash].[ext]`
+          }
+          if (/css/i.test(ext)) {
+            return `assets/css/[name]-[hash].[ext]`
+          }
+          return `assets/[name]-[hash].[ext]`
+        },
+        chunkFileNames: 'assets/js/[name]-[hash].js',
+        entryFileNames: 'assets/js/[name]-[hash].js'
       }
     },
     assetsInlineLimit: 0,
@@ -50,6 +64,9 @@ export default defineConfig({
         target: 'http://localhost:3500',
         changeOrigin: true
       }
+    },
+    headers: {
+      'Permissions-Policy': ''
     }
   },
   json: {
