@@ -18,9 +18,16 @@ const connexionStore = useConnexionStore()
 const route = useRoute()
 const router = useRouter()
 const buildStore = useBuildStore()
+const type = route.params.type as string | undefined
 const fileName = route.params.fileName as string
+const apiUrl =
+  type === 'lelariva'
+    ? `/api/build/lelariva/${fileName}`
+    : `/api/build/${fileName}`
 const buildData = ref<BuildData | null>(null)
-const isAdmin = computed(() => connexionStore.userName === import.meta.env.VITE_NAME)
+const isAdmin = computed(
+  () => connexionStore.userName === import.meta.env.VITE_NAME,
+)
 
 const championStore = useChampionStore()
 const runeStore = useRuneStore()
@@ -29,15 +36,12 @@ const shardStore = useShardStore()
 const itemStore = useItemStore()
 const roleStore = useRoleStore()
 
-let path = ''
-
-let response = await fetch(`/api/build/${fileName}`)
+let response = await fetch(apiUrl)
 
 let lelarivaBuild = false
 
 if (!response.ok) {
-  path = 'lelariva/'
-  response = await fetch(`/api/build/${path}${fileName}`)
+  response = await fetch(`/api/build/${fileName}`)
   lelarivaBuild = true
 }
 
@@ -47,7 +51,7 @@ buildData.value = data
 
 async function deleteBuild() {
   try {
-    const response = await fetch(`/api/build/${path}${fileName}`, {
+    const response = await fetch(apiUrl, {
       method: 'DELETE',
     })
 
@@ -56,31 +60,6 @@ async function deleteBuild() {
     router.push('/build')
   } catch (error) {
     console.error('Erreur lors de la suppression:', error)
-  }
-}
-
-async function toggleCertification() {
-  try {
-    if (!buildData.value) return
-
-    const updatedBuild = {
-      ...buildData.value,
-      certified: !buildData.value.certified,
-    }
-
-    const response = await fetch(`/api/update/${path}${fileName}`, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(updatedBuild),
-    })
-
-    if (!response.ok) throw new Error('Erreur lors de la mise à jour')
-
-    buildData.value = updatedBuild
-  } catch (error) {
-    console.error('Erreur lors de la certification:', error)
   }
 }
 
@@ -251,8 +230,8 @@ const editBuild = () => {
           <div
             class="edit-actions"
             v-if="
-              (path === 'lelariva/' && isAdmin) ||
-              (path === '' &&
+              (lelarivaBuild && isAdmin) ||
+              (!lelarivaBuild &&
                 buildStore.userBuilds.some(
                   (build: BuildData) => build.id === buildData?.id,
                 ))
@@ -265,7 +244,6 @@ const editBuild = () => {
               {{ $t('build-recap.delete') }}
             </button>
           </div>
-
         </div>
 
         <section class="sheet-section">

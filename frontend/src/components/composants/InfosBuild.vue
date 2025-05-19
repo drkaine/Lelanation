@@ -30,7 +30,9 @@ const itemStore = useItemStore()
 const buildStore = useBuildStore()
 const roleStore = useRoleStore()
 const connexionStore = useConnexionStore()
-const isAdmin = computed(() => connexionStore.userName === import.meta.env.VITE_NAME)
+const isAdmin = computed(
+  () => connexionStore.userName === import.meta.env.VITE_NAME,
+)
 
 const name = ref(buildStore.buildToEdit ? buildStore.buildToEdit.name : '')
 const description = ref(

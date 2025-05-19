@@ -7,7 +7,7 @@ const { t } = useI18n()
 
 const socialLinks: SocialLink[] = [
   {
-    href: 'https://discord.gg/wxExt22Qjt',
+    href: 'https://discord.com/invite/RrXCpsFGrw',
     icon: 'mdi:discord',
     text: t('home.links.discord'),
   },
@@ -51,6 +51,7 @@ const socialLinks: SocialLink[] = [
       :key="link.href"
       class="social-link"
       :href="link.href"
+      target="_blank"
     >
       <Icon :icon="link.icon" />
       <span>{{ link.text }}</span>

@@ -70,8 +70,8 @@ const routes: RouteRecordRaw[] = [
     component: () => import('../views/LegalView.vue'),
   },
   {
-    path: '/build/:fileName',
-    name: 'build',
+    path: '/build/:type/:fileName',
+    name: 'build-recap-typed',
     component: () => import('../views/BuildRecapView.vue'),
     props: true,
   },

@@ -14,7 +14,9 @@ const connexionStore = useConnexionStore()
 const isLelarivaBuildPage = computed(() =>
   route.path.endsWith('/Lebuildarriva'),
 )
-const isAdmin = computed(() => connexionStore.userName === import.meta.env.VITE_NAME)
+const isAdmin = computed(
+  () => connexionStore.userName === import.meta.env.VITE_NAME,
+)
 const selectedRoles = ref(new Set<string>())
 const searchType = ref('all')
 const searchQuery = ref('')
@@ -57,7 +59,7 @@ const searchPlaceholder = computed(() => {
 
 const filteredBuilds = computed(() => {
   let filtered = isLelarivaBuildPage.value
-    ? isAdmin
+    ? isAdmin.value
       ? builds.value
       : builds.value.filter(build => !build.id?.startsWith('wait_'))
     : buildStore.userBuilds
@@ -129,9 +131,7 @@ const handleDragOver = (e: DragEvent) => {
   e.preventDefault()
 }
 
-const canDragBuild = computed(
-  () => !isLelarivaBuildPage.value || isAdmin.value,
-)
+const canDragBuild = computed(() => !isLelarivaBuildPage.value || isAdmin.value)
 </script>
 
 <template>
@@ -212,16 +212,20 @@ const canDragBuild = computed(
         :class="{ 'no-drag': !canDragBuild }"
       >
         <div
-          v-if="
-            (isLelarivaBuildPage && isAdmin) ||
-            !isLelarivaBuildPage
-          "
+          v-if="(isLelarivaBuildPage && isAdmin) || !isLelarivaBuildPage"
           class="visibility-badge"
           :class="{ 'is-hidden': build.id?.startsWith('wait_') }"
         >
           {{ build.id?.startsWith('wait_') ? 'Privé' : 'Public' }}
         </div>
-        <a :href="`/build/${build.id}`" class="build-link">
+        <router-link
+          :to="
+            isLelarivaBuildPage
+              ? `/build/lelariva/${build.id}`
+              : `/build/default/${build.id}`
+          "
+          class="build-link"
+        >
           <SheetBuild
             :version="build.version"
             :name="build.name"
@@ -238,7 +242,7 @@ const canDragBuild = computed(
             :buildId="build.id"
             @certification-toggled="build.certified = !build.certified"
           />
-        </a>
+        </router-link>
       </div>
     </div>
   </div>

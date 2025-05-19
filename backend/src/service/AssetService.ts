@@ -18,12 +18,30 @@ export class AssetService {
 
       const cleanDirectory = this.sanitizePath(directory);
       if (!this.isAllowedDirectory(cleanDirectory)) {
+        console.error(`Accès refusé au répertoire: ${directory} (nettoyé en: ${cleanDirectory})`);
         res.status(403).json({ error: "Accès non autorisé à ce répertoire" });
         return;
       }
 
-      const baseDir = path.join(__dirname, "../..");
-      const dirPath = path.join(baseDir, cleanDirectory);
+      const baseDir = process.cwd();
+      console.log(`Répertoire de travail actuel: ${baseDir}`);
+      
+      const projectRoot = baseDir.endsWith('/backend') 
+        ? path.dirname(baseDir)
+        : baseDir;
+        
+      let actualDirectory = cleanDirectory;
+      if (cleanDirectory === "data") {
+        actualDirectory = "frontend/src/assets/files/data";
+        console.log(`Remappage spécial du chemin: ${cleanDirectory} -> ${actualDirectory}`);
+      } else if (cleanDirectory.startsWith("public/") || cleanDirectory.startsWith("src/")) {
+        actualDirectory = `frontend/${cleanDirectory}`;
+        console.log(`Remappage du chemin: ${cleanDirectory} -> ${actualDirectory}`);
+      }
+        
+      const dirPath = path.join(projectRoot, actualDirectory);
+
+      console.log(`Tentative d'accès au répertoire: ${dirPath}`);
 
       try {
         const stats = await stat(dirPath);
@@ -33,7 +51,8 @@ export class AssetService {
             .json({ error: "Le chemin spécifié n'est pas un répertoire" });
           return;
         }
-      } catch {
+      } catch (err) {
+        console.error(`Répertoire non trouvé: ${dirPath}`, err);
         res.status(404).json({ error: "Répertoire non trouvé" });
         return;
       }
@@ -65,23 +84,39 @@ export class AssetService {
   }
 
   private sanitizePath(unsafePath: string): string {
-    const normalized = path
+    let normalized = path
       .normalize(unsafePath)
       .replace(/^\.\.(\/|\\|$)+/, "")
       .replace(/[^a-zA-Z0-9/_.-]/g, "");
-
+    
+    normalized = normalized.replace(/^\/+/, "");
+    
     return normalized;
   }
 
   private isAllowedDirectory(dirPath: string): boolean {
     const allowedDirectories = [
-      "public",
-      "public/assets",
+      "frontend/public",
+      "frontend/public/assets",
+      "frontend/public/assets/icons",
+      "frontend/public/assets/images",
+      "frontend/public/assets/files",
+      "frontend/public/assets/tiers-listes",
+      "frontend/src/assets/files",
+      "frontend/src/assets/files/data",
+      "frontend/src/assets/files/contact",
+      "frontend/src/assets/files/dictionnaire",
+      "frontend/src/assets/files/data-manuel",
+      "data",
       "public/assets/icons",
       "public/assets/images",
       "public/assets/files",
       "public/assets/tiers-listes",
-      "data",
+      "src/assets/files",
+      "src/assets/files/data",
+      "src/assets/files/contact",
+      "src/assets/files/dictionnaire",
+      "src/assets/files/data-manuel"
     ];
 
     return allowedDirectories.some(
