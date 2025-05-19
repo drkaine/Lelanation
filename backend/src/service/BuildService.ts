@@ -11,7 +11,7 @@ export const buildService = {
     const { filename } = req.params;
     const data = req.body;
     const filePath = path.join(__dirname, this.path + folder, filename);
-
+    console.log(filePath);
     await saveFile(JSON.stringify(data), filePath);
     res.sendStatus(200);
   },
@@ -21,7 +21,7 @@ export const buildService = {
 
     const filename = req.params.filename;
     const filePath = path.join(__dirname, this.path + folder + filename);
-
+    console.log(filePath);
     if (existsSync(filePath)) {
       await unlink(filePath);
     }
@@ -36,6 +36,7 @@ export const buildService = {
       this.path + folder,
       req.params.fileName,
     );
+    console.log(filePath);
     await unlink(filePath);
     res.status(200).send("Build supprimé");
   },

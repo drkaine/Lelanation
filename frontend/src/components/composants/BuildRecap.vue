@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useRoute, useRouter } from 'vue-router'
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import SheetBuild from '@/components/composants/SheetBuild.vue'
 import type { BuildData } from '@/types/build'
 import { useBuildStore } from '@/stores/buildStore'
@@ -20,6 +20,7 @@ const router = useRouter()
 const buildStore = useBuildStore()
 const fileName = route.params.fileName as string
 const buildData = ref<BuildData | null>(null)
+const isAdmin = computed(() => connexionStore.userName === import.meta.env.VITE_NAME)
 
 const championStore = useChampionStore()
 const runeStore = useRuneStore()
@@ -250,8 +251,7 @@ const editBuild = () => {
           <div
             class="edit-actions"
             v-if="
-              (path === 'lelariva/' &&
-                connexionStore.userName === 'Lelariva') ||
+              (path === 'lelariva/' && isAdmin) ||
               (path === '' &&
                 buildStore.userBuilds.some(
                   (build: BuildData) => build.id === buildData?.id,
@@ -266,18 +266,6 @@ const editBuild = () => {
             </button>
           </div>
 
-          <div
-            class="certification-actions"
-            v-if="connexionStore.userName === 'Lelariva' && buildData"
-          >
-            <button class="btn certification" @click="toggleCertification">
-              {{
-                buildData?.certified
-                  ? $t('build-recap.uncertify')
-                  : $t('build-recap.certify')
-              }}
-            </button>
-          </div>
         </div>
 
         <section class="sheet-section">

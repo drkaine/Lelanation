@@ -8,7 +8,7 @@ import { useBuildStore } from '@/stores/buildStore'
 import { useRoleStore } from '@/stores/roleStore'
 import { useStepStore } from '@/stores/stepStore'
 import { useConnexionStore } from '@/stores/connexionStore'
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import { v4 as uuidv4 } from 'uuid'
 import version from '@/assets/files/data/lastVersion.json'
 import { useRouter } from 'vue-router'
@@ -30,6 +30,7 @@ const itemStore = useItemStore()
 const buildStore = useBuildStore()
 const roleStore = useRoleStore()
 const connexionStore = useConnexionStore()
+const isAdmin = computed(() => connexionStore.userName === import.meta.env.VITE_NAME)
 
 const name = ref(buildStore.buildToEdit ? buildStore.buildToEdit.name : '')
 const description = ref(
@@ -41,7 +42,13 @@ const isVisible = ref(
 const isCertified = ref(
   buildStore.buildToEdit ? buildStore.buildToEdit.certified || false : false,
 )
-const author = ref(buildStore.buildToEdit ? buildStore.buildToEdit.author : '')
+const author = ref(
+  isAdmin.value
+    ? 'Lelariva'
+    : buildStore.buildToEdit
+      ? buildStore.buildToEdit.author
+      : '',
+)
 const championStats =
   championStore.$state.selectedChampion !== null
     ? championStore.$state.selectedChampion.stats
@@ -98,8 +105,7 @@ const submitForm = async () => {
     description: description.value,
     version: version,
     visible: isVisible.value,
-    certified:
-      connexionStore.userName === 'Lelariva' ? isCertified.value : false,
+    certified: isAdmin.value ? false : isCertified.value,
     sheet: {
       champion: championStore.$state.selectedChampion,
       runes: runeStore.$state.runesSelection,
@@ -110,12 +116,11 @@ const submitForm = async () => {
     },
     buildStats: build,
   }
-
   try {
     let response
     let path = ''
 
-    if (connexionStore.userName === 'Lelariva') {
+    if (isAdmin.value) {
       path = 'lelariva/'
     }
 

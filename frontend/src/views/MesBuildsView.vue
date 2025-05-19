@@ -14,6 +14,7 @@ const connexionStore = useConnexionStore()
 const isLelarivaBuildPage = computed(() =>
   route.path.endsWith('/Lebuildarriva'),
 )
+const isAdmin = computed(() => connexionStore.userName === import.meta.env.VITE_NAME)
 const selectedRoles = ref(new Set<string>())
 const searchType = ref('all')
 const searchQuery = ref('')
@@ -56,7 +57,7 @@ const searchPlaceholder = computed(() => {
 
 const filteredBuilds = computed(() => {
   let filtered = isLelarivaBuildPage.value
-    ? connexionStore.userName === 'Lelariva'
+    ? isAdmin
       ? builds.value
       : builds.value.filter(build => !build.id?.startsWith('wait_'))
     : buildStore.userBuilds
@@ -129,7 +130,7 @@ const handleDragOver = (e: DragEvent) => {
 }
 
 const canDragBuild = computed(
-  () => !isLelarivaBuildPage.value || connexionStore.userName === 'Lelariva',
+  () => !isLelarivaBuildPage.value || isAdmin.value,
 )
 </script>
 
@@ -212,7 +213,7 @@ const canDragBuild = computed(
       >
         <div
           v-if="
-            (isLelarivaBuildPage && connexionStore.userName === 'Lelariva') ||
+            (isLelarivaBuildPage && isAdmin) ||
             !isLelarivaBuildPage
           "
           class="visibility-badge"

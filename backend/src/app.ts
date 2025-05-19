@@ -317,12 +317,12 @@ cron.schedule("0 4 * * *", () => {
     );
 });
 
-// cron.schedule("0 * * * *", () => {
+cron.schedule("0 * * * *", () => {
   const heure = new Date().getHours();
   console.log(`Tâche cron exécutée à ${heure}h00`);
   compilation();
   console.log("Tâche cron finie");
-// });
+});
 
 cron.schedule("0 2 * * *", () => {
   console.log("Tâche cron exécutée à 02h00");
