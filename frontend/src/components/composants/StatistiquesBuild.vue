@@ -264,7 +264,7 @@ const hasEconomicStats = computed(() =>
         </template>
 
         <tr>
-          <td>{{ $t('build-recap.gold') }}</td>
+          <td>{{ $t('stats.goldValue') }}</td>
           <td>0</td>
           <td>{{ props.total }}</td>
           <td>{{ props.total }}</td>
