@@ -6,14 +6,11 @@ dotenv.config();
 const REDIS_URL = process.env.REDIS_URL || "redis://127.0.0.1:6379";
 const CACHE_TTL = parseInt(process.env.REDIS_CACHE_TTL || "3600"); // TTL par défaut: 1 heure
 
-// Interface for cache entry
 interface CacheEntry<T> {
   value: T;
   expiry: number;
 }
 
-// Mémoire locale pour le fallback quand Redis n'est pas disponible
-// Conçue pour dégradation gracieuse du service, pas pour remplacer Redis
 class LocalCacheStore {
   private store: Map<string, CacheEntry<unknown>>;
   private maxSize: number;
@@ -24,9 +21,7 @@ class LocalCacheStore {
   }
 
   set<T>(key: string, value: T, ttl: number): void {
-    // Éviter de dépasser la taille maximale
     if (this.store.size >= this.maxSize) {
-      // Stratégie simple: supprimer l'entrée la plus ancienne
       const iterator = this.store.keys();
       const oldestKey = iterator.next().value;
       if (oldestKey) {
@@ -43,7 +38,6 @@ class LocalCacheStore {
 
     if (!entry) return null;
 
-    // Vérifier si l'entrée a expiré
     if (entry.expiry < Date.now()) {
       this.store.delete(key);
       return null;
@@ -72,10 +66,8 @@ class LocalCacheStore {
   }
 }
 
-// Créer l'instance du cache local
 const localCache = new LocalCacheStore();
 
-// Configuration robuste pour le client Redis
 const redisClient = createClient({
   url: REDIS_URL,
   socket: {
@@ -92,7 +84,6 @@ const redisClient = createClient({
   },
 });
 
-// Gestionnaires d'événements améliorés
 redisClient.on("error", (err) => {
   console.error("Erreur de connexion Redis:", err);
 });
@@ -118,7 +109,6 @@ const connectRedis = async () => {
     await redisClient.connect();
     console.log("Connexion Redis établie");
 
-    // Ping pour vérifier la connexion
     const pong = await redisClient.ping();
     console.log(`Test de connexion Redis: ${pong}`);
 
@@ -129,7 +119,6 @@ const connectRedis = async () => {
   }
 };
 
-// Helper pour vérifier si Redis est disponible
 const isRedisAvailable = () => {
   return redisClient.isReady && redisClient.isOpen;
 };
@@ -141,7 +130,6 @@ const redisUtils = {
         const data = await redisClient.get(key);
         return data ? (JSON.parse(data) as T) : null;
       } else {
-        // Fallback vers le cache local
         console.log(
           `Redis indisponible, utilisation du cache local pour GET ${key}`,
         );
@@ -149,7 +137,6 @@ const redisUtils = {
       }
     } catch (error) {
       console.error(`Erreur lors de la récupération de ${key}:`, error);
-      // En cas d'erreur, essayer le cache local
       return localCache.get(key) as T | null;
     }
   },
@@ -157,7 +144,6 @@ const redisUtils = {
   async set<T>(key: string, value: T, ttl: number = CACHE_TTL): Promise<void> {
     try {
       const stringValue = JSON.stringify(value);
-      // Toujours mettre en cache localement
       localCache.set(key, JSON.parse(stringValue), ttl);
 
       if (isRedisAvailable()) {
@@ -169,7 +155,6 @@ const redisUtils = {
       }
     } catch (error) {
       console.error(`Erreur lors du stockage de ${key}:`, error);
-      // S'assurer que le cache local est mis à jour même en cas d'erreur Redis
       try {
         localCache.set(key, JSON.parse(JSON.stringify(value)), ttl);
       } catch (e) {
@@ -180,7 +165,6 @@ const redisUtils = {
 
   async del(...keys: string[]): Promise<void> {
     try {
-      // Supprimer du cache local
       keys.forEach((key) => localCache.del(key));
 
       if (isRedisAvailable() && keys.length > 0) {
@@ -193,7 +177,6 @@ const redisUtils = {
 
   async delByPattern(pattern: string): Promise<void> {
     try {
-      // Supprimer du cache local
       localCache.delByPattern(pattern);
 
       if (isRedisAvailable()) {
@@ -216,7 +199,6 @@ const redisUtils = {
         const result = await redisClient.exists(key);
         return result === 1;
       } else {
-        // Fallback vers le cache local
         return localCache.exists(key);
       }
     } catch (error) {
@@ -224,7 +206,6 @@ const redisUtils = {
         `Erreur lors de la vérification de l'existence de ${key}:`,
         error,
       );
-      // Fallback vers le cache local
       return localCache.exists(key);
     }
   },

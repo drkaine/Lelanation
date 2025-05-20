@@ -1,8 +1,8 @@
 import { onMounted } from 'vue'
 
 const IMPORTANT_IMAGES = [
-  '/public/assets/images/lelariva.png',
-  '/public/assets/images/lelariva-quality.png',
+  '/assets/images/lelariva.png',
+  '/assets/images/lelariva-quality.png',
 ]
 
 const COMMON_ICONS = ['']

@@ -107,16 +107,6 @@ export class AssetService {
       "frontend/src/assets/files/contact",
       "frontend/src/assets/files/dictionnaire",
       "frontend/src/assets/files/data-manuel",
-      "data",
-      "public/assets/icons",
-      "public/assets/images",
-      "public/assets/files",
-      "public/assets/tiers-listes",
-      "src/assets/files",
-      "src/assets/files/data",
-      "src/assets/files/contact",
-      "src/assets/files/dictionnaire",
-      "src/assets/files/data-manuel"
     ];
 
     return allowedDirectories.some(
