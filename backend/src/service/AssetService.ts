@@ -17,28 +17,48 @@ export class AssetService {
       }
 
       const cleanDirectory = this.sanitizePath(directory);
-      if (!this.isAllowedDirectory(cleanDirectory)) {
-        console.error(`Accès refusé au répertoire: ${directory} (nettoyé en: ${cleanDirectory})`);
+      console.log(`Chemin nettoyé: ${cleanDirectory}`);
+
+      const baseDir = process.cwd();
+      console.log(`Répertoire de travail actuel: ${baseDir}`);
+
+      const projectRoot = baseDir.endsWith("/backend")
+        ? path.dirname(baseDir)
+        : baseDir;
+
+      let actualDirectory = cleanDirectory;
+      if (cleanDirectory === "data") {
+        actualDirectory = "frontend/src/assets/files/data";
+        console.log(
+          `Remappage spécial du chemin: ${cleanDirectory} -> ${actualDirectory}`,
+        );
+      } else if (
+        cleanDirectory.startsWith("public/") ||
+        cleanDirectory === "public"
+      ) {
+        actualDirectory = `frontend/${cleanDirectory}`;
+        console.log(
+          `Remappage du chemin: ${cleanDirectory} -> ${actualDirectory}`,
+        );
+      } else if (
+        cleanDirectory.startsWith("src/") ||
+        cleanDirectory === "src"
+      ) {
+        actualDirectory = `frontend/${cleanDirectory}`;
+        console.log(
+          `Remappage du chemin: ${cleanDirectory} -> ${actualDirectory}`,
+        );
+      }
+
+      console.log(`Vérification d'accès pour: ${actualDirectory}`);
+      if (!this.isAllowedDirectory(actualDirectory)) {
+        console.error(
+          `Accès refusé au répertoire: ${directory} (nettoyé en: ${actualDirectory})`,
+        );
         res.status(403).json({ error: "Accès non autorisé à ce répertoire" });
         return;
       }
 
-      const baseDir = process.cwd();
-      console.log(`Répertoire de travail actuel: ${baseDir}`);
-      
-      const projectRoot = baseDir.endsWith('/backend') 
-        ? path.dirname(baseDir)
-        : baseDir;
-        
-      let actualDirectory = cleanDirectory;
-      if (cleanDirectory === "data") {
-        actualDirectory = "frontend/src/assets/files/data";
-        console.log(`Remappage spécial du chemin: ${cleanDirectory} -> ${actualDirectory}`);
-      } else if (cleanDirectory.startsWith("public/") || cleanDirectory.startsWith("src/")) {
-        actualDirectory = `frontend/${cleanDirectory}`;
-        console.log(`Remappage du chemin: ${cleanDirectory} -> ${actualDirectory}`);
-      }
-        
       const dirPath = path.join(projectRoot, actualDirectory);
 
       console.log(`Tentative d'accès au répertoire: ${dirPath}`);
@@ -88,14 +108,19 @@ export class AssetService {
       .normalize(unsafePath)
       .replace(/^\.\.(\/|\\|$)+/, "")
       .replace(/[^a-zA-Z0-9/_.-]/g, "");
-    
+
     normalized = normalized.replace(/^\/+/, "");
-    
+
     return normalized;
   }
 
   private isAllowedDirectory(dirPath: string): boolean {
-    const allowedDirectories = [
+    // Normaliser le chemin pour la comparaison
+    const normalizedPath = dirPath.replace(/^\/+/, "").replace(/\/+$/, "");
+    console.log(`Chemin normalisé pour vérification: ${normalizedPath}`);
+
+    const allowedPaths = [
+      // Chemins frontend complets
       "frontend/public",
       "frontend/public/assets",
       "frontend/public/assets/icons",
@@ -107,11 +132,37 @@ export class AssetService {
       "frontend/src/assets/files/contact",
       "frontend/src/assets/files/dictionnaire",
       "frontend/src/assets/files/data-manuel",
+      // Chemins raccourcis
+      "public",
+      "public/assets",
+      "public/assets/icons",
+      "public/assets/images",
+      "public/assets/files",
+      "public/assets/tiers-listes",
+      "src/assets/files",
+      "src/assets/files/data",
+      "src/assets/files/contact",
+      "src/assets/files/dictionnaire",
+      "src/assets/files/data-manuel",
+      "data",
     ];
 
-    return allowedDirectories.some(
-      (allowed) => dirPath === allowed || dirPath.startsWith(`${allowed}/`),
+    for (const allowedPath of allowedPaths) {
+      if (
+        normalizedPath === allowedPath ||
+        normalizedPath.startsWith(`${allowedPath}/`)
+      ) {
+        console.log(
+          `Accès autorisé: ${normalizedPath} correspond à ${allowedPath}`,
+        );
+        return true;
+      }
+    }
+
+    console.log(
+      `Accès refusé: ${normalizedPath} ne correspond à aucun chemin autorisé`,
     );
+    return false;
   }
 }
 

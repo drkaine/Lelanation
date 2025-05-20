@@ -1,11 +1,4 @@
 const CACHE_NAME = 'lelanation-cache-v1';
-const urlsToCache = [
-  '/',
-  '/index.html',
-  '/assets/fonts/beaufort.woff2',
-  '/assets/images/lelariva.png',
-  '/assets/images/lelariva-quality.png',
-];
 
 self.addEventListener('fetch', (event) => {
   event.respondWith(
