@@ -44,7 +44,7 @@ async function initRedis() {
 
     if (redisConnected) {
       console.log(
-        "Serveur en cours d'exécution sur le port 3500 avec cache Redis",
+        `Serveur en cours d'exécution sur le port ${PORT} avec cache Redis`,
       );
 
       setInterval(async () => {
@@ -55,7 +55,7 @@ async function initRedis() {
       }, 30000);
     } else {
       console.log(
-        "Serveur en cours d'exécution sur le port 3500 sans cache Redis",
+        `Serveur en cours d'exécution sur le port ${PORT} sans cache Redis`,
       );
 
       setInterval(async () => {
@@ -74,7 +74,7 @@ async function initRedis() {
       err,
     );
     console.log(
-      "Serveur en cours d'exécution sur le port 3500 sans cache Redis",
+      `Serveur en cours d'exécution sur le port ${PORT} sans cache Redis`,
     );
 
     setTimeout(initRedis, 10000);
@@ -89,7 +89,7 @@ app.use(cacheMonitoringMiddleware());
 
 app.use(cors(config.cors));
 
-const PORT = process.env.PORT || 3500;
+const PORT = process.env.PORT || 3000;
 
 app.use(express.json({ limit: "50mb" }));
 app.use(express.urlencoded({ limit: "50mb", extended: true }));
