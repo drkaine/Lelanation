@@ -6,7 +6,7 @@ import cors from "cors";
 import dotenv from "dotenv";
 import path from "path";
 
-import { Response } from "express";
+import { Request, Response } from "express";
 import { config } from "./config";
 import { buildService } from "./service/BuildService";
 import { type MulterRequest } from "./types";
@@ -89,7 +89,7 @@ app.use(cacheMonitoringMiddleware());
 
 app.use(cors(config.cors));
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3500;
 
 app.use(express.json({ limit: "50mb" }));
 app.use(express.urlencoded({ limit: "50mb", extended: true }));
@@ -147,14 +147,17 @@ app.post(
 );
 app.put(
   "/api/update/:filename",
-  invalidateCacheMiddleware(["builds:*"]),
+  invalidateCacheMiddleware(["builds:*", `cache:/api/builds`]),
   async (req, res) => {
     buildService.updateBuild(req, res);
   },
 );
 app.put(
   "/api/update/lelariva/:filename",
-  invalidateCacheMiddleware(["builds:lelariva:*"]),
+  invalidateCacheMiddleware([
+    "builds:lelariva:*",
+    `cache:/api/builds/lelariva`,
+  ]),
   async (req, res) => {
     buildService.updateLelarivaBuild(req, res);
   },
@@ -180,6 +183,7 @@ app.get(
   cacheMiddleware({
     ttl: 3600,
     keyFn: (req) => `builds:${req.params.fileName}`,
+    bypassCache: (req: Request) => req.query.nocache === "true",
   }),
   async (req, res) => {
     buildService.getBuild(req, res);
@@ -192,6 +196,7 @@ app.get(
   cacheMiddleware({
     ttl: 3600,
     keyFn: (req) => `builds:lelariva:${req.params.fileName}`,
+    bypassCache: (req: Request) => req.query.nocache === "true",
   }),
   async (req, res) => {
     buildService.getLelarivaBuild(req, res);
@@ -201,7 +206,10 @@ app.get(
 app.get(
   "/api/builds/lelariva",
   apiCache,
-  cacheMiddleware({ ttl: 300 }),
+  cacheMiddleware({
+    ttl: 300,
+    bypassCache: (req: Request) => req.query.nocache === "true",
+  }),
   async (req, res) => {
     buildService.getAllLelarivaBuilds(req, res);
   },
@@ -210,7 +218,10 @@ app.get(
 app.get(
   "/api/builds",
   apiCache,
-  cacheMiddleware({ ttl: 300 }),
+  cacheMiddleware({
+    ttl: 300,
+    bypassCache: (req: Request) => req.query.nocache === "true",
+  }),
   async (req, res) => {
     buildService.getAllBuilds(req, res);
   },

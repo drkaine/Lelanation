@@ -165,10 +165,14 @@ const redisUtils = {
 
   async del(...keys: string[]): Promise<void> {
     try {
+      if (keys.length === 0) return;
+
+      console.log(`Suppression des clés du cache: ${keys.join(", ")}`);
       keys.forEach((key) => localCache.del(key));
 
       if (isRedisAvailable() && keys.length > 0) {
         await redisClient.del(keys);
+        console.log(`Clés supprimées de Redis: ${keys.join(", ")}`);
       }
     } catch (error) {
       console.error(`Erreur lors de la suppression des clés:`, error);
@@ -177,12 +181,20 @@ const redisUtils = {
 
   async delByPattern(pattern: string): Promise<void> {
     try {
+      console.log(`Tentative de suppression des clés avec motif: ${pattern}`);
       localCache.delByPattern(pattern);
 
       if (isRedisAvailable()) {
         const keys = await redisClient.keys(pattern);
+        console.log(
+          `Clés Redis trouvées pour le motif ${pattern}: ${keys.length > 0 ? keys.join(", ") : "aucune"}`,
+        );
+
         if (keys.length > 0) {
           await redisClient.del(keys);
+          console.log(
+            `${keys.length} clés supprimées de Redis pour le motif ${pattern}`,
+          );
         }
       }
     } catch (error) {

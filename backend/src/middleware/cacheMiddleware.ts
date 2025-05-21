@@ -4,7 +4,7 @@ import { redisUtils, isRedisAvailable } from "../utils/redisClient";
 interface CacheOptions {
   ttl?: number;
   keyFn?: (req: Request) => string;
-  bypassCache?: boolean;
+  bypassCache?: boolean | ((req: Request) => boolean);
 }
 
 export const cacheMiddleware = (options: CacheOptions = {}) => {
@@ -13,7 +13,12 @@ export const cacheMiddleware = (options: CacheOptions = {}) => {
     res: Response,
     next: NextFunction,
   ): Promise<void> => {
-    if (req.method !== "GET" || options.bypassCache) {
+    const shouldBypassCache =
+      typeof options.bypassCache === "function"
+        ? options.bypassCache(req)
+        : options.bypassCache;
+
+    if (req.method !== "GET" || shouldBypassCache) {
       return next();
     }
 
@@ -79,13 +84,48 @@ export const invalidateCacheMiddleware = (patterns: string[]) => {
       callback?: () => void,
     ) {
       if (res.statusCode >= 200 && res.statusCode < 300) {
-        Promise.all(patterns.map((pattern) => redisUtils.delByPattern(pattern)))
+        // Add specific cache key invalidation for builds
+        const specificKeys: string[] = [];
+
+        if (req.params.filename || req.params.fileName) {
+          const fileName = req.params.filename || req.params.fileName;
+          const path = req.path || "";
+
+          if (path.includes("lelariva")) {
+            specificKeys.push(`builds:lelariva:${fileName}`);
+          } else {
+            specificKeys.push(`builds:${fileName}`);
+          }
+        }
+
+        // Also invalidate collection cache keys
+        if (patterns.some((p) => p.includes("builds:"))) {
+          specificKeys.push("cache:/api/builds");
+          specificKeys.push("cache:/api/builds/lelariva");
+        }
+
+        // Combine all cache invalidation tasks
+        const invalidationTasks = [
+          ...patterns.map((pattern) => redisUtils.delByPattern(pattern)),
+          ...specificKeys.map((key) => redisUtils.del(key)),
+        ];
+
+        Promise.all(invalidationTasks)
           .then(() => {
             console.log(
               `Cache invalidé pour les patterns: ${patterns.join(", ")}`,
             );
+            if (specificKeys.length > 0) {
+              console.log(
+                `Cache invalidé pour les clés spécifiques: ${specificKeys.join(", ")}`,
+              );
+            }
+
             if (!res.headersSent) {
-              res.setHeader("X-Cache-Invalidated", patterns.join(","));
+              res.setHeader(
+                "X-Cache-Invalidated",
+                [...patterns, ...specificKeys].join(","),
+              );
             }
           })
           .catch((err) =>
