@@ -161,7 +161,6 @@ export default {
         </div>
       </div>
 
-      <!-- Pagination -->
       <div class="pagination">
         <button
           :disabled="currentPage === 1"
@@ -171,7 +170,6 @@ export default {
           {{ $t('short.previous') }}
         </button>
 
-        <!-- Ajout du sélecteur de page -->
         <div class="page-selector-container">
           <select v-model="currentPage" class="page-selector">
             <option v-for="page in totalPages" :key="page" :value="page">

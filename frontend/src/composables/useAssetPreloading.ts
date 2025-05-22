@@ -1,6 +1,7 @@
 import { onMounted } from 'vue'
 
 const IMPORTANT_IMAGES = [
+  '/assets/images/lelariva.webp',
   '/assets/images/lelariva.png',
   '/assets/images/lelariva-quality.png',
 ]

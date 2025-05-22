@@ -1,4 +1,5 @@
 @font-face {
+  font-display: swap;
   font-family: 'BeaufortForLoL';
   src:
     url('../fonts/BeaufortforLOL-Bold.ttf') format('opentype'),
@@ -13,6 +14,7 @@
 }
 
 @font-face {
+  font-display: swap;
   font-family: 'BeaufortForLoL';
   src: url('../fonts/BeaufortforLOL-Bold.ttf') format('opentype');
   font-weight: bold;
@@ -21,6 +23,7 @@
 }
 
 @font-face {
+  font-display: swap;
   font-family: 'Spiegel';
   src: url('../fonts/Spiegel-Regular.ttf') format('opentype');
   font-weight: normal;
@@ -29,6 +32,7 @@
 }
 
 @font-face {
+  font-display: swap;
   font-family: 'Spiegel';
   src: url('../fonts/Spiegel-Bold.ttf') format('opentype');
   font-weight: bold;
@@ -37,6 +41,7 @@
 }
 
 @font-face {
+  font-display: swap;
   font-family: 'Spiegel';
   src: url('../fonts/Spiegel-SemiBold.otf') format('opentype');
   font-weight: 600;
@@ -45,6 +50,7 @@
 }
 
 @font-face {
+  font-display: swap;
   font-family: 'Spiegel';
   src: url('../fonts/Spiegel-RegularItalic.otf') format('opentype');
   font-weight: normal;
