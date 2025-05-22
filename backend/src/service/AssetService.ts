@@ -32,6 +32,11 @@ export class AssetService {
         console.log(
           `Remappage spécial du chemin: ${cleanDirectory} -> ${actualDirectory}`,
         );
+      } else if (cleanDirectory.startsWith("assets/")) {
+        actualDirectory = `frontend/public/${cleanDirectory}`;
+        console.log(
+          `Remappage du chemin: ${cleanDirectory} -> ${actualDirectory}`,
+        );
       } else if (
         cleanDirectory.startsWith("public/") ||
         cleanDirectory === "public"
@@ -91,7 +96,13 @@ export class AssetService {
       }
 
       const relativePaths = filteredFiles.map((file) => {
-        return `${cleanDirectory.startsWith("/") ? "" : "/"}${cleanDirectory}/${file}`;
+        if (cleanDirectory.startsWith("assets/")) {
+          return `/${cleanDirectory}/${file}`;
+        } else if (cleanDirectory.startsWith("public/assets/")) {
+          return `/${cleanDirectory.replace("public/", "")}/${file}`;
+        } else {
+          return `${cleanDirectory.startsWith("/") ? "" : "/"}${cleanDirectory}/${file}`;
+        }
       });
 
       res.json(relativePaths);

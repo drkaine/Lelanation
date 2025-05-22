@@ -12,17 +12,17 @@ const IMPORTANT_JSON_DATA = ['/data/champions.json', '/data/items.json']
 
 const DIRECTORIES_TO_PRELOAD = [
   {
-    path: '/public/assets/icons',
+    path: '/assets/icons',
     extensions: ['svg', 'png'],
     cacheName: 'images',
   },
   {
-    path: '/public/assets/images',
+    path: '/assets/images',
     extensions: ['png', 'jpg', 'webp'],
     cacheName: 'images',
   },
   {
-    path: '/public/assets/files',
+    path: '/assets/files',
     extensions: ['json'],
     cacheName: 'static-json',
   },

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Test Images</title>
+  <style>
+    body {
+      background-color: #0A0A0B;
+      color: #f0e6d2;
+      font-family: sans-serif;
+      padding: 20px;
+    }
+    img {
+      max-width: 300px;
+      display: block;
+      margin: 20px 0;
+    }
+    .success {
+      color: green;
+    }
+    .fail {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <h1>Image Path Tests</h1>
+  
+  <h2>Testing /assets/images/lelariva.webp</h2>
+  <img src="/assets/images/lelariva.webp" alt="Lelariva WEBP" onerror="this.parentElement.innerHTML += '<p class=\'fail\'>Failed to load</p>';" onload="this.parentElement.innerHTML += '<p class=\'success\'>Successfully loaded</p>';">
+  
+  <h2>Testing /assets/images/lelariva.png</h2>
+  <img src="/assets/images/lelariva.png" alt="Lelariva PNG" onerror="this.parentElement.innerHTML += '<p class=\'fail\'>Failed to load</p>';" onload="this.parentElement.innerHTML += '<p class=\'success\'>Successfully loaded</p>';">
+  
+  <h2>Testing /assets/images/lelariva-quality.png</h2>
+  <img src="/assets/images/lelariva-quality.png" alt="Lelariva Quality PNG" onerror="this.parentElement.innerHTML += '<p class=\'fail\'>Failed to load</p>';" onload="this.parentElement.innerHTML += '<p class=\'success\'>Successfully loaded</p>';">
+
+  <script>
+    // Check console for errors
+    console.log('Test image script running');
+    
+    // Function to check if an image exists
+    const checkImage = (url) => {
+      return new Promise((resolve) => {
+        const img = new Image();
+        img.onload = () => resolve(true);
+        img.onerror = () => resolve(false);
+        img.src = url;
+      });
+    };
+
+    // Test images
+    const testImages = async () => {
+      const images = [
+        '/assets/images/lelariva.webp',
+        '/assets/images/lelariva.png',
+        '/assets/images/lelariva-quality.png'
+      ];
+      
+      for (const img of images) {
+        const exists = await checkImage(img);
+        console.log(`${img}: ${exists ? 'Exists' : 'Not found'}`);
+      }
+    };
+    
+    testImages();
+  </script>
+</body>
+</html> 
