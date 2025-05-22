@@ -245,5 +245,8 @@
     "averageEffectiveHealth": "Santé effective moyenne",
     "goldValue": "Valeur en or",
     "goldEfficiency": "Efficacité or (%)"
+  },
+  "common": {
+    "selectLanguage": "Sélectionner la langue"
   }
 }

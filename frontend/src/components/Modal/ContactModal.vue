@@ -1,11 +1,12 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 import object from '@/assets/files/data-manuel/object.json'
 
 const emit = defineEmits(['close'])
 const error = ref('')
 const success = ref(false)
 const loading = ref(false)
+const modalRef = ref<HTMLDivElement | null>(null)
 
 const formData = ref({
   subject: '',
@@ -40,19 +41,75 @@ const submitForm = async () => {
     loading.value = false
   }
 }
+
+const handleKeydown = (e: KeyboardEvent) => {
+  if (e.key === 'Tab') {
+    const focusableElements =
+      modalRef.value?.querySelectorAll(
+        'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])',
+      ) || []
+
+    if (focusableElements.length === 0) return
+
+    const firstElement = focusableElements[0] as HTMLElement
+    const lastElement = focusableElements[
+      focusableElements.length - 1
+    ] as HTMLElement
+
+    if (e.shiftKey && document.activeElement === firstElement) {
+      e.preventDefault()
+      lastElement.focus()
+    } else if (!e.shiftKey && document.activeElement === lastElement) {
+      e.preventDefault()
+      firstElement.focus()
+    }
+  }
+}
+
+onMounted(() => {
+  const firstInput = modalRef.value?.querySelector(
+    'select, input',
+  ) as HTMLElement
+  if (firstInput) {
+    setTimeout(() => {
+      firstInput.focus()
+    }, 100)
+  }
+
+  modalRef.value?.addEventListener('keydown', handleKeydown)
+})
 </script>
 
 <template>
-  <div class="modal-overlay" @click.self="emit('close')">
+  <div
+    class="modal-overlay"
+    @click.self="emit('close')"
+    ref="modalRef"
+    role="dialog"
+    aria-labelledby="contact-modal-title"
+    aria-describedby="contact-modal-desc"
+  >
     <div class="modal-content">
-      <h2>{{ $t('contact.title') }}</h2>
+      <h2 id="contact-modal-title">{{ $t('contact.title') }}</h2>
+      <p id="contact-modal-desc" class="sr-only">
+        Formulaire de contact pour nous envoyer un message
+      </p>
+
       <form @submit.prevent="submitForm">
-        <p v-if="error" class="error">{{ error }}</p>
-        <p v-if="success" class="success">{{ $t('contact.success') }}</p>
+        <p v-if="error" class="error" role="alert">{{ error }}</p>
+        <p v-if="success" class="success" role="status">
+          {{ $t('contact.success') }}
+        </p>
         <p class="required">* {{ $t('contact.required') }}</p>
+
         <div class="form-group">
-          <label for="subject">{{ $t('contact.subject') }}</label>
-          <select v-model="formData.subject" id="subject" required>
+          <label for="subject">{{ $t('contact.subject') }} *</label>
+          <select
+            v-model="formData.subject"
+            id="subject"
+            required
+            aria-required="true"
+          >
             <option value="" disabled>{{ $t('contact.select') }}</option>
             <option v-for="obj in objectEntries" :key="obj.id" :value="obj.id">
               {{ obj.name }}
@@ -62,16 +119,22 @@ const submitForm = async () => {
 
         <div class="form-group">
           <label for="name">{{ $t('contact.name') }}</label>
-          <input type="text" id="name" v-model="formData.name" />
+          <input
+            type="text"
+            id="name"
+            v-model="formData.name"
+            aria-required="false"
+          />
         </div>
 
         <div class="form-group">
-          <label for="message">{{ $t('contact.message') }}</label>
+          <label for="message">{{ $t('contact.message') }} *</label>
           <textarea
             id="message"
             v-model="formData.message"
             required
             rows="5"
+            aria-required="true"
           ></textarea>
         </div>
 
@@ -116,6 +179,7 @@ const submitForm = async () => {
   padding: 2rem;
   border-radius: 8px;
   width: 100%;
+  max-width: 500px; /* Limiting width for better readability */
 }
 
 h2 {
@@ -144,6 +208,14 @@ textarea {
   border-radius: 4px;
 }
 
+/* Focus styles for form elements */
+select:focus,
+input:focus,
+textarea:focus {
+  outline: 2px solid var(--color-gold-300);
+  border-color: var(--color-gold-300);
+}
+
 .form-actions {
   display: flex;
   gap: 1rem;
@@ -162,8 +234,19 @@ button {
   color: var(--color-grey-500);
 }
 
+.submit-btn:hover,
+.submit-btn:focus {
+  background: var(--color-gold-400);
+}
+
 .cancel-btn {
   color: var(--color-gold-200);
+  border: 1px solid var(--color-gold-200);
+}
+
+.cancel-btn:hover,
+.cancel-btn:focus {
+  background: rgba(255, 255, 255, 0.1);
 }
 
 .error {
@@ -179,5 +262,18 @@ button {
 button:disabled {
   opacity: 0.5;
   cursor: not-allowed;
+}
+
+/* Screen reader only class */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
 }
 </style>

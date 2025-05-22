@@ -245,5 +245,8 @@
     "averageEffectiveHealth": "Average Effective Health",
     "goldValue": "Gold Value",
     "goldEfficiency": "Gold Efficiency (%)"
+  },
+  "common": {
+    "selectLanguage": "Select language"
   }
 }
