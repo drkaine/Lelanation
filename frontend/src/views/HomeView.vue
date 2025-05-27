@@ -5,7 +5,7 @@ import SocialLinks from '@/components/home/SocialLinks.vue'
 
 <template>
   <main class="home-container">
-    <HeroSection imageUrl="/assets/images/lelariva.png" imageAlt="Lelariva" />
+    <HeroSection imageUrl="/assets/images/lelariva.webp" imageAlt="Lelariva" />
     <SocialLinks />
   </main>
 </template>

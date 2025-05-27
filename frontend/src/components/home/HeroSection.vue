@@ -9,16 +9,54 @@ defineProps<{
   <div class="profil">
     <h1 class="title" itemprop="headline">{{ $t('home.title') }}</h1>
     <picture>
-      <source :srcset="imageUrl.replace('.png', '.webp')" type="image/webp" />
+      <!-- WebP sources for different screen sizes -->
+      <source
+        :srcset="
+          imageUrl.endsWith('.webp')
+            ? imageUrl
+            : imageUrl.replace(/\.(png|jpg|jpeg)$/, '.webp')
+        "
+        type="image/webp"
+        media="(min-width: 601px)"
+        sizes="300px"
+      />
+      <source
+        :srcset="
+          imageUrl.endsWith('.webp')
+            ? imageUrl
+            : imageUrl.replace(/\.(png|jpg|jpeg)$/, '.webp')
+        "
+        type="image/webp"
+        media="(max-width: 600px)"
+        sizes="250px"
+      />
+      <!-- PNG fallback -->
+      <source
+        :srcset="
+          imageUrl.endsWith('.webp')
+            ? imageUrl.replace('.webp', '.png')
+            : imageUrl
+        "
+        type="image/png"
+      />
       <img
         class="profil-image"
-        :src="imageUrl"
+        :src="
+          imageUrl.endsWith('.webp')
+            ? imageUrl.replace('.webp', '.png')
+            : imageUrl
+        "
         :alt="imageAlt"
         itemprop="image"
         fetchpriority="high"
-        width="300"
-        height="300"
-        sizes="(max-width: 768px) 100vw, 50vw"
+        loading="eager"
+        decoding="sync"
+        importance="high"
+        sizes="(max-width: 600px) 250px, 300px"
+                style="
+          content-visibility: auto; 
+          contain-intrinsic-size: 300px;
+        "
       />
     </picture>
     <h2 class="subtitle" itemprop="alternativeHeadline">

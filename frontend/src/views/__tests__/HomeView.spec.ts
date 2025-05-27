@@ -33,7 +33,7 @@ describe('HomeView', () => {
     const heroSection = wrapper.findComponent(HeroSection)
     expect(heroSection.exists()).toBe(true)
     expect(heroSection.props()).toEqual({
-      imageUrl: '/assets/images/lelariva.png',
+      imageUrl: '/assets/images/lelariva.webp',
       imageAlt: 'Lelariva',
     })
   })

@@ -6,9 +6,55 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Create and share your League of Legends builds. Detailed guides, statistics and Lelariva dictionary. The French reference to optimize your LoL gameplay.">
     <title>Lelanation - League of Legends builds and guides by Lelariva</title>
+    
+    <link rel="preconnect" href="https://api.iconify.design" crossorigin>
+    <link rel="dns-prefetch" href="//cdn.jsdelivr.net">
+    <link rel="dns-prefetch" href="//fonts.googleapis.com">
+    <link rel="dns-prefetch" href="//fonts.gstatic.com">
+    
+    <link rel="preload" as="image" href="/assets/images/lelariva.webp" type="image/webp" media="(min-width: 601px)" imagesizes="300px" fetchpriority="high">
+    <link rel="preload" as="image" href="/assets/images/lelariva.webp" type="image/webp" media="(max-width: 600px)" imagesizes="250px" fetchpriority="high">
+    <link rel="preload" as="image" href="/assets/images/lelariva.png" type="image/png" media="(min-width: 601px)" imagesizes="300px">
+    
+    <style>
+      .profil-image {
+        transform: translateZ(0);
+        will-change: transform;
+        backface-visibility: hidden;
+        image-rendering: -webkit-optimize-contrast;
+        image-rendering: crisp-edges;
+        opacity: 1;
+        visibility: visible;
+      }
+      .profil {
+        transform: translateZ(0);
+        will-change: auto;
+        backface-visibility: hidden;
+      }
+      .title, .subtitle {
+        min-height: 1.2em;
+        contain: layout style;
+      }
+    </style>
   </head>
   <body>
     <div id="app"></div>
+    <script>
+      (function() {
+        const optimizeRender = () => {
+          const img = document.querySelector('.profil-image');
+          if (img && img.complete) {
+            img.style.transform = 'translateZ(0)';
+          }
+        };
+        
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', optimizeRender);
+        } else {
+          setTimeout(optimizeRender, 100);
+        }
+      })();
+    </script>
     <script type="module" src="/src/main.ts"></script>
   </body>
 </html>

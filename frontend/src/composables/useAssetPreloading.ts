@@ -117,7 +117,6 @@ export function useAssetPreloading(
         specificImages.map(image => preloadFile(image, 'images')),
       )
 
-      // Ignorer l'avertissement de non-utilisation
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const successfulCount = results.filter(
         r => r.status === 'fulfilled' && r.value,

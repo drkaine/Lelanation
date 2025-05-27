@@ -1,9 +1,25 @@
 <script setup lang="ts">
 import { Icon } from '@iconify/vue'
 import { useI18n } from 'vue-i18n'
+import { onMounted, ref } from 'vue'
 import type { SocialLink } from '@/types/social'
 
 const { t } = useI18n()
+const shouldLoadIcons = ref(false)
+
+onMounted(() => {
+  if (window.requestIdleCallback) {
+    window.requestIdleCallback(() => {
+      setTimeout(() => {
+        shouldLoadIcons.value = true
+      }, 200)
+    })
+  } else {
+    setTimeout(() => {
+      shouldLoadIcons.value = true
+    }, 1000)
+  }
+})
 
 const socialLinks: SocialLink[] = [
   {
@@ -52,8 +68,20 @@ const socialLinks: SocialLink[] = [
       class="social-link"
       :href="link.href"
       target="_blank"
+      rel="noopener noreferrer"
     >
-      <Icon :icon="link.icon" />
+      <Icon
+        v-if="shouldLoadIcons"
+        :icon="link.icon"
+        width="24"
+        height="24"
+        style="min-width: 24px; min-height: 24px"
+      />
+      <div
+        v-else
+        class="icon-placeholder"
+        style="min-width: 24px; min-height: 24px; width: 24px; height: 24px"
+      ></div>
       <span>{{ link.text }}</span>
     </a>
   </div>

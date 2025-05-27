@@ -1,59 +1,47 @@
 @font-face {
-  font-display: swap;
+  font-display: fallback;
   font-family: 'BeaufortForLoL';
-  src:
-    url('../fonts/BeaufortforLOL-Bold.ttf') format('opentype'),
-    url('../fonts/BeaufortforLOL-Regular.ttf') format('opentype'),
-    url('../fonts/BeaufortforLOL-Medium.ttf') format('opentype'),
-    url('../fonts/BeaufortforLOL-Light.ttf') format('opentype'),
-    url('../fonts/BeaufortforLOL-Heavy.ttf') format('opentype'),
-    url('../fonts/BeaufortforLOL-Italic.ttf') format('opentype');
+  src: url('../fonts/BeaufortforLOL-Regular.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
-  font-display: swap;
 }
 
 @font-face {
-  font-display: swap;
+  font-display: fallback;
   font-family: 'BeaufortForLoL';
-  src: url('../fonts/BeaufortforLOL-Bold.ttf') format('opentype');
+  src: url('../fonts/BeaufortforLOL-Bold.ttf') format('truetype');
   font-weight: bold;
   font-style: normal;
-  font-display: swap;
 }
 
 @font-face {
-  font-display: swap;
+  font-display: fallback;
   font-family: 'Spiegel';
-  src: url('../fonts/Spiegel-Regular.ttf') format('opentype');
+  src: url('../fonts/Spiegel-Regular.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
-  font-display: swap;
 }
 
 @font-face {
-  font-display: swap;
+  font-display: fallback;
   font-family: 'Spiegel';
-  src: url('../fonts/Spiegel-Bold.ttf') format('opentype');
+  src: url('../fonts/Spiegel-Bold.ttf') format('truetype');
   font-weight: bold;
   font-style: normal;
-  font-display: swap;
 }
 
 @font-face {
-  font-display: swap;
+  font-display: fallback;
   font-family: 'Spiegel';
   src: url('../fonts/Spiegel-SemiBold.otf') format('opentype');
   font-weight: 600;
   font-style: normal;
-  font-display: swap;
 }
 
 @font-face {
-  font-display: swap;
+  font-display: fallback;
   font-family: 'Spiegel';
   src: url('../fonts/Spiegel-RegularItalic.otf') format('opentype');
   font-weight: normal;
   font-style: italic;
-  font-display: swap;
 }

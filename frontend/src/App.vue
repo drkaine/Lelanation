@@ -34,14 +34,34 @@ const toggleMenu = () => {
 }
 
 onMounted(async () => {
-  try {
-    const url = `${urlApiSave}/api/builds/lelariva`
-    const response = await fetch(url)
-    const data = await response.json()
-    builds.value = data
-  } catch (error) {
-    console.error('Erreur lors du chargement des builds:', error)
-    builds.value = []
+  if (window.requestIdleCallback) {
+    window.requestIdleCallback(async () => {
+      try {
+        const url = `${urlApiSave}/api/builds/lelariva`
+        const response = await fetch(url, { priority: 'low' })
+        if (response.ok) {
+          const data = await response.json()
+          builds.value = data
+        }
+      } catch (error) {
+        console.error('Error loading builds:', error)
+        builds.value = []
+      }
+    })
+  } else {
+    setTimeout(async () => {
+      try {
+        const url = `${urlApiSave}/api/builds/lelariva`
+        const response = await fetch(url)
+        if (response.ok) {
+          const data = await response.json()
+          builds.value = data
+        }
+      } catch (error) {
+        console.error('Error loading builds:', error)
+        builds.value = []
+      }
+    }, 2000)
   }
 })
 
@@ -78,7 +98,12 @@ useAssetPreloading({
               <span>{{ $t('navigation.home') }}</span>
             </a>
           </div>
-          <button class="menu-mobile" @click="toggleMenu">
+          <button
+            class="menu-mobile"
+            @click="toggleMenu"
+            :aria-expanded="isMenuOpen"
+            :aria-label="$t('navigation.menu')"
+          >
             <svg
               width="24"
               height="24"
@@ -88,6 +113,7 @@ useAssetPreloading({
               fill="none"
               stroke-linecap="round"
               stroke-linejoin="round"
+              aria-hidden="true"
             >
               <path d="M4 6l16 0"></path>
               <path d="M4 12l16 0"></path>
