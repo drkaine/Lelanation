@@ -15,7 +15,8 @@
     "builds-public": "Builds de la communauté",
     "builds-private": "Mes builds",
     "build": "build",
-    "dictionary": "Dictionnaire"
+    "dictionary": "Dictionnaire",
+    "language": "Sélectionner la langue"
   },
   "warning": {
     "version": "Ce build a été créé pour une version antérieure du jeu et pourrait être obsolète."

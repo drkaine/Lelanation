@@ -49,7 +49,12 @@ const acceptConditions = () => {
   connexionStore.isUser()
 }
 
-useAssetPreloading()
+useAssetPreloading({
+  preloadImages: true,
+  preloadJsonData: true,
+  preloadDirectories: false,
+  enableApiPreloading: false,
+})
 </script>
 
 <template>

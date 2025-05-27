@@ -1,9 +1,14 @@
 <template>
   <div class="language-switcher">
+    <label for="language-select" class="sr-only">{{
+      $t('navigation.language') || 'Select language'
+    }}</label>
     <select
+      id="language-select"
       v-model="currentLocale"
       @change="changeLanguage"
       class="language-select"
+      :aria-label="$t('navigation.language') || 'Select language'"
     >
       <option value="fr">FR</option>
       <option value="en">EN</option>
@@ -68,6 +73,18 @@ onMounted(() => {
 </script>
 
 <style scoped>
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
 .language-switcher {
   display: inline-flex;
   align-items: center;

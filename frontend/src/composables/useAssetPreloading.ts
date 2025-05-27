@@ -12,22 +12,30 @@ const IMPORTANT_JSON_DATA = ['/data/champions.json', '/data/items.json']
 
 const DIRECTORIES_TO_PRELOAD = [
   {
-    path: '/public/assets/icons',
+    path: 'public/assets/icons',
     extensions: ['svg', 'png'],
     cacheName: 'images',
   },
   {
-    path: '/public/assets/images',
+    path: 'public/assets/images',
     extensions: ['png', 'jpg', 'webp'],
     cacheName: 'images',
   },
   {
-    path: '/public/assets/files',
+    path: 'public/assets/files',
     extensions: ['json'],
     cacheName: 'static-json',
   },
-  { path: '/src/assets/files', extensions: ['json'], cacheName: 'static-json' },
-  { path: '/data', extensions: ['json'], cacheName: 'static-json' },
+  {
+    path: 'src/assets/files',
+    extensions: ['json'],
+    cacheName: 'static-json',
+  },
+  {
+    path: 'data',
+    extensions: ['json'],
+    cacheName: 'static-json',
+  },
 ]
 
 export function useAssetPreloading(
@@ -35,6 +43,7 @@ export function useAssetPreloading(
     preloadImages: true,
     preloadJsonData: true,
     preloadDirectories: true,
+    enableApiPreloading: true,
   },
 ) {
   const preloadFile = async (
@@ -51,7 +60,10 @@ export function useAssetPreloading(
       }
       return true
     } catch (err) {
-      console.warn(`Échec du préchargement de ${url}:`, err)
+      if (err instanceof TypeError && err.message.includes('404')) {
+        return false
+      }
+      console.warn(`Failed to preload asset ${url}:`, err)
       return false
     }
   }
@@ -68,9 +80,11 @@ export function useAssetPreloading(
       )
 
       if (!response.ok) {
-        console.warn(
-          `Impossible de lister les fichiers du répertoire ${directory.path}`,
-        )
+        if (response.status !== 403) {
+          console.warn(
+            `Unable to list files in directory ${directory.path} (${response.status})`,
+          )
+        }
         return 0
       }
 
@@ -84,8 +98,11 @@ export function useAssetPreloading(
 
       return results.filter(r => r.status === 'fulfilled' && r.value).length
     } catch (error) {
+      if (error instanceof TypeError && error.message.includes('fetch')) {
+        return 0
+      }
       console.error(
-        `Erreur lors du préchargement du répertoire ${directory.path}:`,
+        `Error during directory preloading ${directory.path}:`,
         error,
       )
       return 0
@@ -106,7 +123,7 @@ export function useAssetPreloading(
         r => r.status === 'fulfilled' && r.value,
       ).length
 
-      if (options.preloadDirectories) {
+      if (options.preloadDirectories && options.enableApiPreloading) {
         const imageDirectories = DIRECTORIES_TO_PRELOAD.filter(
           dir => dir.cacheName === 'images',
         )
@@ -116,7 +133,7 @@ export function useAssetPreloading(
         }
       }
     } catch (error) {
-      console.error('Erreur lors du préchargement des images:', error)
+      console.error('Error during image preloading:', error)
     }
   }
 
@@ -126,7 +143,7 @@ export function useAssetPreloading(
         IMPORTANT_JSON_DATA.map(json => preloadFile(json, 'static-json')),
       )
 
-      if (options.preloadDirectories) {
+      if (options.preloadDirectories && options.enableApiPreloading) {
         const jsonDirectories = DIRECTORIES_TO_PRELOAD.filter(
           dir => dir.cacheName === 'static-json',
         )
@@ -136,7 +153,7 @@ export function useAssetPreloading(
         }
       }
     } catch (error) {
-      console.error('Erreur lors du préchargement des données JSON:', error)
+      console.error('Error during JSON data preloading:', error)
     }
   }
 
@@ -151,7 +168,7 @@ export function useAssetPreloading(
   onMounted(async () => {
     setTimeout(async () => {
       await preloadAll()
-    }, 2000) // Délai de 2 secondes après le montage
+    }, 2000)
   })
 
   return {
