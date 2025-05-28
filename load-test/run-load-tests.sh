@@ -41,11 +41,11 @@ success() {
 }
 
 # Définir les URL à tester
-read -p "Entrez l'URL du frontend (par défaut: https://www.lelanation.darkaine.fr): " FRONTEND_URL
-FRONTEND_URL=${FRONTEND_URL:-https://www.lelanation.darkaine.fr}
+read -p "Entrez l'URL du frontend (par défaut: https://www.lelanation.fr): " FRONTEND_URL
+FRONTEND_URL=${FRONTEND_URL:-https://www.lelanation.fr}
 
-read -p "Entrez l'URL de l'API (par défaut: https://www.lelanation.darkaine.fr): " API_URL
-API_URL=${API_URL:-https://www.lelanation.darkaine.fr}
+read -p "Entrez l'URL de l'API (par défaut: https://www.lelanation.fr): " API_URL
+API_URL=${API_URL:-https://www.lelanation.fr}
 
 # Demander confirmation
 warning "Vous êtes sur le point de lancer des tests de charge sur:"
