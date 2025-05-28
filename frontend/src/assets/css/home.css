@@ -59,7 +59,6 @@
   flex-wrap: wrap;
   gap: 1rem;
   justify-content: center;
-  min-height: 120px;
 }
 
 .social-link {
@@ -68,7 +67,6 @@
   align-items: center;
   gap: 0.5rem;
   padding: 0.8rem 1.5rem;
-  border: var(--border-size) solid var(--color-gold-400);
   border-radius: 4px;
   color: var(--color-gold-200);
   transition: all 0.2s ease;
