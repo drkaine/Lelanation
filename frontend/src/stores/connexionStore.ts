@@ -7,12 +7,18 @@ export const useConnexionStore = defineStore('Connexion', () => {
   const isLoggedIn = ref(localStorage.getItem('isLoggedIn') === 'true')
   const newUser = ref(localStorage.getItem('newUser') === 'true')
   const userName = ref(localStorage.getItem('userName'))
+  const analyticsConsent = ref(
+    localStorage.getItem('analyticsConsent') === 'true',
+  )
 
   const isUser = () => {
     if (!newUser.value) {
-      incrementVisitCounter()
+      if (analyticsConsent.value) {
+        incrementVisitCounter()
+      }
       newUser.value = true
       localStorage.setItem('newUser', 'true')
+      localStorage.setItem('analyticsConsent', 'true')
     }
   }
 
@@ -42,12 +48,19 @@ export const useConnexionStore = defineStore('Connexion', () => {
     localStorage.removeItem('userName')
   }
 
+  const revokeConsent = () => {
+    analyticsConsent.value = false
+    localStorage.setItem('analyticsConsent', 'false')
+  }
+
   return {
     isLoggedIn,
     newUser,
+    analyticsConsent,
     isUser,
     userName,
     login,
     logout,
+    revokeConsent,
   }
 })

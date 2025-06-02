@@ -131,9 +131,11 @@
 }
 
 .rune-slot img {
-  width: 70%;
-  height: 70%;
+  width: 100%;
+  height: 100%;
   object-fit: contain;
+  image-rendering: crisp-edges;
+  image-rendering: -webkit-optimize-contrast;
 }
 .runes-selector-primary {
   position: absolute;
@@ -355,6 +357,11 @@
 
   .stat-shards {
     gap: var(--spacing-desktop);
+  }
+
+  .stat-shards .rune-slot {
+    width: 38px;
+    height: 38px;
   }
 
   .shard-tier {

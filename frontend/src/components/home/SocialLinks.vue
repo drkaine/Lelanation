@@ -3,6 +3,8 @@ import { Icon } from '@iconify/vue'
 import { useI18n } from 'vue-i18n'
 import { onMounted, ref } from 'vue'
 import type { SocialLink } from '@/types/social'
+import TikTokIcon from '@/components/icons/TikTokIcon.vue'
+import XIcon from '@/components/icons/XIcon.vue'
 
 const { t } = useI18n()
 const shouldLoadIcons = ref(false)
@@ -44,12 +46,12 @@ const socialLinks: SocialLink[] = [
   },
   {
     href: 'https://x.com/Lelariva_fr',
-    icon: 'mdi:twitter',
+    icon: 'x-custom',
     text: t('home.links.twitter'),
   },
   {
     href: 'https://www.tiktok.com/@lelariva_fr',
-    icon: 'mdi:music-note',
+    icon: 'tiktok-custom',
     text: t('home.links.tiktok'),
   },
   {
@@ -70,13 +72,27 @@ const socialLinks: SocialLink[] = [
       target="_blank"
       rel="noopener noreferrer"
     >
-      <Icon
-        v-if="shouldLoadIcons"
-        :icon="link.icon"
-        width="24"
-        height="24"
-        style="min-width: 24px; min-height: 24px"
-      />
+      <template v-if="shouldLoadIcons">
+        <XIcon
+          v-if="link.icon === 'x-custom'"
+          :width="24"
+          :height="24"
+          class="custom-icon"
+        />
+        <TikTokIcon
+          v-else-if="link.icon === 'tiktok-custom'"
+          :width="24"
+          :height="24"
+          class="custom-icon"
+        />
+        <Icon
+          v-else
+          :icon="link.icon"
+          width="24"
+          height="24"
+          style="min-width: 24px; min-height: 24px"
+        />
+      </template>
       <div
         v-else
         class="icon-placeholder"
@@ -86,3 +102,11 @@ const socialLinks: SocialLink[] = [
     </a>
   </div>
 </template>
+
+<style scoped>
+.custom-icon {
+  min-width: 24px;
+  min-height: 24px;
+  flex-shrink: 0;
+}
+</style>

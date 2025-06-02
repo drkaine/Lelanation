@@ -172,16 +172,29 @@ const canDragBuild = computed(() => !isLelarivaBuildPage.value || isAdmin.value)
         </select>
 
         <div class="search-box">
-          <select v-model="searchType" class="search-type-select">
+          <label for="mes-builds-search-type" class="visually-hidden">{{
+            $t('accessibility.search-type')
+          }}</label>
+          <select
+            v-model="searchType"
+            id="mes-builds-search-type"
+            class="search-type-select"
+            :aria-label="$t('accessibility.search-type')"
+          >
             <option value="all">{{ $t('button.search.all') }}</option>
             <option value="name">{{ $t('button.search.name') }}</option>
             <option value="champion">{{ $t('button.search.champion') }}</option>
           </select>
+          <label for="mes-builds-search-input" class="visually-hidden">{{
+            $t('accessibility.search-builds')
+          }}</label>
           <input
             v-model="searchQuery"
+            id="mes-builds-search-input"
             type="text"
             :placeholder="searchPlaceholder"
             class="search-input"
+            :aria-label="$t('accessibility.search-builds')"
           />
         </div>
       </div>
@@ -195,7 +208,11 @@ const canDragBuild = computed(() => !isLelarivaBuildPage.value || isAdmin.value)
         :class="{ 'role-inactive': !selectedRoles.has(role) }"
         @click="toggleRole(role)"
       >
-        <img :src="`/assets/icons/roles/${role}.png`" :alt="role" />
+        <img
+          :src="`/assets/icons/roles/${role}.png`"
+          alt=""
+          role="presentation"
+        />
         <span class="role-text">{{ role }}</span>
       </button>
     </div>
@@ -273,6 +290,18 @@ const canDragBuild = computed(() => !isLelarivaBuildPage.value || isAdmin.value)
   display: flex;
   align-items: center;
   gap: 0.5rem;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
   padding: 0.4rem 0.8rem;
   border: var(--border-size) solid var(--color-gold-300);
   border-radius: 4px;

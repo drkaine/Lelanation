@@ -1,21 +1,16 @@
 {
-  "name": "Lelanation",
+  "name": "Lelanation - Builds League of Legends",
   "short_name": "Lelanation",
-  "description": "Builds et guides League of Legends par la communauté Lelariva",
+  "description": "Créez et partagez vos builds League of Legends. Guides détaillés par Lelariva.",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#1A1A1A",
-  "theme_color": "#C8AA6E",
+  "background_color": "#1E2328",
+  "theme_color": "#C8941A",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "lang": "fr",
+  "dir": "ltr",
+  "categories": ["games", "entertainment", "education"],
   "icons": [
-    {
-      "src": "/assets/icons/icon-192.png",
-      "sizes": "192x192",
-      "type": "image/png"
-    },
-    {
-      "src": "/assets/icons/icon-512.png",
-      "sizes": "512x512",
-      "type": "image/png"
-    }
   ]
 }

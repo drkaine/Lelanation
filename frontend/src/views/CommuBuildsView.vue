@@ -120,16 +120,29 @@ const hasCertifiedBuilds = computed(() => {
         </a>
 
         <div class="search-box">
-          <select v-model="searchType" class="search-type-select">
+          <label for="search-type-select" class="visually-hidden">{{
+            $t('accessibility.search-type')
+          }}</label>
+          <select
+            v-model="searchType"
+            id="search-type-select"
+            class="search-type-select"
+            :aria-label="$t('accessibility.search-type')"
+          >
             <option value="all">{{ $t('button.search.all') }}</option>
             <option value="name">{{ $t('button.search.name') }}</option>
             <option value="champion">{{ $t('button.search.champion') }}</option>
           </select>
+          <label for="search-input" class="visually-hidden">{{
+            $t('accessibility.search-builds')
+          }}</label>
           <input
             v-model="searchQuery"
+            id="search-input"
             type="text"
             :placeholder="searchPlaceholder"
             class="search-input"
+            :aria-label="$t('accessibility.search-builds')"
           />
         </div>
 
@@ -153,7 +166,11 @@ const hasCertifiedBuilds = computed(() => {
         :class="{ 'role-inactive': !selectedRoles.has(role) }"
         @click="toggleRole(role)"
       >
-        <img :src="`/assets/icons/roles/${role}.png`" :alt="role" />
+        <img
+          :src="`/assets/icons/roles/${role}.png`"
+          alt=""
+          role="presentation"
+        />
         <span class="role-text">{{ role }}</span>
       </button>
     </div>
@@ -306,6 +323,18 @@ const hasCertifiedBuilds = computed(() => {
   gap: 2rem;
   justify-content: center;
   padding: 0 1rem;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }
 
 .build-card {

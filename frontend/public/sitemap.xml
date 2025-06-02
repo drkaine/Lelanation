@@ -1,28 +1,69 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
-    <loc>https://lelanation.fr/</loc>
+    <loc>https://www.lelanation.fr/</loc>
+    <lastmod>2025-06-02</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://www.lelanation.fr/assets/images/lelariva.webp</image:loc>
+      <image:title>Lelariva - League of Legends Expert</image:title>
+      <image:caption>Profile image of Lelariva, League of Legends content creator</image:caption>
+    </image:image>
   </url>
   <url>
-    <loc>https://lelanation.fr/build</loc>
+    <loc>https://www.lelanation.fr/build</loc>
+    <lastmod>2025-06-02</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://www.lelanation.fr/builds</loc>
+    <lastmod>2025-06-02</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.lelanation.fr/builds-publics</loc>
+    <lastmod>2025-06-02</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://lelanation.fr/dictionnaire</loc>
+    <loc>https://www.lelanation.fr/Lebuildarriva</loc>
+    <lastmod>2025-06-02</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.lelanation.fr/videos</loc>
+    <lastmod>2025-06-02</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.lelanation.fr/dictionnaire</loc>
+    <lastmod>2025-06-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://lelanation.fr/statistique</loc>
-    <changefreq>daily</changefreq>
-    <priority>0.8</priority>
+    <loc>https://www.lelanation.fr/dictionnaire/proposition</loc>
+    <lastmod>2025-06-02</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://lelanation.fr/Lebuildarriva</loc>
+    <loc>https://www.lelanation.fr/statistique</loc>
+    <lastmod>2025-06-02</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.7</priority>
   </url>
-</urlset> 
+  <url>
+    <loc>https://www.lelanation.fr/legal</loc>
+    <lastmod>2025-06-02</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+</urlset>

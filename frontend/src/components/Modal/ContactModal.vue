@@ -11,6 +11,7 @@ const formData = ref({
   subject: '',
   name: '',
   message: '',
+  consent: false,
 })
 
 const objectEntries = Object.entries(object).map(([id, name]) => ({ id, name }))
@@ -20,12 +21,22 @@ const submitForm = async () => {
     loading.value = true
     error.value = ''
 
+    if (!formData.value.consent) {
+      error.value =
+        'Vous devez accepter le traitement de vos données personnelles'
+      return
+    }
+
     const response = await fetch('/api/contact', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(formData.value),
+      body: JSON.stringify({
+        subject: formData.value.subject,
+        name: formData.value.name,
+        message: formData.value.message,
+      }),
     })
 
     if (!response.ok) throw new Error("Erreur lors de l'envoi")
@@ -75,6 +86,25 @@ const submitForm = async () => {
           ></textarea>
         </div>
 
+        <div class="form-group consent-group">
+          <label class="consent-label">
+            <input
+              type="checkbox"
+              v-model="formData.consent"
+              required
+              class="consent-checkbox"
+            />
+            <span class="consent-text">
+              J'accepte que mes données personnelles soient traitées pour
+              répondre à ma demande de contact. Ces données seront conservées
+              maximum 1 an puis supprimées automatiquement.
+              <RouterLink to="/legal" target="_blank" class="legal-link">
+                Voir notre politique de confidentialité
+              </RouterLink>
+            </span>
+          </label>
+        </div>
+
         <div class="form-actions">
           <button type="submit" class="submit-btn" :disabled="loading">
             {{ loading ? $t('contact.sending') : $t('contact.send') }}
@@ -97,6 +127,43 @@ const submitForm = async () => {
 .required {
   color: var(--color-gold-200);
   font-size: 0.7rem;
+}
+
+.consent-group {
+  margin: 1.5rem 0;
+  padding: 1rem;
+  border: 1px solid var(--color-gold-300);
+  border-radius: 4px;
+  background: rgba(0, 0, 0, 0.1);
+}
+
+.consent-label {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  cursor: pointer;
+  font-size: var(--text-sm);
+  line-height: 1.4;
+}
+
+.consent-checkbox {
+  margin-top: 0.2rem;
+  transform: scale(1.2);
+  accent-color: var(--color-gold-300);
+}
+
+.consent-text {
+  color: var(--color-grey-50);
+}
+
+.legal-link {
+  color: var(--color-gold-300);
+  text-decoration: underline;
+  margin-left: 0.5rem;
+}
+
+.legal-link:hover {
+  color: var(--color-gold-100);
 }
 .modal-overlay {
   position: fixed;

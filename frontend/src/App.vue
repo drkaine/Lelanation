@@ -126,6 +126,7 @@ useAssetPreloading({
               title="statistique"
               class="version"
               to="/statistique"
+              @click="toggleMenu"
               v-if="connexionStore.isLoggedIn"
               >{{ $t('navigation.analytics') }}</RouterLink
             >

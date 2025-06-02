@@ -1,4 +1,51 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://lelanation.fr/sitemap.xml 
+Allow: /build
+Allow: /builds-publics
+Allow: /Lebuildarriva
+Allow: /dictionnaire
+Allow: /videos
+Allow: /statistique
+
+Disallow: /admin/
+Disallow: /build/edit
+Disallow: /api/
+Disallow: /*.json$
+Disallow: /assets/files/contact/
+Disallow: /assets/files/data-manuel/
+
+Disallow: /src/
+Disallow: /scripts/
+Disallow: /.git/
+Disallow: /*.log
+Disallow: /*.tmp
+
+Sitemap: https://www.lelanation.fr/sitemap.xml
+
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 1
+
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 1
+
+User-agent: facebookexternalhit
+Allow: /
+
+User-agent: Twitterbot
+Allow: /
+
+# Protection contre les bots malveillants
+User-agent: SemrushBot
+Disallow: /
+
+User-agent: AhrefsBot
+Disallow: /
+
+User-agent: MJ12bot
+Disallow: /
+
+# Politesse - délai entre les requêtes
+Crawl-delay: 1 
