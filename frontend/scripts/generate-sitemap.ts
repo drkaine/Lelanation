@@ -7,20 +7,41 @@ import { fileURLToPath } from 'url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const SITE_CONFIG = {
+interface SiteConfig {
+  baseUrl: string;
+  defaultChangefreq: string;
+  defaultPriority: string;
+  lastmod: string;
+}
+
+interface ImageInfo {
+  loc: string;
+  title: string;
+  caption: string;
+}
+
+interface RouteInfo {
+  path: string;
+  priority: string;
+  changefreq: string;
+  description?: string;
+  image?: ImageInfo;
+}
+
+const SITE_CONFIG: SiteConfig = {
   baseUrl: 'https://www.lelanation.fr',
   defaultChangefreq: 'weekly',
   defaultPriority: '0.5',
   lastmod: new Date().toISOString().split('T')[0] 
 };
 
-const PRIVATE_ROUTES = [
+const PRIVATE_ROUTES: string[] = [
   '/builds',
   '/statistique',
   '/dictionnaire/proposition'
 ];
 
-const ALLOWED_ROUTES = [
+const ALLOWED_ROUTES: string[] = [
   '/',
   '/build',
   '/builds-publics', 
@@ -31,20 +52,20 @@ const ALLOWED_ROUTES = [
   ...PRIVATE_ROUTES
 ];
 
-function validateRoute(path) {
-  if (!ALLOWED_ROUTES.includes(path)) {
-    throw new Error(`Route non autorisée détectée: ${path}. Routes autorisées: ${ALLOWED_ROUTES.join(', ')}`);
+function validateRoute(routePath: string): boolean {
+  if (!ALLOWED_ROUTES.includes(routePath)) {
+    throw new Error(`Route non autorisée détectée: ${routePath}. Routes autorisées: ${ALLOWED_ROUTES.join(', ')}`);
   }
   return true;
 }
 
-function validateCanonicalUrl(url) {
+function validateCanonicalUrl(url: string): string {
   if (!url.startsWith('https://www.lelanation.fr')) {
     throw new Error(`URL non canonique détectée: ${url}. Toutes les URLs doivent commencer par https://www.lelanation.fr`);
   }
   
-  const path = url.replace('https://www.lelanation.fr', '') || '/';
-  validateRoute(path);
+  const routePath = url.replace('https://www.lelanation.fr', '') || '/';
+  validateRoute(routePath);
   
   if (url !== 'https://www.lelanation.fr/' && url.endsWith('/')) {
     throw new Error(`URL avec slash final détectée: ${url}. Les URLs ne doivent pas se terminer par un slash.`);
@@ -56,19 +77,19 @@ function validateCanonicalUrl(url) {
   
   const forbiddenChars = ['?', '#', ' ', '%'];
   for (const char of forbiddenChars) {
-    if (path.includes(char)) {
+    if (routePath.includes(char)) {
       throw new Error(`Caractère interdit '${char}' détecté dans l'URL: ${url}`);
     }
   }
   
-  if (path !== path.toLowerCase() && path !== '/Lebuildarriva') {
+  if (routePath !== routePath.toLowerCase() && routePath !== '/Lebuildarriva') {
     throw new Error(`URL avec majuscules détectée: ${url}. Les URLs doivent être en minuscules (exception: /Lebuildarriva).`);
   }
   
   return url;
 }
 
-const PUBLIC_ROUTES = [
+const PUBLIC_ROUTES: RouteInfo[] = [
   {
     path: '/',
     priority: '1.0',
@@ -117,13 +138,13 @@ const PUBLIC_ROUTES = [
   }
 ];
 
-function generateSitemapHeader() {
+function generateSitemapHeader(): string {
   return `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">`;
 }
 
-function generateUrlEntry(route) {
+function generateUrlEntry(route: RouteInfo): string {
   const url = validateCanonicalUrl(`${SITE_CONFIG.baseUrl}${route.path}`);
   const priority = route.priority || SITE_CONFIG.defaultPriority;
   const changefreq = route.changefreq || SITE_CONFIG.defaultChangefreq;
@@ -153,7 +174,7 @@ function generateUrlEntry(route) {
   return entry;
 }
 
-function generateSitemap() {
+function generateSitemap(): string {
   let sitemap = generateSitemapHeader();
   
   PUBLIC_ROUTES.forEach(route => {
@@ -166,7 +187,7 @@ function generateSitemap() {
   return sitemap;
 }
 
-function saveSitemap() {
+function saveSitemap(): void {
   const sitemap = generateSitemap();
   const outputPath = path.join(__dirname, '..', 'public', 'sitemap.xml');
   
@@ -186,7 +207,12 @@ function saveSitemap() {
   }
 }
 
-function validateSitemap() {
+interface ValidationCheck {
+  test: boolean;
+  message: string;
+}
+
+function validateSitemap(): boolean {
   const outputPath = path.join(__dirname, '..', 'public', 'sitemap.xml');
   
   if (!fs.existsSync(outputPath)) {
@@ -196,7 +222,7 @@ function validateSitemap() {
 
   const content = fs.readFileSync(outputPath, 'utf8');
   
-  const basicChecks = [
+  const basicChecks: ValidationCheck[] = [
     { test: content.includes('<?xml'), message: 'Déclaration XML' },
     { test: content.includes('<urlset'), message: 'Élément urlset' },
     { test: content.includes('</urlset>'), message: 'Fermeture urlset' },
@@ -217,13 +243,14 @@ function validateSitemap() {
   const urlMatches = content.match(/<loc>(.*?)<\/loc>/g);
   if (urlMatches) {
     console.log('\n🔍 Validation des URLs canoniques:');
-    urlMatches.forEach((match, index) => {
+    urlMatches.forEach((match: string, index: number) => {
       const url = match.replace('<loc>', '').replace('</loc>', '');
       try {
         validateCanonicalUrl(url);
         console.log(`✅ URL ${index + 1}: ${url}`);
       } catch (error) {
-        console.log(`❌ URL ${index + 1}: ${url} - ${error.message}`);
+        const errorMessage = error instanceof Error ? error.message : 'Erreur inconnue';
+        console.log(`❌ URL ${index + 1}: ${url} - ${errorMessage}`);
         isValid = false;
       }
     });
@@ -232,6 +259,7 @@ function validateSitemap() {
   return isValid;
 }
 
+// Exécution du script si appelé directement
 if (import.meta.url === `file://${process.argv[1]}`) {
   console.log('🚀 Génération du sitemap.xml pour Lelanation\n');
   
@@ -249,4 +277,4 @@ if (import.meta.url === `file://${process.argv[1]}`) {
   }
 }
 
-export { generateSitemap, PUBLIC_ROUTES, SITE_CONFIG }; 
+export { generateSitemap, PUBLIC_ROUTES, SITE_CONFIG, type RouteInfo, type SiteConfig }; 
