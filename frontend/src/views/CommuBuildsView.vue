@@ -114,7 +114,24 @@ const filteredBuilds = computed(() => {
     })
   }
 
-  return filtered
+  
+  return filtered.sort((a, b) => {
+    if (!a.version || !b.version) return 0
+
+    const versionA = a.version.split('.').map(Number)
+    const versionB = b.version.split('.').map(Number)
+
+    for (let i = 0; i < Math.max(versionA.length, versionB.length); i++) {
+      const numA = versionA[i] || 0
+      const numB = versionB[i] || 0
+
+      if (numA !== numB) {
+        return numB - numA
+      }
+    }
+
+    return 0
+  })
 })
 
 const navigateToBuild = (buildId: string | undefined, event: Event) => {
