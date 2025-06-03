@@ -5,13 +5,25 @@ import { useConnexionStore } from '@/stores/connexionStore'
 import { useSEOHead } from '@/composables/useSEOHead'
 
 useSEOHead({
-  title: 'Mentions légales et RGPD - Lelanation',
+  title: 'Mentions Légales et Politique de Confidentialité | Lelanation',
   description:
-    'Consultez nos mentions légales, politique de confidentialité et informations RGPD. Exercez vos droits sur vos données personnelles.',
+    "Mentions légales, politique de confidentialité et conditions d'utilisation de Lelanation. Respect du RGPD et protection de vos données personnelles.",
   keywords:
-    'mentions légales, RGPD, confidentialité, protection données, droits utilisateurs',
-  type: 'webpage',
-  noIndex: false,
+    'mentions légales, politique confidentialité, RGPD, protection données, conditions utilisation',
+  type: 'website',
+  structuredData: {
+    '@type': 'WebPage',
+    mainEntity: {
+      '@type': 'Organization',
+      name: 'Lelanation',
+      description: 'Plateforme de builds et guides League of Legends',
+      contactPoint: {
+        '@type': 'ContactPoint',
+        contactType: 'Legal',
+        url: 'https://www.lelanation.fr/legal',
+      },
+    },
+  },
 })
 
 const connexionStore = useConnexionStore()

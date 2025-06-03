@@ -1,206 +1,177 @@
 import { useHead } from '@vueuse/head'
-import { computed } from 'vue'
 import { useRoute } from 'vue-router'
+import { watch, computed } from 'vue'
 
-export interface SEOData {
-  title: string
-  description: string
+export interface SEOHeadOptions {
+  title?: string
+  description?: string
   keywords?: string
-  image?: string
-  type?: string
+  ogImage?: string
   canonical?: string
-  noIndex?: boolean
+  type?: 'website' | 'article' | 'profile'
   structuredData?: Record<string, unknown>
+  noIndex?: boolean
 }
 
-const usedTitles = new Set<string>()
-const usedDescriptions = new Set<string>()
-
-export function useSEOHead(data: SEOData) {
+export function useSEOHead(options: SEOHeadOptions = {}) {
   const route = useRoute()
-  const baseUrl = 'https://www.lelanation.fr'
-
-  const fullTitle = computed(() => {
-    const routePath = route?.path || '/'
-    const routeBasedSuffix = getRouteBasedSuffix(routePath)
-    const titleWithSuffix =
-      data.title + (routeBasedSuffix ? ` ${routeBasedSuffix}` : '')
-
-    if (titleWithSuffix.includes('Lelanation')) {
-      return titleWithSuffix
-    }
-    return `${titleWithSuffix} | Lelanation`
-  })
-
-  const fullImageUrl = computed(() => {
-    if (!data.image) return `${baseUrl}/assets/images/lelariva.webp`
-    if (data.image.startsWith('http')) return data.image
-    return `${baseUrl}${data.image}`
-  })
 
   const canonicalUrl = computed(() => {
-    if (data.canonical) return data.canonical
-    if (typeof window !== 'undefined') {
-      const url = new URL(window.location.href)
-      url.search = ''
-      url.hash = ''
-      return url.toString()
+    if (options.canonical) return options.canonical
+    const path = route?.path || '/'
+    return `https://www.lelanation.fr${path}`
+  })
+
+  const routeSuffix = computed(() => {
+    const path = route?.path || '/'
+    const suffixes: Record<string, string> = {
+      '/': '',
+      '/build': 'Créateur',
+      '/builds': 'Personnel',
+      '/builds-publics': 'Communauté',
+      '/Lebuildarriva': 'Lelariva Pro',
+      '/videos': 'Vidéos',
+      '/dictionnaire': 'Dictionnaire',
+      '/dictionnaire/proposition': 'Proposition',
+      '/statistique': 'Stats',
+      '/legal': 'Légal',
     }
-    const routePath = route?.path || '/'
-    return baseUrl + routePath
+    return suffixes[path] || ''
   })
 
-  const keywords = computed(() => {
-    const baseKeywords =
-      'League of Legends, LoL, builds, guides, Lelariva, gaming, esport, strategy'
-    if (data.keywords) {
-      return `${data.keywords}, ${baseKeywords}`
+  const optimizedTitle = computed(() => {
+    if (!options.title) return 'Lelanation - League of Legends'
+
+    const suffix = routeSuffix.value
+    const hasLelanation = options.title.includes('Lelanation')
+
+    if (suffix && !hasLelanation) {
+      return `${options.title} - ${suffix} | Lelanation`
     }
-    return baseKeywords
+    return options.title
   })
 
-  const robotsContent = computed(() => {
-    if (data.noIndex) return 'noindex, nofollow'
-    return 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1'
-  })
-
-  const defaultStructuredData = {
-    '@context': 'https://schema.org',
-    '@type': 'WebPage',
-    name: fullTitle.value,
-    url: canonicalUrl.value,
-    description: data.description,
-    author: {
-      '@type': 'Person',
-      name: 'Lelariva',
-      url: 'https://www.lelanation.fr',
-    },
-    publisher: {
-      '@type': 'Organization',
-      name: 'Lelanation',
-      url: 'https://www.lelanation.fr',
-      logo: {
-        '@type': 'ImageObject',
-        url: `${baseUrl}/assets/images/lelariva.webp`,
-      },
-    },
-    image: fullImageUrl.value,
+  const updateHead = () => {
+    useHead({
+      title: optimizedTitle.value,
+      meta: [
+        {
+          name: 'description',
+          content:
+            options.description ||
+            'Découvrez les meilleurs builds League of Legends avec Lelanation',
+        },
+        ...(options.keywords
+          ? [
+              {
+                name: 'keywords',
+                content: options.keywords,
+              },
+            ]
+          : []),
+        {
+          name: 'author',
+          content: 'Lelariva - Expert League of Legends',
+        },
+        {
+          property: 'og:title',
+          content: optimizedTitle.value,
+        },
+        {
+          property: 'og:description',
+          content:
+            options.description ||
+            'Découvrez les meilleurs builds League of Legends avec Lelanation',
+        },
+        {
+          property: 'og:url',
+          content: canonicalUrl.value,
+        },
+        {
+          property: 'og:type',
+          content: options.type || 'website',
+        },
+        ...(options.ogImage
+          ? [
+              {
+                property: 'og:image',
+                content: options.ogImage,
+              },
+            ]
+          : []),
+        {
+          name: 'twitter:title',
+          content: optimizedTitle.value,
+        },
+        {
+          name: 'twitter:description',
+          content:
+            options.description ||
+            'Découvrez les meilleurs builds League of Legends avec Lelanation',
+        },
+        ...(options.noIndex
+          ? [{ name: 'robots', content: 'noindex, nofollow' }]
+          : [
+              {
+                name: 'robots',
+                content: 'index, follow, max-image-preview:large',
+              },
+            ]),
+      ],
+      link: [
+        {
+          rel: 'canonical',
+          href: canonicalUrl.value,
+        },
+      ],
+      ...(options.structuredData
+        ? {
+            script: [
+              {
+                type: 'application/ld+json',
+                innerHTML: JSON.stringify(options.structuredData),
+              },
+            ],
+          }
+        : {}),
+    })
   }
 
-  const structuredData = computed(() => {
-    if (data.structuredData) {
-      return { ...defaultStructuredData, ...data.structuredData }
-    }
-    return defaultStructuredData
-  })
+  watch(
+    () => route?.path,
+    () => updateHead(),
+    { immediate: true },
+  )
 
-  if (import.meta.env.DEV) {
-    const routePath = route?.path || '/'
-    validateSEOData(data, fullTitle.value, routePath)
-  }
-
-  useHead({
-    title: fullTitle,
-    meta: [
-      { name: 'description', content: data.description },
-      { name: 'keywords', content: keywords },
-      { name: 'robots', content: robotsContent },
-      { name: 'author', content: 'Lelariva' },
-      { name: 'theme-color', content: '#C8941A' },
-
-      { property: 'og:type', content: data.type || 'website' },
-      { property: 'og:title', content: fullTitle },
-      { property: 'og:description', content: data.description },
-      { property: 'og:image', content: fullImageUrl },
-      { property: 'og:url', content: canonicalUrl },
-      { property: 'og:site_name', content: 'Lelanation' },
-      { property: 'og:locale', content: 'fr_FR' },
-
-      { name: 'twitter:card', content: 'summary_large_image' },
-      { name: 'twitter:title', content: fullTitle },
-      { name: 'twitter:description', content: data.description },
-      { name: 'twitter:image', content: fullImageUrl },
-      { name: 'twitter:site', content: '@lelariva' },
-      { name: 'twitter:creator', content: '@lelariva' },
-
-      { name: 'x:card', content: 'summary_large_image' },
-      { name: 'x:title', content: fullTitle },
-      { name: 'x:description', content: data.description },
-      { name: 'x:image', content: fullImageUrl },
-      { name: 'x:site', content: '@lelariva' },
-      { name: 'x:creator', content: '@lelariva' },
-    ],
-    link: [{ rel: 'canonical', href: canonicalUrl }],
-    script: [
-      {
-        type: 'application/ld+json',
-        children: JSON.stringify(structuredData.value),
+  if (import.meta.env.MODE === 'development') {
+    watch(
+      optimizedTitle,
+      newTitle => {
+        if (newTitle.length < 30 || newTitle.length > 60) {
+          console.warn(
+            `⚠️ SEO Warning: Title length is ${newTitle.length} characters. Recommended: 30-60 characters.`,
+          )
+        }
       },
-    ],
-  })
+      { immediate: true },
+    )
+
+    watch(
+      () => options.description,
+      newDesc => {
+        if (newDesc && (newDesc.length < 120 || newDesc.length > 160)) {
+          console.warn(
+            `⚠️ SEO Warning: Description length is ${newDesc.length} characters. Recommended: 120-160 characters.`,
+          )
+        }
+      },
+      { immediate: true },
+    )
+  }
 
   return {
-    fullTitle,
-    fullImageUrl,
-    canonicalUrl,
-    structuredData,
+    canonicalUrl: canonicalUrl.value,
+    optimizedTitle: optimizedTitle.value,
+    updateHead,
   }
-}
-
-function validateSEOData(data: SEOData, fullTitle: string, path: string) {
-  const warnings: string[] = []
-
-  if (fullTitle.length < 30) {
-    warnings.push(
-      `[SEO] Titre trop court (${fullTitle.length} caractères) pour ${path}. Recommandé: 30-60 caractères`,
-    )
-  } else if (fullTitle.length > 60) {
-    warnings.push(
-      `[SEO] Titre trop long (${fullTitle.length} caractères) pour ${path}. Recommandé: 30-60 caractères`,
-    )
-  }
-
-  if (data.description.length < 120) {
-    warnings.push(
-      `[SEO] Description trop courte (${data.description.length} caractères) pour ${path}. Recommandé: 120-160 caractères`,
-    )
-  } else if (data.description.length > 160) {
-    warnings.push(
-      `[SEO] Description trop longue (${data.description.length} caractères) pour ${path}. Recommandé: 120-160 caractères`,
-    )
-  }
-
-  if (usedTitles.has(fullTitle)) {
-    warnings.push(`[SEO] Titre dupliqué détecté: "${fullTitle}" pour ${path}`)
-  } else {
-    usedTitles.add(fullTitle)
-  }
-
-  if (usedDescriptions.has(data.description)) {
-    warnings.push(`[SEO] Description dupliquée détectée pour ${path}`)
-  } else {
-    usedDescriptions.add(data.description)
-  }
-
-  if (warnings.length > 0) {
-    warnings.forEach(warning => console.warn(warning))
-  }
-}
-
-function getRouteBasedSuffix(path: string): string {
-  const routeMap: Record<string, string> = {
-    '/build': '- Créateur',
-    '/builds-publics': '- Communauté',
-    '/builds': '- Mes Builds',
-    '/dictionnaire': '- Lexique LoL',
-    '/statistique': '- Analytics',
-    '/videos': '- Shorts Gaming',
-  }
-
-  return routeMap[path] || ''
-}
-
-export function resetSEOValidation() {
-  usedTitles.clear()
-  usedDescriptions.clear()
 }

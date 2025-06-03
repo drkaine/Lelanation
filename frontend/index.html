@@ -6,7 +6,7 @@
     <title>Lelanation - Builds et Guides League of Legends par Lelariva</title>
     <meta name="description" content="Créez et partagez vos builds League of Legends avec Lelariva. Guides détaillés, stratégies optimisées et communauté LoL active pour améliorer votre gameplay.">
     <meta name="keywords" content="League of Legends, LoL, builds, guides, Lelariva, stratégies, gaming, esport, champions, runes">
-    <meta name="author" content="Lelariva">
+    <meta name="author" content="Darkaine - développeur" />
     <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
     
     <meta property="og:type" content="website">
@@ -27,47 +27,115 @@
     <link rel="preconnect" href="https://api.iconify.design" crossorigin>
     <link rel="dns-prefetch" href="//cdn.jsdelivr.net">
     
-    <link rel="preload" as="image" href="/assets/images/lelariva.webp" type="image/webp" media="(min-width: 601px)" imagesizes="300px" fetchpriority="high">
-    <link rel="preload" as="image" href="/assets/images/lelariva.webp" type="image/webp" media="(max-width: 600px)" imagesizes="250px" fetchpriority="high">
-    <link rel="preload" as="image" href="/assets/images/lelariva.png" type="image/png" media="(min-width: 601px)" imagesizes="300px">
+    <link rel="preload" as="image" href="/assets/images/lelariva.webp" type="image/webp" fetchpriority="high" />
+    <link rel="preload" as="font" href="/src/assets/fonts/BeaufortforLOL-Regular.ttf" type="font/ttf" crossorigin="anonymous" />
     
     <style>
+      /* Critical CSS for LCP optimization */
       .profil-image {
         transform: translateZ(0);
         will-change: transform;
         backface-visibility: hidden;
+        contain: layout style paint;
         image-rendering: -webkit-optimize-contrast;
-        image-rendering: crisp-edges;
+        image-rendering: optimizeQuality;
         opacity: 1;
         visibility: visible;
+        aspect-ratio: 1;
+        object-fit: cover;
+        display: block;
+        max-width: 100%;
+        height: auto;
+        min-height: 200px;
+        min-width: 200px;
       }
+      
+      .image-container {
+        width: 300px;
+        height: 300px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 1.5rem;
+        contain: layout style;
+      }
+      
       .profil {
         transform: translateZ(0);
         will-change: auto;
         backface-visibility: hidden;
+        contain: layout style;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        padding: 2rem 1rem;
       }
+      
       .title, .subtitle {
         min-height: 1.2em;
         contain: layout style;
+      }
+      
+      /* Mobile optimizations */
+      @media (max-width: 768px) {
+        .image-container {
+          width: 250px;
+          height: 250px;
+        }
+        .profil {
+          padding: 1rem 0.5rem;
+        }
+      }
+      
+      @media (max-width: 480px) {
+        .image-container {
+          width: 200px;
+          height: 200px;
+        }
       }
     </style>
   </head>
   <body>
     <div id="app"></div>
     <script>
+      // Critical performance optimization for LCP
       (function() {
         const optimizeRender = () => {
           const img = document.querySelector('.profil-image');
-          if (img && img.complete) {
+          if (img) {
+            // Force immediate rendering
             img.style.transform = 'translateZ(0)';
+            img.style.willChange = 'transform';
+            img.style.backfaceVisibility = 'hidden';
+            img.style.contain = 'layout style paint';
+            
+            // Trigger immediate decode if supported
+            if (img.decode) {
+              img.decode().catch(() => {});
+            }
+            
+            // Force layout calculation
+            img.offsetHeight;
+          }
+          
+          // Optimize container
+          const container = document.querySelector('.image-container');
+          if (container) {
+            container.style.contain = 'layout style';
+            container.offsetHeight;
           }
         };
         
+        // Run immediately on load
         if (document.readyState === 'loading') {
           document.addEventListener('DOMContentLoaded', optimizeRender);
         } else {
-          setTimeout(optimizeRender, 100);
+          optimizeRender();
         }
+        
+        // Also run when image loads
+        window.addEventListener('load', optimizeRender);
       })();
     </script>
     <script type="module" src="/src/main.ts"></script>

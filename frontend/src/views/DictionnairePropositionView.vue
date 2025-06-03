@@ -3,12 +3,13 @@ import { ref } from 'vue'
 import { useSEOHead } from '@/composables/useSEOHead'
 
 useSEOHead({
-  title: 'Proposer une définition - Dictionnaire Lelariva',
+  title: 'Proposer une Définition - Dictionnaire Laranguiva | Lelanation',
   description:
-    'Contribuez au dictionnaire de la communauté Lelariva en proposant vos propres définitions League of Legends.',
+    'Contribuez au dictionnaire Laranguiva en proposant de nouvelles définitions. Enrichissez la communauté League of Legends avec vos connaissances du vocabulaire LoL.',
   keywords:
-    'proposer définition, contribuer dictionnaire LoL, communauté Lelariva, terminologie League of Legends',
-  type: 'webpage',
+    'dictionnaire laranguiva, proposer définition, vocabulaire LoL, communauté League of Legends, contribution',
+  type: 'website',
+  noIndex: true,
 })
 
 const pseudo = ref('')

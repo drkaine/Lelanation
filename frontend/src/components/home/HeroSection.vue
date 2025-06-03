@@ -8,52 +8,36 @@ defineProps<{
 <template>
   <div class="profil">
     <h1 class="title" itemprop="headline">{{ $t('home.title') }}</h1>
-    <picture>
-      <source
-        :srcset="
-          imageUrl.endsWith('.webp')
-            ? imageUrl
-            : imageUrl.replace(/\.(png|jpg|jpeg)$/, '.webp')
-        "
-        type="image/webp"
-        media="(min-width: 601px)"
-        sizes="300px"
-      />
-      <source
-        :srcset="
-          imageUrl.endsWith('.webp')
-            ? imageUrl
-            : imageUrl.replace(/\.(png|jpg|jpeg)$/, '.webp')
-        "
-        type="image/webp"
-        media="(max-width: 600px)"
-        sizes="250px"
-      />
-      <source
-        :srcset="
-          imageUrl.endsWith('.webp')
-            ? imageUrl.replace('.webp', '.png')
-            : imageUrl
-        "
-        type="image/png"
-      />
+
+    <div class="image-container">
       <img
         class="profil-image"
-        :src="
-          imageUrl.endsWith('.webp')
-            ? imageUrl.replace('.webp', '.png')
-            : imageUrl
+        src="/assets/images/lelariva.webp"
+        srcset="
+          /assets/images/lelariva.webp 400w,
+          /assets/images/lelariva.webp 300w,
+          /assets/images/lelariva.webp 250w,
+          /assets/images/lelariva.webp 200w
         "
+        sizes="(max-width: 480px) 200px, (max-width: 768px) 250px, 300px"
         :alt="imageAlt"
         itemprop="image"
         fetchpriority="high"
         loading="eager"
         decoding="sync"
-        importance="high"
-        sizes="(max-width: 600px) 250px, 300px"
-        style="content-visibility: auto; contain-intrinsic-size: 300px"
+        width="300"
+        height="300"
+        style="
+          aspect-ratio: 1;
+          object-fit: cover;
+          display: block;
+          will-change: transform;
+          contain: layout style paint;
+          image-rendering: optimizeQuality;
+        "
       />
-    </picture>
+    </div>
+
     <h2 class="subtitle" itemprop="alternativeHeadline">
       {{ $t('home.description') }}
     </h2>
@@ -70,63 +54,130 @@ defineProps<{
 </template>
 
 <style scoped>
-.hero-nav {
-  margin-top: 2rem;
+.profil {
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
+  align-items: center;
   gap: 1rem;
+  contain: layout;
+  transform: translateZ(0);
+  will-change: auto;
+  backface-visibility: hidden;
+  padding: 2rem 1rem;
+}
+
+.title {
+  font-family: var(--font-beaufort);
+  font-size: var(--title-lg);
+  font-weight: 700;
+  color: var(--color-gold-300);
+  text-align: center;
+  margin-bottom: 1.5rem;
+  line-height: 1.2;
+  contain: layout style;
+}
+
+.image-container {
+  margin-bottom: 1.5rem;
+  width: 300px;
+  height: 300px;
+  display: flex;
+  align-items: center;
   justify-content: center;
+}
+
+.profil-image {
+  max-width: 300px;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  border: var(--border-size) solid var(--color-gold-400);
+  border-radius: 50%;
+  background-color: var(--color-blue-600);
+  min-height: 250px;
+  will-change: transform;
+  contain: layout style paint;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: optimizeQuality;
+  transition: transform 0.3s ease;
+}
+
+.profil-image:hover {
+  transform: translateZ(0) scale(1.05);
+}
+
+.subtitle {
+  font-family: var(--font-spiegel);
+  font-size: var(--title-sm);
+  color: var(--color-gold-300);
+  contain: layout style;
+  will-change: auto;
+  text-align: center;
   max-width: 600px;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.hero-link {
-  padding: 0.75rem 1.5rem;
-  background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
-  color: white;
-  text-decoration: none;
-  border-radius: 8px;
-  font-weight: 500;
-  transition: all 0.3s ease;
-  border: 2px solid transparent;
-}
-
-.hero-link:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-  background: linear-gradient(135deg, #2a5298 0%, #1e3c72 100%);
-}
-
-.hero-link.primary {
-  background: linear-gradient(135deg, #c89b3c 0%, #f0e6d2 100%);
-  color: #1e1e1e;
-  font-weight: 600;
-}
-
-.hero-link.primary:hover {
-  background: linear-gradient(135deg, #f0e6d2 0%, #c89b3c 100%);
-}
-
-.hero-link.featured {
-  background: linear-gradient(135deg, #c8aa6e 0%, #463714 100%);
-  border-color: #c8aa6e;
-}
-
-.hero-link.featured:hover {
-  background: linear-gradient(135deg, #463714 0%, #c8aa6e 100%);
+  line-height: 1.5;
+  margin-bottom: 2rem;
 }
 
 @media (max-width: 768px) {
-  .hero-nav {
-    flex-direction: column;
-    align-items: center;
+  .profil {
+    padding: 1rem 0.5rem;
+    contain: layout;
+    transform: translateZ(0);
   }
 
-  .hero-link {
-    width: 100%;
+  .title {
+    font-size: var(--title-base);
+    contain: layout style;
+    margin-bottom: 1rem;
+  }
+
+  .image-container {
+    width: 250px;
+    height: 250px;
+  }
+
+  .profil-image {
     max-width: 250px;
-    text-align: center;
+    width: 100%;
+    min-height: 200px;
+    contain-intrinsic-size: 250px;
+  }
+
+  .subtitle {
+    margin-bottom: 1.5rem;
+  }
+
+  .nav-link {
+    flex: 1 1 100%;
+    min-width: auto;
+    font-size: var(--text-xs);
+    padding: 0.7rem 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .image-container {
+    width: 200px;
+    height: 200px;
+  }
+
+  .profil-image {
+    max-width: 200px;
+    min-height: 180px;
+  }
+}
+
+/* Optimisations pour réduire le reflow */
+@media (prefers-reduced-motion: reduce) {
+  .profil-image {
+    transition: none;
+  }
+
+  .profil-image:hover {
+    transform: translateZ(0);
   }
 }
 </style>
