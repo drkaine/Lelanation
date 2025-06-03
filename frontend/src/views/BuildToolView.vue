@@ -14,6 +14,30 @@ import { useItemStore } from '@/stores/itemStore'
 import BuildRecap from '@/components/composants/BuildRecap.vue'
 import InfosBuild from '@/components/composants/InfosBuild.vue'
 import version from '@/assets/files/data/lastVersion.json'
+import { useSEOHead } from '@/composables/useSEOHead'
+
+useSEOHead({
+  title:
+    'Créateur de Build LoL Avancé - Optimisez vos Builds League of Legends',
+  description:
+    "Utilisez notre créateur de build League of Legends avancé pour optimiser vos stratégies. Sélectionnez champion, runes, objets et sorts d'invocateur avec des recommandations expertes de Lelariva.",
+  keywords:
+    'créer build LoL, outil build League of Legends, builds personnalisés, runes LoL, optimisation champion, stratégies avancées',
+  type: 'article',
+  structuredData: {
+    '@type': 'WebApplication',
+    name: 'Créateur de Build League of Legends',
+    description:
+      'Outil interactif pour créer des builds optimisés pour League of Legends',
+    applicationCategory: 'GameApplication',
+    operatingSystem: 'Web Browser',
+    offers: {
+      '@type': 'Offer',
+      price: '0',
+      priceCurrency: 'EUR',
+    },
+  },
+})
 
 const championStore = useChampionStore()
 const runeStore = useRuneStore()
@@ -33,6 +57,7 @@ const next = () => {
 
 <template>
   <div class="window-build">
+    <h1 class="visually-hidden">Créateur de Build League of Legends</h1>
     <MenuBuild />
     <div class="build">
       <div class="build-content">
@@ -81,6 +106,18 @@ const next = () => {
 </template>
 
 <style scoped>
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
 .window-build {
   width: var(--width-all);
   height: var(--height-all);

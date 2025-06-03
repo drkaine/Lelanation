@@ -1,9 +1,25 @@
 <script lang="ts">
 import { type Video, type Tab } from '@/types/video'
 import youtubeData from '@/assets/files/data/youtube.json'
+import { useSEOHead } from '@/composables/useSEOHead'
 
 export default {
   name: 'ShortView',
+  setup() {
+    useSEOHead({
+      title: 'Vidéos LoL - Shorts et guides League of Legends par Lelariva',
+      description:
+        'Découvrez les dernières vidéos YouTube de Lelariva : tier lists, builds, guides et analyses League of Legends.',
+      keywords:
+        'vidéos LoL, YouTube Lelariva, tier list vidéo, guides League of Legends, shorts gaming',
+      type: 'article',
+      structuredData: {
+        '@type': 'VideoGallery',
+        name: 'Vidéos Lelariva League of Legends',
+        description: 'Collection de vidéos éducatives sur League of Legends',
+      },
+    })
+  },
   data() {
     return {
       shorts: [] as Video[],
@@ -114,6 +130,7 @@ export default {
 
 <template>
   <div class="shorts-container">
+    <h1 class="page-title">{{ $t('navigation.videos') }}</h1>
     <div class="search-bar">
       <input
         v-model="searchQuery"
@@ -197,6 +214,13 @@ export default {
   max-width: 1200px;
   margin: 0 auto;
   padding: 2rem;
+}
+
+.page-title {
+  color: var(--color-gold-300);
+  font-size: var(--title-base);
+  margin: 0 0 2rem 0;
+  text-align: center;
 }
 
 .shorts-grid {

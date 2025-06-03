@@ -9,7 +9,7 @@
   },
   "navigation": {
     "home": "Accueil",
-    "analytics": "Statistiques",
+    "statistique": "Statistiques",
     "videos": "Vidéos",
     "lela-builds": "Builds de Lelariva",
     "builds-public": "Builds de la communauté",
@@ -23,7 +23,7 @@
     "version": "Ce build a été créé pour une version antérieure du jeu et pourrait être obsolète."
   },
   "home": {
-    "title": "Bienvenue sur Lelanation !",
+    "title": "Lelanation - Builds et Guides League of Legends par Lelariva",
     "description": "Retrouver le grand Lelariva, chercher le meilleur build pour votre champion",
     "links": {
       "discord": "Discord",

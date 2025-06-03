@@ -11,6 +11,16 @@ import {
 } from '@/types/tier-list'
 import { useRouter } from 'vue-router'
 import { useConnexionStore } from '@/stores/connexionStore'
+import { useSEOHead } from '@/composables/useSEOHead'
+
+useSEOHead({
+  title: 'Statistiques LoL - Tier Lists et Analytics League of Legends',
+  description:
+    'Analysez les statistiques des champions et des builds League of Legends. Tier lists détaillées, win rates et méta analysis.',
+  keywords:
+    'statistiques LoL, tier list League of Legends, win rate champions, méta LoL, analytics gaming',
+  type: 'article',
+})
 
 const router = useRouter()
 const connexionStore = useConnexionStore()
@@ -370,6 +380,7 @@ const sortedAndFilteredChampions = computed(() => {
 
 <template>
   <div class="statistique-container">
+    <h1 class="page-title">{{ $t('navigation.statistique') }}</h1>
     <div class="tabs-container">
       <div class="tier-type-tabs tab-group">
         <button
@@ -588,6 +599,13 @@ const sortedAndFilteredChampions = computed(() => {
 </template>
 
 <style scoped>
+.page-title {
+  color: var(--color-gold-300);
+  font-size: var(--title-base);
+  margin: 0 0 2rem 0;
+  text-align: center;
+}
+
 .tabs-container {
   display: flex;
   flex-direction: column;

@@ -3,6 +3,27 @@ import { ref, computed, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import SheetBuild from '@/components/composants/SheetBuild.vue'
 import type { BuildData } from '@/types/build'
+import { useSEOHead } from '@/composables/useSEOHead'
+
+useSEOHead({
+  title:
+    'Builds Communautaires LoL - Découvrez les Meilleurs Builds League of Legends',
+  description:
+    'Explorez la plus grande collection de builds League of Legends créés par la communauté francophone. Builds certifiés par Lelariva, guides de champions détaillés et stratégies innovantes pour tous les rôles.',
+  keywords:
+    'builds publics LoL, builds communautaires, builds certifiés League of Legends, partage builds, guides champions communauté',
+  type: 'article',
+  structuredData: {
+    '@type': 'CollectionPage',
+    name: 'Collection de Builds League of Legends',
+    description: 'Builds communautaires certifiés pour League of Legends',
+    about: {
+      '@type': 'VideoGame',
+      name: 'League of Legends',
+      genre: 'MOBA',
+    },
+  },
+})
 
 const router = useRouter()
 const builds = ref<BuildData[]>([])

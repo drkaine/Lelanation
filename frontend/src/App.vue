@@ -10,6 +10,7 @@ import LanguageSwitcher from '@/components/LanguageSwitcher.vue'
 import { useI18n } from 'vue-i18n'
 import { directTranslation } from './i18nCompat'
 import { useAssetPreloading } from './composables/useAssetPreloading'
+import CanonicalManager from './components/SEO/CanonicalManager.vue'
 
 const buildStore = useBuildStore()
 const connexionStore = useConnexionStore()
@@ -79,6 +80,8 @@ useAssetPreloading({
 
 <template>
   <div id="app" data-server-rendered="true" data-v-app="">
+    <CanonicalManager />
+
     <div class="app app-background">
       <div v-if="!connexionStore.newUser" class="modal-overlay">
         <div class="modal-content">

@@ -4,13 +4,28 @@ import HomeView from '../HomeView.vue'
 import HeroSection from '@/components/home/HeroSection.vue'
 import SocialLinks from '@/components/home/SocialLinks.vue'
 
-const mockUseI18n = () => ({
-  t: (key: string) => key,
-  locale: 'en',
-})
-
+// Mock the composables before importing
 vi.mock('vue-i18n', () => ({
-  useI18n: () => mockUseI18n(),
+  useI18n: () => ({
+    t: (key: string) => key,
+    locale: 'en',
+  }),
+}))
+
+vi.mock('vue-router', () => ({
+  useRoute: () => ({
+    path: '/',
+    query: {},
+    hash: '',
+  }),
+}))
+
+vi.mock('@/composables/useSEOHead', () => ({
+  useSEOHead: vi.fn(),
+}))
+
+vi.mock('@vueuse/head', () => ({
+  useHead: vi.fn(),
 }))
 
 describe('HomeView', () => {

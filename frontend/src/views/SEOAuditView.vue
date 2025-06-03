@@ -59,6 +59,13 @@
 <script setup lang="ts">
 import { ref, computed, onMounted } from 'vue'
 import { seoAuditor } from '@/utils/seoAudit'
+import { useSEOHead } from '@/composables/useSEOHead'
+
+useSEOHead({
+  title: 'Audit SEO - Outils de développement',
+  description: "Outils d'audit SEO pour développeurs",
+  noIndex: true,
+})
 
 const testing = ref(false)
 const redirectResults = ref<Array<{ url: string; redirects: number }>>([])

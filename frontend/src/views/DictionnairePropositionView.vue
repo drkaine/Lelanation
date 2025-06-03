@@ -1,5 +1,15 @@
 <script setup lang="ts">
 import { ref } from 'vue'
+import { useSEOHead } from '@/composables/useSEOHead'
+
+useSEOHead({
+  title: 'Proposer une définition - Dictionnaire Lelariva',
+  description:
+    'Contribuez au dictionnaire de la communauté Lelariva en proposant vos propres définitions League of Legends.',
+  keywords:
+    'proposer définition, contribuer dictionnaire LoL, communauté Lelariva, terminologie League of Legends',
+  type: 'webpage',
+})
 
 const pseudo = ref('')
 const word = ref('')

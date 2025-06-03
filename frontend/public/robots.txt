@@ -1,27 +1,25 @@
 User-agent: *
 Allow: /
 
+# Sitemap
+Sitemap: https://www.lelanation.fr/sitemap.xml
+
+# Disallow development and admin paths
+Disallow: /admin/
+Disallow: /_nuxt/
+Disallow: /api/
+Disallow: /dev/
+Disallow: /.well-known/
+
+# Allow important pages for SEO
 Allow: /build
 Allow: /builds-publics
-Allow: /Lebuildarriva
 Allow: /dictionnaire
 Allow: /videos
-Allow: /statistique
+Allow: /legal
 
-Disallow: /admin/
-Disallow: /build/edit
-Disallow: /api/
-Disallow: /*.json$
-Disallow: /assets/files/contact/
-Disallow: /assets/files/data-manuel/
-
-Disallow: /src/
-Disallow: /scripts/
-Disallow: /.git/
-Disallow: /*.log
-Disallow: /*.tmp
-
-Sitemap: https://www.lelanation.fr/sitemap.xml
+# Crawl delay for respectful crawling
+Crawl-delay: 1
 
 User-agent: Googlebot
 Allow: /

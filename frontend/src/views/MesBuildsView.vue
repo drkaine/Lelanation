@@ -5,6 +5,7 @@ import SheetBuild from '@/components/composants/SheetBuild.vue'
 import { useBuildStore } from '@/stores/buildStore'
 import { useConnexionStore } from '@/stores/connexionStore'
 import type { BuildData } from '@/types/build'
+import { useSEOHead } from '@/composables/useSEOHead'
 
 const buildStore = useBuildStore()
 const route = useRoute()
@@ -22,6 +23,15 @@ const searchType = ref('all')
 const searchQuery = ref('')
 const visibilityFilter = ref('all')
 const certificationFilter = ref('all')
+
+useSEOHead({
+  title: 'Mes Builds - Gérer vos builds League of Legends',
+  description:
+    'Gérez et organisez vos builds League of Legends personnalisés. Visualisez, modifiez et partagez vos créations de builds LoL.',
+  keywords:
+    'mes builds LoL, gérer builds League of Legends, builds personnalisés, collection builds',
+  type: 'article',
+})
 
 onMounted(async () => {
   try {

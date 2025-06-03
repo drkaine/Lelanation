@@ -2,6 +2,8 @@ import './assets/css/main.css'
 
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
+import { createHead } from '@vueuse/head'
+
 import i18n from './i18n'
 import { directTranslation, installGlobalTranslation } from './i18nCompat'
 
@@ -16,8 +18,10 @@ interface I18nGlobal {
 }
 
 const app = createApp(App)
+const head = createHead()
 
 app.use(i18n)
+app.use(head)
 
 app.use(createPinia())
 app.use(router)
@@ -42,6 +46,34 @@ try {
   }
 } catch (e) {
   console.error('Error setting i18n:', e)
+}
+
+if (import.meta.env.DEV) {
+  router.afterEach(to => {
+    setTimeout(() => {
+      const title = document.title
+      const description = document
+        .querySelector('meta[name="description"]')
+        ?.getAttribute('content')
+
+      if (!title || title === 'Lelanation') {
+        console.warn(
+          `[SEO] Titre manquant ou générique pour la route: ${to.path}`,
+        )
+      }
+
+      if (!description) {
+        console.warn(
+          `[SEO] Meta description manquante pour la route: ${to.path}`,
+        )
+      }
+
+      const canonical = document.querySelector('link[rel="canonical"]')
+      if (!canonical) {
+        console.warn(`[SEO] Lien canonical manquant pour la route: ${to.path}`)
+      }
+    }, 100)
+  })
 }
 
 app.mount('#app')

@@ -4,6 +4,22 @@ import dictionnaire from '@/assets/files/dictionnaire/dictionnaire.json'
 import { useDictionary } from '@/composables/useDictionary'
 import AlphabetNav from '@/components/AlphabetNavigation.vue'
 import Pagination from '@/components/DictionaryPagination.vue'
+import { useSEOHead } from '@/composables/useSEOHead'
+
+useSEOHead({
+  title: 'Dictionnaire Lelariva - Vocabulaire League of Legends',
+  description:
+    'Le dictionnaire officiel de la communauté Lelariva. Découvrez le vocabulaire unique de League of Legends et ses définitions.',
+  keywords:
+    'dictionnaire LoL, vocabulaire League of Legends, jargon LoL, terminologie gaming, glossaire Lelariva',
+  type: 'article',
+  structuredData: {
+    '@type': 'DefinedTermSet',
+    name: 'Dictionnaire Lelariva League of Legends',
+    description:
+      'Collection de termes et définitions spécifiques à League of Legends',
+  },
+})
 
 const {
   dictionary,

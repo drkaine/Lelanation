@@ -7,6 +7,13 @@ import TierListTab from '@/components/Admin/TierListTab.vue'
 import DictionnaireTab from '@/components/Admin/DictionnaireTab.vue'
 import ContactTab from '@/components/Admin/ContactTab.vue'
 import BuildsTab from '@/components/Admin/BuildsTab.vue'
+import { useSEOHead } from '@/composables/useSEOHead'
+
+useSEOHead({
+  title: 'Administration - Lelanation',
+  description: "Interface d'administration privée",
+  noIndex: true,
+})
 
 const connexionStore = useConnexionStore()
 

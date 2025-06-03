@@ -2,6 +2,17 @@
 import { ref } from 'vue'
 import LegalModal from '@/components/Modal/LegalModal.vue'
 import { useConnexionStore } from '@/stores/connexionStore'
+import { useSEOHead } from '@/composables/useSEOHead'
+
+useSEOHead({
+  title: 'Mentions légales et RGPD - Lelanation',
+  description:
+    'Consultez nos mentions légales, politique de confidentialité et informations RGPD. Exercez vos droits sur vos données personnelles.',
+  keywords:
+    'mentions légales, RGPD, confidentialité, protection données, droits utilisateurs',
+  type: 'webpage',
+  noIndex: false,
+})
 
 const connexionStore = useConnexionStore()
 const showConfirmation = ref(false)
@@ -25,6 +36,7 @@ const revokeAnalytics = () => {
 <template>
   <div class="legal-overlay">
     <div class="content">
+      <h1 class="page-title">{{ $t('legal.title') }}</h1>
       <LegalModal />
 
       <div class="actions-section">
@@ -72,6 +84,13 @@ const revokeAnalytics = () => {
   padding: 2rem;
   max-width: 800px;
   width: 100%;
+}
+
+.page-title {
+  color: var(--color-gold-300);
+  font-size: var(--title-base);
+  margin: 0 0 2rem 0;
+  text-align: center;
 }
 
 .content h2 {

@@ -14,11 +14,65 @@ const SITE_CONFIG = {
   lastmod: new Date().toISOString().split('T')[0] 
 };
 
+const PRIVATE_ROUTES = [
+  '/builds',
+  '/statistique',
+  '/dictionnaire/proposition'
+];
+
+const ALLOWED_ROUTES = [
+  '/',
+  '/build',
+  '/builds-publics', 
+  '/Lebuildarriva',
+  '/videos',
+  '/dictionnaire',
+  '/legal',
+  ...PRIVATE_ROUTES
+];
+
+function validateRoute(path) {
+  if (!ALLOWED_ROUTES.includes(path)) {
+    throw new Error(`Route non autorisée détectée: ${path}. Routes autorisées: ${ALLOWED_ROUTES.join(', ')}`);
+  }
+  return true;
+}
+
+function validateCanonicalUrl(url) {
+  if (!url.startsWith('https://www.lelanation.fr')) {
+    throw new Error(`URL non canonique détectée: ${url}. Toutes les URLs doivent commencer par https://www.lelanation.fr`);
+  }
+  
+  const path = url.replace('https://www.lelanation.fr', '') || '/';
+  validateRoute(path);
+  
+  if (url !== 'https://www.lelanation.fr/' && url.endsWith('/')) {
+    throw new Error(`URL avec slash final détectée: ${url}. Les URLs ne doivent pas se terminer par un slash.`);
+  }
+  
+  if (url.includes('//') && !url.startsWith('https://')) {
+    throw new Error(`Double slash détecté dans l'URL: ${url}`);
+  }
+  
+  const forbiddenChars = ['?', '#', ' ', '%'];
+  for (const char of forbiddenChars) {
+    if (path.includes(char)) {
+      throw new Error(`Caractère interdit '${char}' détecté dans l'URL: ${url}`);
+    }
+  }
+  
+  if (path !== path.toLowerCase() && path !== '/Lebuildarriva') {
+    throw new Error(`URL avec majuscules détectée: ${url}. Les URLs doivent être en minuscules (exception: /Lebuildarriva).`);
+  }
+  
+  return url;
+}
+
 const PUBLIC_ROUTES = [
   {
     path: '/',
     priority: '1.0',
-    changefreq: 'daily',
+    changefreq: 'weekly',
     image: {
       loc: 'https://www.lelanation.fr/assets/images/lelariva.webp',
       title: 'Lelariva - League of Legends Expert',
@@ -32,12 +86,6 @@ const PUBLIC_ROUTES = [
     description: 'Créer un build League of Legends personnalisé'
   },
   {
-    path: '/builds',
-    priority: '0.8',
-    changefreq: 'daily',
-    description: 'Mes builds League of Legends personnalisés'
-  },
-  {
     path: '/builds-publics',
     priority: '0.9',
     changefreq: 'daily',
@@ -47,7 +95,7 @@ const PUBLIC_ROUTES = [
     path: '/Lebuildarriva',
     priority: '0.8',
     changefreq: 'daily',
-    description: 'Builds officiels de Lelariva'
+    description: 'Builds officiels de Lelariva - Expert League of Legends'
   },
   {
     path: '/videos',
@@ -57,26 +105,14 @@ const PUBLIC_ROUTES = [
   },
   {
     path: '/dictionnaire',
-    priority: '0.8',
-    changefreq: 'weekly',
+    priority: '0.7',
+    changefreq: 'monthly',
     description: 'Dictionnaire Lelariva - Vocabulaire LoL'
   },
   {
-    path: '/dictionnaire/proposition',
-    priority: '0.6',
-    changefreq: 'monthly',
-    description: 'Proposer une nouvelle définition au dictionnaire'
-  },
-  {
-    path: '/statistique',
-    priority: '0.7',
-    changefreq: 'daily',
-    description: 'Statistiques League of Legends'
-  },
-  {
     path: '/legal',
-    priority: '0.5',
-    changefreq: 'monthly',
+    priority: '0.3',
+    changefreq: 'yearly',
     description: 'Mentions légales et politique de confidentialité'
   }
 ];
@@ -88,7 +124,7 @@ function generateSitemapHeader() {
 }
 
 function generateUrlEntry(route) {
-  const url = `${SITE_CONFIG.baseUrl}${route.path}`;
+  const url = validateCanonicalUrl(`${SITE_CONFIG.baseUrl}${route.path}`);
   const priority = route.priority || SITE_CONFIG.defaultPriority;
   const changefreq = route.changefreq || SITE_CONFIG.defaultChangefreq;
   
@@ -100,6 +136,9 @@ function generateUrlEntry(route) {
     <priority>${priority}</priority>`;
 
   if (route.image) {
+    if (!route.image.loc.startsWith('https://www.lelanation.fr')) {
+      throw new Error(`URL d'image non canonique: ${route.image.loc}`);
+    }
     entry += `
     <image:image>
       <image:loc>${route.image.loc}</image:loc>
@@ -157,7 +196,7 @@ function validateSitemap() {
 
   const content = fs.readFileSync(outputPath, 'utf8');
   
-  const checks = [
+  const basicChecks = [
     { test: content.includes('<?xml'), message: 'Déclaration XML' },
     { test: content.includes('<urlset'), message: 'Élément urlset' },
     { test: content.includes('</urlset>'), message: 'Fermeture urlset' },
@@ -165,7 +204,8 @@ function validateSitemap() {
   ];
 
   let isValid = true;
-  checks.forEach(check => {
+  
+  basicChecks.forEach(check => {
     if (check.test) {
       console.log(`✅ ${check.message}`);
     } else {
@@ -173,6 +213,21 @@ function validateSitemap() {
       isValid = false;
     }
   });
+
+  const urlMatches = content.match(/<loc>(.*?)<\/loc>/g);
+  if (urlMatches) {
+    console.log('\n🔍 Validation des URLs canoniques:');
+    urlMatches.forEach((match, index) => {
+      const url = match.replace('<loc>', '').replace('</loc>', '');
+      try {
+        validateCanonicalUrl(url);
+        console.log(`✅ URL ${index + 1}: ${url}`);
+      } catch (error) {
+        console.log(`❌ URL ${index + 1}: ${url} - ${error.message}`);
+        isValid = false;
+      }
+    });
+  }
 
   return isValid;
 }
