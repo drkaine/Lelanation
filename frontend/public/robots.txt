@@ -4,38 +4,74 @@ Allow: /
 # Sitemap
 Sitemap: https://www.lelanation.fr/sitemap.xml
 
+# Allow important pages for SEO
+Allow: /build
+Allow: /builds-publics
+Allow: /Lebuildarriva  
+Allow: /dictionnaire
+Allow: /dictionnaire/proposition
+Allow: /videos
+Allow: /statistique
+Allow: /legal
+Allow: /assets/
+
 # Disallow development and admin paths
 Disallow: /admin/
 Disallow: /_nuxt/
 Disallow: /api/
 Disallow: /dev/
 Disallow: /.well-known/
-
-# Allow important pages for SEO
-Allow: /build
-Allow: /builds-publics
-Allow: /dictionnaire
-Allow: /videos
-Allow: /legal
+Disallow: /node_modules/
+Disallow: /src/
+Disallow: /cache-reset.html
 
 # Crawl delay for respectful crawling
 Crawl-delay: 1
 
+# Google Bot - Optimized settings
 User-agent: Googlebot
 Allow: /
-Crawl-delay: 1
+Crawl-delay: 0.5
+Request-rate: 2/60s
 
+# Bing Bot
 User-agent: Bingbot
 Allow: /
 Crawl-delay: 1
+Request-rate: 1/30s
 
+# Social Media Bots (No delay for social sharing)
 User-agent: facebookexternalhit
 Allow: /
+Crawl-delay: 0
 
 User-agent: Twitterbot
 Allow: /
+Crawl-delay: 0
 
-# Protection contre les bots malveillants
+User-agent: LinkedInBot
+Allow: /
+Crawl-delay: 0
+
+User-agent: WhatsApp
+Allow: /
+Crawl-delay: 0
+
+User-agent: TelegramBot
+Allow: /
+Crawl-delay: 0
+
+# Yandex (Russian search engine)
+User-agent: YandexBot
+Allow: /
+Crawl-delay: 1
+
+# DuckDuckGo Bot
+User-agent: DuckDuckBot
+Allow: /
+Crawl-delay: 1
+
+# Protection contre les bots malveillants et scrapers
 User-agent: SemrushBot
 Disallow: /
 
@@ -45,5 +81,50 @@ Disallow: /
 User-agent: MJ12bot
 Disallow: /
 
-# Politesse - délai entre les requêtes
-Crawl-delay: 1 
+User-agent: DotBot
+Disallow: /
+
+User-agent: BLEXBot
+Disallow: /
+
+User-agent: DataForSeoBot
+Disallow: /
+
+User-agent: SiteAuditBot
+Disallow: /
+
+User-agent: PetalBot
+Disallow: /
+
+User-agent: CCBot
+Disallow: /
+
+User-agent: ChatGPT-User
+Disallow: /
+
+User-agent: GPTBot
+Disallow: /
+
+User-agent: AI2Bot
+Disallow: /
+
+User-agent: Claude-Web
+Disallow: /
+
+# Archive bots (Allow with delay)
+User-agent: ia_archiver
+Allow: /
+Crawl-delay: 5
+
+User-agent: Wayback
+Allow: /
+Crawl-delay: 5
+
+# Monitoring and Security bots
+User-agent: UptimeRobot
+Allow: /
+Crawl-delay: 0
+
+User-agent: Pingdom
+Allow: /
+Crawl-delay: 0 

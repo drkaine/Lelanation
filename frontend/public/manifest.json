@@ -1,16 +1,124 @@
 {
-  "name": "Lelanation - Builds League of Legends",
+  "name": "Lelanation - Builds League of Legends par Lelariva",
   "short_name": "Lelanation",
-  "description": "Créez et partagez vos builds League of Legends. Guides détaillés par Lelariva.",
+  "description": "Créez et partagez vos builds League of Legends. Guides détaillés, statistiques et dictionnaire Lelariva. La référence francophone pour optimiser votre gameplay LoL.",
   "start_url": "/",
   "display": "standalone",
+  "display_override": ["window-controls-overlay", "standalone", "minimal-ui"],
   "background_color": "#1E2328",
   "theme_color": "#C8941A",
   "orientation": "portrait-primary",
   "scope": "/",
   "lang": "fr",
   "dir": "ltr",
-  "categories": ["games", "entertainment", "education"],
+  "categories": ["games", "entertainment", "education", "sports"],
+  "screenshots": [
+    {
+      "src": "/assets/images/lelariva.webp",
+      "sizes": "1200x630",
+      "type": "image/webp",
+      "platform": "wide"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Créer un Build",
+      "short_name": "Build",
+      "description": "Créer un nouveau build League of Legends",
+      "url": "/build",
+      "icons": [
+        {
+          "src": "/assets/images/icon-192x192.png",
+          "sizes": "192x192"
+        }
+      ]
+    },
+    {
+      "name": "Builds Publics",
+      "short_name": "Communauté",
+      "description": "Explorer les builds de la communauté",
+      "url": "/builds-publics",
+      "icons": [
+        {
+          "src": "/assets/images/icon-192x192.png",
+          "sizes": "192x192"
+        }
+      ]
+    },
+    {
+      "name": "Dictionnaire LoL",
+      "short_name": "Dictionnaire",
+      "description": "Consulter le dictionnaire League of Legends",
+      "url": "/dictionnaire",
+      "icons": [
+        {
+          "src": "/assets/images/icon-192x192.png",
+          "sizes": "192x192"
+        }
+      ]
+    }
+  ],
   "icons": [
-  ]
+    {
+      "src": "/assets/images/icon-72x72.png",
+      "sizes": "72x72",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/assets/images/icon-96x96.png",
+      "sizes": "96x96",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/assets/images/icon-128x128.png",
+      "sizes": "128x128",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/assets/images/icon-144x144.png",
+      "sizes": "144x144",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/assets/images/icon-152x152.png",
+      "sizes": "152x152",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/assets/images/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "/assets/images/icon-384x384.png",
+      "sizes": "384x384",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/assets/images/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable any"
+    }
+  ],
+  "related_applications": [
+    {
+      "platform": "webapp",
+      "url": "https://www.lelanation.fr/manifest.json"
+    }
+  ],
+  "prefer_related_applications": false,
+  "edge_side_panel": {
+    "preferred_width": 480
+  },
+  "launch_handler": {
+    "client_mode": "navigate-existing"
+  }
 }
