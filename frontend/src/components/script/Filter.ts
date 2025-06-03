@@ -72,7 +72,7 @@ export class Filter {
     this.filteredChampions.value = this.championData.filter(
       champion =>
         this.selectedTag.length === 0 ||
-        this.selectedTag.some(t => champion.tags.includes(t)),
+        this.selectedTag.every(t => champion.tags.includes(t)),
     )
   }
 
