@@ -108,7 +108,8 @@
     "loading": "Chargement...",
     "certified": "Builds certifiés",
     "uncertified": "Builds non certifiés",
-    "certification": "Certification"
+    "certification": "Certification",
+    "upToDate": "À jour"
   },
   "item": {
     "recipe": "Composants",

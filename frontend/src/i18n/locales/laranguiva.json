@@ -101,14 +101,15 @@
     "definition": "Définition"
   },
   "build": {
-    "new": "Nouveau Build",
-    "all": "Tous les builds",
-    "public": "Builds publics",
-    "private": "Builds privés",
-    "loading": "Chargement...",
+    "new": "Nuovo Buildriva",
+    "all": "Tous les buildriva",
+    "public": "Buildriva publiva",
+    "private": "Buildriva privéva",
+    "loading": "Chargementriva...",
     "certified": "Builds certifiva",
     "uncertified": "Builds non certifiva",
-    "certification": "Certificativa"
+    "certification": "Certificationriva",
+    "upToDate": "À jouriva"
   },
   "item": {
     "recipe": "Composants",

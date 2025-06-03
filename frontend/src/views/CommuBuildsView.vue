@@ -4,6 +4,9 @@ import { useRouter } from 'vue-router'
 import SheetBuild from '@/components/composants/SheetBuild.vue'
 import type { BuildData } from '@/types/build'
 import { useSEOHead } from '@/composables/useSEOHead'
+import { useGameVersionStore } from '@/stores/gameVersionStore'
+
+const gameVersionStore = useGameVersionStore()
 
 useSEOHead({
   title:
@@ -32,6 +35,7 @@ const selectedRoles = ref(new Set<string>())
 const searchType = ref('all')
 const searchQuery = ref('')
 const certificationFilter = ref('all')
+const upToDateFilter = ref(false)
 
 onMounted(async () => {
   try {
@@ -83,6 +87,13 @@ const filteredBuilds = computed(() => {
       } else {
         return !build.certified
       }
+    })
+  }
+
+  if (upToDateFilter.value) {
+    filtered = filtered.filter(build => {
+      const currentVersion = gameVersionStore.currentVersion
+      return build.version === currentVersion
     })
   }
 
@@ -176,6 +187,16 @@ const hasCertifiedBuilds = computed(() => {
           <option value="certified">{{ $t('build.certified') }}</option>
           <option value="uncertified">{{ $t('build.uncertified') }}</option>
         </select>
+
+        <label class="up-to-date-toggle">
+          <input
+            type="checkbox"
+            v-model="upToDateFilter"
+            class="toggle-checkbox"
+          />
+          <span class="toggle-slider"></span>
+          <span class="toggle-label">{{ $t('build.upToDate') }}</span>
+        </label>
       </div>
     </div>
 
@@ -419,6 +440,59 @@ const hasCertifiedBuilds = computed(() => {
   background: var(--color-blue-500);
 }
 
+.up-to-date-toggle {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  user-select: none;
+}
+
+.toggle-checkbox {
+  display: none;
+}
+
+.toggle-slider {
+  position: relative;
+  width: 44px;
+  height: 24px;
+  background-color: var(--color-grey-300);
+  border-radius: 12px;
+  border: 1px solid var(--color-gold-300);
+  transition: all 0.3s ease;
+}
+
+.toggle-slider::before {
+  content: '';
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 18px;
+  height: 18px;
+  background-color: var(--color-gold-300);
+  border-radius: 50%;
+  transition: all 0.3s ease;
+}
+
+.toggle-checkbox:checked + .toggle-slider {
+  background-color: var(--color-gold-300);
+}
+
+.toggle-checkbox:checked + .toggle-slider::before {
+  transform: translateX(20px);
+  background-color: var(--color-grey-800);
+}
+
+.toggle-label {
+  color: var(--color-gold-300);
+  font-size: var(--text-sm);
+  font-weight: 500;
+}
+
+.up-to-date-toggle:hover .toggle-slider {
+  border-color: var(--color-gold-400);
+}
+
 @media (max-width: 768px) {
   .actions-group {
     flex-direction: column;
@@ -501,6 +575,15 @@ const hasCertifiedBuilds = computed(() => {
 
   .visibility-select {
     width: var(--width-all);
+    margin: 0.5rem 0;
+  }
+
+  .up-to-date-toggle {
+    width: var(--width-all);
+    justify-content: space-between;
+    padding: 0.5rem;
+    border: 1px solid var(--color-gold-300);
+    border-radius: 4px;
     margin: 0.5rem 0;
   }
 }

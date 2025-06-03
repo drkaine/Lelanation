@@ -11,15 +11,9 @@ import { useConnexionStore } from '@/stores/connexionStore'
 import { useBuildStore } from '@/stores/buildStore'
 import { ref, onMounted, computed } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { useRoute } from 'vue-router'
 
-const route = useRoute()
 const connexionStore = useConnexionStore()
 const buildStore = useBuildStore()
-
-const isLelarivaBuildPage = computed(() =>
-  route.path.endsWith('/Lebuildarriva'),
-)
 
 const { t } = useI18n()
 const roleStore = useRoleStore()
@@ -45,17 +39,6 @@ const isAdmin = connexionStore.userName === import.meta.env.VITE_NAME
 
 const isCertified = computed(() => props.certified === true)
 const urlApiSave = import.meta.env.VITE_URL_API_SAVE
-
-const isCommunityPage = computed(() => route.path === '/builds-publics')
-const isBuildRecap = computed(() => route.path.includes('/build/'))
-
-const showCertificationButton = computed(
-  () =>
-    isAdmin &&
-    (isCommunityPage.value || isBuildRecap.value) &&
-    !isLelarivaBuildPage.value &&
-    !props.isLelarivaBuild,
-)
 
 const toggleCertification = async () => {
   if (!props.buildId) return
@@ -188,13 +171,13 @@ const hasSkillPoints = computed(() =>
 
       <span class="version-text">v{{ version }}</span>
       <img
-        v-if="isCertified && !isAdmin && !props.isLelarivaBuild"
+        v-if="isCertified"
         class="certification-badge"
         src="/assets/images/lelariva-quality.png"
         alt="Certified by Lelariva"
       />
       <div
-        v-if="showCertificationButton && !props.isLelarivaBuild"
+        v-if="isAdmin && !props.isLelarivaBuild"
         class="certification-badge-container"
         @click.stop="toggleCertification"
         :class="{ 'not-certified': !isCertified }"

@@ -108,7 +108,8 @@
     "loading": "Loading...",
     "certified": "Certified builds",
     "uncertified": "Uncertified builds",
-    "certification": "Certification"
+    "certification": "Certification",
+    "upToDate": "Up to date"
   },
   "item": {
     "recipe": "Components",
