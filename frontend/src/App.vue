@@ -131,7 +131,7 @@ useAssetPreloading({
               to="/statistique"
               @click="toggleMenu"
               v-if="connexionStore.isLoggedIn"
-              >{{ $t('navigation.analytics') }}</RouterLink
+              >{{ $t('navigation.statistique') }}</RouterLink
             >
 
             <RouterLink
@@ -195,7 +195,7 @@ useAssetPreloading({
               class="version"
               to="/statistique"
               v-if="connexionStore.isLoggedIn"
-              >{{ $t('navigation.analytics') }}</RouterLink
+              >{{ $t('navigation.statistique') }}</RouterLink
             >
             <RouterLink to="/videos" title="videos" class="version">
               {{ $t('navigation.videos') }}</RouterLink
