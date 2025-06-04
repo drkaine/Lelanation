@@ -114,7 +114,6 @@ const filteredBuilds = computed(() => {
     })
   }
 
-  
   return filtered.sort((a, b) => {
     if (!a.version || !b.version) return 0
 

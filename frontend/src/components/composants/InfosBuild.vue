@@ -480,7 +480,7 @@ const submitForm = async () => {
   padding: 0.75rem 1.5rem;
   background: transparent;
   border: none;
-  color: var(--color-grey-200);
+  color: var(--color-grey-50);
   font-size: var(--text-base);
   cursor: pointer;
   transition: all 0.2s;

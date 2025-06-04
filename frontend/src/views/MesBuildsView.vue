@@ -116,11 +116,9 @@ const filteredBuilds = computed(() => {
     })
   }
 
-  
   return filtered.sort((a, b) => {
     if (!a.version || !b.version) return 0
 
-    
     const versionA = a.version.split('.').map(Number)
     const versionB = b.version.split('.').map(Number)
 
