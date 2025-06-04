@@ -50,22 +50,6 @@ const getSpellImage = (skill: string) => {
   if (spell) return `/assets/icons/champions/sorts/${spell.id}.png`
 }
 
-const getSpellInfo = (skill: string) => {
-  const spellIndex = { A: 0, Z: 1, E: 2, R: 3 }
-  const spell =
-    championStore.selectedChampion?.spells?.[
-      spellIndex[skill as keyof typeof spellIndex]
-    ]
-  if (!spell) return null
-  return {
-    name: spell.name,
-    description: spell.description,
-    cooldown: spell.cooldownBurn,
-    cost: spell.costBurn,
-    range: spell.rangeBurn,
-  }
-}
-
 const updateChampionSkillsOrder = () => {
   championStore.setChampionSkillsOrder(skillPoints.value)
 }
@@ -93,42 +77,7 @@ watch(
         class="skill-row"
       >
         <div class="skill-label-container">
-          <div class="tooltip-skill-container">
-            <img :src="getSpellImage(skill)" :alt="skill" class="skill-icon" />
-            <div class="tooltip-skill" v-if="getSpellInfo(skill)">
-              <div class="tooltip-skill-header">
-                <img
-                  :src="getSpellImage(skill)"
-                  :alt="skill"
-                  class="tooltip-skill-icon"
-                />
-                <h4>{{ getSpellInfo(skill)?.name }}</h4>
-              </div>
-              <p v-html="getSpellInfo(skill)?.description"></p>
-              <div class="tooltip-skill-stats">
-                <div class="stat-row" v-if="getSpellInfo(skill)?.cooldown">
-                  <span class="stat-label">{{
-                    $t('skill-order.cooldown')
-                  }}</span>
-                  <span class="stat-value"
-                    >{{ getSpellInfo(skill)?.cooldown }}s</span
-                  >
-                </div>
-                <div class="stat-row" v-if="getSpellInfo(skill)?.cost">
-                  <span class="stat-label">{{ $t('skill-order.cost') }}</span>
-                  <span class="stat-value">{{
-                    getSpellInfo(skill)?.cost
-                  }}</span>
-                </div>
-                <div class="stat-row" v-if="getSpellInfo(skill)?.range">
-                  <span class="stat-label">{{ $t('skill-order.range') }}</span>
-                  <span class="stat-value">{{
-                    getSpellInfo(skill)?.range
-                  }}</span>
-                </div>
-              </div>
-            </div>
-          </div>
+          <img :src="getSpellImage(skill)" :alt="skill" class="skill-icon" />
           <div class="skill-label">{{ skill }}</div>
         </div>
         <div
@@ -223,27 +172,5 @@ watch(
   .skill-cell {
     font-size: var(--text-xs);
   }
-}
-
-.tooltip-skill-stats {
-  margin-top: 0.75rem;
-  padding-top: 0.75rem;
-  border-top: 1px solid var(--color-gold-300);
-}
-
-.stat-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 0.25rem;
-  font-size: var(--text-sm);
-}
-
-.stat-label {
-  color: var(--color-gold-300);
-}
-
-.stat-value {
-  color: var(--color-grey-50);
 }
 </style>
