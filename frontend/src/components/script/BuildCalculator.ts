@@ -17,6 +17,8 @@ import {
   calculateMixedEffectiveHealth,
   determineAdaptiveForceType,
   calculateAdaptiveForceBonus,
+  calculateChampionStatsGoldValue,
+  STAT_GOLD_VALUES,
 } from './StatsCalculator'
 
 export function calculateBaseStats(
@@ -56,36 +58,40 @@ export function calculateBaseStats(
   const averageEffectiveHealth =
     (physicalEffectiveHealth + magicalEffectiveHealth) / 2
 
+  const attackdamage = Math.round(
+    (championStats.attackdamage ?? 0) +
+      (championStats.attackdamageperlevel ?? 0) * levelMultiplier,
+  )
+  const attackspeed = Number(
+    (baseAttackSpeed + baseAttackSpeed * bonusAttackSpeedFromLevel).toFixed(3),
+  )
+  const movespeed = Math.round(championStats.movespeed ?? 0)
+  const mp = Math.round(
+    (championStats.mp ?? 0) + (championStats.mpperlevel ?? 0) * levelMultiplier,
+  )
+  const hpregen = Math.round(
+    (championStats.hpregen ?? 0) +
+      (championStats.hpregenperlevel ?? 0) * levelMultiplier,
+  )
+  const mpregen = Math.round(
+    (championStats.mpregen ?? 0) +
+      (championStats.mpregenperlevel ?? 0) * levelMultiplier,
+  )
+
   const baseStats: ExtendedStats = {
     armor,
-    attackdamage: Math.round(
-      (championStats.attackdamage ?? 0) +
-        (championStats.attackdamageperlevel ?? 0) * levelMultiplier,
-    ),
+    attackdamage,
     attackrange: Math.round(championStats.attackrange ?? 0),
-    attackspeed: Number(
-      (baseAttackSpeed + baseAttackSpeed * bonusAttackSpeedFromLevel).toFixed(
-        3,
-      ),
-    ),
+    attackspeed,
     crit: Math.round(
       (championStats.crit ?? 0) +
         (championStats.critperlevel ?? 0) * levelMultiplier,
     ),
     hp: health,
-    hpregen: Math.round(
-      (championStats.hpregen ?? 0) +
-        (championStats.hpregenperlevel ?? 0) * levelMultiplier,
-    ),
-    movespeed: Math.round(championStats.movespeed ?? 0),
-    mp: Math.round(
-      (championStats.mp ?? 0) +
-        (championStats.mpperlevel ?? 0) * levelMultiplier,
-    ),
-    mpregen: Math.round(
-      (championStats.mpregen ?? 0) +
-        (championStats.mpregenperlevel ?? 0) * levelMultiplier,
-    ),
+    hpregen,
+    movespeed,
+    mp,
+    mpregen,
     spellblock,
     CDR: 0,
     AP: 0,
@@ -106,7 +112,33 @@ export function calculateBaseStats(
     physicalEffectiveHealth: Math.round(physicalEffectiveHealth),
     magicalEffectiveHealth: Math.round(magicalEffectiveHealth),
     averageEffectiveHealth: Math.round(averageEffectiveHealth),
+    goldValue: 0,
+    goldEfficiency: 0,
   }
+
+  const baseStatsLvl1 = {
+    hp: championStats.hp ?? 0,
+    attackdamage: championStats.attackdamage ?? 0,
+    armor: championStats.armor ?? 0,
+    spellblock: championStats.spellblock ?? 0,
+    mp: championStats.mp ?? 0,
+    hpregen: championStats.hpregen ?? 0,
+    mpregen: championStats.mpregen ?? 0,
+    attackspeed: championStats.attackspeed ?? 0,
+    movespeed: championStats.movespeed ?? 0,
+  }
+
+  baseStats.goldValue = calculateChampionStatsGoldValue({
+    hp: health - baseStatsLvl1.hp,
+    attackdamage: attackdamage - baseStatsLvl1.attackdamage,
+    armor: armor - baseStatsLvl1.armor,
+    spellblock: spellblock - baseStatsLvl1.spellblock,
+    mp: mp - baseStatsLvl1.mp,
+    hpregen: hpregen - baseStatsLvl1.hpregen,
+    mpregen: mpregen - baseStatsLvl1.mpregen,
+    attackspeed: attackspeed - baseStatsLvl1.attackspeed,
+    movespeed: 0,
+  })
 
   return baseStats
 }
@@ -318,7 +350,9 @@ export function calculateTotalStats(
   ).toString()
   extendedStats.mixedEffectiveHealth =
     Math.round(mixedEffectiveHealth).toString()
-  extendedStats.goldValue = Math.round(itemStats.goldValue || 0).toString()
+  extendedStats.goldValue = Math.round(
+    (championStats.goldValue || 0) + (itemStats.goldValue || 0),
+  ).toString()
   extendedStats.goldEfficiency = Math.round(
     itemStats.goldEfficiency || 0,
   ).toString()
@@ -540,7 +574,20 @@ export function calculateTotalStatsWithShards(
   ).toString()
   extendedStats.mixedEffectiveHealth =
     Math.round(mixedEffectiveHealth).toString()
-  extendedStats.goldValue = Math.round(itemStats.goldValue || 0).toString()
+  const shardGoldValue =
+    shardStats.hp * STAT_GOLD_VALUES.hp +
+    shardStats.attackdamage * STAT_GOLD_VALUES.attackdamage +
+    shardStats.AP * STAT_GOLD_VALUES.AP +
+    shardStats.attackspeed * 100 * STAT_GOLD_VALUES.attackspeed +
+    shardStats.CDR * STAT_GOLD_VALUES.abilityhaste +
+    shardStats.movespeed * STAT_GOLD_VALUES.movespeed +
+    shardStats.tenacity * 20
+
+  extendedStats.goldValue = Math.round(
+    (championStats.goldValue || 0) +
+      (itemStats.goldValue || 0) +
+      shardGoldValue,
+  ).toString()
   extendedStats.goldEfficiency = Math.round(
     itemStats.goldEfficiency || 0,
   ).toString()

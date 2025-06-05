@@ -297,6 +297,7 @@
     "magicalEffectiveHealth": "Santé effective magique",
     "averageEffectiveHealth": "Santé effective moyenne",
     "goldValue": "Valeur en or",
-    "goldEfficiency": "Efficacité or (%)"
+    "goldEfficiency": "Efficacité or (%)",
+    "disclaimer": "Les calculcateursriva sont basésriva sur les données officiellesriva et les formules du wikiriva, mais peuvent possédriva des erreursriva"
   }
 }

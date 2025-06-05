@@ -6,6 +6,7 @@ import type { Build } from '@/types/build'
 import type { ShardSelection } from '@/types/shard'
 import type { Champion } from '@/types/champion'
 import { calculateShardStats } from '@/components/script/BuildCalculator'
+import { STAT_GOLD_VALUES } from '@/components/script/StatsCalculator'
 
 const { t } = useI18n()
 const lvl = ref(1)
@@ -84,23 +85,40 @@ const getShardStatsForLevel = (level: number) => {
 
 const getShardStatValue = (stat: string, level: number): string => {
   const shardStats = getShardStatsForLevel(level)
+
+  if (stat === 'goldValue') {
+    const goldValue =
+      shardStats.hp * STAT_GOLD_VALUES.hp +
+      shardStats.attackdamage * STAT_GOLD_VALUES.attackdamage +
+      shardStats.AP * STAT_GOLD_VALUES.AP +
+      shardStats.attackspeed * 100 * STAT_GOLD_VALUES.attackspeed +
+      shardStats.CDR * STAT_GOLD_VALUES.abilityhaste +
+      shardStats.movespeed * STAT_GOLD_VALUES.movespeed +
+      shardStats.tenacity * 20
+    return roundValue(goldValue)
+  }
+
   const value = shardStats[stat as keyof typeof shardStats] || 0
   return roundValue(value)
 }
 
 const statsList = [
   'hp',
-  'hpregen',
+
   'mp',
-  'mpregen',
+  'attackdamage',
+  'AP',
+  'attackspeed',
   'armor',
   'spellblock',
-  'attackdamage',
+
+  'hpregen',
+  'mpregen',
   'movespeed',
   'attackrange',
-  'attackspeed',
+
   'CDR',
-  'AP',
+
   'lethality',
   'crit',
   'magicPenetration',
@@ -112,22 +130,28 @@ const statsList = [
   'physicalEffectiveHealth',
   'magicalEffectiveHealth',
   'averageEffectiveHealth',
+  'goldValue',
+  'goldEfficiency',
 ]
 
 const statCategories: Record<string, string[]> = {
   basic: [
     'hp',
-    'hpregen',
+
     'mp',
-    'mpregen',
+    'attackdamage',
+    'AP',
+    'attackspeed',
     'armor',
     'spellblock',
-    'attackdamage',
+
+    'hpregen',
+    'mpregen',
     'movespeed',
     'attackrange',
-    'attackspeed',
+
     'CDR',
-    'AP',
+
     'lethality',
     'crit',
     'magicPenetration',
@@ -152,6 +176,7 @@ const alwaysDisplayStats = [
   'armor',
   'spellblock',
   'attackspeed',
+  'goldValue',
 ]
 
 const statsListFiltered = computed(() =>
@@ -212,7 +237,25 @@ const hasEconomicStats = computed(() =>
     <table class="stats-table">
       <thead>
         <tr>
-          <th>{{ $t('build-recap.statistic') }}</th>
+          <th>
+            <div class="statistic-header">
+              {{ $t('build-recap.statistic') }}
+              <div class="info-icon" :title="$t('stats.disclaimer')">
+                <svg
+                  width="14"
+                  height="14"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <path d="M12 16v-4"></path>
+                  <path d="M12 8h.01"></path>
+                </svg>
+              </div>
+            </div>
+          </th>
           <th>{{ $t('build-recap.base') }}</th>
           <th>{{ $t('build-recap.items') }}</th>
           <th>{{ $t('build-recap.shards') }}</th>
@@ -324,11 +367,21 @@ const hasEconomicStats = computed(() =>
             class="economic-stat"
           >
             <td>{{ getStatTranslation(stat) }}</td>
-            <td>-</td>
+            <td>
+              {{
+                stat === 'goldValue'
+                  ? roundValue(
+                      props.build?.baseStats[lvl - 1][stat as keyof Stats],
+                    )
+                  : '-'
+              }}
+            </td>
             <td>
               {{ roundValue(props.build?.buildItemStats[stat as keyof Stats]) }}
             </td>
-            <td>-</td>
+            <td>
+              {{ stat === 'goldValue' ? getShardStatValue(stat, lvl) : '-' }}
+            </td>
             <td>
               {{
                 roundValue(
@@ -338,13 +391,6 @@ const hasEconomicStats = computed(() =>
             </td>
           </tr>
         </template>
-
-        <tr>
-          <td>{{ $t('stats.goldValue') }}</td>
-          <td>0</td>
-          <td>{{ props.total }}</td>
-          <td>{{ props.total }}</td>
-        </tr>
       </tbody>
     </table>
     <div class="level-selector">
@@ -366,12 +412,17 @@ const hasEconomicStats = computed(() =>
 .stats-panel {
   border-radius: 8px;
   padding: 1rem;
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
 }
 
 .stats-table {
   border-collapse: collapse;
   margin-bottom: 0;
   border-bottom: 1px solid var(--color-gold-50);
+  width: 100%;
+  min-width: 600px;
 }
 
 .stats-table th,
@@ -424,24 +475,48 @@ const hasEconomicStats = computed(() =>
   transform: rotate(180deg);
 }
 
+.statistic-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.info-icon {
+  color: var(--color-gold-400);
+  cursor: help;
+  opacity: 0.7;
+  transition: opacity 0.2s ease;
+  display: flex;
+  align-items: center;
+}
+
+.info-icon:hover {
+  opacity: 1;
+}
+
 .level-selector {
   padding: 0.75rem 1rem;
   border-top: 1px solid var(--color-grey-300);
   margin-top: -1px;
+  width: 100%;
 }
 
 .level-buttons {
-  display: grid;
-  grid-template-columns: repeat(18, 30px);
+  display: flex;
+  flex-wrap: wrap;
   gap: 0.5rem;
-  justify-content: center;
+  justify-content: space-between;
+  width: 100%;
 }
 
 .level-btn {
-  width: 30px;
+  flex: 1;
+  min-width: 30px;
+  max-width: 40px;
   height: 30px;
   padding: 0;
   border: var(--border-size) solid transparent;
+  background: var(--color-grey-700);
   color: var(--color-gold-300);
   font-size: var(--text-sm);
   cursor: pointer;
@@ -450,16 +525,25 @@ const hasEconomicStats = computed(() =>
   display: flex;
   align-items: center;
   justify-content: center;
+  user-select: none;
+  position: relative;
+  z-index: 1;
 }
 
 .level-btn:hover {
-  border-color: var(--color-grey-300);
+  border-color: var(--color-gold-300);
+  background: var(--color-grey-600);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 .level-btn.active {
   border-color: var(--color-gold-300);
-  color: var(--color-grey-300);
+  background: var(--color-gold-300);
+  color: var(--color-grey-800);
   font-weight: bold;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 @media (max-width: 768px) {
@@ -490,13 +574,24 @@ const hasEconomicStats = computed(() =>
     padding: 0.5rem;
   }
 
+  .stats-panel {
+    max-width: 100%;
+    padding: 0.5rem;
+  }
+
+  .stats-table {
+    min-width: 100%;
+    font-size: var(--text-sm);
+  }
+
   .level-buttons {
-    grid-template-columns: repeat(6, 25px);
-    grid-template-rows: repeat(3, 25px);
+    justify-content: center;
+    gap: 0.25rem;
   }
 
   .level-btn {
-    width: 25px;
+    min-width: 25px;
+    max-width: 30px;
     height: 25px;
     font-size: var(--text-xs);
   }

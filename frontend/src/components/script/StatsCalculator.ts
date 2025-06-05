@@ -253,6 +253,58 @@ export function calculateGoldEfficiency(
   return (goldValue / itemPrice) * 100
 }
 
+export function calculateChampionStatsGoldValue(championStats: {
+  hp: number
+  attackdamage: number
+  armor: number
+  spellblock: number
+  mp: number
+  hpregen: number
+  mpregen: number
+  attackspeed: number
+  movespeed: number
+}): number {
+  let goldValue = 0
+
+  if (championStats.hp) {
+    goldValue += championStats.hp * STAT_GOLD_VALUES.hp
+  }
+
+  if (championStats.attackdamage) {
+    goldValue += championStats.attackdamage * STAT_GOLD_VALUES.attackdamage
+  }
+
+  if (championStats.armor) {
+    goldValue += championStats.armor * STAT_GOLD_VALUES.armor
+  }
+
+  if (championStats.spellblock) {
+    goldValue += championStats.spellblock * STAT_GOLD_VALUES.spellblock
+  }
+
+  if (championStats.mp) {
+    goldValue += championStats.mp * STAT_GOLD_VALUES.mp
+  }
+
+  if (championStats.hpregen) {
+    goldValue += championStats.hpregen * STAT_GOLD_VALUES.hpregen
+  }
+
+  if (championStats.mpregen) {
+    goldValue += championStats.mpregen * STAT_GOLD_VALUES.mpregen
+  }
+
+  if (championStats.attackspeed > 0) {
+    goldValue += championStats.attackspeed * 100 * STAT_GOLD_VALUES.attackspeed
+  }
+
+  if (championStats.movespeed > 0) {
+    goldValue += championStats.movespeed * STAT_GOLD_VALUES.movespeed
+  }
+
+  return Math.round(goldValue)
+}
+
 export function calculateArmorDamageReduction(
   rawDamage: number,
   armor: number,
