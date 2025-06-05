@@ -79,7 +79,12 @@ const championStats =
 
 const itemStats = itemStore.$state.ItemsSelection.stats
 
-const build = buildStore.statsCalculator(championStats, itemStats)
+const build = buildStore.statsCalculatorWithShards(
+  championStats,
+  itemStats,
+  championStore.$state.selectedChampion ?? undefined,
+  shardStore.$state.shardsSelection,
+)
 
 const submitForm = async () => {
   let fileName = `${uuidv4()}.json`
@@ -229,6 +234,8 @@ const submitForm = async () => {
         <StatistiquesBuild
           :build="build"
           :total="itemStore.$state.ItemsSelection.gold.total"
+          :shards="shardStore.$state.shardsSelection"
+          :champion="championStore.$state.selectedChampion ?? undefined"
         />
       </div>
 

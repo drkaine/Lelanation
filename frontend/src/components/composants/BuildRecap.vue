@@ -49,6 +49,16 @@ const data = await response.json()
 
 buildData.value = data
 
+if (buildData.value?.sheet) {
+  const recalculatedBuild = buildStore.statsCalculatorWithShards(
+    buildData.value.sheet.champion.stats,
+    buildData.value.sheet.items.stats,
+    buildData.value.sheet.champion,
+    buildData.value.sheet.shards,
+  )
+  buildData.value.buildStats = recalculatedBuild
+}
+
 async function deleteBuild() {
   try {
     const response = await fetch(apiUrl, {
@@ -276,6 +286,8 @@ const editBuild = () => {
         <StatistiquesBuild
           :build="buildData.buildStats"
           :total="buildData.sheet.items.gold.total"
+          :shards="buildData.sheet.shards"
+          :champion="buildData.sheet.champion"
         />
       </section>
     </div>

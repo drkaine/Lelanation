@@ -170,7 +170,6 @@ defineProps<{
   }
 }
 
-/* Optimisations pour réduire le reflow */
 @media (prefers-reduced-motion: reduce) {
   .profil-image {
     transition: none;

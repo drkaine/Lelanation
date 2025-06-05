@@ -4,10 +4,8 @@ import type {
   ItemStats,
   ArmorPenetrationReductionParams,
 } from '../../types/stat'
+import type { Champion } from '../../types/champion'
 
-/**
- * Reference gold values for stats (gold per stat point)
- */
 export const STAT_GOLD_VALUES = {
   attackdamage: 35, // Long Sword: 350g / 10 AD
   abilityhaste: 50, // Glowing Mote: 250g / 5 AH
@@ -25,10 +23,76 @@ export const STAT_GOLD_VALUES = {
   lethality: 30, // Gold value per 1 lethality
 }
 
-export function calculateAttackSpeed(stats: AttackSpeedStats): number {
-  const totalAS = stats.baseAS + stats.asRatio * (stats.bonusAS / 100)
+export function determineAdaptiveForceType(
+  champion: Champion | undefined,
+  currentBonusAD: number,
+  currentAP: number,
+): 'AD' | 'AP' {
+  if (!champion) return 'AD'
 
-  return Number(Math.min(Math.max(totalAS, 0.2), 2.5).toFixed(2))
+  if (currentBonusAD > currentAP) return 'AD'
+  if (currentAP > currentBonusAD) return 'AP'
+
+  const championTags = champion.tags || []
+
+  if (championTags.includes('Mage')) return 'AP'
+
+  if (championTags.includes('Marksman')) return 'AD'
+
+  if (championTags.includes('Assassin')) {
+    const info = champion.info || { attack: 0, magic: 0 }
+    return info.magic > info.attack ? 'AP' : 'AD'
+  }
+
+  const info = champion.info || { attack: 0, magic: 0 }
+
+  if (info.magic > info.attack + 2) return 'AP'
+
+  return 'AD'
+}
+
+export function calculateAdaptiveForceBonus(
+  adaptiveForcePoints: number,
+  type: 'AD' | 'AP',
+) {
+  if (type === 'AD') {
+    return {
+      attackdamage: adaptiveForcePoints * 0.6, // 1 point = 0.6 AD
+      AP: 0,
+    }
+  } else {
+    return {
+      attackdamage: 0,
+      AP: adaptiveForcePoints * 1, // 1 point = 1 AP
+    }
+  }
+}
+
+/**
+ * Calcule l'attack speed total selon les règles officielles de League of Legends
+ *
+ * Formule LoL : y = b + (m × x)
+ * où :
+ * - y = attack speed total
+ * - b = attack speed de base (base AS)
+ * - m = attack speed ratio (souvent égal à base AS pour la plupart des champions)
+ * - x = somme de tous les bonus d'attack speed (en décimal, donc 50% = 0.5)
+ *
+ * Limites officielles :
+ * - Maximum : 3.003 AS (1 attaque toutes les 0.333 secondes)
+ * - Minimum : 0.2 AS (1 attaque toutes les 5 secondes)
+ *
+ */
+export function calculateAttackSpeed(stats: AttackSpeedStats): number {
+  const asRatio = stats.asRatio || stats.baseAS
+
+  // Formule officielle : totalAS = baseAS + (asRatio × bonusAS)
+  // bonusAS est déjà en format décimal (ex: 0.5 pour 50%)
+  const totalAS = stats.baseAS + asRatio * stats.bonusAS
+
+  const cappedAS = Math.min(Math.max(totalAS, 0.2), 3.003)
+
+  return Number(cappedAS.toFixed(3))
 }
 
 export function calculateMovementSpeed(stats: MovementSpeedCalcStats): number {
@@ -57,15 +121,6 @@ export function calculateMovementSpeed(stats: MovementSpeedCalcStats): number {
   }
 }
 
-/**
- * Calculates the effective armor after applying all penetration and reduction effects
- * in the correct order:
- * 1. Flat armor reduction
- * 2. Percentage armor reduction
- * 3. Percentage armor penetration
- * 4. Lethality (flat armor penetration)
- *
- */
 export function calculateArmorAfterPenetration({
   baseArmor,
   bonusArmor,
@@ -77,10 +132,8 @@ export function calculateArmorAfterPenetration({
 }: ArmorPenetrationReductionParams): number {
   let totalArmor = baseArmor + bonusArmor
 
-  // Step 1: Apply flat armor reduction (distributed proportionally)
   if (flatReduction > 0) {
     if (totalArmor <= 0) {
-      // If total armor is already 0 or less, apply all reduction to it
       totalArmor -= flatReduction
     } else {
       const baseArmorRatio = baseArmor / totalArmor
@@ -93,7 +146,6 @@ export function calculateArmorAfterPenetration({
     }
   }
 
-  // Step 2: Apply percentage armor reduction
   if (percentReduction > 0 && totalArmor > 0) {
     const multiplier = 1 - percentReduction / 100
     baseArmor *= multiplier
@@ -101,23 +153,18 @@ export function calculateArmorAfterPenetration({
     totalArmor = baseArmor + bonusArmor
   }
 
-  // For damage calculation, we create an effective armor value
-  // The actual armor of the target doesn't change from this point forward
   let effectiveArmor = totalArmor
 
-  // Step 3: Apply percentage armor penetration
   if (percentPenetration > 0 && effectiveArmor > 0) {
     const multiplier = 1 - percentPenetration / 100
     effectiveArmor = baseArmor * multiplier + bonusArmor * multiplier
   }
 
-  // Step 4: Apply percentage bonus armor penetration
   if (percentBonusPenetration > 0 && bonusArmor > 0 && effectiveArmor > 0) {
     const multiplier = 1 - percentBonusPenetration / 100
     effectiveArmor = baseArmor + bonusArmor * multiplier
   }
 
-  // Step 5: Apply lethality (flat armor penetration)
   if (lethality > 0 && effectiveArmor > 0) {
     effectiveArmor = Math.max(0, effectiveArmor - lethality)
   }
@@ -152,8 +199,8 @@ export function calculateItemGoldValue(itemStats: ItemStats): number {
     goldValue += itemStats.FlatCooldownReduction * STAT_GOLD_VALUES.abilityhaste
   }
 
-  if (itemStats.FlatAP) {
-    goldValue += itemStats.FlatAP * STAT_GOLD_VALUES.AP
+  if (itemStats.FlatMagicDamageMod) {
+    goldValue += itemStats.FlatMagicDamageMod * STAT_GOLD_VALUES.AP
   }
 
   if (itemStats.FlatArmorMod) {

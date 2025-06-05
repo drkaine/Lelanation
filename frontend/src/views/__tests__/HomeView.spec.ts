@@ -4,7 +4,6 @@ import HomeView from '../HomeView.vue'
 import HeroSection from '@/components/home/HeroSection.vue'
 import SocialLinks from '@/components/home/SocialLinks.vue'
 
-// Mock the composables before importing
 vi.mock('vue-i18n', () => ({
   useI18n: () => ({
     t: (key: string) => key,

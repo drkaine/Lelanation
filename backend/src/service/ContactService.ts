@@ -47,7 +47,6 @@ export const contactService = {
         await mkdir(contactDir, { recursive: true });
       }
 
-      // Nettoie les anciens messages avant d'ajouter le nouveau
       await contactService.cleanOldMessages(filePath);
 
       let existingData = [];
@@ -81,7 +80,6 @@ export const contactService = {
       for (const file of contactFiles) {
         const filePath = path.join(contactDir, file);
         
-        // Nettoie les anciens messages avant de les afficher
         await contactService.cleanOldMessages(filePath);
         
         const fileContent = await readFile(filePath, "utf-8");

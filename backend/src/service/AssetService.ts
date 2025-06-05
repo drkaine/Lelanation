@@ -115,12 +115,10 @@ export class AssetService {
   }
 
   private isAllowedDirectory(dirPath: string): boolean {
-    // Normaliser le chemin pour la comparaison
     const normalizedPath = dirPath.replace(/^\/+/, "").replace(/\/+$/, "");
     console.log(`Chemin normalisé pour vérification: ${normalizedPath}`);
 
     const allowedPaths = [
-      // Chemins frontend complets
       "frontend/public",
       "frontend/public/assets",
       "frontend/public/assets/icons",
@@ -132,7 +130,6 @@ export class AssetService {
       "frontend/src/assets/files/contact",
       "frontend/src/assets/files/dictionnaire",
       "frontend/src/assets/files/data-manuel",
-      // Chemins raccourcis
       "public",
       "public/assets",
       "public/assets/icons",

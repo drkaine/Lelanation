@@ -1,8 +1,3 @@
-/**
- * SEO Audit Utilities
- * Helps detect and prevent common SEO issues
- */
-
 interface SEOIssue {
   type: 'error' | 'warning'
   message: string
@@ -12,11 +7,7 @@ interface SEOIssue {
 export class SEOAuditor {
   private issues: SEOIssue[] = []
 
-  /**
-   * Check for redirect canonical URLs
-   */
   checkCanonicalRedirects(canonicalUrl: string): boolean {
-    // Check if canonical URL would cause a redirect
     const currentDomain = window.location.hostname
     const canonicalDomain = new URL(canonicalUrl).hostname
 
@@ -35,15 +26,11 @@ export class SEOAuditor {
     return true
   }
 
-  /**
-   * Validate sitemap URLs
-   */
   async validateSitemapUrls(sitemapUrl: string): Promise<SEOIssue[]> {
     try {
       const response = await fetch(sitemapUrl)
       const xmlText = await response.text()
 
-      // Parse XML and check for redirect URLs
       const parser = new DOMParser()
       const xmlDoc = parser.parseFromString(xmlText, 'text/xml')
       const urls = xmlDoc.getElementsByTagName('loc')
@@ -73,9 +60,6 @@ export class SEOAuditor {
     }
   }
 
-  /**
-   * Check for excessive redirects
-   */
   async checkRedirectChain(url: string): Promise<number> {
     let redirectCount = 0
     let currentUrl = url
@@ -106,33 +90,22 @@ export class SEOAuditor {
     return redirectCount
   }
 
-  /**
-   * Get optimal canonical URL
-   */
   getOptimalCanonical(currentUrl: string): string {
     const url = new URL(currentUrl)
 
-    // Always prefer www.lelanation.fr
     if (url.hostname === 'lelanation.fr') {
       url.hostname = 'www.lelanation.fr'
     }
 
-    // Ensure HTTPS
     url.protocol = 'https:'
 
     return url.toString()
   }
 
-  /**
-   * Get all detected issues
-   */
   getIssues(): SEOIssue[] {
     return this.issues
   }
 
-  /**
-   * Clear issues
-   */
   clearIssues(): void {
     this.issues = []
   }

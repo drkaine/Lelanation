@@ -9,7 +9,7 @@ useSEOHead({
     'Page de connexion pour les développeurs et créateurs de contenu Lelanation. Accès sécurisé aux outils de création de builds League of Legends.',
   keywords: 'connexion, développeur, build tools, accès sécurisé, Lelanation',
   type: 'website',
-  noIndex: true, // Cette page ne doit pas être indexée pour des raisons de sécurité
+  noIndex: true,
 })
 
 const router = useRouter()

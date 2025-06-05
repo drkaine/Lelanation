@@ -3,6 +3,9 @@ import { ref, computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 import type { Stats } from '@/types/stat'
 import type { Build } from '@/types/build'
+import type { ShardSelection } from '@/types/shard'
+import type { Champion } from '@/types/champion'
+import { calculateShardStats } from '@/components/script/BuildCalculator'
 
 const { t } = useI18n()
 const lvl = ref(1)
@@ -14,6 +17,8 @@ const showEconomicStats = ref(false)
 const props = defineProps<{
   build: Build
   total: number
+  shards?: ShardSelection
+  champion?: Champion
 }>()
 
 const updateLevel = (newLevel: number) => {
@@ -53,6 +58,34 @@ const formatNumber = (num: number): string => {
 
 const getStatTranslation = (stat: string): string => {
   return t(`stats.${stat}`)
+}
+
+const getShardStatsForLevel = (level: number) => {
+  const currentBonusAD = parseFloat(
+    typeof props.build?.buildItemStats.attackdamage === 'string'
+      ? props.build.buildItemStats.attackdamage
+      : String(props.build?.buildItemStats.attackdamage || 0),
+  )
+
+  const currentAP = parseFloat(
+    typeof props.build?.buildItemStats.AP === 'string'
+      ? props.build.buildItemStats.AP
+      : String(props.build?.buildItemStats.AP || 0),
+  )
+
+  return calculateShardStats(
+    props.shards,
+    props.champion,
+    currentBonusAD,
+    currentAP,
+    level,
+  )
+}
+
+const getShardStatValue = (stat: string, level: number): string => {
+  const shardStats = getShardStatsForLevel(level)
+  const value = shardStats[stat as keyof typeof shardStats] || 0
+  return roundValue(value)
 }
 
 const statsList = [
@@ -112,20 +145,65 @@ const statCategories: Record<string, string[]> = {
   economic: ['goldValue', 'goldEfficiency'],
 }
 
-const statsListFiltered = statsList.filter(
-  stat => props.build.totalStats[lvl.value - 1][stat as keyof Stats] !== '0',
+const alwaysDisplayStats = [
+  'AP',
+  'attackdamage',
+  'hp',
+  'armor',
+  'spellblock',
+  'attackspeed',
+]
+
+const statsListFiltered = computed(() =>
+  statsList.filter(stat => {
+    const totalStatValue =
+      props.build.totalStats[lvl.value - 1][stat as keyof Stats]
+    const total = parseFloat(
+      typeof totalStatValue === 'string'
+        ? totalStatValue
+        : String(totalStatValue || 0),
+    )
+
+    if (alwaysDisplayStats.includes(stat)) {
+      return !isNaN(total)
+    }
+
+    return !isNaN(total) && total !== 0
+  }),
+)
+
+const basicStatsFiltered = computed(() =>
+  statsListFiltered.value.filter((s: string) =>
+    statCategories.basic.includes(s),
+  ),
+)
+
+const derivedStatsFiltered = computed(() =>
+  statsListFiltered.value.filter((s: string) =>
+    statCategories.derived.includes(s),
+  ),
+)
+
+const economicStatsFiltered = computed(() =>
+  statsListFiltered.value.filter((s: string) =>
+    statCategories.economic.includes(s),
+  ),
 )
 
 const hasBasicStats = computed(() =>
-  statsListFiltered.some(s => statCategories.basic.includes(s)),
+  statsListFiltered.value.some((s: string) => statCategories.basic.includes(s)),
 )
 
 const hasDerivedStats = computed(() =>
-  statsListFiltered.some(s => statCategories.derived.includes(s)),
+  statsListFiltered.value.some((s: string) =>
+    statCategories.derived.includes(s),
+  ),
 )
 
 const hasEconomicStats = computed(() =>
-  statsListFiltered.some(s => statCategories.economic.includes(s)),
+  statsListFiltered.value.some((s: string) =>
+    statCategories.economic.includes(s),
+  ),
 )
 </script>
 
@@ -137,6 +215,7 @@ const hasEconomicStats = computed(() =>
           <th>{{ $t('build-recap.statistic') }}</th>
           <th>{{ $t('build-recap.base') }}</th>
           <th>{{ $t('build-recap.items') }}</th>
+          <th>{{ $t('build-recap.shards') }}</th>
           <th>{{ $t('build-recap.total') }}</th>
         </tr>
       </thead>
@@ -146,7 +225,7 @@ const hasEconomicStats = computed(() =>
           v-if="hasBasicStats"
           @click="toggleBasicStats"
         >
-          <td colspan="4" class="stat-category-title">
+          <td colspan="5" class="stat-category-title">
             <div class="category-header">
               <span>{{ t('stats.categories.basic') }}</span>
               <span class="toggle-icon" :class="{ open: showBasicStats }"
@@ -157,13 +236,7 @@ const hasEconomicStats = computed(() =>
         </tr>
 
         <template v-if="showBasicStats">
-          <tr
-            v-for="stat in statsListFiltered.filter(s =>
-              statCategories.basic.includes(s),
-            )"
-            :key="stat"
-            class="basic-stat"
-          >
+          <tr v-for="stat in basicStatsFiltered" :key="stat" class="basic-stat">
             <td>{{ getStatTranslation(stat) }}</td>
             <td>
               {{
@@ -172,6 +245,9 @@ const hasEconomicStats = computed(() =>
             </td>
             <td>
               {{ roundValue(props.build?.buildItemStats[stat as keyof Stats]) }}
+            </td>
+            <td>
+              {{ getShardStatValue(stat, lvl) }}
             </td>
             <td>
               {{
@@ -188,7 +264,7 @@ const hasEconomicStats = computed(() =>
           v-if="hasDerivedStats"
           @click="toggleDerivedStats"
         >
-          <td colspan="4" class="stat-category-title">
+          <td colspan="5" class="stat-category-title">
             <div class="category-header">
               <span>{{ t('stats.categories.advanced') }}</span>
               <span class="toggle-icon" :class="{ open: showDerivedStats }"
@@ -200,9 +276,7 @@ const hasEconomicStats = computed(() =>
 
         <template v-if="showDerivedStats">
           <tr
-            v-for="stat in statsListFiltered.filter(s =>
-              statCategories.derived.includes(s),
-            )"
+            v-for="stat in derivedStatsFiltered"
             :key="stat"
             class="derived-stat"
           >
@@ -214,6 +288,9 @@ const hasEconomicStats = computed(() =>
             </td>
             <td>
               {{ roundValue(props.build?.buildItemStats[stat as keyof Stats]) }}
+            </td>
+            <td>
+              {{ getShardStatValue(stat, lvl) }}
             </td>
             <td>
               {{
@@ -230,7 +307,7 @@ const hasEconomicStats = computed(() =>
           v-if="hasEconomicStats"
           @click="toggleEconomicStats"
         >
-          <td colspan="4" class="stat-category-title">
+          <td colspan="5" class="stat-category-title">
             <div class="category-header">
               <span>{{ t('stats.categories.economic') }}</span>
               <span class="toggle-icon" :class="{ open: showEconomicStats }"
@@ -242,9 +319,7 @@ const hasEconomicStats = computed(() =>
 
         <template v-if="showEconomicStats">
           <tr
-            v-for="stat in statsListFiltered.filter(s =>
-              statCategories.economic.includes(s),
-            )"
+            v-for="stat in economicStatsFiltered"
             :key="stat"
             class="economic-stat"
           >
@@ -253,6 +328,7 @@ const hasEconomicStats = computed(() =>
             <td>
               {{ roundValue(props.build?.buildItemStats[stat as keyof Stats]) }}
             </td>
+            <td>-</td>
             <td>
               {{
                 roundValue(

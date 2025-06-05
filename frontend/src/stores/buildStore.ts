@@ -4,9 +4,13 @@ import {
   calculateBaseStats,
   calculateItemStats,
   calculateTotalStats,
+  calculateTotalStatsWithShards,
+  calculateShardStats,
 } from '@/components/script/BuildCalculator'
 import type { ChampionStats, ItemStats, Stats, TotalStats } from '@/types/stat'
 import type { Build, BuildData } from '@/types/build'
+import type { Champion } from '@/types/champion'
+import type { ShardSelection } from '@/types/shard'
 
 export const useBuildStore = defineStore('build', () => {
   const userBuilds = ref<BuildData[]>([])
@@ -27,8 +31,68 @@ export const useBuildStore = defineStore('build', () => {
       const currentBaseStats = calculateBaseStats(championStats, lvl)
       baseStats.push(currentBaseStats)
       totalStats.push(
-        calculateTotalStats(currentBaseStats, buildItemStats, lvl),
+        calculateTotalStats(
+          currentBaseStats,
+          buildItemStats,
+          lvl,
+          championStats,
+        ),
       )
+    }
+
+    return {
+      itemStats,
+      championStats,
+      buildItemStats: buildItemStats,
+      baseStats,
+      totalStats,
+    }
+  }
+
+  const statsCalculatorWithShards = (
+    championStats: ChampionStats,
+    itemStats: ItemStats,
+    champion?: Champion,
+    shards?: ShardSelection,
+  ): Build => {
+    const baseStats: Stats[] = []
+    const buildItemStats = calculateItemStats(itemStats)
+    const totalStats: TotalStats[] = []
+
+    for (let lvl = 1; lvl <= 18; lvl++) {
+      const currentBaseStats = calculateBaseStats(championStats, lvl)
+      baseStats.push(currentBaseStats)
+
+      if (shards && champion) {
+        const currentBonusAD = buildItemStats.attackdamage
+        const currentAP = buildItemStats.AP
+        const shardStats = calculateShardStats(
+          shards,
+          champion,
+          currentBonusAD,
+          currentAP,
+          lvl,
+        )
+
+        totalStats.push(
+          calculateTotalStatsWithShards(
+            currentBaseStats,
+            buildItemStats,
+            shardStats,
+            lvl,
+            championStats,
+          ),
+        )
+      } else {
+        totalStats.push(
+          calculateTotalStats(
+            currentBaseStats,
+            buildItemStats,
+            lvl,
+            championStats,
+          ),
+        )
+      }
     }
 
     return {
@@ -104,6 +168,7 @@ export const useBuildStore = defineStore('build', () => {
     saveBuild,
     removeBuild,
     statsCalculator,
+    statsCalculatorWithShards,
     updateBuildsOrder,
     resetBuild,
     setBuildToEdit,

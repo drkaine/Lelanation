@@ -4,6 +4,8 @@ import type {
   ExtendedStats,
   ExtendedTotalStats,
 } from '../../types/stat'
+import type { Champion } from '../../types/champion'
+import type { ShardSelection } from '../../types/shard'
 import {
   calculateAttackSpeed,
   calculateMovementSpeed,
@@ -13,6 +15,8 @@ import {
   calculateMagicalEffectiveHealth,
   calculateItemGoldValue,
   calculateMixedEffectiveHealth,
+  determineAdaptiveForceType,
+  calculateAdaptiveForceBonus,
 } from './StatsCalculator'
 
 export function calculateBaseStats(
@@ -32,6 +36,10 @@ export function calculateBaseStats(
   const health = Math.round(
     (championStats.hp ?? 0) + (championStats.hpperlevel ?? 0) * levelMultiplier,
   )
+
+  const baseAttackSpeed = championStats.attackspeed ?? 0
+  const bonusAttackSpeedFromLevel =
+    ((championStats.attackspeedperlevel ?? 0) * levelMultiplier) / 100
 
   const armorDamageReductionPercent =
     calculateArmorDamageReductionPercent(armor)
@@ -55,12 +63,11 @@ export function calculateBaseStats(
         (championStats.attackdamageperlevel ?? 0) * levelMultiplier,
     ),
     attackrange: Math.round(championStats.attackrange ?? 0),
-    attackspeed:
-      Math.round(
-        ((championStats.attackspeed ?? 0) +
-          (championStats.attackspeedperlevel ?? 0) * levelMultiplier) *
-          100,
-      ) / 100,
+    attackspeed: Number(
+      (baseAttackSpeed + baseAttackSpeed * bonusAttackSpeedFromLevel).toFixed(
+        3,
+      ),
+    ),
     crit: Math.round(
       (championStats.crit ?? 0) +
         (championStats.critperlevel ?? 0) * levelMultiplier,
@@ -114,7 +121,7 @@ export function calculateItemStats(
     ),
     attackdamage: ItemStats.FlatPhysicalDamageMod ?? 0,
     attackrange: ItemStats.FlatAttackRangeMod ?? 0,
-    attackspeed: Math.round((ItemStats.PercentAttackSpeedMod ?? 0) * 100) / 100,
+    attackspeed: (ItemStats.PercentAttackSpeedMod ?? 0) / 100,
     crit: ItemStats.FlatCritChanceMod ?? 0,
     hp: Math.round(
       (ItemStats.FlatHPPoolMod ?? 0) *
@@ -135,7 +142,7 @@ export function calculateItemStats(
     mpregen: ItemStats.FlatManaRegenMod ?? 0,
     spellblock: ItemStats.FlatSpellBlockMod ?? 0,
     CDR: ItemStats.FlatCooldownReduction ?? 0,
-    AP: ItemStats.FlatAP ?? 0,
+    AP: ItemStats.FlatMagicDamageMod ?? 0,
     lethality: ItemStats.FlatLethality ?? 0,
     magicPenetration: Math.round(
       (ItemStats.FlatMagicPenetration ?? 0) *
@@ -188,6 +195,7 @@ export function calculateTotalStats(
   championStats: ExtendedStats,
   itemStats: ExtendedStats,
   lvl: number,
+  originalChampionStats?: ChampionStats,
 ): ExtendedTotalStats {
   const totalArmor = Math.round(championStats.armor + itemStats.armor)
   const totalSpellblock = Math.round(
@@ -217,6 +225,9 @@ export function calculateTotalStats(
     50, // 50% magic damage
     0, // 0% true damage
   )
+
+  const baseAttackSpeedRatio =
+    originalChampionStats?.attackspeed ?? championStats.attackspeed
 
   const totalStats = {
     hp: totalHealth.toString(),
@@ -253,13 +264,235 @@ export function calculateTotalStats(
 
     effectiveAS: calculateAttackSpeed({
       baseAS: championStats.attackspeed,
-      asRatio: 1,
+      asRatio: baseAttackSpeedRatio,
       bonusAS: itemStats.attackspeed,
     }),
     effectiveTenacity: 0,
     effectiveMovementSpeed: calculateMovementSpeed({
       baseMS: championStats.movespeed,
       flatBonusMS: itemStats.movespeed,
+      additivePercentMS: [],
+      multiplicativePercentMS: [],
+      slowRatio: 0,
+    }),
+
+    effectiveArmor: {
+      totalArmor: totalArmor,
+      damageReduction: (
+        Math.round(armorDamageReductionPercent * 10) / 10
+      ).toFixed(1),
+      effectiveHealth: Math.round(physicalEffectiveHealth),
+      effectiveHealthMultiplier: (
+        Math.round((1 + totalArmor / 100) * 100) / 100
+      ).toFixed(2),
+    },
+
+    effectiveMR: {
+      totalMR: totalSpellblock,
+      damageReduction: (
+        Math.round(magicDamageReductionPercent * 10) / 10
+      ).toFixed(1),
+      effectiveHealth: Math.round(magicalEffectiveHealth),
+      effectiveHealthMultiplier: (
+        Math.round((1 + totalSpellblock / 100) * 100) / 100
+      ).toFixed(2),
+    },
+  }
+
+  const extendedStats = totalStats as ExtendedTotalStats
+
+  extendedStats.armorDamageReductionPercent = (
+    Math.round(armorDamageReductionPercent * 10) / 10
+  ).toFixed(1)
+  extendedStats.magicDamageReductionPercent = (
+    Math.round(magicDamageReductionPercent * 10) / 10
+  ).toFixed(1)
+  extendedStats.physicalEffectiveHealth = Math.round(
+    physicalEffectiveHealth,
+  ).toString()
+  extendedStats.magicalEffectiveHealth = Math.round(
+    magicalEffectiveHealth,
+  ).toString()
+  extendedStats.averageEffectiveHealth = Math.round(
+    averageEffectiveHealth,
+  ).toString()
+  extendedStats.mixedEffectiveHealth =
+    Math.round(mixedEffectiveHealth).toString()
+  extendedStats.goldValue = Math.round(itemStats.goldValue || 0).toString()
+  extendedStats.goldEfficiency = Math.round(
+    itemStats.goldEfficiency || 0,
+  ).toString()
+
+  return extendedStats
+}
+
+export function calculateShardStats(
+  shards: ShardSelection | undefined,
+  champion: Champion | undefined,
+  currentBonusAD: number,
+  currentAP: number,
+  level: number,
+) {
+  if (!shards)
+    return {
+      hp: 0,
+      attackdamage: 0,
+      AP: 0,
+      attackspeed: 0,
+      CDR: 0,
+      movespeed: 0,
+      tenacity: 0,
+    }
+
+  const stats = {
+    hp: 0,
+    attackdamage: 0,
+    AP: 0,
+    attackspeed: 0,
+    CDR: 0,
+    movespeed: 0,
+    tenacity: 0,
+  }
+
+  const adaptiveType = determineAdaptiveForceType(
+    champion,
+    currentBonusAD,
+    currentAP,
+  )
+
+  if (shards.principal?.description === '+9 Force adaptative') {
+    const bonus = calculateAdaptiveForceBonus(9, adaptiveType)
+    stats.attackdamage += bonus.attackdamage
+    stats.AP += bonus.AP
+  } else if (shards.principal?.description === "+10% vitesse d'attaque") {
+    stats.attackspeed += 0.1
+  } else if (
+    shards.principal?.description === '+10%  accélération de compétence'
+  ) {
+    stats.CDR += 8 // 8 AH = ~8% CDR
+  }
+
+  if (shards.second?.description === '+9 Force adaptative') {
+    const bonus = calculateAdaptiveForceBonus(9, adaptiveType)
+    stats.attackdamage += bonus.attackdamage
+    stats.AP += bonus.AP
+  } else if (shards.second?.description === '+2% vitesse de déplacement') {
+    stats.movespeed += 2
+  } else if (shards.second?.description === '+10-180 PV (selon niveau)') {
+    stats.hp += 10 + ((180 - 10) * (level - 1)) / 17
+  }
+
+  if (shards.third?.description === '+65 PV') {
+    stats.hp += 65
+  } else if (
+    shards.third?.description ===
+    '+10% Ténacitée et réduction de ralentissement'
+  ) {
+    stats.tenacity += 10
+  } else if (shards.third?.description === '+10-180 PV (selon niveau)') {
+    stats.hp += 10 + ((180 - 10) * (level - 1)) / 17
+  }
+
+  return stats
+}
+
+export function calculateTotalStatsWithShards(
+  championStats: ExtendedStats,
+  itemStats: ExtendedStats,
+  shardStats: {
+    hp: number
+    attackdamage: number
+    AP: number
+    attackspeed: number
+    CDR: number
+    movespeed: number
+    tenacity: number
+  },
+  lvl: number,
+  originalChampionStats?: ChampionStats,
+): ExtendedTotalStats {
+  const totalArmor = Math.round(championStats.armor + itemStats.armor)
+  const totalSpellblock = Math.round(
+    championStats.spellblock + itemStats.spellblock,
+  )
+  const totalHealth = Math.round(
+    championStats.hp + itemStats.hp + shardStats.hp,
+  )
+
+  const armorDamageReductionPercent =
+    calculateArmorDamageReductionPercent(totalArmor)
+  const magicDamageReductionPercent =
+    calculateMagicDamageReductionPercent(totalSpellblock)
+  const physicalEffectiveHealth = calculatePhysicalEffectiveHealth(
+    totalHealth,
+    totalArmor,
+  )
+  const magicalEffectiveHealth = calculateMagicalEffectiveHealth(
+    totalHealth,
+    totalSpellblock,
+  )
+  const averageEffectiveHealth =
+    (physicalEffectiveHealth + magicalEffectiveHealth) / 2
+  const mixedEffectiveHealth = calculateMixedEffectiveHealth(
+    totalHealth,
+    totalArmor,
+    totalSpellblock,
+    50, // 50% physical damage
+    50, // 50% magic damage
+    0, // 0% true damage
+  )
+
+  const baseAttackSpeedRatio =
+    originalChampionStats?.attackspeed ?? championStats.attackspeed
+
+  const totalStats = {
+    hp: totalHealth.toString(),
+    attackdamage: Math.round(
+      championStats.attackdamage +
+        itemStats.attackdamage +
+        shardStats.attackdamage,
+    ).toString(),
+    attackrange: Math.round(
+      championStats.attackrange + itemStats.attackrange,
+    ).toString(),
+    attackspeed: (
+      Math.round(
+        (championStats.attackspeed +
+          itemStats.attackspeed +
+          shardStats.attackspeed) *
+          100,
+      ) / 100
+    ).toFixed(2),
+    crit: Math.round(championStats.crit + itemStats.crit).toString(),
+    mp: Math.round(championStats.mp + itemStats.mp).toString(),
+    movespeed: Math.round(
+      championStats.movespeed + itemStats.movespeed + shardStats.movespeed,
+    ).toString(),
+    hpregen: Math.round(championStats.hpregen + itemStats.hpregen).toString(),
+    mpregen: Math.round(championStats.mpregen + itemStats.mpregen).toString(),
+    spellblock: totalSpellblock.toString(),
+    armor: totalArmor.toString(),
+    CDR: Math.round(itemStats.CDR + shardStats.CDR).toString(),
+    AP: Math.round(itemStats.AP + shardStats.AP).toString(),
+    lethality: Math.round(itemStats.lethality).toString(),
+    magicPenetration: Math.round(itemStats.magicPenetration).toString(),
+    tenacity: Math.round(itemStats.tenacity + shardStats.tenacity).toString(),
+    omnivamp: Math.round(itemStats.omnivamp).toString(),
+    shield: Math.round(itemStats.shield).toString(),
+    spellvamp: Math.round(itemStats.spellvamp).toString(),
+    armorpen: Math.round(itemStats.armorpen).toString(),
+    magicpen: Math.round(itemStats.magicpen).toString(),
+    lvl: lvl,
+
+    effectiveAS: calculateAttackSpeed({
+      baseAS: championStats.attackspeed,
+      asRatio: baseAttackSpeedRatio,
+      bonusAS: itemStats.attackspeed + shardStats.attackspeed,
+    }),
+    effectiveTenacity: 0,
+    effectiveMovementSpeed: calculateMovementSpeed({
+      baseMS: championStats.movespeed,
+      flatBonusMS: itemStats.movespeed + shardStats.movespeed,
       additivePercentMS: [],
       multiplicativePercentMS: [],
       slowRatio: 0,

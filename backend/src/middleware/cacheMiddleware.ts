@@ -84,7 +84,6 @@ export const invalidateCacheMiddleware = (patterns: string[]) => {
       callback?: () => void,
     ) {
       if (res.statusCode >= 200 && res.statusCode < 300) {
-        // Add specific cache key invalidation for builds
         const specificKeys: string[] = [];
 
         if (req.params.filename || req.params.fileName) {
@@ -98,13 +97,11 @@ export const invalidateCacheMiddleware = (patterns: string[]) => {
           }
         }
 
-        // Also invalidate collection cache keys
         if (patterns.some((p) => p.includes("builds:"))) {
           specificKeys.push("cache:/api/builds");
           specificKeys.push("cache:/api/builds/lelariva");
         }
 
-        // Combine all cache invalidation tasks
         const invalidationTasks = [
           ...patterns.map((pattern) => redisUtils.delByPattern(pattern)),
           ...specificKeys.map((key) => redisUtils.del(key)),

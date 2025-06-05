@@ -82,6 +82,20 @@
       <li>{{ $t('legal.no-link') }}</li>
     </ul>
 
+    <div
+      style="
+        background: rgba(218, 165, 32, 0.1);
+        border: 1px solid var(--color-gold-300);
+        border-radius: 6px;
+        padding: 1rem;
+        margin: 1rem 0;
+      "
+    >
+      <strong style="color: var(--color-gold-300)">{{
+        $t('legal.riot-disclaimer')
+      }}</strong>
+    </div>
+
     <h3>{{ $t('legal.contact-authority') }}</h3>
     <p>{{ $t('legal.contact-authority-info') }}</p>
 

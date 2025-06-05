@@ -7,7 +7,6 @@ import { fileURLToPath } from 'url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// Types pour les objets de traduction
 type TranslationValue = string | TranslationObject;
 type TranslationObject = Record<string, TranslationValue>;
 
@@ -22,7 +21,6 @@ interface TranslationFiles {
   laranguiva: TranslationObject;
 }
 
-// Chargement des fichiers de traduction
 function loadTranslationFiles(): TranslationFiles {
   const basePath = path.join(__dirname, '..', 'frontend', 'src', 'i18n', 'locales');
   
@@ -38,7 +36,6 @@ function loadTranslationFiles(): TranslationFiles {
   }
 }
 
-// Fonction récursive pour extraire toutes les clés d'un objet de traduction
 function getAllKeys(obj: TranslationObject, prefix: string = ''): string[] {
   return Object.entries(obj).flatMap(([key, value]) => {
     const currentKey = prefix ? `${prefix}.${key}` : key;
@@ -49,7 +46,6 @@ function getAllKeys(obj: TranslationObject, prefix: string = ''): string[] {
   });
 }
 
-// Fonction pour comparer deux ensembles de clés
 function compareKeys(sourceKeys: Set<string>, targetKeys: Set<string>): ComparisonResult {
   const missingInTarget = Array.from(sourceKeys).filter(k => !targetKeys.has(k));
   const extraInSource = Array.from(targetKeys).filter(k => !sourceKeys.has(k));
@@ -57,7 +53,6 @@ function compareKeys(sourceKeys: Set<string>, targetKeys: Set<string>): Comparis
   return { missingInTarget, extraInSource };
 }
 
-// Fonction pour afficher les résultats de comparaison
 function displayComparison(
   title: string, 
   sourceKeys: Set<string>, 
@@ -79,7 +74,6 @@ function displayComparison(
   }
 }
 
-// Fonction pour générer un rapport détaillé
 function generateDetailedReport(translations: TranslationFiles): void {
   const frKeys = new Set(getAllKeys(translations.fr));
   const enKeys = new Set(getAllKeys(translations.en));
@@ -130,7 +124,6 @@ function generateDetailedReport(translations: TranslationFiles): void {
     enKeys
   );
 
-  // Vérification de la cohérence
   const allKeysConsistent = (
     frKeys.size === enKeys.size && 
     enKeys.size === larangKeys.size &&
@@ -143,7 +136,6 @@ function generateDetailedReport(translations: TranslationFiles): void {
   } else {
     console.log('⚠️  Des incohérences détectées entre les fichiers de traduction');
     
-    // Identification des fichiers les plus complets
     const maxKeys = Math.max(frKeys.size, enKeys.size, larangKeys.size);
     if (frKeys.size === maxKeys) console.log('📄 Le fichier FR semble le plus complet');
     if (enKeys.size === maxKeys) console.log('📄 Le fichier EN semble le plus complet');
@@ -151,7 +143,6 @@ function generateDetailedReport(translations: TranslationFiles): void {
   }
 }
 
-// Fonction pour exporter les clés manquantes vers un fichier
 function exportMissingKeys(translations: TranslationFiles): void {
   const frKeys = new Set(getAllKeys(translations.fr));
   const enKeys = new Set(getAllKeys(translations.en));
@@ -179,7 +170,6 @@ function exportMissingKeys(translations: TranslationFiles): void {
   console.log(`\n📝 Rapport détaillé exporté vers: ${outputPath}`);
 }
 
-// Exécution principale
 function main(): void {
   console.log('🌐 === COMPARATEUR DE TRADUCTIONS LELANATION ===\n');
   
@@ -190,7 +180,6 @@ function main(): void {
   console.log('\n🎉 Analyse terminée !');
 }
 
-// Exécution du script si appelé directement
 if (import.meta.url === `file://${process.argv[1]}`) {
   main();
 }
@@ -202,5 +191,5 @@ export {
   generateDetailedReport,
   type TranslationObject,
   type TranslationFiles,
-  type ComparisonResult
+  type ComparisonResult,
 }; 
