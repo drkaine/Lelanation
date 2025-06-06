@@ -204,6 +204,7 @@ export interface ExtendedStats extends Stats {
   mixedEffectiveHealth?: number
   goldValue?: number
   goldEfficiency?: number
+  goldCost?: number
 }
 
 export interface ExtendedTotalStats extends TotalStats {
@@ -215,4 +216,5 @@ export interface ExtendedTotalStats extends TotalStats {
   mixedEffectiveHealth: string
   goldValue: string
   goldEfficiency: string
+  goldCost: string
 }

@@ -295,6 +295,7 @@
     "averageEffectiveHealth": "Santé effective moyenne",
     "goldValue": "Valeur en or",
     "goldEfficiency": "Efficacité or (%)",
+    "goldCost": "Coût en or",
     "disclaimer": "Les calculs sont basés sur les données officielles et les formules du wiki, mais peuvent posséder des erreurs"
   }
 }

@@ -295,6 +295,7 @@
     "averageEffectiveHealth": "Average Effective Health",
     "goldValue": "Gold Value",
     "goldEfficiency": "Gold Efficiency (%)",
+    "goldCost": "Gold Cost",
     "disclaimer": "Calculations are based on official data and wiki formulas, but may contain errors"
   }
 }

@@ -7,8 +7,10 @@ import type { ShardSelection } from '@/types/shard'
 import type { Champion } from '@/types/champion'
 import { calculateShardStats } from '@/components/script/BuildCalculator'
 import { STAT_GOLD_VALUES } from '@/components/script/StatsCalculator'
+import { useItemStore } from '@/stores/itemStore'
 
 const { t } = useI18n()
+const itemStore = useItemStore()
 const lvl = ref(1)
 
 const showBasicStats = ref(true)
@@ -98,6 +100,10 @@ const getShardStatValue = (stat: string, level: number): string => {
     return roundValue(goldValue)
   }
 
+  if (stat === 'goldCost') {
+    return '0'
+  }
+
   const value = shardStats[stat as keyof typeof shardStats] || 0
   return roundValue(value)
 }
@@ -132,6 +138,7 @@ const statsList = [
   'averageEffectiveHealth',
   'goldValue',
   'goldEfficiency',
+  'goldCost',
 ]
 
 const statCategories: Record<string, string[]> = {
@@ -166,7 +173,7 @@ const statCategories: Record<string, string[]> = {
     'magicalEffectiveHealth',
     'averageEffectiveHealth',
   ],
-  economic: ['goldValue', 'goldEfficiency'],
+  economic: ['goldValue', 'goldEfficiency', 'goldCost'],
 }
 
 const alwaysDisplayStats = [
@@ -177,6 +184,7 @@ const alwaysDisplayStats = [
   'spellblock',
   'attackspeed',
   'goldValue',
+  'goldCost',
 ]
 
 const statsListFiltered = computed(() =>
@@ -373,14 +381,24 @@ const hasEconomicStats = computed(() =>
                   ? roundValue(
                       props.build?.baseStats[lvl - 1][stat as keyof Stats],
                     )
-                  : '-'
+                  : stat === 'goldCost'
+                    ? '0'
+                    : '-'
               }}
             </td>
             <td>
-              {{ roundValue(props.build?.buildItemStats[stat as keyof Stats]) }}
+              {{
+                stat === 'goldCost'
+                  ? itemStore.ItemsSelection.gold.total
+                  : roundValue(props.build?.buildItemStats[stat as keyof Stats])
+              }}
             </td>
             <td>
-              {{ stat === 'goldValue' ? getShardStatValue(stat, lvl) : '-' }}
+              {{
+                stat === 'goldValue' || stat === 'goldCost'
+                  ? getShardStatValue(stat, lvl)
+                  : '-'
+              }}
             </td>
             <td>
               {{

@@ -18,7 +18,7 @@ import {
   determineAdaptiveForceType,
   calculateAdaptiveForceBonus,
   calculateChampionStatsGoldValue,
-  STAT_GOLD_VALUES,
+  calculateShardStatsGoldValue,
 } from './StatsCalculator'
 
 export function calculateBaseStats(
@@ -214,6 +214,29 @@ export function calculateItemStats(
     averageEffectiveHealth: 0,
   }
 
+  if (itemStats.armor > 0) {
+    itemStats.armorDamageReductionPercent =
+      calculateArmorDamageReductionPercent(itemStats.armor)
+  }
+
+  if (itemStats.spellblock > 0) {
+    itemStats.magicDamageReductionPercent =
+      calculateMagicDamageReductionPercent(itemStats.spellblock)
+  }
+
+  if (itemStats.hp > 0) {
+    itemStats.physicalEffectiveHealth = calculatePhysicalEffectiveHealth(
+      itemStats.hp,
+      itemStats.armor,
+    )
+    itemStats.magicalEffectiveHealth = calculateMagicalEffectiveHealth(
+      itemStats.hp,
+      itemStats.spellblock,
+    )
+    itemStats.averageEffectiveHealth =
+      (itemStats.physicalEffectiveHealth + itemStats.magicalEffectiveHealth) / 2
+  }
+
   itemStats.goldValue = calculateItemGoldValue(ItemStats)
   const itemPrice = ItemStats.price ?? 0
   if (itemPrice > 0) {
@@ -356,6 +379,7 @@ export function calculateTotalStats(
   extendedStats.goldEfficiency = Math.round(
     itemStats.goldEfficiency || 0,
   ).toString()
+  extendedStats.goldCost = '0'
 
   return extendedStats
 }
@@ -574,14 +598,7 @@ export function calculateTotalStatsWithShards(
   ).toString()
   extendedStats.mixedEffectiveHealth =
     Math.round(mixedEffectiveHealth).toString()
-  const shardGoldValue =
-    shardStats.hp * STAT_GOLD_VALUES.hp +
-    shardStats.attackdamage * STAT_GOLD_VALUES.attackdamage +
-    shardStats.AP * STAT_GOLD_VALUES.AP +
-    shardStats.attackspeed * 100 * STAT_GOLD_VALUES.attackspeed +
-    shardStats.CDR * STAT_GOLD_VALUES.abilityhaste +
-    shardStats.movespeed * STAT_GOLD_VALUES.movespeed +
-    shardStats.tenacity * 20
+  const shardGoldValue = calculateShardStatsGoldValue(shardStats)
 
   extendedStats.goldValue = Math.round(
     (championStats.goldValue || 0) +
@@ -591,6 +608,7 @@ export function calculateTotalStatsWithShards(
   extendedStats.goldEfficiency = Math.round(
     itemStats.goldEfficiency || 0,
   ).toString()
+  extendedStats.goldCost = '0'
 
   return extendedStats
 }

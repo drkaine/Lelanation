@@ -391,3 +391,45 @@ export function calculateMixedEffectiveHealth(
 
   return health * (totalDamage / effectiveDamage)
 }
+
+export function calculateShardStatsGoldValue(shardStats: {
+  hp: number
+  attackdamage: number
+  AP: number
+  attackspeed: number
+  CDR: number
+  movespeed: number
+  tenacity: number
+}): number {
+  let goldValue = 0
+
+  if (shardStats.hp > 0) {
+    goldValue += shardStats.hp * STAT_GOLD_VALUES.hp
+  }
+
+  if (shardStats.attackdamage > 0) {
+    goldValue += shardStats.attackdamage * STAT_GOLD_VALUES.attackdamage
+  }
+
+  if (shardStats.AP > 0) {
+    goldValue += shardStats.AP * STAT_GOLD_VALUES.AP
+  }
+
+  if (shardStats.attackspeed > 0) {
+    goldValue += shardStats.attackspeed * 100 * STAT_GOLD_VALUES.attackspeed
+  }
+
+  if (shardStats.CDR > 0) {
+    goldValue += shardStats.CDR * STAT_GOLD_VALUES.abilityhaste
+  }
+
+  if (shardStats.movespeed > 0) {
+    goldValue += shardStats.movespeed * STAT_GOLD_VALUES.movespeed
+  }
+
+  if (shardStats.tenacity > 0) {
+    goldValue += shardStats.tenacity * 20
+  }
+
+  return Math.round(goldValue)
+}
