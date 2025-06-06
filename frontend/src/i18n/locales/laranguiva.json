@@ -59,6 +59,9 @@
     "gold": "Or"
   },
   "build-recap": {
+    "no-version": "Inconnue",
+    "no-author": "Anonyme",
+    "all-roles": "tous les rôles",
     "json": "JSON",
     "image": "Image",
     "delete": "Supprimer",
@@ -68,7 +71,14 @@
     "total": "Total",
     "certify": "Certifiva",
     "uncertify": "Décertifiva",
-    "statistic": "Statistique"
+    "statistic": "Statistique",
+    "share": "Partagiva",
+    "share-message-user": "✨ Découvrez le buildriva de {author} pour {champion} {roles}\n\n🎯 {description}\n\n📱 Versionriva {version}\n\n🔗 {url}",
+    "share-message-user-certified": "✨ Découvrez le buildriva de {author} reconnu par Lelariva pour {champion} {roles}\n\n🎯 {description}\n\n📱 Versionriva {version}\n\n🔗 {url}",
+    "share-message-lelariva": "✨ Découvrez le buildriva de {champion} proposé par Lelariva pour {champion} {roles}\n\n🎯 {description}\n\n📱 Versionriva {version}\n\n🔗 {url}",
+    "share-copied": "Lienriva copié dans le presse-papieriva !",
+    "share-text": "Copier le texteriva",
+    "share-image": "Copier l'imageriva"
   },
   "contact": {
     "title": "Contact",

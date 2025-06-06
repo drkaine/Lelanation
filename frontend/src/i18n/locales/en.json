@@ -59,6 +59,9 @@
     "gold": "Gold"
   },
   "build-recap": {
+    "no-version": "Unknown version",
+    "no-author": "Anonymous",
+    "all-roles": "All roles",
     "json": "JSON",
     "image": "Image",
     "delete": "Delete",
@@ -69,7 +72,14 @@
     "total": "Total",
     "certify": "Certify",
     "uncertify": "Uncertify",
-    "statistic": "Statistic"
+    "statistic": "Statistic",
+    "share": "Share",
+    "share-message-user": "✨ Check out {author}'s build  for {champion} {roles}\n\n🎯 {description}\n\n📱 Version {version}\n\n🔗 {url}",
+    "share-message-user-certified": "✨ Check out {author}'s build recognized by Lelariva  for {champion} {roles}\n\n🎯 {description}\n\n📱 Version {version}\n\n🔗 {url}",
+    "share-message-lelariva": "✨ Check out this {champion} build by Lelariva  for {champion} {roles}\n\n🎯 {description}\n\n📱 Version {version}\n\n🔗 {url}",
+    "share-copied": "Link copied to clipboard!",
+    "share-text": "Copy text",
+    "share-image": "Copy image"
   },
   "contact": {
     "title": "Contact",

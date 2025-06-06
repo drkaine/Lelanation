@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { useRoute, useRouter } from 'vue-router'
 import { ref, computed } from 'vue'
+import { useI18n } from 'vue-i18n'
 import SheetBuild from '@/components/composants/SheetBuild.vue'
 import type { BuildData } from '@/types/build'
 import { useBuildStore } from '@/stores/buildStore'
@@ -14,6 +15,7 @@ import { useItemStore } from '@/stores/itemStore'
 import { useRoleStore } from '@/stores/roleStore'
 import StatistiquesBuild from '@/components/composants/StatistiquesBuild.vue'
 
+const { t } = useI18n()
 const connexionStore = useConnexionStore()
 const route = useRoute()
 const router = useRouter()
@@ -28,6 +30,9 @@ const buildData = ref<BuildData | null>(null)
 const isAdmin = computed(
   () => connexionStore.userName === import.meta.env.VITE_NAME,
 )
+
+const showNotification = ref(false)
+const notificationMessage = ref('')
 
 const championStore = useChampionStore()
 const runeStore = useRuneStore()
@@ -161,11 +166,63 @@ const editBuild = () => {
 
   router.push('/build')
 }
+
+async function copyShareMessage() {
+  try {
+    if (!buildData.value) return
+
+    const currentUrl = window.location.href
+    const championName = buildData.value.sheet.champion.name
+    const description = buildData.value.description || ''
+    const version = buildData.value.version || t('build-recap.no-version')
+    const certified = buildData.value.certified || false
+    const author = buildData.value.author || t('build-recap.no-author')
+    const roles = buildData.value.roles.join(', ') || t('build-recap.all-roles')
+
+    let messageTemplate = ''
+
+    if (type === 'lelariva') {
+      messageTemplate = t('build-recap.share-message-lelariva')
+    } else if (certified) {
+      messageTemplate = t('build-recap.share-message-user-certified')
+    } else {
+      messageTemplate = t('build-recap.share-message-user')
+    }
+
+    const message = messageTemplate
+      .replace('{champion}', championName)
+      .replace('{author}', author)
+      .replace('{description}', description)
+      .replace('{version}', version)
+      .replace('{url}', currentUrl)
+      .replace('{roles}', roles)
+
+    await navigator.clipboard.writeText(message)
+    notificationMessage.value = t('build-recap.share-copied')
+
+    showNotification.value = true
+
+    setTimeout(() => {
+      showNotification.value = false
+    }, 3000)
+  } catch (error) {
+    console.error('Erreur lors de la copie du message:', error)
+    notificationMessage.value = 'Erreur lors de la copie'
+    showNotification.value = true
+    setTimeout(() => {
+      showNotification.value = false
+    }, 3000)
+  }
+}
 </script>
 
 <template>
   <main class="build-recap" role="main">
     <h1 class="page-title">Build</h1>
+
+    <div v-if="showNotification" class="notification-toast">
+      {{ notificationMessage }}
+    </div>
 
     <div class="build-content">
       <div class="left-column">
@@ -234,6 +291,23 @@ const editBuild = () => {
                 <path d="M17 17l-2 2l2 2"></path>
               </svg>
               <span>{{ $t('build-recap.image') }}</span>
+            </button>
+            <button class="btn" @click="copyShareMessage">
+              <svg
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                stroke-width="2"
+                stroke="currentColor"
+                fill="none"
+              >
+                <path d="M6 12m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"></path>
+                <path d="M18 6m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"></path>
+                <path d="M18 18m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0"></path>
+                <path d="M8.7 10.7l6.6 -3.4"></path>
+                <path d="M8.7 13.3l6.6 3.4"></path>
+              </svg>
+              <span>{{ $t('build-recap.share') }}</span>
             </button>
           </div>
 
@@ -518,6 +592,13 @@ main[role='main'] {
     justify-content: center;
     margin-top: 1rem;
   }
+
+  .notification-toast {
+    top: 10px;
+    right: 10px;
+    left: 10px;
+    text-align: center;
+  }
 }
 
 @media (min-width: 1024px) {
@@ -601,5 +682,30 @@ main[role='main'] {
 .stats-section {
   max-width: 800px;
   margin: 0 auto;
+}
+
+.notification-toast {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background-color: var(--color-gold-300);
+  color: var(--color-grey-800);
+  padding: 1rem 1.5rem;
+  border-radius: 8px;
+  font-weight: bold;
+  z-index: 1000;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  animation: slideInFromRight 0.3s ease-out;
+}
+
+@keyframes slideInFromRight {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
 }
 </style>
