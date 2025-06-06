@@ -48,12 +48,14 @@ describe("ContactService", () => {
 
     it("devrait ajouter au fichier existant", async () => {
       const existingData = [
-        { date: "2024-01-01", name: "Old User", message: "Old Message" },
+        {
+          date: new Date().toISOString(),
+          name: "Old User",
+          message: "Old Message",
+        },
       ];
 
-      (existsSync as jest.Mock)
-        .mockReturnValueOnce(true)
-        .mockReturnValueOnce(true);
+      (existsSync as jest.Mock).mockReturnValue(true);
       (readFile as jest.Mock).mockResolvedValue(JSON.stringify(existingData));
       (writeFile as jest.Mock).mockResolvedValue(undefined);
 

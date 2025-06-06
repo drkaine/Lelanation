@@ -319,6 +319,50 @@ app.get("/api/status", (req, res) => {
   });
 });
 
+app.post(
+  "/api/discord/share",
+  async (req: Request, res: Response): Promise<void> => {
+    try {
+      const { message } = req.body;
+
+      if (!message) {
+        res.status(400).json({ error: "Message requis" });
+        return;
+      }
+
+      const webhookUrl = process.env.DISCORD_WEBHOOK_URL;
+
+      if (!webhookUrl) {
+        res.status(500).json({ error: "Configuration Discord manquante" });
+        return;
+      }
+
+      const discordPayload = {
+        content: message,
+        username: "Lelariva Bot",
+        avatar_url: "https://lelanation.com/favicon.ico",
+      };
+
+      const response = await fetch(webhookUrl, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(discordPayload),
+      });
+
+      if (!response.ok) {
+        throw new Error(`Erreur Discord: ${response.status}`);
+      }
+
+      res.json({ success: true });
+    } catch (error) {
+      console.error("Erreur partage Discord:", error);
+      res.status(500).json({ error: "Erreur lors du partage vers Discord" });
+    }
+  },
+);
+
 cron.schedule("0 4 * * *", () => {
   console.log("Exécution de la maintenance du cache Redis à 04h00");
   maintainRedisCache()

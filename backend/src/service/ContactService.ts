@@ -8,20 +8,22 @@ export const contactService = {
   async cleanOldMessages(filePath: string) {
     try {
       if (!existsSync(filePath)) return;
-      
+
       const fileContent = await readFile(filePath, "utf-8");
       const messages = JSON.parse(fileContent);
       const oneYearAgo = new Date();
       oneYearAgo.setFullYear(oneYearAgo.getFullYear() - 1);
-      
+
       const filteredMessages = messages.filter((message: { date: string }) => {
         const messageDate = new Date(message.date);
         return messageDate > oneYearAgo;
       });
-      
+
       if (filteredMessages.length !== messages.length) {
         await writeFile(filePath, JSON.stringify(filteredMessages, null, 2));
-        console.log(`Messages supprimés automatiquement: ${messages.length - filteredMessages.length}`);
+        console.log(
+          `Messages supprimés automatiquement: ${messages.length - filteredMessages.length}`,
+        );
       }
     } catch (error) {
       console.error("Erreur lors du nettoyage automatique:", error);
@@ -76,12 +78,12 @@ export const contactService = {
       const files = await readdir(contactDir);
       const contactFiles = files.filter((file) => file.endsWith(".json"));
       const contactData = [];
-      
+
       for (const file of contactFiles) {
         const filePath = path.join(contactDir, file);
-        
+
         await contactService.cleanOldMessages(filePath);
-        
+
         const fileContent = await readFile(filePath, "utf-8");
         const data = JSON.parse(fileContent);
         const fileName = file.replace(".json", "");
