@@ -80,6 +80,10 @@
     "share-copied": "Lienriva copié dans le presse-papieriva !",
     "share-discord-success": "Messageriva partagé sur Lelaricord !",
     "share-discord-error": "Erreuriva lors du partagiva sur Lelaricord",
+    "share-discord-app": "Lelaricord",
+    "share-discord-app-opened": "Lelaricord ouvertriva ! Messageriva copié dans le presse-papieriva",
+    "share-x": "Xriva",
+    "share-x-opened": "Xriva ouvertriva ! Le messageriva est pré-rempliva",
     "share-text": "Copier le texteriva",
     "share-image": "Copier l'imageriva"
   },

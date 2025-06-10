@@ -81,6 +81,10 @@
     "share-copied": "Lien copié dans le presse-papier !",
     "share-discord-success": "Message partagé sur Discord !",
     "share-discord-error": "Erreur lors du partage sur Discord",
+    "share-discord-app": "Discord",
+    "share-discord-app-opened": "Discord ouvert ! Message copié dans le presse-papier",
+    "share-x": "X",
+    "share-x-opened": "X ouvert ! Le message est pré-rempli",
     "share-text": "Copier le texte",
     "share-image": "Copier l'image"
   },

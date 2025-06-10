@@ -81,6 +81,10 @@
     "share-copied": "Link copied to clipboard!",
     "share-discord-success": "Message shared on Discord!",
     "share-discord-error": "Error sharing on Discord",
+    "share-discord-app": "Discord",
+    "share-discord-app-opened": "Discord opened! Message copied to clipboard",
+    "share-x": "X",
+    "share-x-opened": "X opened! Message is pre-filled",
     "share-text": "Copy text",
     "share-image": "Copy image"
   },
