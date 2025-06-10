@@ -307,7 +307,7 @@ const canDragBuild = computed(() => !isLelarivaBuildPage.value || isAdmin.value)
             :skillOrder="build.sheet.skillOrder"
             :certified="build.certified"
             :buildId="build.id"
-            @certification-toggled="build.certified = !build.certified"
+            @certification-toggled="build.certified = $event"
           />
         </router-link>
       </div>

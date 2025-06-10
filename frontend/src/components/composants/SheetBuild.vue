@@ -75,7 +75,7 @@ const toggleCertification = async () => {
       buildStore.updateBuild(updatedBuild)
     }
 
-    emit('certification-toggled', !isCertified.value)
+    emit('certification-toggled', updatedBuild.certified)
   } catch (error) {
     console.error('Erreur lors de la modification de la certification:', error)
   }
@@ -171,7 +171,7 @@ const hasSkillPoints = computed(() =>
 
       <span class="version-text">v{{ version }}</span>
       <img
-        v-if="isCertified"
+        v-if="isCertified && !(isAdmin && !props.isLelarivaBuild)"
         class="certification-badge"
         src="/assets/images/lelariva-quality.png"
         alt="Certified by Lelariva"

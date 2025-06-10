@@ -473,9 +473,7 @@ async function shareToX() {
               :certified="buildData.certified"
               :buildId="fileName"
               :isLelarivaBuild="lelarivaBuild"
-              @certification-toggled="
-                buildData.certified = !buildData.certified
-              "
+              @certification-toggled="buildData.certified = $event"
             />
           </div>
         </section>
