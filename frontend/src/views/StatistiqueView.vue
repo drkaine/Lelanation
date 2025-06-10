@@ -301,6 +301,7 @@ const sortBy = ref<'score' | 'pickrate' | 'tier'>('score')
 const sortOrder = ref<'asc' | 'desc'>('desc')
 const searchType = ref<'name' | 'easy' | 'hard'>('name')
 const searchQuery = ref('')
+const selectedTierFilter = ref<string | 'all'>('all')
 
 const sortedAndFilteredChampions = computed(() => {
   const roleData = tierData.value[selectedRole.value] as ChampionData[]
@@ -338,6 +339,12 @@ const sortedAndFilteredChampions = computed(() => {
     filtered = filtered.filter(champion => champion?.otp)
   } else if (filterType.value === 'no-otp') {
     filtered = filtered.filter(champion => !champion?.otp)
+  }
+
+  if (selectedTierFilter.value !== 'all') {
+    filtered = filtered.filter(
+      champion => champion?.tier === selectedTierFilter.value,
+    )
   }
 
   if (searchQuery.value) {
@@ -391,10 +398,10 @@ const sortedAndFilteredChampions = computed(() => {
         >
           {{
             type === 'normal'
-              ? 'TIER-LISTE'
+              ? $t('statistique.tier-list')
               : type === 'bronze'
-                ? 'BRONZE-LISTE'
-                : 'PRO-LISTE'
+                ? $t('statistique.bronze-list')
+                : $t('statistique.pro-list')
           }}
         </button>
       </div>
@@ -406,7 +413,9 @@ const sortedAndFilteredChampions = computed(() => {
           :class="{ active: displayMode === mode }"
           @click="displayMode = mode as 'graph' | 'list'"
         >
-          {{ mode === 'graph' ? 'GRAPHIQUE' : 'LISTE' }}
+          {{
+            mode === 'graph' ? $t('statistique.graph') : $t('statistique.list')
+          }}
         </button>
       </div>
 
@@ -427,9 +436,9 @@ const sortedAndFilteredChampions = computed(() => {
           {{ role.replace('LANE', '').replace('-BOT', '') }}
         </button>
         <select v-model="filterType" class="filter-select">
-          <option value="all">Tous</option>
-          <option value="otp">OTP</option>
-          <option value="no-otp">Sans OTP</option>
+          <option value="all">{{ $t('statistique.all') }}</option>
+          <option value="otp">{{ $t('statistique.otp') }}</option>
+          <option value="no-otp">{{ $t('statistique.no-otp') }}</option>
         </select>
       </div>
 
@@ -475,20 +484,31 @@ const sortedAndFilteredChampions = computed(() => {
           <input
             v-model="searchQuery"
             type="text"
-            placeholder="Rechercher..."
+            :placeholder="$t('statistique.search')"
             class="search-input"
           />
           <select v-model="searchType" class="search-type">
-            <option value="name">Nom</option>
-            <option value="easy">Matchup Facile</option>
-            <option value="hard">Matchup Difficile</option>
+            <option value="name">{{ $t('statistique.search-name') }}</option>
+            <option value="easy">{{ $t('statistique.search-easy') }}</option>
+            <option value="hard">{{ $t('statistique.search-hard') }}</option>
+          </select>
+        </div>
+        <div class="filter-controls">
+          <select v-model="selectedTierFilter" class="tier-filter">
+            <option value="all">{{ $t('statistique.all-tiers') }}</option>
+            <option value="S+">S+</option>
+            <option value="S">S</option>
+            <option value="A">A</option>
+            <option value="B">B</option>
+            <option value="C">C</option>
+            <option value="F">F</option>
           </select>
         </div>
         <div class="sort-controls">
           <select v-model="sortBy" class="sort-select">
-            <option value="tier">Tier</option>
-            <option value="score">Score CP</option>
-            <option value="pickrate">Pickrate</option>
+            <option value="tier">{{ $t('statistique.tier') }}</option>
+            <option value="score">{{ $t('statistique.score') }}</option>
+            <option value="pickrate">{{ $t('statistique.pickrate') }}</option>
           </select>
           <button
             class="sort-order"
@@ -583,7 +603,7 @@ const sortedAndFilteredChampions = computed(() => {
             color: TIER_COLORS[selectedTier as keyof typeof TIER_COLORS],
           }"
         >
-          Score : {{ champion.score }}
+          {{ $t('statistique.score') }} : {{ champion.score }}
         </span>
         <span
           class="champion-score"
@@ -591,7 +611,7 @@ const sortedAndFilteredChampions = computed(() => {
             color: TIER_COLORS[selectedTier as keyof typeof TIER_COLORS],
           }"
         >
-          Pickrate : {{ champion.pickrate }}%
+          {{ $t('statistique.pickrate') }} : {{ champion.pickrate }}%
         </span>
       </div>
     </div>
@@ -781,7 +801,8 @@ const sortedAndFilteredChampions = computed(() => {
 }
 
 .search-type,
-.sort-select {
+.sort-select,
+.tier-filter {
   background: transparent;
   border: var(--border-size) solid var(--color-gold-300);
   color: var(--color-gold-300);
@@ -789,6 +810,12 @@ const sortedAndFilteredChampions = computed(() => {
   border-radius: 4px;
   cursor: pointer;
   font-family: var(--font-beaufort);
+}
+
+.filter-controls {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
 }
 
 .sort-controls {
@@ -817,6 +844,7 @@ const sortedAndFilteredChampions = computed(() => {
   }
 
   .search-controls,
+  .filter-controls,
   .sort-controls {
     width: 100%;
   }

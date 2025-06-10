@@ -206,7 +206,19 @@
     "pickrate": "PICKRATE",
     "matchups": "Facile et Commun",
     "matchups-hard": "Le plus dur et Commun",
-    "otp": "OTP"
+    "otp": "OTP",
+    "search": "Rechercheriva...",
+    "search-name": "Nomriva",
+    "search-easy": "Matchupriva Facile",
+    "search-hard": "Matchupriva Difficile",
+    "all-tiers": "Tous les tieRiva",
+    "tier-list": "TIER-LISTERIVA",
+    "bronze-list": "BRONZE-LISTERIVA",
+    "pro-list": "PRO-LISTERIVA",
+    "graph": "GRAPHIQUERIVA",
+    "list": "LISTERIVA",
+    "all": "Tousriva",
+    "no-otp": "Sans OTPriva"
   },
   "footer": {
     "legal": "Lelalegal",

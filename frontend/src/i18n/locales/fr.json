@@ -207,7 +207,19 @@
     "pickrate": "PICKRATE",
     "matchups": "Facile et Commun",
     "matchups-hard": "Le plus dur et Commun",
-    "otp": "OTP"
+    "otp": "OTP",
+    "search": "Rechercher...",
+    "search-name": "Nom",
+    "search-easy": "Matchup Facile",
+    "search-hard": "Matchup Difficile",
+    "all-tiers": "Tous les tiers",
+    "tier-list": "TIER-LISTE",
+    "bronze-list": "BRONZE-LISTE",
+    "pro-list": "PRO-LISTE",
+    "graph": "GRAPHIQUE",
+    "list": "LISTE",
+    "all": "Tous",
+    "no-otp": "Sans OTP"
   },
   "legal": {
     "title": "Mentions légales et Politique de confidentialité",
