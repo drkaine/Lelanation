@@ -33,7 +33,10 @@
       "tiktok": "TikTok",
       "twitch": "Twitch",
       "website": "Site web",
-      "patreon": "Patreon"
+      "patreon": "Patreon",
+      "matchups": "Matchups",
+      "progress-fr": "Progresser sur lol",
+      "progress-en": "Progression EN"
     }
   },
   "menu-build": {

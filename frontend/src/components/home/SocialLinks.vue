@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import { Icon } from '@iconify/vue'
 import { useI18n } from 'vue-i18n'
-import { onMounted, ref } from 'vue'
+import { onMounted, ref, computed } from 'vue'
 import type { SocialLink } from '@/types/social'
 import TikTokIcon from '@/components/icons/TikTokIcon.vue'
 import XIcon from '@/components/icons/XIcon.vue'
 
-const { t } = useI18n()
+const { t, locale } = useI18n()
 const shouldLoadIcons = ref(false)
 
 onMounted(() => {
@@ -23,7 +23,7 @@ onMounted(() => {
   }
 })
 
-const socialLinks: SocialLink[] = [
+const allSocialLinks: SocialLink[] = [
   {
     href: 'https://discord.com/invite/RrXCpsFGrw',
     icon: 'mdi:discord',
@@ -59,7 +59,44 @@ const socialLinks: SocialLink[] = [
     icon: 'mdi:web',
     text: t('home.links.website'),
   },
+  {
+    href: 'https://www.instagram.com/Lelariva_fr',
+    icon: 'mdi:instagram',
+    text: t('home.links.instagram'),
+  },
+  {
+    href: 'https://docs.google.com/spreadsheets/d/1J3CRQZvwkef8EECoj_QtoVu-pFyH9F5JsuxGhXs2MRE/edit?gid=1495176325#gid=1495176325',
+    icon: 'mdi:table',
+    text: t('home.links.matchups'),
+  },
+  {
+    href: 'https://docs.google.com/document/d/1_RqfOlWJ9Vq9egGb6fZpq6cNdeActg1heydkeeF-_S8/edit?tab=t.0#heading=h.djyl3yxo5q56',
+    icon: 'mdi:file-document',
+    text: t('home.links.progress-fr'),
+    lang: 'fr',
+  },
+  {
+    href: 'https://docs.google.com/document/d/1RSzH0Gvb2ZB9iW_Yu4TRgb-7VMnSSekcfwVBJLJgkK4/edit?tab=t.0',
+    icon: 'mdi:file-document',
+    text: t('home.links.progress-en'),
+    lang: 'en',
+  },
 ]
+
+const socialLinks = computed(() => {
+  return allSocialLinks.filter(link => {
+    // Si le lien a une propriété lang, on vérifie si elle correspond à la locale actuelle
+    if ('lang' in link) {
+      if (locale.value === 'en') {
+        return link.lang === 'en'
+      } else {
+        return link.lang === 'fr'
+      }
+    }
+    // Sinon, on affiche le lien pour toutes les langues
+    return true
+  })
+})
 </script>
 
 <template>
