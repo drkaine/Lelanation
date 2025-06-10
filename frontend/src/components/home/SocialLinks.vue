@@ -85,7 +85,6 @@ const allSocialLinks: SocialLink[] = [
 
 const socialLinks = computed(() => {
   return allSocialLinks.filter(link => {
-    // Si le lien a une propriété lang, on vérifie si elle correspond à la locale actuelle
     if ('lang' in link) {
       if (locale.value === 'en') {
         return link.lang === 'en'
@@ -93,7 +92,6 @@ const socialLinks = computed(() => {
         return link.lang === 'fr'
       }
     }
-    // Sinon, on affiche le lien pour toutes les langues
     return true
   })
 })
