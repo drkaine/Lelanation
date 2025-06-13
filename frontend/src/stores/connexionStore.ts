@@ -18,7 +18,7 @@ export const useConnexionStore = defineStore('Connexion', () => {
       localStorage.setItem('newUser', 'true')
       if (!localStorage.getItem('analyticsConsent')) {
         analyticsConsent.value = true
-        localStorage.setItem('analyticsConsent', 'true')
+      localStorage.setItem('analyticsConsent', 'true')
       }
     }
   }

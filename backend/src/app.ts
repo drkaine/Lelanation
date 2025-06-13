@@ -34,6 +34,7 @@ import maintainRedisCache from "./scripts/redisCacheMaintenance";
 import { assetService } from "./service/AssetService";
 import { serverHealth } from "./utils/serverUtils";
 import { RouteValidationService } from "./service/routeValidationService";
+import { spaFallbackMiddleware } from "./middleware/spaFallback";
 
 dotenv.config();
 
@@ -415,6 +416,9 @@ cron.schedule("0 2 * * *", () => {
   console.log("Tâche cron exécutée à 02h00");
   execution();
 });
+
+// SPA fallback middleware - MUST be last middleware to catch all non-API routes
+app.use(spaFallbackMiddleware(path.join(__dirname, "../../frontend/dist")));
 
 app.listen(PORT, () => {
   console.log(

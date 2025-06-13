@@ -29,7 +29,7 @@ function isValidSPARoute(path: string): boolean {
 }
 
 export function spaFallbackMiddleware(staticPath: string) {
-  return (req: Request, res: Response, next: NextFunction) => {
+  return (req: Request, res: Response, next: NextFunction): void => {
     if (req.path.startsWith("/api/")) {
       return next();
     }
@@ -41,27 +41,42 @@ export function spaFallbackMiddleware(staticPath: string) {
     const indexPath = path.join(staticPath, "index.html");
 
     if (!fs.existsSync(indexPath)) {
-      return res.status(404).send("Application not found");
+      res.status(404).send("Application not found");
+      return;
     }
 
-    if (!isValidSPARoute(req.path)) {
-      res.status(404);
+    const isValid = isValidSPARoute(req.path);
 
-      fs.readFile(indexPath, "utf8", (err, data) => {
-        if (err) {
-          return res.status(500).send("Internal Server Error");
-        }
+    fs.readFile(indexPath, "utf8", (err, data) => {
+      if (err) {
+        res.status(500).send("Internal Server Error");
+        return;
+      }
 
-        const modifiedHtml = data.replace(
+      let modifiedHtml = data;
+
+      if (!isValid) {
+        res.status(404);
+        
+        modifiedHtml = data.replace(
           "<head>",
-          '<head>\n    <meta name="http-status" content="404">\n    <meta name="robots" content="noindex, nofollow">',
+          `<head>
+    <meta name="http-status" content="404">
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="description" content="Page non trouvée - La page demandée n'existe pas.">
+    <title>404 - Page non trouvée | Lelanation</title>`
         );
+      } else {
+        res.status(200);
+        
+        modifiedHtml = data.replace(
+          "<head>",
+          '<head>\n    <meta name="http-status" content="200">'
+        );
+      }
 
-        res.send(modifiedHtml);
-      });
-    } else {
-      res.status(200).sendFile(indexPath);
-    }
+      res.send(modifiedHtml);
+    });
   };
 }
 

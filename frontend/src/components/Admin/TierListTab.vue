@@ -97,7 +97,7 @@ const deleteFile = async (category: string, fileName: string) => {
     const response = await fetch(
       `/api/tierlist/${category}/${encodedFileName}`,
       {
-        method: 'DELETE',
+      method: 'DELETE',
       },
     )
     if (!response.ok) throw new Error('Erreur lors de la suppression')
@@ -128,11 +128,11 @@ const toggleVisibility = async (category: string, fileName: string) => {
     const response = await fetch(
       `/api/tierlist/${category}/${encodedFileName}`,
       {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ newFileName }),
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ newFileName }),
       },
     )
     if (!response.ok) throw new Error('Erreur lors du changement de visibilité')
