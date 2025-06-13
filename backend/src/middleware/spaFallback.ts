@@ -55,6 +55,9 @@ export function spaFallbackMiddleware(staticPath: string) {
 
       let modifiedHtml = data;
 
+      // Définir les headers de contenu avec charset
+      res.setHeader('Content-Type', 'text/html; charset=utf-8');
+      
       if (!isValid) {
         res.status(404);
         
