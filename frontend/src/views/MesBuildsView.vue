@@ -1,5 +1,9 @@
 <script setup lang="ts">
 import { ref, computed, onMounted } from 'vue'
+
+const instanceId = Math.random().toString(36).substr(2, 9)
+const searchTypeId = computed(() => `mes-builds-search-type-${instanceId}`)
+const searchInputId = computed(() => `mes-builds-search-input-${instanceId}`)
 import { useRoute } from 'vue-router'
 import SheetBuild from '@/components/composants/SheetBuild.vue'
 import { useBuildStore } from '@/stores/buildStore'
@@ -212,12 +216,12 @@ const canDragBuild = computed(() => !isLelarivaBuildPage.value || isAdmin.value)
         </select>
 
         <div class="search-box">
-          <label for="mes-builds-search-type" class="visually-hidden">{{
+          <label :for="searchTypeId" class="visually-hidden">{{
             $t('accessibility.search-type')
           }}</label>
           <select
             v-model="searchType"
-            id="mes-builds-search-type"
+            :id="searchTypeId"
             class="search-type-select"
             :aria-label="$t('accessibility.search-type')"
           >
@@ -225,12 +229,12 @@ const canDragBuild = computed(() => !isLelarivaBuildPage.value || isAdmin.value)
             <option value="name">{{ $t('button.search.name') }}</option>
             <option value="champion">{{ $t('button.search.champion') }}</option>
           </select>
-          <label for="mes-builds-search-input" class="visually-hidden">{{
+          <label :for="searchInputId" class="visually-hidden">{{
             $t('accessibility.search-builds')
           }}</label>
           <input
             v-model="searchQuery"
-            id="mes-builds-search-input"
+            :id="searchInputId"
             type="text"
             :placeholder="searchPlaceholder"
             class="search-input"

@@ -1,6 +1,12 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import { useI18n } from 'vue-i18n'
+
+const instanceId = Math.random().toString(36).substr(2, 9)
+const subjectId = computed(() => `subject-${instanceId}`)
+const nameId = computed(() => `name-${instanceId}`)
+const emailId = computed(() => `email-${instanceId}`)
+const messageId = computed(() => `message-${instanceId}`)
 import object from '@/assets/files/data-manuel/object.json'
 
 const { t } = useI18n()
@@ -65,8 +71,8 @@ const submitForm = async () => {
         <p v-if="success" class="success">{{ $t('contact.success') }}</p>
         <p class="required">* {{ $t('contact.required') }}</p>
         <div class="form-group">
-          <label for="subject">{{ $t('contact.subject') }}</label>
-          <select v-model="formData.subject" id="subject" required>
+          <label :for="subjectId">{{ $t('contact.subject') }}</label>
+          <select v-model="formData.subject" :id="subjectId" required>
             <option value="" disabled>{{ $t('contact.select') }}</option>
             <option v-for="obj in objectEntries" :key="obj.id" :value="obj.id">
               {{ obj.name }}
@@ -75,19 +81,19 @@ const submitForm = async () => {
         </div>
 
         <div class="form-group">
-          <label for="name">{{ $t('contact.name') }}</label>
-          <input type="text" id="name" v-model="formData.name" />
+          <label :for="nameId">{{ $t('contact.name') }}</label>
+          <input type="text" :id="nameId" v-model="formData.name" />
         </div>
 
         <div class="form-group">
-          <label for="email">{{ $t('contact.email') }}</label>
-          <input type="email" id="email" v-model="formData.email" />
+          <label :for="emailId">{{ $t('contact.email') }}</label>
+          <input type="email" :id="emailId" v-model="formData.email" />
         </div>
 
         <div class="form-group">
-          <label for="message">{{ $t('contact.message') }}</label>
+          <label :for="messageId">{{ $t('contact.message') }}</label>
           <textarea
-            id="message"
+            :id="messageId"
             v-model="formData.message"
             required
             rows="5"

@@ -1,5 +1,8 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, computed } from 'vue'
+
+const instanceId = Math.random().toString(36).substr(2, 9)
+const filenameId = computed(() => `filename-${instanceId}`)
 
 const activeTab = ref<'upload' | 'gestion'>('upload')
 const fileInput = ref<HTMLInputElement | null>(null)
@@ -201,9 +204,9 @@ const toggleVisibility = async (category: string, fileName: string) => {
         </div>
 
         <div class="filename-input">
-          <label for="filename">Nom du fichier:</label>
+          <label :for="filenameId">Nom du fichier:</label>
           <input
-            id="filename"
+            :id="filenameId"
             v-model="fileName"
             type="text"
             placeholder="Entrez le nom du fichier"

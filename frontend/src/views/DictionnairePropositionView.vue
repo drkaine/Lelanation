@@ -1,5 +1,10 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
+
+const instanceId = Math.random().toString(36).substr(2, 9)
+const pseudoId = computed(() => `pseudo-${instanceId}`)
+const wordId = computed(() => `word-${instanceId}`)
+const definitionId = computed(() => `definition-${instanceId}`)
 import { useSEOHead } from '@/composables/useSEOHead'
 
 useSEOHead({
@@ -67,11 +72,11 @@ const submitProposition = async () => {
 
       <form @submit.prevent="submitProposition" class="proposition-form">
         <div class="form-group">
-          <label for="pseudo">{{
+          <label :for="pseudoId">{{
             $t('dictionnaire-proposition.pseudo')
           }}</label>
           <input
-            id="pseudo"
+            :id="pseudoId"
             v-model="pseudo"
             type="text"
             required
@@ -81,9 +86,9 @@ const submitProposition = async () => {
         </div>
 
         <div class="form-group">
-          <label for="word">{{ $t('dictionnaire-proposition.word') }}</label>
+          <label :for="wordId">{{ $t('dictionnaire-proposition.word') }}</label>
           <input
-            id="word"
+            :id="wordId"
             v-model="word"
             type="text"
             required
@@ -93,11 +98,11 @@ const submitProposition = async () => {
         </div>
 
         <div class="form-group">
-          <label for="definition">{{
+          <label :for="definitionId">{{
             $t('dictionnaire-proposition.definition')
           }}</label>
           <textarea
-            id="definition"
+            :id="definitionId"
             v-model="definition"
             required
             maxlength="1000"

@@ -1,5 +1,8 @@
 <script setup lang="ts">
 import { ref, onMounted, watch, onBeforeUnmount, nextTick, computed } from 'vue'
+
+const instanceId = Math.random().toString(36).substr(2, 9)
+const chartId = computed(() => `tierlistChart-${instanceId}`)
 import { Chart, registerables } from 'chart.js'
 
 import {
@@ -207,7 +210,7 @@ const selectedTier = ref<string | null>(null)
 
 const createChart = async () => {
   await nextTick()
-  const ctx = document.getElementById('tierlistChart') as HTMLCanvasElement
+  const ctx = document.getElementById(chartId.value) as HTMLCanvasElement
 
   currentChart?.destroy()
   currentChart = null
@@ -550,7 +553,7 @@ const sortedAndFilteredChampions = computed(() => {
           </div>
         </div>
       </div>
-      <canvas id="tierlistChart"></canvas>
+      <canvas :id="chartId"></canvas>
     </div>
     <div v-else-if="availableTabs.length > 0" class="tier-list-container">
       <div class="list-controls">

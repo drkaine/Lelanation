@@ -1,10 +1,10 @@
 <template>
   <div class="language-switcher">
-    <label for="language-select" class="sr-only">{{
+    <label :for="selectId" class="sr-only">{{
       $t('navigation.language') || 'Select language'
     }}</label>
     <select
-      id="language-select"
+      :id="selectId"
       v-model="currentLocale"
       @change="changeLanguage"
       class="language-select"
@@ -18,7 +18,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watch, onMounted } from 'vue'
+import { ref, watch, onMounted, computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { setLocale } from '@/i18n'
 import i18n from '@/i18n'
@@ -49,6 +49,9 @@ const getInitialLocale = (): Locale => {
 
 const { locale } = useI18n()
 const currentLocale = ref<Locale>(getInitialLocale())
+
+const instanceId = Math.random().toString(36).substr(2, 9)
+const selectId = computed(() => `language-select-${instanceId}`)
 
 const changeLanguage = async () => {
   await setLocale(currentLocale.value)

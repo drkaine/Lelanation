@@ -1,5 +1,9 @@
 <script setup lang="ts">
 import { ref, computed, onMounted } from 'vue'
+
+const instanceId = Math.random().toString(36).substr(2, 9)
+const searchTypeId = computed(() => `search-type-select-${instanceId}`)
+const searchInputId = computed(() => `search-input-${instanceId}`)
 import { useRouter } from 'vue-router'
 import SheetBuild from '@/components/composants/SheetBuild.vue'
 import type { BuildData } from '@/types/build'
@@ -167,12 +171,12 @@ const hasCertifiedBuilds = computed(() => {
         </a>
 
         <div class="search-box">
-          <label for="search-type-select" class="visually-hidden">{{
+          <label :for="searchTypeId" class="visually-hidden">{{
             $t('accessibility.search-type')
           }}</label>
           <select
             v-model="searchType"
-            id="search-type-select"
+            :id="searchTypeId"
             class="search-type-select"
             :aria-label="$t('accessibility.search-type')"
           >
@@ -180,12 +184,12 @@ const hasCertifiedBuilds = computed(() => {
             <option value="name">{{ $t('button.search.name') }}</option>
             <option value="champion">{{ $t('button.search.champion') }}</option>
           </select>
-          <label for="search-input" class="visually-hidden">{{
+          <label :for="searchInputId" class="visually-hidden">{{
             $t('accessibility.search-builds')
           }}</label>
           <input
             v-model="searchQuery"
-            id="search-input"
+            :id="searchInputId"
             type="text"
             :placeholder="searchPlaceholder"
             class="search-input"
