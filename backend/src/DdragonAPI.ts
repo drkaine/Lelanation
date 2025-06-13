@@ -50,17 +50,6 @@ export class DdragonAPI {
 
     return data;
   }
-  // https://ddragon.leagueoflegends.com/cdn/img/perk-images/StatMods/StatModsAdaptiveForceIcon.png
-  // StatModsAdaptiveForceScalingIcon
-  // StatModsArmorIcon
-  // StatModsAttackSpeedIcon
-  // StatModsCDRScalingIcon
-  // StatModsHealthPlusIcon
-  // StatModsHealthPlusIcon
-  // StatModsHealthScalingIcon
-  // StatModsMagicResIcon
-  // StatModsMovementSpeedIcon
-  // StatModsTenacityIcon
 
   public async loadImage(
     target: string,

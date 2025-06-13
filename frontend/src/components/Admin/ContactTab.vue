@@ -10,7 +10,13 @@ const fetchContacts = async () => {
   try {
     loading.value = true
     error.value = ''
-    const response = await fetch('/api/contact')
+    const response = await fetch('/api/contact', {
+      headers: {
+        'Cache-Control': 'no-cache, no-store, must-revalidate',
+        Pragma: 'no-cache',
+        Expires: '0',
+      },
+    })
     if (!response.ok)
       throw new Error('Erreur lors de la récupération des contacts')
     contacts.value = await response.json()
@@ -56,7 +62,7 @@ onMounted(fetchContacts)
         :key="category.category"
         class="category-section"
       >
-        <h3>{{ category.category.toUpperCase() }}</h3>
+        <h3>Messages {{ category.category.toUpperCase() }}</h3>
 
         <div class="messages">
           <div
@@ -146,9 +152,8 @@ onMounted(fetchContacts)
 }
 
 .email {
-  color: var(--color-gold-200);
+  color: var(--color-gold-100);
   font-size: 0.9rem;
-  margin-bottom: 1rem;
 }
 
 .message {

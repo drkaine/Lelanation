@@ -32,7 +32,10 @@ useSEOHead({
 
 <template>
   <main class="home-container">
-    <HeroSection imageUrl="/assets/images/lelariva.webp" imageAlt="Lelariva" />
+    <HeroSection
+      imageUrl="/assets/images/lelariva.webp"
+      imageAlt="Portrait de Lelariva, expert League of Legends"
+    />
     <SocialLinks />
   </main>
 </template>

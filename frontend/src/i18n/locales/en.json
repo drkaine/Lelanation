@@ -17,7 +17,8 @@
     "build": "build",
     "dictionary": "Dictionary",
     "language": "Select language",
-    "menu": "Navigation menu"
+    "menu": "Navigation menu",
+    "admin": "Admin"
   },
   "warning": {
     "version": "This build was created for an older game version and may be outdated."
@@ -89,19 +90,25 @@
     "share-x": "X",
     "share-x-opened": "X opened! Message is pre-filled",
     "share-text": "Copy text",
-    "share-image": "Copy image"
+    "share-image": "Copy image",
+    "stats-table-caption": "Champion build statistics breakdown by base stats, item bonuses, shard bonuses, and total values"
   },
   "contact": {
     "title": "Contact",
     "subject": "Subject",
     "name": "Name",
+    "email": "Email",
     "message": "Message",
     "sending": "Sending...",
     "send": "Send",
     "cancel": "Cancel",
     "required": "* Required fields",
     "success": "Message sent successfully!",
-    "select": "Select a subject"
+    "select": "Select a subject",
+    "consent-text": "I accept that my personal data will be processed to respond to my contact request. This data will be kept for a maximum of 1 year and then automatically deleted.",
+    "privacy-policy": "See our privacy policy",
+    "consent-required": "You must accept the processing of your personal data",
+    "send-error": "An error occurred while sending the message"
   },
   "skill-order": {
     "title": "Skill Order",
@@ -223,7 +230,13 @@
   },
   "legal": {
     "title": "Legal Notice and Privacy Policy",
+    "privacy-policy": "Privacy Policy",
     "title2": "Welcome to Lelanation",
+    "rights-section": "Exercise your GDPR rights",
+    "clear-all-data": "Clear all my local data",
+    "revoke-consent": "Revoke my analytics consent",
+    "contact-rights": "Contact to exercise my rights",
+    "action-success": "Action completed successfully!",
     "description": "Lelanation is a website that allows you to find and share the best builds for League of Legends champions. It is designed and maintained by the gaming community.",
     "accept": "I accept the terms",
     "data-controller": "Data Controller",

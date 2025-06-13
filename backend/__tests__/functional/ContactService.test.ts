@@ -14,6 +14,7 @@ describe("ContactService", () => {
     mockRequest = {
       body: {
         name: "Test User",
+        email: "test@example.com",
         message: "Test Message",
         subject: "bug",
       },
@@ -51,6 +52,7 @@ describe("ContactService", () => {
         {
           date: new Date().toISOString(),
           name: "Old User",
+          email: "old@example.com",
           message: "Old Message",
         },
       ];
@@ -88,8 +90,9 @@ describe("ContactService", () => {
       });
     });
 
-    it("devrait utiliser 'Anonyme' si pas de nom", async () => {
+    it("devrait utiliser 'Anonyme' et email vide si pas de nom/email", async () => {
       mockRequest.body.name = "";
+      mockRequest.body.email = "";
       (existsSync as jest.Mock).mockReturnValue(false);
       (mkdir as jest.Mock).mockResolvedValue(undefined);
       (writeFile as jest.Mock).mockResolvedValue(undefined);
@@ -102,6 +105,7 @@ describe("ContactService", () => {
       const writeFileCall = (writeFile as jest.Mock).mock.calls[0][1];
       const writtenData = JSON.parse(writeFileCall);
       expect(writtenData[0].name).toBe("Anonyme");
+      expect(writtenData[0].email).toBe("");
     });
   });
 
@@ -109,16 +113,31 @@ describe("ContactService", () => {
     it("devrait récupérer et formater les contacts correctement", async () => {
       const mockFiles = ["bug.json", "suggestion.json"];
       const mockBugData = [
-        { date: "2024-01-01", name: "User1", message: "Bug report" },
+        {
+          date: "2024-01-01",
+          name: "User1",
+          email: "user1@example.com",
+          message: "Bug report",
+        },
       ];
       const mockSuggestionData = [
-        { date: "2024-01-02", name: "User2", message: "New feature" },
+        {
+          date: "2024-01-02",
+          name: "User2",
+          email: "user2@example.com",
+          message: "New feature",
+        },
       ];
 
+      (existsSync as jest.Mock).mockReturnValue(true);
       (readdir as jest.Mock).mockResolvedValue(mockFiles);
       (readFile as jest.Mock)
         .mockResolvedValueOnce(JSON.stringify(mockBugData))
         .mockResolvedValueOnce(JSON.stringify(mockSuggestionData));
+
+      const cleanOldMessagesSpy = jest
+        .spyOn(contactService, "cleanOldMessages")
+        .mockResolvedValue(undefined);
 
       await contactService.getContact(
         mockRequest as Request,
@@ -129,9 +148,12 @@ describe("ContactService", () => {
         { category: "bug", messages: mockBugData },
         { category: "suggestion", messages: mockSuggestionData },
       ]);
+
+      cleanOldMessagesSpy.mockRestore();
     });
 
     it("devrait gérer les erreurs de lecture", async () => {
+      (existsSync as jest.Mock).mockReturnValue(true);
       (readdir as jest.Mock).mockRejectedValue(new Error("Test error"));
 
       await contactService.getContact(
@@ -149,8 +171,18 @@ describe("ContactService", () => {
   describe("deleteContact", () => {
     it("devrait supprimer un message spécifique", async () => {
       const mockMessages = [
-        { date: "2024-01-01", name: "User1", message: "Message 1" },
-        { date: "2024-01-02", name: "User2", message: "Message 2" },
+        {
+          date: "2024-01-01",
+          name: "User1",
+          email: "user1@example.com",
+          message: "Message 1",
+        },
+        {
+          date: "2024-01-02",
+          name: "User2",
+          email: "user2@example.com",
+          message: "Message 2",
+        },
       ];
 
       mockRequest.body = {

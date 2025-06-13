@@ -164,7 +164,9 @@ describe("DictionnaireService", () => {
     });
 
     it("devrait gérer les erreurs lors du rejet", async () => {
-      (fs.readFile as jest.Mock).mockRejectedValue(new Error("Test error"));
+      (fs.access as jest.Mock).mockRejectedValue(new Error("Test error"));
+      (fs.mkdir as jest.Mock).mockResolvedValue(undefined);
+      (fs.writeFile as jest.Mock).mockRejectedValue(new Error("Test error"));
 
       await dictionnaireService.rejectDictionnaire(
         mockRequest as Request,

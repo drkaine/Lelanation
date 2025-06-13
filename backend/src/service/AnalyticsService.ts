@@ -39,12 +39,15 @@ export const analyticsService = {
 
   async saveAnalytics(req: Request, res: Response) {
     try {
+      console.log("📈 POST Analytics called");
       const data = await analyticsService.incrementVisitCounter();
+      console.log("📊 Data after increment:", data);
       if (!data) {
         throw new Error("Erreur lors de l'incrémentation");
       }
       res.json(data);
-    } catch {
+    } catch (error) {
+      console.error("❌ Error in saveAnalytics:", error);
       res
         .status(500)
         .json({ error: "Erreur lors de l'incrémentation du compteur" });
@@ -53,12 +56,18 @@ export const analyticsService = {
 
   async getAnalytics(req: Request, res: Response) {
     try {
+      console.log("🔍 GET Analytics called");
+      console.log("📁 Analytics path:", analyticsService.analyticsPath);
+
       const analytics = await fs.readFile(
         analyticsService.analyticsPath,
         "utf8",
       );
-      res.json(JSON.parse(analytics));
-    } catch {
+      const parsedData = JSON.parse(analytics);
+      console.log("✅ Analytics data retrieved:", parsedData);
+      res.json(parsedData);
+    } catch (error) {
+      console.error("❌ Error in getAnalytics:", error);
       res.status(500).json({
         error: "Erreur lors de la récupération des données d'analyse",
       });

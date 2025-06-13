@@ -86,12 +86,34 @@ const emit = defineEmits(['certification-toggled'])
 const selectedRoles = roleStore.selectedRoles
 const rolesListe = ['top', 'jungle', 'mid', 'bot', 'support']
 
+const compareVersions = (version1: string, version2: string): number => {
+  if (!version1 || !version2) return 0
+
+  const v1Parts = version1.split('.').map(n => parseInt(n, 10))
+  const v2Parts = version2.split('.').map(n => parseInt(n, 10))
+
+  const maxLength = Math.max(v1Parts.length, v2Parts.length)
+  while (v1Parts.length < maxLength) v1Parts.push(0)
+  while (v2Parts.length < maxLength) v2Parts.push(0)
+
+  for (let i = 0; i < maxLength; i++) {
+    if (v1Parts[i] < v2Parts[i]) return -1
+    if (v1Parts[i] > v2Parts[i]) return 1
+  }
+
+  return 0
+}
+
 const isOutdatedVersion = computed(() => {
-  return (
-    props.version &&
-    gameVersionStore.currentVersion &&
-    props.version !== gameVersionStore.currentVersion
+  if (!props.version || !gameVersionStore.currentVersion) {
+    return false
+  }
+
+  const comparison = compareVersions(
+    props.version,
+    gameVersionStore.currentVersion,
   )
+  return comparison < 0
 })
 
 const toggleRole = (role: string) => {

@@ -45,7 +45,7 @@ const formattedDescription = computed(() => {
           class="item-icon"
         />
         <div class="item-details">
-          <h3 class="item-name">{{ props.item.name }}</h3>
+          <h3 class="item-name">Objet: {{ props.item.name }}</h3>
           <div class="item-cost">
             <svg
               width="14"

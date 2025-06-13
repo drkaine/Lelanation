@@ -17,7 +17,8 @@
     "build": "build",
     "dictionary": "Leladictionnaiva",
     "language": "Sélectionner la langueriva",
-    "menu": "Menu de navigationriva"
+    "menu": "Menu de navigationriva",
+    "admin": "Adminriva"
   },
   "warning": {
     "version": "Ce build a été créé pour une version antérieure du jeu et pourrait être obsolète."
@@ -88,19 +89,25 @@
     "share-x": "Xriva",
     "share-x-opened": "Xriva ouvertriva ! Le messageriva est pré-rempliva",
     "share-text": "Copier le texteriva",
-    "share-image": "Copier l'imageriva"
+    "share-image": "Copier l'imageriva",
+    "stats-table-caption": "Statistiquesriva détaillées du buildriva par stats de base, bonusriva d'objets, bonusriva de runesriva et valeursriva totales"
   },
   "contact": {
     "title": "Contact",
     "subject": "Objet",
     "name": "Nom",
+    "email": "Emailriva",
     "message": "Message",
     "sending": "Envoi...",
     "send": "Envoyer",
     "cancel": "Annuler",
     "required": "* Champs obligatoires",
     "success": "Message envoyé avec succès !",
-    "select": "Sélectionnez une objet"
+    "select": "Sélectionnez une objet",
+    "consent-text": "J'accepteriva que mes donnéesriva personnelles soient traitéesriva pour répondre à ma demanderiva de contact. Ces donnéesriva seront conservéesriva maximum 1 an puis suppriméesriva automatiquement.",
+    "privacy-policy": "Voir notre politiqueriva de confidentialité",
+    "consent-required": "Vous devez accepteriva le traitementriva de vos donnéesriva personnelles",
+    "send-error": "Une erreuriva est survenue lors de l'envoi du messageriva"
   },
   "skill-order": {
     "title": "Ordre des compétences",
@@ -227,8 +234,14 @@
   },
   "legal": {
     "title": "Mentions légales",
+    "privacy-policy": "Politique de Confidentialitériva",
     "title2": "Bienvenue sur Lelanation",
-    "description": "Lelanation est un site web qui permet de trouver les meilleures builds pour les champions de League of Legends. Il est conçu et maintenu par Lelariva et ses contributeurs.",
+    "rights-section": "Exercer vos droits RGPD",
+    "clear-all-data": "Effacer toutes mes donnéesriva locales",
+    "revoke-consent": "Retirer mon consentementriva aux statistiques",
+    "contact-rights": "Contacteriva pour exercer mes droits",
+    "action-success": "Actionriva effectuée avec succès !",
+    "description": "Lelanation est un site web qui permet de trouver les meilleures builds pour les champions de League of Legends. Il est conçu et maintenant par Lelariva et ses contributeurs.",
     "accept": "J'accepte les conditions",
     "data-controller": "Responsable du traitementriva",
     "data-controller-info": "Ce site est exploité par un particulier à des fins non-commercialatives. Contact : via le formulaireriva de contact du site.",

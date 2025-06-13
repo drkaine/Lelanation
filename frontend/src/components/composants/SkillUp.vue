@@ -65,7 +65,7 @@ watch(
 
 <template>
   <div class="skill-order">
-    <h3>{{ $t('skill-order.title') }}</h3>
+    <h2>{{ $t('skill-order.title') }}</h2>
     <div class="skill-grid">
       <div class="level-row">
         <div class="skill-label-spacer"></div>
@@ -77,7 +77,11 @@ watch(
         class="skill-row"
       >
         <div class="skill-label-container">
-          <img :src="getSpellImage(skill)" :alt="skill" class="skill-icon" />
+          <img
+            :src="getSpellImage(skill)"
+            :alt="`Compétence ${skill} du champion`"
+            class="skill-icon"
+          />
           <div class="skill-label">{{ skill }}</div>
         </div>
         <div

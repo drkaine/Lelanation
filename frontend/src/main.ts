@@ -6,6 +6,7 @@ import { createHead } from '@vueuse/head'
 
 import i18n from './i18n'
 import { directTranslation, installGlobalTranslation } from './i18nCompat'
+import CSPValidator from './utils/cspValidator'
 
 import App from './App.vue'
 import router from './router'
@@ -74,6 +75,12 @@ if (import.meta.env.DEV) {
       }
     }, 100)
   })
+
+  CSPValidator.monitorCSPViolations()
+
+  setTimeout(() => {
+    CSPValidator.logSecurityReport()
+  }, 1000)
 }
 
 app.mount('#app')

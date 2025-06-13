@@ -67,6 +67,7 @@ export const uploadService = {
           const files = await fs.readdir(categoryPath);
           result[category] = files
             .filter((file) => file.endsWith(".json"))
+            .filter((file) => !/-\d{13,}$/.test(file.replace(".json", "")))
             .map((file) => file.replace(".json", ""));
         } catch {
           result[category] = [];

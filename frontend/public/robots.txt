@@ -7,7 +7,7 @@ Sitemap: https://www.lelanation.fr/sitemap.xml
 # Allow important pages for SEO
 Allow: /build
 Allow: /builds-publics
-Allow: /Lebuildarriva  
+Allow: /lelariva-builds  
 Allow: /dictionnaire
 Allow: /dictionnaire/proposition
 Allow: /videos

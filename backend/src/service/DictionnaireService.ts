@@ -13,8 +13,39 @@ export const dictionnaireService = {
     "../../../frontend/src/assets/files/dictionnaire/dictionnaire.json",
   ),
 
+  async safeJsonParse<T>(content: string, defaultValue: T): Promise<T> {
+    try {
+      return JSON.parse(content);
+    } catch (error) {
+      console.error("Erreur de parsing JSON:", error);
+      try {
+        const cleaned = content
+          .replace(/\]\]$/, "]")
+          .replace(/,\s*\]$/, "]")
+          .replace(/\}\}$/, "}");
+        return JSON.parse(cleaned);
+      } catch (repairError) {
+        console.error("Impossible de réparer le JSON:", repairError);
+        return defaultValue;
+      }
+    }
+  },
+
+  async ensureFileExists(filePath: string, defaultContent: string = "[]") {
+    try {
+      await fs.access(filePath);
+    } catch {
+      const dir = path.dirname(filePath);
+      await fs.mkdir(dir, { recursive: true });
+      await fs.writeFile(filePath, defaultContent);
+    }
+  },
+
   async saveDictionnaire(req: Request, res: Response) {
     try {
+      await dictionnaireService.ensureFileExists(
+        dictionnaireService.propositionsPath,
+      );
       await appendToJson(req.body, dictionnaireService.propositionsPath);
       res.sendStatus(200);
     } catch (error) {
@@ -25,11 +56,17 @@ export const dictionnaireService = {
 
   async getDictionnaire(req: Request, res: Response) {
     try {
+      await dictionnaireService.ensureFileExists(
+        dictionnaireService.propositionsPath,
+      );
+
       const dictionnaire = await fs.readFile(
         dictionnaireService.propositionsPath,
         "utf8",
       );
-      res.json(JSON.parse(dictionnaire));
+
+      const parsed = await dictionnaireService.safeJsonParse(dictionnaire, []);
+      res.json(parsed);
     } catch (error) {
       console.error("Erreur lors de la récupération du dictionnaire:", error);
       res.status(500).json({
@@ -42,11 +79,17 @@ export const dictionnaireService = {
     try {
       const { word, definition } = req.body;
 
+      await dictionnaireService.ensureFileExists(
+        dictionnaireService.dictionnaireValidePath,
+        "{}",
+      );
+
       const dictContent = await fs.readFile(
         dictionnaireService.dictionnaireValidePath,
         "utf8",
       );
-      const dictionnaire = JSON.parse(dictContent);
+      const dictionnaire: Record<string, string> =
+        await dictionnaireService.safeJsonParse(dictContent, {});
 
       dictionnaire[word] = definition;
 
@@ -58,7 +101,8 @@ export const dictionnaireService = {
       await dictionnaireService.removeProposition(word);
 
       res.status(200).json({ message: "Mot ajouté au dictionnaire" });
-    } catch {
+    } catch (error) {
+      console.error("Erreur lors de l'approbation:", error);
       res.status(500).json({ error: "Erreur lors de la validation" });
     }
   },
@@ -68,23 +112,36 @@ export const dictionnaireService = {
       const { word } = req.body;
       await dictionnaireService.removeProposition(word);
       res.status(200).json({ message: "Proposition rejetée" });
-    } catch {
+    } catch (error) {
+      console.error("Erreur lors du rejet:", error);
       res.status(500).json({ error: "Erreur lors du rejet" });
     }
   },
 
   async removeProposition(word: string) {
-    const proposContent = await fs.readFile(
-      dictionnaireService.propositionsPath,
-      "utf8",
-    );
-    const propositions = JSON.parse(proposContent);
-    const filteredPropositions = propositions.filter(
-      (prop: { word: string }) => prop.word !== word,
-    );
-    await fs.writeFile(
-      dictionnaireService.propositionsPath,
-      JSON.stringify(filteredPropositions, null, 2),
-    );
+    try {
+      await dictionnaireService.ensureFileExists(
+        dictionnaireService.propositionsPath,
+      );
+
+      const proposContent = await fs.readFile(
+        dictionnaireService.propositionsPath,
+        "utf8",
+      );
+      const propositions = await dictionnaireService.safeJsonParse(
+        proposContent,
+        [],
+      );
+      const filteredPropositions = propositions.filter(
+        (prop: { word: string }) => prop.word !== word,
+      );
+      await fs.writeFile(
+        dictionnaireService.propositionsPath,
+        JSON.stringify(filteredPropositions, null, 2),
+      );
+    } catch (error) {
+      console.error("Erreur lors de la suppression de proposition:", error);
+      throw error;
+    }
   },
 };

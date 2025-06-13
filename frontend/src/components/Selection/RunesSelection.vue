@@ -69,8 +69,7 @@ const loadData = async () => {
 
 watch(
   () => locale.value,
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  _newLocale => {
+  () => {
     loadData()
   },
 )
@@ -78,8 +77,7 @@ watch(
 onMounted(() => {
   loadData()
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  window.addEventListener('languageChanged', (_event: Event) => {
+  window.addEventListener('languageChanged', () => {
     loadData()
   })
 })
@@ -637,7 +635,7 @@ const formatDescription = (desc: string) => {
       class="rune-tooltip"
       :style="{ left: tooltipX + 'px', top: tooltipY + 'px' }"
     >
-      <h3>{{ activeTooltip.name }}</h3>
+      <h3>Rune: {{ activeTooltip.name }}</h3>
       <p v-html="formatDescription(activeTooltip.shortDesc)"></p>
     </div>
 

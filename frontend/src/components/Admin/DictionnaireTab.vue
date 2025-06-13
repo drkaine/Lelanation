@@ -10,7 +10,13 @@ const fetchDictionnaire = async () => {
   try {
     loading.value = true
     error.value = ''
-    const response = await fetch('/api/dictionnaire')
+    const response = await fetch('/api/dictionnaire', {
+      headers: {
+        'Cache-Control': 'no-cache, no-store, must-revalidate',
+        Pragma: 'no-cache',
+        Expires: '0',
+      },
+    })
     if (!response.ok)
       throw new Error('Erreur lors de la récupération du dictionnaire')
     entries.value = await response.json()
@@ -53,7 +59,7 @@ onMounted(fetchDictionnaire)
     <div v-else class="entries">
       <div v-for="(entry, index) in entries" :key="index" class="entry-card">
         <div class="entry-content">
-          <h3>Mot : {{ entry.word }}</h3>
+          <h3>Mot : {{ entry.word }} (par {{ entry.pseudo }})</h3>
           <p>Pseudo : {{ entry.pseudo }}</p>
           <p>Définition : {{ entry.definition }}</p>
           <p>Date : {{ entry.date ? entry.date : 'Date non disponible' }}</p>
@@ -91,7 +97,7 @@ onMounted(fetchDictionnaire)
 }
 
 .error {
-  color: var(--color);
+  color: var(--color-error);
 }
 
 .entries {

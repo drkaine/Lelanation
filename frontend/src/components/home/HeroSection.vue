@@ -11,7 +11,7 @@ defineProps<{
 
     <div class="image-container">
       <img
-        class="profil-image"
+        class="profil-image profil-image-optimized"
         src="/assets/images/lelariva.webp"
         srcset="
           /assets/images/lelariva.webp 400w,
@@ -27,14 +27,6 @@ defineProps<{
         decoding="sync"
         width="300"
         height="300"
-        style="
-          aspect-ratio: 1;
-          object-fit: cover;
-          display: block;
-          will-change: transform;
-          contain: layout style paint;
-          image-rendering: optimizeQuality;
-        "
       />
     </div>
 
@@ -42,7 +34,7 @@ defineProps<{
       {{ $t('home.description') }}
     </h2>
 
-    <div itemscope itemtype="http://schema.org/WebSite">
+    <div itemscope itemtype="https://schema.org/WebSite">
       <meta itemprop="url" content="https://lelanation.fr/" />
       <meta itemprop="name" content="Lelanation" />
       <meta
@@ -107,6 +99,15 @@ defineProps<{
 
 .profil-image:hover {
   transform: translateZ(0) scale(1.05);
+}
+
+.profil-image-optimized {
+  aspect-ratio: 1;
+  object-fit: cover;
+  display: block;
+  will-change: transform;
+  contain: layout style paint;
+  image-rendering: optimizeQuality;
 }
 
 .subtitle {

@@ -117,10 +117,7 @@ export function useAssetPreloading(
         specificImages.map(image => preloadFile(image, 'images')),
       )
 
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      const successfulCount = results.filter(
-        r => r.status === 'fulfilled' && r.value,
-      ).length
+      void results.filter(r => r.status === 'fulfilled' && r.value).length
 
       if (options.preloadDirectories && options.enableApiPreloading) {
         const imageDirectories = DIRECTORIES_TO_PRELOAD.filter(

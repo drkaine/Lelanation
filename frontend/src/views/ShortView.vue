@@ -169,8 +169,14 @@ export default {
           :key="video.id"
           class="short-card"
         >
-          <img :src="video.snippet.thumbnails.medium.url" alt="Miniature" />
-          <h3>{{ video.snippet.title }}</h3>
+          <img
+            :src="video.snippet.thumbnails.medium.url"
+            :alt="`Miniature vidéo: ${video.snippet.title}`"
+          />
+          <h2>
+            {{ video.snippet.title }} -
+            {{ formatDate(video.snippet.publishedAt) }}
+          </h2>
           <p class="video-date">{{ formatDate(video.snippet.publishedAt) }}</p>
           <a :href="`https://youtube.com/watch?v=${video.id}`" target="_blank">
             {{ $t('short.see-video') }}
@@ -251,7 +257,7 @@ export default {
   object-fit: cover;
 }
 
-.short-card h3 {
+.short-card h2 {
   padding: 1rem;
   margin: 0;
   font-size: 1rem;

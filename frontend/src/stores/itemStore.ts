@@ -58,7 +58,6 @@ export const useItemStore = defineStore('Item', () => {
     },
   })
 
-  // type: 'starter' | 'core' | 'situationnel' | 'boots',
   const setItemSelection = (Item: Item) => {
     if (!ItemsSelection.value['core']) {
       ItemsSelection.value['core'] = [Item]

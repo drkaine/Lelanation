@@ -33,6 +33,7 @@ import {
 import maintainRedisCache from "./scripts/redisCacheMaintenance";
 import { assetService } from "./service/AssetService";
 import { serverHealth } from "./utils/serverUtils";
+import { RouteValidationService } from "./service/routeValidationService";
 
 dotenv.config();
 
@@ -117,7 +118,10 @@ app.use(
 app.get(
   "/api/analytics",
   shortLivedCache,
-  cacheMiddleware({ ttl: 60 }),
+  cacheMiddleware({
+    ttl: 60,
+    bypassCache: (req: Request) => req.query.nocache === "true",
+  }),
   async (req, res) => {
     analyticsService.getAnalytics(req, res);
   },
@@ -125,7 +129,7 @@ app.get(
 
 app.post(
   "/api/analytics",
-  invalidateCacheMiddleware(["analytics:*"]),
+  invalidateCacheMiddleware(["cache:/api/analytics*"]),
   async (req, res) => {
     analyticsService.saveAnalytics(req, res);
   },
@@ -229,7 +233,7 @@ app.get(
 
 app.post(
   "/api/dictionnaire",
-  invalidateCacheMiddleware(["dictionnaire:*"]),
+  invalidateCacheMiddleware(["cache:/api/dictionnaire*"]),
   async (req, res) => {
     dictionnaireService.saveDictionnaire(req, res);
   },
@@ -245,18 +249,18 @@ app.get(
 
 app.post(
   "/api/dictionnaire/approve",
-  invalidateCacheMiddleware(["dictionnaire:*"]),
+  invalidateCacheMiddleware(["cache:/api/dictionnaire*"]),
   dictionnaireService.approveDictionnaire,
 );
 app.post(
   "/api/dictionnaire/reject",
-  invalidateCacheMiddleware(["dictionnaire:*"]),
+  invalidateCacheMiddleware(["cache:/api/dictionnaire*"]),
   dictionnaireService.rejectDictionnaire,
 );
 
 app.post(
   "/api/contact",
-  invalidateCacheMiddleware(["contact:*"]),
+  invalidateCacheMiddleware(["cache:/api/contact*"]),
   async (req, res) => {
     contactService.sendContact(req, res);
   },
@@ -271,9 +275,17 @@ app.get(
   },
 );
 
+app.delete(
+  "/api/contact",
+  invalidateCacheMiddleware(["cache:/api/contact*"]),
+  async (req, res) => {
+    contactService.deleteContact(req, res);
+  },
+);
+
 app.post(
   "/api/tierlist/upload/:nameFolder",
-  invalidateCacheMiddleware(["tierlist:*"]),
+  invalidateCacheMiddleware(["cache:/api/tierlist*"]),
   upload.single("file"),
   async (req: MulterRequest, res: Response): Promise<void> => {
     uploadService.uploadOds(req, res);
@@ -282,13 +294,13 @@ app.post(
 
 app.delete(
   "/api/tierlist/:category/:fileName",
-  invalidateCacheMiddleware(["tierlist:*"]),
+  invalidateCacheMiddleware(["cache:/api/tierlist*"]),
   uploadService.deleteFile,
 );
 
 app.put(
   "/api/tierlist/:category/:fileName",
-  invalidateCacheMiddleware(["tierlist:*"]),
+  invalidateCacheMiddleware(["cache:/api/tierlist*"]),
   uploadService.toggleVisibility,
 );
 
@@ -317,6 +329,26 @@ app.get("/api/status", (req, res) => {
     uptime: process.uptime(),
     timestamp: new Date().toISOString(),
   });
+});
+
+const routeValidationService = new RouteValidationService();
+
+app.get("/api/validate-route", (req: Request, res: Response): void => {
+  try {
+    const path = req.query.path as string;
+
+    if (!path) {
+      res.status(400).json({ error: "Path parameter required" });
+      return;
+    }
+
+    const result = routeValidationService.validateRoute(path);
+
+    res.status(result.status).json(result);
+  } catch (error) {
+    console.error("Error validating route:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
 });
 
 app.post(

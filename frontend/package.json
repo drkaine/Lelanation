@@ -6,7 +6,7 @@
   "scripts": {
     "clean": "npm run lint && npm run format && npm run type-check && npm run test && npm run build",
     "dev": "vite",
-    "build": "run-p type-check \"build-only {@}\" -- && npm run sitemap",
+    "build": "run-p type-check \"build-only {@}\" -- && npm run sitemap && npm run seo:validate",
     "preview": "vite preview",
     "test": "npm run test:unit ",
     "test:unit": "vitest",
@@ -15,7 +15,18 @@
     "type-check": "vue-tsc --build --force",
     "lint": "eslint . --fix",
     "format": "prettier --write src/",
-    "sitemap": "tsx scripts/generate-sitemap.ts"
+    "sitemap": "tsx scripts/generate-sitemap.ts",
+    "seo:audit": "tsx -e \"import('./src/utils/seoAudit.ts').then(m => m.SEOAuditor.logReport())\"",
+    "seo:validate": "tsx -e \"import('./src/utils/sitemapGenerator.ts').then(m => { const issues = m.validateSitemapForNoIndex(m.generateLelanationSitemap(true)); if(issues.length > 0) { console.error('❌ Sitemap validation failed:', issues); process.exit(1); } else { console.log('✅ Sitemap validation passed'); } })\"",
+    "seo:audit-sitemap": "tsx -e \"import('./src/utils/sitemapGenerator.ts').then(m => { const sitemap = m.generateLelanationSitemap(true); const audit = m.auditSitemapForNoIndexIssues(sitemap); console.log(audit.summary); if(audit.noIndexUrls.length > 0) process.exit(1); })\"",
+    "seo:audit-noindex": "tsx -e \"import('./src/utils/noindexAudit.ts').then(m => m.NoIndexAuditor.logAuditReport())\"",
+    "seo:headings-check": "tsx scripts/seo-headings-check.ts",
+    "seo:final-check": "tsx scripts/seo-final-check.ts",
+    "security:csp-check": "tsx -e \"import('./src/utils/cspValidator.ts').then(m => m.CSPValidator.logSecurityReport())\"",
+    "security:csp-nginx": "tsx -e \"import('./src/utils/cspValidator.ts').then(m => console.log(m.CSPValidator.getRecommendedCSPForNginx()))\"",
+    "security:validate": "tsx scripts/security-validation.ts",
+    "seo:check": "npm run seo:validate && npm run seo:audit-sitemap && npm run seo:audit-noindex && npm run seo:audit",
+    "build:seo": "npm run seo:validate && npm run build"
   },
   "dependencies": {
     "@iconify/vue": "^4.3.0",

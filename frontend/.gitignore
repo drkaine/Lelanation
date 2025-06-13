@@ -52,3 +52,4 @@ playwright-report/
 /src/assets/files/data/token-state.json
 
 .env
+.env.production

@@ -7,8 +7,8 @@ const route = useRoute()
 const buildName = route.params.fileName as string
 
 useSEOHead({
-  title: `Build ${buildName} - Guide League of Legends`,
-  description: `Découvrez le build ${buildName} pour League of Legends. Guide complet avec runes, objets, sorts et ordre des compétences.`,
+  title: `Build ${buildName} - Guide LoL | Lelanation`,
+  description: `Guide build ${buildName} pour LoL. Runes, objets, sorts et ordre des compétences inclus.`,
   keywords: `build ${buildName}, guide LoL, runes, objets League of Legends`,
   type: 'article',
 })
@@ -16,9 +16,7 @@ useSEOHead({
 
 <template>
   <div>
-    <h1 class="visually-hidden">
-      Build {{ buildName }} - Guide League of Legends
-    </h1>
+    <h1 class="visually-hidden">Build {{ buildName }} - Guide LoL</h1>
     <Suspense>
       <template #default>
         <BuildRecap />

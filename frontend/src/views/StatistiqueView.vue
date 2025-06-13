@@ -63,7 +63,12 @@ const selectedFile = ref<string>('tierlist')
 
 const fetchAvailableFiles = async () => {
   try {
-    const response = await fetch('/api/tierlist/all')
+    const response = await fetch('/api/tierlist/all', {
+      cache: 'no-cache',
+      headers: {
+        'Cache-Control': 'no-cache',
+      },
+    })
     if (!response.ok)
       throw new Error('Erreur lors de la récupération des listes')
     const allFiles = await response.json()
@@ -74,20 +79,48 @@ const fetchAvailableFiles = async () => {
         (files as string[]).filter(file => !file.startsWith('private_')),
       ]),
     )
+
+    const currentFiles = availableFiles.value[selectedList.value] || []
+    if (!currentFiles.includes(selectedFile.value) && currentFiles.length > 0) {
+      selectedFile.value = currentFiles[0]
+    }
   } catch (error) {
     console.error('Erreur:', error)
+    availableFiles.value = { normal: [], bronze: [], pro: [] }
   }
 }
 
 const loadTierData = async () => {
   try {
-    const response = await fetch(
-      `/assets/files/tiers-listes/${selectedList.value}/${selectedFile.value}.json`,
-    )
-    if (!response.ok) throw new Error('Erreur lors du chargement des données')
-    tierData.value = await response.json()
+    const filePath = `/assets/files/tiers-listes/${selectedList.value}/${selectedFile.value}.json`
+
+    const response = await fetch(filePath, {
+      cache: 'no-cache',
+      headers: {
+        'Cache-Control': 'no-cache',
+      },
+    })
+
+    if (!response.ok) {
+      throw new Error(
+        `Erreur lors du chargement des données: ${response.status}`,
+      )
+    }
+
+    const data = await response.json()
+    tierData.value = data
   } catch (error) {
-    console.error('Erreur:', error)
+    console.error('Erreur lors du chargement des données:', error)
+    tierData.value = {
+      GRAPH: [],
+      TOPLANE: [],
+      JUNGLE: [],
+      MIDLANE: [],
+      'ADC-BOT': [],
+      SUPPORT: [],
+      TierList: [],
+      Resultats: [],
+    }
   }
 }
 
@@ -254,17 +287,36 @@ const createChart = async () => {
   })
 }
 
-watch(
-  [selectedRole, selectedTier, filterType, selectedList, selectedFile],
-  async () => {
-    await fetchAvailableFiles()
-    await loadTierData()
-    await createChart()
-  },
-)
+watch([selectedRole, selectedTier, filterType], async () => {
+  await createChart()
+})
+
+watch([selectedList, selectedFile], async () => {
+  await loadTierData()
+  await createChart()
+})
+
+watch(selectedList, async () => {
+  const currentFiles = availableFiles.value[selectedList.value] || []
+  if (currentFiles.length > 0 && !currentFiles.includes(selectedFile.value)) {
+    selectedFile.value = currentFiles[0]
+  }
+})
 
 onMounted(async () => {
   await fetchAvailableFiles()
+
+  if (availableTabs.value.length > 0) {
+    if (!availableTabs.value.includes(selectedList.value)) {
+      selectedList.value = availableTabs.value[0] as 'normal' | 'bronze' | 'pro'
+    }
+
+    const currentFiles = availableFiles.value[selectedList.value] || []
+    if (currentFiles.length > 0 && !currentFiles.includes(selectedFile.value)) {
+      selectedFile.value = currentFiles[0]
+    }
+  }
+
   await loadTierData()
   await createChart()
 })
@@ -302,6 +354,12 @@ const sortOrder = ref<'asc' | 'desc'>('desc')
 const searchType = ref<'name' | 'easy' | 'hard'>('name')
 const searchQuery = ref('')
 const selectedTierFilter = ref<string | 'all'>('all')
+
+const availableTabs = computed(() => {
+  return ['normal', 'bronze', 'pro'].filter(
+    type => availableFiles.value[type]?.length > 0,
+  )
+})
 
 const sortedAndFilteredChampions = computed(() => {
   const roleData = tierData.value[selectedRole.value] as ChampionData[]
@@ -389,9 +447,9 @@ const sortedAndFilteredChampions = computed(() => {
   <div class="statistique-container">
     <h1 class="page-title">{{ $t('navigation.statistique') }}</h1>
     <div class="tabs-container">
-      <div class="tier-type-tabs tab-group">
+      <div class="tier-type-tabs tab-group" v-if="availableTabs.length > 0">
         <button
-          v-for="type in ['normal', 'bronze', 'pro']"
+          v-for="type in availableTabs"
           :key="type"
           :class="{ active: selectedList === type }"
           @click="selectedList = type as 'normal' | 'bronze' | 'pro'"
@@ -446,6 +504,9 @@ const sortedAndFilteredChampions = computed(() => {
         class="file-selector"
         v-if="availableFiles[selectedList]?.length > 1"
       >
+        <label class="file-selector-label">
+          {{ $t('statistique.select-file') || 'Sélectionner une tier list :' }}
+        </label>
         <select v-model="selectedFile" class="file-select">
           <option
             v-for="file in availableFiles[selectedList]"
@@ -457,7 +518,17 @@ const sortedAndFilteredChampions = computed(() => {
         </select>
       </div>
     </div>
-    <div v-if="displayMode === 'graph'" class="chart-container">
+
+    <div v-if="availableTabs.length === 0" class="no-data-message">
+      <p>
+        {{
+          $t('statistique.no-tierlists') ||
+          "Aucune tier list disponible. Veuillez en importer une depuis l'administration."
+        }}
+      </p>
+    </div>
+
+    <div v-else-if="displayMode === 'graph'" class="chart-container">
       <div class="legend">
         <div
           v-for="(color, tier) in TIER_COLORS"
@@ -469,7 +540,10 @@ const sortedAndFilteredChampions = computed(() => {
           }"
           @click="toggleTier(tier)"
         >
-          <div class="color-box" :style="{ backgroundColor: color }"></div>
+          <div
+            class="color-box"
+            :class="`tier-bg-${tier.toLowerCase().replace('+', 'plus')}`"
+          ></div>
           <div class="legend-text">
             <span class="tier">{{ tier }}</span>
             <span class="description">{{ getTierDescription(tier) }}</span>
@@ -478,7 +552,7 @@ const sortedAndFilteredChampions = computed(() => {
       </div>
       <canvas id="tierlistChart"></canvas>
     </div>
-    <div v-else class="tier-list-container">
+    <div v-else-if="availableTabs.length > 0" class="tier-list-container">
       <div class="list-controls">
         <div class="search-controls">
           <input
@@ -536,9 +610,7 @@ const sortedAndFilteredChampions = computed(() => {
       >
         <div
           class="tier-col"
-          :style="{
-            color: TIER_COLORS[champion?.tier as keyof typeof TIER_COLORS],
-          }"
+          :class="`tier-color-${champion?.tier?.toLowerCase().replace('+', 'plus')}`"
         >
           {{ champion?.tier }}
         </div>
@@ -590,26 +662,18 @@ const sortedAndFilteredChampions = computed(() => {
             formatChampionName(champion.name) +
             '.png'
           "
-          :style="{
-            border:
-              '1px solid ' +
-              TIER_COLORS[selectedTier as keyof typeof TIER_COLORS],
-          }"
+          :class="`tier-border-${selectedTier?.toLowerCase().replace('+', 'plus')}`"
           :alt="champion.name"
         />
         <span
           class="champion-score"
-          :style="{
-            color: TIER_COLORS[selectedTier as keyof typeof TIER_COLORS],
-          }"
+          :class="`tier-color-${selectedTier?.toLowerCase().replace('+', 'plus')}`"
         >
           {{ $t('statistique.score') }} : {{ champion.score }}
         </span>
         <span
           class="champion-score"
-          :style="{
-            color: TIER_COLORS[selectedTier as keyof typeof TIER_COLORS],
-          }"
+          :class="`tier-color-${selectedTier?.toLowerCase().replace('+', 'plus')}`"
         >
           {{ $t('statistique.pickrate') }} : {{ champion.pickrate }}%
         </span>
@@ -853,7 +917,17 @@ const sortedAndFilteredChampions = computed(() => {
 .file-selector {
   margin: 1rem 0;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.file-selector-label {
+  color: var(--color-gold-300);
+  font-family: var(--font-beaufort);
+  font-weight: bold;
+  text-transform: uppercase;
+  font-size: 0.9rem;
 }
 
 .file-select {
@@ -870,5 +944,78 @@ const sortedAndFilteredChampions = computed(() => {
 .file-select option {
   background: var(--color-grey-900);
   color: var(--color-gold-300);
+}
+
+.no-data-message {
+  text-align: center;
+  margin: 3rem 0;
+  padding: 2rem;
+  border: 1px solid var(--color-gold-300);
+  border-radius: 8px;
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.no-data-message p {
+  color: var(--color-gold-300);
+  font-family: var(--font-beaufort);
+  font-size: 1.1rem;
+  margin: 0;
+}
+
+.tier-color-splus {
+  color: #ffd700;
+}
+.tier-color-s {
+  color: #32cd32;
+}
+.tier-color-a {
+  color: #4169e1;
+}
+.tier-color-b {
+  color: #87ceeb;
+}
+.tier-color-c {
+  color: #9370db;
+}
+.tier-color-f {
+  color: #ff0000;
+}
+
+.tier-bg-splus {
+  background-color: #ffd700;
+}
+.tier-bg-s {
+  background-color: #32cd32;
+}
+.tier-bg-a {
+  background-color: #4169e1;
+}
+.tier-bg-b {
+  background-color: #87ceeb;
+}
+.tier-bg-c {
+  background-color: #9370db;
+}
+.tier-bg-f {
+  background-color: #ff0000;
+}
+
+.tier-border-splus {
+  border: 1px solid #ffd700;
+}
+.tier-border-s {
+  border: 1px solid #32cd32;
+}
+.tier-border-a {
+  border: 1px solid #4169e1;
+}
+.tier-border-b {
+  border: 1px solid #87ceeb;
+}
+.tier-border-c {
+  border: 1px solid #9370db;
+}
+.tier-border-f {
+  border: 1px solid #ff0000;
 }
 </style>

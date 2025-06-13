@@ -1,10 +1,19 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { inject } from 'vue'
 import { useConnexionStore } from '@/stores/connexionStore'
-import ContactModal from '@/components/Modal/ContactModal.vue'
 
 const connexionStore = useConnexionStore()
-const showContactModal = ref(false)
+
+const contactModal = inject('contactModal') as {
+  open: () => void
+  close: () => void
+}
+
+const openContactModal = () => {
+  if (contactModal) {
+    contactModal.open()
+  }
+}
 </script>
 
 <template>
@@ -13,7 +22,7 @@ const showContactModal = ref(false)
       <p>{{ $t('footer.admin') }}</p>
     </div>
     <button
-      @click="showContactModal = true"
+      @click="openContactModal"
       class="footer-link footer-button"
       type="button"
       aria-label="Ouvrir le formulaire de contact"
@@ -34,7 +43,5 @@ const showContactModal = ref(false)
         @darkaine
       </a>
     </div>
-
-    <ContactModal v-if="showContactModal" @close="showContactModal = false" />
   </footer>
 </template>

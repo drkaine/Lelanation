@@ -9,10 +9,9 @@ import { useGameVersionStore } from '@/stores/gameVersionStore'
 const gameVersionStore = useGameVersionStore()
 
 useSEOHead({
-  title:
-    'Builds Communautaires LoL - Découvrez les Meilleurs Builds League of Legends',
+  title: 'Builds Communautaires LoL | Guides Champions - Lelanation',
   description:
-    'Explorez la plus grande collection de builds League of Legends créés par la communauté francophone. Builds certifiés par Lelariva, guides de champions détaillés et stratégies innovantes pour tous les rôles.',
+    'Builds League of Legends communautaires certifiés. Guides champions et stratégies LoL par la communauté francophone.',
   keywords:
     'builds publics LoL, builds communautaires, builds certifiés League of Legends, partage builds, guides champions communauté',
   type: 'article',

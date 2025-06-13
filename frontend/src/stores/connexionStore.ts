@@ -1,8 +1,6 @@
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
 
-const API_URL = import.meta.env.VITE_URL_API_SAVE
-
 export const useConnexionStore = defineStore('Connexion', () => {
   const isLoggedIn = ref(localStorage.getItem('isLoggedIn') === 'true')
   const newUser = ref(localStorage.getItem('newUser') === 'true')
@@ -18,13 +16,16 @@ export const useConnexionStore = defineStore('Connexion', () => {
       }
       newUser.value = true
       localStorage.setItem('newUser', 'true')
-      localStorage.setItem('analyticsConsent', 'true')
+      if (!localStorage.getItem('analyticsConsent')) {
+        analyticsConsent.value = true
+        localStorage.setItem('analyticsConsent', 'true')
+      }
     }
   }
 
   const incrementVisitCounter = async () => {
     try {
-      await fetch(`${API_URL}/api/analytics`, {
+      await fetch('/api/analytics', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -35,11 +36,11 @@ export const useConnexionStore = defineStore('Connexion', () => {
     }
   }
 
-  const login = (userName: string) => {
+  const login = (userNameParam: string) => {
     isLoggedIn.value = true
-    userName = userName
+    userName.value = userNameParam
     localStorage.setItem('isLoggedIn', 'true')
-    localStorage.setItem('userName', userName)
+    localStorage.setItem('userName', userNameParam)
   }
 
   const logout = () => {

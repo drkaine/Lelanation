@@ -17,7 +17,8 @@
     "build": "build",
     "dictionary": "Dictionnaire",
     "language": "Sélectionner la langue",
-    "menu": "Menu de navigation"
+    "menu": "Menu de navigation",
+    "admin": "Admin"
   },
   "warning": {
     "version": "Ce build a été créé pour une version antérieure du jeu et pourrait être obsolète."
@@ -89,19 +90,25 @@
     "share-x": "X",
     "share-x-opened": "X ouvert ! Le message est pré-rempli",
     "share-text": "Copier le texte",
-    "share-image": "Copier l'image"
+    "share-image": "Copier l'image",
+    "stats-table-caption": "Statistiques détaillées du build par stats de base, bonus d'objets, bonus de runes et valeurs totales"
   },
   "contact": {
     "title": "Contact",
     "subject": "Objet",
     "name": "Nom",
+    "email": "Email",
     "message": "Message",
     "sending": "Envoi...",
     "send": "Envoyer",
     "cancel": "Annuler",
     "required": "* Champs obligatoires",
     "success": "Message envoyé avec succès !",
-    "select": "Sélectionnez une objet"
+    "select": "Sélectionnez une objet",
+    "consent-text": "J'accepte que mes données personnelles soient traitées pour répondre à ma demande de contact. Ces données seront conservées maximum 1 an puis supprimées automatiquement.",
+    "privacy-policy": "Voir notre politique de confidentialité",
+    "consent-required": "Vous devez accepter le traitement de vos données personnelles",
+    "send-error": "Une erreur est survenue lors de l'envoi du message"
   },
   "skill-order": {
     "title": "Ordre des compétences",
@@ -223,7 +230,13 @@
   },
   "legal": {
     "title": "Mentions légales et Politique de confidentialité",
+    "privacy-policy": "Politique de Confidentialité",
     "title2": "Bienvenue sur Lelanation",
+    "rights-section": "Exercer vos droits RGPD",
+    "clear-all-data": "Effacer toutes mes données locales",
+    "revoke-consent": "Retirer mon consentement aux statistiques",
+    "contact-rights": "Contacter pour exercer mes droits",
+    "action-success": "Action effectuée avec succès !",
     "description": "Lelanation est un site web qui permet de trouver et partager les meilleures builds pour les champions de League of Legends. Il est conçu et maintenu par la communauté des joueurs.",
     "accept": "J'accepte les conditions",
     "data-controller": "Responsable du traitement",

@@ -15,7 +15,12 @@ const isLoading = ref(false)
 const fetchTierLists = async () => {
   try {
     isLoading.value = true
-    const response = await fetch('/api/tierlist/all')
+    const response = await fetch('/api/tierlist/all', {
+      cache: 'no-cache',
+      headers: {
+        'Cache-Control': 'no-cache',
+      },
+    })
     if (!response.ok)
       throw new Error('Erreur lors de la récupération des listes')
     tierLists.value = await response.json()
@@ -70,10 +75,17 @@ const handleSubmit = async () => {
     if (fileInput.value) {
       fileInput.value.value = ''
     }
+    await fetchTierLists()
+    setTimeout(() => {
+      message.value = ''
+    }, 3000)
   } catch (error) {
     message.value =
       error instanceof Error ? error.message : "Erreur lors de l'upload"
     messageType.value = 'error'
+    setTimeout(() => {
+      message.value = ''
+    }, 5000)
   } finally {
     isUploading.value = false
   }
@@ -81,16 +93,27 @@ const handleSubmit = async () => {
 
 const deleteFile = async (category: string, fileName: string) => {
   try {
-    const response = await fetch(`/api/tierList/${category}/${fileName}`, {
-      method: 'DELETE',
-    })
+    const encodedFileName = encodeURIComponent(fileName)
+    const response = await fetch(
+      `/api/tierlist/${category}/${encodedFileName}`,
+      {
+        method: 'DELETE',
+      },
+    )
     if (!response.ok) throw new Error('Erreur lors de la suppression')
     await fetchTierLists()
     message.value = 'Fichier supprimé avec succès'
     messageType.value = 'success'
-  } catch {
-    message.value = 'Erreur lors de la suppression'
+    setTimeout(() => {
+      message.value = ''
+    }, 3000)
+  } catch (error) {
+    message.value =
+      error instanceof Error ? error.message : 'Erreur lors de la suppression'
     messageType.value = 'error'
+    setTimeout(() => {
+      message.value = ''
+    }, 5000)
   }
 }
 
@@ -101,18 +124,33 @@ const toggleVisibility = async (category: string, fileName: string) => {
     : `private_${fileName}`
 
   try {
-    const response = await fetch(`/api/tierList/${category}/${fileName}`, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
+    const encodedFileName = encodeURIComponent(fileName)
+    const response = await fetch(
+      `/api/tierlist/${category}/${encodedFileName}`,
+      {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ newFileName }),
       },
-      body: JSON.stringify({ newFileName }),
-    })
+    )
     if (!response.ok) throw new Error('Erreur lors du changement de visibilité')
     await fetchTierLists()
-  } catch {
-    message.value = 'Erreur lors du changement de visibilité'
+    message.value = 'Visibilité modifiée avec succès'
+    messageType.value = 'success'
+    setTimeout(() => {
+      message.value = ''
+    }, 3000)
+  } catch (error) {
+    message.value =
+      error instanceof Error
+        ? error.message
+        : 'Erreur lors du changement de visibilité'
     messageType.value = 'error'
+    setTimeout(() => {
+      message.value = ''
+    }, 5000)
   }
 }
 </script>
@@ -191,6 +229,10 @@ const toggleVisibility = async (category: string, fileName: string) => {
   </div>
 
   <div v-else class="gestion-container">
+    <div v-if="message" :class="['upload-message', messageType]">
+      {{ message }}
+    </div>
+
     <div v-if="isLoading" class="loading">Chargement des tier lists...</div>
 
     <div v-else>
@@ -296,19 +338,25 @@ const toggleVisibility = async (category: string, fileName: string) => {
 .file-name {
   word-break: break-word;
   line-height: 1.4;
+  flex-grow: 1;
 }
 
 .file-actions {
   display: flex;
   gap: 0.5rem;
   align-self: flex-start;
-  margin-bottom: 0.5rem;
+  margin-top: 0.5rem;
 }
 
 .visibility-btn,
 .delete-btn {
   font-size: 1rem;
   padding: 0.3rem;
+  background: transparent;
+  border: 1px solid var(--color-gold-300);
+  color: var(--color-gold-300);
+  border-radius: 4px;
+  cursor: pointer;
 }
 
 .visibility-btn:hover {
@@ -323,9 +371,95 @@ const toggleVisibility = async (category: string, fileName: string) => {
   opacity: 0.5;
 }
 
+.upload-message {
+  margin-top: 1rem;
+  padding: 0.75rem;
+  border-radius: 4px;
+  font-weight: bold;
+}
+
+.upload-message.success {
+  background-color: rgba(34, 197, 94, 0.2);
+  border: 1px solid #22c55e;
+  color: #22c55e;
+}
+
+.upload-message.error {
+  background-color: rgba(239, 68, 68, 0.2);
+  border: 1px solid #ef4444;
+  color: #ef4444;
+}
+
 .loading {
   text-align: center;
   color: var(--color-gold-200);
   padding: 2rem;
+}
+
+.upload-button {
+  background: transparent;
+  border: 1px solid var(--color-gold-300);
+  color: var(--color-gold-300);
+  padding: 0.75rem 1.5rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-family: var(--font-beaufort);
+  font-weight: bold;
+  text-transform: uppercase;
+  transition: all 0.2s ease;
+}
+
+.upload-button:hover:not(:disabled) {
+  background-color: var(--color-gold-300);
+  color: var(--color-grey-900);
+}
+
+.upload-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.file-input {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid var(--color-gold-300);
+  background: rgba(0, 0, 0, 0.2);
+  color: var(--color-gold-300);
+  border-radius: 4px;
+}
+
+.file-info {
+  margin-top: 0.5rem;
+  color: var(--color-gold-200);
+  font-style: italic;
+}
+
+.list-type-tabs {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  justify-content: center;
+}
+
+.list-type-tabs button {
+  background: transparent;
+  border: 1px solid var(--color-gold-300);
+  color: var(--color-gold-300);
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-family: var(--font-beaufort);
+  text-transform: uppercase;
+  transition: all 0.2s ease;
+}
+
+.list-type-tabs button:hover {
+  background-color: var(--color-gold-300);
+  color: var(--color-grey-900);
+}
+
+.list-type-tabs button.active {
+  background-color: var(--color-gold-300);
+  color: var(--color-grey-900);
 }
 </style>

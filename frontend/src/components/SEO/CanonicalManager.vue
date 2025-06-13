@@ -100,5 +100,11 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <div style="display: none"></div>
+  <div class="hidden"></div>
 </template>
+
+<style scoped>
+.hidden {
+  display: none;
+}
+</style>

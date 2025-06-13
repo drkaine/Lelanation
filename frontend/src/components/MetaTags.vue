@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { seoAuditor } from '@/utils/seoAudit'
+import { SEOCanonicalValidator } from '@/utils/seoValidation'
 
 interface StructuredData {
   '@context': string
@@ -92,10 +92,15 @@ const props = withDefaults(defineProps<Props>(), {
 })
 
 const url = window.location.href
-const canonicalUrl = props.canonical || seoAuditor.getOptimalCanonical(url)
+const canonicalUrl =
+  props.canonical ||
+  SEOCanonicalValidator.buildCanonicalUrl(new URL(url).pathname)
 
 if (import.meta.env.DEV) {
-  seoAuditor.checkCanonicalRedirects(canonicalUrl)
+  const validation = SEOCanonicalValidator.validateUrl(canonicalUrl)
+  if (!validation.isCanonical) {
+    console.warn('⚠️ Canonical URL validation issues:', validation.issues)
+  }
 }
 const fullImageUrl = props.image?.startsWith('http')
   ? props.image

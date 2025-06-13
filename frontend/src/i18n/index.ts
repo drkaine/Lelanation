@@ -11,6 +11,13 @@ export interface I18nInternal {
   }
 }
 
+declare global {
+  interface Window {
+    _i18n?: unknown
+    _setLocale?: (locale: Locale) => void
+  }
+}
+
 const savedLocale =
   typeof localStorage !== 'undefined' ? localStorage.getItem('locale') : null
 const defaultLocale: Locale = (savedLocale as Locale) || 'fr'
@@ -54,9 +61,7 @@ if (i18nAny.global.locale !== defaultLocale) {
 }
 
 if (typeof window !== 'undefined') {
-  // @ts-expect-error - Adding i18n to window for debugging
   window._i18n = i18n
-  // @ts-expect-error - Adding setLocale to window for debugging
   window._setLocale = setLocale
 }
 

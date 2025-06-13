@@ -29,11 +29,8 @@ export function useSEOHead(options: SEOHeadOptions = {}) {
       '/build': 'Créateur',
       '/builds': 'Personnel',
       '/builds-publics': 'Communauté',
-      '/Lebuildarriva': 'Lelariva Pro',
+      '/lelariva-builds': 'Lelariva builds',
       '/videos': 'Vidéos',
-      '/dictionnaire': 'Dictionnaire',
-      '/dictionnaire/proposition': 'Proposition',
-      '/statistique': 'Stats',
       '/legal': 'Légal',
     }
     return suffixes[path] || ''

@@ -15,7 +15,7 @@ const builds = ref<BuildData[]>([])
 const urlApiSave = import.meta.env.VITE_URL_API_SAVE
 const connexionStore = useConnexionStore()
 const isLelarivaBuildPage = computed(() =>
-  route.path.endsWith('/Lebuildarriva'),
+  route.path.endsWith('/lelariva-builds'),
 )
 const isAdmin = computed(
   () => connexionStore.userName === import.meta.env.VITE_NAME,

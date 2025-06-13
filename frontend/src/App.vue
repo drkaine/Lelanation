@@ -1,10 +1,11 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, provide } from 'vue'
 import { RouterLink, RouterView } from 'vue-router'
 import version from '@/assets/files/data/lastVersion.json'
 import { useBuildStore } from '@/stores/buildStore'
 import { useConnexionStore } from '@/stores/connexionStore'
 import LegalModal from '@/components/Modal/LegalModal.vue'
+import ContactModal from '@/components/Modal/ContactModal.vue'
 import Footer from '@/components/FooterComponent.vue'
 import LanguageSwitcher from '@/components/LanguageSwitcher.vue'
 import { useI18n } from 'vue-i18n'
@@ -15,6 +16,13 @@ import CanonicalManager from './components/SEO/CanonicalManager.vue'
 const buildStore = useBuildStore()
 const connexionStore = useConnexionStore()
 const { locale } = useI18n()
+
+const adminName =
+  import.meta.env.VITE_NAME === connexionStore.userName
+    ? import.meta.env.VITE_ADMIN
+    : import.meta.env.VITE_NAME_DEV === connexionStore.userName
+      ? import.meta.env.VITE_ADMIN_RIGHT
+      : ''
 
 const translateDirect = (key: string) => {
   return directTranslation(key)
@@ -29,10 +37,24 @@ const builds = ref([])
 const urlApiSave = import.meta.env.VITE_URL_API_SAVE
 
 const isMenuOpen = ref(false)
+const showContactModal = ref(false)
 
 const toggleMenu = () => {
   isMenuOpen.value = !isMenuOpen.value
 }
+
+const openContactModal = () => {
+  showContactModal.value = true
+}
+
+const closeContactModal = () => {
+  showContactModal.value = false
+}
+
+provide('contactModal', {
+  open: openContactModal,
+  close: closeContactModal,
+})
 
 onMounted(async () => {
   if (window.requestIdleCallback) {
@@ -100,6 +122,15 @@ useAssetPreloading({
             <a href="/" class="link" aria-label="Accueil">
               <span>{{ $t('navigation.home') }}</span>
             </a>
+            <div>
+              <RouterLink
+                title="admin"
+                class="version"
+                :to="`/admin/${adminName}`"
+                v-if="connexionStore.isLoggedIn && adminName !== ''"
+                >{{ $t('navigation.admin') }}</RouterLink
+              >
+            </div>
           </div>
           <button
             class="menu-mobile"
@@ -176,8 +207,8 @@ useAssetPreloading({
             >
             <RouterLink
               v-if="builds.length > 0"
-              to="/Lebuildarriva"
-              title="lebuildarriva"
+              to="/lelariva-builds"
+              title="lelariva builds"
               class="version"
               @click="toggleMenu"
               >{{ $t('navigation.lela-builds') }}</RouterLink
@@ -224,9 +255,9 @@ useAssetPreloading({
             >
             <RouterLink
               v-if="builds.length > 0"
-              title="Lebuildarriva"
+              title="lelariva builds"
               class="version"
-              to="/Lebuildarriva"
+              to="/lelariva-builds"
             >
               {{ $t('navigation.lela-builds') }}</RouterLink
             >
@@ -250,5 +281,8 @@ useAssetPreloading({
         <Footer />
       </footer>
     </div>
+
+    <!-- Contact Modal at app level for proper z-index -->
+    <ContactModal v-if="showContactModal" @close="closeContactModal" />
   </div>
 </template>

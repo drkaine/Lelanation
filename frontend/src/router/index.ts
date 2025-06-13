@@ -33,14 +33,14 @@ const routes: RouteRecordRaw[] = [
     component: () => import('../views/CommuBuildsView.vue'),
   },
   {
-    path: '/:name',
+    path: '/connexion/:name',
     name: 'connexion',
     component: () => import('../views/ConnexionBuildView.vue'),
     props: true,
   },
   {
-    path: '/Lebuildarriva',
-    name: 'Lebuildarriva',
+    path: '/lelariva-builds',
+    name: 'lelariva-builds',
     component: () => import('../views/MesBuildsView.vue'),
   },
   {
@@ -76,19 +76,14 @@ const routes: RouteRecordRaw[] = [
     props: true,
   },
   {
-    path: '/build/edit',
-    name: 'build-edit',
-    component: () => import('../views/BuildToolView.vue'),
-    props: route =>
-      ({
-        editMode: true,
-        fileName: route.query.file as string | undefined,
-      }) satisfies BuildProps,
-  },
-  {
     path: '/videos',
     name: 'videos',
     component: () => import('../views/ShortView.vue'),
+  },
+  {
+    path: '/:pathMatch(.*)*',
+    name: 'not-found',
+    component: () => import('../views/NotFoundView.vue'),
   },
 ]
 

@@ -243,6 +243,11 @@ const hasEconomicStats = computed(() =>
 <template>
   <div class="stats-panel">
     <table class="stats-table">
+      <caption class="stats-table-caption">
+        {{
+          $t('build-recap.stats-table-caption')
+        }}
+      </caption>
       <thead>
         <tr>
           <th>
@@ -441,6 +446,15 @@ const hasEconomicStats = computed(() =>
   border-bottom: 1px solid var(--color-gold-50);
   width: 100%;
   min-width: 600px;
+}
+
+.stats-table-caption {
+  color: var(--color-gold-300);
+  font-size: var(--text-sm);
+  margin-bottom: 0.5rem;
+  text-align: left;
+  font-weight: 500;
+  caption-side: top;
 }
 
 .stats-table th,

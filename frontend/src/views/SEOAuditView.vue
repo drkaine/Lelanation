@@ -58,7 +58,8 @@
 
 <script setup lang="ts">
 import { ref, computed, onMounted } from 'vue'
-import { seoAuditor } from '@/utils/seoAudit'
+import { SEOAuditor } from '@/utils/seoAudit'
+import { SEOCanonicalValidator } from '@/utils/seoValidation'
 import { useSEOHead } from '@/composables/useSEOHead'
 
 useSEOHead({
@@ -75,15 +76,12 @@ const sitemapIssues = ref<
 
 const currentUrl = ref('')
 const optimalCanonical = computed(() =>
-  currentUrl.value ? seoAuditor.getOptimalCanonical(currentUrl.value) : '',
+  currentUrl.value
+    ? SEOCanonicalValidator.buildCanonicalUrl(
+        new URL(currentUrl.value).pathname,
+      )
+    : '',
 )
-
-const testUrls = [
-  'http://lelanation.fr',
-  'https://lelanation.fr',
-  'http://www.lelanation.fr',
-  'https://www.lelanation.fr',
-]
 
 onMounted(() => {
   currentUrl.value = window.location.href
@@ -94,8 +92,16 @@ async function testRedirects() {
   redirectResults.value = []
 
   try {
+    const testUrls = [
+      'https://lelanation.fr',
+      'https://www.lelanation.fr',
+      'http://lelanation.fr',
+      'http://www.lelanation.fr',
+    ]
+
     for (const url of testUrls) {
-      const redirectCount = await seoAuditor.checkRedirectChain(url)
+      const validation = SEOCanonicalValidator.validateUrl(url)
+      const redirectCount = validation.redirectNeeded ? 1 : 0
       redirectResults.value.push({ url, redirects: redirectCount })
     }
   } catch (error) {
@@ -110,10 +116,19 @@ async function validateSitemap() {
   sitemapIssues.value = []
 
   try {
-    const issues = await seoAuditor.validateSitemapUrls('/sitemap.xml')
-    sitemapIssues.value = issues
+    const result = await SEOAuditor.validateProductionSitemap()
+    sitemapIssues.value = result.issues.map(issue => ({
+      type: 'error',
+      message: issue,
+    }))
   } catch (error) {
     console.error('Erreur lors de la validation du sitemap:', error)
+    sitemapIssues.value = [
+      {
+        type: 'error',
+        message: `Erreur lors de la validation: ${error instanceof Error ? error.message : String(error)}`,
+      },
+    ]
   } finally {
     testing.value = false
   }

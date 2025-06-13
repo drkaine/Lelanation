@@ -1,10 +1,17 @@
 <script setup lang="ts">
-import { Icon } from '@iconify/vue'
 import { useI18n } from 'vue-i18n'
 import { onMounted, ref, computed } from 'vue'
 import type { SocialLink } from '@/types/social'
 import TikTokIcon from '@/components/icons/TikTokIcon.vue'
 import XIcon from '@/components/icons/XIcon.vue'
+import DiscordIcon from '@/components/icons/DiscordIcon.vue'
+import YouTubeIcon from '@/components/icons/YouTubeIcon.vue'
+import TwitchIcon from '@/components/icons/TwitchIcon.vue'
+import PatreonIcon from '@/components/icons/PatreonIcon.vue'
+import InstagramIcon from '@/components/icons/InstagramIcon.vue'
+import WebIcon from '@/components/icons/WebIcon.vue'
+import TableIcon from '@/components/icons/TableIcon.vue'
+import DocumentIcon from '@/components/icons/DocumentIcon.vue'
 
 const { t, locale } = useI18n()
 const shouldLoadIcons = ref(false)
@@ -26,22 +33,22 @@ onMounted(() => {
 const allSocialLinks: SocialLink[] = [
   {
     href: 'https://discord.com/invite/RrXCpsFGrw',
-    icon: 'mdi:discord',
+    icon: 'discord-custom',
     text: t('home.links.discord'),
   },
   {
     href: 'https://www.patreon.com/c/Lelariva/posts',
-    icon: 'mdi:patreon',
+    icon: 'patreon-custom',
     text: t('home.links.patreon'),
   },
   {
     href: 'https://www.youtube.com/@Lelariva_LoL/featured',
-    icon: 'mdi:youtube',
+    icon: 'youtube-custom',
     text: t('home.links.youtube'),
   },
   {
     href: 'https://www.twitch.tv/lelariva',
-    icon: 'mdi:twitch',
+    icon: 'twitch-custom',
     text: t('home.links.twitch'),
   },
   {
@@ -56,28 +63,28 @@ const allSocialLinks: SocialLink[] = [
   },
   {
     href: 'https://www.lelariva.fr/',
-    icon: 'mdi:web',
+    icon: 'web-custom',
     text: t('home.links.website'),
   },
   {
     href: 'https://www.instagram.com/Lelariva_fr',
-    icon: 'mdi:instagram',
+    icon: 'instagram-custom',
     text: t('home.links.instagram'),
   },
   {
     href: 'https://docs.google.com/spreadsheets/d/1J3CRQZvwkef8EECoj_QtoVu-pFyH9F5JsuxGhXs2MRE/edit?gid=1495176325#gid=1495176325',
-    icon: 'mdi:table',
+    icon: 'table-custom',
     text: t('home.links.matchups'),
   },
   {
     href: 'https://docs.google.com/document/d/1_RqfOlWJ9Vq9egGb6fZpq6cNdeActg1heydkeeF-_S8/edit?tab=t.0#heading=h.djyl3yxo5q56',
-    icon: 'mdi:file-document',
+    icon: 'document-custom',
     text: t('home.links.progress-fr'),
     lang: 'fr',
   },
   {
     href: 'https://docs.google.com/document/d/1RSzH0Gvb2ZB9iW_Yu4TRgb-7VMnSSekcfwVBJLJgkK4/edit?tab=t.0',
-    icon: 'mdi:file-document',
+    icon: 'document-custom',
     text: t('home.links.progress-en'),
     lang: 'en',
   },
@@ -120,28 +127,144 @@ const socialLinks = computed(() => {
           :height="24"
           class="custom-icon"
         />
-        <Icon
-          v-else
-          :icon="link.icon"
-          width="24"
-          height="24"
-          style="min-width: 24px; min-height: 24px"
+        <DiscordIcon
+          v-else-if="link.icon === 'discord-custom'"
+          :width="24"
+          :height="24"
+          class="custom-icon"
+        />
+        <YouTubeIcon
+          v-else-if="link.icon === 'youtube-custom'"
+          :width="24"
+          :height="24"
+          class="custom-icon"
+        />
+        <TwitchIcon
+          v-else-if="link.icon === 'twitch-custom'"
+          :width="24"
+          :height="24"
+          class="custom-icon"
+        />
+        <PatreonIcon
+          v-else-if="link.icon === 'patreon-custom'"
+          :width="24"
+          :height="24"
+          class="custom-icon"
+        />
+        <InstagramIcon
+          v-else-if="link.icon === 'instagram-custom'"
+          :width="24"
+          :height="24"
+          class="custom-icon"
+        />
+        <WebIcon
+          v-else-if="link.icon === 'web-custom'"
+          :width="24"
+          :height="24"
+          class="custom-icon"
+        />
+        <TableIcon
+          v-else-if="link.icon === 'table-custom'"
+          :width="24"
+          :height="24"
+          class="custom-icon"
+        />
+        <DocumentIcon
+          v-else-if="link.icon === 'document-custom'"
+          :width="24"
+          :height="24"
+          class="custom-icon"
         />
       </template>
-      <div
-        v-else
-        class="icon-placeholder"
-        style="min-width: 24px; min-height: 24px; width: 24px; height: 24px"
-      ></div>
+      <div v-else class="icon-placeholder"></div>
       <span>{{ link.text }}</span>
     </a>
   </div>
 </template>
 
 <style scoped>
+.social-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+  margin: 2rem 0;
+}
+
+.social-link {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
+  background: linear-gradient(
+    135deg,
+    rgba(200, 155, 60, 0.1),
+    rgba(240, 230, 210, 0.05)
+  );
+  border: 1px solid rgba(200, 155, 60, 0.3);
+  border-radius: 8px;
+  color: var(--color-gold-300);
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  min-width: 120px;
+  justify-content: flex-start;
+}
+
+.social-link:hover {
+  background: linear-gradient(
+    135deg,
+    rgba(200, 155, 60, 0.2),
+    rgba(240, 230, 210, 0.1)
+  );
+  border-color: var(--color-gold-400);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(200, 155, 60, 0.2);
+  color: var(--color-gold-200);
+}
+
 .custom-icon {
   min-width: 24px;
   min-height: 24px;
   flex-shrink: 0;
+}
+
+.icon-fixed-size {
+  min-width: 24px;
+  min-height: 24px;
+  flex-shrink: 0;
+}
+
+.icon-placeholder {
+  min-width: 24px;
+  min-height: 24px;
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+  background: rgba(200, 155, 60, 0.2);
+  border-radius: 4px;
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 0.6;
+  }
+}
+
+@media (max-width: 768px) {
+  .social-links {
+    gap: 0.5rem;
+  }
+
+  .social-link {
+    padding: 0.5rem 0.75rem;
+    font-size: 0.875rem;
+    min-width: 100px;
+  }
 }
 </style>

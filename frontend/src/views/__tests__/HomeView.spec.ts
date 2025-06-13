@@ -48,7 +48,7 @@ describe('HomeView', () => {
     expect(heroSection.exists()).toBe(true)
     expect(heroSection.props()).toEqual({
       imageUrl: '/assets/images/lelariva.webp',
-      imageAlt: 'Lelariva',
+      imageAlt: 'Portrait de Lelariva, expert League of Legends',
     })
   })
 

@@ -7,7 +7,7 @@ import { useSEOHead } from '@/composables/useSEOHead'
 useSEOHead({
   title: 'Mentions Légales et Politique de Confidentialité | Lelanation',
   description:
-    "Mentions légales, politique de confidentialité et conditions d'utilisation de Lelanation. Respect du RGPD et protection de vos données personnelles.",
+    'Mentions légales et politique de confidentialité de Lelanation. Respect du RGPD et protection des données personnelles.',
   keywords:
     'mentions légales, politique confidentialité, RGPD, protection données, conditions utilisation',
   type: 'website',
@@ -47,35 +47,42 @@ const revokeAnalytics = () => {
 
 <template>
   <div class="legal-overlay">
-    <div class="content">
+    <main class="content">
       <h1 class="page-title">{{ $t('legal.title') }}</h1>
-      <LegalModal />
 
-      <div class="actions-section">
-        <h3>Exercer vos droits RGPD</h3>
+      <section class="privacy-policy-section">
+        <h2>{{ $t('legal.privacy-policy') }}</h2>
+        <LegalModal />
+      </section>
+
+      <section class="user-rights-section">
+        <h2>{{ $t('legal.rights-section') }}</h2>
 
         <div class="action-buttons">
-          <button @click="clearAllData" class="action-btn danger">
-            🗑️ Effacer toutes mes données locales
+          <button @click="clearAllData" class="action-btn action-btn--danger">
+            🗑️ {{ $t('legal.clear-all-data') }}
           </button>
 
-          <button @click="revokeAnalytics" class="action-btn warning">
-            📊 Retirer mon consentement aux statistiques
+          <button
+            @click="revokeAnalytics"
+            class="action-btn action-btn--warning"
+          >
+            📊 {{ $t('legal.revoke-consent') }}
           </button>
 
           <a
             :href="`mailto:${email}?subject=Demande RGPD`"
-            class="action-btn primary"
+            class="action-btn action-btn--primary"
           >
-            ✉️ Contacter pour exercer mes droits
+            ✉️ {{ $t('legal.contact-rights') }}
           </a>
         </div>
 
         <div v-if="showConfirmation" class="confirmation">
-          ✅ Action effectuée avec succès !
+          ✅ {{ $t('legal.action-success') }}
         </div>
-      </div>
-    </div>
+      </section>
+    </main>
   </div>
 </template>
 
@@ -118,8 +125,17 @@ const revokeAnalytics = () => {
   font-size: var(--title-xs);
 }
 
-.actions-section {
-  margin-top: 3rem;
+.privacy-policy-section {
+  margin-bottom: 4rem;
+}
+
+.privacy-policy-section h2 {
+  border-bottom: 2px solid var(--color-gold-300);
+  padding-bottom: 0.5rem;
+  margin-bottom: 2rem;
+}
+
+.user-rights-section {
   padding: 2rem;
   border: 1px solid var(--color-gold-300);
   border-radius: 8px;
@@ -130,60 +146,113 @@ const revokeAnalytics = () => {
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  margin-top: 1rem;
+  margin-top: 1.5rem;
 }
 
 .action-btn {
-  padding: 1rem;
-  border: none;
-  border-radius: 6px;
+  padding: 0.8rem 1.2rem;
+  border: 2px solid var(--color-gold-300);
+  border-radius: 4px;
   font-size: var(--text-base);
   font-weight: 600;
+  font-family: var(--font-beaufort);
   cursor: pointer;
   text-decoration: none;
   text-align: center;
-  transition: all 0.2s ease;
+  transition: all 0.3s ease;
   display: block;
+  background: transparent;
+  color: var(--color-gold-300);
+  position: relative;
+  overflow: hidden;
 }
 
-.action-btn.primary {
-  background: var(--color-gold-300);
-  color: var(--color-grey-900);
+.action-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(200, 170, 110, 0.1),
+    transparent
+  );
+  transition: left 0.5s ease;
 }
 
-.action-btn.warning {
-  background: #f59e0b;
-  color: white;
-}
-
-.action-btn.danger {
-  background: #dc2626;
-  color: white;
+.action-btn:hover::before {
+  left: 100%;
 }
 
 .action-btn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 4px 12px rgba(200, 155, 60, 0.3);
+  background: var(--color-gold-300);
+  color: var(--color-blue-500);
+}
+
+.action-btn:active {
+  transform: translateY(0);
+}
+
+.action-btn--primary {
+  border-color: var(--color-gold-300);
+  color: var(--color-gold-300);
+}
+
+.action-btn--primary:hover {
+  background: var(--color-gold-300);
+  color: var(--color-blue-500);
+}
+
+.action-btn--warning {
+  border-color: var(--color-gold-400);
+  color: var(--color-gold-400);
+}
+
+.action-btn--warning:hover {
+  background: var(--color-gold-400);
+  color: var(--color-blue-500);
+}
+
+.action-btn--danger {
+  border-color: #ff6b6b;
+  color: #ff6b6b;
+}
+
+.action-btn--danger:hover {
+  background: #ff6b6b;
+  color: var(--color-blue-500);
 }
 
 .confirmation {
-  margin-top: 1rem;
+  margin-top: 1.5rem;
   padding: 1rem;
-  background: #10b981;
-  color: white;
-  border-radius: 6px;
+  background: linear-gradient(
+    135deg,
+    var(--color-gold-300),
+    var(--color-gold-400)
+  );
+  color: var(--color-blue-500);
+  border-radius: 4px;
   text-align: center;
   font-weight: bold;
+  font-family: var(--font-beaufort);
+  border: 1px solid var(--color-gold-300);
 }
 
 @media (min-width: 768px) {
   .action-buttons {
     flex-direction: row;
-    gap: 1rem;
+    gap: 1.5rem;
   }
 
   .action-btn {
     flex: 1;
+    min-height: 3rem;
   }
 }
 </style>

@@ -37,8 +37,7 @@ const loadData = async () => {
     }
 
     itemsData.value = itemsModule.default.data
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  } catch (_error) {
+  } catch {
     try {
       const itemsModule = await import('@/assets/files/data/item.json')
       itemsData.value = itemsModule.default.data
@@ -53,8 +52,7 @@ const loadData = async () => {
 
 watch(
   () => locale.value,
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  _newLocale => {
+  () => {
     loadData()
   },
 )
@@ -62,15 +60,13 @@ watch(
 onMounted(() => {
   loadData()
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  window.addEventListener('languageChanged', (_event: Event) => {
+  window.addEventListener('languageChanged', () => {
     loadData()
   })
 })
 
 const selectedTags = ref<string[]>([])
 const itemStore = useItemStore()
-//   type: 'starter' | 'core' | 'situationnel' | 'boots',
 const selectItem = (Item: Item) => {
   itemStore.setItemSelection(Item)
 }

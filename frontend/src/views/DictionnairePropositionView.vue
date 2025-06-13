@@ -3,9 +3,9 @@ import { ref } from 'vue'
 import { useSEOHead } from '@/composables/useSEOHead'
 
 useSEOHead({
-  title: 'Proposer une Définition - Dictionnaire Laranguiva | Lelanation',
+  title: 'Proposer une Définition Laranguiva | Lelanation',
   description:
-    'Contribuez au dictionnaire Laranguiva en proposant de nouvelles définitions. Enrichissez la communauté League of Legends avec vos connaissances du vocabulaire LoL.',
+    'Proposez de nouvelles définitions pour le dictionnaire Laranguiva. Enrichissez le vocabulaire LoL de la communauté.',
   keywords:
     'dictionnaire laranguiva, proposer définition, vocabulaire LoL, communauté League of Legends, contribution',
   type: 'website',
