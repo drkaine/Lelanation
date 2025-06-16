@@ -106,9 +106,10 @@ describe("BuildService", () => {
       );
 
       expect(mockResponse.status).toHaveBeenCalledWith(500);
-      expect(mockResponse.send).toHaveBeenCalledWith(
-        "Erreur lors de la sauvegarde du fichier",
-      );
+      expect(mockResponse.json).toHaveBeenCalledWith({
+        error: "Erreur lors de la sauvegarde du fichier",
+        details: expect.any(Error),
+      });
     });
   });
 
@@ -171,9 +172,10 @@ describe("BuildService", () => {
       );
 
       expect(mockResponse.status).toHaveBeenCalledWith(404);
-      expect(mockResponse.send).toHaveBeenCalledWith(
-        expect.stringContaining("Build non trouvé"),
-      );
+      expect(mockResponse.json).toHaveBeenCalledWith({
+        error: "Build non trouvé",
+        details: expect.any(Error),
+      });
     });
   });
 
@@ -188,9 +190,10 @@ describe("BuildService", () => {
       );
 
       expect(mockResponse.status).toHaveBeenCalledWith(500);
-      expect(mockResponse.send).toHaveBeenCalledWith(
-        expect.stringContaining(errorMessage),
-      );
+      expect(mockResponse.json).toHaveBeenCalledWith({
+        error: "Erreur lors de la suppression",
+        details: errorMessage,
+      });
     });
 
     it("getBuild devrait gérer les erreurs de fichier non trouvé", async () => {
@@ -204,9 +207,10 @@ describe("BuildService", () => {
       );
 
       expect(mockResponse.status).toHaveBeenCalledWith(404);
-      expect(mockResponse.send).toHaveBeenCalledWith(
-        expect.stringContaining("Build non trouvé"),
-      );
+      expect(mockResponse.json).toHaveBeenCalledWith({
+        error: "Build non trouvé",
+        details: expect.any(Error),
+      });
     });
   });
 });
