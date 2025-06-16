@@ -85,4 +85,3 @@ const SuperAdmin = nameAdmin[1] === props.name
   </div>
 </template>
 
-<style scoped></style>
