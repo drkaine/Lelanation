@@ -1,0 +1,790 @@
+.version-warning {
+  background-color: rgba(220, 38, 38, 0.8);
+  color: white;
+  padding: 8px 12px;
+  border-radius: 4px;
+  font-size: var(--text-sm);
+  font-weight: 500;
+  margin-bottom: 12px;
+  text-align: center;
+  border: 1px solid rgba(220, 38, 38, 1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.certification-badge {
+  height: 40px;
+  width: auto;
+  vertical-align: middle;
+  margin-left: 6px;
+  border-radius: 100%;
+  border: 2px solid var(--color-gold-300);
+}
+
+.certification-badge.clickable {
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.certification-badge.clickable:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 10px rgba(200, 170, 110, 0.5);
+}
+
+.certification-badge-container {
+  display: inline-block;
+  vertical-align: middle;
+  margin-left: 6px;
+  cursor: pointer;
+}
+
+.certification-badge-container.not-certified {
+  height: 40px;
+  width: 40px;
+  border-radius: 100%;
+  border: 2px dashed var(--color-gold-300);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.certification-badge-container.not-certified:hover {
+  border-color: var(--color-gold-400);
+  background-color: rgba(200, 170, 110, 0.1);
+  transform: scale(1.1);
+}
+
+.certification-placeholder {
+  height: 36px;
+  width: 36px;
+  border-radius: 100%;
+}
+
+.certification-container {
+  display: none;
+}
+
+.author {
+  color: var(--color-gold-300);
+  font-size: var(--text-base);
+  font-weight: 1000;
+  text-align: center;
+  width: 100%;
+  display: block;
+  margin: 10px 0;
+}
+
+.shard-slot img {
+  border: var(--border-size) solid var(--color-gold-300);
+  border-radius: 50%;
+}
+
+.sheet-container {
+  background: var(--gradient-primary);
+  border: var(--border-size) solid var(--color-blue-300);
+  box-shadow: 0 0 20px rgba(74, 17, 21, 0.3);
+  border-radius: 12px;
+  padding: 16px;
+  margin: 0 auto;
+  position: relative;
+  overflow: hidden;
+}
+
+.sheet-container::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 12px;
+  padding: 2px;
+  background: linear-gradient(
+    135deg,
+    #0a1428 0%,
+    #091428 20%,
+    #132b45 40%,
+    #1e2328 60%,
+    rgba(200, 170, 110, 0.1) 80%,
+    #0a1428 100%
+  );
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+.sheet-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+  padding-top: 0.5rem;
+}
+
+.champion-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.champion-portrait {
+  width: 64px;
+  height: 64px;
+  border: var(--border-size) solid var(--color-gold-300);
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.champion-portrait img {
+  width: var(--width-all);
+  height: var(--height-all);
+  object-fit: cover;
+}
+
+.champion-name {
+  color: var(--color-gold-300);
+  font-weight: 500;
+  font-size: var(--text-base);
+}
+
+.sheet-title {
+  color: var(--color-gold-300);
+  font-size: var(--text-base);
+  font-weight: 600;
+  text-align: center;
+  flex: 1;
+}
+
+.separator {
+  height: 1px;
+  opacity: 0.3;
+  margin: 16px 0;
+}
+
+.runes-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.primary-runes,
+.secondary-runes {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.runes-slots {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.runes-slots.horizontal {
+  flex-direction: row;
+}
+
+.summoner-spells-sheet {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.shards-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.keystone {
+  width: 48px;
+  height: 48px;
+}
+
+.keystone img {
+  width: 40px;
+  height: 40px;
+}
+
+.rune-slot-sheet {
+  width: 32px;
+  height: 32px;
+}
+
+.roles-container {
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
+}
+
+.roles-column {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.role-icon {
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  padding: 3px;
+}
+
+.role-inactive {
+  opacity: 0.3;
+  filter: grayscale(100%);
+}
+
+.role-inactive:hover {
+  opacity: 0.5;
+}
+
+.role-mobile {
+  width: 30px;
+  height: 30px;
+  padding: 2px;
+}
+
+.runesPage-sheet {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 10px;
+}
+
+.primary-runes {
+  display: flex;
+  align-items: flex-start;
+}
+
+.keystone {
+  width: 56px;
+  height: 56px;
+  border: var(--border-size) solid var(--color-gold-300);
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.rune-slot-sheet {
+  width: 32px;
+  height: 32px;
+  border: var(--border-size) solid var(--color-gold-300);
+  border-radius: 50%;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.rune-slot-sheet img {
+  width: var(--width-all);
+  height: var(--height-all);
+  object-fit: contain;
+}
+
+.rune-tier {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.rune-tier .rune-slot-sheet {
+  width: 24px;
+  height: 24px;
+}
+
+.rune-tier .rune-slot-sheet img {
+  width: 20px;
+  height: 20px;
+}
+
+.runes-secondary-sheet {
+  width: calc(50% - 4px);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.runes-secondary-sheet .rune-tier:first-child .rune-slot-sheet {
+  width: 32px;
+  height: 32px;
+  border: var(--border-size) solid var(--color-gold-300);
+}
+
+.runes-secondary-sheet .rune-tier:first-child .rune-slot-sheet img {
+  width: 24px;
+  height: 24px;
+}
+
+.runes-secondary-sheet .rune-tier {
+  display: flex;
+  align-items: center;
+  margin-bottom: 6px;
+  width: var(--width-all);
+}
+
+.runes-secondary-sheet .rune-tier .rune-slot-sheet {
+  width: 24px;
+  height: 24px;
+}
+
+.runes-secondary-sheet .rune-tier .rune-slot-sheet img {
+  width: 20px;
+  height: 20px;
+}
+
+.keystone-secondary {
+  width: 48px;
+  height: 48px;
+  border: var(--border-size) solid var(--color-gold-300);
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.secondary-runes {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.side-spells {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-left: auto;
+}
+
+.shards-column {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.summoner-slot-container {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.summoner-slot {
+  width: 25px;
+  height: 25px;
+  border: var(--border-size) solid var(--color-gold-300);
+  border-radius: 4px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.item-slot {
+  border: var(--border-size) solid var(--color-gold-300);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.item-slot img {
+  width: var(--width-all);
+  height: var(--height-all);
+  object-fit: contain;
+}
+
+.spell-order {
+  border-radius: 4px;
+  padding: 16px;
+}
+
+.spell-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.spell-title {
+  color: var(--color-gold-500);
+  font-weight: 500;
+  font-size: var(--text-base);
+}
+
+.spell-summary {
+  display: flex;
+  gap: 16px;
+}
+
+.spell-count {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.spell-value {
+  color: var(--color-gold-500);
+  font-size: var(--text-base);
+}
+
+.spell-sequence {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(32px, 1fr));
+  gap: 8px;
+}
+
+.spell-level {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.level-number {
+  color: var(--color-gold-100);
+  font-size: var(--text-base);
+}
+
+.spell-key {
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: var(--border-size) solid var(--color-gold-300);
+  border-radius: 4px;
+  color: var(--color-gold-300);
+  font-weight: 600;
+  font-size: var(--text-base);
+}
+
+.spell-key.q {
+  background: var(--blue-3);
+}
+.spell-key.w {
+  background: var(--red-3);
+}
+.spell-key.e {
+  background: var(--green-3);
+}
+.spell-key.r {
+  background: var(--color-gold-300);
+}
+
+.items-section {
+  margin-top: 24px;
+}
+
+.items-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  align-items: center;
+}
+
+.item-slot {
+  width: 45px;
+  height: 45px;
+  border: var(--border-size) solid var(--color-gold-300);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.item-slot img {
+  width: var(--width-all);
+  height: var(--height-all);
+  object-fit: cover;
+}
+
+.sheet-credits {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 1rem;
+  color: var(--color-gold-500);
+  font-size: var(--text-sm);
+  opacity: 0.8;
+}
+
+.credit-text {
+  color: var(--color-grey-50);
+  font-weight: 500;
+}
+
+.version-text {
+  color: var(--color-grey-50);
+}
+
+.description-section {
+  padding: 1rem;
+  margin-top: 0.5rem;
+  border-radius: 4px;
+}
+
+.description-text {
+  color: var(--color-blue-50);
+  font-size: var(--text-sm);
+  line-height: 1.5;
+  white-space: pre-wrap;
+  margin: 0;
+  font-style: italic;
+}
+
+.skill-order-section {
+  padding: 1rem;
+}
+
+.skill-sequence {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  justify-content: center;
+  padding: 1rem;
+}
+
+.skill-box {
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-grey-800);
+  border: 1px solid var(--color-gold-300);
+  border-radius: 4px;
+  color: var(--color-gold-300);
+  font-weight: bold;
+  font-size: var(--text-sm);
+}
+
+.skill-box-ultimate {
+  background: var(--color-grey-500);
+  color: var(--color-gold-200);
+}
+
+.skill-box-A {
+  background: var(--color-blue-600);
+  color: var(--color-gold-50);
+}
+
+.skill-box-Z {
+  background: var(--color-blue-600);
+  color: var(--color-grey-50);
+}
+
+.skill-box-E {
+  background: var(--color-blue-600);
+  color: var(--color-blue-50);
+}
+
+@media (max-width: 768px) {
+  .header-icon {
+    width: 45px !important;
+    height: 45px !important;
+  }
+
+  .header-icon img {
+    width: 35px !important;
+    height: 35px !important;
+  }
+
+  .summoner-slot img {
+    height: 100% !important;
+  }
+
+  .shard-slot img {
+    width: 35px !important;
+    height: 35px !important;
+  }
+  .item-slot {
+    width: 35px !important;
+    height: 35px !important;
+  }
+
+  .sheet-credits {
+    padding: 0.25rem 0.5rem;
+    font-size: var(--text-xs);
+  }
+
+  .description-section {
+    padding: 0.75rem;
+  }
+
+  .description-text {
+    font-size: var(--text-xs);
+  }
+
+  .skill-box {
+    width: 25px;
+    height: 25px;
+    font-size: var(--text-xs);
+  }
+}
+
+@media (min-width: 768px) {
+  .summoner-slot img {
+    height: 100%;
+  }
+
+  .shard-slot img {
+    width: 40px;
+    height: 40px;
+  }
+
+  .sheet-container {
+    width: 450px;
+  }
+
+  .roles-column {
+    gap: 10px !important;
+  }
+
+  .wrap-sheet {
+    gap: 24px;
+  }
+
+  .runes-primary-sheet,
+  .runes-secondary-sheet {
+    width: calc(50% - 12px);
+  }
+
+  .rune-tier {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 8px;
+  }
+
+  .rune-slot-sheet-container {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+
+  .header-icon {
+    width: 45px;
+    height: 45px;
+  }
+
+  .header-icon img {
+    width: 45px;
+    height: 45px;
+  }
+
+  .rune-slot-sheet {
+    width: 35px;
+    height: 35px;
+  }
+
+  .rune-slot-sheet img {
+    width: 35px;
+    height: 35px;
+  }
+
+  .summoner-slot {
+    width: 35px;
+    height: 35px;
+  }
+
+  .summoner-spells-sheet {
+    gap: 12px;
+  }
+
+  .summoner-spell-row {
+    gap: 8px;
+  }
+
+  .runes-secondary-sheet {
+    width: calc(50% - 12px);
+  }
+
+  .runes-secondary-sheet .rune-tier:first-child .rune-slot-sheet {
+    width: 35px;
+    height: 35px;
+  }
+
+  .runes-secondary-sheet .rune-tier:first-child .rune-slot-sheet img {
+    width: 35px;
+    height: 35px;
+  }
+
+  .runes-secondary-sheet .rune-tier .rune-slot-sheet {
+    width: 35px;
+    height: 35px;
+  }
+
+  .runes-secondary-sheet .rune-tier .rune-slot-sheet img {
+    width: 35px;
+    height: 35px;
+  }
+
+  .runes-secondary-sheet .rune-tier {
+    justify-content: flex-start;
+    padding-left: 8px;
+  }
+
+  .runes-secondary-sheet .shard-tier {
+    justify-content: flex-start;
+    padding-left: 8px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .header-icon {
+    width: 50px;
+    height: 50px;
+  }
+
+  .shard-slot img {
+    width: 35px;
+    height: 35px;
+  }
+
+  .header-icon img {
+    width: 40px;
+    height: 40px;
+  }
+
+  .rune-slot-sheet {
+    width: 35px;
+    height: 35px;
+  }
+
+  .rune-slot-sheet img {
+    width: 35px;
+    height: 35px;
+  }
+
+  .summoner-slot {
+    width: 35px;
+    height: 35px;
+  }
+
+  .rune-tier {
+    gap: 16px;
+  }
+
+  .shard-tier {
+    gap: 12px;
+  }
+
+  .runes-secondary-sheet .rune-tier {
+    justify-content: flex-start;
+    padding-left: 8px;
+  }
+
+  .runes-secondary-sheet .shard-tier {
+    justify-content: flex-start;
+    padding-left: 8px;
+  }
+} 

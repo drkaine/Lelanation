@@ -20,3 +20,17 @@
 @import './skill.css';
 @import './legal.css';
 @import './admin.css';
+@import './language-switcher.css';
+@import './analytics-tab.css';
+@import './builds-tab.css';
+@import './contact-tab.css';
+@import './dictionnaire-tab.css';
+@import './tier-list-tab.css';
+@import './build-recap.css';
+/* @import './extra-info.css'; */
+@import './infos-build.css';
+@import './menu-build.css';
+@import './sheet-build.css';
+@import './skill-up.css';
+@import './statistiques-build.css';
+/* @import './items-grid.css'; */

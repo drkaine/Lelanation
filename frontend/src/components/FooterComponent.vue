@@ -65,10 +65,7 @@ onUnmounted(() => {
       </svg>
     </button>
 
-    <footer
-      class="footer"
-      :data-expanded="isFooterExpanded"
-    >
+    <footer class="footer" :data-expanded="isFooterExpanded">
       <div class="footer-content">
         <div class="left-section">
           <div class="connect" v-if="connexionStore.isLoggedIn">
@@ -104,5 +101,3 @@ onUnmounted(() => {
     </footer>
   </div>
 </template>
-
-

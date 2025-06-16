@@ -189,7 +189,7 @@ const socialLinks = computed(() => {
           />
         </template>
         <div v-else class="icon-placeholder" :aria-label="link.text"></div>
-        <span>{{ link.text }}</span>
+        <span class="link-text">{{ link.text }}</span>
       </a>
     </div>
   </section>
@@ -227,6 +227,8 @@ const socialLinks = computed(() => {
   gap: 1rem;
   justify-content: center;
   margin: 2rem 0;
+  position: relative;
+  z-index: 0;
 }
 
 .social-link {
@@ -247,6 +249,12 @@ const socialLinks = computed(() => {
   transition: all 0.3s ease;
   min-width: 120px;
   justify-content: flex-start;
+  cursor: pointer !important;
+  position: relative;
+  z-index: 100;
+  user-select: none;
+  pointer-events: auto !important;
+  touch-action: manipulation;
 }
 
 .social-link:hover {
@@ -259,12 +267,16 @@ const socialLinks = computed(() => {
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(200, 155, 60, 0.2);
   color: var(--color-gold-200);
+  z-index: 101;
+  cursor: pointer !important;
 }
 
 .custom-icon {
   min-width: 24px;
   min-height: 24px;
   flex-shrink: 0;
+  pointer-events: none !important;
+  user-select: none;
 }
 
 .icon-fixed-size {
@@ -282,6 +294,14 @@ const socialLinks = computed(() => {
   background: rgba(200, 155, 60, 0.2);
   border-radius: 4px;
   animation: pulse 1.5s infinite;
+  pointer-events: none !important;
+  user-select: none;
+}
+
+.link-text {
+  pointer-events: none !important;
+  user-select: none;
+  cursor: pointer !important;
 }
 
 @keyframes pulse {

@@ -117,14 +117,11 @@ const statsList = [
   'attackspeed',
   'armor',
   'spellblock',
-
   'hpregen',
   'mpregen',
   'movespeed',
   'attackrange',
-
   'CDR',
-
   'lethality',
   'crit',
   'magicPenetration',
@@ -143,22 +140,18 @@ const statsList = [
 
 const statCategories: Record<string, string[]> = {
   basic: [
-    'hp',
-
+    'hp', 
     'mp',
     'attackdamage',
     'AP',
     'attackspeed',
     'armor',
     'spellblock',
-
     'hpregen',
     'mpregen',
     'movespeed',
     'attackrange',
-
     'CDR',
-
     'lethality',
     'crit',
     'magicPenetration',
@@ -430,202 +423,3 @@ const hasEconomicStats = computed(() =>
     </div>
   </div>
 </template>
-
-<style scoped>
-.stats-panel {
-  border-radius: 8px;
-  padding: 1rem;
-  width: 100%;
-  max-width: 800px;
-  margin: 0 auto;
-}
-
-.stats-table {
-  border-collapse: collapse;
-  margin-bottom: 0;
-  border-bottom: 1px solid var(--color-gold-50);
-  width: 100%;
-  min-width: 600px;
-}
-
-.stats-table-caption {
-  color: var(--color-gold-300);
-  font-size: var(--text-sm);
-  margin-bottom: 0.5rem;
-  text-align: left;
-  font-weight: 500;
-  caption-side: top;
-}
-
-.stats-table th,
-.stats-table td {
-  padding: 0.75rem 1rem;
-  text-align: left;
-  border-bottom: 1px solid var(--color-gold-50);
-}
-
-.stats-table th {
-  color: var(--color-gold-300);
-  font-weight: bold;
-}
-
-.stats-table td {
-  color: var(--color-gold-200);
-}
-
-.stat-category-separator {
-  background-color: rgba(218, 165, 32, 0.05);
-  cursor: pointer;
-  transition: background-color 0.2s ease;
-}
-
-.stat-category-separator:hover {
-  background-color: rgba(218, 165, 32, 0.1);
-}
-
-.stat-category-title {
-  color: var(--color-gold-300);
-  font-weight: bold;
-  text-align: left;
-  padding: 0.5rem 1rem;
-}
-
-.category-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.toggle-icon {
-  font-size: 10px;
-  transition: transform 0.3s ease;
-  display: inline-block;
-  color: var(--color-gold-300);
-}
-
-.toggle-icon.open {
-  transform: rotate(180deg);
-}
-
-.statistic-header {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.info-icon {
-  color: var(--color-gold-400);
-  cursor: help;
-  opacity: 0.7;
-  transition: opacity 0.2s ease;
-  display: flex;
-  align-items: center;
-}
-
-.info-icon:hover {
-  opacity: 1;
-}
-
-.level-selector {
-  padding: 0.75rem 1rem;
-  border-top: 1px solid var(--color-grey-300);
-  margin-top: -1px;
-  width: 100%;
-}
-
-.level-buttons {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  justify-content: space-between;
-  width: 100%;
-}
-
-.level-btn {
-  flex: 1;
-  min-width: 30px;
-  max-width: 40px;
-  height: 30px;
-  padding: 0;
-  border: var(--border-size) solid transparent;
-  background: var(--color-grey-700);
-  color: var(--color-gold-300);
-  font-size: var(--text-sm);
-  cursor: pointer;
-  transition: all 0.2s ease;
-  border-radius: 4px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  user-select: none;
-  position: relative;
-  z-index: 1;
-}
-
-.level-btn:hover {
-  border-color: var(--color-gold-300);
-  background: var(--color-grey-600);
-  transform: translateY(-1px);
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-}
-
-.level-btn.active {
-  border-color: var(--color-gold-300);
-  background: var(--color-gold-300);
-  color: var(--color-grey-800);
-  font-weight: bold;
-  transform: translateY(-1px);
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-}
-
-@media (max-width: 768px) {
-  .build-recap {
-    padding: 1rem;
-  }
-
-  .sheet-section {
-    max-width: 100%;
-  }
-
-  .build-header {
-    flex-direction: column;
-    gap: 1rem;
-    align-items: flex-start;
-  }
-
-  .actions-panel {
-    margin-right: -10px;
-  }
-
-  .stats-table {
-    font-size: var(--text-sm);
-  }
-
-  .stats-table th,
-  .stats-table td {
-    padding: 0.5rem;
-  }
-
-  .stats-panel {
-    max-width: 100%;
-    padding: 0.5rem;
-  }
-
-  .stats-table {
-    min-width: 100%;
-    font-size: var(--text-sm);
-  }
-
-  .level-buttons {
-    justify-content: center;
-    gap: 0.25rem;
-  }
-
-  .level-btn {
-    min-width: 25px;
-    max-width: 30px;
-    height: 25px;
-    font-size: var(--text-xs);
-  }
-}
-</style>

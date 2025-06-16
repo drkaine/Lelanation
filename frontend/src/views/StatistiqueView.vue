@@ -554,7 +554,7 @@ const sortedAndFilteredChampions = computed(() => {
       </div>
       <canvas :id="chartId"></canvas>
     </div>
-    
+
     <div v-if="selectedTier" class="tier-details">
       <div class="tier-champions">
         <div
