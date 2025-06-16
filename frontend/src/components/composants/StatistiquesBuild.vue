@@ -140,7 +140,7 @@ const statsList = [
 
 const statCategories: Record<string, string[]> = {
   basic: [
-    'hp', 
+    'hp',
     'mp',
     'attackdamage',
     'AP',
