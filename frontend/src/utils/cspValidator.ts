@@ -136,8 +136,6 @@ export class CSPValidator {
     let securityScore = 0
 
     if (!hasCSP) {
-      warnings.push('❌ No Content Security Policy found')
-      recommendations.push('🔧 Implement CSP headers at server level')
       return { hasCSP, securityScore: 0, recommendations, warnings }
     }
 
@@ -160,15 +158,6 @@ export class CSPValidator {
 
     securityScore = Math.round((secureDirectives / directives.length) * 100)
 
-    if (cspHeader?.includes("'unsafe-inline'")) {
-      warnings.push(
-        "⚠️ 'unsafe-inline' allows inline scripts/styles - XSS risk",
-      )
-    }
-    if (cspHeader?.includes("'unsafe-eval'")) {
-      warnings.push("⚠️ 'unsafe-eval' allows eval() - code injection risk")
-    }
-
     return {
       hasCSP,
       cspHeader,
@@ -188,8 +177,6 @@ export class CSPValidator {
         columnNumber: e.columnNumber,
         sourceFile: e.sourceFile,
       }
-
-      console.warn('🚨 CSP Violation:', violation)
 
       if (import.meta.env.PROD) {
         this.reportViolation(violation)
@@ -223,39 +210,21 @@ export class CSPValidator {
   } {
     const validation = this.validateCurrentCSP()
 
-    console.group('🛡️ Content Security Policy Report')
-    console.log(`Security Score: ${validation.securityScore}/100`)
-
-    if (validation.hasCSP) {
-      console.log('✅ CSP is configured')
-      console.log('Current CSP:', validation.cspHeader)
-    } else {
-      console.log('❌ No CSP configured')
-    }
-
     if (validation.warnings.length > 0) {
-      console.group('⚠️ Security Warnings')
       validation.warnings.forEach(warning => console.log(warning))
-      console.groupEnd()
     }
 
     if (validation.recommendations.length > 0) {
-      console.group('🔧 Recommendations')
       validation.recommendations.forEach(rec => console.log(rec))
-      console.groupEnd()
     }
-
-    console.groupEnd()
 
     return validation
   }
 
   static getRecommendedCSPForNginx(): string {
     return `
-# Content Security Policy Configuration for nginx
 add_header Content-Security-Policy "${this.generateCSPString()}" always;
 
-# Alternative CSP for older browsers  
 add_header X-Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; connect-src 'self' https:; frame-src 'none';" always;
     `.trim()
   }

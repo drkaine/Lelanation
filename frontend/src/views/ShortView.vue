@@ -134,7 +134,6 @@ export default {
     <h1 class="page-title">{{ $t('navigation.videos') }}</h1>
 
     <section class="search-section">
-      <h2 class="section-title">{{ $t('short.search-videos') }}</h2>
       <div class="search-bar">
         <input
           v-model="searchQuery"
@@ -149,7 +148,6 @@ export default {
     </section>
 
     <section class="navigation-section">
-      <h2 class="section-title">{{ $t('short.categories') }}</h2>
       <div class="tabs">
         <button
           v-for="tab in tabs"
@@ -163,8 +161,6 @@ export default {
     </section>
 
     <section class="content-section">
-      <h2 class="section-title">{{ $t('short.video-list') }}</h2>
-
       <div v-if="loading" class="loading">
         {{ $t('short.loading') }}
       </div>

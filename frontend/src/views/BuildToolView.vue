@@ -66,15 +66,10 @@ const next = () => {
 
 <template>
   <div class="window-build">
-    <h1 class="visually-hidden">Créateur de Build League of Legends</h1>
     <MenuBuild />
     <div class="build">
       <div class="build-content">
         <section aria-labelledby="build-creator-section" class="core-build">
-          <h2 id="build-creator-section" class="section-title">
-            {{ $t('build.creator-steps') }}
-          </h2>
-
           <div v-if="stepStore.step === 'champion'">
             <ChampSelection />
           </div>
@@ -100,10 +95,6 @@ const next = () => {
         </section>
 
         <section aria-labelledby="build-preview-section" class="sheet-build">
-          <h2 id="build-preview-section" class="section-title">
-            {{ $t('build.preview') }}
-          </h2>
-
           <SheetBuild
             :version="version"
             :name="null"

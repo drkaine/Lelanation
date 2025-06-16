@@ -106,7 +106,6 @@ const socialLinks = computed(() => {
 
 <template>
   <section class="social-section">
-    <h2 class="social-title">{{ $t('home.follow-title') }}</h2>
     <div class="social-links">
       <a
         v-for="link in socialLinks"

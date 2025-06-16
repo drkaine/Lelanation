@@ -25,16 +25,10 @@ const toggleFooter = () => {
 
 const handleScroll = () => {
   const currentScrollY = window.scrollY
-  const documentHeight = document.documentElement.scrollHeight
-  const windowHeight = window.innerHeight
-  const isNearBottom = currentScrollY + windowHeight >= documentHeight - 100
 
-  // Ne déplier automatiquement que quand on approche de la fin de la page
-  if (isNearBottom && !isFooterExpanded.value) {
+  // Fermer automatiquement le footer quand on scroll vers le bas
+  if (currentScrollY > lastScrollY + 50 && isFooterExpanded.value) {
     isScrollingDown.value = true
-    isFooterExpanded.value = true
-  } else if (currentScrollY < lastScrollY - 50 && !isNearBottom) {
-    isScrollingDown.value = false
     isFooterExpanded.value = false
   }
 
@@ -59,8 +53,8 @@ onUnmounted(() => {
       aria-label="Afficher/masquer le footer"
     >
       <svg
-        width="20"
-        height="20"
+        width="16"
+        height="16"
         viewBox="0 0 24 24"
         fill="none"
         stroke="currentColor"
@@ -125,18 +119,18 @@ onUnmounted(() => {
 
 .footer-toggle {
   position: absolute;
-  top: -40px;
+  top: -35px;
   left: 50%;
   transform: translateX(-50%);
   background: var(--color-blue-900);
   border: 1px solid var(--color-gold-300);
-  border-radius: 20px 20px 0 0;
-  padding: 8px 12px;
+  border-radius: 15px 15px 0 0;
+  padding: 6px 10px;
   cursor: pointer;
   color: var(--color-gold-300);
   transition: all 0.3s ease;
   box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.3);
-  z-index: 1001; /* Au-dessus du footer pour rester accessible */
+  z-index: 999; /* Sous les liens pour éviter qu'ils passent dessus */
 }
 
 .footer-toggle:hover {
@@ -159,6 +153,8 @@ onUnmounted(() => {
   border-top: 1px solid var(--color-gold-300);
   box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.3);
   padding: 1rem 2rem;
+  z-index: 1000; /* Au-dessus de la flèche */
+  position: relative;
 }
 
 .footer-collapsed {
@@ -220,13 +216,14 @@ onUnmounted(() => {
 
 @media (max-width: 768px) {
   .footer-toggle {
-    top: -35px;
-    padding: 6px 10px;
+    top: -30px;
+    padding: 5px 8px;
+    border-radius: 12px 12px 0 0;
   }
 
   .toggle-arrow {
-    width: 16px;
-    height: 16px;
+    width: 14px;
+    height: 14px;
   }
 
   .footer {

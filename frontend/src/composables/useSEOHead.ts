@@ -140,32 +140,6 @@ export function useSEOHead(options: SEOHeadOptions = {}) {
     { immediate: true },
   )
 
-  if (import.meta.env.MODE === 'development') {
-    watch(
-      optimizedTitle,
-      newTitle => {
-        if (newTitle.length < 30 || newTitle.length > 60) {
-          console.warn(
-            `⚠️ SEO Warning: Title length is ${newTitle.length} characters. Recommended: 30-60 characters.`,
-          )
-        }
-      },
-      { immediate: true },
-    )
-
-    watch(
-      () => options.description,
-      newDesc => {
-        if (newDesc && (newDesc.length < 120 || newDesc.length > 160)) {
-          console.warn(
-            `⚠️ SEO Warning: Description length is ${newDesc.length} characters. Recommended: 120-160 characters.`,
-          )
-        }
-      },
-      { immediate: true },
-    )
-  }
-
   return {
     canonicalUrl: canonicalUrl.value,
     optimizedTitle: optimizedTitle.value,
