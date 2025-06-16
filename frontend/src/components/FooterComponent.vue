@@ -49,7 +49,10 @@ onUnmounted(() => {
     <button
       @click="toggleFooter"
       class="footer-toggle"
-      :class="{ expanded: isFooterExpanded }"
+      :class="{ 
+        expanded: isFooterExpanded,
+        'footer-open': isFooterExpanded 
+      }"
       aria-label="Afficher/masquer le footer"
     >
       <svg
@@ -119,7 +122,7 @@ onUnmounted(() => {
 
 .footer-toggle {
   position: absolute;
-  top: -35px;
+  top: 38px;
   left: 50%;
   transform: translateX(-50%);
   background: var(--color-blue-900);
@@ -130,7 +133,7 @@ onUnmounted(() => {
   color: var(--color-gold-300);
   transition: all 0.3s ease;
   box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.3);
-  z-index: 999; /* Sous les liens pour éviter qu'ils passent dessus */
+  z-index: 999; 
 }
 
 .footer-toggle:hover {
@@ -147,13 +150,17 @@ onUnmounted(() => {
   transform: rotate(180deg);
 }
 
+.footer-toggle.footer-open {
+  top: -34px;
+}
+
 .footer {
   transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   background: var(--color-blue-900);
   border-top: 1px solid var(--color-gold-300);
   box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.3);
   padding: 1rem 2rem;
-  z-index: 1000; /* Au-dessus de la flèche */
+  z-index: 1000; 
   position: relative;
 }
 
@@ -219,6 +226,10 @@ onUnmounted(() => {
     top: -30px;
     padding: 5px 8px;
     border-radius: 12px 12px 0 0;
+  }
+
+  .footer-toggle.footer-open {
+    top: -60px; 
   }
 
   .toggle-arrow {
