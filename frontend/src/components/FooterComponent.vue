@@ -49,9 +49,9 @@ onUnmounted(() => {
     <button
       @click="toggleFooter"
       class="footer-toggle"
-      :class="{ 
+      :class="{
         expanded: isFooterExpanded,
-        'footer-open': isFooterExpanded 
+        'footer-open': isFooterExpanded,
       }"
       aria-label="Afficher/masquer le footer"
     >
@@ -133,7 +133,7 @@ onUnmounted(() => {
   color: var(--color-gold-300);
   transition: all 0.3s ease;
   box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.3);
-  z-index: 999; 
+  z-index: 999;
 }
 
 .footer-toggle:hover {
@@ -160,7 +160,7 @@ onUnmounted(() => {
   border-top: 1px solid var(--color-gold-300);
   box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.3);
   padding: 1rem 2rem;
-  z-index: 1000; 
+  z-index: 1000;
   position: relative;
 }
 
@@ -229,7 +229,7 @@ onUnmounted(() => {
   }
 
   .footer-toggle.footer-open {
-    top: -60px; 
+    top: -60px;
   }
 
   .toggle-arrow {

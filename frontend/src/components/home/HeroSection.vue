@@ -41,12 +41,10 @@ defineProps<{
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 1rem;
   contain: layout;
   transform: translateZ(0);
   will-change: auto;
   backface-visibility: hidden;
-  padding: 2rem 1rem;
 }
 
 .title {
@@ -79,17 +77,10 @@ defineProps<{
   border-radius: 50%;
   background-color: var(--color-blue-600);
   min-height: 250px;
-  will-change: transform;
   contain: layout style paint;
-  transform: translateZ(0);
   backface-visibility: hidden;
-  image-rendering: -webkit-optimize-contrast;
   image-rendering: optimizeQuality;
   transition: transform 0.3s ease;
-}
-
-.profil-image:hover {
-  transform: translateZ(0) scale(1.05);
 }
 
 .profil-image-optimized {
@@ -165,10 +156,6 @@ defineProps<{
 @media (prefers-reduced-motion: reduce) {
   .profil-image {
     transition: none;
-  }
-
-  .profil-image:hover {
-    transform: translateZ(0);
   }
 }
 </style>
