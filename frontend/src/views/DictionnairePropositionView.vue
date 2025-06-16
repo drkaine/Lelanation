@@ -63,58 +63,69 @@ const submitProposition = async () => {
 <template>
   <div class="dictionary-container">
     <div class="proposition-content">
-      <div class="explanation">
+      <section aria-labelledby="intro-section">
         <h1 class="title">{{ $t('dictionnaire-proposition.title') }}</h1>
+        <h2 id="intro-section" class="section-title">
+          {{ $t('dictionnaire-proposition.how-it-works') }}
+        </h2>
         <p>
           {{ $t('dictionnaire-proposition.explanation') }}
         </p>
-      </div>
+      </section>
 
-      <form @submit.prevent="submitProposition" class="proposition-form">
-        <div class="form-group">
-          <label :for="pseudoId">{{
-            $t('dictionnaire-proposition.pseudo')
-          }}</label>
-          <input
-            :id="pseudoId"
-            v-model="pseudo"
-            type="text"
-            required
-            maxlength="30"
-            :placeholder="$t('dictionnaire-proposition.pseudo')"
-          />
-        </div>
+      <section aria-labelledby="form-section">
+        <h2 id="form-section" class="section-title">
+          {{ $t('dictionnaire-proposition.form-title') }}
+        </h2>
 
-        <div class="form-group">
-          <label :for="wordId">{{ $t('dictionnaire-proposition.word') }}</label>
-          <input
-            :id="wordId"
-            v-model="word"
-            type="text"
-            required
-            maxlength="50"
-            :placeholder="$t('dictionnaire-proposition.word')"
-          />
-        </div>
+        <form @submit.prevent="submitProposition" class="proposition-form">
+          <div class="form-group">
+            <label :for="pseudoId">{{
+              $t('dictionnaire-proposition.pseudo')
+            }}</label>
+            <input
+              :id="pseudoId"
+              v-model="pseudo"
+              type="text"
+              required
+              maxlength="30"
+              :placeholder="$t('dictionnaire-proposition.pseudo')"
+            />
+          </div>
 
-        <div class="form-group">
-          <label :for="definitionId">{{
-            $t('dictionnaire-proposition.definition')
-          }}</label>
-          <textarea
-            :id="definitionId"
-            v-model="definition"
-            required
-            maxlength="1000"
-            :placeholder="$t('dictionnaire-proposition.definition')"
-            rows="5"
-          />
-        </div>
+          <div class="form-group">
+            <label :for="wordId">{{
+              $t('dictionnaire-proposition.word')
+            }}</label>
+            <input
+              :id="wordId"
+              v-model="word"
+              type="text"
+              required
+              maxlength="50"
+              :placeholder="$t('dictionnaire-proposition.word')"
+            />
+          </div>
 
-        <button type="submit" class="submit-btn">
-          {{ $t('button.submit') }}
-        </button>
-      </form>
+          <div class="form-group">
+            <label :for="definitionId">{{
+              $t('dictionnaire-proposition.definition')
+            }}</label>
+            <textarea
+              :id="definitionId"
+              v-model="definition"
+              required
+              maxlength="1000"
+              :placeholder="$t('dictionnaire-proposition.definition')"
+              rows="5"
+            />
+          </div>
+
+          <button type="submit" class="submit-btn">
+            {{ $t('button.submit') }}
+          </button>
+        </form>
+      </section>
     </div>
   </div>
   <Transition name="fade">

@@ -299,6 +299,7 @@ const formatDescription = (desc: string) => {
             <img
               v-if="runeStore.runesSelection.principal"
               :src="`/assets/icons/runes/${runeStore.runesSelection.principal.id}.png`"
+              alt="Rune ${runeStore.runesSelection.principal.id}"
             />
           </button>
 
@@ -347,6 +348,7 @@ const formatDescription = (desc: string) => {
             <img
               v-if="getSelectedRune(index)"
               :src="`/assets/icons/runes/${getSelectedRune(index)?.id}.png`"
+              alt="Rune ${getSelectedRune(index)?.id}"
             />
           </div>
 
@@ -460,6 +462,7 @@ const formatDescription = (desc: string) => {
             <img
               v-if="runeStore.runesSelection.second"
               :src="`/assets/icons/runes/${runeStore.runesSelection.second.id}.png`"
+              alt="Rune ${runeStore.runesSelection.second.id}"
             />
           </button>
 
@@ -505,6 +508,7 @@ const formatDescription = (desc: string) => {
               <img
                 v-if="getSelectedSecondaryRune(index - 1)"
                 :src="`/assets/icons/runes/${getSelectedSecondaryRune(index - 1)?.id}.png`"
+                alt="Rune ${getSelectedSecondaryRune(index - 1)?.id}"
               />
             </div>
 
@@ -579,6 +583,7 @@ const formatDescription = (desc: string) => {
                 <img
                   v-if="getSelectedShardFromStore(index)"
                   :src="`/assets/icons/shards/${getSelectedShardFromStore(index)?.image}`"
+                  alt="Image"
                 />
               </div>
 

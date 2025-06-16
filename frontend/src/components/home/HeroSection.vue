@@ -33,15 +33,6 @@ defineProps<{
     <h2 class="subtitle" itemprop="alternativeHeadline">
       {{ $t('home.description') }}
     </h2>
-
-    <div itemscope itemtype="https://schema.org/WebSite">
-      <meta itemprop="url" content="https://lelanation.fr/" />
-      <meta itemprop="name" content="Lelanation" />
-      <meta
-        itemprop="description"
-        content="Plateforme de builds et guides League of Legends par la communauté Lelariva"
-      />
-    </div>
   </div>
 </template>
 

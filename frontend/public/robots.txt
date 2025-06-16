@@ -9,14 +9,20 @@ Allow: /build
 Allow: /builds-publics
 Allow: /lelariva-builds  
 Allow: /dictionnaire
-Allow: /dictionnaire/proposition
 Allow: /videos
-Allow: /statistique
 Allow: /legal
 Allow: /assets/
 
-# Disallow development and admin paths
+# Explicitly disallow noindex pages that should not be crawled
+Disallow: /dictionnaire/proposition
+Disallow: /statistique
+Disallow: /build/edit
+Disallow: /seo-audit
+Disallow: /audit-seo
 Disallow: /admin/
+Disallow: /connexion/
+
+# Disallow development and admin paths
 Disallow: /_nuxt/
 Disallow: /api/
 Disallow: /dev/
@@ -31,12 +37,26 @@ Crawl-delay: 1
 # Google Bot - Optimized settings
 User-agent: Googlebot
 Allow: /
+Disallow: /dictionnaire/proposition
+Disallow: /statistique
+Disallow: /build/edit
+Disallow: /seo-audit
+Disallow: /audit-seo
+Disallow: /admin/
+Disallow: /connexion/
 Crawl-delay: 0.5
 Request-rate: 2/60s
 
 # Bing Bot
 User-agent: Bingbot
 Allow: /
+Disallow: /dictionnaire/proposition
+Disallow: /statistique
+Disallow: /build/edit
+Disallow: /seo-audit
+Disallow: /audit-seo
+Disallow: /admin/
+Disallow: /connexion/
 Crawl-delay: 1
 Request-rate: 1/30s
 
@@ -64,11 +84,21 @@ Crawl-delay: 0
 # Yandex (Russian search engine)
 User-agent: YandexBot
 Allow: /
+Disallow: /dictionnaire/proposition
+Disallow: /statistique
+Disallow: /build/edit
+Disallow: /admin/
+Disallow: /connexion/
 Crawl-delay: 1
 
 # DuckDuckGo Bot
 User-agent: DuckDuckBot
 Allow: /
+Disallow: /dictionnaire/proposition
+Disallow: /statistique
+Disallow: /build/edit
+Disallow: /admin/
+Disallow: /connexion/
 Crawl-delay: 1
 
 # Protection contre les bots malveillants et scrapers

@@ -23,6 +23,7 @@ useSEOHead({
   keywords:
     'statistiques LoL, tier list League of Legends, win rate champions, méta LoL, analytics gaming',
   type: 'article',
+  noIndex: true,
 })
 
 const router = useRouter()

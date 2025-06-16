@@ -1,23 +1,10 @@
 <template>
   <div class="modal-content">
     <div class="legal-text">
+      <h2>{{ $t('legal.title') }}</h2>
       <p>{{ $t('legal.description') }}</p>
 
       <section class="data-controller-section">
-        <h3>{{ $t('legal.data-controller') }}</h3>
-        <p>{{ $t('legal.data-controller-info') }}</p>
-      </section>
-
-      <section class="legal-basis-section">
-        <h3>{{ $t('legal.legal-base') }}</h3>
-        <p>{{ $t('legal.legal-base-content') }}</p>
-        <ul>
-          <li>{{ $t('legal.legal-base-consent') }}</li>
-          <li>{{ $t('legal.legal-base-legitimate') }}</li>
-        </ul>
-      </section>
-
-      <section class="data-processing-section">
         <h3>{{ $t('legal.data-collected') }}</h3>
         <p>{{ $t('legal.data-collected-info') }}</p>
         <ul>
@@ -26,34 +13,54 @@
           <li>{{ $t('legal.data-builds') }}</li>
         </ul>
 
-        <h4>{{ $t('legal.cookies') }}</h4>
-        <p>{{ $t('legal.cookies-description') }}</p>
-        <ul>
-          <li>{{ $t('legal.save') }}</li>
-          <li>{{ $t('legal.remember') }}</li>
-          <li>{{ $t('legal.remember2') }}</li>
-        </ul>
-        <p>
-          <strong>{{ $t('legal.no-tracking') }}</strong>
-        </p>
-        <p>
-          <strong>{{ $t('legal.no-third-party') }}</strong>
-        </p>
+        <div class="subsection">
+          <h4>{{ $t('legal.data-controller') }}</h4>
+          <p>{{ $t('legal.data-controller-info') }}</p>
+        </div>
 
-        <h4>{{ $t('legal.third-party-services') }}</h4>
-        <p>{{ $t('legal.third-party-info') }}</p>
-        <ul>
-          <li>{{ $t('legal.iconify') }}</li>
-          <li>{{ $t('legal.riot-api') }}</li>
-        </ul>
+        <div class="subsection">
+          <h4>{{ $t('legal.legal-base') }}</h4>
+          <p>{{ $t('legal.legal-base-content') }}</p>
+          <ul>
+            <li>{{ $t('legal.legal-base-consent') }}</li>
+            <li>{{ $t('legal.legal-base-legitimate') }}</li>
+          </ul>
+        </div>
 
-        <h4>{{ $t('legal.duration') }}</h4>
-        <p>{{ $t('legal.duration-description') }}</p>
-        <ul>
-          <li>{{ $t('legal.duration-local') }}</li>
-          <li>{{ $t('legal.duration-contact') }}</li>
-          <li>{{ $t('legal.duration-analytics') }}</li>
-        </ul>
+        <div class="subsection">
+          <h4>{{ $t('legal.cookies') }}</h4>
+          <p>{{ $t('legal.cookies-description') }}</p>
+          <ul>
+            <li>{{ $t('legal.save') }}</li>
+            <li>{{ $t('legal.remember') }}</li>
+            <li>{{ $t('legal.remember2') }}</li>
+          </ul>
+          <p>
+            <strong>{{ $t('legal.no-tracking') }}</strong>
+          </p>
+          <p>
+            <strong>{{ $t('legal.no-third-party') }}</strong>
+          </p>
+        </div>
+
+        <div class="subsection">
+          <h4>{{ $t('legal.third-party-services') }}</h4>
+          <p>{{ $t('legal.third-party-info') }}</p>
+          <ul>
+            <li>{{ $t('legal.iconify') }}</li>
+            <li>{{ $t('legal.riot-api') }}</li>
+          </ul>
+        </div>
+
+        <div class="subsection">
+          <h4>{{ $t('legal.duration') }}</h4>
+          <p>{{ $t('legal.duration-description') }}</p>
+          <ul>
+            <li>{{ $t('legal.duration-local') }}</li>
+            <li>{{ $t('legal.duration-contact') }}</li>
+            <li>{{ $t('legal.duration-analytics') }}</li>
+          </ul>
+        </div>
       </section>
 
       <section class="user-rights-section">
@@ -70,16 +77,16 @@
         <p>
           <em>{{ $t('legal.rights-exercise') }}</em>
         </p>
-      </section>
 
-      <section class="security-section">
-        <h3>{{ $t('legal.data-security') }}</h3>
-        <p>{{ $t('legal.data-security-info') }}</p>
-        <ul>
-          <li>{{ $t('legal.security-https') }}</li>
-          <li>{{ $t('legal.security-local') }}</li>
-          <li>{{ $t('legal.security-no-db') }}</li>
-        </ul>
+        <div class="subsection">
+          <h4>{{ $t('legal.data-security') }}</h4>
+          <p>{{ $t('legal.data-security-info') }}</p>
+          <ul>
+            <li>{{ $t('legal.security-https') }}</li>
+            <li>{{ $t('legal.security-local') }}</li>
+            <li>{{ $t('legal.security-no-db') }}</li>
+          </ul>
+        </div>
       </section>
 
       <section class="intellectual-property-section">
@@ -97,11 +104,11 @@
             $t('legal.riot-disclaimer')
           }}</strong>
         </div>
-      </section>
 
-      <section class="contact-section">
-        <h3>{{ $t('legal.contact-authority') }}</h3>
-        <p>{{ $t('legal.contact-authority-info') }}</p>
+        <div class="subsection">
+          <h4>{{ $t('legal.contact-authority') }}</h4>
+          <p>{{ $t('legal.contact-authority-info') }}</p>
+        </div>
       </section>
 
       <hr class="section-divider" />
@@ -117,6 +124,21 @@
 <style scoped>
 .modal-content section {
   margin-bottom: 2rem;
+}
+
+.modal-content .subsection {
+  margin: 1.5rem 0;
+  padding-left: 1rem;
+  border-left: 2px solid var(--color-gold-300);
+}
+
+.modal-content h2 {
+  color: var(--color-gold-300);
+  border-bottom: 2px solid var(--color-gold-300);
+  padding-bottom: 0.75rem;
+  margin: 0 0 1.5rem 0;
+  font-size: var(--title-sm);
+  text-align: center;
 }
 
 .modal-content h3 {

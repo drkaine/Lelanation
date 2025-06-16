@@ -264,8 +264,8 @@ const canDragBuild = computed(() => !isLelarivaBuildPage.value || isAdmin.value)
       >
         <img
           :src="`/assets/icons/roles/${role}.png`"
-          alt=""
-          role="presentation"
+          :alt="`Filtrer par rôle ${role}`"
+          class="role-icon"
         />
         <span class="role-text">{{ role }}</span>
       </button>

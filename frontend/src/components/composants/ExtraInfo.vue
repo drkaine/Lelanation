@@ -1,13 +1,25 @@
 <script setup lang="ts">
 import { useItemStore } from '@/stores/itemStore'
-import statsTrad from '@/assets/files/data-manuel/statsTrad.json'
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 
 const itemStore = useItemStore()
 
+const statsTrad = ref<Record<string, string>>({})
+
 const getTrad = (name: string) => {
-  return statsTrad[name as keyof typeof statsTrad]
+  return statsTrad.value[name] || name
 }
+
+onMounted(async () => {
+  try {
+    const statsModule = await import(
+      '@/assets/files/data-manuel/statsTrad.json'
+    )
+    statsTrad.value = statsModule.default
+  } catch (error) {
+    console.error('Erreur lors du chargement des traductions de stats:', error)
+  }
+})
 
 const draggingItem = ref<number | null>(null)
 const touchStartY = ref<number>(0)

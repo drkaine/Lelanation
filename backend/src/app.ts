@@ -7,7 +7,7 @@ import dotenv from "dotenv";
 import path from "path";
 import fs from "fs";
 
-import { Request, Response, NextFunction } from "express";
+import { Request, Response } from "express";
 import { config } from "./config";
 import { buildService } from "./service/BuildService";
 import { type MulterRequest } from "./types";
@@ -418,37 +418,35 @@ cron.schedule("0 2 * * *", () => {
   execution();
 });
 
-// SPA fallback middleware for all non-API routes
 app.use(spaFallbackMiddleware(path.join(__dirname, "../../frontend/dist")));
 
-// 404 handler for all unmatched routes (including Express errors)
-app.use('*', (req: Request, res: Response) => {
-  // Skip API routes (let them return their normal errors)
-  if (req.path.startsWith('/api/')) {
-    res.status(404).json({ error: 'Route API non trouvée' });
+app.use("*", (req: Request, res: Response) => {
+  if (req.path.startsWith("/api/")) {
+    res.status(404).json({ error: "Route API non trouvée" });
     return;
   }
-  
-  // For all other routes, return SPA HTML with proper meta tags
+
   const indexPath = path.join(__dirname, "../../frontend/dist/index.html");
   res.status(404);
-  res.setHeader('Content-Type', 'text/html; charset=utf-8');
-  
-  fs.readFile(indexPath, 'utf8', (err, data) => {
+  res.setHeader("Content-Type", "text/html; charset=utf-8");
+
+  fs.readFile(indexPath, "utf8", (err, data) => {
     if (err) {
-      res.send('<html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>404</title></head><body>Page non trouvée</body></html>');
+      res.send(
+        '<html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>404</title></head><body>Page non trouvée</body></html>',
+      );
       return;
     }
-    
+
     const modifiedHtml = data.replace(
       "<head>",
       `<head>
     <meta name="http-status" content="404">
     <meta name="robots" content="noindex, nofollow">
     <meta name="description" content="Page non trouvée - La page demandée n'existe pas.">
-    <title>404 - Page non trouvée | Lelanation</title>`
+    <title>404 - Page non trouvée | Lelanation</title>`,
     );
-    
+
     res.send(modifiedHtml);
   });
 });

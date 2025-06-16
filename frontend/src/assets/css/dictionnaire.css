@@ -12,6 +12,15 @@
   color: var(--color-gold-300);
 }
 
+.section-title {
+  font-size: var(--title-base);
+  color: var(--color-gold-200);
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid var(--color-gold-300);
+  text-align: left;
+}
+
 .dictionary-content {
   display: grid;
   grid-template-columns: repeat(2, 1fr);

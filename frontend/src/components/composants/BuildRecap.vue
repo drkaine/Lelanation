@@ -21,7 +21,10 @@ const route = useRoute()
 const router = useRouter()
 const buildStore = useBuildStore()
 const type = route.params.type as string | undefined
-const fileName = route.params.fileName as string
+const rawFileName = route.params.fileName as string
+const fileName = rawFileName.endsWith('.json')
+  ? rawFileName.slice(0, -5)
+  : rawFileName
 const apiUrl =
   type === 'lelariva'
     ? `/api/build/lelariva/${fileName}`

@@ -15,28 +15,37 @@ import BuildRecap from '@/components/composants/BuildRecap.vue'
 import InfosBuild from '@/components/composants/InfosBuild.vue'
 import version from '@/assets/files/data/lastVersion.json'
 import { useSEOHead } from '@/composables/useSEOHead'
+import { useRoute } from 'vue-router'
+
+const route = useRoute()
+const isEditMode = route.path === '/build/edit'
 
 useSEOHead({
-  title:
-    'Créateur de Build LoL Avancé - Optimisez vos Builds League of Legends',
-  description:
-    "Utilisez notre créateur de build League of Legends avancé pour optimiser vos stratégies. Sélectionnez champion, runes, objets et sorts d'invocateur avec des recommandations expertes de Lelariva.",
+  title: isEditMode
+    ? 'Éditeur de Build LoL - Mode Édition'
+    : 'Créateur de Build LoL Avancé - Optimisez vos Builds League of Legends',
+  description: isEditMode
+    ? 'Éditeur de build League of Legends pour modifier vos configurations existantes.'
+    : "Utilisez notre créateur de build League of Legends avancé pour optimiser vos stratégies. Sélectionnez champion, runes, objets et sorts d'invocateur avec des recommandations expertes de Lelariva.",
   keywords:
     'créer build LoL, outil build League of Legends, builds personnalisés, runes LoL, optimisation champion, stratégies avancées',
   type: 'article',
-  structuredData: {
-    '@type': 'WebApplication',
-    name: 'Créateur de Build League of Legends',
-    description:
-      'Outil interactif pour créer des builds optimisés pour League of Legends',
-    applicationCategory: 'GameApplication',
-    operatingSystem: 'Web Browser',
-    offers: {
-      '@type': 'Offer',
-      price: '0',
-      priceCurrency: 'EUR',
-    },
-  },
+  noIndex: isEditMode,
+  structuredData: !isEditMode
+    ? {
+        '@type': 'WebApplication',
+        name: 'Créateur de Build League of Legends',
+        description:
+          'Outil interactif pour créer des builds optimisés pour League of Legends',
+        applicationCategory: 'GameApplication',
+        operatingSystem: 'Web Browser',
+        offers: {
+          '@type': 'Offer',
+          price: '0',
+          priceCurrency: 'EUR',
+        },
+      }
+    : undefined,
 })
 
 const championStore = useChampionStore()
@@ -61,7 +70,11 @@ const next = () => {
     <MenuBuild />
     <div class="build">
       <div class="build-content">
-        <div class="core-build">
+        <section aria-labelledby="build-creator-section" class="core-build">
+          <h2 id="build-creator-section" class="section-title">
+            {{ $t('build.creator-steps') }}
+          </h2>
+
           <div v-if="stepStore.step === 'champion'">
             <ChampSelection />
           </div>
@@ -84,8 +97,13 @@ const next = () => {
           >
             {{ $t('button.next') }}
           </button>
-        </div>
-        <div class="sheet-build">
+        </section>
+
+        <section aria-labelledby="build-preview-section" class="sheet-build">
+          <h2 id="build-preview-section" class="section-title">
+            {{ $t('build.preview') }}
+          </h2>
+
           <SheetBuild
             :version="version"
             :name="null"
@@ -99,7 +117,7 @@ const next = () => {
             :skillOrder="championStore.championSkillsOrder"
           />
           <Extra v-if="itemStore.ItemsSelection.core" />
-        </div>
+        </section>
       </div>
     </div>
   </div>
@@ -116,6 +134,15 @@ const next = () => {
   clip: rect(0, 0, 0, 0);
   white-space: nowrap;
   border: 0;
+}
+
+.section-title {
+  font-size: var(--title-base);
+  color: var(--color-gold-200);
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid var(--color-gold-300);
+  text-align: left;
 }
 
 .window-build {

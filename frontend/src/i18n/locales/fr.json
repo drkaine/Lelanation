@@ -26,6 +26,7 @@
   "home": {
     "title": "Lelanation - Builds et Guides League of Legends par Lelariva",
     "description": "Retrouver le grand Lelariva, chercher le meilleur build pour votre champion",
+    "follow-title": "Suivez Lelariva",
     "links": {
       "discord": "Discord",
       "twitter": "X",
@@ -119,14 +120,18 @@
   "dictionnaire": {
     "title": "Dictionnaire laranguiva",
     "search": "Rechercher un mot...",
-    "add": "+"
+    "add": "+",
+    "search-navigation": "Recherche et Navigation",
+    "definitions": "Définitions"
   },
   "dictionnaire-proposition": {
     "title": "Proposer une nouvelle définition",
     "explanation": "Vous pouvez proposer une nouvelle définition pour le dictionnaire Laranguiva. Votre proposition sera examinée avant d'être ajoutée. Merci de votre contribution à l'enrichissement de notre langue !",
     "pseudo": "Pseudo",
     "word": "Mot",
-    "definition": "Définition"
+    "definition": "Définition",
+    "how-it-works": "Comment ça marche",
+    "form-title": "Formulaire de proposition"
   },
   "build": {
     "new": "Nouveau Build",
@@ -137,7 +142,9 @@
     "certified": "Builds certifiés",
     "uncertified": "Builds non certifiés",
     "certification": "Certification",
-    "upToDate": "À jour"
+    "upToDate": "À jour",
+    "creator-steps": "Étapes de création",
+    "preview": "Aperçu du build"
   },
   "item": {
     "recipe": "Composants",
@@ -203,6 +210,9 @@
   },
   "short": {
     "search": "Rechercher une vidéo...",
+    "search-videos": "Recherche de vidéos",
+    "categories": "Catégories",
+    "video-list": "Liste des vidéos",
     "see-video": "Voir la vidéo",
     "loading": "Chargement...",
     "previous": "Précédent"

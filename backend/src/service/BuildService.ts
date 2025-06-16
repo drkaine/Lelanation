@@ -31,10 +31,15 @@ export const buildService = {
   },
 
   async delete(folder: string, req: Request, res: Response) {
+    let fileName = req.params.fileName;
+    if (!fileName.endsWith('.json')) {
+      fileName += '.json';
+    }
+    
     const filePath = path.join(
       __dirname,
       this.path + folder,
-      req.params.fileName,
+      fileName,
     );
     console.log(filePath);
     await unlink(filePath);
@@ -42,10 +47,15 @@ export const buildService = {
   },
 
   async get(folder: string, req: Request, res: Response) {
+    let fileName = req.params.fileName;
+    if (!fileName.endsWith('.json')) {
+      fileName += '.json';
+    }
+    
     const filePath = path.join(
       __dirname,
       this.path + folder,
-      req.params.fileName,
+      fileName,
     );
     const data = await openFile(filePath);
     res.json(JSON.parse(data));
@@ -71,7 +81,12 @@ export const buildService = {
       await this.save("", req, res);
     } catch (error) {
       console.error("Erreur lors de la sauvegarde:", error);
-      res.status(500).send("Erreur lors de la sauvegarde du fichier");
+      res
+        .status(500)
+        .json({
+          error: "Erreur lors de la sauvegarde du fichier",
+          details: error,
+        });
     }
   },
 
@@ -80,7 +95,12 @@ export const buildService = {
       await this.save("Lelariva/", req, res);
     } catch (error) {
       console.error("Erreur lors de la sauvegarde:", error);
-      res.status(500).send("Erreur lors de la sauvegarde du fichier");
+      res
+        .status(500)
+        .json({
+          error: "Erreur lors de la sauvegarde du fichier",
+          details: error,
+        });
     }
   },
 
@@ -89,7 +109,12 @@ export const buildService = {
       await this.update("", req, res);
     } catch (error) {
       console.error("Erreur lors de la mise à jour:", error);
-      res.status(500).send("Erreur lors de la mise à jour du fichier");
+      res
+        .status(500)
+        .json({
+          error: "Erreur lors de la mise à jour du fichier",
+          details: error,
+        });
     }
   },
 
@@ -98,7 +123,12 @@ export const buildService = {
       await this.update("Lelariva/", req, res);
     } catch (error) {
       console.error("Erreur lors de la mise à jour:", error);
-      res.status(500).send("Erreur lors de la mise à jour du fichier");
+      res
+        .status(500)
+        .json({
+          error: "Erreur lors de la mise à jour du fichier",
+          details: error,
+        });
     }
   },
 
@@ -109,7 +139,12 @@ export const buildService = {
       const errorMessage =
         error instanceof Error ? error.message : "Erreur inconnue";
       console.error("Erreur lors de la suppression:", errorMessage);
-      res.status(500).send(`Erreur lors de la suppression: ${errorMessage}`);
+      res
+        .status(500)
+        .json({
+          error: "Erreur lors de la suppression",
+          details: errorMessage,
+        });
     }
   },
 
@@ -120,7 +155,12 @@ export const buildService = {
       const errorMessage =
         error instanceof Error ? error.message : "Erreur inconnue";
       console.error("Erreur lors de la suppression:", errorMessage);
-      res.status(500).send(`Erreur lors de la suppression: ${errorMessage}`);
+      res
+        .status(500)
+        .json({
+          error: "Erreur lors de la suppression",
+          details: errorMessage,
+        });
     }
   },
 
@@ -128,7 +168,7 @@ export const buildService = {
     try {
       await this.get("", req, res);
     } catch (error) {
-      res.status(404).send("Build non trouvé" + error);
+      res.status(404).json({ error: "Build non trouvé", details: error });
     }
   },
 
@@ -136,7 +176,7 @@ export const buildService = {
     try {
       await this.get("Lelariva/", req, res);
     } catch (error) {
-      res.status(404).send("Build non trouvé" + error);
+      res.status(404).json({ error: "Build non trouvé", details: error });
     }
   },
 
@@ -144,7 +184,12 @@ export const buildService = {
     try {
       await this.getAll("", res);
     } catch (error) {
-      res.status(500).send("Erreur lors de la récupération des builds" + error);
+      res
+        .status(500)
+        .json({
+          error: "Erreur lors de la récupération des builds",
+          details: error,
+        });
     }
   },
 
@@ -152,7 +197,7 @@ export const buildService = {
     try {
       await this.getAll("Lelariva/", res);
     } catch (error) {
-      res.status(404).send("Build non trouvé" + error);
+      res.status(404).json({ error: "Build non trouvé", details: error });
     }
   },
 };

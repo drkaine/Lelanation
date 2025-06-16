@@ -19,12 +19,34 @@ useSEOHead({
       jobTitle: 'Expert League of Legends',
       description:
         "Créateur de contenu et expert stratégique League of Legends spécialisé dans l'optimisation des builds et guides de gameplay",
+      sameAs: [
+        'https://x.com/Lelariva_fr',
+        'https://www.youtube.com/@Lelariva_LoL/featured',
+        'https://www.instagram.com/Lelariva_fr',
+        'https://www.twitch.tv/lelariva',
+        'https://discord.com/invite/RrXCpsFGrw',
+        'https://www.tiktok.com/@lelariva_fr',
+        'https://www.patreon.com/c/Lelariva/posts',
+      ],
     },
     potentialAction: {
       '@type': 'SearchAction',
       target:
         'https://www.lelanation.fr/builds-publics?search={search_term_string}',
       'query-input': 'required name=search_term_string',
+    },
+    publisher: {
+      '@type': 'Organization',
+      name: 'Lelanation',
+      url: 'https://www.lelanation.fr',
+      sameAs: [
+        'https://x.com/Lelariva_fr',
+        'https://www.youtube.com/@Lelariva_LoL/featured',
+        'https://www.instagram.com/Lelariva_fr',
+        'https://www.twitch.tv/lelariva',
+        'https://discord.com/invite/RrXCpsFGrw',
+        'https://www.tiktok.com/@lelariva_fr',
+      ],
     },
   },
 })

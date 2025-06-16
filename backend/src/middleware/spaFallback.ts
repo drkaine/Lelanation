@@ -28,60 +28,78 @@ function isValidSPARoute(path: string): boolean {
   return validPatterns.some((pattern) => pattern.test(normalizedPath));
 }
 
-const routeMetaTags: { [key: string]: { title: string; description: string; url: string; image?: string } } = {
+const routeMetaTags: {
+  [key: string]: {
+    title: string;
+    description: string;
+    url: string;
+    image?: string;
+  };
+} = {
   "/": {
     title: "Lelanation - Builds et guides League of Legends par Lelariva",
-    description: "Créez et partagez vos builds League of Legends. Guides détaillés, statistiques. La référence francophone pour optimiser votre gameplay LoL.",
+    description:
+      "Créez et partagez vos builds League of Legends. Guides détaillés, statistiques. La référence francophone pour optimiser votre gameplay LoL.",
     url: "https://www.lelanation.fr/",
-    image: "https://www.lelanation.fr/assets/images/lelariva.webp"
+    image: "https://www.lelanation.fr/assets/images/lelariva.webp",
   },
   "/dictionnaire": {
     title: "Dictionnaire Lelariva - Vocabulaire League of Legends | Lelanation",
-    description: "Le dictionnaire officiel de la communauté Lelariva. Découvrez le vocabulaire unique de League of Legends et ses définitions.",
+    description:
+      "Le dictionnaire officiel de la communauté Lelariva. Découvrez le vocabulaire unique de League of Legends et ses définitions.",
     url: "https://www.lelanation.fr/dictionnaire",
-    image: "https://www.lelanation.fr/assets/images/lelariva.webp"
+    image: "https://www.lelanation.fr/assets/images/lelariva.webp",
   },
   "/dictionnaire/proposition": {
     title: "Proposer une définition - Dictionnaire Lelariva | Lelanation",
-    description: "Contribuez au dictionnaire Lelariva en proposant de nouveaux mots et définitions pour enrichir le vocabulaire League of Legends.",
+    description:
+      "Contribuez au dictionnaire Lelariva en proposant de nouveaux mots et définitions pour enrichir le vocabulaire League of Legends.",
     url: "https://www.lelanation.fr/dictionnaire/proposition",
-    image: "https://www.lelanation.fr/assets/images/lelariva.webp"
+    image: "https://www.lelanation.fr/assets/images/lelariva.webp",
   },
   "/legal": {
     title: "Mentions légales - Lelanation",
-    description: "Mentions légales, conditions d'utilisation et politique de confidentialité de Lelanation, la plateforme League of Legends de Lelariva.",
+    description:
+      "Mentions légales, conditions d'utilisation et politique de confidentialité de Lelanation, la plateforme League of Legends de Lelariva.",
     url: "https://www.lelanation.fr/legal",
-    image: "https://www.lelanation.fr/assets/images/lelariva.webp"
+    image: "https://www.lelanation.fr/assets/images/lelariva.webp",
   },
   "/build": {
-    title: "Créateur de Build LoL - Générateur de builds personnalisés | Lelanation",
-    description: "Créez vos builds League of Legends personnalisés avec notre générateur. Runes, objets, sorts et compétences optimisés pour dominer sur la Faille.",
+    title:
+      "Créateur de Build LoL - Générateur de builds personnalisés | Lelanation",
+    description:
+      "Créez vos builds League of Legends personnalisés avec notre générateur. Runes, objets, sorts et compétences optimisés pour dominer sur la Faille.",
     url: "https://www.lelanation.fr/build",
-    image: "https://www.lelanation.fr/assets/images/lelariva.webp"
+    image: "https://www.lelanation.fr/assets/images/lelariva.webp",
   },
   "/builds-publics": {
-    title: "Builds Communautaires LoL - Découvrez les créations des joueurs | Lelanation",
-    description: "Explorez les builds League of Legends créés par la communauté Lelanation. Stratégies, guides et builds optimisés partagés par les joueurs.",
+    title:
+      "Builds Communautaires LoL - Découvrez les créations des joueurs | Lelanation",
+    description:
+      "Explorez les builds League of Legends créés par la communauté Lelanation. Stratégies, guides et builds optimisés partagés par les joueurs.",
     url: "https://www.lelanation.fr/builds-publics",
-    image: "https://www.lelanation.fr/assets/images/lelariva.webp"
+    image: "https://www.lelanation.fr/assets/images/lelariva.webp",
   },
   "/videos": {
-    title: "Vidéos LoL - Shorts et guides League of Legends par Lelariva | Lelanation",
-    description: "Découvrez les dernières vidéos YouTube de Lelariva : tier lists, builds, guides et analyses League of Legends pour améliorer votre gameplay.",
+    title:
+      "Vidéos LoL - Shorts et guides League of Legends par Lelariva | Lelanation",
+    description:
+      "Découvrez les dernières vidéos YouTube de Lelariva : tier lists, builds, guides et analyses League of Legends pour améliorer votre gameplay.",
     url: "https://www.lelanation.fr/videos",
-    image: "https://www.lelanation.fr/assets/images/lelariva.webp"
+    image: "https://www.lelanation.fr/assets/images/lelariva.webp",
   },
   "/lelariva-builds": {
     title: "Builds Officiels Lelariva - Guides exclusifs LoL | Lelanation",
-    description: "Découvrez les builds officiels de Lelariva pour League of Legends. Stratégies exclusives, guides détaillés et analyses approfondies.",
+    description:
+      "Découvrez les builds officiels de Lelariva pour League of Legends. Stratégies exclusives, guides détaillés et analyses approfondies.",
     url: "https://www.lelanation.fr/lelariva-builds",
-    image: "https://www.lelanation.fr/assets/images/lelariva.webp"
-  }
+    image: "https://www.lelanation.fr/assets/images/lelariva.webp",
+  },
 };
 
 function getMetaTagsForRoute(path: string) {
   const normalizedPath = path.toLowerCase().replace(/\/$/, "") || "/";
-  
+
   if (normalizedPath.startsWith("/build/") && normalizedPath !== "/build") {
     const buildName = normalizedPath.split("/build/")[1];
     const decodedBuildName = decodeURIComponent(buildName);
@@ -89,10 +107,10 @@ function getMetaTagsForRoute(path: string) {
       title: `Build ${decodedBuildName} - Guide LoL | Lelanation`,
       description: `Guide build ${decodedBuildName} pour League of Legends. Runes, objets, sorts et ordre des compétences détaillés par Lelariva.`,
       url: `https://www.lelanation.fr/build/${buildName}`,
-      image: "https://www.lelanation.fr/assets/images/lelariva.webp"
+      image: "https://www.lelanation.fr/assets/images/lelariva.webp",
     };
   }
-  
+
   return routeMetaTags[normalizedPath] || routeMetaTags["/"];
 }
 
@@ -128,11 +146,23 @@ export function spaFallbackMiddleware(staticPath: string) {
 
       let modifiedHtml = data;
 
-      res.setHeader('Content-Type', 'text/html; charset=utf-8');
-      
+      res.setHeader("Content-Type", "text/html; charset=utf-8");
+      res.setHeader("X-Frame-Options", "SAMEORIGIN");
+      res.setHeader("X-XSS-Protection", "1; mode=block");
+      res.setHeader("X-Content-Type-Options", "nosniff");
+      res.setHeader("Referrer-Policy", "no-referrer-when-downgrade");
+      res.setHeader(
+        "Strict-Transport-Security",
+        "max-age=31536000; includeSubDomains; preload",
+      );
+      res.setHeader(
+        "Content-Security-Policy",
+        "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' data:; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self' https://api.iconify.design https://ddragon.leagueoflegends.com; frame-ancestors 'self'; base-uri 'self'; form-action 'self'; object-src 'none'; media-src 'self'",
+      );
+
       if (!isValid) {
         res.status(404);
-        
+
         modifiedHtml = data.replace(
           "<head>",
           `<head>
@@ -150,19 +180,31 @@ export function spaFallbackMiddleware(staticPath: string) {
     <meta name="twitter:description" content="Page non trouvée - La page demandée n'existe pas.">
     <meta name="twitter:site" content="@Lelariva_fr">
     <meta name="twitter:creator" content="@Lelariva_fr">
-    <meta name="twitter:image" content="https://www.lelanation.fr/assets/images/lelariva.webp">`
+    <meta name="twitter:image" content="https://www.lelanation.fr/assets/images/lelariva.webp">`,
         );
       } else {
         res.status(200);
-        
+
         const metaTags = getMetaTagsForRoute(req.path);
-        
+
         modifiedHtml = modifiedHtml
-          .replace(/<meta name="twitter:site" content="@lelariva">/g, '<meta name="twitter:site" content="@Lelariva_fr">')
-          .replace(/<meta name="twitter:creator" content="@lelariva">/g, '<meta name="twitter:creator" content="@Lelariva_fr">')
+          .replace(
+            /<meta name="twitter:site" content="@lelariva">/g,
+            '<meta name="twitter:site" content="@Lelariva_fr">',
+          )
+          .replace(
+            /<meta name="twitter:creator" content="@lelariva">/g,
+            '<meta name="twitter:creator" content="@Lelariva_fr">',
+          )
           .replace(/<title>[^<]*<\/title>/g, `<title>${metaTags.title}</title>`)
-          .replace(/<meta name="description" content="[^"]*">/g, `<meta name="description" content="${metaTags.description}">`)
-          .replace(/<link rel="canonical" href="[^"]*">/g, `<link rel="canonical" href="${metaTags.url}">`);
+          .replace(
+            /<meta name="description" content="[^"]*">/g,
+            `<meta name="description" content="${metaTags.description}">`,
+          )
+          .replace(
+            /<link rel="canonical" href="[^"]*">/g,
+            `<link rel="canonical" href="${metaTags.url}">`,
+          );
 
         const ogInjection = `
     <meta property="og:title" content="${metaTags.title}">
@@ -182,12 +224,12 @@ export function spaFallbackMiddleware(staticPath: string) {
 
         modifiedHtml = modifiedHtml.replace(
           /<meta property="og:locale" content="fr_FR">/,
-          `<meta property="og:locale" content="fr_FR">${ogInjection}`
+          `<meta property="og:locale" content="fr_FR">${ogInjection}`,
         );
-        
+
         modifiedHtml = modifiedHtml.replace(
           "<head>",
-          '<head>\n    <meta name="http-status" content="200">'
+          '<head>\n    <meta name="http-status" content="200">',
         );
       }
 

@@ -251,8 +251,7 @@ const hasSkillPoints = computed(() =>
           >
             <img
               :src="`/assets/icons/roles/${role}.png`"
-              alt=""
-              role="presentation"
+              :alt="`Rôle ${role}`"
               :style="{
                 width: isMobile ? '25px' : '30px',
                 height: isMobile ? '25px' : '30px',
@@ -274,8 +273,7 @@ const hasSkillPoints = computed(() =>
           >
             <img
               :src="`/assets/icons/roles/${role}.png`"
-              alt=""
-              role="presentation"
+              :alt="`Rôle ${role}`"
               :style="{
                 width: isMobile ? '25px' : '30px',
                 height: isMobile ? '25px' : '30px',

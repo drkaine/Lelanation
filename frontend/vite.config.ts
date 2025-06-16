@@ -25,15 +25,29 @@ export default defineConfig({
       },
       output: {
         manualChunks: (id: string) => {
-          if (id.includes('node_modules/vue-i18n')) {
-            return 'vue-i18n'
+
+          if (id.includes('championFull.json')) return 'champion-data'
+          if (id.includes('youtube.json')) return 'youtube-data'  
+          if (id.includes('item.json')) return 'item-data'
+          if (id.includes('runesReforged.json')) return 'runes-data'
+          if (id.includes('dictionnaire.json')) return 'dictionary-data'
+          
+          if (id.includes('node_modules/vue-i18n')) return 'vue-i18n'
+          if (id.includes('node_modules/chart.js')) return 'charts'
+          if (id.includes('node_modules/axios')) return 'http'
+          if (id.includes('node_modules/@vue-office/excel')) return 'excel'
+          if (id.includes('node_modules/html2canvas')) return 'canvas'
+          if (id.includes('node_modules/dom-to-image-more')) return 'image-export'
+          
+          if (id.includes('locales/')) return 'i18n-data'
+          if (id.includes('/views/')) {
+            const viewMatch = id.match(/views\/([^/]+)\.vue/)
+            if (viewMatch) return `view-${viewMatch[1].toLowerCase()}`
           }
-          if (id.includes('champion.json')) {
-            return 'champion-data'
-          }
-          if (id.includes('locales/')) {
-            return 'i18n'
-          }
+          
+          if (id.includes('Selection/')) return 'selection-components'
+          if (id.includes('Tooltip/')) return 'tooltip-components'
+          if (id.includes('Admin/')) return 'admin-components'
         },
         assetFileNames: (assetInfo) => {
           const info = assetInfo.name ? assetInfo.name.split('.') : ['']
@@ -52,8 +66,20 @@ export default defineConfig({
     },
     assetsInlineLimit: 0,
     sourcemap: true,
-    chunkSizeWarningLimit: 1000,
-    target: 'es2020'
+    chunkSizeWarningLimit: 25, 
+    target: 'es2020',
+    
+    minify: 'terser',
+    terserOptions: {
+      compress: {
+        drop_console: process.env.NODE_ENV === 'production', 
+        drop_debugger: true,
+        pure_funcs: ['console.log', 'console.info', 'console.debug']
+      },
+      mangle: {
+        safari10: true
+      }
+    }
   },
   optimizeDeps: {
     include: ['uuid', 'vue-i18n']

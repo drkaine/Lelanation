@@ -105,84 +105,123 @@ const socialLinks = computed(() => {
 </script>
 
 <template>
-  <div class="social-links">
-    <a
-      v-for="link in socialLinks"
-      :key="link.href"
-      class="social-link"
-      :href="link.href"
-      target="_blank"
-      rel="noopener noreferrer"
+  <section class="social-section">
+    <h2 class="social-title">{{ $t('home.follow-title') }}</h2>
+    <div class="social-links">
+      <a
+        v-for="link in socialLinks"
+        :key="link.href"
+        class="social-link"
+        :href="link.href"
+        target="_blank"
+        rel="noopener noreferrer"
+        :aria-label="`Suivre Lelariva sur ${link.text}`"
+      >
+        <template v-if="shouldLoadIcons">
+          <XIcon
+            v-if="link.icon === 'x-custom'"
+            :width="24"
+            :height="24"
+            class="custom-icon"
+            :alt="link.text"
+          />
+          <TikTokIcon
+            v-else-if="link.icon === 'tiktok-custom'"
+            :width="24"
+            :height="24"
+            class="custom-icon"
+            :alt="link.text"
+          />
+          <DiscordIcon
+            v-else-if="link.icon === 'discord-custom'"
+            :width="24"
+            :height="24"
+            class="custom-icon"
+            :alt="link.text"
+          />
+          <YouTubeIcon
+            v-else-if="link.icon === 'youtube-custom'"
+            :width="24"
+            :height="24"
+            class="custom-icon"
+            :alt="link.text"
+          />
+          <TwitchIcon
+            v-else-if="link.icon === 'twitch-custom'"
+            :width="24"
+            :height="24"
+            class="custom-icon"
+            :alt="link.text"
+          />
+          <PatreonIcon
+            v-else-if="link.icon === 'patreon-custom'"
+            :width="24"
+            :height="24"
+            class="custom-icon"
+            :alt="link.text"
+          />
+          <InstagramIcon
+            v-else-if="link.icon === 'instagram-custom'"
+            :width="24"
+            :height="24"
+            class="custom-icon"
+            :alt="link.text"
+          />
+          <WebIcon
+            v-else-if="link.icon === 'web-custom'"
+            :width="24"
+            :height="24"
+            class="custom-icon"
+            :alt="link.text"
+          />
+          <TableIcon
+            v-else-if="link.icon === 'table-custom'"
+            :width="24"
+            :height="24"
+            class="custom-icon"
+            :alt="link.text"
+          />
+          <DocumentIcon
+            v-else-if="link.icon === 'document-custom'"
+            :width="24"
+            :height="24"
+            class="custom-icon"
+            :alt="link.text"
+          />
+        </template>
+        <div v-else class="icon-placeholder" :aria-label="link.text"></div>
+        <span>{{ link.text }}</span>
+      </a>
+    </div>
+  </section>
+
+  <div class="seo-social-links" aria-hidden="true">
+    <a href="https://x.com/Lelariva_fr" rel="noopener">Twitter/X</a>
+    <a href="https://www.youtube.com/@Lelariva_LoL/featured" rel="noopener"
+      >YouTube</a
     >
-      <template v-if="shouldLoadIcons">
-        <XIcon
-          v-if="link.icon === 'x-custom'"
-          :width="24"
-          :height="24"
-          class="custom-icon"
-        />
-        <TikTokIcon
-          v-else-if="link.icon === 'tiktok-custom'"
-          :width="24"
-          :height="24"
-          class="custom-icon"
-        />
-        <DiscordIcon
-          v-else-if="link.icon === 'discord-custom'"
-          :width="24"
-          :height="24"
-          class="custom-icon"
-        />
-        <YouTubeIcon
-          v-else-if="link.icon === 'youtube-custom'"
-          :width="24"
-          :height="24"
-          class="custom-icon"
-        />
-        <TwitchIcon
-          v-else-if="link.icon === 'twitch-custom'"
-          :width="24"
-          :height="24"
-          class="custom-icon"
-        />
-        <PatreonIcon
-          v-else-if="link.icon === 'patreon-custom'"
-          :width="24"
-          :height="24"
-          class="custom-icon"
-        />
-        <InstagramIcon
-          v-else-if="link.icon === 'instagram-custom'"
-          :width="24"
-          :height="24"
-          class="custom-icon"
-        />
-        <WebIcon
-          v-else-if="link.icon === 'web-custom'"
-          :width="24"
-          :height="24"
-          class="custom-icon"
-        />
-        <TableIcon
-          v-else-if="link.icon === 'table-custom'"
-          :width="24"
-          :height="24"
-          class="custom-icon"
-        />
-        <DocumentIcon
-          v-else-if="link.icon === 'document-custom'"
-          :width="24"
-          :height="24"
-          class="custom-icon"
-        />
-      </template>
-      <div v-else class="icon-placeholder"></div>
-      <span>{{ link.text }}</span>
-    </a>
+    <a href="https://www.instagram.com/Lelariva_fr" rel="noopener">Instagram</a>
+    <a href="https://www.twitch.tv/lelariva" rel="noopener">Twitch</a>
+    <a href="https://discord.com/invite/RrXCpsFGrw" rel="noopener">Discord</a>
+    <a href="https://www.tiktok.com/@lelariva_fr" rel="noopener">TikTok</a>
   </div>
 </template>
 
 <style scoped>
+.social-section {
+  text-align: center;
+  margin: 2rem 0;
+}
+
+.social-title {
+  color: var(--color-gold-300);
+  font-size: var(--title-xs);
+  margin: 0 0 1.5rem 0;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--color-gold-400);
+  display: inline-block;
+}
+
 .social-links {
   display: flex;
   flex-wrap: wrap;
@@ -266,5 +305,20 @@ const socialLinks = computed(() => {
     font-size: 0.875rem;
     min-width: 100px;
   }
+}
+
+.seo-social-links {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+}
+
+.seo-social-links a {
+  color: inherit;
+  text-decoration: none;
 }
 </style>

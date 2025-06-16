@@ -1,6 +1,6 @@
 <script lang="ts">
 import { type Video, type Tab } from '@/types/video'
-import youtubeData from '@/assets/files/data/youtube.json'
+
 import { useSEOHead } from '@/composables/useSEOHead'
 
 export default {
@@ -110,10 +110,11 @@ export default {
         .replace(/&#x2F;/g, '/')
     },
 
-    loadVideos(): void {
+    async loadVideos(): Promise<void> {
       this.loading = true
       try {
-        this.shorts = youtubeData.videos
+        const youtubeModule = await import('@/assets/files/data/youtube.json')
+        this.shorts = youtubeModule.default.videos
       } catch (err) {
         this.error = 'Erreur lors du chargement des vidéos'
         console.error('Erreur détaillée:', err)
@@ -131,87 +132,103 @@ export default {
 <template>
   <div class="shorts-container">
     <h1 class="page-title">{{ $t('navigation.videos') }}</h1>
-    <div class="search-bar">
-      <input
-        v-model="searchQuery"
-        type="text"
-        placeholder="Rechercher une vidéo..."
-        class="search-input"
-      />
-      <div v-if="searchQuery" class="search-info">
-        {{ $t('short.search') }}
-      </div>
-    </div>
 
-    <div class="tabs">
-      <button
-        v-for="tab in tabs"
-        :key="tab.id"
-        :class="['tab-button', { active: currentTab === tab.id }]"
-        @click="currentTab = tab.id"
-      >
-        {{ tab.name }}
-      </button>
-    </div>
-
-    <div v-if="loading" class="loading">
-      {{ $t('short.loading') }}
-    </div>
-
-    <div v-else-if="error" class="error">
-      {{ error }}
-    </div>
-
-    <div v-else>
-      <div class="shorts-grid">
-        <div
-          v-for="video in paginatedVideos"
-          :key="video.id"
-          class="short-card"
-        >
-          <img
-            :src="video.snippet.thumbnails.medium.url"
-            :alt="`Miniature vidéo: ${video.snippet.title}`"
-          />
-          <h2>
-            {{ video.snippet.title }} -
-            {{ formatDate(video.snippet.publishedAt) }}
-          </h2>
-          <p class="video-date">{{ formatDate(video.snippet.publishedAt) }}</p>
-          <a :href="`https://youtube.com/watch?v=${video.id}`" target="_blank">
-            {{ $t('short.see-video') }}
-          </a>
+    <section class="search-section">
+      <h2 class="section-title">{{ $t('short.search-videos') }}</h2>
+      <div class="search-bar">
+        <input
+          v-model="searchQuery"
+          type="text"
+          placeholder="Rechercher une vidéo..."
+          class="search-input"
+        />
+        <div v-if="searchQuery" class="search-info">
+          {{ $t('short.search') }}
         </div>
       </div>
+    </section>
 
-      <div class="pagination">
+    <section class="navigation-section">
+      <h2 class="section-title">{{ $t('short.categories') }}</h2>
+      <div class="tabs">
         <button
-          :disabled="currentPage === 1"
-          @click="currentPage--"
-          class="pagination-button"
+          v-for="tab in tabs"
+          :key="tab.id"
+          :class="['tab-button', { active: currentTab === tab.id }]"
+          @click="currentTab = tab.id"
         >
-          {{ $t('short.previous') }}
-        </button>
-
-        <div class="page-selector-container">
-          <select v-model="currentPage" class="page-selector">
-            <option v-for="page in totalPages" :key="page" :value="page">
-              Page {{ page }}
-            </option>
-          </select>
-        </div>
-
-        <span class="page-info"> sur {{ totalPages }} </span>
-
-        <button
-          :disabled="currentPage === totalPages"
-          @click="currentPage++"
-          class="pagination-button"
-        >
-          {{ $t('button.next') }}
+          {{ tab.name }}
         </button>
       </div>
-    </div>
+    </section>
+
+    <section class="content-section">
+      <h2 class="section-title">{{ $t('short.video-list') }}</h2>
+
+      <div v-if="loading" class="loading">
+        {{ $t('short.loading') }}
+      </div>
+
+      <div v-else-if="error" class="error">
+        {{ error }}
+      </div>
+
+      <div v-else>
+        <div class="shorts-grid">
+          <div
+            v-for="video in paginatedVideos"
+            :key="video.id"
+            class="short-card"
+          >
+            <img
+              :src="video.snippet.thumbnails.medium.url"
+              :alt="`Miniature vidéo: ${video.snippet.title}`"
+            />
+            <h2>
+              {{ video.snippet.title }} -
+              {{ formatDate(video.snippet.publishedAt) }}
+            </h2>
+            <p class="video-date">
+              {{ formatDate(video.snippet.publishedAt) }}
+            </p>
+            <a
+              :href="`https://youtube.com/watch?v=${video.id}`"
+              target="_blank"
+            >
+              {{ $t('short.see-video') }}
+            </a>
+          </div>
+        </div>
+
+        <div class="pagination">
+          <button
+            :disabled="currentPage === 1"
+            @click="currentPage--"
+            class="pagination-button"
+          >
+            {{ $t('short.previous') }}
+          </button>
+
+          <div class="page-selector-container">
+            <select v-model="currentPage" class="page-selector">
+              <option v-for="page in totalPages" :key="page" :value="page">
+                Page {{ page }}
+              </option>
+            </select>
+          </div>
+
+          <span class="page-info"> sur {{ totalPages }} </span>
+
+          <button
+            :disabled="currentPage === totalPages"
+            @click="currentPage++"
+            class="pagination-button"
+          >
+            {{ $t('button.next') }}
+          </button>
+        </div>
+      </div>
+    </section>
   </div>
 </template>
 
@@ -227,6 +244,21 @@ export default {
   font-size: var(--title-base);
   margin: 0 0 2rem 0;
   text-align: center;
+}
+
+.section-title {
+  color: var(--color-gold-300);
+  font-size: var(--title-xs);
+  margin: 0 0 1rem 0;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--color-gold-400);
+  text-align: left;
+}
+
+.search-section,
+.navigation-section,
+.content-section {
+  margin-bottom: 2rem;
 }
 
 .shorts-grid {
