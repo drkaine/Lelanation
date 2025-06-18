@@ -1,4 +1,4 @@
-import { redisClient, isRedisAvailable } from "./redisClient";
+import { redisClient, isRedisAvailable, checkRedisHealth } from "./redisClient";
 
 class ServerHealth {
   private redisStatus: {
@@ -48,12 +48,7 @@ class ServerHealth {
 
   public async testRedisConnection(): Promise<boolean> {
     try {
-      if (!this.isRedisAvailable()) {
-        return false;
-      }
-
-      const pong = await redisClient.ping();
-      return pong === "PONG";
+      return await checkRedisHealth();
     } catch (error) {
       console.error("Erreur lors du test de connexion Redis:", error);
       return false;

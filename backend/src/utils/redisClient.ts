@@ -80,12 +80,18 @@ const redisClient = createClient({
     },
     keepAlive: true,
     keepAliveInitialDelay: 5000,
-    connectTimeout: 10000,
+    connectTimeout: 20000,
+    noDelay: true,
   },
+  pingInterval: 30000,
 });
 
 redisClient.on("error", (err) => {
-  console.error("Erreur de connexion Redis:", err);
+  console.error("Erreur de connexion Redis:", err.message || err);
+  // Éviter les erreurs en cascade pendant les reconnexions
+  if (err.message && err.message.includes('Socket closed unexpectedly')) {
+    console.log("Reconnexion Redis automatique en cours...");
+  }
 });
 
 redisClient.on("reconnecting", () => {
@@ -106,6 +112,11 @@ redisClient.on("end", () => {
 
 const connectRedis = async () => {
   try {
+    if (redisClient.isOpen) {
+      console.log("Redis déjà connecté");
+      return true;
+    }
+
     await redisClient.connect();
     console.log("Connexion Redis établie");
 
@@ -120,7 +131,25 @@ const connectRedis = async () => {
 };
 
 const isRedisAvailable = () => {
-  return redisClient.isReady && redisClient.isOpen;
+  try {
+    return redisClient.isReady && redisClient.isOpen;
+  } catch (error) {
+    console.warn("Erreur lors de la vérification de l'état Redis:", error);
+    return false;
+  }
+};
+
+const checkRedisHealth = async (): Promise<boolean> => {
+  try {
+    if (!isRedisAvailable()) {
+      return false;
+    }
+    const pong = await redisClient.ping();
+    return pong === 'PONG';
+  } catch (error) {
+    console.warn("Test de santé Redis échoué:", error);
+    return false;
+  }
 };
 
 const redisUtils = {
@@ -223,4 +252,25 @@ const redisUtils = {
   },
 };
 
-export { redisClient, connectRedis, redisUtils, isRedisAvailable };
+const gracefulShutdown = async (): Promise<void> => {
+  try {
+    if (redisClient.isOpen) {
+      console.log("Fermeture gracieuse de la connexion Redis...");
+      await redisClient.quit();
+      console.log("Connexion Redis fermée proprement");
+    }
+  } catch (error) {
+    console.error("Erreur lors de la fermeture Redis:", error);
+    try {
+      await redisClient.disconnect();
+    } catch (disconnectError) {
+      console.error("Erreur lors de la déconnexion forcée Redis:", disconnectError);
+    }
+  }
+};
+
+process.on('SIGINT', gracefulShutdown);
+process.on('SIGTERM', gracefulShutdown);
+process.on('SIGUSR2', gracefulShutdown); 
+
+export { redisClient, connectRedis, redisUtils, isRedisAvailable, checkRedisHealth, gracefulShutdown };
