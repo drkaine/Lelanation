@@ -120,6 +120,7 @@ export const useBuildStore = defineStore('build', () => {
 
   const removeBuild = (fileName: string) => {
     userBuilds.value = userBuilds.value.filter(build => build.id !== fileName)
+
     if (userBuilds.value.length === 0) {
       localStorage.removeItem('userBuilds')
     } else {

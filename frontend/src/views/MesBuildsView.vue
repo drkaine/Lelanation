@@ -40,7 +40,7 @@ useSEOHead({
   type: 'article',
 })
 
-onMounted(async () => {
+const fetchBuilds = async () => {
   try {
     const url = isLelarivaBuildPage.value
       ? `${urlApiSave}/api/builds/lelariva`
@@ -53,7 +53,27 @@ onMounted(async () => {
     console.error('Erreur lors du chargement des builds:', error)
     builds.value = []
   }
+}
+
+const refreshBuilds = () => {
+  if (isLelarivaBuildPage.value) {
+    fetchBuilds()
+  }
+}
+
+onMounted(() => {
+  const handleBuildDeleted = () => {
+    refreshBuilds()
+  }
+
+  window.addEventListener('buildDeleted', handleBuildDeleted)
+
+  return () => {
+    window.removeEventListener('buildDeleted', handleBuildDeleted)
+  }
 })
+
+onMounted(fetchBuilds)
 
 const toggleRole = (role: string) => {
   if (selectedRoles.value.has(role)) {

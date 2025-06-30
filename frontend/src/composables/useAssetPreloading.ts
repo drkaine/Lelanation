@@ -8,7 +8,7 @@ const IMPORTANT_IMAGES = [
 
 const COMMON_ICONS = ['']
 
-const IMPORTANT_JSON_DATA = ['/data/champions.json', '/data/items.json']
+const IMPORTANT_JSON_DATA = ['']
 
 const DIRECTORIES_TO_PRELOAD = [
   {

@@ -88,8 +88,7 @@ const redisClient = createClient({
 
 redisClient.on("error", (err) => {
   console.error("Erreur de connexion Redis:", err.message || err);
-  // Éviter les erreurs en cascade pendant les reconnexions
-  if (err.message && err.message.includes('Socket closed unexpectedly')) {
+  if (err.message && err.message.includes("Socket closed unexpectedly")) {
     console.log("Reconnexion Redis automatique en cours...");
   }
 });
@@ -145,7 +144,7 @@ const checkRedisHealth = async (): Promise<boolean> => {
       return false;
     }
     const pong = await redisClient.ping();
-    return pong === 'PONG';
+    return pong === "PONG";
   } catch (error) {
     console.warn("Test de santé Redis échoué:", error);
     return false;
@@ -264,13 +263,23 @@ const gracefulShutdown = async (): Promise<void> => {
     try {
       await redisClient.disconnect();
     } catch (disconnectError) {
-      console.error("Erreur lors de la déconnexion forcée Redis:", disconnectError);
+      console.error(
+        "Erreur lors de la déconnexion forcée Redis:",
+        disconnectError,
+      );
     }
   }
 };
 
-process.on('SIGINT', gracefulShutdown);
-process.on('SIGTERM', gracefulShutdown);
-process.on('SIGUSR2', gracefulShutdown); 
+process.on("SIGINT", gracefulShutdown);
+process.on("SIGTERM", gracefulShutdown);
+process.on("SIGUSR2", gracefulShutdown);
 
-export { redisClient, connectRedis, redisUtils, isRedisAvailable, checkRedisHealth, gracefulShutdown };
+export {
+  redisClient,
+  connectRedis,
+  redisUtils,
+  isRedisAvailable,
+  checkRedisHealth,
+  gracefulShutdown,
+};

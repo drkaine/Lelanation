@@ -25,12 +25,15 @@ export const useConnexionStore = defineStore('Connexion', () => {
 
   const incrementVisitCounter = async () => {
     try {
-      await fetch('/api/analytics', {
+      const response = await fetch('/api/analytics', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
       })
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`)
+      }
     } catch (error) {
       console.error("Erreur lors de l'incrémentation du compteur:", error)
     }

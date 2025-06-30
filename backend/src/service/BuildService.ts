@@ -8,7 +8,10 @@ export const buildService = {
   path: "../../../frontend/public/assets/files/build/",
 
   async save(folder: string, req: Request, res: Response) {
-    const { filename } = req.params;
+    let { filename } = req.params;
+    if (!filename.endsWith(".json")) {
+      filename += ".json";
+    }
     const data = req.body;
     const filePath = path.join(__dirname, this.path + folder, filename);
     console.log(filePath);
@@ -19,8 +22,11 @@ export const buildService = {
   async update(folder: string, req: Request, res: Response) {
     const data = req.body;
 
-    const filename = req.params.filename;
-    const filePath = path.join(__dirname, this.path + folder + filename);
+    let { filename } = req.params;
+    if (!filename.endsWith(".json")) {
+      filename += ".json";
+    }
+    const filePath = path.join(__dirname, this.path + folder, filename);
     console.log(filePath);
     if (existsSync(filePath)) {
       await unlink(filePath);

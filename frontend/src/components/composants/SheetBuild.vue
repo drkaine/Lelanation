@@ -47,7 +47,11 @@ const toggleCertification = async () => {
     const path = props.buildId.includes('lelariva/') ? 'lelariva/' : ''
     const fileName = props.buildId.replace('lelariva/', '')
 
-    const response = await fetch(`${urlApiSave}/api/build/${path}${fileName}`)
+    const apiFileName = fileName.replace('.json', '')
+
+    const response = await fetch(
+      `${urlApiSave}/api/build/${path}${apiFileName}`,
+    )
     if (!response.ok) throw new Error('Erreur lors de la récupération du build')
 
     const buildData = await response.json()
@@ -58,7 +62,7 @@ const toggleCertification = async () => {
     }
 
     const updateResponse = await fetch(
-      `${urlApiSave}/api/update/${path}${fileName}`,
+      `${urlApiSave}/api/update/${path}${apiFileName}`,
       {
         method: 'PUT',
         headers: {
@@ -76,6 +80,7 @@ const toggleCertification = async () => {
     }
 
     emit('certification-toggled', updatedBuild.certified)
+    console.log('✅ Certification updated successfully')
   } catch (error) {
     console.error('Erreur lors de la modification de la certification:', error)
   }

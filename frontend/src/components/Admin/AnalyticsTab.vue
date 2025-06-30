@@ -9,13 +9,16 @@ const fetchAnalytics = async () => {
   try {
     loading.value = true
     error.value = ''
-    const response = await fetch('/api/analytics', {
-      headers: {
-        'Cache-Control': 'no-cache, no-store, must-revalidate',
-        Pragma: 'no-cache',
-        Expires: '0',
+    const response = await fetch(
+      `/api/analytics?nocache=true&t=${Date.now()}`,
+      {
+        headers: {
+          'Cache-Control': 'no-cache, no-store, must-revalidate',
+          Pragma: 'no-cache',
+          Expires: '0',
+        },
       },
-    })
+    )
     if (!response.ok)
       throw new Error('Erreur lors de la récupération des données')
 

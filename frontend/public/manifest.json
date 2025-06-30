@@ -27,10 +27,7 @@
       "description": "Créer un nouveau build League of Legends",
       "url": "/build",
       "icons": [
-        {
-          "src": "/assets/images/icon-192x192.png",
-          "sizes": "192x192"
-        }
+       
       ]
     },
     {
@@ -39,10 +36,7 @@
       "description": "Explorer les builds de la communauté",
       "url": "/builds-publics",
       "icons": [
-        {
-          "src": "/assets/images/icon-192x192.png",
-          "sizes": "192x192"
-        }
+       
       ]
     },
     {
@@ -51,10 +45,7 @@
       "description": "Consulter le dictionnaire League of Legends",
       "url": "/dictionnaire",
       "icons": [
-        {
-          "src": "/assets/images/icon-192x192.png",
-          "sizes": "192x192"
-        }
+        
       ]
     }
   ],
@@ -89,12 +80,7 @@
       "type": "image/png",
       "purpose": "maskable"
     },
-    {
-      "src": "/assets/images/icon-192x192.png",
-      "sizes": "192x192",
-      "type": "image/png",
-      "purpose": "maskable any"
-    },
+    
     {
       "src": "/assets/images/icon-384x384.png",
       "sizes": "384x384",

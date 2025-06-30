@@ -74,7 +74,16 @@ async function deleteBuild() {
     })
 
     if (!response.ok) throw new Error('Erreur lors de la suppression')
-    buildStore.removeBuild(fileName)
+
+    const buildId = buildData.value?.id || fileName
+    buildStore.removeBuild(buildId)
+
+    window.dispatchEvent(
+      new CustomEvent('buildDeleted', {
+        detail: { buildId },
+      }),
+    )
+
     router.push('/build')
   } catch (error) {
     console.error('Erreur lors de la suppression:', error)

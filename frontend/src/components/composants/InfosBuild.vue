@@ -104,6 +104,8 @@ const submitForm = async () => {
     fileName = fileName.replace('wait_', '')
   }
 
+  const apiFileName = fileName.replace('.json', '')
+
   const data = {
     id: fileName,
     roles: Array.from(roleStore.selectedRoles),
@@ -132,7 +134,7 @@ const submitForm = async () => {
     }
 
     if (buildStore.buildToEdit) {
-      response = await fetch(`${urlApiSave}/api/update/${path}${fileName}`, {
+      response = await fetch(`${urlApiSave}/api/update/${path}${apiFileName}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -146,8 +148,12 @@ const submitForm = async () => {
         (!(buildStore.buildToEdit?.id || '').includes('wait_') &&
           !isVisible.value)
       ) {
+        const deleteFileName = (buildStore.buildToEdit?.id || '').replace(
+          '.json',
+          '',
+        )
         const responseDelete = await fetch(
-          `${urlApiSave}/api/build/${path}${buildStore.buildToEdit?.id}`,
+          `${urlApiSave}/api/build/${path}${deleteFileName}`,
           {
             method: 'DELETE',
           },
@@ -161,7 +167,7 @@ const submitForm = async () => {
         )
       }
     } else {
-      response = await fetch(`${urlApiSave}/api/save/${path}${fileName}`, {
+      response = await fetch(`${urlApiSave}/api/save/${path}${apiFileName}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -177,7 +183,7 @@ const submitForm = async () => {
     if (buildStore.buildToEdit) {
       buildStore.updateBuild(data as BuildData)
     } else {
-      if (connexionStore.userName !== 'Lelariva') {
+      if (!isAdmin.value) {
         buildStore.saveBuild(data as BuildData)
       }
     }
