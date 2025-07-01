@@ -145,6 +145,10 @@ const removeItem = (index: number) => {
   margin-top: 16px;
 }
 
+.stat-value {
+  font-size: var(--text-sm);
+}
+
 .items-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(45px, 1fr));
@@ -241,6 +245,10 @@ const removeItem = (index: number) => {
 }
 
 @media (max-width: 768px) {
+  .items-container {
+    padding: 0;
+  }
+
   .items-grid {
     grid-template-columns: repeat(auto-fill, minmax(35px, 1fr));
   }

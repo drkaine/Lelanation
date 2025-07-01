@@ -1,0 +1,255 @@
+.page-title {
+  color: var(--color-gold-300);
+  font-size: var(--title-base);
+  margin: 0 0 2rem 0;
+  text-align: center;
+}
+
+.actions {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+  padding: 0 1rem;
+}
+
+.actions-group {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  max-width: 800px;
+  width: var(--width-all);
+  justify-content: center;
+}
+
+.search-box {
+  display: flex;
+  border: var(--border-size) solid var(--color-gold-300);
+  border-radius: 4px;
+  overflow: hidden;
+  transition: all 0.2s ease;
+  height: var(--height-all);
+}
+
+.search-type-select {
+  padding: 0.4rem;
+  border: none;
+  border-right: 2px solid var(--color-grey-300);
+  background: none;
+  color: var(--color-gold-300);
+  cursor: pointer;
+  font-size: var(--text-sm);
+  min-width: 70px;
+}
+
+.search-input {
+  flex-grow: 1;
+  padding: 0.4rem;
+  border: none;
+  color: var(--color-gold-300);
+}
+
+.role-filters {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-bottom: 2rem;
+}
+
+.role-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.4rem 0.8rem;
+  border: var(--border-size) solid var(--color-gold-300);
+  border-radius: 4px;
+  color: var(--color-gold-300);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.role-btn img {
+  width: 20px;
+  height: 20px;
+}
+
+.role-btn.role-inactive {
+  border-color: var(--color-grey-300);
+  color: var(--color-grey-300);
+  opacity: 0.7;
+}
+
+.role-btn:hover {
+  border-color: var(--color-gold-300);
+  color: var(--color-gold-300);
+  opacity: 1;
+}
+
+.builds-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  justify-content: center;
+  padding: 0 1rem;
+}
+
+.build-card {
+  flex: 0 0 min(450px, 100%);
+  border-radius: 8px;
+  overflow: hidden;
+  transition: all 0.2s ease;
+  cursor: pointer;
+  position: relative;
+}
+
+.build-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.build-link {
+  text-decoration: none;
+  color: inherit;
+}
+
+.visibility-badge {
+  position: absolute;
+  top: 1.5rem;
+  right: 9.5rem;
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  font-size: var(--text-xs);
+  font-weight: 600;
+  background: var(--color-gold-300);
+  color: var(--color-grey-300);
+  z-index: 1;
+}
+
+.certification-select {
+  background: none;
+  height: var(--height-all);
+  color: var(--color-gold-300);
+  border: var(--border-size) solid var(--color-gold-300);
+  border-radius: 4px;
+  padding: 0 0.5rem;
+  cursor: pointer;
+}
+
+.up-to-date-toggle {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  user-select: none;
+}
+
+.toggle-checkbox {
+  display: none;
+}
+
+.toggle-slider {
+  position: relative;
+  width: 44px;
+  height: 24px;
+  background-color: var(--color-grey-300);
+  border-radius: 12px;
+  border: 1px solid var(--color-gold-300);
+  transition: all 0.3s ease;
+}
+
+.toggle-slider::before {
+  content: '';
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 18px;
+  height: 18px;
+  background-color: var(--color-gold-300);
+  border-radius: 50%;
+  transition: all 0.3s ease;
+}
+
+.toggle-checkbox:checked + .toggle-slider {
+  background-color: var(--color-gold-300);
+}
+
+.toggle-checkbox:checked + .toggle-slider::before {
+  transform: translateX(20px);
+  background-color: var(--color-grey-800);
+}
+
+@media (max-width: 768px) {
+  .actions-group {
+    flex-direction: column;
+    width: var(--width-all);
+    gap: 0.75rem;
+  }
+
+  .search-box,
+  .certification-select {
+    width: var(--width-all);
+    height: 40px;
+  }
+
+  .role-filters {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    justify-content: flex-start;
+    padding: 0 1rem;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    gap: 0.75rem;
+  }
+
+  .role-filters::-webkit-scrollbar {
+    display: none;
+  }
+
+  .role-btn {
+    padding: 0.5rem;
+    min-width: 44px;
+    min-height: 44px;
+    flex-shrink: 0;
+  }
+
+  .role-text {
+    display: none;
+  }
+
+  .builds-grid {
+    gap: 1rem;
+    padding: 0 0.5rem;
+  }
+
+  .build-card {
+    flex: 0 0 100%;
+  }
+
+  .visibility-badge {
+    top: 0.5rem;
+    right: 6.5rem;
+    padding: 0.15rem 0.5rem;
+  }
+
+  .up-to-date-toggle {
+    width: var(--width-all);
+    justify-content: space-between;
+    padding: 0.5rem;
+    border: 1px solid var(--color-gold-300);
+    border-radius: 4px;
+  }
+}
+  
+@media (max-width: 480px) {
+  .role-btn img {
+    width: 24px;
+    height: 24px;
+  }
+
+  .builds-grid {
+    padding: 0 0.25rem;
+  }
+
+  .actions {
+    padding: 0 0.5rem;
+  }
+}

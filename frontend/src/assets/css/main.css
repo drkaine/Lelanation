@@ -27,6 +27,8 @@
 @import './dictionnaire-tab.css';
 @import './tier-list-tab.css';
 @import './build-recap.css';
+@import './builds-common.css';
+@import './responsive-fixes.css';
 /* @import './extra-info.css'; */
 @import './infos-build.css';
 @import './menu-build.css';

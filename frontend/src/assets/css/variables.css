@@ -219,4 +219,12 @@
   --item-small-size-desktop: 40px;
   --grid-gap-mobile: 8px;
   --grid-gap-desktop: 16px;
+
+  --breakpoint-mobile: 768px;
+  --breakpoint-tablet: 1024px;
+  --breakpoint-desktop: 1200px;
+
+  --content-max-width: min(1200px, 95vw);
+  --sidebar-width: clamp(250px, 25vw, 300px);
+  --touch-target-size: max(44px, 2.75rem);
 }

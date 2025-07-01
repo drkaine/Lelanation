@@ -313,3 +313,46 @@ const submitForm = async () => {
     </div>
   </div>
 </template>
+
+<style scoped>
+.tabs-header {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.tab-button {
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 0.5rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background-color: var(--color-grey-100);
+  color: var(--color-gold-300);
+  font-size: 1rem;
+}
+.tab-button.active {
+  background-color: var(--color-gold-400);
+  color: var(--color-grey-50);
+}
+@media (max-width: 600px) {
+  .tabs-header {
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+  }
+  .tab-button {
+    min-width: 100px;
+    font-size: 0.9rem;
+    padding: 0.5rem 0.75rem;
+    flex: 1 1 auto;
+    white-space: nowrap;
+  }
+}
+.tab-pane.skill-up {
+  overflow-x: auto;
+  padding-bottom: 1rem;
+}
+</style>

@@ -423,3 +423,83 @@ const hasEconomicStats = computed(() =>
     </div>
   </div>
 </template>
+
+<style scoped>
+.stats-panel {
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 1rem 0;
+  box-sizing: border-box;
+}
+.stats-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0 auto;
+  background: var(--color-blue-900);
+  border-radius: 8px;
+  overflow: hidden;
+  font-size: 1rem;
+}
+.stats-table-caption {
+  text-align: left;
+  color: var(--color-gold-300);
+  font-size: 1.1rem;
+  margin-bottom: 0.5rem;
+}
+.level-selector {
+  margin-top: 1.5rem;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+.level-buttons {
+  display: flex;
+  gap: 0.25rem;
+  flex-wrap: wrap;
+  overflow-x: auto;
+  max-width: 100vw;
+  padding-bottom: 0.5rem;
+}
+.level-btn {
+  min-width: 32px;
+  min-height: 32px;
+  border-radius: 6px;
+  background: var(--color-blue-400);
+  color: var(--color-gold-100);
+  border: none;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.level-btn.active {
+  background: var(--color-gold-300);
+  color: var(--color-blue-900);
+  font-weight: bold;
+}
+@media (max-width: 600px) {
+  .stats-panel {
+    padding: 0.5rem 0;
+  }
+  .stats-table {
+    font-size: 0.85rem;
+    min-width: 480px;
+    overflow-x: auto;
+    display: block;
+  }
+  .level-selector {
+    margin-top: 1rem;
+  }
+  .level-buttons {
+    gap: 0.15rem;
+    max-width: 100vw;
+    overflow-x: auto;
+    padding-bottom: 0.25rem;
+  }
+  .level-btn {
+    min-width: 24px;
+    min-height: 24px;
+    font-size: 0.85rem;
+  }
+}
+</style>

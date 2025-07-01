@@ -662,4 +662,94 @@ const formatDescription = (desc: string) => {
   color: var(--color-gold-500);
   font-weight: 700;
 }
+
+.summoner-spells {
+  display: flex;
+  flex-direction: row;
+  gap: 1.5rem;
+  margin: 1.5rem 0;
+  justify-content: center;
+}
+.summoner-slot {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+.summoner-slot .rune-slot {
+  width: 48px;
+  height: 48px;
+  border: 2px solid var(--color-gold-300);
+  border-radius: 50%;
+  background: var(--color-blue-500);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: border 0.2s;
+}
+.summoner-slot .rune-slot.selected {
+  border-color: var(--color-gold-400);
+  background: var(--color-gold-50);
+}
+.summoner-selector {
+  margin-top: 0.5rem;
+  background: var(--color-blue-900);
+  border: 1.5px solid var(--color-gold-300);
+  border-radius: 8px;
+  padding: 0.5rem 0.5rem 0.25rem 0.5rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  z-index: 10;
+  min-width: 160px;
+}
+.rune-options-container {
+  display: flex;
+  flex-direction: row;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.rune-option {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  background: var(--color-blue-400);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition:
+    border 0.2s,
+    background 0.2s;
+}
+.rune-option.selected {
+  border-color: var(--color-gold-300);
+  background: var(--color-gold-50);
+}
+.rune-option.used {
+  opacity: 0.5;
+}
+@media (max-width: 600px) {
+  .summoner-spells {
+    flex-direction: row;
+    gap: 0.5rem;
+    margin: 1rem 0;
+  }
+  .summoner-slot {
+    gap: 0.25rem;
+  }
+  .summoner-slot .rune-slot {
+    width: 40px;
+    height: 40px;
+  }
+  .summoner-selector {
+    min-width: 120px;
+    padding: 0.25rem 0.25rem 0.15rem 0.25rem;
+  }
+  .rune-option {
+    width: 36px;
+    height: 36px;
+  }
+}
 </style>

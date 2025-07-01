@@ -620,4 +620,19 @@ const prevPage = () => {
     font-size: 0.8rem;
   }
 }
+
+.items-container {
+  display: flex;
+  flex-direction: row;
+  gap: 32px;
+  align-items: flex-start;
+}
+
+@media (max-width: 900px) {
+  .items-container {
+    flex-direction: column !important;
+    gap: 16px;
+    align-items: stretch;
+  }
+}
 </style>

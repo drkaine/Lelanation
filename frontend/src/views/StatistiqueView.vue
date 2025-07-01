@@ -353,6 +353,10 @@ window.addEventListener('resize', () => {
 
 const displayMode = ref<'graph' | 'list'>('graph')
 
+watch(displayMode, () => {
+  selectedTier.value = null
+})
+
 const sortBy = ref<'score' | 'pickrate' | 'tier'>('score')
 const sortOrder = ref<'asc' | 'desc'>('desc')
 const searchType = ref<'name' | 'easy' | 'hard'>('name')
@@ -555,7 +559,7 @@ const sortedAndFilteredChampions = computed(() => {
       <canvas :id="chartId"></canvas>
     </div>
 
-    <div v-if="selectedTier" class="tier-details">
+    <div v-if="selectedTier && displayMode === 'graph'" class="tier-details">
       <div class="tier-champions">
         <div
           v-for="champion in getChampionsInTier(selectedTier)"

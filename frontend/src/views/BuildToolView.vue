@@ -181,4 +181,21 @@ const next = () => {
     min-width: 0;
   }
 }
+
+@media (max-width: 480px) {
+  .sheet-build {
+    flex-direction: column;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    width: 100vw;
+    padding: 0 4px;
+    box-sizing: border-box;
+  }
+  .sheet-build .sheet {
+    margin: 0 auto;
+    max-width: 100vw;
+    box-sizing: border-box;
+  }
+}
 </style>

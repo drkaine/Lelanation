@@ -29,6 +29,7 @@ export default {
       searchQuery: '',
       currentPage: 1,
       itemsPerPage: 12,
+      sortBy: 'date',
       tabs: [
         { id: 'all', name: 'Tous' },
         { id: 'tierlist', name: 'Tierlist' },
@@ -70,6 +71,16 @@ export default {
               return true
           }
         })
+      }
+      
+      if (this.sortBy === 'date') {
+        filtered.sort(
+          (a, b) =>
+            new Date(b.snippet.publishedAt).getTime() -
+            new Date(a.snippet.publishedAt).getTime(),
+        )
+      } else if (this.sortBy === 'title') {
+        filtered.sort((a, b) => a.snippet.title.localeCompare(b.snippet.title))
       }
 
       return filtered
@@ -141,9 +152,13 @@ export default {
           placeholder="Rechercher une vidéo..."
           class="search-input"
         />
-        <div v-if="searchQuery" class="search-info">
-          {{ $t('short.search') }}
-        </div>
+        <select v-model="sortBy" class="sort-select">
+          <option value="date">Date (récent)</option>
+          <option value="title">Titre (A-Z)</option>
+        </select>
+      </div>
+      <div v-if="searchQuery" class="search-info">
+        {{ $t('short.search') }}
       </div>
     </section>
 
@@ -259,9 +274,22 @@ export default {
 
 .shorts-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(min(280px, 100%), 1fr));
   gap: 1.5rem;
   transition: all 0.3s ease;
+}
+
+@media (min-width: 1400px) {
+  .shorts-grid {
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  }
+}
+
+@media (max-width: 480px) {
+  .shorts-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
 }
 
 .short-card {
@@ -342,6 +370,34 @@ export default {
   gap: 1rem;
   margin-bottom: 2rem;
   justify-content: center;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 768px) {
+  .tabs {
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .tab-button {
+    flex: 1 1 auto;
+    min-width: 80px;
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .tabs {
+    gap: 0.25rem;
+  }
+
+  .tab-button {
+    padding: 0.5rem 0.75rem;
+    font-size: 0.8rem;
+    flex: 1 1 calc(50% - 0.125rem);
+  }
 }
 
 .tab-button {
@@ -376,9 +432,52 @@ export default {
 }
 
 .search-bar {
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
   display: flex;
   justify-content: center;
+  gap: 1rem;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.sort-select {
+  padding: 0.75rem 1rem;
+  border: 2px solid var(--color-grey-100);
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  background-color: var(--color-gold-50);
+  color: var(--color-blue-400);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-sizing: border-box;
+  min-width: 160px;
+}
+
+.sort-select:focus {
+  outline: none;
+  border-color: var(--color-gold-400);
+  box-shadow: 0 0 0 3px rgba(var(--color-gold-400), 0.1);
+}
+
+@media (max-width: 768px) {
+  .search-bar {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .search-input,
+  .sort-select {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .sort-select {
+    padding: 0.5rem 0.75rem;
+    font-size: 0.9rem;
+    min-width: auto;
+  }
 }
 
 .search-input {
@@ -389,6 +488,15 @@ export default {
   border-radius: 0.5rem;
   font-size: 1rem;
   transition: all 0.3s ease;
+  box-sizing: border-box;
+}
+
+@media (max-width: 480px) {
+  .search-input {
+    padding: 0.5rem 0.75rem;
+    font-size: 0.9rem;
+    max-width: calc(100vw - 2rem);
+  }
 }
 
 .search-input:focus {
@@ -404,6 +512,25 @@ export default {
   gap: 1rem;
   margin-top: 2rem;
   padding: 1rem;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 480px) {
+  .pagination {
+    gap: 0.5rem;
+    padding: 0.5rem;
+    flex-direction: column;
+  }
+
+  .pagination-button {
+    width: 100%;
+    max-width: 120px;
+  }
+
+  .page-selector-container {
+    width: 100%;
+    max-width: 150px;
+  }
 }
 
 .pagination-button {
