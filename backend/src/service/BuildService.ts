@@ -5,7 +5,7 @@ import { existsSync } from "fs";
 import { unlink, readFile, readdir } from "fs/promises";
 
 export const buildService = {
-  path: "../../../frontend/public/assets/files/build/",
+  path: path.join(process.cwd(), "../frontend/public/assets/files/build/"),
 
   async save(folder: string, req: Request, res: Response) {
     let { filename } = req.params;
@@ -13,7 +13,7 @@ export const buildService = {
       filename += ".json";
     }
     const data = req.body;
-    const filePath = path.join(__dirname, this.path + folder, filename);
+    const filePath = path.join(this.path, folder, filename);
     console.log(filePath);
     await saveFile(JSON.stringify(data), filePath);
     res.sendStatus(200);
@@ -26,7 +26,7 @@ export const buildService = {
     if (!filename.endsWith(".json")) {
       filename += ".json";
     }
-    const filePath = path.join(__dirname, this.path + folder, filename);
+    const filePath = path.join(this.path, folder, filename);
     console.log(filePath);
     if (existsSync(filePath)) {
       await unlink(filePath);
@@ -42,7 +42,7 @@ export const buildService = {
       fileName += ".json";
     }
 
-    const filePath = path.join(__dirname, this.path + folder, fileName);
+    const filePath = path.join(this.path, folder, fileName);
     console.log(filePath);
     await unlink(filePath);
     res.status(200).send("Build supprimé");
@@ -54,13 +54,19 @@ export const buildService = {
       fileName += ".json";
     }
 
-    const filePath = path.join(__dirname, this.path + folder, fileName);
+    const filePath = path.join(this.path, folder, fileName);
+
+    if (!existsSync(filePath)) {
+      res.status(404).json({ error: "Build not found" });
+      return;
+    }
+
     const data = await openFile(filePath);
     res.json(JSON.parse(data));
   },
 
   async getAll(folder: string, res: Response) {
-    const buildsDir = path.join(__dirname, this.path + folder);
+    const buildsDir = path.join(this.path, folder);
     const files = await readdir(buildsDir);
 
     const jsonFiles = files.filter((file) => file.endsWith(".json"));

@@ -312,8 +312,8 @@ const canDragBuild = computed(() => !isLelarivaBuildPage.value || isAdmin.value)
         <router-link
           :to="
             isLelarivaBuildPage
-              ? `/build/lelariva/${build.id}`
-              : `/build/default/${build.id}`
+              ? `/build/lelariva/${build.id?.endsWith('.json') ? build.id.slice(0, -5) : build.id}`
+              : `/build/default/${build.id?.endsWith('.json') ? build.id.slice(0, -5) : build.id}`
           "
           class="build-link"
         >

@@ -46,11 +46,11 @@ const roleStore = useRoleStore()
 
 let response = await fetch(apiUrl)
 
-let lelarivaBuild = false
+let lelarivaBuild = type === 'lelariva' && response.ok
 
 if (!response.ok) {
   response = await fetch(`/api/build/${fileName}`)
-  lelarivaBuild = true
+  lelarivaBuild = false
 }
 
 const data = await response.json()

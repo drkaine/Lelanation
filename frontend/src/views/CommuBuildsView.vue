@@ -142,7 +142,10 @@ const navigateToBuild = (buildId: string | undefined, event: Event) => {
     !event.target ||
     !(event.target as Element).closest('.certification-badge-container')
   ) {
-    router.push(`/build/default/${buildId}`)
+    const cleanBuildId = buildId.endsWith('.json')
+      ? buildId.slice(0, -5)
+      : buildId
+    router.push(`/build/default/${cleanBuildId}`)
   }
 }
 
