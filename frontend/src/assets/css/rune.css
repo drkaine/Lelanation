@@ -370,7 +370,6 @@
 
   .rune-slot,
   .summoner-slot .rune-slot {
-    width: var(--selector-item-size-desktop);
     height: var(--selector-item-size-desktop);
   }
   .summoner-spells {

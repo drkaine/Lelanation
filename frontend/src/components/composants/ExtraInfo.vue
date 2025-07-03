@@ -73,7 +73,7 @@ const removeItem = (index: number) => {
 </script>
 
 <template>
-  <div class="items-container">
+  <div class="stats-container">
     <div class="items-grid">
       <div
         v-for="(item, index) in itemStore.ItemsSelection.core"
@@ -103,7 +103,7 @@ const removeItem = (index: number) => {
       </div>
     </div>
 
-    <div class="stats-table">
+    <div class="stats-table-extra">
       <div class="stats-header">
         <div class="stat-name">{{ $t('extra-info.statistic') }}</div>
         <div class="stat-value">{{ $t('extra-info.value') }}</div>
@@ -136,13 +136,16 @@ const removeItem = (index: number) => {
 </template>
 
 <style scoped>
-.items-container {
+.stats-container {
+  width: 100%;
+  max-width: 900px;
+  margin: 16px auto 0;
   border-radius: 8px;
   padding: 16px;
   display: flex;
   flex-direction: column;
   gap: 24px;
-  margin-top: 16px;
+  box-sizing: border-box;
 }
 
 .stat-value {
@@ -211,7 +214,7 @@ const removeItem = (index: number) => {
   z-index: 10;
 }
 
-.stats-table {
+.stats-table-extra {
   border-radius: 4px;
   overflow: hidden;
 }
@@ -245,7 +248,7 @@ const removeItem = (index: number) => {
 }
 
 @media (max-width: 768px) {
-  .items-container {
+  .stats-container {
     padding: 0;
   }
 

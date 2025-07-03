@@ -123,22 +123,6 @@ const filteredItems = computed<Item[]>(() => {
   return filtered
 })
 
-const getItemsFrom = (item: Item): Item[] => {
-  if (!item.from) return []
-  return item.from
-    .map(id => itemsData.value[id as string])
-    .filter(Boolean)
-    .filter(item => filteredItems.value.includes(item))
-}
-
-const getItemsInto = (item: Item): Item[] => {
-  if (!item.into) return []
-  return item.into
-    .map(id => itemsData.value[id as string])
-    .filter(Boolean)
-    .filter(item => filteredItems.value.includes(item))
-}
-
 const SPECIAL_BOOTS_ITEMS = ['Jambières de métal', 'Lucidité pourpre'] as const
 
 const itemsBoots = computed<Item[]>(() => {
@@ -499,9 +483,8 @@ const prevPage = () => {
       <ItemsGrid
         :items="currentCategoryItems"
         :title="$t(`item.${activeCategory}`)"
-        :get-items-from="getItemsFrom"
-        :get-items-into="getItemsInto"
         :filtered-items="filteredItems"
+        :items-data="itemsData"
       />
 
       <div v-if="totalPages > 1" class="pagination">
@@ -618,27 +601,6 @@ const prevPage = () => {
   .pagination-btn {
     padding: 6px 12px;
     font-size: 0.8rem;
-  }
-}
-
-.items-grid {
-  display: flex !important;
-  flex-wrap: wrap;
-  gap: 8px;
-}
-
-.items-container {
-  display: flex;
-  flex-direction: row;
-  gap: 32px;
-  align-items: flex-start;
-}
-
-@media (max-width: 900px) {
-  .items-container {
-    flex-direction: column !important;
-    gap: 16px;
-    align-items: stretch;
   }
 }
 </style>

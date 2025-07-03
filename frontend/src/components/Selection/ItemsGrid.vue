@@ -7,12 +7,11 @@ import { useItemStore } from '@/stores/itemStore'
 interface Props {
   items: Item[]
   title: string
-  getItemsFrom: (item: Item) => Item[]
-  getItemsInto: (item: Item) => Item[]
   filteredItems: Item[]
+  itemsData: Record<string, Item>
 }
 
-defineProps<Props>()
+const props = defineProps<Props>()
 
 const tooltip = new TooltipCoordonne()
 const itemStore = useItemStore()
@@ -31,6 +30,22 @@ const resetMousePosition = () => {
 const selectItem = (item: Item) => {
   itemStore.setItemSelection(item)
 }
+
+const getItemsFrom = (item: Item): Item[] => {
+  if (!item.from) return []
+  return item.from
+    .map(id => props.itemsData[id as string])
+    .filter(Boolean)
+    .filter(item => props.filteredItems.includes(item))
+}
+
+const getItemsInto = (item: Item): Item[] => {
+  if (!item.into) return []
+  return item.into
+    .map(id => props.itemsData[id as string])
+    .filter(Boolean)
+    .filter(item => props.filteredItems.includes(item))
+}
 </script>
 
 <template>
@@ -46,7 +61,7 @@ const selectItem = (item: Item) => {
               item: true,
             }"
             @click="selectItem(item)"
-            @mouseenter="updateMousePosition"
+            @mouseenter="updateMousePosition($event)"
             @mouseleave="resetMousePosition"
           >
             <img
@@ -65,7 +80,6 @@ const selectItem = (item: Item) => {
           <div
             class="box"
             :style="{
-              position: 'absolute',
               left: tooltipLeft,
               top: tooltipTop,
             }"
@@ -95,6 +109,14 @@ const selectItem = (item: Item) => {
 
 .group.small {
   font-size: 0.9rem;
+}
+
+.items-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(48px, 1fr));
+  gap: 8px;
+  align-items: center;
+  justify-items: center;
 }
 
 .items-container {
@@ -161,6 +183,11 @@ const selectItem = (item: Item) => {
   pointer-events: none;
   opacity: 0;
   transition: opacity 0.2s ease;
+  position: fixed;
+  border: 1px solid var(--color-gold-300);
+  border-radius: 8px;
+  padding: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
 
 .tip:hover .box {
