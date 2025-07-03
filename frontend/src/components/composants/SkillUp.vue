@@ -148,12 +148,11 @@ watch(
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
-  min-width: 700px;
+  width: 100%;
   background: var(--color-blue-900);
   border-radius: 8px;
   padding: 1rem;
   box-sizing: border-box;
-  overflow-x: auto;
 }
 
 .skill-grid.mobile {
@@ -164,14 +163,17 @@ watch(
 .skill-row {
   display: flex;
   align-items: center;
+  width: 100%;
 }
 
 .skill-label-spacer {
   width: 40px;
+  flex-shrink: 0;
 }
 
 .level-number {
-  width: 32px;
+  flex: 1;
+  min-width: 32px;
   text-align: center;
   font-size: 0.95rem;
   color: var(--color-gold-300);
@@ -179,6 +181,7 @@ watch(
 
 .skill-label-container {
   width: 40px;
+  flex-shrink: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -196,7 +199,8 @@ watch(
 }
 
 .skill-cell {
-  width: 32px;
+  flex: 1;
+  min-width: 32px;
   height: 32px;
   border-radius: 6px;
   background: var(--color-blue-400);

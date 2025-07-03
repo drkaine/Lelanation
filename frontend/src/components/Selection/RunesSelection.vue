@@ -706,7 +706,6 @@ const formatDescription = (desc: string) => {
   display: flex;
   flex-direction: row;
   gap: 0.5rem;
-  flex-wrap: wrap;
   justify-content: center;
 }
 .rune-option {

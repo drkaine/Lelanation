@@ -621,6 +621,12 @@ const prevPage = () => {
   }
 }
 
+.items-grid {
+  display: flex !important;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
 .items-container {
   display: flex;
   flex-direction: row;

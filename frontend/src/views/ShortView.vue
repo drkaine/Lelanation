@@ -72,7 +72,7 @@ export default {
           }
         })
       }
-      
+
       if (this.sortBy === 'date') {
         filtered.sort(
           (a, b) =>
@@ -245,8 +245,6 @@ export default {
 
 <style scoped>
 .shorts-container {
-  max-width: 1200px;
-  margin: 0 auto;
   padding: 2rem;
 }
 

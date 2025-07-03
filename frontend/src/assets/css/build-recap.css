@@ -76,10 +76,19 @@ main[role='main'] {
 }
 
 .action-buttons {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  display: flex;
+  flex-wrap: wrap;
   gap: 0.5rem;
   margin-bottom: 1rem;
+  justify-content: flex-start;
+}
+
+.action-buttons .btn {
+  flex: 0 0 auto;
+  width: auto !important;
+  min-width: auto !important;
+  max-width: none !important;
+  white-space: nowrap;
 }
 
 .edit-actions {
@@ -245,6 +254,7 @@ main[role='main'] {
 
   .actions-panel {
     justify-content: center;
+    width: var(--width-all);
   }
 
   .level-buttons {
@@ -253,10 +263,6 @@ main[role='main'] {
   }
 
   .left-column {
-    width: var(--width-all);
-  }
-
-  .actions-panel {
     width: var(--width-all);
   }
 }
@@ -273,15 +279,12 @@ main[role='main'] {
   .build-header {
     flex-direction: column;
     gap: 1rem;
+
     align-items: flex-start;
   }
 
-  .actions-panel {
-    margin-right: -10px;
-  }
-
   .action-buttons {
-    grid-template-columns: repeat(2, 1fr);
+    justify-content: center;
   }
 
   .stats-table {

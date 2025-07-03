@@ -353,8 +353,12 @@ window.addEventListener('resize', () => {
 
 const displayMode = ref<'graph' | 'list'>('graph')
 
-watch(displayMode, () => {
+watch(displayMode, async () => {
   selectedTier.value = null
+  if (displayMode.value === 'graph') {
+    await nextTick()
+    await createChart()
+  }
 })
 
 const sortBy = ref<'score' | 'pickrate' | 'tier'>('score')
@@ -591,7 +595,10 @@ const sortedAndFilteredChampions = computed(() => {
         </div>
       </div>
     </div>
-    <div v-else-if="availableTabs.length > 0" class="tier-list-container">
+    <div
+      v-else-if="availableTabs.length > 0 && displayMode === 'list'"
+      class="tier-list-container"
+    >
       <div class="list-controls">
         <div class="search-controls">
           <input

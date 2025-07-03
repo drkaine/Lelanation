@@ -97,11 +97,11 @@ const selectItem = (item: Item) => {
   font-size: 0.9rem;
 }
 
-.items-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(48px, 1fr));
-  gap: 8px;
-  max-width: 100%;
+.items-container {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  align-items: flex-start;
 }
 
 .tip {
