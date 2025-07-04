@@ -54,14 +54,6 @@ const summonerStore = useSummonerStore()
 const shardStore = useShardStore()
 const itemStore = useItemStore()
 const stepStore = useStepStore()
-
-const next = () => {
-  if (stepStore.step === 'item') {
-    stepStore.setStepSelection('info')
-  } else {
-    stepStore.setStepSelection('item')
-  }
-}
 </script>
 
 <template>
@@ -85,13 +77,6 @@ const next = () => {
           <div v-else-if="stepStore.step === 'build'">
             <BuildRecap />
           </div>
-          <button
-            class="suivant"
-            v-if="stepStore.step === 'rune' || stepStore.step === 'item'"
-            @click="next()"
-          >
-            {{ $t('button.next') }}
-          </button>
         </section>
 
         <section aria-labelledby="build-preview-section" class="sheet-build">

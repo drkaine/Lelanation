@@ -178,7 +178,7 @@ const getItemsInto = (item: Item): Item[] => {
   margin-top: 2px;
 }
 
-.box {
+.tooltip .box {
   z-index: 1000;
   pointer-events: none;
   opacity: 0;
