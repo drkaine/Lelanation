@@ -15,33 +15,31 @@ export const analyticsService = {
       try {
         const data = await fs.readFile(analyticsService.analyticsPath, "utf8");
         analytics = JSON.parse(data);
+
         analytics.visiteur++;
 
-        await fs.writeFile(
-          analyticsService.analyticsPath,
-          JSON.stringify(analytics, null, 2),
-        );
+        const jsonData = JSON.stringify(analytics, null, 2);
+
+        await fs.writeFile(analyticsService.analyticsPath, jsonData);
       } catch {
         const dir = path.dirname(analyticsService.analyticsPath);
         await fs.mkdir(dir, { recursive: true });
-        await fs.writeFile(
-          analyticsService.analyticsPath,
-          JSON.stringify(analytics, null, 2),
-        );
+
+        const jsonData = JSON.stringify(analytics, null, 2);
+        await fs.writeFile(analyticsService.analyticsPath, jsonData);
       }
 
       return analytics;
     } catch (err) {
-      console.error("Erreur compteur:", err);
+      console.error("❌ Erreur compteur:", err);
       return null;
     }
   },
 
   async saveAnalytics(req: Request, res: Response) {
     try {
-      console.log("📈 POST Analytics called");
       const data = await analyticsService.incrementVisitCounter();
-      console.log("📊 Data after increment:", data);
+
       if (!data) {
         throw new Error("Erreur lors de l'incrémentation");
       }
@@ -56,15 +54,12 @@ export const analyticsService = {
 
   async getAnalytics(req: Request, res: Response) {
     try {
-      console.log("🔍 GET Analytics called");
-      console.log("📁 Analytics path:", analyticsService.analyticsPath);
-
       const analytics = await fs.readFile(
         analyticsService.analyticsPath,
         "utf8",
       );
       const parsedData = JSON.parse(analytics);
-      console.log("✅ Analytics data retrieved:", parsedData);
+
       res.json(parsedData);
     } catch (error) {
       console.error("❌ Error in getAnalytics:", error);

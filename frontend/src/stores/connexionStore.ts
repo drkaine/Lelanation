@@ -11,14 +11,16 @@ export const useConnexionStore = defineStore('Connexion', () => {
 
   const isUser = () => {
     if (!newUser.value) {
-      if (analyticsConsent.value) {
-        incrementVisitCounter()
-      }
       newUser.value = true
       localStorage.setItem('newUser', 'true')
+
       if (!localStorage.getItem('analyticsConsent')) {
         analyticsConsent.value = true
         localStorage.setItem('analyticsConsent', 'true')
+      }
+
+      if (analyticsConsent.value) {
+        incrementVisitCounter()
       }
     }
   }
