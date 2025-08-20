@@ -1,5 +1,5 @@
 <script lang="ts">
-import { type Video, type Tab } from '@/types/video'
+import { type Video, type Tab, type ChannelInfo } from '@/types/video'
 
 import { useSEOHead } from '@/composables/useSEOHead'
 
@@ -23,9 +23,11 @@ export default {
   data() {
     return {
       shorts: [] as Video[],
+      channels: [] as ChannelInfo[],
       loading: false,
       error: null as string | null,
       currentTab: 'all',
+      currentChannel: 'all',
       searchQuery: '',
       currentPage: 1,
       itemsPerPage: 12,
@@ -41,6 +43,12 @@ export default {
   computed: {
     filteredVideos(): Video[] {
       let filtered = this.shorts
+
+      if (this.currentChannel !== 'all') {
+        filtered = filtered.filter(
+          video => video.snippet.channelId === this.currentChannel,
+        )
+      }
 
       if (this.searchQuery.trim()) {
         const query = this.searchQuery.toLowerCase()
@@ -126,6 +134,7 @@ export default {
       try {
         const youtubeModule = await import('@/assets/files/data/youtube.json')
         this.shorts = youtubeModule.default.videos
+        this.channels = youtubeModule.default.channels || []
       } catch (err) {
         this.error = 'Erreur lors du chargement des vidéos'
         console.error('Erreur détaillée:', err)
@@ -163,6 +172,29 @@ export default {
     </section>
 
     <section class="navigation-section">
+      <div v-if="channels.length > 0" class="channel-tabs">
+        <h3 class="channel-tabs-title">Chaînes</h3>
+        <div class="tabs">
+          <button
+            :class="['tab-button', { active: currentChannel === 'all' }]"
+            @click="currentChannel = 'all'"
+          >
+            Toutes les chaînes
+          </button>
+          <button
+            v-for="channel in channels"
+            :key="channel.channelId"
+            :class="[
+              'tab-button',
+              { active: currentChannel === channel.channelId },
+            ]"
+            @click="currentChannel = channel.channelId"
+          >
+            {{ channel.channelName }}
+            <span v-if="channel.isComplete" class="complete-badge">✓</span>
+          </button>
+        </div>
+      </div>
       <div class="tabs">
         <button
           v-for="tab in tabs"
@@ -596,5 +628,32 @@ export default {
   color: var(--color-gold-300);
   font-size: 0.875rem;
   margin-top: 0.5rem;
+}
+
+.channel-tabs {
+  margin-top: 2rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--color-grey-100);
+}
+
+.channel-tabs-title {
+  color: var(--color-gold-300);
+  font-size: var(--title-xs);
+  margin: 0 0 1rem 0;
+  text-align: center;
+}
+
+.complete-badge {
+  background-color: var(--color-gold-400);
+  color: var(--color-grey-50);
+  border-radius: 50%;
+  width: 16px;
+  height: 16px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  margin-left: 0.5rem;
+  font-weight: bold;
 }
 </style>

@@ -39,7 +39,6 @@ function validateAltText(filePath: string): AltTextIssue[] {
     const lineNumber = index + 1
     const trimmedLine = line.trim()
     
-    // Vérifier les images avec alt vides
     if (/alt=""/.test(trimmedLine) && /<img/.test(trimmedLine)) {
       issues.push({
         file: filePath,
@@ -49,7 +48,6 @@ function validateAltText(filePath: string): AltTextIssue[] {
       })
     }
     
-    // Vérifier les images sans alt du tout
     if (/<img/.test(trimmedLine) && !/alt=/.test(trimmedLine)) {
       issues.push({
         file: filePath,

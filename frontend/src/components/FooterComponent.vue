@@ -26,7 +26,6 @@ const toggleFooter = () => {
 const handleScroll = () => {
   const currentScrollY = window.scrollY
 
-  // Fermer automatiquement le footer quand on scroll vers le bas
   if (currentScrollY > lastScrollY + 50 && isFooterExpanded.value) {
     isScrollingDown.value = true
     isFooterExpanded.value = false

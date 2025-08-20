@@ -80,7 +80,6 @@ const toggleCertification = async () => {
     }
 
     emit('certification-toggled', updatedBuild.certified)
-    console.log('✅ Certification updated successfully')
   } catch (error) {
     console.error('Erreur lors de la modification de la certification:', error)
   }

@@ -6,6 +6,7 @@ import type {
   VideoStorage,
   TokenStorage,
   YouTubeApiItem,
+  ChannelInfo,
 } from "../types";
 
 dotenv.config();
@@ -17,6 +18,7 @@ export class YoutubeService {
   private readonly QUOTA_LIMIT: number;
   private readonly MAX_RESULTS: number;
   private readonly CHECK_INTERVAL = 3600000; // 1 heure en millisecondes
+  private readonly COMPLETE_THRESHOLD = 5000; // Nombre de vidéos pour considérer une chaîne comme complète
 
   constructor() {
     if (!process.env.YOUTUBE_API_KEY) {
@@ -54,14 +56,28 @@ export class YoutubeService {
   private async loadStorage(): Promise<VideoStorage> {
     try {
       const data = await fs.readFile(this.STORAGE_PATH, "utf-8");
-      return JSON.parse(data);
+      const parsed = JSON.parse(data);
+
+      if (!parsed.metadata) {
+        parsed.metadata = {
+          totalVideosKnown: {},
+          hasAllOldVideos: {},
+          lastStatsUpdate: {},
+        };
+      }
+
+      return parsed;
     } catch (error) {
       if (error instanceof Error && error.message.includes("ENOENT")) {
         return {
           videos: [],
-          lastVideoDate: "",
-          channelId: "",
+          channels: [],
           lastUpdate: 0,
+          metadata: {
+            totalVideosKnown: {},
+            hasAllOldVideos: {},
+            lastStatsUpdate: {},
+          },
         };
       }
       throw error;
@@ -128,24 +144,54 @@ export class YoutubeService {
   async checkForNewVideos(channelId: string): Promise<boolean> {
     try {
       const storage = await this.loadStorage();
+      const channelInfo = storage.channels.find(
+        (c) => c.channelId === channelId,
+      );
 
-      if (
-        !storage.videos.length ||
-        storage.channelId !== channelId ||
-        !storage.lastVideoDate
-      ) {
-        console.log("Forcing check: no videos or different channel ID");
+      if (!channelInfo) {
+        console.log("Channel not found, forcing check");
         return true;
       }
 
-      if (Date.now() - storage.lastUpdate > this.CHECK_INTERVAL) {
+      if (Date.now() - channelInfo.lastUpdate > this.CHECK_INTERVAL) {
         console.log("Forcing check: last update was too long ago");
         return true;
       }
 
-      console.log("Checking for new videos since:", storage.lastVideoDate);
+      const hasAllOldVideos =
+        storage.metadata.hasAllOldVideos[channelId] ?? false;
+      const totalVideosKnown =
+        storage.metadata.totalVideosKnown[channelId] ?? 0;
 
-      const checkUrl = `https://www.googleapis.com/youtube/v3/search?key=${this.API_KEY}&channelId=${channelId}&part=snippet,id&order=date&maxResults=1&type=video`;
+      console.log(`📊 Channel analysis for ${channelInfo.channelName}:`);
+      console.log(`   - Videos in storage: ${channelInfo.videoCount}`);
+      console.log(`   - Total videos known: ${totalVideosKnown}`);
+      console.log(`   - Has all old videos: ${hasAllOldVideos}`);
+      console.log(`   - Is marked complete: ${channelInfo.isComplete}`);
+
+      if (hasAllOldVideos) {
+        console.log(
+          "✅ Channel has all old videos, checking for new videos only",
+        );
+        return this.checkForNewVideosOnly(channelId, channelInfo.lastVideoDate);
+      } else {
+        console.log("⏳ Channel missing old videos, need to fetch more");
+        return true;
+      }
+    } catch (error) {
+      console.error("Error checking for new videos:", error);
+      return true;
+    }
+  }
+
+  private async checkForNewVideosOnly(
+    channelId: string,
+    lastVideoDate: string,
+  ): Promise<boolean> {
+    try {
+      console.log("Checking for new videos since:", lastVideoDate);
+
+      const checkUrl = `https://www.googleapis.com/youtube/v3/search?key=${this.API_KEY}&channelId=${channelId}&part=snippet,id&order=date&maxResults=1&type=video&publishedAfter=${lastVideoDate}`;
 
       const response = await fetch(checkUrl);
 
@@ -162,19 +208,14 @@ export class YoutubeService {
       await this.saveTokenState(tokenState);
 
       if (!data.items?.length) {
-        console.log("No items in check response, forcing full check");
-        return true;
+        console.log("No new videos found");
+        return false;
       }
 
-      const latestVideoDate = new Date(data.items[0].snippet.publishedAt);
-      const storedLatestDate = new Date(storage.lastVideoDate);
-
-      console.log("Latest video date:", latestVideoDate);
-      console.log("Stored latest date:", storedLatestDate);
-
+      console.log("New videos found, updating");
       return true;
     } catch (error) {
-      console.error("Error checking for new videos:", error);
+      console.error("Error checking for new videos only:", error);
       return true;
     }
   }
@@ -239,8 +280,23 @@ export class YoutubeService {
 
       const storage = await this.loadStorage();
       let tokenState = await this.loadTokenState();
+      let channelInfo = storage.channels.find((c) => c.channelId === channelId);
 
-      if (storage.channelId !== channelId) {
+      if (!channelInfo) {
+        console.log("Channel not found, creating new channel info");
+        const channelName = await this.getChannelName(channelId);
+        channelInfo = {
+          channelId,
+          channelName,
+          isComplete: false,
+          lastVideoDate: "",
+          lastUpdate: Date.now(),
+          videoCount: 0,
+        };
+        storage.channels.push(channelInfo);
+      }
+
+      if (tokenState.channelId !== channelId) {
         console.log("Channel ID changed, resetting token");
         tokenState.nextPageToken = "";
       }
@@ -257,7 +313,9 @@ export class YoutubeService {
 
       if (tokenState.tokenQuota >= this.QUOTA_LIMIT) {
         console.log("Quota limit reached, returning cached videos");
-        return storage.videos;
+        return storage.videos.filter((v) =>
+          this.isVideoFromChannel(v, channelId),
+        );
       }
 
       const baseUrl = `https://www.googleapis.com/youtube/v3/search?key=${this.API_KEY}&channelId=${channelId}&part=snippet,id&order=date&maxResults=${this.MAX_RESULTS}&type=video`;
@@ -303,6 +361,10 @@ export class YoutubeService {
           const video = {
             ...item,
             id: item.id.videoId,
+            snippet: {
+              ...item.snippet,
+              channelId: channelId, 
+            },
           };
 
           return this.cleanVideoData(video);
@@ -356,15 +418,25 @@ export class YoutubeService {
       const lastVideoDate =
         sortedVideos.length > 0
           ? sortedVideos[0].snippet.publishedAt
-          : storage.lastVideoDate || new Date().toISOString();
+          : channelInfo.lastVideoDate || new Date().toISOString();
 
       console.log("Last video date:", lastVideoDate);
 
+      channelInfo.lastVideoDate = lastVideoDate;
+      channelInfo.lastUpdate = Date.now();
+      channelInfo.videoCount = sortedVideos.length;
+
+      await this.checkChannelCompleteness(
+        channelInfo,
+        channelInfo.videoCount,
+        storage,
+      );
+
       await this.saveStorage({
         videos: sortedVideos,
-        lastVideoDate,
-        channelId,
+        channels: storage.channels,
         lastUpdate: Date.now(),
+        metadata: storage.metadata,
       });
 
       return sortedVideos;
@@ -389,7 +461,9 @@ export class YoutubeService {
 
   async searchVideos(channelId: string, query: string): Promise<Video[]> {
     const storage = await this.loadStorage();
-    const videos = storage.videos;
+    const videos = storage.videos.filter((v) =>
+      this.isVideoFromChannel(v, channelId),
+    );
 
     if (!query.trim()) return videos;
 
@@ -401,5 +475,249 @@ export class YoutubeService {
         (term) => title.includes(term) || description.includes(term),
       );
     });
+  }
+
+  async getChannelName(channelId: string): Promise<string> {
+    try {
+      const response = await fetch(
+        `https://www.googleapis.com/youtube/v3/channels?key=${this.API_KEY}&id=${channelId}&part=snippet`,
+      );
+
+      if (!response.ok) {
+        const error = await response.json();
+        throw new Error(error.error?.message || "Failed to fetch channel name");
+      }
+
+      const data = await response.json();
+
+      if (!data.items?.length) throw new Error("Channel not found");
+
+      const tokenState = await this.loadTokenState();
+      tokenState.tokenQuota += 1;
+      await this.saveTokenState(tokenState);
+
+      return data.items[0].snippet.title;
+    } catch (error) {
+      console.error("Error getting channel name:", error);
+      return channelId;
+    }
+  }
+
+  async getChannelStatistics(channelId: string): Promise<{
+    name: string;
+    videoCount: number;
+    subscriberCount: number;
+    viewCount: number;
+  }> {
+    try {
+      const response = await fetch(
+        `https://www.googleapis.com/youtube/v3/channels?key=${this.API_KEY}&id=${channelId}&part=snippet,statistics`,
+      );
+
+      if (!response.ok) {
+        const error = await response.json();
+        throw new Error(
+          error.error?.message || "Failed to fetch channel statistics",
+        );
+      }
+
+      const data = await response.json();
+
+      if (!data.items?.length) throw new Error("Channel not found");
+
+      const channel = data.items[0];
+      const tokenState = await this.loadTokenState();
+      tokenState.tokenQuota += 1;
+      await this.saveTokenState(tokenState);
+
+      return {
+        name: channel.snippet.title,
+        videoCount: parseInt(channel.statistics.videoCount) || 0,
+        subscriberCount: parseInt(channel.statistics.subscriberCount) || 0,
+        viewCount: parseInt(channel.statistics.viewCount) || 0,
+      };
+    } catch (error) {
+      console.error("Error getting channel statistics:", error);
+      throw error;
+    }
+  }
+
+  private isVideoFromChannel(video: Video, channelId: string): boolean {
+
+    return video.snippet.channelId === channelId;
+  }
+
+  async addChannel(channelId: string): Promise<void> {
+    try {
+      const storage = await this.loadStorage();
+
+      const existingChannel = storage.channels.find(
+        (c) => c.channelId === channelId,
+      );
+      if (existingChannel) {
+        console.log(`Channel ${channelId} already exists`);
+        return;
+      }
+
+      const stats = await this.getChannelStatistics(channelId);
+
+      const newChannel: ChannelInfo = {
+        channelId,
+        channelName: stats.name,
+        isComplete: false,
+        lastVideoDate: "",
+        lastUpdate: Date.now(),
+        videoCount: 0,
+      };
+
+      storage.channels.push(newChannel);
+      await this.saveStorage(storage);
+
+      console.log(`Channel ${stats.name} (${channelId}) added successfully`);
+      console.log(`- Total videos on channel: ${stats.videoCount}`);
+      console.log(`- Subscribers: ${stats.subscriberCount.toLocaleString()}`);
+      console.log(`- Total views: ${stats.viewCount.toLocaleString()}`);
+    } catch (error) {
+      console.error("Error adding channel:", error);
+      throw error;
+    }
+  }
+
+  async getChannels(): Promise<ChannelInfo[]> {
+    const storage = await this.loadStorage();
+    return storage.channels;
+  }
+
+  async getVideosByChannel(channelId: string): Promise<Video[]> {
+    const storage = await this.loadStorage();
+    return storage.videos.filter((v) => this.isVideoFromChannel(v, channelId));
+  }
+
+  async forceCompleteChannel(
+    channelId: string,
+  ): Promise<{ success: boolean; videosAdded: number; totalVideos: number }> {
+    console.log(`🚀 Force completing channel: ${channelId}`);
+
+    try {
+      const storage = await this.loadStorage();
+      const channelInfo = storage.channels.find(
+        (c) => c.channelId === channelId,
+      );
+
+      if (!channelInfo) {
+        throw new Error("Channel not found");
+      }
+
+      const stats = await this.getChannelStatistics(channelId);
+      const videosNeeded = stats.videoCount - channelInfo.videoCount;
+
+      console.log(
+        `📊 Target: ${stats.videoCount} videos, Current: ${channelInfo.videoCount}, Need: ${videosNeeded}`,
+      );
+
+      if (videosNeeded <= 0) {
+        console.log("✅ Channel is already complete!");
+        return {
+          success: true,
+          videosAdded: 0,
+          totalVideos: channelInfo.videoCount,
+        };
+      }
+
+      const initialVideoCount = channelInfo.videoCount;
+      let attempts = 0;
+      const maxAttempts = 5;
+
+      while (
+        channelInfo.videoCount < stats.videoCount &&
+        attempts < maxAttempts
+      ) {
+        attempts++;
+        console.log(
+          `🔄 Attempt ${attempts}/${maxAttempts}: Fetching more videos...`,
+        );
+
+        const videos = await this.fetchAndStoreVideos(channelId);
+        const newVideoCount = videos.length;
+
+        if (newVideoCount === channelInfo.videoCount) {
+          console.log("⚠️ No new videos found, stopping attempts");
+          break;
+        }
+
+        console.log(`📈 Progress: ${newVideoCount}/${stats.videoCount} videos`);
+      }
+
+      const videosAdded = channelInfo.videoCount - initialVideoCount;
+
+      console.log(`🎯 Force completion result:`);
+      console.log(`   - Videos added: ${videosAdded}`);
+      console.log(`   - Total videos: ${channelInfo.videoCount}`);
+      console.log(`   - Target: ${stats.videoCount}`);
+      console.log(`   - Is complete: ${channelInfo.isComplete}`);
+
+      return {
+        success: true,
+        videosAdded,
+        totalVideos: channelInfo.videoCount,
+      };
+    } catch (error) {
+      console.error("❌ Error force completing channel:", error);
+      throw error;
+    }
+  }
+
+  private async checkChannelCompleteness(
+    channelInfo: ChannelInfo,
+    currentVideoCount: number,
+    storage: VideoStorage,
+  ): Promise<void> {
+    try {
+      const stats = await this.getChannelStatistics(channelInfo.channelId);
+      const totalVideosOnChannel = stats.videoCount;
+
+      storage.metadata.totalVideosKnown[channelInfo.channelId] =
+        totalVideosOnChannel;
+      storage.metadata.lastStatsUpdate[channelInfo.channelId] = Date.now();
+
+      const videosForThisChannel = storage.videos.filter(v => v.snippet.channelId === channelInfo.channelId);
+      channelInfo.videoCount = videosForThisChannel.length;
+
+      const hasAllVideos = currentVideoCount >= totalVideosOnChannel;
+      const reachedThreshold = currentVideoCount >= this.COMPLETE_THRESHOLD;
+
+      if (hasAllVideos || reachedThreshold) {
+        channelInfo.isComplete = true;
+        storage.metadata.hasAllOldVideos[channelInfo.channelId] = hasAllVideos;
+
+        console.log(
+          `✅ Channel ${channelInfo.channelName} marked as complete:`,
+        );
+        console.log(`   - Videos retrieved: ${currentVideoCount}`);
+        console.log(`   - Total videos on channel: ${totalVideosOnChannel}`);
+        console.log(`   - Has all videos: ${hasAllVideos}`);
+        console.log(`   - Reached threshold: ${reachedThreshold}`);
+      } else {
+        channelInfo.isComplete = false;
+        storage.metadata.hasAllOldVideos[channelInfo.channelId] = false;
+
+        console.log(`⏳ Channel ${channelInfo.channelName} not complete yet:`);
+        console.log(
+          `   - Videos retrieved: ${currentVideoCount}/${totalVideosOnChannel}`,
+        );
+        console.log(
+          `   - Still need: ${Math.max(0, totalVideosOnChannel - currentVideoCount)} more videos`,
+        );
+      }
+    } catch (error) {
+      console.error("Error checking channel completeness:", error);
+      if (currentVideoCount >= this.COMPLETE_THRESHOLD) {
+        channelInfo.isComplete = true;
+        storage.metadata.hasAllOldVideos[channelInfo.channelId] = true;
+        console.log(
+          `⚠️ Channel ${channelInfo.channelName} marked as complete with ${currentVideoCount} videos (fallback method)`,
+        );
+      }
+    }
   }
 }

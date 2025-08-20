@@ -36,6 +36,7 @@ import { assetService } from "./service/AssetService";
 import { serverHealth } from "./utils/serverUtils";
 import { RouteValidationService } from "./service/routeValidationService";
 import { spaFallbackMiddleware } from "./middleware/spaFallback";
+import { YoutubeService } from "./service/YoutubeService";
 
 dotenv.config();
 
@@ -393,6 +394,108 @@ app.post(
     } catch (error) {
       console.error("Erreur partage Discord:", error);
       res.status(500).json({ error: "Erreur lors du partage vers Discord" });
+    }
+  },
+);
+
+// Routes YouTube
+const youtubeService = new YoutubeService();
+
+app.get(
+  "/api/youtube/channels",
+  async (req: Request, res: Response): Promise<void> => {
+    try {
+      const channels = await youtubeService.getChannels();
+      res.json(channels);
+    } catch (error) {
+      console.error("Error getting channels:", error);
+      res
+        .status(500)
+        .json({ error: "Erreur lors de la récupération des chaînes" });
+    }
+  },
+);
+
+app.post(
+  "/api/youtube/channels",
+  async (req: Request, res: Response): Promise<void> => {
+    try {
+      const { channelId } = req.body;
+
+      if (!channelId) {
+        res.status(400).json({ error: "Channel ID requis" });
+        return;
+      }
+
+      await youtubeService.addChannel(channelId);
+      res.json({ success: true, message: "Chaîne ajoutée avec succès" });
+    } catch (error) {
+      console.error("Error adding channel:", error);
+      res.status(500).json({ error: "Erreur lors de l'ajout de la chaîne" });
+    }
+  },
+);
+
+app.get(
+  "/api/youtube/videos/:channelId",
+  async (req: Request, res: Response): Promise<void> => {
+    try {
+      const { channelId } = req.params;
+      const videos = await youtubeService.getVideosByChannel(channelId);
+      res.json(videos);
+    } catch (error) {
+      console.error("Error getting videos by channel:", error);
+      res
+        .status(500)
+        .json({ error: "Erreur lors de la récupération des vidéos" });
+    }
+  },
+);
+
+app.post(
+  "/api/youtube/refresh/:channelId",
+  async (req: Request, res: Response): Promise<void> => {
+    try {
+      const { channelId } = req.params;
+      const videos = await youtubeService.fetchAndStoreVideos(channelId);
+      res.json({ success: true, videoCount: videos.length });
+    } catch (error) {
+      console.error("Error refreshing videos:", error);
+      res
+        .status(500)
+        .json({ error: "Erreur lors du rafraîchissement des vidéos" });
+    }
+  },
+);
+
+app.get(
+  "/api/youtube/channels/:channelId/stats",
+  async (req: Request, res: Response): Promise<void> => {
+    try {
+      const { channelId } = req.params;
+      const stats = await youtubeService.getChannelStatistics(channelId);
+      res.json(stats);
+    } catch (error) {
+      console.error("Error getting channel statistics:", error);
+      res
+        .status(500)
+        .json({ error: "Erreur lors de la récupération des statistiques" });
+    }
+  },
+);
+
+app.post(
+  "/api/youtube/channels/:channelId/force-complete",
+  async (req: Request, res: Response): Promise<void> => {
+    try {
+      const { channelId } = req.params;
+      const result = await youtubeService.forceCompleteChannel(channelId);
+      res.json(result);
+    } catch (error) {
+      console.error("Error force completing channel:", error);
+      res
+        .status(500)
+        .json({ error: "Erreur lors de la complétion forcée de la chaîne" });
     }
   },
 );

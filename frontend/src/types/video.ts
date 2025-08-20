@@ -4,12 +4,22 @@ export interface Video {
     title: string
     description: string
     publishedAt: string
+    channelId: string
     thumbnails: {
       medium: {
         url: string
       }
     }
   }
+}
+
+export interface ChannelInfo {
+  channelId: string
+  channelName: string
+  isComplete: boolean
+  lastVideoDate: string
+  lastUpdate: number
+  videoCount: number
 }
 
 export interface CacheData {

@@ -5,7 +5,6 @@ Pour activer le partage vers Discord, vous devez configurer un webhook Discord e
 ## Étapes de configuration
 
 1. **Créer un webhook Discord :**
-
    - Allez sur votre serveur Discord
    - Cliquez sur la roue dentée du canal où vous voulez recevoir les messages
    - Allez dans "Intégrations" > "Webhooks"

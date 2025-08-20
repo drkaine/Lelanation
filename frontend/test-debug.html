@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Debug - Lelanation</title>
+</head>
+<body>
+    <div id="app">
+        <h1>Test de debug</h1>
+        <div id="status">Chargement...</div>
+    </div>
+
+    <script>
+        console.log('🔍 Test de debug démarré');
+        
+        setTimeout(() => {
+            console.log('📊 Test 1: Vérification Vue');
+            const app = document.getElementById('app');
+            if (app) {
+                console.log('✅ Element #app trouvé');
+                console.log('📋 Contenu:', app.innerHTML);
+            } else {
+                console.log('❌ Element #app non trouvé');
+            }
+        }, 1000);
+
+        window.addEventListener('error', (event) => {
+            console.error('🚨 Erreur JavaScript détectée:', event.error);
+            document.getElementById('status').innerHTML = 'Erreur: ' + event.error.message;
+        });
+
+        window.addEventListener('unhandledrejection', (event) => {
+            console.error('🚨 Promise rejetée:', event.reason);
+            document.getElementById('status').innerHTML = 'Promise rejetée: ' + event.reason;
+        });
+
+        setTimeout(() => {
+            console.log('📊 Test 4: Vérification script principal');
+            const mainScript = document.querySelector('script[src*="main-"]');
+            if (mainScript) {
+                console.log('✅ Script principal trouvé:', mainScript.src);
+            } else {
+                console.log('❌ Script principal non trouvé');
+            }
+        }, 2000);
+
+        setTimeout(() => {
+            console.log('📊 Test 5: Variables globales');
+            console.log('window.Vue:', typeof window.Vue);
+            console.log('window.__VUE_APP__:', typeof window.__VUE_APP__);
+            console.log('window.import.meta:', typeof import.meta);
+        }, 3000);
+    </script>
+</body>
+</html>

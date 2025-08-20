@@ -70,7 +70,6 @@ SERVE_STATIC=false
 ### Niveaux de cache
 
 1. **Cache Redis pour API**
-
    - TTL court (60s) pour données fréquemment mises à jour (analytics)
    - TTL moyen (300s) pour listes (builds, tierlists)
    - TTL long (3600s) pour données stables (builds individuels, dictionnaire)

@@ -81,11 +81,24 @@ export interface TokenStorage {
   channelId: string;
 }
 
+export interface ChannelInfo {
+  channelId: string;
+  channelName: string;
+  isComplete: boolean;
+  lastVideoDate: string;
+  lastUpdate: number;
+  videoCount: number;
+}
+
 export interface VideoStorage {
   videos: Video[];
-  lastVideoDate: string;
-  channelId: string;
+  channels: ChannelInfo[];
   lastUpdate: number;
+  metadata: {
+    totalVideosKnown: Record<string, number>;
+    hasAllOldVideos: Record<string, boolean>;
+    lastStatsUpdate: Record<string, number>;
+  };
 }
 
 export interface Video {
@@ -94,6 +107,7 @@ export interface Video {
     title: string;
     description: string;
     publishedAt: string;
+    channelId: string;
     thumbnails: {
       medium: {
         url: string;
@@ -110,6 +124,7 @@ export interface YouTubeApiItem {
     title: string;
     description: string;
     publishedAt: string;
+    channelId: string;
     thumbnails: {
       medium: {
         url: string;

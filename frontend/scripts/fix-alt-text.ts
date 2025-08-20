@@ -84,7 +84,6 @@ function generateAltText(src: string, context: string): string {
     return `Miniature vidéo ${filename}`
   }
   
-  // Cas par défaut
   return `Image ${filename}`
 }
 

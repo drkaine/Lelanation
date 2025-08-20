@@ -11,9 +11,9 @@ const requests = new Counter('requests');
 
 export const options = {
   stages: [
-    { duration: '30s', target: 20 },  // Démarrage progressif
-    { duration: '2m', target: 50 },   // Test de charge principale
-    { duration: '30s', target: 0 },   // Diminution progressive
+    { duration: '30s', target: 20 },  
+    { duration: '2m', target: 50 },   
+    { duration: '30s', target: 0 },  
   ],
   thresholds: {
     'response_time': ['p(95)<500'],  // 95% des réponses sous 500ms

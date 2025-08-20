@@ -7,17 +7,11 @@ const successRate = new Rate('page_load_success');
 
 export const options = {
   stages: [
-    // Montée progressive à 50 utilisateurs simultanés
     { duration: '30s', target: 50 },
-    // Maintien de 50 utilisateurs simultanés pendant 1 minute
     { duration: '1m', target: 50 },
-    // Montée à 100 utilisateurs
     { duration: '30s', target: 100 },
-    // Maintien de 100 utilisateurs pendant 2 minutes
     { duration: '2m', target: 100 },
-    // Test de charge avec 200 utilisateurs pendant 1 minute
     { duration: '1m', target: 200 },
-    // Redescendre à 0 utilisateurs
     { duration: '30s', target: 0 },
   ],
   thresholds: {
