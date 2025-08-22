@@ -153,6 +153,14 @@ export class YoutubeService {
         return true;
       }
 
+      // Si la chaîne est marquée comme complète, ne pas chercher de nouvelles vidéos
+      if (channelInfo.isComplete) {
+        console.log(
+          `✅ Channel ${channelInfo.channelName} is complete, no need to check for new videos`,
+        );
+        return false;
+      }
+
       if (Date.now() - channelInfo.lastUpdate > this.CHECK_INTERVAL) {
         console.log("Forcing check: last update was too long ago");
         return true;
@@ -284,16 +292,29 @@ export class YoutubeService {
 
       if (!channelInfo) {
         console.log("Channel not found, creating new channel info");
-        const channelName = await this.getChannelName(channelId);
-        channelInfo = {
-          channelId,
-          channelName,
-          isComplete: false,
-          lastVideoDate: "",
-          lastUpdate: Date.now(),
-          videoCount: 0,
-        };
-        storage.channels.push(channelInfo);
+        try {
+          const channelName = await this.getChannelName(channelId);
+          channelInfo = {
+            channelId,
+            channelName,
+            isComplete: false,
+            lastVideoDate: "",
+            lastUpdate: Date.now(),
+            videoCount: 0,
+          };
+          storage.channels.push(channelInfo);
+        } catch {
+          console.log("Error getting channel name, using default");
+          channelInfo = {
+            channelId,
+            channelName: "Unknown Channel",
+            isComplete: false,
+            lastVideoDate: "",
+            lastUpdate: Date.now(),
+            videoCount: 0,
+          };
+          storage.channels.push(channelInfo);
+        }
       }
 
       if (tokenState.channelId !== channelId) {
@@ -311,11 +332,39 @@ export class YoutubeService {
         };
       }
 
+      // Vérifier si on a des vidéos en cache et si la chaîne est marquée comme complète
+      const cachedVideos = storage.videos.filter((v) =>
+        this.isVideoFromChannel(v, channelId),
+      );
+
+      if (channelInfo.isComplete && cachedVideos.length > 0) {
+        console.log("Channel marked as complete, checking for new videos only");
+        // Vérifier s'il y a de nouvelles vidéos depuis la dernière
+        const latestVideo = cachedVideos[0];
+        const checkUrl = `https://www.googleapis.com/youtube/v3/search?key=${this.API_KEY}&channelId=${channelId}&part=snippet,id&order=date&maxResults=5&type=video&publishedAfter=${latestVideo.snippet.publishedAt}`;
+
+        try {
+          const response = await fetch(checkUrl);
+          if (response.ok) {
+            const data = await response.json();
+            if (data.items && data.items.length > 0) {
+              console.log(`Found ${data.items.length} new videos, updating...`);
+              // Continuer avec la récupération complète
+            } else {
+              console.log("No new videos found, returning cached videos");
+              return cachedVideos;
+            }
+          }
+        } catch {
+          console.log(
+            "Error checking for new videos, proceeding with full fetch",
+          );
+        }
+      }
+
       if (tokenState.tokenQuota >= this.QUOTA_LIMIT) {
         console.log("Quota limit reached, returning cached videos");
-        return storage.videos.filter((v) =>
-          this.isVideoFromChannel(v, channelId),
-        );
+        return cachedVideos;
       }
 
       const baseUrl = `https://www.googleapis.com/youtube/v3/search?key=${this.API_KEY}&channelId=${channelId}&part=snippet,id&order=date&maxResults=${this.MAX_RESULTS}&type=video`;
@@ -363,7 +412,7 @@ export class YoutubeService {
             id: item.id.videoId,
             snippet: {
               ...item.snippet,
-              channelId: channelId, 
+              channelId: channelId,
             },
           };
 
@@ -543,7 +592,6 @@ export class YoutubeService {
   }
 
   private isVideoFromChannel(video: Video, channelId: string): boolean {
-
     return video.snippet.channelId === channelId;
   }
 
@@ -680,7 +728,9 @@ export class YoutubeService {
         totalVideosOnChannel;
       storage.metadata.lastStatsUpdate[channelInfo.channelId] = Date.now();
 
-      const videosForThisChannel = storage.videos.filter(v => v.snippet.channelId === channelInfo.channelId);
+      const videosForThisChannel = storage.videos.filter(
+        (v) => v.snippet.channelId === channelInfo.channelId,
+      );
       channelInfo.videoCount = videosForThisChannel.length;
 
       const hasAllVideos = currentVideoCount >= totalVideosOnChannel;

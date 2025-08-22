@@ -187,7 +187,7 @@ useAssetPreloading({
               class="version"
               @click="toggleMenu"
               aria-label="Créer un build"
-            > 
+            >
               {{ $t('navigation.build') }}
             </RouterLink>
             <RouterLink

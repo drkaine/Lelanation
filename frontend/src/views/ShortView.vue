@@ -31,7 +31,7 @@ export default {
       searchQuery: '',
       currentPage: 1,
       itemsPerPage: 12,
-      sortBy: 'date',
+      sortBy: 'date-desc',
       tabs: [
         { id: 'all', name: 'Tous' },
         { id: 'tierlist', name: 'Tierlist' },
@@ -81,14 +81,39 @@ export default {
         })
       }
 
-      if (this.sortBy === 'date') {
-        filtered.sort(
-          (a, b) =>
-            new Date(b.snippet.publishedAt).getTime() -
-            new Date(a.snippet.publishedAt).getTime(),
-        )
-      } else if (this.sortBy === 'title') {
-        filtered.sort((a, b) => a.snippet.title.localeCompare(b.snippet.title))
+      // Tri des vidéos
+      switch (this.sortBy) {
+        case 'date-desc':
+          filtered.sort(
+            (a, b) =>
+              new Date(b.snippet.publishedAt).getTime() -
+              new Date(a.snippet.publishedAt).getTime(),
+          )
+          break
+        case 'date-asc':
+          filtered.sort(
+            (a, b) =>
+              new Date(a.snippet.publishedAt).getTime() -
+              new Date(b.snippet.publishedAt).getTime(),
+          )
+          break
+        case 'title-asc':
+          filtered.sort((a, b) =>
+            a.snippet.title.localeCompare(b.snippet.title),
+          )
+          break
+        case 'title-desc':
+          filtered.sort((a, b) =>
+            b.snippet.title.localeCompare(a.snippet.title),
+          )
+          break
+        default:
+          // Par défaut, tri par date décroissante (plus récent d'abord)
+          filtered.sort(
+            (a, b) =>
+              new Date(b.snippet.publishedAt).getTime() -
+              new Date(a.snippet.publishedAt).getTime(),
+          )
       }
 
       return filtered
@@ -107,6 +132,12 @@ export default {
       this.currentPage = 1
     },
     currentTab() {
+      this.currentPage = 1
+    },
+    sortBy() {
+      this.currentPage = 1
+    },
+    itemsPerPage() {
       this.currentPage = 1
     },
   },
@@ -162,8 +193,16 @@ export default {
           class="search-input"
         />
         <select v-model="sortBy" class="sort-select">
-          <option value="date">Date (récent)</option>
-          <option value="title">Titre (A-Z)</option>
+          <option value="date-desc">Date (plus récent)</option>
+          <option value="date-asc">Date (plus ancien)</option>
+          <option value="title-asc">Titre (A-Z)</option>
+          <option value="title-desc">Titre (Z-A)</option>
+        </select>
+        <select v-model="itemsPerPage" class="items-select">
+          <option value="6">6 vidéos</option>
+          <option value="12">12 vidéos</option>
+          <option value="24">24 vidéos</option>
+          <option value="48">48 vidéos</option>
         </select>
       </div>
       <div v-if="searchQuery" class="search-info">
@@ -470,7 +509,8 @@ export default {
   flex-wrap: wrap;
 }
 
-.sort-select {
+.sort-select,
+.items-select {
   padding: 0.75rem 1rem;
   border: 2px solid var(--color-grey-100);
   border-radius: 0.5rem;
@@ -483,7 +523,8 @@ export default {
   min-width: 160px;
 }
 
-.sort-select:focus {
+.sort-select:focus,
+.items-select:focus {
   outline: none;
   border-color: var(--color-gold-400);
   box-shadow: 0 0 0 3px rgba(var(--color-gold-400), 0.1);
@@ -496,14 +537,16 @@ export default {
   }
 
   .search-input,
-  .sort-select {
+  .sort-select,
+  .items-select {
     width: 100%;
     max-width: none;
   }
 }
 
 @media (max-width: 480px) {
-  .sort-select {
+  .sort-select,
+  .items-select {
     padding: 0.5rem 0.75rem;
     font-size: 0.9rem;
     min-width: auto;
