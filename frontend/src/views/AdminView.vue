@@ -36,7 +36,7 @@ export default {
 
       channels: [] as ChannelInfo[],
       channelStats: {} as Record<string, ChannelStats>,
-      newChannelId: '',
+      newUsername: '',
       loading: false,
       error: null as string | null,
       success: null as string | null,
@@ -81,8 +81,8 @@ export default {
     },
 
     async addChannel(): Promise<void> {
-      if (!this.newChannelId.trim()) {
-        this.error = this.$t('youtube.please-enter-channel-id')
+      if (!this.newUsername.trim()) {
+        this.error = this.$t('youtube.please-enter-username')
         return
       }
 
@@ -96,25 +96,25 @@ export default {
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify({ channelId: this.newChannelId.trim() }),
+          body: JSON.stringify({ username: this.newUsername.trim() }),
         })
 
         if (!response.ok) {
           const errorData = await response.json()
           throw new Error(
-            errorData.error || "Erreur lors de l'ajout de la chaîne",
+            errorData.error || this.$t('youtube.error-add-channel'),
           )
         }
 
         const result = await response.json()
         this.success = result.message
-        this.newChannelId = ''
+        this.newUsername = ''
         await this.loadChannels()
       } catch (err) {
         this.error =
           err instanceof Error
             ? err.message
-            : "Erreur lors de l'ajout de la chaîne"
+            : this.$t('youtube.error-add-channel')
         console.error('Erreur détaillée:', err)
       } finally {
         this.loading = false
@@ -270,15 +270,15 @@ export default {
           <h2>{{ $t('youtube.add-channel') }}</h2>
           <div class="add-channel-form">
             <input
-              v-model="newChannelId"
+              v-model="newUsername"
               type="text"
-              :placeholder="$t('youtube.channel-id-placeholder')"
+              :placeholder="$t('youtube.username-placeholder')"
               class="channel-input"
               :disabled="loading"
             />
             <button
               @click="addChannel"
-              :disabled="loading || !newChannelId.trim()"
+              :disabled="loading || !newUsername.trim()"
               class="add-button"
             >
               {{ loading ? $t('youtube.adding') : $t('youtube.add') }}

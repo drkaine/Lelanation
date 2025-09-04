@@ -6,6 +6,8 @@ import cors from "cors";
 import dotenv from "dotenv";
 import path from "path";
 import fs from "fs";
+import { createServer } from "http";
+import { youtubeUpdateNotifier } from "./websocket/YouTubeUpdateNotifier";
 
 import { Request, Response } from "express";
 import { config } from "./config";
@@ -420,13 +422,15 @@ app.post(
   "/api/youtube/channels",
   async (req: Request, res: Response): Promise<void> => {
     try {
-      const { channelId } = req.body;
+      const { username } = req.body;
 
-      if (!channelId) {
-        res.status(400).json({ error: "Channel ID requis" });
+      if (!username) {
+        res.status(400).json({ error: "Nom d'utilisateur requis" });
         return;
       }
 
+      // Extraire l'ID de chaîne à partir du nom d'utilisateur
+      const channelId = await youtubeService.getChannelId(username);
       await youtubeService.addChannel(channelId);
       res.json({ success: true, message: "Chaîne ajoutée avec succès" });
     } catch (error) {
@@ -445,6 +449,46 @@ app.get(
       res.json(videos);
     } catch (error) {
       console.error("Error getting videos by channel:", error);
+      res
+        .status(500)
+        .json({ error: "Erreur lors de la récupération des vidéos" });
+    }
+  },
+);
+
+app.get(
+  "/api/youtube/videos",
+  async (req: Request, res: Response): Promise<void> => {
+    try {
+      const { channelId, limit, offset } = req.query;
+
+      if (channelId) {
+        const videos = await youtubeService.getVideosByChannel(
+          channelId as string,
+        );
+        res.json(videos);
+      } else {
+        const allVideos = await youtubeService.getAllVideos();
+
+        let result = allVideos;
+
+        if (limit || offset) {
+          const start = offset ? parseInt(offset as string) : 0;
+          const end = limit
+            ? start + parseInt(limit as string)
+            : allVideos.length;
+          result = allVideos.slice(start, end);
+        }
+
+        res.json({
+          videos: result,
+          total: allVideos.length,
+          limit: limit ? parseInt(limit as string) : allVideos.length,
+          offset: offset ? parseInt(offset as string) : 0,
+        });
+      }
+    } catch (error) {
+      console.error("Error getting videos:", error);
       res
         .status(500)
         .json({ error: "Erreur lors de la récupération des vidéos" });
@@ -554,9 +598,15 @@ app.use("*", (req: Request, res: Response) => {
   });
 });
 
-app.listen(PORT, () => {
+// Créer le serveur HTTP
+const server = createServer(app);
+
+// Initialiser WebSocket
+youtubeUpdateNotifier.initialize(server);
+
+server.listen(PORT, () => {
   console.log(
-    `Serveur en cours d'exécution sur le port ${PORT} avec cache Redis`,
+    `Serveur en cours d'exécution sur le port ${PORT} avec cache Redis et WebSocket`,
   );
 });
 

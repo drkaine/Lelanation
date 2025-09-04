@@ -40,6 +40,7 @@
   },
   "dependencies": {
     "@iconify/vue": "^4.3.0",
+    "@types/ws": "^8.18.1",
     "@vue-office/excel": "^1.7.14",
     "@vueuse/head": "^2.0.0",
     "axios": "^1.9.0",
@@ -61,6 +62,7 @@
     "workbox-precaching": "^7.0.0",
     "workbox-routing": "^7.0.0",
     "workbox-strategies": "^7.0.0",
+    "ws": "^8.18.3",
     "xlsx-js-style": "^1.2.0"
   },
   "devDependencies": {

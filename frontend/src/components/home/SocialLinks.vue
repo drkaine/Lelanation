@@ -47,6 +47,11 @@ const allSocialLinks: SocialLink[] = [
     text: t('home.links.youtube'),
   },
   {
+    href: 'https://www.youtube.com/@LelarivaExtra/featured',
+    icon: 'youtube-custom',
+    text: t('home.links.youtube'),
+  },
+  {
     href: 'https://www.twitch.tv/lelariva',
     icon: 'twitch-custom',
     text: t('home.links.twitch'),

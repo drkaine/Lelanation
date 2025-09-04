@@ -8,6 +8,7 @@ import type {
   YouTubeApiItem,
   ChannelInfo,
 } from "../types";
+import { youtubeUpdateNotifier } from "../websocket/YouTubeUpdateNotifier";
 
 dotenv.config();
 
@@ -488,6 +489,18 @@ export class YoutubeService {
         metadata: storage.metadata,
       });
 
+      // Notifier les clients WebSocket de la mise à jour
+      const videosAdded = sortedVideos.length - storage.videos.length;
+      if (videosAdded > 0) {
+        youtubeUpdateNotifier.notifyUpdate({
+          channelId: channelInfo.channelId,
+          channelName: channelInfo.channelName,
+          videosAdded,
+          totalVideos: sortedVideos.length,
+          lastVideoDate: lastVideoDate,
+        });
+      }
+
       return sortedVideos;
     } catch (error) {
       console.error("Error fetching videos:", error);
@@ -639,6 +652,11 @@ export class YoutubeService {
   async getVideosByChannel(channelId: string): Promise<Video[]> {
     const storage = await this.loadStorage();
     return storage.videos.filter((v) => this.isVideoFromChannel(v, channelId));
+  }
+
+  async getAllVideos(): Promise<Video[]> {
+    const storage = await this.loadStorage();
+    return storage.videos;
   }
 
   async forceCompleteChannel(

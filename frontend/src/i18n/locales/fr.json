@@ -97,7 +97,7 @@
   },
   "youtube": {
     "add-channel": "Ajouter une nouvelle chaîne",
-    "channel-id-placeholder": "ID de la chaîne YouTube (ex: UC1234567890)",
+    "username-placeholder": "Nom d'utilisateur YouTube (ex: @LelarivaExtra)",
     "add": "Ajouter",
     "adding": "Ajout...",
     "configured-channels": "Chaînes configurées",
@@ -117,7 +117,7 @@
     "completing": "Complétion...",
     "error-loading-channels": "Erreur lors du chargement des chaînes",
     "error-add-channel": "Erreur lors de l'ajout de la chaîne",
-    "please-enter-channel-id": "Veuillez saisir un ID de chaîne",
+    "please-enter-username": "Veuillez saisir un nom d'utilisateur",
     "channel-refreshed": "Chaîne rafraîchie avec succès",
     "completion-forced": "Complétion forcée terminée",
     "videos-added": "vidéos ajoutées",

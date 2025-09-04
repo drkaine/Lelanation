@@ -19,6 +19,9 @@ export default {
         description: 'Collection de vidéos éducatives sur League of Legends',
       },
     })
+
+    // WebSocket sera géré directement dans le composant
+    return {}
   },
   data() {
     return {
@@ -32,6 +35,8 @@ export default {
       currentPage: 1,
       itemsPerPage: 12,
       sortBy: 'date-desc',
+      isConnected: false,
+      ws: null as WebSocket | null,
       tabs: [
         { id: 'all', name: 'Tous' },
         { id: 'tierlist', name: 'Tierlist' },
@@ -163,9 +168,22 @@ export default {
     async loadVideos(): Promise<void> {
       this.loading = true
       try {
-        const youtubeModule = await import('@/assets/files/data/youtube.json')
-        this.shorts = youtubeModule.default.videos
-        this.channels = youtubeModule.default.channels || []
+        // Charger les vidéos depuis l'API
+        const videosResponse = await fetch('/api/youtube/videos')
+        if (!videosResponse.ok) {
+          throw new Error('Erreur lors de la récupération des vidéos')
+        }
+        const videosData = await videosResponse.json()
+        this.shorts = videosData.videos || videosData // Gérer les deux formats de réponse
+
+        // Charger les chaînes depuis l'API
+        const channelsResponse = await fetch('/api/youtube/channels')
+        if (!channelsResponse.ok) {
+          throw new Error('Erreur lors de la récupération des chaînes')
+        }
+        this.channels = await channelsResponse.json()
+
+        this.error = null
       } catch (err) {
         this.error = 'Erreur lors du chargement des vidéos'
         console.error('Erreur détaillée:', err)
@@ -173,9 +191,119 @@ export default {
         this.loading = false
       }
     },
+
+    // Écouter les mises à jour YouTube via WebSocket
+    handleYouTubeUpdate(event: CustomEvent): void {
+      const update = event.detail
+      console.log('🔄 Mise à jour YouTube reçue, rechargement des données...')
+
+      // Recharger automatiquement les vidéos
+      this.loadVideos()
+
+      // Afficher une notification à l'utilisateur
+      this.showUpdateNotification(update)
+    },
+
+    showUpdateNotification(update: {
+      videosAdded: number
+      channelName: string
+    }): void {
+      // Créer une notification temporaire
+      const notification = document.createElement('div')
+      notification.className = 'youtube-update-notification'
+      notification.innerHTML = `
+        <div class="notification-content">
+          <span>🆕 ${update.videosAdded} nouvelle(s) vidéo(s) ajoutée(s) pour ${update.channelName}</span>
+          <button onclick="this.parentElement.parentElement.remove()">×</button>
+        </div>
+      `
+
+      // Styles pour la notification
+      notification.style.cssText = `
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: #4CAF50;
+        color: white;
+        padding: 15px 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        z-index: 10000;
+        animation: slideIn 0.3s ease-out;
+        max-width: 400px;
+      `
+
+      document.body.appendChild(notification)
+
+      // Supprimer automatiquement après 5 secondes
+      setTimeout(() => {
+        if (notification.parentElement) {
+          notification.remove()
+        }
+      }, 5000)
+    },
+
+    initWebSocket(): void {
+      try {
+        const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:'
+        const host = window.location.host
+        const wsUrl = `${protocol}//${host}`
+
+        console.log('🔌 Connexion WebSocket:', wsUrl)
+
+        this.ws = new WebSocket(wsUrl)
+
+        this.ws.onopen = () => {
+          console.log('✅ Connexion WebSocket établie')
+          this.isConnected = true
+        }
+
+        this.ws.onmessage = event => {
+          try {
+            const message = JSON.parse(event.data)
+
+            if (message.type === 'youtube_update') {
+              console.log('📡 Mise à jour YouTube reçue:', message)
+              this.handleYouTubeUpdate({ detail: message } as CustomEvent)
+            }
+          } catch (error) {
+            console.error('❌ Erreur parsing WebSocket:', error)
+          }
+        }
+
+        this.ws.onclose = () => {
+          console.log('🔌 Connexion WebSocket fermée')
+          this.isConnected = false
+
+          // Reconnexion automatique après 5 secondes
+          setTimeout(() => {
+            if (!this.isConnected) {
+              this.initWebSocket()
+            }
+          }, 5000)
+        }
+
+        this.ws.onerror = error => {
+          console.error('❌ Erreur WebSocket:', error)
+          this.isConnected = false
+        }
+      } catch (error) {
+        console.error('❌ Erreur création WebSocket:', error)
+        this.isConnected = false
+      }
+    },
   },
   mounted() {
     this.loadVideos()
+    this.initWebSocket()
+  },
+
+  beforeUnmount() {
+    // Fermer la connexion WebSocket
+    if (this.ws) {
+      this.ws.close()
+      this.ws = null
+    }
   },
 }
 </script>
@@ -207,6 +335,14 @@ export default {
       </div>
       <div v-if="searchQuery" class="search-info">
         {{ $t('short.search') }}
+      </div>
+      <div v-if="!isConnected" class="websocket-status">
+        <span class="status-indicator disconnected">🔴</span>
+        Connexion en cours...
+      </div>
+      <div v-else class="websocket-status">
+        <span class="status-indicator connected">🟢</span>
+        Mises à jour en temps réel activées
       </div>
     </section>
 
@@ -698,5 +834,69 @@ export default {
   font-size: 0.75rem;
   margin-left: 0.5rem;
   font-weight: bold;
+}
+
+.websocket-status {
+  text-align: center;
+  color: var(--color-grey-400);
+  font-size: 0.8rem;
+  margin-top: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.status-indicator {
+  font-size: 1rem;
+}
+
+.status-indicator.connected {
+  color: #4caf50;
+}
+
+.status-indicator.disconnected {
+  color: #f44336;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.youtube-update-notification {
+  font-family: inherit;
+}
+
+.notification-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.notification-content button {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1.2rem;
+  cursor: pointer;
+  padding: 0;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.notification-content button:hover {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
 }
 </style>
