@@ -319,25 +319,35 @@ app.get("/api/status", (req, res) => {
   });
 });
 
-cron.schedule("0 4 * * *", () => {
-  console.log("Exécution de la maintenance du cache Redis à 04h00");
-  maintainRedisCache()
-    .then(() => console.log("Maintenance du cache Redis terminée"))
-    .catch((err) =>
-      console.error("Erreur lors de la maintenance du cache Redis:", err),
-    );
+cron.schedule("0 4 * * *", async () => {
+  console.log("[CRON] Exécution de la maintenance du cache Redis à 04h00");
+  try {
+    await maintainRedisCache();
+    console.log("[CRON] Maintenance du cache Redis terminée avec succès");
+  } catch (err) {
+    console.error("[CRON] ❌ Erreur lors de la maintenance du cache Redis:", err);
+  }
 });
-
-cron.schedule("0 * * * *", () => {
+ compilation();
+cron.schedule("0 * * * *", async () => {
   const heure = new Date().getHours();
-  console.log(`Tâche cron exécutée à ${heure}h00`);
-  compilation();
-  console.log("Tâche cron finie");
+  console.log(`[CRON] Tâche cron de compilation exécutée à ${heure}h00`);
+  try {
+    await compilation();
+    console.log(`[CRON] Tâche cron de compilation terminée avec succès à ${heure}h00`);
+  } catch (error) {
+    console.error(`[CRON] ❌ Erreur lors de l'exécution de la tâche cron de compilation à ${heure}h00:`, error);
+  }
 });
 
-cron.schedule("0 2 * * *", () => {
-  console.log("Tâche cron exécutée à 02h00");
-  execution();
+cron.schedule("0 2 * * *", async () => {
+  console.log("[CRON] Tâche cron d'exécution exécutée à 02h00");
+  try {
+    execution();
+    console.log("[CRON] Tâche cron d'exécution terminée avec succès à 02h00");
+  } catch (error) {
+    console.error("[CRON] ❌ Erreur lors de l'exécution de la tâche cron d'exécution à 02h00:", error);
+  }
 });
 
 app.listen(PORT, () => {

@@ -14,20 +14,36 @@ export class DdragonAPI {
   }
 
   public async isLastVersion() {
-    const response = await fetch(
-      "https://ddragon.leagueoflegends.com/api/versions.json",
-    );
-    const data = await response.json();
-    const lastVersionWeb = data[0];
-    const lastVersionFile = JSON.parse(
-      await openFile(
-        path.join(
-          __dirname,
-          "../../frontend/src/assets/files/data/lastVersion.json",
-        ),
-      ),
-    );
-    return lastVersionWeb === lastVersionFile;
+    try {
+      const response = await fetch(
+        "https://ddragon.leagueoflegends.com/api/versions.json",
+      );
+      if (!response.ok) {
+        throw new Error(`Erreur HTTP: ${response.status}`);
+      }
+      const data = await response.json();
+      const lastVersionWeb = data[0];
+      
+      try {
+        const lastVersionFile = JSON.parse(
+          await openFile(
+            path.join(
+              __dirname,
+              "../../frontend/src/assets/files/data/lastVersion.json",
+            ),
+          ),
+        );
+        return lastVersionWeb === lastVersionFile;
+      } catch (fileError) {
+        // Si le fichier n'existe pas, on considère qu'il n'est pas à jour
+        console.log("[DdragonAPI] Fichier lastVersion.json introuvable, considéré comme non à jour");
+        return false;
+      }
+    } catch (error) {
+      console.error("[DdragonAPI] Erreur lors de la vérification de version:", error);
+      // En cas d'erreur, on considère qu'il n'est pas à jour pour forcer une mise à jour
+      return false;
+    }
   }
 
   public async getLastVersion() {

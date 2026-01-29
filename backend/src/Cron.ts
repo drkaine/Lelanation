@@ -4,6 +4,7 @@ import { saveFile, openFile } from "./FileManager";
 import { Champion, Item, Summoner, RunePath } from "./types";
 import { exec } from "child_process";
 import { YoutubeService } from "./service/YoutubeService";
+import { redisUtils } from "./utils/redisClient";
 
 const targets: {
   urlFR: string[];
@@ -131,38 +132,62 @@ async function downloadChampions() {
   );
 
   const championsData = JSON.parse(championsFull).data;
+  const championsList = Object.values(championsData);
+  console.log(`[downloadChampions] Téléchargement de ${championsList.length} champions...`);
 
-  for (const value of Object.values(championsData)) {
+  let successCount = 0;
+  let errorCount = 0;
+
+  for (const value of championsList) {
     const Data = value as Champion;
-    const image = await ddragonAPI.loadImage("img/champion/" + Data.image.full);
-    await saveFile(
-      image,
-      path.join(__dirname, targets["folder"] + "/champions/" + Data.image.full),
-    );
-    const passive = await ddragonAPI.loadImage(
-      "img/passive/" + Data.passive.image.full,
-    );
-    await saveFile(
-      passive,
-      path.join(
-        __dirname,
-        targets["folder"] + "/champions/passive/" + Data.passive.image.full,
-      ),
-    );
-    for (const value of Object.values(Data.spells)) {
-      const spell = await ddragonAPI.loadImage(
-        "img/spell/" + value.id + ".png",
+    const championName = Data.image.full.replace('.png', '');
+    
+    try {
+      // Télécharger l'image du champion
+      const image = await ddragonAPI.loadImage("img/champion/" + Data.image.full);
+      await saveFile(
+        image,
+        path.join(__dirname, targets["folder"] + "/champions/" + Data.image.full),
+      );
+      
+      // Télécharger l'image passive
+      const passive = await ddragonAPI.loadImage(
+        "img/passive/" + Data.passive.image.full,
       );
       await saveFile(
-        spell,
+        passive,
         path.join(
           __dirname,
-          targets["folder"] + "/champions/sorts/" + value.id + ".png",
+          targets["folder"] + "/champions/passive/" + Data.passive.image.full,
         ),
       );
+      
+      // Télécharger les images des sorts
+      for (const spellValue of Object.values(Data.spells)) {
+        const spell = await ddragonAPI.loadImage(
+          "img/spell/" + spellValue.id + ".png",
+        );
+        await saveFile(
+          spell,
+          path.join(
+            __dirname,
+            targets["folder"] + "/champions/sorts/" + spellValue.id + ".png",
+          ),
+        );
+      }
+      
+      successCount++;
+      if (championName === 'Zaahen') {
+        console.log(`[downloadChampions] ✅ Zaahen téléchargé avec succès`);
+      }
+    } catch (error) {
+      errorCount++;
+      console.error(`[downloadChampions] ❌ Erreur lors du téléchargement de ${championName}:`, error);
+      // Continuer avec les autres champions même en cas d'erreur
     }
   }
 
+  console.log(`[downloadChampions] ✅ Téléchargement terminé: ${successCount} succès, ${errorCount} erreurs`);
   await cleanChampionsFullJson();
 }
 
@@ -242,30 +267,141 @@ async function downloadYoutubeVideos() {
   }
 }
 
+async function invalidateGameDataCache() {
+  try {
+    console.log("[CRON] Invalidation du cache des données de jeu...");
+    
+    // Patterns de cache à invalider pour les données de jeu
+    // Note: Redis KEYS peut être lent sur de grandes bases, mais nécessaire ici
+    const cachePatterns = [
+      "cache:/data/*",              // Cache des fichiers JSON statiques servis via /data
+      "cache:*champion*",           // Cache lié aux champions
+      "cache:*item*",               // Cache lié aux items
+      "cache:*rune*",               // Cache lié aux runes
+      "cache:*summoner*",           // Cache lié aux invocateurs
+      "cache:*youtube*",            // Cache lié aux vidéos YouTube
+      "cache:*championFull*",       // Cache spécifique pour championFull.json
+      "cache:*item.json*",          // Cache spécifique pour item.json
+      "cache:*runesReforged*",      // Cache spécifique pour runesReforged.json
+    ];
+
+    // Clés spécifiques à invalider (si elles existent)
+    const specificKeys = [
+      "cache:/data/championFull.json",
+      "cache:/data/item.json",
+      "cache:/data/runesReforged.json",
+      "cache:/data/summoner.json",
+      "cache:/data/map.json",
+      "cache:/data/en/championFull.json",
+      "cache:/data/en/item.json",
+      "cache:/data/en/runesReforged.json",
+      "cache:/data/en/summoner.json",
+      "cache:/data/en/map.json",
+    ];
+
+    // Invalider tous les patterns et clés spécifiques
+    const invalidationTasks = [
+      ...cachePatterns.map((pattern) => redisUtils.delByPattern(pattern)),
+      ...specificKeys.map((key) => redisUtils.del(key)),
+    ];
+
+    await Promise.all(invalidationTasks);
+
+    console.log(
+      `[CRON] ✅ Cache des données de jeu invalidé avec succès (${cachePatterns.length} patterns, ${specificKeys.length} clés spécifiques)`
+    );
+  } catch (error) {
+    console.error("[CRON] ❌ Erreur lors de l'invalidation du cache:", error);
+    // Ne pas faire échouer la compilation si l'invalidation échoue
+  }
+}
+
 export async function compilation() {
   const date = new Date();
-  if (!(await ddragonAPI.isLastVersion())) {
-    await ddragonAPI.getLastVersion();
-    await downloadFiles();
+  console.log(`[CRON] Début de la compilation à ${date.toISOString()}`);
+  
+  let newVersionDownloaded = false;
+  
+  try {
+    const isLastVersion = await ddragonAPI.isLastVersion();
+    console.log(`[CRON] Vérification de version: ${isLastVersion ? 'Dernière version' : 'Nouvelle version disponible'}`);
+    
+    if (!isLastVersion) {
+      console.log("[CRON] Nouvelle version détectée, téléchargement des données...");
+      await ddragonAPI.getLastVersion();
+      await downloadFiles();
+      console.log("[CRON] Fichiers JSON téléchargés");
 
-    await downloadChampions();
+      await downloadChampions();
+      console.log("[CRON] Champions téléchargés");
 
-    await downloadSpells();
+      await downloadSpells();
+      console.log("[CRON] Items téléchargés");
 
-    await downloadSummoners();
+      await downloadSummoners();
+      console.log("[CRON] Invocateurs téléchargés");
 
-    await downloadRunes();
+      await downloadRunes();
+      console.log("[CRON] Runes téléchargées");
 
-    saveFile(
-      JSON.stringify(date),
-      path.join(__dirname, targets["folderJSON"] + "nouvelle-version"),
-    );
-  } else {
-    saveFile(
-      JSON.stringify(date),
-      path.join(__dirname, targets["folderJSON"] + "pas-de-nouvelle-version"),
-    );
+      saveFile(
+        JSON.stringify(date),
+        path.join(__dirname, targets["folderJSON"] + "nouvelle-version"),
+      );
+      console.log("[CRON] ✅ Mise à jour complète terminée avec nouvelle version");
+      
+      newVersionDownloaded = true;
+      
+      // Invalider le cache après le téléchargement des nouvelles données
+      await invalidateGameDataCache();
+    } else {
+      console.log("[CRON] Version à jour, pas de téléchargement nécessaire");
+      saveFile(
+        JSON.stringify(date),
+        path.join(__dirname, targets["folderJSON"] + "pas-de-nouvelle-version"),
+      );
+      
+      // Vérifier et télécharger les images manquantes même si la version n'a pas changé
+      console.log("[CRON] Vérification des images manquantes...");
+      try {
+        await downloadChampions();
+        console.log("[CRON] ✅ Vérification des images terminée");
+      } catch (error) {
+        console.error("[CRON] ❌ Erreur lors de la vérification des images:", error);
+      }
+    }
+
+    // Toujours mettre à jour les vidéos YouTube, même si la version n'a pas changé
+    console.log("[CRON] Mise à jour des vidéos YouTube...");
+    await downloadYoutubeVideos();
+    
+    // Invalider le cache des vidéos YouTube après mise à jour
+    await invalidateGameDataCache();
+    
+    // Si une nouvelle version a été téléchargée, déclencher le rebuild du frontend
+    if (newVersionDownloaded) {
+      console.log("[CRON] Nouvelle version détectée, déclenchement du rebuild du frontend...");
+      try {
+        execution();
+        console.log("[CRON] ✅ Rebuild du frontend déclenché avec succès");
+      } catch (deployError) {
+        console.error("[CRON] ❌ Erreur lors du déclenchement du rebuild:", deployError);
+        // Ne pas faire échouer la compilation si le déploiement échoue
+      }
+    }
+    
+    console.log("[CRON] ✅ Compilation terminée avec succès");
+  } catch (error) {
+    console.error("[CRON] ❌ Erreur lors de la compilation:", error);
+    // Même en cas d'erreur, on essaie de mettre à jour les vidéos YouTube
+    try {
+      console.log("[CRON] Tentative de mise à jour des vidéos YouTube malgré l'erreur...");
+      await downloadYoutubeVideos();
+      // Invalider le cache même en cas d'erreur partielle
+      await invalidateGameDataCache();
+    } catch (youtubeError) {
+      console.error("[CRON] ❌ Erreur lors de la mise à jour des vidéos YouTube:", youtubeError);
+    }
+    throw error; // Re-lancer l'erreur pour que le cron puisse la gérer
   }
-
-  await downloadYoutubeVideos();
 }

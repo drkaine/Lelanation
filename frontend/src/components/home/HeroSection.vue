@@ -11,7 +11,7 @@ defineProps<{
     <img
       class="profil-image"
       :src="imageUrl"
-      :alt="imageAlt"
+      :alt="imageAlt" 
       loading="lazy"
       itemprop="image"
       fetchpriority="high"

@@ -24,9 +24,13 @@ registerRoute(
   }),
 )
 
+// Ne pas mettre en cache les JSON statiques car ils sont déjà bundlés dans le JavaScript
+// Les fichiers JSON dans /assets/files/data/ sont importés statiquement et inclus dans le bundle
 registerRoute(
   ({ url }: { url: URL }) =>
-    url.pathname.endsWith('.json') && !url.pathname.startsWith('/api'),
+    url.pathname.endsWith('.json') && 
+    !url.pathname.startsWith('/api') &&
+    !url.pathname.includes('/assets/files/data/'), // Exclure les JSON bundlés
   new CacheFirst({
     cacheName: 'static-json',
     plugins: [
@@ -35,7 +39,7 @@ registerRoute(
       }),
       new ExpirationPlugin({
         maxEntries: 50,
-        maxAgeSeconds: 7 * 24 * 60 * 60, // 7 jours
+        maxAgeSeconds: 1 * 60 * 60, // 1 heure seulement pour les autres JSON
       }),
     ],
   }),

@@ -54,11 +54,25 @@ declare global {
 
 if ('serviceWorker' in navigator) {
   const buildId = import.meta.env.VITE_BUILD_ID || Date.now().toString()
-  navigator.serviceWorker
-    .register('/service-worker.js?v=' + buildId)
-    .catch(error => {
-      console.error("Erreur lors de l'enregistrement du Service Worker:", error)
-    })
+  
+  // Désinscrire tous les service workers existants avant d'enregistrer le nouveau
+  navigator.serviceWorker.getRegistrations().then((registrations) => {
+    for (const registration of registrations) {
+      registration.unregister()
+    }
+  }).then(() => {
+    // Enregistrer le nouveau service worker avec un ID de build unique
+    navigator.serviceWorker
+      .register('/service-worker.js?v=' + buildId)
+      .then((registration) => {
+        console.log('Service Worker enregistré avec succès:', registration.scope)
+        // Forcer la mise à jour immédiate
+        registration.update()
+      })
+      .catch(error => {
+        console.error("Erreur lors de l'enregistrement du Service Worker:", error)
+      })
+  })
 
   window.clearCaches = async () => {
     if (!('caches' in window)) {

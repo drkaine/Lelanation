@@ -38,6 +38,7 @@ const isLoading = ref(true)
 
 onMounted(async () => {
   await championStore.loadChampions()
+  await filterInstance.loadChampionData() // S'assurer que Filter a aussi chargé les données
   isLoading.value = false
 })
 
