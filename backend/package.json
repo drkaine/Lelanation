@@ -4,6 +4,13 @@
   "main": "index.js",
   "scripts": {
     "start": "npx ts-node src/app.ts",
+    "start:pm2": "pm2 start ecosystem.config.js --env production",
+    "stop:pm2": "pm2 stop lelanation-backend",
+    "restart:pm2": "pm2 restart lelanation-backend",
+    "reload:pm2": "pm2 reload lelanation-backend",
+    "delete:pm2": "pm2 delete lelanation-backend",
+    "logs:pm2": "pm2 logs lelanation-backend",
+    "status:pm2": "pm2 status",
     "test": "jest",
     "clean": "npm run lint && npm run format && npm run test",
     "lint": "eslint .",

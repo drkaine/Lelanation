@@ -250,18 +250,18 @@ export default {
 
       <!-- Onglet Tier-list -->
       <div v-else-if="activeTab === 'tier-list'" class="tab-panel">
-        <TierListTab />
-      </div>
+      <TierListTab />
+    </div>
 
       <!-- Onglet Dictionnaire -->
       <div v-else-if="activeTab === 'dictionnaire'" class="tab-panel">
-        <DictionnaireTab />
-      </div>
+      <DictionnaireTab />
+    </div>
 
       <!-- Onglet Contact -->
       <div v-else-if="activeTab === 'contact'" class="tab-panel">
-        <ContactTab />
-      </div>
+      <ContactTab />
+    </div>
 
       <!-- Onglet YouTube -->
       <div v-else-if="activeTab === 'youtube'" class="tab-panel">
